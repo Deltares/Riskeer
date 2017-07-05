@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -79,6 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -104,6 +106,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -129,6 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
     }
 }

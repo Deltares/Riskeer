@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the general result with the submec illustration points result.
+        /// Gets the general result with the submechanism illustration points result.
         /// </summary>
         /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>

@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         /// <see cref="SubMechanismIllustrationPointStochast"/> for.</param>
         /// <returns>A new <see cref="SubMechanismIllustrationPointStochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static SubMechanismIllustrationPointStochast Read(this SubMechanismIllustrationPointStochastEntity entity)
+        internal static SubMechanismIllustrationPointStochast Read(this SubMechanismIllustrationPointStochastEntity entity)
         {
             if (entity == null)
             {

@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -56,12 +57,16 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             const string testName = "testName";
             double x = random.NextDouble();
             double y = random.NextDouble();
+            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
+            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
             {
                 LocationId = testId,
                 Name = testName,
                 LocationX = x,
-                LocationY = y
+                LocationY = y,
+                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated)
             };
 
             var collector = new ReadConversionCollector();
@@ -75,8 +80,14 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
-            Assert.IsFalse(location.DesignWaterLevelCalculation.HasOutput);
-            Assert.IsFalse(location.WaveHeightCalculation.HasOutput);
+
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
+            AssertShouldIllustrationPointsBeCalculated(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation);
+            Assert.IsFalse(designWaterLevelCalculation.HasOutput);
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
+            AssertShouldIllustrationPointsBeCalculated(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation);
+            Assert.IsFalse(waveHeightCalculation.HasOutput);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -132,6 +143,83 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
+        public void Read_WithOutputAndIllustrationPoints_ReturnHydraulicBoundaryLocationWithExpectedOutputAndIllustrationPoints()
+        {
+            // Setup
+            var random = new Random(21);
+
+            const string windDirectionName = "Some wind direction";
+            double windDirectionAngle = random.NextDouble();
+            var designWaterLevelIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
+            {
+                GoverningWindDirectionName = windDirectionName,
+                GoverningWindDirectionAngle = windDirectionAngle
+            };
+            var waveHeightIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
+            {
+                GoverningWindDirectionName = windDirectionName,
+                GoverningWindDirectionAngle = windDirectionAngle
+            };
+
+            double designWaterLevel = random.NextDouble();
+            double waveHeight = random.NextDouble();
+            var designWaterLevelOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            {
+                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.DesignWaterLevel,
+                Result = designWaterLevel,
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
+                GeneralResultSubMechanismIllustrationPointEntity = designWaterLevelIllustrationPointEntity
+            };
+            var waveheightOutputEntity = new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+            {
+                HydraulicLocationOutputType = (byte) HydraulicLocationOutputType.WaveHeight,
+                Result = waveHeight,
+                TargetProbability = random.NextDouble(),
+                TargetReliability = random.NextDouble(),
+                CalculatedProbability = random.NextDouble(),
+                CalculatedReliability = random.NextDouble(),
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated,
+                GeneralResultSubMechanismIllustrationPointEntity = waveHeightIllustrationPointEntity
+            };
+
+            bool shouldDesignWaterLevelIllustrationPointsBeCalculated = random.NextBoolean();
+            bool shouldWaveHeightIllustrationPointsBeCalculated = random.NextBoolean();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
+            {
+                Name = "someName",
+                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
+                GrassCoverErosionOutwardsHydraulicLocationOutputEntities =
+                {
+                    designWaterLevelOutputEntity,
+                    waveheightOutputEntity
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            HydraulicBoundaryLocation location = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(location);
+            Assert.AreEqual((RoundedDouble) designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
+
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
+            AssertShouldIllustrationPointsBeCalculated(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation);
+            AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
+            AssertShouldIllustrationPointsBeCalculated(shouldWaveHeightIllustrationPointsBeCalculated, waveHeightCalculation);
+            AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
+        }
+
+        [Test]
         public void Read_SameHydraulicLocationEntityTwice_ReturnSameHydraulicBoundaryLocation()
         {
             // Setup
@@ -148,6 +236,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreSame(location1, location2);
+        }
+
+        private static void AssertShouldIllustrationPointsBeCalculated(bool shouldIllustrationPointsBeCalculated,
+                                                                       HydraulicBoundaryLocationCalculation calculation)
+        {
+            Assert.AreEqual(shouldIllustrationPointsBeCalculated, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)

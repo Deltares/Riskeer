@@ -26,7 +26,9 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -148,10 +150,70 @@ namespace Application.Ringtoets.Storage.Test.Create
             IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+            Assert.IsNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
             IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
+            Assert.IsNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+        }
+
+        [Test]
+        public void Create_WithPersistenceRegistryAndIllustrationPoints_ReturnsHydraulicLocationEntityWithOutputAndIllustrationPointsSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            hydraulicBoundaryLocationDesignWaterLevelOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+
+            var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            hydraulicBoundaryLocationWaveHeightOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+
+            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
+            {
+                DesignWaterLevelCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                    },
+                    Output = hydraulicBoundaryLocationDesignWaterLevelOutput
+                },
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                    },
+                    Output = hydraulicBoundaryLocationWaveHeightOutput
+                }
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            HydraulicLocationEntity entity = hydraulicBoundaryLocation.Create(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(designWaterLevelOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+            Assert.IsNotNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationDesignWaterLevelOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                             designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveheightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
+            Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                             waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -285,10 +347,70 @@ namespace Application.Ringtoets.Storage.Test.Create
             IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+            Assert.IsNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
             IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
+            Assert.IsNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndIllustrationPoints_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputAndIllustrationPointsSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            hydraulicBoundaryLocationDesignWaterLevelOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+
+            var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+            hydraulicBoundaryLocationWaveHeightOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+
+            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
+            {
+                DesignWaterLevelCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                    },
+                    Output = hydraulicBoundaryLocationDesignWaterLevelOutput
+                },
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
+                    },
+                    Output = hydraulicBoundaryLocationWaveHeightOutput
+                }
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity =
+                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(designWaterLevelOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
+            Assert.IsNotNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                             designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            Assert.IsNotNull(waveheightOutputEntity);
+            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
+            Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                             waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -331,6 +453,19 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
+        }
+
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint illustrationPoint,
+                                                                             GeneralResultSubMechanismIllustrationPointEntity entity)
+        {
+            WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
+            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(illustrationPoint.Stochasts.Count(), entity.StochastEntities.Count);
+            Assert.AreEqual(illustrationPoint.TopLevelSubMechanismIllustrationPoints.Count(),
+                            entity.TopLevelSubMechanismIllustrationPointEntities.Count);
         }
     }
 }

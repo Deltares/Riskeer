@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
@@ -55,21 +56,53 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 entity.LocationX.ToNullAsNaN(),
                 entity.LocationY.ToNullAsNaN());
 
-            IHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            if (designWaterLevelOutputEntity != null)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
-            }
-
-            IHydraulicLocationOutputEntity waveHeightOutputEntity = GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
-            if (waveHeightOutputEntity != null)
-            {
-                hydraulicBoundaryLocation.WaveHeightCalculation.Output = waveHeightOutputEntity.Read();
-            }
+            SetDesignWaterLevelCalculation(entity, hydraulicBoundaryLocation.DesignWaterLevelCalculation);
+            SetWaveHeightCalculation(entity, hydraulicBoundaryLocation.WaveHeightCalculation);
 
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
+        }
+
+        private static void SetWaveHeightCalculation(GrassCoverErosionOutwardsHydraulicLocationEntity entity,
+                                                     HydraulicBoundaryLocationCalculation waveHeightCalculation)
+        {
+            waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
+                Convert.ToBoolean(entity.ShouldWaveHeightIllustrationPointsBeCalculated);
+
+            IHydraulicLocationOutputEntity waveHeightOutputEntity =
+                GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
+            if (waveHeightOutputEntity != null)
+            {
+                waveHeightCalculation.Output = waveHeightOutputEntity.Read();
+                SetGeneralResultSubMechanismIllustrationPoint(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                                              waveHeightCalculation.Output);
+            }
+        }
+
+        private static void SetDesignWaterLevelCalculation(GrassCoverErosionOutwardsHydraulicLocationEntity entity,
+                                                           HydraulicBoundaryLocationCalculation designWaterLevelCalculation)
+        {
+            designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
+               Convert.ToBoolean(entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+
+            IHydraulicLocationOutputEntity designWaterLevelOutputEntity =
+                GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
+            if (designWaterLevelOutputEntity != null)
+            {
+                designWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
+                SetGeneralResultSubMechanismIllustrationPoint(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                                              designWaterLevelCalculation.Output);
+            }
+        }
+
+        private static void SetGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity entity,
+                                                                          HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
+        {
+            if (entity != null)
+            {
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(entity.Read());
+            }
         }
 
         private static IHydraulicLocationOutputEntity GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(

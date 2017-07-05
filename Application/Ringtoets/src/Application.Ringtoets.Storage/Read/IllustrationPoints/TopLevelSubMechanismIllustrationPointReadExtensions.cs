@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         /// <returns>A new <see cref="TopLevelSubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        public static TopLevelSubMechanismIllustrationPoint Read(this TopLevelSubMechanismIllustrationPointEntity entity)
+        internal static TopLevelSubMechanismIllustrationPoint Read(this TopLevelSubMechanismIllustrationPointEntity entity)
         {
             if (entity == null)
             {

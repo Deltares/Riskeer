@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         /// <param name="entity">The <see cref="StochastEntity"/> to create <see cref="Stochast"/> for.</param>
         /// <returns>A new <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public static Stochast Read(this StochastEntity entity)
+        internal static Stochast Read(this StochastEntity entity)
         {
             if (entity == null)
             {

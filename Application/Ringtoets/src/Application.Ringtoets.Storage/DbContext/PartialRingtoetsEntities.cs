@@ -114,6 +114,18 @@ namespace Application.Ringtoets.Storage.DbContext
             WaveImpactAsphaltCoverSectionResultEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsOutputEntities.Load();
+
+            LoadIllustrationPointsIntoContext();
+        }
+
+        private void LoadIllustrationPointsIntoContext()
+        {
+            GeneralResultSubMechanismIllustrationPointEntities.Load();
+            StochastEntities.Load();
+            TopLevelSubMechanismIllustrationPointEntities.Load();
+            SubMechanismIllustrationPointEntities.Load();
+            SubMechanismIllustrationPointStochastEntities.Load();
+            IllustrationPointResultEntities.Load();
         }
     }
 }

@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -78,8 +80,21 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (output != null)
             {
-                entity.HydraulicLocationOutputEntities.Add(output.Create<HydraulicLocationOutputEntity>
-                                                               (outputType));
+                var hydraulicLocationOutputEntity = output.Create<HydraulicLocationOutputEntity>(outputType);
+                CreateGeneralResultSubMechanismIllustrationPoint(hydraulicLocationOutputEntity,
+                                                                 output.GeneralResultSubMechanismIllustrationPoint);
+
+                entity.HydraulicLocationOutputEntities.Add(hydraulicLocationOutputEntity);
+            }
+        }
+
+        private static void CreateGeneralResultSubMechanismIllustrationPoint(IHydraulicLocationOutputEntity entity,
+                                                                             GeneralResultSubMechanismIllustrationPoint illustrationPoint)
+        {
+            if (illustrationPoint != null)
+            {
+                entity.GeneralResultSubMechanismIllustrationPointEntity =
+                    illustrationPoint.CreateGeneralResultSubMechanismIllustrationPointEntity();
             }
         }
 
@@ -131,8 +146,12 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (output != null)
             {
-                entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>
-                                                                                        (outputType));
+                var grassCoverErosionOutwardsHydraulicLocationOutputEntity =
+                    output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
+                CreateGeneralResultSubMechanismIllustrationPoint(grassCoverErosionOutwardsHydraulicLocationOutputEntity,
+                                                                 output.GeneralResultSubMechanismIllustrationPoint);
+
+                entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
             }
         }
 
