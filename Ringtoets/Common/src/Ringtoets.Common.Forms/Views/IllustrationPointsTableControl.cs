@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils;
+using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
@@ -32,10 +32,12 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// Control to show illustration points in a table view.
     /// </summary>
-    public partial class IllustrationPointsTableControl : UserControl
+    public partial class IllustrationPointsTableControl : UserControl, ISelectionProvider
     {
         private const int closingSituationColumnIndex = 1;
         private GeneralResultSubMechanismIllustrationPoint data;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsTableControl"/>.
@@ -43,6 +45,7 @@ namespace Ringtoets.Common.Forms.Views
         public IllustrationPointsTableControl()
         {
             InitializeComponent();
+            InitializeEventHandlers();
         }
 
         /// <summary>
@@ -66,6 +69,32 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        public object Selection
+        {
+            get
+            {
+                DataGridViewRow currentRow = illustrationPointsDataGridViewControl.CurrentRow;
+
+                return ((IllustrationPointRow) currentRow?.DataBoundItem)?.IllustrationPoint;
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeDataGridView();
+        }
+
+        private void InitializeEventHandlers()
+        {
+            illustrationPointsDataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
+        }
+
+        private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
+        {
+            OnSelectionChanged();
+        }
+
         private void UpdateClosingStructureVisibility()
         {
             if (data != null)
@@ -78,12 +107,6 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            InitializeDataGridView();
         }
 
         private void InitializeDataGridView()
@@ -107,11 +130,13 @@ namespace Ringtoets.Common.Forms.Views
         private List<IllustrationPointRow> CreateRows()
         {
             return data.TopLevelSubMechanismIllustrationPoints
-                       .Select(illustrationPoint => new IllustrationPointRow(illustrationPoint.WindDirection.Name,
-                                                                             illustrationPoint.ClosingSituation,
-                                                                             StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta),
-                                                                             illustrationPoint.SubMechanismIllustrationPoint.Beta))
+                       .Select(illustrationPoint => new IllustrationPointRow(illustrationPoint))
                        .ToList();
+        }
+
+        private void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

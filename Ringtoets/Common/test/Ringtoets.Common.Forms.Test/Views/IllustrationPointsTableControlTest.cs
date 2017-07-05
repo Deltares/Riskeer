@@ -24,6 +24,8 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -61,6 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<UserControl>(control);
+            Assert.IsInstanceOf<ISelectionProvider>(control);
             Assert.IsNull(control.Data);
             Assert.AreEqual(1, control.Controls.Count);
             Assert.IsInstanceOf<DataGridViewControl>(control.Controls[0]);
@@ -193,6 +196,57 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(0, rows.Count);
 
             Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredControl_WhenSelectingCellInRow_ThenSelectionChangedFired()
+        {
+            // Given
+            IllustrationPointsTableControl control = ShowControl();
+            control.Data = GetGeneralResult();
+            
+            var selectionChangedCount = 0;
+            control.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+            var dataGridView = (DataGridView)control.Controls.Find("DataGridView", true)[0];
+
+            // When
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculatedProbabilityColumnIndex];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+
+            // Then
+            Assert.AreEqual(1, selectionChangedCount);
+        }
+
+        [Test]
+        public void Selection_WithoutIllustrationPoints_ReturnsNull()
+        {
+            // Call
+            using (var control = new IllustrationPointsTableControl())
+            {
+                // Assert
+                Assert.IsNull(control.Selection);
+            }
+        }
+
+        [Test]
+        public void Selection_WithIllustrationPoints_ReturnsSelectedWindDirection()
+        {
+            // Call
+            IllustrationPointsTableControl control = ShowControl();
+            control.Data = GetGeneralResult();
+
+            var dataGridView = (DataGridView)testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+            selectedLocationRow.Cells[0].Value = true;
+
+            // Assert
+            var selection = control.Selection as TopLevelSubMechanismIllustrationPoint;
+            var dataBoundItem = selectedLocationRow.DataBoundItem as IllustrationPointRow;
+
+            Assert.NotNull(selection);
+            Assert.NotNull(dataBoundItem);
+            Assert.AreSame(dataBoundItem.IllustrationPoint, selection);
         }
 
         private IllustrationPointsTableControl ShowControl()

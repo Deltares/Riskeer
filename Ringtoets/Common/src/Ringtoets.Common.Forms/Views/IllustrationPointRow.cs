@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
@@ -32,48 +33,62 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointRow"/>.
         /// </summary>
-        /// <param name="windDirection">The wind direction.</param>
-        /// <param name="closingSituation">The closing situation.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="reliability">The calculated reliability.</param>
+        /// <param name="illustrationPoint"></param>
         /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="windDirection"/> or <paramref name="closingSituation"/>
-        /// is <c>null</c>.</exception>
-        public IllustrationPointRow(string windDirection, string closingSituation,
-                                    double probability, double reliability)
+        /// <paramref name="illustrationPoint"/> is <c>null</c>.</exception>
+        public IllustrationPointRow(TopLevelSubMechanismIllustrationPoint illustrationPoint)
         {
-            if (windDirection == null)
+            if (illustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(windDirection));
+                throw new ArgumentNullException(nameof(illustrationPoint));
             }
-            if (closingSituation == null)
-            {
-                throw new ArgumentNullException(nameof(closingSituation));
-            }
-            WindDirection = windDirection;
-            ClosingSituation = closingSituation;
-            Probability = probability;
-            Reliability = reliability;
+            IllustrationPoint = illustrationPoint;
         }
 
         /// <summary>
         /// Gets the wind direction.
         /// </summary>
-        public string WindDirection { get; }
+        public string WindDirection
+        {
+            get
+            {
+                return IllustrationPoint.WindDirection.Name;
+            }
+        }
 
         /// <summary>
         /// Gets the closing situation.
         /// </summary>
-        public string ClosingSituation { get; }
+        public string ClosingSituation
+        {
+            get
+            {
+                return IllustrationPoint.ClosingSituation;
+            }
+        }
 
         /// <summary>
         /// Gets the calculated probability.
         /// </summary>
-        public double Probability { get; }
+        public double Probability
+        {
+            get
+            {
+                return StatisticsConverter.ReliabilityToProbability(IllustrationPoint.SubMechanismIllustrationPoint.Beta);
+            }
+        }
 
         /// <summary>
         /// Gets the calculated reliability.
         /// </summary>
-        public double Reliability { get; }
+        public double Reliability
+        {
+            get
+            {
+                return IllustrationPoint.SubMechanismIllustrationPoint.Beta;
+            }
+        }
+
+        public TopLevelSubMechanismIllustrationPoint IllustrationPoint { get; }
     }
 }

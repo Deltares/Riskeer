@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -29,44 +32,33 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class IllustrationPointRowTest
     {
         [Test]
-        public void Constructor_WindDirectionNull_ThrowArgumentNullException()
+        public void Constructor_IllustrationPointNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointRow(null, string.Empty, 0, 0);
+            TestDelegate test = () => new IllustrationPointRow(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("windDirection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ClosingSituationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new IllustrationPointRow("South", null, 0, 0);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("closingSituation", exception.ParamName);
+            Assert.AreEqual("illustrationPoint", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string windDirection = "South";
-            const string closingSituation = "Regular";
-            const double probability = 0.2;
-            const double reliability = 0.1;
+            var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(
+                new TestWindDirection(), "Regular",
+                new TestSubMechanismIllustrationPoint());
 
             // Call
-            var row = new IllustrationPointRow(windDirection, closingSituation, probability, reliability);
+            var row = new IllustrationPointRow(illustrationPoint);
 
             // Assert
-            Assert.AreEqual(windDirection, row.WindDirection);
-            Assert.AreEqual(closingSituation, row.ClosingSituation);
-            Assert.AreEqual(probability, row.Probability);
-            Assert.AreEqual(reliability, row.Reliability);
+            Assert.AreSame(illustrationPoint, row.IllustrationPoint);
+            Assert.AreEqual(illustrationPoint.WindDirection.Name, row.WindDirection);
+            Assert.AreEqual(illustrationPoint.ClosingSituation, row.ClosingSituation);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta), row.Probability);
+            Assert.AreEqual(illustrationPoint.SubMechanismIllustrationPoint.Beta, row.Reliability);
         }
     }
 }
