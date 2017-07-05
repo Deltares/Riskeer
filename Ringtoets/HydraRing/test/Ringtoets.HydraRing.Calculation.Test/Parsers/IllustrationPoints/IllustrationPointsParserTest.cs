@@ -147,6 +147,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         }
 
         [Test]
+        public void Parse_NoGoverningWindDirection_ThrowsHydraRingFileParserException()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "NoGoverningWindDirection");
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            TestDelegate test = () => parser.Parse(path, 1);
+
+            // Assert
+            var exception = Assert.Throws<HydraRingFileParserException>(test);
+            Assert.AreEqual("Er is geen maatgevende windrichting gevonden in de uitvoer database.", exception.Message);
+        }
+
+        [Test]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.AlphaValue), IllustrationPointsDatabaseConstants.AlphaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.BetaValue), IllustrationPointsDatabaseConstants.BetaValue)]
         [TestCase(nameof(IllustrationPointsDatabaseConstants.Duration), IllustrationPointsDatabaseConstants.Duration)]

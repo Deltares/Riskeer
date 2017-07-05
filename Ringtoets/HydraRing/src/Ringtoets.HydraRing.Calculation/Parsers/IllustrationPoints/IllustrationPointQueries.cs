@@ -26,9 +26,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
     /// </summary>
     internal static class IllustrationPointQueries
     {
-        private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM GoverningWind)";
-        private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)";
-
         /// <summary>
         /// Selects all the closing situations.
         /// </summary>
@@ -38,13 +35,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "FROM ClosingSituations;";
 
         /// <summary>
-        /// Selects all wind direction with a flag whether it is the wind direction is governing.
+        /// Selects all wind direction with a flag whether it the wind direction is governing.
         /// </summary>
         public static readonly string WindDirections =
             $"SELECT WindDirections.{IllustrationPointsDatabaseConstants.WindDirectionId}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionName}, " +
             $"{IllustrationPointsDatabaseConstants.WindDirectionAngle}, " +
-            $"WindDirections.WindDirectionId = GoverningWind.WindDirectionId as {IllustrationPointsDatabaseConstants.IsGoverning} " +
+            $"WindDirections.WindDirectionId = GoverningWind.WindDirectionId AS {IllustrationPointsDatabaseConstants.IsGoverning} " +
             "FROM WindDirections " +
             "JOIN GoverningWind " +
             $"WHERE {lastIteration}" +
@@ -185,7 +182,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeChildId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine}" +
-            ") AS(" +
+            ") AS (" +
             "SELECT FaultTreeId, Id1, Type1, CombinFunction " +
             "FROM FaultTrees " +
             "LEFT OUTER JOIN combineFunctions ON combineFunctions.id = Id1 " +
@@ -198,7 +195,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeId}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine}" +
-            ") AS(" +
+            ") AS (" +
             "SELECT null, " +
             "FaultTreeId, " +
             "\"faulttree\", " +
@@ -220,5 +217,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine} " +
             "FROM children;";
+
+        private const string firstPeriod = "PeriodId = (SELECT MIN(PeriodId) FROM GoverningWind)";
+        private const string lastIteration = "OuterIterationId = (SELECT MAX(OuterIterationId) FROM GoverningWind)";
     }
 }

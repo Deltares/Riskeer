@@ -160,4 +160,7 @@
     <value>Het besturingssysteem geeft de volgende melding:
 {0}</value>
   </data>
+  <data name="IllustrationPointsParser_ParseWindDirections_Er_is_geen_maatgevende_windrichting_gevonden_in_de_uitvoer_database_" xml:space="preserve">
+    <value>Er is geen maatgevende windrichting gevonden in de uitvoer database.</value>
+  </data>
 </root>

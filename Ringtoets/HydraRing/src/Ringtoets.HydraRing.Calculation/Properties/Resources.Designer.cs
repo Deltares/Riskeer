@@ -167,6 +167,16 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen maatgevende windrichting gevonden in de uitvoer database..
+        /// </summary>
+        internal static string IllustrationPointsParser_Parse_No_governing_wind_direction_found {
+            get {
+                return ResourceManager.GetString("IllustrationPointsParser_ParseWindDirections_Er_is_geen_maatgevende_windrichting_" +
+                        "gevonden_in_de_uitvoer_database_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file {

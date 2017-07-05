@@ -66,7 +66,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public void CalculateWithIllustrationPoints(WaveHeightCalculationInput input)
         {
             includeIllustrationPoints = true;
-            Calculate(input);
+            try
+            {
+                Calculate(input);
+            }
+            finally
+            {
+                includeIllustrationPoints = false;
+            }
         }
 
         public void Calculate(WaveHeightCalculationInput input)

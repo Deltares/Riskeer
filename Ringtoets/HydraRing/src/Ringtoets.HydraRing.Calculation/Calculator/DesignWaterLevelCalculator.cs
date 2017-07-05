@@ -72,7 +72,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public void CalculateWithIllustrationPoints(AssessmentLevelCalculationInput input)
         {
             includeIllustrationPoints = true;
-            Calculate(input);
+            try
+            {
+                Calculate(input);
+            }
+            finally
+            {
+                includeIllustrationPoints = false;
+            }
         }
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
