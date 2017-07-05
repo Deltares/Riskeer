@@ -173,7 +173,7 @@ INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity(
 	[LocationX],
 	[LocationY],
 	[ShouldWaveHeightIllustrationPointsBeCalculated],
-	[ShouldWaterLevelIllustrationPointsBeCalculated],
+	[ShouldDesignWaterLevelIllustrationPointsBeCalculated],
 	[Order]) 
 SELECT 
 	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
@@ -294,7 +294,7 @@ INSERT INTO HydraulicLocationEntity (
 	[LocationX],
 	[LocationY],
 	[ShouldWaveHeightIllustrationPointsBeCalculated],
-	[ShouldWaterLevelIllustrationPointsBeCalculated],
+	[ShouldDesignWaterLevelIllustrationPointsBeCalculated],
 	[Order])
 SELECT 
 	[HydraulicLocationEntityId],

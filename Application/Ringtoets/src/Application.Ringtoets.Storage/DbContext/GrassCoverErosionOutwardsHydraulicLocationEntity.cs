@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? LocationX { get; set; }
         public double? LocationY { get; set; }
         public byte ShouldWaveHeightIllustrationPointsBeCalculated { get; set; }
-        public byte ShouldWaterLevelIllustrationPointsBeCalculated { get; set; }
+        public byte ShouldDesignWaterLevelIllustrationPointsBeCalculated { get; set; }
         public int Order { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }

@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
-                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
                 ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated)
             };
 
@@ -191,7 +191,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
             {
                 Name = "someName",
-                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
                 ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
                 GrassCoverErosionOutwardsHydraulicLocationOutputEntities =
                 {

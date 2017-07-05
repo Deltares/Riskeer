@@ -402,7 +402,7 @@
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
           <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="ShouldWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
@@ -593,7 +593,7 @@
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
           <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="ShouldWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationOutputEntity">
@@ -3855,7 +3855,7 @@
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
           <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <Property Name="ShouldWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
@@ -4071,7 +4071,7 @@
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
           <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <Property Name="ShouldWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
@@ -6334,7 +6334,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ShouldWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldWaterLevelIllustrationPointsBeCalculated" />
+                <ScalarProperty Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldDesignWaterLevelIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="ShouldWaveHeightIllustrationPointsBeCalculated" ColumnName="ShouldWaveHeightIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
@@ -6537,7 +6537,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ShouldWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldWaterLevelIllustrationPointsBeCalculated" />
+                <ScalarProperty Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldDesignWaterLevelIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="ShouldWaveHeightIllustrationPointsBeCalculated" ColumnName="ShouldWaveHeightIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />

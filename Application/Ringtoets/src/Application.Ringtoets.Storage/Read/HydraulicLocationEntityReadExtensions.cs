@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Read
             HydraulicBoundaryLocationCalculation designWaterLevelCalculation)
         {
             designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
-                Convert.ToBoolean(entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+                Convert.ToBoolean(entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
 
             IHydraulicLocationOutputEntity designWaterLevelOutputEntity =
                 GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);

@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
-                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
                 ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated)
             };
 
@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new HydraulicLocationEntity
             {
                 Name = "someName",
-                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
                 ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
                 HydraulicLocationOutputEntities =
                 {
@@ -218,7 +218,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new HydraulicLocationEntity
             {
                 Name = "someName",
-                ShouldWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
+                ShouldDesignWaterLevelIllustrationPointsBeCalculated = Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated),
                 ShouldWaveHeightIllustrationPointsBeCalculated = Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated),
                 HydraulicLocationOutputEntities =
                 {

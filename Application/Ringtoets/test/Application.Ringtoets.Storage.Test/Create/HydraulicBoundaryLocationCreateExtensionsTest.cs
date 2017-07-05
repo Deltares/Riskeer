@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
-            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
             Assert.AreEqual(Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated), entity.ShouldWaveHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
@@ -289,7 +289,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
-            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldWaterLevelIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(shouldDesignWaterLevelIllustrationPointsBeCalculated), entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
             Assert.AreEqual(Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated), entity.ShouldWaveHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
         }
