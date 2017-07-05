@@ -55,7 +55,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                                   Enumerable.Empty<IllustrationPointResult>(),
                                                                                   3);
-            var context = new TopLevelSubMechanismIllustrationPoint(new TestWindDirection(), "direction", submechanismIllustrationPoint);
+            var context = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                    "direction",
+                                                                    submechanismIllustrationPoint);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TopLevelSubMechanismIllustrationPointProperties

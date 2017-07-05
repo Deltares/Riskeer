@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 
             // Assert
             Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPoint>(generalResult);
-            AssertWindDirection(new TestWindDirection(), generalResult.GoverningWindDirection);
+            AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
             CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
         }

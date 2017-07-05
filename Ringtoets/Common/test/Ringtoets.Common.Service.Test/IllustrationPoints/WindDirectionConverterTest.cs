@@ -47,8 +47,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-            double angle = random.NextDouble();
-            var hydraRingWindDirection = new HydraRingWindDirection("name", angle);
+            var hydraRingWindDirection = new HydraRingWindDirection("name", random.NextDouble());
 
             // Call
             WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraRingWindDirection);

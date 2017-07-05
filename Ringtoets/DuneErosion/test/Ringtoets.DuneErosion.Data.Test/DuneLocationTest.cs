@@ -22,9 +22,11 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -134,12 +136,12 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        [TestCase(CalculationConvergence.CalculatedConverged)]
-        [TestCase(CalculationConvergence.CalculatedNotConverged)]
-        public void Output_ValidOutput_SetsOutputAndCalculationConvergence(CalculationConvergence converged)
+        public void Output_ValidOutput_SetsOutputAndCalculationConvergence()
         {
             // Setup
-            var duneLocation = new DuneLocation(0, "dune", new Point2D(0, 0), new DuneLocation.ConstructionProperties());
+            var random = new Random(12);
+            var duneLocation = new TestDuneLocation("dune");
+            var converged = random.NextEnumValue<CalculationConvergence>();
             var output = new DuneLocationOutput(converged,
                                                 new DuneLocationOutput.ConstructionProperties());
 

@@ -128,7 +128,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         {
             // Setup
             const string stochastName = "Stochast Name";
-            WindDirection windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             SubMechanismIllustrationPoint illustrationPoint = new TestSubMechanismIllustrationPoint();
             var illustrationPointEntityOne = new TopLevelSubMechanismIllustrationPointEntity
             {

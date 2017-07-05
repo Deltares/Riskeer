@@ -130,10 +130,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             var governingWindDirection = new WindDirection(windDirectionName, windDirectionAngle);
 
             const string illustrationPointName = "illustrationPoint";
-            var illustrationPointOne = new TopLevelSubMechanismIllustrationPoint(new TestWindDirection(),
+            var illustrationPointOne = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                                  illustrationPointName,
                                                                                  new TestSubMechanismIllustrationPoint());
-            var illustrationPointTwo = new TopLevelSubMechanismIllustrationPoint(new TestWindDirection(),
+            var illustrationPointTwo = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                                  $"{illustrationPointName}_Two",
                                                                                  new TestSubMechanismIllustrationPoint());
             var illustrationPoints = new[]

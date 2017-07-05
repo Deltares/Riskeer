@@ -19,18 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
+namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
-    /// <summary>
-    /// Simple wind direction that can be used for testing.
-    /// </summary>
-    public class TestWindDirection : WindDirection
+    [TestFixture]
+    public class WindDirectionTestFactoryTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestWindDirection"/>.
-        /// </summary>
-        public TestWindDirection() : base("SSE", 5.0) {}
+        [Test]
+        public void CreateTestWindDirection_ReturnsExpectedProperties()
+        {
+            // Call
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+
+            // Assert
+            Assert.IsInstanceOf<WindDirection>(windDirection);
+
+            Assert.AreEqual("SSE", windDirection.Name);
+            Assert.AreEqual(5.0, windDirection.Angle, windDirection.Angle.GetAccuracy());
+        }
     }
 }

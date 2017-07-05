@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class SubMechanismIllustrationPointConverterTest
     {
         [Test]
-        public void CreateCreateIllustrationPoint_HydraRingSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
+        public void CreateIllustrationPoint_HydraRingSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => SubMechanismIllustrationPointConverter.CreateSubMechanismIllustrationPoint(null);

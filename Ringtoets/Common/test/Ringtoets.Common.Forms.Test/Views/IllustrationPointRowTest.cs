@@ -47,7 +47,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(
-                new TestWindDirection(), "Regular",
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                "Regular",
                 new TestSubMechanismIllustrationPoint());
 
             // Call

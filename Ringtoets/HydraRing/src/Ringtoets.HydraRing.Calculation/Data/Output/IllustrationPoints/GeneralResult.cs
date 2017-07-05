@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <param name="beta">The general beta value.</param>
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha stochast values.</param>
-        /// <param name="illustrationPoints">The tree of illustration points for each wind direction 
+        /// <param name="illustrationPoints">The tree of illustration for each wind direction 
         /// and closing situation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="governingWindDirection"/>, 
         /// <paramref name="stochasts"/>, or <paramref name="illustrationPoints"/> is <c>null</c>.</exception>

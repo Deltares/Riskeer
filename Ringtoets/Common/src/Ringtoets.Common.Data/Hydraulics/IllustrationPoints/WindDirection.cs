@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
     /// <summary>
     /// A wind direction.
     /// </summary>
-    public class WindDirection
+    public sealed class WindDirection
     {
         /// <summary>
         /// Creates a new instance of <see cref="WindDirection"/>.

@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Call
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
 
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
             selectedLocationRow.Cells[0].Value = true;
 
@@ -121,15 +121,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
 
             // Assert
-            Assert.IsNull(control.Data);
+            Assert.IsNull(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -137,15 +136,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
 
             // Assert
-            Assert.IsNull(control.Data);
+            Assert.IsNull(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -153,15 +151,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
-            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
 
             // Assert
-            Assert.IsNotNull(control.Data);
+            Assert.IsNotNull(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -171,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ShowWaveHeightLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = GetDataGridView();
             Assert.AreEqual(6, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
@@ -238,7 +235,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ShowFullyConfiguredWaveHeightLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
 
@@ -296,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -342,7 +339,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
@@ -372,7 +369,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -433,7 +430,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             ShowFullyConfiguredWaveHeightLocationsView();
 
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -461,7 +458,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // When
             if (rowSelected)
             {
-                var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+                DataGridViewControl dataGridView = GetDataGridViewControl();
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
             }
@@ -485,9 +482,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            var illustrationPointsControl = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
@@ -506,6 +502,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.AreSame(result, illustrationPointsControl.Data);
+        }
+
+        private DataGridViewControl GetDataGridViewControl()
+        {
+            return GetControls<DataGridViewControl>("DataGridViewControl").First();
+        }
+
+        private DataGridView GetDataGridView()
+        {
+            return GetControls<DataGridView>("DataGridView").First();
+        }
+
+        private IllustrationPointsControl GetIllustrationPointsControl()
+        {
+            return GetControls<IllustrationPointsControl>("IllustrationPointsControl").Single();
+        }
+
+        /// <summary>
+        /// Gets the controls by name.
+        /// </summary>
+        /// <param name="controlName">The name of the controls.</param>
+        /// <returns>The found control.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
+        {
+            return testForm.Controls.Find(controlName, true).Cast<TView>();
         }
 
         private GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView()

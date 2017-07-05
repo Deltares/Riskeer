@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
@@ -205,8 +204,7 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculator = mockRepository.Stub<IDesignWaterLevelCalculator>();
-            calculator.Expect(c => c.CalculateWithIllustrationPoints(null))
-                      .Constraints(new TypeOf(typeof(AssessmentLevelCalculationInput)))
+            calculator.Expect(c => c.CalculateWithIllustrationPoints(Arg<AssessmentLevelCalculationInput>.Is.TypeOf))
                       .Throw(expectedException);
             calculator.Stub(c => c.LastErrorFileContent).Return(string.Empty);
             calculator.Stub(c => c.OutputDirectory).Return(string.Empty);
@@ -330,7 +328,11 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        {
+            nameof(Run_InvalidCalculation_LogsErrorAndThrowException)
+        })]
+        public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent, string detailedReport)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -342,8 +344,8 @@ namespace Ringtoets.Common.Service.Test
 
             var calculator = new TestDesignWaterLevelCalculator
             {
-                LastErrorFileContent = "An error occurred",
-                EndInFailure = true
+                LastErrorFileContent = lastErrorFileContent,
+                EndInFailure = endInFailure
             };
 
             var mockRepository = new MockRepository();
@@ -357,145 +359,16 @@ namespace Ringtoets.Common.Service.Test
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
+            calculationMessageProvider.Expect(calc => calc.GetCalculationFailedMessage(locationName,
+                                                                                       endInFailure && string.IsNullOrEmpty(lastErrorFileContent)
+                                                                                           ? calculator.HydraRingCalculationException.Message
+                                                                                           : lastErrorFileContent
+                                              )).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
-                // Call
-                Action call = () =>
-                {
-                    try
-                    {
-                        new DesignWaterLevelCalculationService().Calculate(calculation,
-                                                                           validFilePath,
-                                                                           norm,
-                                                                           calculationMessageProvider);
-                    }
-                    catch (HydraRingCalculationException)
-                    {
-                        exceptionThrown = true;
-                    }
-                };
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
-                });
-                Assert.IsTrue(exceptionThrown);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
-            const string locationName = "punt_flw_ 1";
-            const string calculationName = "calculationName";
-            const string calculationFailedUnexplainedMessage = "calculationFailedUnexplainedMessage";
-            const double norm = 1.0 / 30;
-
-            var calculator = new TestDesignWaterLevelCalculator
-            {
-                EndInFailure = true
-            };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
-
-            var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.Name).Return(locationName);
-            calculation.Expect(c => c.Id).Return(0);
-            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName, calculator.HydraRingCalculationException.Message))
-                                      .Return(calculationFailedUnexplainedMessage);
-            mockRepository.ReplayAll();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var exceptionThrown = false;
-
-                // Call
-                Action call = () =>
-                {
-                    try
-                    {
-                        new DesignWaterLevelCalculationService().Calculate(calculation,
-                                                                           validFilePath,
-                                                                           norm,
-                                                                           calculationMessageProvider);
-                    }
-                    catch (HydraRingCalculationException)
-                    {
-                        exceptionThrown = true;
-                    }
-                };
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    StringAssert.StartsWith(calculationFailedUnexplainedMessage, msgs[1]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
-                });
-                Assert.IsTrue(exceptionThrown);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
-            const string locationName = "punt_flw_ 1";
-            const string calculationName = "calculationName";
-            const string calculationFailedMessage = "calculationFailedMessage";
-            const double norm = 1.0 / 30;
-
-            var calculator = new TestDesignWaterLevelCalculator
-            {
-                EndInFailure = false,
-                LastErrorFileContent = "An error occurred"
-            };
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
-
-            var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
-            calculation.Stub(c => c.Name).Return(locationName);
-            calculation.Expect(c => c.Id).Return(0);
-            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(calculationFailedMessage);
-            mockRepository.ReplayAll();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var exceptionThrown = false;
-                string exceptionMessage = string.Empty;
+                HydraRingCalculationException exception = null;
 
                 // Call
                 Action call = () =>
@@ -509,8 +382,7 @@ namespace Ringtoets.Common.Service.Test
                     }
                     catch (HydraRingCalculationException e)
                     {
-                        exceptionThrown = true;
-                        exceptionMessage = e.Message;
+                        exception = e;
                     }
                 };
 
@@ -520,12 +392,13 @@ namespace Ringtoets.Common.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                    Assert.AreEqual(calculationFailedMessage, msgs[1]);
+                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
-                Assert.IsTrue(exceptionThrown);
-                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
+
+                Assert.IsInstanceOf<HydraRingCalculationException>(exception);
             }
             mockRepository.VerifyAll();
         }

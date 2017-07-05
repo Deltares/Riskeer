@@ -134,16 +134,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var data = new GeneralResultSubMechanismIllustrationPoint(
-                new TestWindDirection(),
+                WindDirectionTestFactory.CreateTestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
                     new TopLevelSubMechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
                         new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                           Enumerable.Empty<IllustrationPointResult>(), 0.9)),
                     new TopLevelSubMechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
                         new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                           Enumerable.Empty<IllustrationPointResult>(), 0.7))
                 });
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IllustrationPointsTableControl control = ShowControl();
             control.Data = data;
 
-            var dataGridView = (DataGridView)control.Controls.Find("DataGridView", true).Single();
+            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
             DataGridViewRowCollection rows = dataGridView.Rows;
 
             // Precondition
@@ -204,11 +204,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             IllustrationPointsTableControl control = ShowControl();
             control.Data = GetGeneralResult();
-            
+
             var selectionChangedCount = 0;
             control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView)control.Controls.Find("DataGridView", true)[0];
+            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true)[0];
 
             // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculatedProbabilityColumnIndex];
@@ -236,7 +236,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IllustrationPointsTableControl control = ShowControl();
             control.Data = GetGeneralResult();
 
-            var dataGridView = (DataGridView)testForm.Controls.Find("dataGridView", true).First();
+            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
             selectedLocationRow.Cells[0].Value = true;
 
@@ -262,16 +262,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static GeneralResultSubMechanismIllustrationPoint GetGeneralResult()
         {
             return new GeneralResultSubMechanismIllustrationPoint(
-                new TestWindDirection(),
+                WindDirectionTestFactory.CreateTestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
                     new TopLevelSubMechanismIllustrationPoint(
-                        new TestWindDirection(), "Regular",
+                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
                         new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                           Enumerable.Empty<IllustrationPointResult>(), 0.9)),
                     new TopLevelSubMechanismIllustrationPoint(
-                        new TestWindDirection(), "Open",
+                        WindDirectionTestFactory.CreateTestWindDirection(), "Open",
                         new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                           Enumerable.Empty<IllustrationPointResult>(), 0.7))
                 });

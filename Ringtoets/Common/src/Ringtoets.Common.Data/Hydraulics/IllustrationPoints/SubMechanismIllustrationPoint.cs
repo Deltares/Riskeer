@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
         /// <summary>
         /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="name">The name of the illustration point result</param>
+        /// <param name="name">The name of the illustration point result.</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
         /// <param name="beta">The beta value that was realized.</param>

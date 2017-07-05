@@ -57,7 +57,7 @@
     <Compile Include="ForeshoreProfilePermutationHelperTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointStochastTest.cs" />
-    <Compile Include="IllustrationPoints\TestWindDirectionTest.cs" />
+    <Compile Include="IllustrationPoints\WindDirectionTestFactoryTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="ObservableTestAssessmentSectionStubTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var submechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_SubMechanismIllustationPointNull_ThrowsArgumentNullException()
         {
             // Setup
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
             TestDelegate call = () =>
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         {
             // Setup
             const string closingScenario = "closing scenario";
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var submechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
 
             // Call

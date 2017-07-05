@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_StochastsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
             TestDelegate call = () => new GeneralResultSubMechanismIllustrationPoint(windDirection,
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_TopLevelSubMechanismIllustrationPointsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
             TestDelegate call = () => new GeneralResultSubMechanismIllustrationPoint(windDirection,
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
         public void Constructor_ValidArguments_ExpectedProperties()
         {
             // Setup
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             IEnumerable<TopLevelSubMechanismIllustrationPoint> combinations =
                 Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>();
