@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -93,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Call
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
             selectedLocationRow.Cells[0].Value = true;
 
@@ -111,15 +112,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
 
             // Assert
-            Assert.IsNull(control.Data);
+            Assert.IsNull(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -127,15 +127,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var control = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl) testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
 
             // Assert
-            Assert.IsNull(control.Data);
+            Assert.IsNull(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -143,9 +142,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var illustrationPointsControl = (IllustrationPointsControl) testForm.Controls.Find("IllustrationPointsControl", true).Single();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
 
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
 
             // Call
             dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
@@ -161,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowDesignWaterLevelLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = GetDataGridView();
             Assert.AreEqual(6, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
@@ -193,7 +192,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredDesignWaterLevelLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
 
@@ -264,7 +263,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
 
@@ -293,7 +292,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IAssessmentSection assessmentSection = view.AssessmentSection;
 
             // Precondition
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
@@ -323,7 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             IAssessmentSection assessmentSection = view.AssessmentSection;
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -370,7 +369,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
 
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -388,9 +387,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var illustrationPointsControl = (IllustrationPointsControl)testForm.Controls.Find("IllustrationPointsControl", true).Single();
-
-            var dataGridView = (DataGridViewControl)testForm.Controls.Find("dataGridViewControl", true).First();
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
             
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
@@ -407,6 +405,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.AreSame(result, illustrationPointsControl.Data);
+        }
+
+        private DataGridViewControl GetDataGridViewControl()
+        {
+            return GetControls<DataGridViewControl>("DataGridViewControl").First();
+        }
+
+        private DataGridView GetDataGridView()
+        {
+            return GetControls<DataGridView>("DataGridView").First();
+        }
+
+        private IllustrationPointsControl GetIllustrationPointsControl()
+        {
+            return GetControls<IllustrationPointsControl>("IllustrationPointsControl").Single();
+        }
+
+        /// <summary>
+        /// Gets the controls by name.
+        /// </summary>
+        /// <param name="controlName">The name of the controls.</param>
+        /// <returns>The found control.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
+        {
+            return testForm.Controls.Find(controlName, true).Cast<TView>();
         }
 
         private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()

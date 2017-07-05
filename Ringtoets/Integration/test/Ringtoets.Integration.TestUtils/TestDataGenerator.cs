@@ -129,8 +129,8 @@ namespace Ringtoets.Integration.TestUtils
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>A fully configured <see cref="AssessmentSection"/> with all possible calculation configurations of the parent and 
-        /// nested calculations inside the failure mechanisms, but without the output of the <see cref="HydraulicBoundaryLocation"/> and the 
-        /// <see cref="DuneLocation"/>.</returns>
+        /// nested calculations inside the failure mechanisms, but without the output of the  <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation"/>
+        /// , <see cref="HydraulicBoundaryLocation.WaveHeightCalculation"/>  and <see cref="DuneLocation.Output"/>.</returns>
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(AssessmentSectionComposition composition)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
