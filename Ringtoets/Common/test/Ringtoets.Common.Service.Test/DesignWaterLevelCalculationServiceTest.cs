@@ -239,6 +239,49 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Calculate_ValidDesignWaterLevelCalculationWithIllustrationPointsButIsNull_ThrowsHydraRingCalculationException()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, validFile);
+
+            const string locationName = "punt_flw_ 1";
+
+            var mockRepository = new MockRepository();
+            var calculator = new TestDesignWaterLevelCalculator();
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IDesignWaterLevelCalculation>();
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(100);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(
+                                                locationName, "Er konden geen illustratiepunten worden uitgelezen."))
+                                      .Return(string.Empty);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                TestDelegate call = () => new DesignWaterLevelCalculationService()
+                    .Calculate(calculation,
+                               validFilePath,
+                               1.0 / 30,
+                               calculationMessageProvider);
+
+                // Assert
+                var thrownException = Assert.Throws<HydraRingCalculationException>(call);
+                Assert.AreEqual("Er konden geen illustratiepunten worden uitgelezen.", thrownException.Message);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_ValidDesignWaterLevelCalculationWithIllustrationPoints_StartsCalculationWithRightParameters()
         {
             // Setup

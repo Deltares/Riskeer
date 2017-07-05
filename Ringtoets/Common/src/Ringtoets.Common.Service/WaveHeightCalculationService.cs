@@ -36,7 +36,7 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using HydraGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.Common.Service
 {
@@ -206,15 +206,26 @@ namespace Ringtoets.Common.Service
             waveHeightCalculation.Output = hydraulicBoundaryLocationOutput;
         }
 
+        /// <summary>
+        /// Sets a <see cref="GeneralResultSubMechanismIllustrationPoint"/> based on the information 
+        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="hydraulicBoundaryLocationOutput"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocationOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
+        /// to set the <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</param>
+        /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
+        /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when <paramref name="hydraRingGeneralResult"/> 
+        /// is <c>null</c>.</exception>
         private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
-                                                        HydraGeneralResult hydraGeneralResult)
+                                                        HydraRingGeneralResult hydraRingGeneralResult)
         {
-            if (hydraGeneralResult != null)
+            if (hydraRingGeneralResult == null)
             {
-                GeneralResultSubMechanismIllustrationPoint generalResult =
-                    GeneralResultSubmechanismIllustrationPointConverter.CreateGeneralResultSubmechanismIllustrationPoint(hydraGeneralResult);
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
+                throw new HydraRingCalculationException(Resources.DesignWaterLevelCalculationService_SetIllustrationPointsResult_No_general_result_found);
             }
+            GeneralResultSubMechanismIllustrationPoint generalResult =
+                GeneralResultSubmechanismIllustrationPointConverter.CreateGeneralResultSubmechanismIllustrationPoint(hydraRingGeneralResult);
+            hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
         }
 
         /// <summary>

@@ -159,6 +159,16 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er konden geen illustratiepunten worden uitgelezen..
+        /// </summary>
+        public static string DesignWaterLevelCalculationService_SetIllustrationPointsResult_No_general_result_found {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_SetIllustrationPointsResult_No_general_result_" +
+                        "found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validatie mislukt: {0}.
         /// </summary>
         public static string Error_in_validation_0 {

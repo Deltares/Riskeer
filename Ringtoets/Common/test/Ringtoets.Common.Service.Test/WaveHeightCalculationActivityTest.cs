@@ -36,6 +36,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -52,7 +53,7 @@ namespace Ringtoets.Common.Service.Test
             {
                 yield return new TestCaseData(new TestHydraulicBoundaryLocation("WithOutputWithoutIllustrationPoints")
                 {
-                    DesignWaterLevelCalculation =
+                    WaveHeightCalculation =
                     {
                         InputParameters =
                         {
@@ -273,6 +274,11 @@ namespace Ringtoets.Common.Service.Test
                 WaveHeight = expectedWaveHeight
             };
 
+            if (hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated)
+            {
+                calculator.IllustrationPointsResult = new TestGeneralResult();
+            }
+
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
@@ -370,7 +376,8 @@ namespace Ringtoets.Common.Service.Test
 
             var calculator = new TestWaveHeightCalculator
             {
-                Converged = false
+                Converged = false,
+                IllustrationPointsResult = new TestGeneralResult()
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();

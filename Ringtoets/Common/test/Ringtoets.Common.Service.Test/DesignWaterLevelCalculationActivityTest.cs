@@ -37,6 +37,7 @@ using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -287,6 +288,11 @@ namespace Ringtoets.Common.Service.Test
                 Converged = true
             };
 
+            if (hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated)
+            {
+                calculator.IllustrationPointsResult = new TestGeneralResult();
+            }
+
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -383,7 +389,8 @@ namespace Ringtoets.Common.Service.Test
 
             var calculator = new TestDesignWaterLevelCalculator
             {
-                Converged = false
+                Converged = false,
+                IllustrationPointsResult = new TestGeneralResult()
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
