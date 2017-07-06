@@ -22,9 +22,9 @@
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
-    /// Interface for a wave height calculation.
+    /// Interface for a wrapper of an hydraulic boundary location calculation.
     /// </summary>
-    public interface IWaveHeightCalculation
+    public interface IHydraulicBoundaryWrapperCalculation
     {
         /// <summary>
         /// Gets the database id of the hydraulic boundary location.
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         bool CalculateIllustrationPoints { get; }
 
         /// <summary>
-        /// Gets or sets the output of the design water level calculation.
+        /// Gets or sets the output of the hydraulic boundary location calculation.
         /// </summary>
         HydraulicBoundaryLocationOutput Output { get; set; }
     }

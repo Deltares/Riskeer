@@ -29,11 +29,6 @@ namespace Ringtoets.Integration.Service.MessageProviders
     /// </summary>
     public class DesignWaterLevelCalculationMessageProvider : ICalculationMessageProvider
     {
-        public string GetCalculationName(string locationName)
-        {
-            return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_, locationName);
-        }
-
         public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_, locationName);

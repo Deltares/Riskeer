@@ -43,23 +43,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculationName_ValidNames_ExpectedValue(string name)
-        {
-            // Setup
-            var provider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
-
-            // Call
-            string calculationName = provider.GetCalculationName(name);
-
-            // Assert
-            string expectedName = $"Golfhoogte bij doorsnede-eis voor locatie '{name}'";
-            Assert.AreEqual(expectedName, calculationName);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("value")]
         public void GetActivityDescription_ValidNames_ExpectedValue(string name)
         {
             // Setup

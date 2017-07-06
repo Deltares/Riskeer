@@ -30,11 +30,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider : ICalculationMessageProvider
     {
-        public string GetCalculationName(string locationName)
-        {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_HydraulicBoundaryLocation_0_, locationName);
-        }
-
         public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_HydraulicBoundaryLocation_0_, locationName);

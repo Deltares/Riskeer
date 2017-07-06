@@ -30,11 +30,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider : ICalculationMessageProvider
     {
-        public string GetCalculationName(string locationName)
-        {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_HydraulicBoundaryLocation_0_, locationName);
-        }
-
         public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_WaveHeight_for_HydraulicBoundaryLocation_0_, locationName);

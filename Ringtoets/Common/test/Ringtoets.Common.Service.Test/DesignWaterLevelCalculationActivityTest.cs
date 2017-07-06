@@ -199,7 +199,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(calculation,
@@ -244,7 +243,6 @@ namespace Ringtoets.Common.Service.Test
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName)
@@ -342,7 +340,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(detailedReport);
             mockRepository.ReplayAll();
 
@@ -458,7 +455,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
             calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName,
                                                                                      string.IsNullOrEmpty(lastErrorFileContent)
                                                                                          ? calculator.HydraRingCalculationException.Message

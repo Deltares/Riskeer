@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new DesignWaterLevelCalculation(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<IDesignWaterLevelCalculation>(calculation);
+            Assert.IsInstanceOf<IHydraulicBoundaryWrapperCalculation>(calculation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
 

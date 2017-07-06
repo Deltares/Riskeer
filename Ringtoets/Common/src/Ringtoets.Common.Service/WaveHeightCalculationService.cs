@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(IWaveHeightCalculation waveHeightCalculation,
+        public void Calculate(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               double norm,
                               ICalculationMessageProvider messageProvider)
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void PerformCalculation(IWaveHeightCalculation waveHeightCalculation,
+        private void PerformCalculation(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
                                         string hydraulicBoundaryDatabaseFilePath,
                                         double norm,
                                         ICalculationMessageProvider messageProvider)
@@ -211,7 +211,7 @@ namespace Ringtoets.Common.Service
         /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="hydraulicBoundaryLocationOutput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
-        /// to set the <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</param>
+        /// for which to set the <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when <paramref name="hydraRingGeneralResult"/> 
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for an wave height calculation.
         /// </summary>
-        /// <param name="waveHeightCalculation">The <see cref="IWaveHeightCalculation"/>
+        /// <param name="waveHeightCalculation">The <see cref="IHydraulicBoundaryWrapperCalculation"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        private static WaveHeightCalculationInput CreateInput(IWaveHeightCalculation waveHeightCalculation,
+        private static WaveHeightCalculationInput CreateInput(IHydraulicBoundaryWrapperCalculation waveHeightCalculation,
                                                               double norm,
                                                               string hydraulicBoundaryDatabaseFilePath)
         {

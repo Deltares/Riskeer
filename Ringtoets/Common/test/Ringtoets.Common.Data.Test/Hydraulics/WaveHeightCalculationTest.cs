@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new WaveHeightCalculation(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<IWaveHeightCalculation>(calculation);
+            Assert.IsInstanceOf<IHydraulicBoundaryWrapperCalculation>(calculation);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculation.Id);
             Assert.AreSame(hydraulicBoundaryLocation.Name, calculation.Name);
 

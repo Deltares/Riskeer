@@ -29,11 +29,6 @@ namespace Ringtoets.Integration.Service.MessageProviders
     /// </summary>
     public class WaveHeightCalculationMessageProvider : ICalculationMessageProvider
     {
-        public string GetCalculationName(string locationName)
-        {
-            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_, locationName);
-        }
-
         public string GetActivityDescription(string locationName)
         {
             return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_, locationName);

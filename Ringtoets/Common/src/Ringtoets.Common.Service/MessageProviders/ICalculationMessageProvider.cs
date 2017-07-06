@@ -27,13 +27,6 @@ namespace Ringtoets.Common.Service.MessageProviders
     public interface ICalculationMessageProvider
     {
         /// <summary>
-        /// Gets the calculation name that can be used for messaging.
-        /// </summary>
-        /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
-        /// <returns>The calculation name.</returns>
-        string GetCalculationName(string calculationSubject);
-
-        /// <summary>
         /// Gets the activity description that can be used for messaging.
         /// </summary>
         /// <param name="calculationSubject">The calculation subject used in the activity description.</param>

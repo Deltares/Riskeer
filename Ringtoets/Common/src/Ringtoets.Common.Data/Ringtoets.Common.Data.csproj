@@ -67,7 +67,6 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculation.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInput.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
-    <Compile Include="Hydraulics\IDesignWaterLevelCalculation.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\GeneralResultSubMechanismIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\SubMechanismIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\IllustrationPointResult.cs" />
@@ -75,7 +74,7 @@
     <Compile Include="Hydraulics\IllustrationPoints\SubMechanismIllustrationPointStochast.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\Stochast.cs" />
     <Compile Include="Hydraulics\IllustrationPoints\TopLevelSubMechanismIllustrationPoint.cs" />
-    <Compile Include="Hydraulics\IWaveHeightCalculation.cs" />
+    <Compile Include="Hydraulics\IHydraulicBoundaryWrapperCalculation.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculation.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />

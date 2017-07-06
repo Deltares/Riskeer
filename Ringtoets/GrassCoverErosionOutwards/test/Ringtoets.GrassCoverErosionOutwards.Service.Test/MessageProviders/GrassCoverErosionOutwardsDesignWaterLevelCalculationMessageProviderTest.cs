@@ -40,23 +40,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         }
 
         [Test]
-        [TestCase(null, TestName = "GetCalculationName_ExpectedValue(null)")]
-        [TestCase("", TestName = "GetCalculationName_ExpectedValue(empty)")]
-        [TestCase("value", TestName = "GetCalculationName_ExpectedValue(value)")]
-        public void GetCalculationName_ValidNames_ExpectedValue(string name)
-        {
-            // Setup
-            var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
-
-            // Call
-            string calculationName = provider.GetCalculationName(name);
-
-            // Assert
-            string expectedName = $"Waterstand bij doorsnede-eis voor locatie '{name}'";
-            Assert.AreEqual(expectedName, calculationName);
-        }
-
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]

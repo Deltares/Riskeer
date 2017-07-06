@@ -24,12 +24,13 @@ using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// Factory to create simple wind direction that can be used for testing.
+    /// Factory to create simple <see cref="WindDirection"/> instances that can be used for testing.
     /// </summary>
     public static class WindDirectionTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WindDirection"/> used for testing.
+        /// Creates a new instance of <see cref="WindDirection"/> with arbitrary values for 
+        /// wind direction name and angle.
         /// </summary>
         public static WindDirection CreateTestWindDirection()
         {
