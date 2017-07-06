@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             "FROM ClosingSituations;";
 
         /// <summary>
-        /// Selects all wind direction with a flag whether it the wind direction is governing.
+        /// Selects all wind direction with a flag whether the wind direction is governing.
         /// </summary>
         public static readonly string WindDirections =
             $"SELECT WindDirections.{IllustrationPointsDatabaseConstants.WindDirectionId}, " +

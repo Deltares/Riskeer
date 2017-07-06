@@ -414,7 +414,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private DataGridViewControl GetDataGridViewControl()
         {
-            return GetControls<DataGridViewControl>("DataGridViewControl").First();
+            return GetControls<DataGridViewControl>("DataGridViewControl").Single();
         }
 
         private DataGridView GetDataGridView()
@@ -430,12 +430,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         /// <summary>
         /// Gets the controls by name.
         /// </summary>
-        /// <param name="controlName">The name of the controls.</param>
+        /// <param name="controlName">The name of the controls to find.</param>
         /// <returns>The found control.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
         private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
         {
-            return testForm.Controls.Find(controlName, true).Cast<TView>();
+            return testForm.Controls.Find(controlName, true).OfType<TView>();
         }
 
         private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()

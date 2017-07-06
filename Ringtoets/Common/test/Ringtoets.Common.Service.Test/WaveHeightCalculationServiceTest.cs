@@ -352,7 +352,6 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "calculationName";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 
