@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
@@ -27,9 +29,11 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// Control to show illustration points.
     /// </summary>
-    public partial class IllustrationPointsControl : UserControl
+    public partial class IllustrationPointsControl : UserControl, ISelectionProvider
     {
         private GeneralResultSubMechanismIllustrationPoint data;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointsControl"/>.
@@ -37,6 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         public IllustrationPointsControl()
         {
             InitializeComponent();
+            InitializeEventHandlers();
         }
 
         /// <summary>
@@ -60,6 +65,29 @@ namespace Ringtoets.Common.Forms.Views
                 illustrationPointsChartControl.Data = data;
                 illustrationPointsTableControl.Data = data;
             }
+        }
+
+        public object Selection
+        {
+            get
+            {
+                return illustrationPointsTableControl.Selection;
+            }
+        }
+
+        private void InitializeEventHandlers()
+        {
+            illustrationPointsTableControl.SelectionChanged += IllustrationPointsTableControlOnSelectionChanged;
+        }
+
+        private void IllustrationPointsTableControlOnSelectionChanged(object sender, EventArgs e)
+        {
+            OnSelectionChanged(e);
+        }
+
+        private void OnSelectionChanged(EventArgs e)
+        {
+            SelectionChanged?.Invoke(this, e);
         }
     }
 }

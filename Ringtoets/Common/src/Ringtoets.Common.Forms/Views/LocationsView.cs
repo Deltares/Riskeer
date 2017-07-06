@@ -66,16 +66,6 @@ namespace Ringtoets.Common.Forms.Views
             InitializeDataGridView();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
         /// <summary>
         /// Updates the data source of the data table based on the <see cref="Data"/>.
         /// </summary>

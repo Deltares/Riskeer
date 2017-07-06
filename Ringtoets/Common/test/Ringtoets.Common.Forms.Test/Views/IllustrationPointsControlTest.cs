@@ -19,11 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+//using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -38,6 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<UserControl>(control);
+            Assert.IsInstanceOf<ISelectionProvider>(control);
             Assert.IsNull(control.Data);
 
             Assert.AreEqual(1, control.Controls.Count);
@@ -76,6 +82,64 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreSame(data, control.Data);
                 Assert.AreSame(data, chartControl.Data);
                 Assert.AreSame(data, tableControl.Data);
+            }
+        }
+
+        [Test]
+        public void GivenFullyConfiguredControl_WhenSelectingCellInRow_ThenSelectionChangedFired()
+        {
+            // Given
+            using (var form = new Form())
+            {
+                var control = new IllustrationPointsControl();
+
+                form.Controls.Add(control);
+                form.Show();
+
+                control.Data = new TestGeneralResultSubMechanismIllustrationPoint();
+
+                var selectionChangedCount = 0;
+                control.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+
+                // When
+                EventHelper.RaiseEvent(tableControl, "SelectionChanged");
+
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+        }
+
+        [Test]
+        public void Selection_Always_SameAsTableControlSelection()
+        {
+            // Call
+            using (var form = new Form())
+            {
+                var control = new IllustrationPointsControl();
+
+                form.Controls.Add(control);
+                form.Show();
+
+                control.Data = new GeneralResultSubMechanismIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    Enumerable.Empty<Stochast>(),
+                    new[]
+                    {
+                        new TopLevelSubMechanismIllustrationPoint(
+                            WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
+                            new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                              Enumerable.Empty<IllustrationPointResult>(), 0.9))
+                    });
+
+                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+                var dataGridView = (DataGridView) tableControl.Controls.Find("dataGridView", true).Single();
+                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+                selectedLocationRow.Cells[0].Value = true;
+
+                // Assert
+                Assert.AreSame(tableControl.Selection, control.Selection);
             }
         }
     }

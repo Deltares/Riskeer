@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Events;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
@@ -92,7 +93,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
         {
-            OnSelectionChanged();
+            OnSelectionChanged(e);
         }
 
         private void UpdateClosingStructureVisibility()
@@ -134,9 +135,9 @@ namespace Ringtoets.Common.Forms.Views
                        .ToList();
         }
 
-        private void OnSelectionChanged()
+        private void OnSelectionChanged(EventArgs e)
         {
-            SelectionChanged?.Invoke(this, EventArgs.Empty);
+            SelectionChanged?.Invoke(this, e);
         }
     }
 }
