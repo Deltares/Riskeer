@@ -292,7 +292,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IAssessmentSection assessmentSection = view.AssessmentSection;
 
             // Precondition
-            DataGridViewControl dataGridView = GetDataGridViewControl();
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
@@ -301,11 +301,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[3].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
-            // Call
             assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
+
+            var refreshed = false;
+            dataGridView.Invalidated += (sender, args) => refreshed = true;
+
+            // Call
             assessmentSection.NotifyObservers();
 
             // Assert
+            Assert.IsTrue(refreshed);
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);

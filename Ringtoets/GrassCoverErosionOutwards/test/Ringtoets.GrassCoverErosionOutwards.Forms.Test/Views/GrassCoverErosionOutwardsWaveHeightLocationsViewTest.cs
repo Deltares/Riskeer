@@ -339,7 +339,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            DataGridViewControl dataGridView = GetDataGridViewControl();
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
@@ -348,11 +348,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
 
-            // Call
             locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
+
+            var refreshed = false;
+            dataGridView.Invalidated += (sender, args) => refreshed = true;
+
+            // Call
             locations.NotifyObservers();
 
             // Assert
+            Assert.IsTrue(refreshed);
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);

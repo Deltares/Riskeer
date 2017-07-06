@@ -339,7 +339,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
-            DataGridViewControl dataGridView = GetDataGridViewControl();
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
