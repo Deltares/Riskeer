@@ -945,7 +945,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importeren van gegevens is door de gebruiker geannuleerd..
+        ///   Looks up a localized string similar to Importeren van gegevens is geannuleerd..
         /// </summary>
         public static string GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled {
             get {
@@ -1010,7 +1010,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijwerken van gegevens is door de gebruiker geannuleerd..
+        ///   Looks up a localized string similar to Bijwerken van gegevens is geannuleerd..
         /// </summary>
         public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_cancelled {
             get {
@@ -1019,7 +1019,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijwerken van gegevens in &apos;{0}&apos; is door de gebruiker geannuleerd..
+        ///   Looks up a localized string similar to Bijwerken van gegevens in &apos;{0}&apos; is geannuleerd..
         /// </summary>
         public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled {
             get {

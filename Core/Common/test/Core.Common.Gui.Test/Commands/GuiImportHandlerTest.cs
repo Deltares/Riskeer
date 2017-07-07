@@ -380,7 +380,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => importHandler.ImportOn(targetObject);
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Importeren van gegevens is door de gebruiker geannuleerd.");
+                TestHelper.AssertLogMessageIsGenerated(call, "Importeren van gegevens is geannuleerd.");
             }
             mockRepository.VerifyAll();
         }

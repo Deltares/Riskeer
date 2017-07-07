@@ -380,7 +380,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => updateHandler.UpdateOn(targetObject);
 
                 // Assert
-                const string expectedLogMessage = "Bijwerken van gegevens is door de gebruiker geannuleerd.";
+                const string expectedLogMessage = "Bijwerken van gegevens is geannuleerd.";
                 Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
                                                                                           LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
@@ -423,7 +423,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => updateHandler.UpdateOn(targetObject);
 
                 // Assert
-                string expectedLogMessage = $"Bijwerken van gegevens in '{currentPath}' is door de gebruiker geannuleerd.";
+                string expectedLogMessage = $"Bijwerken van gegevens in '{currentPath}' is geannuleerd.";
                 Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
                                                                                           LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
