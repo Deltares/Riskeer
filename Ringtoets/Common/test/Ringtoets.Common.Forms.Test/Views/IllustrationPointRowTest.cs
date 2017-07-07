@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -55,6 +57,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new IllustrationPointRow(illustrationPoint);
 
             // Assert
+            TestHelper.AssertTypeConverter<IllustrationPointRow, NoProbabilityValueDoubleConverter>(
+                nameof(IllustrationPointRow.Probability));
+
             Assert.AreSame(illustrationPoint, row.IllustrationPoint);
             Assert.AreEqual(illustrationPoint.WindDirection.Name, row.WindDirection);
             Assert.AreEqual(illustrationPoint.ClosingSituation, row.ClosingSituation);

@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -70,6 +72,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the calculated probability.
         /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double Probability
         {
             get

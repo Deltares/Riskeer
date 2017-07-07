@@ -88,11 +88,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsFalse(closingSituationColumn.Visible);
 
             DataGridViewColumn calculatedProbabilityColumn = dataGridView.Columns[calculatedProbabilityColumnIndex];
-            Assert.AreEqual("Berekende kans", calculatedProbabilityColumn.HeaderText);
+            Assert.AreEqual("Berekende kans [1/jaar]", calculatedProbabilityColumn.HeaderText);
             Assert.IsTrue(calculatedProbabilityColumn.ReadOnly);
 
             DataGridViewColumn calculatedReliabilityColumn = dataGridView.Columns[calculatedReliabilityColumnIndex];
-            Assert.AreEqual("Berekende beta", calculatedReliabilityColumn.HeaderText);
+            Assert.AreEqual("Betrouwbaarheidsindex berekende kans [-]", calculatedReliabilityColumn.HeaderText);
             Assert.IsTrue(calculatedReliabilityColumn.ReadOnly);
         }
 
@@ -116,14 +116,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
-            Assert.AreEqual(0.18406, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
-            Assert.AreEqual(0.24196, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsTrue(dataGridView.Columns[closingScenarioColumnIndex].Visible);
@@ -162,14 +162,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
-            Assert.AreEqual(0.18406, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
-            Assert.AreEqual(0.24196, Convert.ToDouble(cells[calculatedProbabilityColumnIndex].FormattedValue), 1e-5);
+            Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);

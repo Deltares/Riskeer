@@ -115,14 +115,14 @@ namespace Ringtoets.Common.Forms.Views
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.WindDirection),
                                                                    Resources.IllustrationPoint_WindDirection_DisplayName,
                                                                    true);
-            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.ClosingSituation),
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.ClosingSituation), 
                                                                    Resources.IllustrationPoint_ClosingSituation_DisplayName,
                                                                    true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Probability),
-                                                                   Resources.IllustrationPoint_CalculatedProbability_DisplayName,
+                                                                   Resources.CalculationOutput_CalculatedProbability_DisplayName,
                                                                    true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Reliability),
-                                                                   Resources.IllustrationPoint_CalculatedReliability_DisplayName,
+                                                                   Resources.CalculationOutput_CalculatedReliability_DisplayName,
                                                                    true);
 
             illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);
