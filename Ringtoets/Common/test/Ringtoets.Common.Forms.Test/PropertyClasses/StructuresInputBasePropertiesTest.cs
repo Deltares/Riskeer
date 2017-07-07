@@ -182,9 +182,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
+            const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(15, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
             Assert.IsFalse(structureProperty.IsReadOnly);
@@ -277,6 +278,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicDataCategory, stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("Stormduur.", stormDurationProperty.Description);
+
+            PropertyDescriptor shouldIllustrationPointsBeCalculatedProperty = dynamicProperties[dynamicProperties.Count - 1];
+            Assert.AreEqual(outputSettingsCategory, shouldIllustrationPointsBeCalculatedProperty.Category);
+            Assert.AreEqual("Illustratiepunten inlezen", shouldIllustrationPointsBeCalculatedProperty.DisplayName);
+            Assert.AreEqual("Neem de informatie over de illustratiepunten op in het berekeningsresultaat.", shouldIllustrationPointsBeCalculatedProperty.Description);
 
             mockRepository.VerifyAll();
         }
@@ -687,7 +693,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 5;
+            const int numberOfChangedProperties = 6;
             var observerMock = mockRepository.StrictMock<IObserver>();
 
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
@@ -720,6 +726,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             double newStructureNormalOrientation = random.NextDouble();
+            const bool newShouldIllustrationPointsBeCalculated = true;
             var newStructure = new TestStructure();
             ForeshoreProfile newForeshoreProfile = new TestForeshoreProfile();
             HydraulicBoundaryLocation newHydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
@@ -731,6 +738,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             properties.FailureProbabilityStructureWithErosion = "1e-2";
             properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
             properties.ForeshoreProfile = newForeshoreProfile;
+            properties.ShouldIllustrationPointsBeCalculated = newShouldIllustrationPointsBeCalculated;
 
             // Assert
             Assert.AreSame(newStructure, properties.Structure);
@@ -739,6 +747,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("1/100", properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(newHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreSame(newForeshoreProfile, properties.ForeshoreProfile);
+            Assert.AreEqual(newShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
         }
 

@@ -116,6 +116,11 @@ namespace Ringtoets.Common.Data.Structures
         public abstract bool IsStructureInputSynchronized { get; }
 
         /// <summary>
+        /// Gets or sets if the illustration points should be calculated.
+        /// </summary>
+        public bool ShouldIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
         /// Gets or sets the structure.
         /// </summary>
         public T Structure

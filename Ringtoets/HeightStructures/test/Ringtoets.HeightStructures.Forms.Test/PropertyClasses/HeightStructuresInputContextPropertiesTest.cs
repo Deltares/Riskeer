@@ -159,7 +159,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
@@ -186,6 +186,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
 
             mockRepository.VerifyAll();
         }

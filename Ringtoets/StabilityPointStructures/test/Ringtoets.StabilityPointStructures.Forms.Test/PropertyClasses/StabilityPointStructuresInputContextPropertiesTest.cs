@@ -189,7 +189,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(35, dynamicProperties.Count);
+            Assert.AreEqual(36, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -382,6 +382,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearLowSillUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[linearLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearLowSillStormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -417,7 +418,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(35, dynamicProperties.Count);
+            Assert.AreEqual(36, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -610,6 +611,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticLowSillUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[quadraticLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticLowSillStormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -645,7 +647,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(35, dynamicProperties.Count);
+            Assert.AreEqual(36, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearFloodedCulvertVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -856,6 +858,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearFloodedCulvertUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearFloodedCulvertStormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count-1].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -891,7 +894,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(35, dynamicProperties.Count);
+            Assert.AreEqual(36, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticFloodedCulvertVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -1102,6 +1105,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticFloodedCulvertUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticFloodedCulvertStormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
 
             mockRepository.VerifyAll();
         }

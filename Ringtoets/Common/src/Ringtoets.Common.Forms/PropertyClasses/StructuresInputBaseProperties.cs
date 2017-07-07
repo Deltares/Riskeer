@@ -588,5 +588,27 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         #endregion
+
+
+        #region Output Settings
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+
+        #endregion
     }
 }

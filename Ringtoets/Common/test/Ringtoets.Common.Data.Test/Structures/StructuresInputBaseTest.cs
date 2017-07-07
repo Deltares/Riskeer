@@ -116,6 +116,8 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(expectedStormDuration, input.StormDuration);
 
             Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
+
+            Assert.IsFalse(input.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
