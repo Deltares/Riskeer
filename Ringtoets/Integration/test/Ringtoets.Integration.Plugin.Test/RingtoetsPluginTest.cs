@@ -45,6 +45,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -204,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(15, propertyInfos.Length);
+                Assert.AreEqual(16, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -280,6 +281,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(ForeshoreProfilesContext),
                     typeof(ForeshoreProfileCollectionProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(TopLevelSubMechanismIllustrationPoint),
+                    typeof(TopLevelSubMechanismIllustrationPointProperties));
             }
         }
 
