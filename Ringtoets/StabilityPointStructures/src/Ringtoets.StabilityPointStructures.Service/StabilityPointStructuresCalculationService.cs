@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -45,9 +46,9 @@ using RingtoetsStabilityPointStructuresFormsResources = Ringtoets.StabilityPoint
 namespace Ringtoets.StabilityPointStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-ring calculations for stability point structures calculations.
+    /// Service that provides methods for performing Hydra-ring calculations for stability point structures.
     /// </summary>
-    public class StabilityPointStructuresCalculationService
+    public class StabilityPointStructuresCalculationService : StructuresCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
 

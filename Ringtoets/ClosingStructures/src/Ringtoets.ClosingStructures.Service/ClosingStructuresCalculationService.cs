@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -44,9 +45,9 @@ using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Proper
 namespace Ringtoets.ClosingStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-ring calculations for closing structures calculations.
+    /// Service that provides methods for performing Hydra-ring calculations for closing structures.
     /// </summary>
-    public class ClosingStructuresCalculationService
+    public class ClosingStructuresCalculationService : StructuresCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 

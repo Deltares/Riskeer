@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -49,6 +50,16 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var service = new StabilityPointStructuresCalculationService();
+
+            // Assert
+            Assert.IsInstanceOf<StructuresCalculationServiceBase>(service);
+        }
 
         [Test]
         public void Validate_CalculationNull_ThrowArgumentNullException()

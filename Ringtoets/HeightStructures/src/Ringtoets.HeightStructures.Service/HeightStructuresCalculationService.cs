@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
@@ -42,9 +43,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring calculations for height structures calculations.
+    /// Service that provides methods for performing Hydra-Ring calculations for height structures.
     /// </summary>
-    public class HeightStructuresCalculationService
+    public class HeightStructuresCalculationService : StructuresCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
 

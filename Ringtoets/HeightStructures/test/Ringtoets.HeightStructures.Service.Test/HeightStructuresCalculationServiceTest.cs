@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -51,6 +52,16 @@ namespace Ringtoets.HeightStructures.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var service = new HeightStructuresCalculationService();
+
+            // Assert
+            Assert.IsInstanceOf<StructuresCalculationServiceBase>(service);
+        }
 
         [Test]
         public void Validate_CalculationNull_ThrowArgumentNullException()
