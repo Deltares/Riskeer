@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (data != null)
             {
-                if (data.TopLevelSubMechanismIllustrationPoints.Any(ip => ip.ClosingSituation != data.TopLevelSubMechanismIllustrationPoints.First().ClosingSituation))
+                if (data.AllClosingSituationsSame())
                 {
                     illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
                     return;

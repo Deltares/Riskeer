@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Factories
                                                                                                 illustrationPoint.ClosingSituation))
                                                           .ToArray();
 
-            bool showClosingSituation = labels.Any(l => l.Item2 != labels[0].Item2);
+            bool showClosingSituation = generalResultSubMechanismIllustrationPoint.AllClosingSituationsSame();
 
             foreach (Tuple<string, string> label in labels)
             {
