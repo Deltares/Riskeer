@@ -77,6 +77,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
+        {
+            // Given
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+
+            DataGridView dataGridView = GetDataGridView();
+            DataGridViewRow currentRow = dataGridView.Rows[1];
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+
+            // When
+            dataGridView.CurrentCell = currentRow.Cells[0];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+            var selection = view.Selection as WaveHeightLocationContext;
+
+            // Then
+            Assert.AreSame(location, selection.HydraulicBoundaryLocation);
+        }
+
+        [Test]
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Call
@@ -85,25 +105,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Selection);
             }
-        }
-
-        [Test]
-        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
-        {
-            // Call
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-            selectedLocationRow.Cells[0].Value = true;
-
-            // Assert
-            var selection = view.Selection as WaveHeightLocationContext;
-            var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
-
-            Assert.NotNull(selection);
-            Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
         }
 
         [Test]
@@ -451,8 +452,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             view.AssessmentSection = assessmentSection;
+            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }
 

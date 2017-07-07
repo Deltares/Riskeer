@@ -271,7 +271,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override object CreateSelectedItemFromCurrentRow()
             {
-                throw new NotImplementedException();
+                return null;
             }
 
             protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()

@@ -38,6 +38,7 @@ namespace Ringtoets.Common.Forms.Views
     {
         private const int calculateColumnIndex = 0;
         private bool updatingDataSource;
+        private bool updatingControls;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -52,13 +53,7 @@ namespace Ringtoets.Common.Forms.Views
 
         public abstract object Data { get; set; }
 
-        public object Selection
-        {
-            get
-            {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
+        public object Selection { get; private set; }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -176,16 +171,24 @@ namespace Ringtoets.Common.Forms.Views
         {
             dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
             dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
+            illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
         }
 
         private void OnSelectionChanged()
         {
             SelectionChanged?.Invoke(this, new EventArgs());
-
-            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
         }
 
         #region Event handling
+
+        private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs eventArgs)
+        {
+            if (!updatingControls)
+            {
+                Selection = illustrationPointsControl.Selection;
+                OnSelectionChanged();
+            }
+        }
 
         private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -197,7 +200,14 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
         {
+            updatingControls = true;
+
+            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
+
+            Selection = CreateSelectedItemFromCurrentRow();
             OnSelectionChanged();
+
+            updatingControls = false;
         }
 
         /// <summary>

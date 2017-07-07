@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,6 +29,7 @@ using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -95,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestLocationsView view = ShowTestCalculatableView();
 
             // Assert
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
             Assert.AreEqual(1, dataGridView.ColumnCount);
 
             var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
@@ -112,13 +114,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            var createdSelection = new object();
-            view.CreateForSelection = createdSelection;
-
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
 
             // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
@@ -129,28 +128,74 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_Always_ReturnsCreatedSelectionObject()
+        public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenIllustrationPointsUpdated()
         {
-            // Setup
+            // Given
+            ShowFullyConfiguredTestCalculatableView();
+
+            DataGridView dataGridView = GetDataGridView();
+            DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
+
+            // Precondition
+            Assert.AreEqual(2, illustrationPointDataGridView.Rows.Count);
+
+            // When
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+
+            // Then
+            Assert.AreEqual(3, illustrationPointDataGridView.Rows.Count);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
+        {
+            // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            var createdSelection = new object();
-            view.CreateForSelection = createdSelection;
+            DataGridView dataGridView = GetDataGridView();
+            DataGridViewRow currentRow = dataGridView.Rows[1];
 
-            // Call
+            TestCalculatableObject calculatableObject = ((TestCalculatableRow) currentRow.DataBoundItem).CalculatableObject;
+
+            // When
+            dataGridView.CurrentCell = currentRow.Cells[calculateColumnIndex];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
             object selection = view.Selection;
 
-            // Assert
-            Assert.AreSame(createdSelection, selection);
+            // Then
+            Assert.AreSame(calculatableObject, selection);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingRowInIllustrationPointsTable_ThenReturnSelectedIllustrationPoint()
+        {
+            // Given
+            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
+
+            DataGridView dataGridView = GetDataGridView();
+            DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
+
+            DataGridViewRow currentRow = illustrationPointDataGridView.Rows[1];
+
+            TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridView.Rows[0].DataBoundItem).CalculatableObject;
+
+            // When
+            illustrationPointDataGridView.CurrentCell = currentRow.Cells[calculateColumnIndex];
+            EventHelper.RaiseEvent(illustrationPointDataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+            object selection = view.Selection;
+
+            // Then
+            Assert.AreSame(calculatableObject.GeneralResult.TopLevelSubMechanismIllustrationPoints.ElementAt(1), selection);
         }
 
         [Test]
         public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
         {
             // Setup
-            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
+            ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
             var button = new ButtonTester("SelectAllButton", testForm);
 
@@ -170,9 +215,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DeselectAllButton_AllCalculatableItemsSelectedDeselectAllButtonClicked_AllCalculatableItemsNotSelected()
         {
             // Setup
-            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
+            ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
             var button = new ButtonTester("DeselectAllButton", testForm);
 
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -211,7 +256,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
 
             // When
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
@@ -229,7 +274,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+            DataGridView dataGridView = GetDataGridView();
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -243,6 +288,27 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(1, view.ObjectsToCalculate.Count());
             TestCalculatableObject expectedObject = ((IEnumerable<TestCalculatableObject>) view.Data).First();
             Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
+        }
+
+        private DataGridView GetDataGridView()
+        {
+            return GetControls<DataGridView>("DataGridView").First();
+        }
+
+        private DataGridView GetIllustrationPointDataGridView()
+        {
+            return GetControls<DataGridView>("DataGridView").Last();
+        }
+
+        /// <summary>
+        /// Gets the controls by name.
+        /// </summary>
+        /// <param name="controlName">The name of the controls.</param>
+        /// <returns>The found control.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
+        {
+            return testForm.Controls.Find(controlName, true).Cast<TView>();
         }
 
         private TestLocationsView ShowTestCalculatableView()
@@ -259,8 +325,44 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestLocationsView view = ShowTestCalculatableView();
             view.Data = new[]
             {
-                new TestCalculatableObject(),
-                new TestCalculatableObject()
+                new TestCalculatableObject
+                {
+                    GeneralResult = new GeneralResultSubMechanismIllustrationPoint(
+                        WindDirectionTestFactory.CreateTestWindDirection(),
+                        Enumerable.Empty<Stochast>(),
+                        new[]
+                        {
+                            new TopLevelSubMechanismIllustrationPoint(
+                                WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
+                                new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                            new TopLevelSubMechanismIllustrationPoint(
+                                WindDirectionTestFactory.CreateTestWindDirection(), "Open",
+                                new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(), 0.7))
+                        })
+                },
+                new TestCalculatableObject
+                {
+                    GeneralResult = new GeneralResultSubMechanismIllustrationPoint(
+                        WindDirectionTestFactory.CreateTestWindDirection(),
+                        Enumerable.Empty<Stochast>(),
+                        new[]
+                        {
+                            new TopLevelSubMechanismIllustrationPoint(
+                                WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
+                                new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                            new TopLevelSubMechanismIllustrationPoint(
+                                WindDirectionTestFactory.CreateTestWindDirection(), "Open",
+                                new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(), 0.7)),
+                            new TopLevelSubMechanismIllustrationPoint(
+                                WindDirectionTestFactory.CreateTestWindDirection(), "Closed",
+                                new SubMechanismIllustrationPoint("Point 3", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                  Enumerable.Empty<IllustrationPointResult>(), 0.8))
+                        })
+                }
             };
             return view;
         }
@@ -276,6 +378,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         private class TestCalculatableObject
         {
             public bool IsChecked { get; }
+
+            public GeneralResultSubMechanismIllustrationPoint GeneralResult { get; set; }
         }
 
         private class TestLocationsView : LocationsView<TestCalculatableObject>
@@ -300,13 +404,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
             }
 
-            public object CreateForSelection { private get; set; }
-
             public IEnumerable<TestCalculatableObject> ObjectsToCalculate { get; private set; }
 
             protected override object CreateSelectedItemFromCurrentRow()
             {
-                return CreateForSelection;
+                return ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
             }
 
             protected override void SetDataSource()
@@ -324,7 +426,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
             {
-                return null;
+                TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
+
+                return calculatableObject?.GeneralResult;
             }
         }
     }

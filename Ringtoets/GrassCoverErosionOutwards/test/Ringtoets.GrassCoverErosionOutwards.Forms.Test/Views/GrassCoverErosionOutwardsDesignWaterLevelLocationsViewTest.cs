@@ -87,6 +87,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
+        {
+            // Given
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+
+            DataGridView dataGridView = GetDataGridView();
+            DataGridViewRow currentRow = dataGridView.Rows[1];
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+
+            // When
+            dataGridView.CurrentCell = currentRow.Cells[0];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+            var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
+
+            // Then
+            Assert.AreSame(location, selection.HydraulicBoundaryLocation);
+        }
+
+        [Test]
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Call
@@ -95,25 +115,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Selection);
             }
-        }
-
-        [Test]
-        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
-        {
-            // Call
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-            selectedLocationRow.Cells[0].Value = true;
-
-            // Assert
-            var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
-            var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
-
-            Assert.NotNull(selection);
-            Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
         }
 
         [Test]

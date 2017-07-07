@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -40,6 +41,8 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Service.MessageProviders;
+using Button = System.Windows.Forms.Button;
+using Control = System.Windows.Forms.Control;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -79,6 +82,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
+        {
+            // Given
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+
+            DataGridView dataGridView = GetDataGridView();
+            DataGridViewRow currentRow = dataGridView.Rows[1];
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+
+            // When
+            dataGridView.CurrentCell = currentRow.Cells[0];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+            var selection = view.Selection as DesignWaterLevelLocationContext;
+
+            // Then
+            Assert.AreSame(location, selection.HydraulicBoundaryLocation);
+        }
+
+        [Test]
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Call
@@ -87,24 +110,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Selection);
             }
-        }
-
-        [Test]
-        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
-        {
-            // Call
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-            selectedLocationRow.Cells[0].Value = true;
-
-            // Assert
-            var selection = view.Selection as DesignWaterLevelLocationContext;
-            var dataBoundItem = selectedLocationRow.DataBoundItem as HydraulicBoundaryLocationRow;
-
-            Assert.NotNull(selection);
-            Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.CalculatableObject, selection.HydraulicBoundaryLocation);
         }
 
         [Test]
@@ -457,8 +462,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             view.AssessmentSection = assessmentSection;
+            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }
 
