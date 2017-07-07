@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -38,6 +37,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Service.MessageProviders;
@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new DesignWaterLevelLocationsView())
+            using (var view = new DesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Call
-            using (var view = new DesignWaterLevelLocationsView())
+            using (var view = new DesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowDesignWaterLevelLocationsView();
+            ShowDesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             DataGridView dataGridView = GetDataGridView();
@@ -443,9 +443,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return testForm.Controls.Find(controlName, true).OfType<TView>();
         }
 
-        private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()
+        private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
         {
-            var view = new DesignWaterLevelLocationsView();
+            var view = new DesignWaterLevelLocationsView(assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -455,14 +455,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
         {
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView();
-
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.AssessmentSection = assessmentSection;
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection);
+
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }

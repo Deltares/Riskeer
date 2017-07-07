@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -35,18 +36,29 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
+    /// <summary>
+    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
 
-        private IAssessmentSection assessmentSection;
         private GrassCoverErosionOutwardsFailureMechanism failureMechanism;
 
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView()
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsView"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
+            : base(assessmentSection)
         {
             assessmentSectionObserver = new Observer(UpdateCalculateForSelectedButton);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocations);
+
+            assessmentSectionObserver.Observable = AssessmentSection;
         }
 
         public override object Data
@@ -60,19 +72,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 var data = (ObservableList<HydraulicBoundaryLocation>) value;
                 base.Data = data;
                 hydraulicBoundaryLocationsObserver.Observable = data;
-            }
-        }
-
-        public override IAssessmentSection AssessmentSection
-        {
-            get
-            {
-                return assessmentSection;
-            }
-            set
-            {
-                assessmentSection = value;
-                assessmentSectionObserver.Observable = assessmentSection;
             }
         }
 

@@ -35,6 +35,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -64,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Call
                 string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
@@ -113,6 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
+
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             // Call
@@ -124,13 +126,34 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CreateInstance_Always_SetExpectedProperties()
+        {
+            // Setup
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
+            var context = new WaveHeightLocationsContext(assessmentSection);
+
+            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            {
+                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+
+                // Call
+                var view = info.CreateInstance(context) as WaveHeightLocationsView;
+
+                // Assert
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
+            }
+        }
+
+        [Test]
         [Apartment(ApartmentState.STA)]
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -140,11 +163,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
             var context = new WaveHeightLocationsContext(assessmentSection);
 
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(assessmentSection))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
@@ -164,54 +189,42 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(assessmentSection))
             {
-                view.AssessmentSection = assessmentSection;
-
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSectionA = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionB = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(assessmentSectionA))
             {
-                view.AssessmentSection = assessmentSectionA;
-
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
 
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSectionA = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(assessmentSectionA))
             {
                 view.Data = assessmentSectionA;
 
@@ -221,14 +234,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseViewForData_ViewDataNull_ReturnsFalse()
         {
             // Setup
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());

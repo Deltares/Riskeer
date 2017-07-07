@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
@@ -68,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -85,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRow currentRow = dataGridView.Rows[1];
 
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
             // When
             dataGridView.CurrentCell = currentRow.Cells[0];
@@ -100,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Selection_WithoutLocations_ReturnsNull()
         {
             // Call
-            using (var view = new WaveHeightLocationsView())
+            using (var view = new WaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -159,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowWaveHeightLocationsView();
+            ShowWaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             DataGridView dataGridView = GetDataGridView();
@@ -433,9 +434,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return testForm.Controls.Find(controlName, true).OfType<TView>();
         }
 
-        private WaveHeightLocationsView ShowWaveHeightLocationsView()
+        private WaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection)
         {
-            var view = new WaveHeightLocationsView();
+            var view = new WaveHeightLocationsView(assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -445,14 +446,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView()
         {
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView();
-
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.AssessmentSection = assessmentSection;
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection);
+
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }

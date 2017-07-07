@@ -142,9 +142,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, locations) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
-                    view.AssessmentSection = context.AssessmentSection;
                     view.FailureMechanism = context.FailureMechanism;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 },
@@ -160,9 +160,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.AssessmentSection),
                 AfterCreate = (view, context) =>
                 {
-                    view.AssessmentSection = context.AssessmentSection;
                     view.FailureMechanism = context.FailureMechanism;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
@@ -382,11 +382,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static bool CloseHydraulicBoundaryLocationsViewForData(IAssessmentSection viewAssessmentSection,
                                                                        object dataToCloseFor)
         {
-            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = null;
-            if (viewAssessmentSection != null)
-            {
-                viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
-            }
+            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms()
+                                                                                                  .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                                                  .Single();
 
             var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;

@@ -68,7 +68,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Given
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            view.AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             if (rowSelected)
             {
@@ -101,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView()
         {
-            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView();
+            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();

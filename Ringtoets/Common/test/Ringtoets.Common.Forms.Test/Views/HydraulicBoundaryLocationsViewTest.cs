@@ -257,7 +257,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
-            public override IAssessmentSection AssessmentSection { get; set; }
+            public TestHydraulicBoundaryLocationsView() : base(new ObservableTestAssessmentSectionStub()) {}
 
             protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {

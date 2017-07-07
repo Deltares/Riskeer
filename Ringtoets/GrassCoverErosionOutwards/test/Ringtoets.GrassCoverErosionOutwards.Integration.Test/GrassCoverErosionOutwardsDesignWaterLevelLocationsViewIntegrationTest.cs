@@ -23,7 +23,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -68,7 +67,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Given
             GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            view.AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             if (rowSelected)
             {
@@ -101,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView()
         {
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView();
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             testForm.Controls.Add(view);
             testForm.Show();

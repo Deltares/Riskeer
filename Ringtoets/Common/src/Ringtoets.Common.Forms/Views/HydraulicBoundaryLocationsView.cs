@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,6 +37,22 @@ namespace Ringtoets.Common.Forms.Views
         : LocationsView<HydraulicBoundaryLocation>
     {
         private IEnumerable<HydraulicBoundaryLocation> locations;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationsView(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
 
         public override object Data
         {
@@ -56,9 +73,9 @@ namespace Ringtoets.Common.Forms.Views
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="IAssessmentSection"/>.
+        /// Gets the <see cref="IAssessmentSection"/>.
         /// </summary>
-        public abstract IAssessmentSection AssessmentSection { get; set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         protected override void InitializeDataGridView()
         {
