@@ -120,7 +120,10 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (ImportInfo importInfo in supportedImportInfos)
                 {
-                    selectImporterDialog.AddItemType(importInfo.Name, importInfo.Category, importInfo.Image, null);
+                    selectImporterDialog.AddItemType(GetItemName(importInfo),
+                                                     importInfo.Category,
+                                                     importInfo.Image,
+                                                     null);
                 }
 
                 if (selectImporterDialog.ShowDialog() == DialogResult.OK)
@@ -130,6 +133,13 @@ namespace Core.Common.Gui.Commands
             }
 
             return null;
+        }
+
+        private static string GetItemName(ImportInfo importInfo)
+        {
+            return importInfo.FileFilterGenerator != null
+                       ? $"{importInfo.Name} (*.{importInfo.FileFilterGenerator.Extension})"
+                       : importInfo.Name;
         }
 
         private void ImportItemsUsingDialog(ImportInfo importInfo, object target)

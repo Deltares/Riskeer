@@ -430,19 +430,22 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void ImportOn_MultipleSupportedImportInfoAvailable_ShowsDialogWithOptions()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ImportOn_MultipleSupportedImportInfoAvailable_ShowsDialogWithOptions(bool hasFileFilterGenerator)
         {
             // Setup
             const string importInfoAName = "nameA";
             var importInfoA = new ImportInfo<object>
             {
-                Name = importInfoAName
+                Name = importInfoAName,
+                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extensionA") : null
             };
             const string importInfoBName = "nameB";
             var importInfoB = new ImportInfo<object>
             {
-                Name = importInfoBName
+                Name = importInfoBName,
+                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extensionB") : null
             };
 
             var mockRepository = new MockRepository();
@@ -474,8 +477,15 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             Assert.AreEqual(2, listViewItems.Length);
-            Assert.AreEqual(importInfoAName, listViewItems[0].Name);
-            Assert.AreEqual(importInfoBName, listViewItems[1].Name);
+            string expectedItemNameA = hasFileFilterGenerator
+                                           ? $"{importInfoA.Name} (*.{importInfoA.FileFilterGenerator.Extension})"
+                                           : importInfoA.Name;
+            Assert.AreEqual(expectedItemNameA, listViewItems[0].Name);
+            string expectedItemNameB = hasFileFilterGenerator
+                                           ? $"{importInfoB.Name} (*.{importInfoB.FileFilterGenerator.Extension})"
+                                           : importInfoB.Name;
+            Assert.AreEqual(expectedItemNameB, listViewItems[1].Name);
+
             mockRepository.VerifyAll();
         }
     }

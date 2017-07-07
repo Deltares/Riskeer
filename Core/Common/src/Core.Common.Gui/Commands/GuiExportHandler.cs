@@ -106,7 +106,7 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (ExportInfo exportInfo in supportedExportInfos)
                 {
-                    selectExportInfoDialog.AddItemType(exportInfo.Name,
+                    selectExportInfoDialog.AddItemType(GetItemName(exportInfo),
                                                        exportInfo.Category,
                                                        exportInfo.Image,
                                                        null);
@@ -119,6 +119,13 @@ namespace Core.Common.Gui.Commands
             }
 
             return null;
+        }
+
+        private static string GetItemName(ExportInfo exportInfo)
+        {
+            return exportInfo.FileFilterGenerator != null
+                       ? $"{exportInfo.Name} (*.{exportInfo.FileFilterGenerator.Extension})"
+                       : exportInfo.Name;
         }
 
         private void ExportItemUsingDialog(ExportInfo exportInfo, object source)

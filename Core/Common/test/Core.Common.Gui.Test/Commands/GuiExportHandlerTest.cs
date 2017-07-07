@@ -291,9 +291,10 @@ namespace Core.Common.Gui.Test.Commands
             mockRepository.VerifyAll();
         }
 
-        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         [Apartment(ApartmentState.STA)]
-        public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog()
+        public void ExportFrom_MultipleSupportedExportersAvailableWithCustomSelectionDialogStyling_GivesExpectedSelectionDialog(bool hasFileFilterGenerator)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -318,20 +319,26 @@ namespace Core.Common.Gui.Test.Commands
                 dialog.Close();
             };
 
+            var exportInfo1 = new ExportInfo<int>
+            {
+                Name = "Name 1",
+                Category = "Category 1",
+                Image = Resources.Busy_indicator,
+                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extension 1") : null
+            };
+
+            var exportInfo2 = new ExportInfo<int>
+            {
+                Name = "Name 2",
+                Category = "Category 2",
+                Image = Resources.DeleteIcon,
+                FileFilterGenerator = hasFileFilterGenerator ? new FileFilterGenerator("extension 2") : null
+            };
+
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                new ExportInfo<int>
-                {
-                    Name = "Name 1",
-                    Category = "Category 1",
-                    Image = Resources.Busy_indicator
-                },
-                new ExportInfo<int>
-                {
-                    Name = "Name 2",
-                    Category = "Category 2",
-                    Image = Resources.DeleteIcon
-                }
+                exportInfo1,
+                exportInfo2
             });
 
             // Call
@@ -341,10 +348,16 @@ namespace Core.Common.Gui.Test.Commands
             Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
             Assert.AreEqual(2, listViewItems.Count);
-            Assert.AreEqual("Name 1", listViewItems[0].Name);
-            Assert.AreEqual("Category 1", listViewItems[0].Group);
-            Assert.AreEqual("Name 2", listViewItems[1].Name);
-            Assert.AreEqual("Category 2", listViewItems[1].Group);
+            string expectedItemName1 = hasFileFilterGenerator
+                                           ? $"{exportInfo1.Name} (*.{exportInfo1.FileFilterGenerator.Extension})"
+                                           : exportInfo1.Name;
+            Assert.AreEqual(expectedItemName1, listViewItems[0].Name);
+            Assert.AreEqual(exportInfo1.Category, listViewItems[0].Group);
+            string expectedItemName2 = hasFileFilterGenerator
+                                           ? $"{exportInfo2.Name} (*.{exportInfo2.FileFilterGenerator.Extension})"
+                                           : exportInfo2.Name;
+            Assert.AreEqual(expectedItemName2, listViewItems[1].Name);
+            Assert.AreEqual(exportInfo2.Category, listViewItems[1].Group);
 
             mockRepository.VerifyAll();
         }
