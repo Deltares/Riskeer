@@ -756,6 +756,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} (*.{1}).
+        /// </summary>
+        public static string GetItemName_Name_0_FileExtension_1 {
+            get {
+                return ResourceManager.GetString("GetItemName_Name_0_FileExtension_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen &apos;IExportCommandHandler&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;IExportCommandHandler&apos;..
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler {

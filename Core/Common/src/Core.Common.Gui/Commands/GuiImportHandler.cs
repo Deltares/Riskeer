@@ -138,7 +138,7 @@ namespace Core.Common.Gui.Commands
         private static string GetItemName(ImportInfo importInfo)
         {
             return importInfo.FileFilterGenerator != null
-                       ? $"{importInfo.Name} (*.{importInfo.FileFilterGenerator.Extension})"
+                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, importInfo.Name, importInfo.FileFilterGenerator.Extension)
                        : importInfo.Name;
         }
 

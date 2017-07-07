@@ -634,4 +634,7 @@
   <data name="GuiUpdateHandler_RunUpdateActivity_Updating_0_" xml:space="preserve">
     <value>Bijwerken van '{0}'</value>
   </data>
+  <data name="GetItemName_Name_0_FileExtension_1" xml:space="preserve">
+    <value>{0} (*.{1})</value>
+  </data>
 </root>
