@@ -229,7 +229,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             unchecked
             {
-                int hashCode = ForeshoreProfile.GetHashCode();
+                int hashCode = GetForeshoreProfileHashCode();
                 hashCode = (hashCode * 397) ^ DikeHeight.GetHashCode();
 
                 foreach (RoughnessPoint point in DikeGeometry)
@@ -237,6 +237,25 @@ namespace Ringtoets.Common.Data.DikeProfiles
                     hashCode = (hashCode * 397) ^ point.GetHashCode();
                 }
 
+                return hashCode;
+            }
+        }
+
+        private int GetForeshoreProfileHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Id.GetHashCode();
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ WorldReferencePoint.GetHashCode();
+                hashCode = (hashCode * 397) ^ X0.GetHashCode();
+                hashCode = (hashCode * 397) ^ Orientation.GetHashCode();
+                hashCode = (hashCode * 397) ^ (BreakWater?.GetHashCode() ?? 0);
+
+                foreach (Point2D point in ForeshoreGeometry)
+                {
+                    hashCode = (hashCode * 397) ^ point.GetHashCode();
+                }
                 return hashCode;
             }
         }
@@ -257,7 +276,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         private bool Equals(DikeProfile other)
         {
-            return Equals(ForeshoreProfile, other.ForeshoreProfile)
+            return EqualForeshoreProfile(other.ForeshoreProfile)
                    && DikeHeight.Equals(other.DikeHeight)
                    && EqualDikeGeometry(other.DikeGeometry);
         }
@@ -289,6 +308,38 @@ namespace Ringtoets.Common.Data.DikeProfiles
             for (var i = 0; i < nrOfPoints; i++)
             {
                 if (!DikeGeometry[i].Equals(otherPoints[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool EqualForeshoreProfile(ForeshoreProfile other)
+        {
+            return Equals(Id, other.Id)
+                   && Equals(Name, other.Name)
+                   && Equals(WorldReferencePoint, other.WorldReferencePoint)
+                   && Equals(X0, other.X0)
+                   && Equals(Orientation, other.Orientation)
+                   && Equals(BreakWater, other.BreakWater)
+                   && EqualForeshoreGeometry(other.Geometry.ToArray());
+        }
+
+        private bool EqualForeshoreGeometry(Point2D[] otherForeshoreGeometry)
+        {
+            Point2D[] foreshoreGeometry = ForeshoreGeometry.ToArray();
+
+            int nrOfPoints = foreshoreGeometry.Length;
+            if (otherForeshoreGeometry.Length != nrOfPoints)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfPoints; i++)
+            {
+                if (!foreshoreGeometry[i].Equals(otherForeshoreGeometry[i]))
                 {
                     return false;
                 }

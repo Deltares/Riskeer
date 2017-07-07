@@ -131,53 +131,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
             return Name;
         }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((ForeshoreProfile) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ WorldReferencePoint.GetHashCode();
-                hashCode = (hashCode * 397) ^ X0.GetHashCode();
-                hashCode = (hashCode * 397) ^ Orientation.GetHashCode();
-                hashCode = (hashCode * 397) ^ (BreakWater?.GetHashCode() ?? 0);
-
-                foreach (Point2D point in Geometry)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-                return hashCode;
-            }
-        }
-
-        private bool Equals(ForeshoreProfile other)
-        {
-            return Id.Equals(other.Id)
-                   && string.Equals(Name, other.Name)
-                   && WorldReferencePoint.Equals(other.WorldReferencePoint)
-                   && X0.Equals(other.X0)
-                   && Orientation.Equals(other.Orientation)
-                   && Equals(BreakWater, other.BreakWater)
-                   && EqualGeometry(other.Geometry.ToArray());
-        }
-
         private void SetGeometry(IEnumerable<Point2D> points)
         {
             Point2D[] foreshorePoints = points.ToArray();
@@ -187,26 +140,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
             }
 
             Geometry = new RoundedPoint2DCollection(2, foreshorePoints);
-        }
-
-        private bool EqualGeometry(Point2D[] otherGeometry)
-        {
-            Point2D[] pointsArray = Geometry.ToArray();
-
-            int nrOfPoints = pointsArray.Length;
-            if (otherGeometry.Length != nrOfPoints)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < nrOfPoints; i++)
-            {
-                if (!pointsArray[i].Equals(otherGeometry[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
         /// <summary>
