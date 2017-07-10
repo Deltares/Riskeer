@@ -391,6 +391,16 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben..
+        /// </summary>
+        public static string FaultTreeIllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes {
+            get {
+                return ResourceManager.GetString("FaultTreeIllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het voorlandprofiel heeft geen waarde..
         /// </summary>
         public static string ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null {
