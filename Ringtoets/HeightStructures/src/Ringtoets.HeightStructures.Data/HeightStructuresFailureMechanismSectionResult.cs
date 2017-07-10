@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Data
                 {
                     return double.NaN;
                 }
-                return Calculation.Output.Probability;
+                return Calculation.Output.ProbabilityAssessmentOutput.Probability;
             }
         }
     }

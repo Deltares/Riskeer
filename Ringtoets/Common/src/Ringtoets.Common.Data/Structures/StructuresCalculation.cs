@@ -47,10 +47,10 @@ namespace Ringtoets.Common.Data.Structures
         public T InputParameters { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="ProbabilityAssessmentOutput"/>, 
+        /// Gets or sets the <see cref="StructuresOutput"/>, 
         /// which contains the output of a structures calculation.
         /// </summary>
-        public ProbabilityAssessmentOutput Output { get; set; }
+        public StructuresOutput Output { get; set; }
 
         public string Name { get; set; }
 

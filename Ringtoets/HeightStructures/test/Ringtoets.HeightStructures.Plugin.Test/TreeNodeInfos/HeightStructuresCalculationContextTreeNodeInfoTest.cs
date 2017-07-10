@@ -177,8 +177,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var output = children[2] as ProbabilityAssessmentOutput;
-            Assert.IsNotNull(output);
+            Assert.IsInstanceOf<StructuresOutput>(children[2]);
         }
 
         [Test]
@@ -944,7 +943,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            
+
             var foreshoreProfileInput = new TestForeshoreProfile();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
@@ -1135,7 +1134,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var initialProbabilityAssessmentOutput =
+                new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var initialOutput = new StructuresOutput(initialProbabilityAssessmentOutput);
             var calculation = new TestHeightStructuresCalculation
             {
                 Output = initialOutput,

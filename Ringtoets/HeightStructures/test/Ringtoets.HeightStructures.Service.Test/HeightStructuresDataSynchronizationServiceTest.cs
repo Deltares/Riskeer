@@ -58,12 +58,12 @@ namespace Ringtoets.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation2 = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation3 = new StructuresCalculation<HeightStructuresInput>();
@@ -114,7 +114,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation2 = new StructuresCalculation<HeightStructuresInput>
@@ -123,7 +123,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation3 = new StructuresCalculation<HeightStructuresInput>();
@@ -208,12 +208,12 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             var calculation1 = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation2 = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             var calculation3 = new StructuresCalculation<HeightStructuresInput>();
@@ -329,7 +329,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                     ForeshoreProfile = profile,
                     Structure = structure1
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculation
             {

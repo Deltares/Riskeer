@@ -20,18 +20,20 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Simple <see cref="ProbabilityAssessmentOutput"/> that can be used for tests where actual output
+    /// Simple <see cref="StructuresOutput"/> that can be used for tests where actual output
     /// values are not important.
     /// </summary>
-    public class TestStructuresOutput : ProbabilityAssessmentOutput
+    public class TestStructuresOutput : StructuresOutput
     {
         /// <summary>
         /// Creates new instance of <see cref="TestStructuresOutput"/>.
         /// </summary>
-        public TestStructuresOutput() : base(0, 0, 0, 0, 0) {}
+        public TestStructuresOutput()
+            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)) {}
     }
 }

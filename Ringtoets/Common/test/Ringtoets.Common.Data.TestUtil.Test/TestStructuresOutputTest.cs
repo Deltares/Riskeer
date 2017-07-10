@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -33,11 +35,15 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var output = new TestStructuresOutput();
 
             // Assert
-            Assert.AreEqual(0, output.FactorOfSafety.Value);
-            Assert.AreEqual(0, output.RequiredProbability);
-            Assert.AreEqual(0, output.Probability);
-            Assert.AreEqual(0, output.RequiredReliability.Value);
-            Assert.AreEqual(0, output.Reliability.Value);
+            Assert.IsInstanceOf<StructuresOutput>(output);
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                output.ProbabilityAssessmentOutput;
+            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
         }
     }
 }

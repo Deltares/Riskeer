@@ -27,6 +27,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
@@ -145,10 +146,12 @@ namespace Ringtoets.StabilityPointStructures.Service
 
                 if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                failureMechanism.Contribution,
-                                                                                failureMechanism.GeneralInput.N,
-                                                                                calculator.ExceedanceProbabilityBeta);
+                    ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                        ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
+                                                               failureMechanism.Contribution,
+                                                               failureMechanism.GeneralInput.N,
+                                                               calculator.ExceedanceProbabilityBeta);
+                    calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
                 }
             }
             catch (HydraRingCalculationException)

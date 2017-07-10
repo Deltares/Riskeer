@@ -158,7 +158,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
@@ -176,8 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(stabilityPointStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
-            var output = children[2] as ProbabilityAssessmentOutput;
-            Assert.IsNotNull(output);
+            Assert.IsInstanceOf<StructuresOutput>(children[2]);
         }
 
         [Test]
@@ -966,10 +965,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var initialStructuresOutput = new StructuresOutput(probabilityAssessmentOutput);
             var calculation = new TestStabilityPointStructuresCalculation
             {
-                Output = initialOutput,
+                Output = initialStructuresOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -1020,7 +1020,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
-                    Assert.AreNotSame(initialOutput, calculation.Output);
+                    Assert.AreNotSame(initialStructuresOutput, calculation.Output);
                 }
             }
         }

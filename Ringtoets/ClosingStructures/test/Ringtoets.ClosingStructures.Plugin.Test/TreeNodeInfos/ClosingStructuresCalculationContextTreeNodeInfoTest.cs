@@ -69,24 +69,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-            plugin = new ClosingStructuresPlugin
-            {
-                Gui = gui
-            };
-
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -180,7 +162,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(closingStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, closingStructuresInputContext.WrappedData);
 
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(children[2]);
+            Assert.IsInstanceOf<StructuresOutput>(children[2]);
         }
 
         [Test]
@@ -979,7 +961,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var initialProbabilityAssessmentOutput =
+                new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var initialOutput = new StructuresOutput(initialProbabilityAssessmentOutput);
             var calculation = new TestClosingStructuresCalculation
             {
                 Output = initialOutput,
@@ -1157,6 +1141,24 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            gui = mocks.Stub<IGui>();
+            plugin = new ClosingStructuresPlugin
+            {
+                Gui = gui
+            };
+
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         private static void ChangeStructure(ClosingStructure structure)

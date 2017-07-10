@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             TestHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -395,7 +395,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);

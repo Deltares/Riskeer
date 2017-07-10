@@ -72,7 +72,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
                 }
             };
 
@@ -94,7 +94,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
                 }
             };
 

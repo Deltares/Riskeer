@@ -446,7 +446,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -485,7 +485,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 const double probability = 0.56789;
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -551,12 +551,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 const double probability = 0.56789;
                 var successfulCalculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
                 };
 
                 var failedCalculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -609,7 +609,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
@@ -617,7 +617,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
                 }
             }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
         }

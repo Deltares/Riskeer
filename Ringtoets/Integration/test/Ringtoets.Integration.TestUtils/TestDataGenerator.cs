@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -556,7 +557,7 @@ namespace Ringtoets.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
             {
@@ -573,7 +574,7 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {
@@ -590,7 +591,7 @@ namespace Ringtoets.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StructuresCalculation<TCalculationInput>
             {
@@ -599,7 +600,7 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = profile2
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new StructuresCalculation<TCalculationInput>
             {

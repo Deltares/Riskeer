@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -164,7 +165,9 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                entity.ClosingStructuresOutputEntities.Add(calculation.Output.Create<ClosingStructuresOutputEntity>());
+                ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                    calculation.Output.ProbabilityAssessmentOutput;
+                entity.ClosingStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<ClosingStructuresOutputEntity>());
             }
         }
 
@@ -225,7 +228,9 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>());
+                ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                    calculation.Output.ProbabilityAssessmentOutput;
+                entity.HeightStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<HeightStructuresOutputEntity>());
             }
         }
 
@@ -338,7 +343,9 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                entity.StabilityPointStructuresOutputEntities.Add(calculation.Output.Create<StabilityPointStructuresOutputEntity>());
+                ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                    calculation.Output.ProbabilityAssessmentOutput;
+                entity.StabilityPointStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<StabilityPointStructuresOutputEntity>());
             }
         }
 

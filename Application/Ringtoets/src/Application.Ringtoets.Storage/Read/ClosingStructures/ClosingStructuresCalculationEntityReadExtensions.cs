@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             ClosingStructuresOutputEntity output = entity.ClosingStructuresOutputEntities.FirstOrDefault();
             if (output != null)
             {
-                calculation.Output = output.Read();
+                calculation.Output = new StructuresOutput(output.Read());
             }
         }
     }

@@ -71,11 +71,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                    Output = new StructuresOutput(probabilityAssessmentOutput)
                 }
             };
 
@@ -93,11 +94,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             FailureMechanismSection section = CreateSection();
 
             const double probability = 0.65;
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
-                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                    Output = new StructuresOutput(probabilityAssessmentOutput)
                 }
             };
 

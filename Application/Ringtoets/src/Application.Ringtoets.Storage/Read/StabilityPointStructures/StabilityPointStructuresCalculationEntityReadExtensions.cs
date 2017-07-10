@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             StabilityPointStructuresOutputEntity output = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
             if (output != null)
             {
-                calculation.Output = output.Read();
+                calculation.Output = new StructuresOutput(output.Read());
             }
         }
     }

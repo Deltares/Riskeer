@@ -243,7 +243,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     ForeshoreProfile = profile,
                     Structure = structure1
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculation
             {

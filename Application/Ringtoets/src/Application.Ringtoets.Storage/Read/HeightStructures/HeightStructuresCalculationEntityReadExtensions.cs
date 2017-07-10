@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             HeightStructuresOutputEntity output = entity.HeightStructuresOutputEntities.FirstOrDefault();
             if (output != null)
             {
-                calculation.Output = output.Read();
+                calculation.Output = new StructuresOutput(output.Read());
             }
         }
     }

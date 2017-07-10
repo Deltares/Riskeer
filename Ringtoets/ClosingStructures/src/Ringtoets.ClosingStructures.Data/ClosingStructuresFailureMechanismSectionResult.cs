@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Data
                 {
                     return double.NaN;
                 }
-                return Calculation.Output.Probability;
+                return Calculation.Output.ProbabilityAssessmentOutput.Probability;
             }
         }
     }

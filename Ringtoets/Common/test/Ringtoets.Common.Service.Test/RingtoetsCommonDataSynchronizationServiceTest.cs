@@ -199,7 +199,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     ForeshoreProfile = foreshoreProfileToBeRemoved
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculations = new[]
             {
@@ -304,7 +304,7 @@ namespace Ringtoets.Common.Service.Test
             }, "path/to/structures");
             var calculationWithOutput = new StructuresCalculation<TestStructureInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithStructureToRemove = new StructuresCalculation<TestStructureInput>
             {
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     Structure = structureToKeep
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithStructureToRemoveAndOutput = new StructuresCalculation<TestStructureInput>
             {
@@ -327,7 +327,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     Structure = structureToRemove
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             StructuresCalculation<TestStructureInput>[] calculations =
             {
@@ -441,7 +441,7 @@ namespace Ringtoets.Common.Service.Test
             }, "path/to/structures");
             var calculationWithOutput = new StructuresCalculation<TestStructureInput>
             {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithStructureA = new StructuresCalculation<TestStructureInput>
             {
@@ -456,7 +456,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     Structure = structureB
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             var calculationWithStructureAAndOutput = new StructuresCalculation<TestStructureInput>
             {
@@ -464,7 +464,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     Structure = structureA
                 },
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+                Output = new TestStructuresOutput()
             };
             StructuresCalculation<TestStructureInput>[] calculations =
             {

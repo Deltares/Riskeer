@@ -457,7 +457,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             Structure = stabilityPointStructure
                         },
-                        Output = new ProbabilityAssessmentOutput(0.7, 0.85, 0.9, 0.10, 0.11)
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.7, 0.85, 0.9, 0.10, 0.11))
                     }
                 }
             });
@@ -538,7 +538,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseBreakWater = true,
                             UseForeshore = true
                         },
-                        Output = new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12)
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12))
                     }
                 }
             });
@@ -666,7 +666,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             Structure = heightStructure
                         },
-                        Output = new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12)
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12))
                     }
                 }
             });

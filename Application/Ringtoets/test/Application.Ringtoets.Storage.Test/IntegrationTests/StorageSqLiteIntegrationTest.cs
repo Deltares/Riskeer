@@ -1002,7 +1002,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             if (expectedCalculation.HasOutput)
             {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
+                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
             }
             else
             {
@@ -1131,7 +1132,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             if (expectedCalculation.HasOutput)
             {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
+                                                 actualCalculation.Output.ProbabilityAssessmentOutput);
             }
             else
             {
@@ -1325,7 +1327,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             if (expectedCalculation.HasOutput)
             {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
+                                                 actualCalculation.Output.ProbabilityAssessmentOutput);
             }
             else
             {

@@ -81,7 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
             {
-                calculation.Output = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
+                calculation.Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0));
             }
 
             FailureMechanismSection section = CreateSection();
@@ -103,9 +103,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0)
+                Output = new StructuresOutput(probabilityAssessmentOutput)
             };
 
             FailureMechanismSection section = CreateSection();
@@ -120,7 +121,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(calculation.Output.Probability, assessmentLayerTwoA);
+            Assert.AreEqual(probabilityAssessmentOutput.Probability, assessmentLayerTwoA);
         }
 
         [Test]
