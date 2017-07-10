@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -122,11 +123,6 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             CollectionAssert.AreEqual(childrenToBeAttached, faultTreeNode.Children);
-        }
-
-        private class TestIllustrationPoint : IllustrationPointBase
-        {
-            public TestIllustrationPoint() : base("illustration point element", 3.14) {}
         }
     }
 }

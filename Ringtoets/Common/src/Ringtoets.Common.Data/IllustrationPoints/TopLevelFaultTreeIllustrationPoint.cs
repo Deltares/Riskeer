@@ -24,21 +24,22 @@ using System;
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Represents the top level combination of wind direction, closing situation and 
-    /// a submechanism illustration point.
+    /// Represents the top level combination of wind direction, closing situation
+    /// and the fault tree.
     /// </summary>
-    public class TopLevelSubMechanismIllustrationPoint
+    public class TopLevelFaultTreeIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPoint"/>.
+        /// Creates an instance of <see cref="TopLevelFaultTreeIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
-        /// <param name="subMechanismIllustrationPoint">The illustration point.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public TopLevelSubMechanismIllustrationPoint(WindDirection windDirection,
-                                                     string closingSituation,
-                                                     SubMechanismIllustrationPoint subMechanismIllustrationPoint)
+        /// <param name="faultTreeNodeRoot">The illustration point.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter
+        /// is <c>null</c>.</exception>
+        public TopLevelFaultTreeIllustrationPoint(WindDirection windDirection,
+                                                  string closingSituation,
+                                                  FaultTreeIllustrationPointNode faultTreeNodeRoot)
         {
             if (windDirection == null)
             {
@@ -48,20 +49,15 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
-            if (subMechanismIllustrationPoint == null)
+            if (faultTreeNodeRoot == null)
             {
-                throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(faultTreeNodeRoot));
             }
 
             WindDirection = windDirection;
             ClosingSituation = closingSituation;
-            SubMechanismIllustrationPoint = subMechanismIllustrationPoint;
+            FaultTreeNodeRoot = faultTreeNodeRoot;
         }
-
-        /// <summary>
-        /// Gets the closing situation.
-        /// </summary>
-        public string ClosingSituation { get; }
 
         /// <summary>
         /// Gets the wind direction.
@@ -69,8 +65,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         public WindDirection WindDirection { get; }
 
         /// <summary>
-        /// Gets the submechanism illustration point.
+        /// Gets the closing situation.
         /// </summary>
-        public SubMechanismIllustrationPoint SubMechanismIllustrationPoint { get; }
+        public string ClosingSituation { get; }
+
+        /// <summary>
+        /// Gets the root of the illustration points of the fault tree. 
+        /// </summary>
+        public FaultTreeIllustrationPointNode FaultTreeNodeRoot { get; }
     }
 }
