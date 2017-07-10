@@ -180,15 +180,7 @@ namespace Ringtoets.Common.Service
         {
             WaveHeightCalculationInput calculationInput = CreateInput(waveHeightCalculation, norm, hydraulicBoundaryDatabaseFilePath);
 
-            bool calculateIllustrationPoints = waveHeightCalculation.CalculateIllustrationPoints;
-            if (calculateIllustrationPoints)
-            {
-                calculator.CalculateWithIllustrationPoints(calculationInput);
-            }
-            else
-            {
-                calculator.Calculate(calculationInput);
-            }
+            calculator.Calculate(calculationInput);
 
             if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
             {
@@ -198,7 +190,7 @@ namespace Ringtoets.Common.Service
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
                 messageProvider, waveHeightCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
 
-            if (calculateIllustrationPoints)
+            if (waveHeightCalculation.CalculateIllustrationPoints)
             {
                 SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
             }

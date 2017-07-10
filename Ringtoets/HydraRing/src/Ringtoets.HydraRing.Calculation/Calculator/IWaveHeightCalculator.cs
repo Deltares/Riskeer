@@ -70,15 +70,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         void Calculate(WaveHeightCalculationInput input);
 
         /// <summary>
-        /// Performs the actual calculation by running the Hydra-Ring executable.
-        /// Afterwards, sets the <see cref="IllustrationPointsResult"/>.
-        /// </summary>
-        /// <param name="input">The <see cref="WaveHeightCalculationInput"/> which contains all the necessary input
-        /// for the calculation.</param>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        void CalculateWithIllustrationPoints(WaveHeightCalculationInput input);
-
-        /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
         void Cancel();

@@ -179,15 +179,7 @@ namespace Ringtoets.Common.Service
         {
             AssessmentLevelCalculationInput calculationInput = CreateInput(designWaterLevelCalculation, norm, hydraulicBoundaryDatabaseFilePath);
 
-            bool calculateIllustrationPoints = designWaterLevelCalculation.CalculateIllustrationPoints;
-            if (calculateIllustrationPoints)
-            {
-                calculator.CalculateWithIllustrationPoints(calculationInput);
-            }
-            else
-            {
-                calculator.Calculate(calculationInput);
-            }
+            calculator.Calculate(calculationInput);
 
             if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
             {
@@ -197,7 +189,7 @@ namespace Ringtoets.Common.Service
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
                 messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
 
-            if (calculateIllustrationPoints)
+            if (designWaterLevelCalculation.CalculateIllustrationPoints)
             {
                 SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
             }

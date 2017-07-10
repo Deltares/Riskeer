@@ -38,7 +38,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
-        private bool includeIllustrationPoints;
 
         /// <summary>
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
@@ -69,27 +68,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             Calculate(HydraRingUncertaintiesType.All, input);
         }
 
-        public void CalculateWithIllustrationPoints(AssessmentLevelCalculationInput input)
-        {
-            includeIllustrationPoints = true;
-            try
-            {
-                Calculate(input);
-            }
-            finally
-            {
-                includeIllustrationPoints = false;
-            }
-        }
-
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield return targetProbabilityParser;
             yield return convergenceParser;
-            if (includeIllustrationPoints)
-            {
-                yield return illustrationPointsParser;
-            }
+            yield return illustrationPointsParser;
         }
 
         protected override void SetOutputs()
@@ -101,10 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             }
             Converged = convergenceParser.Output;
 
-            if (includeIllustrationPoints)
-            {
-                IllustrationPointsResult = illustrationPointsParser.Output;
-            }
+            IllustrationPointsResult = illustrationPointsParser.Output;
         }
     }
 }

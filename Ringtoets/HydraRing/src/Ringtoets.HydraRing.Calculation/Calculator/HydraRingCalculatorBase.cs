@@ -27,8 +27,10 @@ using System.IO;
 using System.Security;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Properties;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -40,6 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     internal abstract class HydraRingCalculatorBase
     {
         private readonly LastErrorFileParser lastErrorFileParser;
+        private readonly IllustrationPointsParser illustrationPointsParser;
 
         private readonly string hlcdDirectory;
         private Process hydraRingProcess;
@@ -59,6 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             this.hlcdDirectory = hlcdDirectory;
 
             lastErrorFileParser = new LastErrorFileParser();
+            illustrationPointsParser = new IllustrationPointsParser();
         }
 
         /// <summary>
@@ -70,6 +74,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the content of the last error file generated during the Hydra-Ring calculation.
         /// </summary>
         public string LastErrorFileContent { get; private set; }
+
+        /// <summary>
+        /// Gets the result of the illustration points.
+        /// </summary>
+        public GeneralResult IllustrationPointsResult { get; private set; }
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
@@ -150,10 +159,22 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <param name="sectionId">The id of the section of the calculation.</param>
         /// <exception cref="HydraRingFileParserException">Thrown when the HydraRing file parser 
         /// encounters an error while parsing HydraRing output.</exception>
+        /// <remarks>The <see cref="IllustrationPointsResult"/> is set to <c>null</c> when the <see cref="illustrationPointsParser"/>
+        /// encounters an error.</remarks>
         private void ExecuteGenericParsers(HydraRingInitializationService hydraRingInitializationService, int sectionId)
         {
             lastErrorFileParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             LastErrorFileContent = lastErrorFileParser.ErrorFileContent;
+
+            try
+            {
+                illustrationPointsParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
+                IllustrationPointsResult = illustrationPointsParser.Output;
+            }
+            catch (HydraRingFileParserException)
+            {
+                IllustrationPointsResult = null;
+            }
         }
 
         /// <summary>

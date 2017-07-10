@@ -118,7 +118,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool EndInFailure { get; set; }
         public bool IsCanceled { get; private set; }
 
-        public bool CalculatedWithIllustrationPoints { get; private set; }
         public GeneralResult IllustrationPointsResult { get; set; }
         public readonly HydraRingCalculationException HydraRingCalculationException = new HydraRingCalculationException();
 
@@ -131,12 +130,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             ReceivedInputs.Add(input);
 
             CalculationFinished(EventArgs.Empty);
-        }
-
-        public void CalculateWithIllustrationPoints(T input)
-        {
-            CalculatedWithIllustrationPoints = true;
-            Calculate(input);
         }
 
         public void Cancel()
