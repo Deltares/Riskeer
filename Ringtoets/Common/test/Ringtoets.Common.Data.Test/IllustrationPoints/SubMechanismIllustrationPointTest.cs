@@ -40,9 +40,9 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () => new SubMechanismIllustrationPoint(null,
+                                                                        beta,
                                                                         Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        Enumerable.Empty<IllustrationPointResult>(),
-                                                                        beta);
+                                                                        Enumerable.Empty<IllustrationPointResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,9 +58,9 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
+                                                                        beta,
                                                                         null,
-                                                                        Enumerable.Empty<IllustrationPointResult>(),
-                                                                        beta);
+                                                                        Enumerable.Empty<IllustrationPointResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,9 +76,9 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () => new SubMechanismIllustrationPoint("Illustration Point",
+                                                                        beta,
                                                                         Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                        null,
-                                                                        beta);
+                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,14 +98,15 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Call
             var illustrationPoint = new SubMechanismIllustrationPoint(name,
+                                                                      beta,
                                                                       stochasts,
-                                                                      illustrationPointResults,
-                                                                      beta);
+                                                                      illustrationPointResults);
 
             // Assert
+            Assert.IsInstanceOf<IllustrationPointBase>(illustrationPoint);
+
             Assert.AreEqual(name, illustrationPoint.Name);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
-            Assert.AreEqual(5, illustrationPoint.Beta.NumberOfDecimalPlaces);
             Assert.AreSame(stochasts, illustrationPoint.Stochasts);
             Assert.AreSame(illustrationPointResults, illustrationPoint.IllustrationPointResults);
         }

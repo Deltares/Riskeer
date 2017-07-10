@@ -56,9 +56,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 .Results.Select(IllustrationPointResultConverter.CreateIllustrationPointResult);
 
             return new SubMechanismIllustrationPoint(hydraRingSubMechanismIllustrationPoint.Name,
+                                                     hydraRingSubMechanismIllustrationPoint.Beta,
                                                      stochasts,
-                                                     illustrationPointResults,
-                                                     hydraRingSubMechanismIllustrationPoint.Beta);
+                                                     illustrationPointResults);
         }
     }
 }

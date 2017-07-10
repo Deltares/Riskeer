@@ -21,22 +21,21 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Illustration point which contains the results.
     /// </summary>
-    public class SubMechanismIllustrationPoint
+    public class SubMechanismIllustrationPoint : IllustrationPointBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="SubMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point result.</param>
+        /// <param name="beta">The beta value that was realized.</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
-        /// <param name="beta">The beta value that was realized.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of: 
         /// <list type="bullet">
         /// <item><paramref name="name"/></item>
@@ -45,14 +44,11 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </list>
         /// is <c>null</c>.</exception>
         public SubMechanismIllustrationPoint(string name,
+                                             double beta,
                                              IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
-                                             IEnumerable<IllustrationPointResult> illustrationPointResults,
-                                             double beta)
+                                             IEnumerable<IllustrationPointResult> illustrationPointResults)
+            : base(name, beta)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));
@@ -62,22 +58,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(illustrationPointResults));
             }
 
-            Name = name;
-            Beta = new RoundedDouble(5, beta);
-
             Stochasts = stochasts;
             IllustrationPointResults = illustrationPointResults;
         }
-
-        /// <summary>
-        /// Gets the name of the illustration point.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Gets the beta value that was realized.
-        /// </summary>
-        public RoundedDouble Beta { get; }
 
         /// <summary>
         /// Gets the stochasts that belong to this submechanism illustration point.

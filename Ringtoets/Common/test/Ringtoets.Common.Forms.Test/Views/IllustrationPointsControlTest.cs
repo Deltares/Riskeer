@@ -128,8 +128,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                     {
                         new TopLevelSubMechanismIllustrationPoint(
                             WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                            new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                              Enumerable.Empty<IllustrationPointResult>(), 0.9))
+                            new SubMechanismIllustrationPoint("Point 1", 0.9,
+                                                              Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                              Enumerable.Empty<IllustrationPointResult>()))
                     });
 
                 var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();

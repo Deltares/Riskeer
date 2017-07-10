@@ -52,9 +52,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var submechanismIllustrationPoint = new SubMechanismIllustrationPoint(name,
-                                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                                  Enumerable.Empty<IllustrationPointResult>(),
-                                                                                  3);
+                                                                                  3, 
+                                                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(), Enumerable.Empty<IllustrationPointResult>());
             var context = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                     "direction",
                                                                     submechanismIllustrationPoint);
@@ -83,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 new IllustrationPointResult("some description", random.NextDouble())
             };
-            var submechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", stochasts, illustrationPointResults, beta);
+            var submechanismIllustrationPoint = new SubMechanismIllustrationPoint("name", beta, stochasts, illustrationPointResults);
 
             const string closingSituation = "closingSituation";
             const string windDirectionName = "windDirection";

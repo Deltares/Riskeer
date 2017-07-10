@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -29,53 +27,41 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
     [TestFixture]
-    public class FaultTreeIllustrationPointTest
+    public class IllustrationPointBaseTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint(null,
-                                                                     12.3, 
-                                                                     Enumerable.Empty<Stochast>());
+            TestDelegate call = () => new TestIllustrationPointBase(null, 12.3);
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_StochastsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint("Test",
-                                                                     12.3, 
-                                                                     null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("stochasts", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedValues()
+        public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
-            const string name = "Fault tree illustration point name";
-
+            const string name = "Illustration Point Name";
+            
             var random = new Random(21);
             double beta = random.NextDouble();
 
-            IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
-
             // Call
-            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, stochasts);
-
+            var illustrationPoint = new TestIllustrationPointBase(name, beta);
+            
             // Assert
-            Assert.IsInstanceOf<IllustrationPointBase>(illustrationPoint);
-
             Assert.AreEqual(name, illustrationPoint.Name);
-            Assert.AreSame(stochasts, illustrationPoint.Stochasts);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(5, illustrationPoint.Beta.NumberOfDecimalPlaces);
+        }
+
+        private class TestIllustrationPointBase : IllustrationPointBase
+        {
+            public TestIllustrationPointBase(string name, double beta) 
+                : base(name, beta) {}
         }
     }
 }

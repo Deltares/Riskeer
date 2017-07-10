@@ -34,8 +34,8 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// </summary>
         public TestSubMechanismIllustrationPoint()
             : base("Illustration Point",
+                   3.14,
                    Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                   Enumerable.Empty<IllustrationPointResult>(),
-                   3.14) {}
+                   Enumerable.Empty<IllustrationPointResult>()) {}
     }
 }

@@ -53,9 +53,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             const string illustrationPointName = "Illustration point name";
             double beta = random.NextDouble();
             var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
+                                                                      beta,
                                                                       Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                      Enumerable.Empty<IllustrationPointResult>(),
-                                                                      beta);
+                                                                      Enumerable.Empty<IllustrationPointResult>());
 
             const string windDirectionName = "WindDirection Name";
             double angle = random.NextDouble();

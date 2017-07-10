@@ -339,7 +339,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                  double.NaN, double.NaN,
                                                                  double.NaN, CalculationConvergence.NotCalculated)
                 },
-                WaveHeightCalculation = 
+                WaveHeightCalculation =
                 {
                     InputParameters =
                     {
@@ -359,14 +359,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
             var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a submechanism stochast", 10, 9, 8);
 
-            var illustrationPoint = new SubMechanismIllustrationPoint("Name of illustrationPoint", new[]
-                                                                      {
-                                                                          subMechanismIllustrationPointStochast
-                                                                      },
-                                                                      new[]
-                                                                      {
-                                                                          illustrationPointResult
-                                                                      }, 3);
+            var illustrationPoint = new SubMechanismIllustrationPoint("Name of illustrationPoint", 3, new[]
+            {
+                subMechanismIllustrationPointStochast
+            }, new[]
+            {
+                illustrationPointResult
+            });
 
             var windDirection = new WindDirection("60", 60);
             var topLevelIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(windDirection,

@@ -20,39 +20,41 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Illustration point which represents a node in a fault tree.
+    /// Base class for illustration point elements in the tree node.
     /// </summary>
-    public class FaultTreeIllustrationPoint : IllustrationPointBase
+    public abstract class IllustrationPointBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/>.
+        /// Creates a <see cref="IllustrationPointBase"/>.
         /// </summary>
-        /// <param name="name">The name of the illustration point node.</param>
-        /// <param name="beta">The beta value of this illustration point.</param>
-        /// <param name="stochasts">A collection of <see cref="Stochasts"/>
-        /// that are associated with this illustration point node.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
-        /// <paramref name="stochasts"/> is <c>null</c>.</exception>
-        public FaultTreeIllustrationPoint(string name, double beta, IEnumerable<Stochast> stochasts)
-            : base(name, beta)
+        /// <param name="name">The name of the illustration point.</param>
+        /// <param name="beta">The beta value of the illustration point.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        protected IllustrationPointBase(string name, double beta)
         {
-            if (stochasts == null)
+            if (name == null)
             {
-                throw new ArgumentNullException(nameof(stochasts));
+                throw new ArgumentNullException(nameof(name));
             }
 
-            Stochasts = stochasts;
+            Name = name;
+            Beta = new RoundedDouble(5, beta);
         }
 
         /// <summary>
-        /// Gets the stochasts that belong to this illustration point.
+        /// Gets the name of the illustration point.
         /// </summary>
-        public IEnumerable<Stochast> Stochasts { get; }
+        public string Name { get; }
+
+        /// <summary>
+        /// Gets the beta value that was realized.
+        /// </summary>
+        public RoundedDouble Beta { get; }
     }
 }

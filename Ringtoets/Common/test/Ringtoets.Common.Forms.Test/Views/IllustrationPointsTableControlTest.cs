@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -140,12 +139,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                        new SubMechanismIllustrationPoint("Point 1", 0.9,
+                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>())),
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>(), 0.7))
+                        new SubMechanismIllustrationPoint("Point 2", 0.7,
+                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>()))
                 });
             IllustrationPointsTableControl control = ShowControl();
 
@@ -268,12 +269,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 1", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>(), 0.9)),
+                        new SubMechanismIllustrationPoint("Point 1", 0.9,
+                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>())),
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Open",
-                        new SubMechanismIllustrationPoint("Point 2", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>(), 0.7))
+                        new SubMechanismIllustrationPoint("Point 2", 0.7,
+                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                          Enumerable.Empty<IllustrationPointResult>()))
                 });
         }
     }

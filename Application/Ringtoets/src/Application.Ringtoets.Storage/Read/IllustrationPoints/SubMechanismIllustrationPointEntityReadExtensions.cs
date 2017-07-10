@@ -56,9 +56,9 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
                 GetReadIllustrationPointResults(entity.IllustrationPointResultEntities);
 
             return new SubMechanismIllustrationPoint(entity.Name,
+                                                     entity.Beta,
                                                      stochasts,
-                                                     illustrationPointResults,
-                                                     entity.Beta);
+                                                     illustrationPointResults);
         }
 
         private static IEnumerable<SubMechanismIllustrationPointStochast> GetReadSubMechanismIllustrationPointStochasts(

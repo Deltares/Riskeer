@@ -53,9 +53,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             const string illustrationPointName = "Illustration point name";
             double beta = random.NextDouble();
             var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                      Enumerable.Empty<IllustrationPointResult>(),
-                                                                      beta);
+                                                                      beta, 
+                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(), 
+                                                                      Enumerable.Empty<IllustrationPointResult>());
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
@@ -95,9 +95,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             const string illustrationPointName = "Illustration point name";
             double beta = random.NextDouble();
             var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      stochasts,
-                                                                      Enumerable.Empty<IllustrationPointResult>(),
-                                                                      beta);
+                                                                      beta, 
+                                                                      stochasts, 
+                                                                      Enumerable.Empty<IllustrationPointResult>());
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
@@ -143,9 +143,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             double beta = random.NextDouble();
 
             var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                      illustrationPointResults,
-                                                                      beta);
+                                                                      beta, 
+                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(), 
+                                                                      illustrationPointResults);
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
