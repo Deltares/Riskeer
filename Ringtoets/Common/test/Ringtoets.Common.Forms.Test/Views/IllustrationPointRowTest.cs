@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;

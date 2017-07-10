@@ -22,21 +22,21 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// A wind direction.
+    /// Container alpha value definitions.
     /// </summary>
-    public sealed class WindDirection
+    public class Stochast
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WindDirection"/>.
+        /// Creates a new instance of <see cref="Stochast"/>.
         /// </summary>
-        /// <param name="name">The name of the wind direction.</param>
-        /// <param name="angle">The angle of the wind direction in degrees.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// is <c>null</c>.</exception>
-        public WindDirection(string name, double angle)
+        /// <param name="name">The name of the stochast.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="alpha">The alpha value.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public Stochast(string name, double duration, double alpha)
         {
             if (name == null)
             {
@@ -44,17 +44,23 @@ namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
             }
 
             Name = name;
-            Angle = new RoundedDouble(2, angle);
+            Duration = new RoundedDouble(1, duration);
+            Alpha = new RoundedDouble(5, alpha);
         }
 
         /// <summary>
-        /// Gets the descriptive name.
+        /// Gets the name of the stochast.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets the angle of the wind direction.
+        /// Gets the duration of the stochast.
         /// </summary>
-        public RoundedDouble Angle { get; }
+        public RoundedDouble Duration { get; }
+
+        /// <summary>
+        /// Gets the alpha value of the stochast.
+        /// </summary>
+        public RoundedDouble Alpha { get; }
     }
 }

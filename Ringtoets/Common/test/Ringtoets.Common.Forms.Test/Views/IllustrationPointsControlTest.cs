@@ -26,9 +26,8 @@ using Ringtoets.Common.Forms.Views;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-//using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {

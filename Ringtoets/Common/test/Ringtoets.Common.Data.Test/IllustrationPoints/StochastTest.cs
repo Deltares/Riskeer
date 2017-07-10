@@ -21,43 +21,49 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
     [TestFixture]
-    public class IllustrationPointResultTest
+    public class StochastTest
     {
         [Test]
-        public void Constructor_DescriptionNull_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
+
             // Call
-            TestDelegate call = () => new IllustrationPointResult(null,
-                                                                  new Random(21).NextDouble());
+            TestDelegate call = () => new Stochast(null, duration, alpha);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("description", exception.ParamName);
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ValidArguments_ReturnExpectedValues()
         {
             // Setup
-            const string description = "illustration point";
+            const string name = "Stochast name";
 
             var random = new Random(21);
-            double value = random.NextDouble();
+            double duration = random.NextDouble();
+            double alpha = random.NextDouble();
 
             // Call
-            var illustrationPointResult = new IllustrationPointResult(description, value);
+            var stochast = new Stochast(name, duration, alpha);
 
             // Assert
-            Assert.AreEqual(description, illustrationPointResult.Description);
-            Assert.AreEqual(value, illustrationPointResult.Value,
-                            illustrationPointResult.Value.GetAccuracy());
-            Assert.AreEqual(5, illustrationPointResult.Value.NumberOfDecimalPlaces);
+            Assert.AreEqual(name, stochast.Name);
+            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(1, stochast.Duration.NumberOfDecimalPlaces);
+            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
         }
     }
 }

@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 using Core.Components.Stack.Data;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
 
 namespace Ringtoets.Common.Forms.Views

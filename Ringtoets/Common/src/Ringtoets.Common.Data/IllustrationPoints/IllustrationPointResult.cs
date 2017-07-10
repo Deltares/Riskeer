@@ -22,45 +22,39 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Container alpha value definitions.
+    /// An output variable for an illustration point.
     /// </summary>
-    public class Stochast
+    public class IllustrationPointResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="Stochast"/>.
+        /// Creates a new instance of <see cref="IllustrationPointResult"/>.
         /// </summary>
-        /// <param name="name">The name of the stochast.</param>
-        /// <param name="duration">The duration.</param>
-        /// <param name="alpha">The alpha value.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public Stochast(string name, double duration, double alpha)
+        /// <param name="description">The description.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/>
+        /// is <c>null</c>.</exception>
+        public IllustrationPointResult(string description, double value)
         {
-            if (name == null)
+            if (description == null)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(description));
             }
 
-            Name = name;
-            Duration = new RoundedDouble(1, duration);
-            Alpha = new RoundedDouble(5, alpha);
+            Description = description;
+            Value = new RoundedDouble(5, value);
         }
 
         /// <summary>
-        /// Gets the name of the stochast.
+        /// Gets the description of the illustration point result.
         /// </summary>
-        public string Name { get; }
+        public string Description { get; }
 
         /// <summary>
-        /// Gets the duration of the stochast.
+        /// Gets the value of the illustration point result.
         /// </summary>
-        public RoundedDouble Duration { get; }
-
-        /// <summary>
-        /// Gets the alpha value of the stochast.
-        /// </summary>
-        public RoundedDouble Alpha { get; }
+        public RoundedDouble Value { get; }
     }
 }

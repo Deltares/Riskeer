@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
 {

@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
 

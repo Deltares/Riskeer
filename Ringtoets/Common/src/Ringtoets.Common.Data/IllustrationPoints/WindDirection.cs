@@ -22,31 +22,39 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Container of alpha value definitions which contain a realization.
+    /// A wind direction.
     /// </summary>
-    public class SubMechanismIllustrationPointStochast : Stochast
+    public sealed class WindDirection
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubMechanismIllustrationPointStochast"/>.
+        /// Creates a new instance of <see cref="WindDirection"/>.
         /// </summary>
-        /// <param name="name">The name of the stochast.</param>
-        /// <param name="duration">The duration.</param>
-        /// <param name="alpha">The alpha value of the stochast.</param>
-        /// <param name="realization">The realization of the stochast.</param>
+        /// <param name="name">The name of the wind direction.</param>
+        /// <param name="angle">The angle of the wind direction in degrees.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public SubMechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
-            : base(name, duration, alpha)
+        public WindDirection(string name, double angle)
         {
-            Realization = new RoundedDouble(5, realization);
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            Name = name;
+            Angle = new RoundedDouble(2, angle);
         }
 
         /// <summary>
-        /// Gets the realization of the stochast.
+        /// Gets the descriptive name.
         /// </summary>
-        public RoundedDouble Realization { get; }
+        public string Name { get; }
+
+        /// <summary>
+        /// Gets the angle of the wind direction.
+        /// </summary>
+        public RoundedDouble Angle { get; }
     }
 }

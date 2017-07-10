@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="GeneralResultSubMechanismIllustrationPoint"/>.

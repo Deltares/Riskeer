@@ -22,39 +22,31 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// An output variable for an illustration point.
+    /// Container of alpha value definitions which contain a realization.
     /// </summary>
-    public class IllustrationPointResult
+    public class SubMechanismIllustrationPointStochast : Stochast
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointResult"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPointStochast"/>.
         /// </summary>
-        /// <param name="description">The description.</param>
-        /// <param name="value">The value.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/>
+        /// <param name="name">The name of the stochast.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="alpha">The alpha value of the stochast.</param>
+        /// <param name="realization">The realization of the stochast.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public IllustrationPointResult(string description, double value)
+        public SubMechanismIllustrationPointStochast(string name, double duration, double alpha, double realization)
+            : base(name, duration, alpha)
         {
-            if (description == null)
-            {
-                throw new ArgumentNullException(nameof(description));
-            }
-
-            Description = description;
-            Value = new RoundedDouble(5, value);
+            Realization = new RoundedDouble(5, realization);
         }
 
         /// <summary>
-        /// Gets the description of the illustration point result.
+        /// Gets the realization of the stochast.
         /// </summary>
-        public string Description { get; }
-
-        /// <summary>
-        /// Gets the value of the illustration point result.
-        /// </summary>
-        public RoundedDouble Value { get; }
+        public RoundedDouble Realization { get; }
     }
 }

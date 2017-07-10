@@ -22,10 +22,10 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
     [TestFixture]
     public class GeneralResultSubMechanismIllustrationPointExtensionsTest

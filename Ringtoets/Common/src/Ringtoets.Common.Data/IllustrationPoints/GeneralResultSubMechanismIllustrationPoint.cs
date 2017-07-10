@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// The general submechanism illustration points result.

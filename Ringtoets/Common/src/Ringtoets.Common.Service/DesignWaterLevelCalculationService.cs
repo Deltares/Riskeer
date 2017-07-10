@@ -27,7 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;

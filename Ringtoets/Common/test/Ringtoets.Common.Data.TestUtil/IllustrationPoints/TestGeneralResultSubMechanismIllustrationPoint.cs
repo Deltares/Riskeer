@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {

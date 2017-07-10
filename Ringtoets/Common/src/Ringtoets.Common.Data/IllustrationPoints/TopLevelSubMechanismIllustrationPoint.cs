@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Common.Data.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Represents the top level combination of <see cref="WindDirection"/>, closing situation and 

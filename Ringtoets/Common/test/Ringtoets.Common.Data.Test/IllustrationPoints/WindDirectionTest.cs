@@ -21,37 +21,43 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics.IllustrationPoints;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Data.Test.Hydraulics.IllustrationPoints
+namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
     [TestFixture]
-    public class SubMechanismIllustrationPointStochastTest
+    public class WindDirectionTest
     {
         [Test]
-        public void Constructor_ValidArguments_ReturnExpectedValues()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Setup
-            const string name = "Stochast name";
-
             var random = new Random(21);
-            double duration = random.NextDouble();
-            double alpha = random.NextDouble();
-            double realization = random.NextDouble();
 
             // Call
-            var stochast = new SubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+            TestDelegate call = () => new WindDirection(null, random.NextDouble());
 
             // Assert
-            Assert.IsInstanceOf<Stochast>(stochast);
-            Assert.AreEqual(name, stochast.Name);
-            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
-            Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
 
-            Assert.AreEqual(realization, stochast.Realization,
-                            stochast.Realization.GetAccuracy());
-            Assert.AreEqual(5, stochast.Realization.NumberOfDecimalPlaces);
+        [Test]
+        public void Constructor_ValidValues_ReturnsExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double angle = random.NextDouble();
+            const string windDirectionName = "SSE";
+
+            // Call
+            var windDirection = new WindDirection(windDirectionName, angle);
+
+            // Assert
+            Assert.AreEqual(windDirectionName, windDirection.Name);
+            Assert.AreEqual(angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(2, windDirection.Angle.NumberOfDecimalPlaces);
         }
     }
 }
