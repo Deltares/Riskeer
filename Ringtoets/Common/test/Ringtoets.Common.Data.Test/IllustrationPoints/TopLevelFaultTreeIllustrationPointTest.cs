@@ -28,13 +28,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "Name of the wind";
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName,
-                                                  windDirectionAngle);
-
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var faultTreeNode = new FaultTreeIllustrationPointNode(new TestIllustrationPoint());
 
             // Call
@@ -51,12 +45,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_FaultTreeNodeRootNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "Name of the wind";
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName,
-                                                  windDirectionAngle);
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
 
             // Call
             TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
@@ -72,13 +61,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "Name of the wind";
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName,
-                                                  windDirectionAngle);
-
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             const string closingSituation = "closing situation";
 
             var faultTreeNode = new FaultTreeIllustrationPointNode(new TestIllustrationPoint());
