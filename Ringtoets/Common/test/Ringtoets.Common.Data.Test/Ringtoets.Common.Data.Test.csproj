@@ -120,6 +120,7 @@
     <Compile Include="Structures\StructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="Structures\StructuresInputBaseTest.cs" />
     <Compile Include="Exceptions\UpdateDataExceptionTest.cs" />
+    <Compile Include="Structures\StructuresOutputTest.cs" />
     <Compile Include="UpdateDataStrategies\ReplaceDataStrategyBaseTest.cs" />
     <Compile Include="UpdateDataStrategies\UpdateDataStrategyBaseTest.cs" />
   </ItemGroup>

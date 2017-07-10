@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
-    /// This class contains the result a calculation for a <see cref="HydraulicBoundaryLocation"/>.
+    /// This class contains the result of a calculation for a <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public class HydraulicBoundaryLocationOutput
     {
