@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,8 +38,10 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Call
             TestDelegate call = () => new FaultTreeIllustrationPoint(null,
-                                                                     12.3, 
-                                                                     Enumerable.Empty<Stochast>());
+                                                                     12.3,
+                                                                     Enumerable.Empty<Stochast>(),
+                                                                     CombinationType.And);
+            ;
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("name", exception.ParamName);
@@ -48,8 +52,9 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Call
             TestDelegate call = () => new FaultTreeIllustrationPoint("Test",
-                                                                     12.3, 
-                                                                     null);
+                                                                     12.3,
+                                                                     null,
+                                                                     CombinationType.And);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +62,27 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedValues()
+        public void Constructor_InvalidCombinationType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var invalidEnum = (CombinationType) 9001;
+
+            // Call
+            TestDelegate call = () => new FaultTreeIllustrationPoint("Test", 12.3,
+                                                                     Enumerable.Empty<Stochast>(),
+                                                                     invalidEnum);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CombinationType'.";
+            var exception = 
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+            Assert.AreEqual("value", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(CombinationType.And)]
+        [TestCase(CombinationType.Or)]
+        public void Constructor_ValidArguments_ReturnsExpectedValues(CombinationType combinationType)
         {
             // Setup
             const string name = "Fault tree illustration point name";
@@ -68,7 +93,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
 
             // Call
-            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, stochasts);
+            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, stochasts, combinationType);
 
             // Assert
             Assert.IsInstanceOf<IllustrationPointBase>(illustrationPoint);
@@ -76,6 +101,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             Assert.AreEqual(name, illustrationPoint.Name);
             Assert.AreSame(stochasts, illustrationPoint.Stochasts);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(combinationType, illustrationPoint.CombinationType);
         }
     }
 }
