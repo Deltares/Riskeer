@@ -294,8 +294,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 {
                     Tuple<int?, int, Type, CombinationType> root = results.Single(r => !r.Item1.HasValue);
 
-                    rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
-                        BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results);
+                    IllustrationPointTreeNode illustrationPointTreeNode = BuildFaultTree(windDirectionClosingSituation, root.Item2, root.Item4, results);
+
+                    if (illustrationPointTreeNode != null)
+                    {
+                        rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] = illustrationPointTreeNode;
+                    }
                 }
                 return rootIllustrationPoints;
             }
@@ -305,28 +309,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         private Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> GetSubMechanismAsRootIllustrationPoint()
         {
             var rootIllustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
+            int subMechanismId = subMechanisms.First().Key;
+
             foreach (Tuple<int, WindDirection, int, string> windDirectionClosingSituation in GetAllWindDirectionClosingSituationCombinations())
             {
-                KeyValuePair<int, string> subMechanismIdName = subMechanisms.First();
-                string submechanismIllustrationPointName = subMechanismIdName.Value;
+                IllustrationPointTreeNode illustrationPointTreeNode = BuildSubMechanism(
+                    windDirectionClosingSituation,
+                    subMechanismId);
 
-                var key = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, subMechanismIdName.Key);
-
-                double subMechanismIllustrationPointBeta = subMechanismBetaValues[key];
-
-                var illustrationPointStochasts = new List<SubMechanismIllustrationPointStochast>();
-                AddRange(illustrationPointStochasts, subMechanismStochasts[key]);
-
-                var illustrationPointResults = new List<IllustrationPointResult>();
-                AddRange(illustrationPointResults, subMechanismResults[key]);
-
-                var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,
-                                                                          illustrationPointStochasts,
-                                                                          illustrationPointResults,
-                                                                          subMechanismIllustrationPointBeta);
-
-                rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] =
-                    new IllustrationPointTreeNode(illustrationPoint);
+                if (illustrationPointTreeNode != null)
+                {
+                    rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] = illustrationPointTreeNode;
+                }
             }
 
             return rootIllustrationPoints;
@@ -375,9 +369,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
 
             if (!faultTreeBetaValues.ContainsKey(dataKey))
             {
-                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
+                return null;
             }
             var illustrationPoint = new FaultTreeIllustrationPoint(faultTrees[faultTreeId], faultTreeBetaValues[dataKey], combinationType);
+
             if (faultTreeStochasts.ContainsKey(dataKey))
             {
                 AddRange(illustrationPoint.Stochasts, faultTreeStochasts[dataKey]);
@@ -400,6 +395,13 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             var illustrationPointStochasts = new List<SubMechanismIllustrationPointStochast>();
             var illustrationPointResults = new List<IllustrationPointResult>();
 
+            if (!subMechanismBetaValues.ContainsKey(dataKey))
+            {
+                return null;
+            }
+
+            double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
+
             if (subMechanismStochasts.ContainsKey(dataKey))
             {
                 AddRange(illustrationPointStochasts, subMechanismStochasts[dataKey]);
@@ -408,12 +410,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 AddRange(illustrationPointResults, subMechanismResults[dataKey]);
             }
-
-            if (!subMechanismBetaValues.ContainsKey(dataKey))
-            {
-                throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
-            }
-            double subMechanismIllustrationPointBeta = subMechanismBetaValues[dataKey];
 
             string submechanismIllustrationPointName = subMechanisms[subMechanismId];
             var illustrationPoint = new SubMechanismIllustrationPoint(submechanismIllustrationPointName,

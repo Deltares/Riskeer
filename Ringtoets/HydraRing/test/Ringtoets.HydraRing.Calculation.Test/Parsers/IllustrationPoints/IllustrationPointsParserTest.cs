@@ -129,13 +129,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         }
 
         [Test]
-        [TestCase("NoBetaSubMechanism")]
-        [TestCase("NoBetaFaultTree")]
-        [TestCase("NoBetaGeneralResult")]
-        public void Parse_NoBetaValues_ThrowsHydraRingFileParserException(string workingDirectory)
+        public void Parse_NoGeneralResultBetaValue_ThrowsHydraRingFileParserException()
         {
             // Setup
-            string path = Path.Combine(testDirectory, workingDirectory);
+            string path = Path.Combine(testDirectory, "NoBetaGeneralResult");
             var parser = new IllustrationPointsParser();
 
             // Call
@@ -143,7 +140,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Geen waarde voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database.", exception.Message);
+            Assert.AreEqual("Geen waarde voor de betrouwbaarheidsindex voor het algemene resultaat gevonden in de uitvoer database.", exception.Message);
         }
 
         [Test]
@@ -284,6 +281,50 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
         }
 
         [Test]
+        public void Parse_ValidFaultTreesMissingWindDirectionClosingSituationCombinations_TreesNotPartOfResult()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "MissingWindDirectionClosingSituationFaultTree");
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            GeneralResult generalResult = parser.Output;
+            Assert.NotNull(generalResult);
+            Assert.NotNull(generalResult.GoverningWindDirection);
+            Assert.AreEqual(315.0, generalResult.GoverningWindDirection.Angle);
+            Assert.AreEqual("NW", generalResult.GoverningWindDirection.Name);
+            Assert.AreEqual(5.98943, generalResult.Beta);
+            Assert.AreEqual(23, generalResult.Stochasts.Count());
+            Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
+            AssertWindDirectionClosingSituationKeysForAssessmentSection14Dash2(illustrationPointNodes);
+        }
+
+        [Test]
+        public void Parse_ValidSubMechanismsMissingWindDirectionClosingSituationCombinations_SubMechanismsNotPartOfResult()
+        {
+            // Setup
+            string path = Path.Combine(testDirectory, "MissingWindDirectionClosingSituationSubMechanism");
+            var parser = new IllustrationPointsParser();
+
+            // Call
+            parser.Parse(path, 1);
+
+            // Assert
+            GeneralResult generalResult = parser.Output;
+            Assert.NotNull(generalResult);
+            Assert.NotNull(generalResult.GoverningWindDirection);
+            Assert.AreEqual(315.0, generalResult.GoverningWindDirection.Angle);
+            Assert.AreEqual("NW", generalResult.GoverningWindDirection.Name);
+            Assert.AreEqual(4.26568, generalResult.Beta);
+            Assert.AreEqual(9, generalResult.Stochasts.Count());
+            Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
+            AssertWindDirectionClosingSituationKeysForAssessmentSection14Dash2(illustrationPointNodes);
+        }
+
+        [Test]
         public void Parse_ValidDataForOtherSection_SectionIdIgnoredOutputRead()
         {
             // Setup
@@ -296,6 +337,36 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             // Assert
             GeneralResult generalResult = parser.Output;
             Assert.NotNull(generalResult);
+        }
+
+        private static void AssertWindDirectionClosingSituationKeysForAssessmentSection14Dash2(Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes)
+        {
+            CollectionAssert.AreEqual(new[]
+            {
+                new WindDirectionClosingSituation(new WindDirection("N", 0.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("N", 0.0), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NNO", 22.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NO", 45.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ONO", 67.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("O", 90.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("OZO", 112.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ZO", 135.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ZZO", 157.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("Z", 180.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ZZW", 202.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ZW", 225.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("ZW", 225.0), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("WZW", 247.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("WZW", 247.5), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("W", 270.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("W", 270.0), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("WNW", 292.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("WNW", 292.5), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NW", 315.0), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NW", 315.0), "closed barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NNW", 337.5), "open barrier"),
+                new WindDirectionClosingSituation(new WindDirection("NNW", 337.5), "closed barrier")
+            }, illustrationPointNodes.Keys);
         }
 
         private static void GetAllNodes(IllustrationPointTreeNode tree, ICollection<FaultTreeIllustrationPoint> faultTrees, ICollection<SubMechanismIllustrationPoint> subMechanisms)

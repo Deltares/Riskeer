@@ -158,21 +158,20 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen waarde voor de betrouwbaarheidsindex voor 1 illustratiepunt gevonden in de uitvoer database..
-        /// </summary>
-        internal static string IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found {
-            get {
-                return ResourceManager.GetString("IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen maatgevende windrichting gevonden in de uitvoer database..
         /// </summary>
         internal static string IllustrationPointsParser_Parse_No_governing_wind_direction_found {
             get {
-                return ResourceManager.GetString("IllustrationPointsParser_ParseWindDirections_Er_is_geen_maatgevende_windrichting_" +
-                        "gevonden_in_de_uitvoer_database_", resourceCulture);
+                return ResourceManager.GetString("IllustrationPointsParser_Parse_No_governing_wind_direction_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen waarde voor de betrouwbaarheidsindex voor het algemene resultaat gevonden in de uitvoer database..
+        /// </summary>
+        internal static string IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found {
+            get {
+                return ResourceManager.GetString("IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found", resourceCulture);
             }
         }
         
