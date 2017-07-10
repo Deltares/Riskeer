@@ -87,6 +87,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var illustrationPoint = new TopLevelFaultTreeIllustrationPoint(windDirection, closingSituation, faultTreeNode);
 
             // Assert
+            Assert.IsInstanceOf<TopLevelIllustrationPointBase>(illustrationPoint);
+
             Assert.AreSame(windDirection, illustrationPoint.WindDirection);
             Assert.AreEqual(closingSituation, illustrationPoint.ClosingSituation);
             Assert.AreSame(faultTreeNode, illustrationPoint.FaultTreeNodeRoot);

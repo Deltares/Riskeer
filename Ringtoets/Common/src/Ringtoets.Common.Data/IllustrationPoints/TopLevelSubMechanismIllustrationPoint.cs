@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// Represents the top level combination of wind direction, closing situation and 
     /// a submechanism illustration point.
     /// </summary>
-    public class TopLevelSubMechanismIllustrationPoint
+    public class TopLevelSubMechanismIllustrationPoint : TopLevelIllustrationPointBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPoint"/>.
@@ -38,7 +38,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public TopLevelSubMechanismIllustrationPoint(WindDirection windDirection,
                                                      string closingSituation,
-                                                     SubMechanismIllustrationPoint subMechanismIllustrationPoint)
+                                                     SubMechanismIllustrationPoint subMechanismIllustrationPoint) 
+            : base(windDirection, closingSituation)
         {
             if (windDirection == null)
             {
@@ -53,20 +54,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
             }
 
-            WindDirection = windDirection;
-            ClosingSituation = closingSituation;
             SubMechanismIllustrationPoint = subMechanismIllustrationPoint;
         }
-
-        /// <summary>
-        /// Gets the closing situation.
-        /// </summary>
-        public string ClosingSituation { get; }
-
-        /// <summary>
-        /// Gets the wind direction.
-        /// </summary>
-        public WindDirection WindDirection { get; }
 
         /// <summary>
         /// Gets the submechanism illustration point.

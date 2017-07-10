@@ -88,6 +88,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                 new TopLevelSubMechanismIllustrationPoint(windDirection, closingScenario, submechanismIllustrationPoint);
 
             // Assert
+            Assert.IsInstanceOf<TopLevelIllustrationPointBase>(windDirectionClosingScenarioIllustrationPoint);
+
             Assert.AreEqual(closingScenario, windDirectionClosingScenarioIllustrationPoint.ClosingSituation);
             Assert.AreSame(windDirection, windDirectionClosingScenarioIllustrationPoint.WindDirection);
             Assert.AreSame(submechanismIllustrationPoint, windDirectionClosingScenarioIllustrationPoint.SubMechanismIllustrationPoint);

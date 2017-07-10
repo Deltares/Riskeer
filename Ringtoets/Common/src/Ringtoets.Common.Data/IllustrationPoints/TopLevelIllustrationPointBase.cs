@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -24,23 +24,19 @@ using System;
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Represents the top level combination of wind direction, closing situation
-    /// and the fault tree.
+    /// A base class for combinations of wind direction, closing situations 
+    /// and illustration points.
     /// </summary>
-    public class TopLevelFaultTreeIllustrationPoint : TopLevelIllustrationPointBase
+    public abstract class TopLevelIllustrationPointBase
     {
         /// <summary>
-        /// Creates an instance of <see cref="TopLevelFaultTreeIllustrationPoint"/>.
+        /// Creates a <see cref="TopLevelIllustrationPointBase"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
-        /// <param name="faultTreeNodeRoot">The illustration point.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter
+        /// <exception cref="ArgumentNullException">Thrown when any of the parameters
         /// is <c>null</c>.</exception>
-        public TopLevelFaultTreeIllustrationPoint(WindDirection windDirection,
-                                                  string closingSituation,
-                                                  FaultTreeIllustrationPointNode faultTreeNodeRoot)
-            : base(windDirection, closingSituation)
+        protected TopLevelIllustrationPointBase(WindDirection windDirection, string closingSituation)
         {
             if (windDirection == null)
             {
@@ -50,17 +46,19 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
-            if (faultTreeNodeRoot == null)
-            {
-                throw new ArgumentNullException(nameof(faultTreeNodeRoot));
-            }
 
-            FaultTreeNodeRoot = faultTreeNodeRoot;
+            WindDirection = windDirection;
+            ClosingSituation = closingSituation;
         }
 
         /// <summary>
-        /// Gets the root of the illustration points of the fault tree. 
+        /// Gets the wind direction.
         /// </summary>
-        public FaultTreeIllustrationPointNode FaultTreeNodeRoot { get; }
+        public WindDirection WindDirection { get; }
+
+        /// <summary>
+        /// Gets the closing situation.
+        /// </summary>
+        public string ClosingSituation { get; }
     }
 }
