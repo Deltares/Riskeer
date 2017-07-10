@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
 
         /// <summary>
-        /// Gets the beta values that were realized.
+        /// Gets the beta value that was realized.
         /// </summary>
         public double Beta { get; }
 
