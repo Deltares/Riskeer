@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Security;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -106,6 +107,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
                                      + $"{supportedException.Message}";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreSame(supportedException.InnerException, exception.InnerException);
+        }
+
+        [Test]
+        public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
+        {
+            // Setup
+            var calculator = new TestHydraRingCalculator("", new TestParser());
+
+            // Call
+            calculator.PublicCalculate();
+
+            // Assert
+            Assert.AreEqual(" Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
+        }
+
+        [Test]
+        public void Calculate_IllustrationPointsParserThrowsException_LogExceptionMessageAsWarning()
+        {
+            // Setup
+            var calculator = new TestHydraRingCalculator("", new TestParser());
+
+            // Call
+            Action test = () => calculator.PublicCalculate();
+
+            // Assert
+            const string expectedMessage = "Er konden geen illustratiepunten worden uitgelezen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
         }
     }
 

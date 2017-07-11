@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
@@ -37,7 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     {
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
         private readonly ConvergenceParser convergenceParser;
-        private readonly IllustrationPointsParser illustrationPointsParser;
 
         /// <summary>
         /// Create a new instance of <see cref="DesignWaterLevelCalculator"/>.
@@ -49,13 +46,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
             convergenceParser = new ConvergenceParser();
-            illustrationPointsParser = new IllustrationPointsParser();
 
             DesignWaterLevel = double.NaN;
             ReliabilityIndex = double.NaN;
         }
-
-        public GeneralResult IllustrationPointsResult { get; private set; }
 
         public double DesignWaterLevel { get; private set; }
 
@@ -72,7 +66,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             yield return targetProbabilityParser;
             yield return convergenceParser;
-            yield return illustrationPointsParser;
         }
 
         protected override void SetOutputs()
@@ -83,8 +76,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
             Converged = convergenceParser.Output;
-
-            IllustrationPointsResult = illustrationPointsParser.Output;
         }
     }
 }

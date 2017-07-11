@@ -205,18 +205,15 @@ namespace Ringtoets.Common.Service
         /// for which to set the <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
-        /// <exception cref="HydraRingCalculationException">Thrown when <paramref name="hydraRingGeneralResult"/> 
-        /// is <c>null</c>.</exception>
         private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
                                                         HydraRingGeneralResult hydraRingGeneralResult)
         {
-            if (hydraRingGeneralResult == null)
+            if (hydraRingGeneralResult != null)
             {
-                throw new HydraRingCalculationException(Resources.DesignWaterLevelCalculationService_SetIllustrationPointsResult_No_general_result_found);
+                GeneralResultSubMechanismIllustrationPoint generalResult =
+                    GeneralResultSubmechanismIllustrationPointConverter.CreateGeneralResultSubmechanismIllustrationPoint(hydraRingGeneralResult);
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
             }
-            GeneralResultSubMechanismIllustrationPoint generalResult =
-                GeneralResultSubmechanismIllustrationPointConverter.CreateGeneralResultSubmechanismIllustrationPoint(hydraRingGeneralResult);
-            hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
         }
 
         /// <summary>
@@ -256,7 +253,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates the input for a design water level calculation.
         /// </summary>
-        /// <param name="designWaterLevelCalculation">The <see cref="IDesignWaterLevelCalculation"/>
+        /// <param name="designWaterLevelCalculation">The <see cref="IHydraulicBoundaryWrapperCalculation"/>
         /// to create the input from.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic

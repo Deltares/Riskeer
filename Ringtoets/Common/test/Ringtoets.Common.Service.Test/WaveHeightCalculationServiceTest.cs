@@ -216,7 +216,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidWaveHeightCalculationWithIllustrationPointsButIsNull_ThrowsHydraRingCalculationException()
+        public void Calculate_ValidWaveHeightCalculationWithIllustrationPointsButIsNull_IllustrationPointsNotSet()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -244,15 +244,14 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                TestDelegate call = () => new WaveHeightCalculationService()
+                new WaveHeightCalculationService()
                     .Calculate(calculation,
                                validFilePath,
                                1.0 / 30,
                                calculationMessageProvider);
 
                 // Assert
-                var thrownException = Assert.Throws<HydraRingCalculationException>(call);
-                Assert.AreEqual("Er konden geen illustratiepunten worden uitgelezen.", thrownException.Message);
+                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }

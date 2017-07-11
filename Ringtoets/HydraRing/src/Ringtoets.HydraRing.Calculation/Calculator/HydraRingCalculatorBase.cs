@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
+using log4net;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
@@ -41,6 +42,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal abstract class HydraRingCalculatorBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingCalculatorBase));
+
         private readonly LastErrorFileParser lastErrorFileParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
 
@@ -171,8 +174,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 illustrationPointsParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
                 IllustrationPointsResult = illustrationPointsParser.Output;
             }
-            catch (HydraRingFileParserException)
+            catch (HydraRingFileParserException e)
             {
+                log.Warn(e.Message, e);
                 IllustrationPointsResult = null;
             }
         }
