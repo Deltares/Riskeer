@@ -81,6 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
                 Assert.IsInstanceOf<IView>(pipingCalculationsView);
+                Assert.IsInstanceOf<ISelectionProvider>(pipingCalculationsView);
                 Assert.IsNull(pipingCalculationsView.Data);
                 Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);

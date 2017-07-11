@@ -108,27 +108,27 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
-            const string miscCategory = "Misc";
+            const string generalCategory = "Algemeen";
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[0],
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Berekende kans [1/jaar]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[1],
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[2],
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Windrichting",
                                                                             "De windrichting waarvoor dit illlustratiepunt is berekend.",
                                                                             true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[3],
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Sluitscenario",
                                                                             "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
                                                                             true);
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Alfa's",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor durationsProperty = dynamicProperties[5];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Tijdsduren",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor illustrationPointResultsProperty = dynamicProperties[6];
             Assert.NotNull(illustrationPointResultsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointResultsProperty,
-                                                                            miscCategory,
+                                                                            generalCategory,
                                                                             "Waarden in het illustratiepunt",
                                                                             "Realisaties van de stochasten in het illustratiepunt.",
                                                                             true);

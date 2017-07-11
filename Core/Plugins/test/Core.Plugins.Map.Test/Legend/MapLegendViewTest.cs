@@ -71,6 +71,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(Resources.General_Map, view.Text);
                 Assert.IsNotNull(treeViewControl);

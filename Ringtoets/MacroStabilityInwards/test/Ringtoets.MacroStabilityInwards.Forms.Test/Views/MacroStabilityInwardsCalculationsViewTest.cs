@@ -76,6 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(calculationsView);
                 Assert.IsInstanceOf<IView>(calculationsView);
+                Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
                 Assert.IsNull(calculationsView.Data);
                 Assert.IsNull(calculationsView.MacroStabilityInwardsFailureMechanism);
                 Assert.IsNull(calculationsView.AssessmentSection);

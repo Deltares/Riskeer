@@ -66,6 +66,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(Resources.General_Chart, view.Text);
             }

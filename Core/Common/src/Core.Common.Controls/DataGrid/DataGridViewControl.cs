@@ -402,6 +402,8 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="columnIndex">The index of the column.</param>
         /// <param name="isVisible">The visibility of the column.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the 
+        /// index of the column does not exist.</exception>
         public void SetColumnVisibility(int columnIndex, bool isVisible)
         {
             GetColumnFromIndex(columnIndex).Visible = isVisible;

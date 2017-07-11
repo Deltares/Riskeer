@@ -21,6 +21,8 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
+using Core.Common.Base.TypeConverters;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -35,7 +37,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointRow"/>.
         /// </summary>
-        /// <param name="illustrationPoint"></param>
+        /// <param name="illustrationPoint">The illustration point to create the row for.</param>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="illustrationPoint"/> is <c>null</c>.</exception>
         public IllustrationPointRow(TopLevelSubMechanismIllustrationPoint illustrationPoint)
@@ -84,7 +86,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the calculated reliability.
         /// </summary>
-        public double Reliability
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble Reliability
         {
             get
             {
@@ -92,6 +95,9 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the wrapped illustration point.
+        /// </summary>
         public TopLevelSubMechanismIllustrationPoint IllustrationPoint { get; }
     }
 }

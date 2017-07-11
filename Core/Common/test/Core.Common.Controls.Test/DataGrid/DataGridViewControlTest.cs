@@ -1249,14 +1249,14 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void SetColumnVisibility_Always_SetColumnToGivenVisibility(bool isVisible)
+        public void SetColumnVisibility_IsVisible_SetColumnToGivenVisibility(bool isVisible)
         {
             // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
                 form.Controls.Add(control);
-                form.Show();
+
                 control.AddTextBoxColumn("Test property", "Test header");
 
                 DataGridViewColumn dataGridViewColumn = control.GetColumnFromIndex(0);

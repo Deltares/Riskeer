@@ -24,7 +24,7 @@ using System;
 namespace Core.Common.Controls.Views
 {
     /// <summary>
-    /// Interface for views which can influence the selection on an application level.
+    /// Interface for views and controls which can influence the selection on an application level.
     /// </summary>
     public interface ISelectionProvider
     {

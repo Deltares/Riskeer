@@ -33,8 +33,15 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
         /// </summary>
         public TestSubMechanismIllustrationPoint()
+            : this(3.14) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="beta">The beta of the illustration point.</param>
+        public TestSubMechanismIllustrationPoint(double beta)
             : base("Illustration Point",
-                   3.14,
+                   beta,
                    Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                    Enumerable.Empty<IllustrationPointResult>()) {}
     }

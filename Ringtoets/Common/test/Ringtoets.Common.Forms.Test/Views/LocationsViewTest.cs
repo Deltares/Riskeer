@@ -30,6 +30,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -62,6 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
+                Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
 
                 Assert.AreEqual(1, view.Controls.Count);
@@ -97,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestLocationsView view = ShowTestCalculatableView();
 
             // Assert
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             Assert.AreEqual(1, dataGridView.ColumnCount);
 
             var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
@@ -117,7 +119,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
@@ -133,7 +135,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
 
             // Precondition
@@ -153,7 +155,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow currentRow = dataGridView.Rows[1];
 
             TestCalculatableObject calculatableObject = ((TestCalculatableRow) currentRow.DataBoundItem).CalculatableObject;
@@ -173,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
 
             DataGridViewRow currentRow = illustrationPointDataGridView.Rows[1];
@@ -195,7 +197,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
             var button = new ButtonTester("SelectAllButton", testForm);
 
@@ -217,7 +219,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             var button = new ButtonTester("DeselectAllButton", testForm);
 
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -256,7 +258,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             // When
             dataGridView.Rows[0].Cells[calculateColumnIndex].Value = true;
@@ -274,7 +276,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
 
-            DataGridView dataGridView = GetDataGridView();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -290,25 +292,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
         }
 
-        private DataGridView GetDataGridView()
-        {
-            return GetControls<DataGridView>("DataGridView").First();
-        }
-
         private DataGridView GetIllustrationPointDataGridView()
         {
-            return GetControls<DataGridView>("DataGridView").Last();
-        }
-
-        /// <summary>
-        /// Gets the controls by name.
-        /// </summary>
-        /// <param name="controlName">The name of the controls.</param>
-        /// <returns>The found control.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
-        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
-        {
-            return testForm.Controls.Find(controlName, true).Cast<TView>();
+            DataGridViewControl dataGridViewControl = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
+            return ControlTestHelper.GetDataGridView(dataGridViewControl, "DataGridView");
         }
 
         private TestLocationsView ShowTestCalculatableView()

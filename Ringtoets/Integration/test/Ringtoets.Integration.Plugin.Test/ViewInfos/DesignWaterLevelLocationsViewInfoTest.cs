@@ -34,8 +34,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            using (var view = new DesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
             {
                 // Call
                 string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_Always_SetExpectedProperties()
         {
             // Setup
-           var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
@@ -165,7 +165,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-            using (var view = new DesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             using (var view = new DesignWaterLevelLocationsView(assessmentSection))
             {
@@ -202,8 +202,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionA = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var assessmentSectionB = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionA = new ObservableTestAssessmentSectionStub();
+            var assessmentSectionB = new ObservableTestAssessmentSectionStub();
 
             using (var view = new DesignWaterLevelLocationsView(assessmentSectionA))
             {
@@ -219,7 +219,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionA = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionA = new ObservableTestAssessmentSectionStub();
 
             using (var view = new DesignWaterLevelLocationsView(assessmentSectionA))
             {
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ViewDataNull_ReturnsFalse()
         {
             // Setup
-            using (var view = new DesignWaterLevelLocationsView(new AssessmentSection(AssessmentSectionComposition.Dike)))
+            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());

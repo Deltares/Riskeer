@@ -31,13 +31,13 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
     public class GeneralResultSubMechanismIllustrationPointExtensionsTest
     {
         [Test]
-        public void AllClosingSituationsSame_IllustrationPointNull_ThrowsArgumentNullException()
+        public void AreAllClosingSituationsSame_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             GeneralResultSubMechanismIllustrationPoint illustrationPoint = null;
 
             // Call
-            TestDelegate test = () => illustrationPoint.AllClosingSituationsSame();
+            TestDelegate test = () => illustrationPoint.AreAllClosingSituationsSame();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void AllClosingSituationsSame_SituationsSame_ReturnTrue()
+        public void AreAllClosingSituationsSame_SituationsNotSame_ReturnFalse()
         {
             // Setup
             var illustrationPoint = new GeneralResultSubMechanismIllustrationPoint(
@@ -62,14 +62,14 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                 });
 
             // Call
-            bool situationsSame = illustrationPoint.AllClosingSituationsSame();
+            bool situationsSame = illustrationPoint.AreAllClosingSituationsSame();
 
             // Assert
-            Assert.IsTrue(situationsSame);
+            Assert.IsFalse(situationsSame);
         }
 
         [Test]
-        public void AllClosingSituationsSame_SituationsNotSame_ReturnFalse()
+        public void AreAllClosingSituationsSame_SituationsSame_ReturnTrue()
         {
             // Setup
             var illustrationPoint = new GeneralResultSubMechanismIllustrationPoint(
@@ -86,10 +86,26 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                 });
 
             // Call
-            bool situationsSame = illustrationPoint.AllClosingSituationsSame();
+            bool situationsSame = illustrationPoint.AreAllClosingSituationsSame();
 
             // Assert
-            Assert.IsFalse(situationsSame);
+            Assert.IsTrue(situationsSame);
+        }
+
+        [Test]
+        public void AreAllClosingSituationsSame_TopLevelSubMechanismIllustrationPointsEmpty_ReturnTrue()
+        {
+            // Setup
+            var illustrationPoint = new GeneralResultSubMechanismIllustrationPoint(
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
+
+            // Call
+            bool situationsSame = illustrationPoint.AreAllClosingSituationsSame();
+
+            // Assert
+            Assert.IsTrue(situationsSame);
         }
     }
 }

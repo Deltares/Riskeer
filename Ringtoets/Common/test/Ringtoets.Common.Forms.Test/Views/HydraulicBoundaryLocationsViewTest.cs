@@ -26,10 +26,10 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -72,10 +72,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
+            ShowTestHydraulicBoundaryLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView)view.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             Assert.AreEqual(5, dataGridView.ColumnCount);
 
             var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_IAssessmentSection_DataSet()
+        public void Data_HydraulicBoundaryLocations_DataSet()
         {
             // Setup
             using (var view = new TestHydraulicBoundaryLocationsView())
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanIAssessmentSection_DataNull()
+        public void Data_OtherThanHydraulicBoundaryLocations_DataNull()
         {
             // Setup
             using (var view = new TestHydraulicBoundaryLocationsView())
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
             // Assert
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(4, rows.Count);
 
@@ -177,9 +177,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
+            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return view;
         }
 
-        private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
+        private void ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
             TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
@@ -212,8 +212,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            return view;
         }
 
         private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase

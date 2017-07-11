@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <returns><c>true</c> when all closing situations are the same; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPoint"/>
         /// is <c>null</c>.</exception>
-        public static bool AllClosingSituationsSame(this GeneralResultSubMechanismIllustrationPoint illustrationPoint)
+        public static bool AreAllClosingSituationsSame(this GeneralResultSubMechanismIllustrationPoint illustrationPoint)
         {
             if (illustrationPoint == null)
             {
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
 
             return illustrationPoint.TopLevelSubMechanismIllustrationPoints
-                                    .Any(ip => ip.ClosingSituation != illustrationPoint.TopLevelSubMechanismIllustrationPoints
+                                    .All(ip => ip.ClosingSituation == illustrationPoint.TopLevelSubMechanismIllustrationPoints
                                                                                        .First().ClosingSituation);
         }
     }

@@ -48,10 +48,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const double beta = 123.789;
+
             var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(
                 WindDirectionTestFactory.CreateTestWindDirection(),
                 "Regular",
-                new TestSubMechanismIllustrationPoint());
+                new TestSubMechanismIllustrationPoint(beta));
 
             // Call
             var row = new IllustrationPointRow(illustrationPoint);
@@ -60,11 +62,16 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestHelper.AssertTypeConverter<IllustrationPointRow, NoProbabilityValueDoubleConverter>(
                 nameof(IllustrationPointRow.Probability));
 
+            TestHelper.AssertTypeConverter<IllustrationPointRow, NoValueRoundedDoubleConverter>(
+                nameof(IllustrationPointRow.Reliability));
+
+            double expectedProbability = StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta);
+
             Assert.AreSame(illustrationPoint, row.IllustrationPoint);
             Assert.AreEqual(illustrationPoint.WindDirection.Name, row.WindDirection);
             Assert.AreEqual(illustrationPoint.ClosingSituation, row.ClosingSituation);
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta), row.Probability);
-            Assert.AreEqual(illustrationPoint.SubMechanismIllustrationPoint.Beta, row.Reliability);
+            Assert.AreEqual(expectedProbability, row.Probability);
+            Assert.AreEqual(beta, row.Reliability);
         }
     }
 }

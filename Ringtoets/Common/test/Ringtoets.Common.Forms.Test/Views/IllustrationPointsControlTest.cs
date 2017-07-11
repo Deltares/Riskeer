@@ -19,21 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Views;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
     public class IllustrationPointsControlTest
     {
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -63,14 +65,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             using (var form = new Form())
+            using (var control = new IllustrationPointsControl())
             {
-                var control = new IllustrationPointsControl();
-
                 form.Controls.Add(control);
                 form.Show();
 
-                var chartControl = (IllustrationPointsChartControl) control.Controls.Find("IllustrationPointsChartControl", true).Single();
-                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+                IllustrationPointsChartControl chartControl = ControlTestHelper.GetControls<IllustrationPointsChartControl>(form, "IllustrationPointsChartControl").First();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
 
                 var data = new TestGeneralResultSubMechanismIllustrationPoint();
 
@@ -89,9 +90,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             using (var form = new Form())
+            using (var control = new IllustrationPointsControl())
             {
-                var control = new IllustrationPointsControl();
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
 
                 // When
                 EventHelper.RaiseEvent(tableControl, "SelectionChanged");
@@ -111,13 +111,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_Always_SameAsTableControlSelection()
+        public void Selection_ValidRowSelected_SameAsTableControlSelection()
         {
-            // Call
+            // Setup
             using (var form = new Form())
+            using (var control = new IllustrationPointsControl())
             {
-                var control = new IllustrationPointsControl();
-
                 form.Controls.Add(control);
                 form.Show();
 
@@ -128,18 +127,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                     {
                         new TopLevelSubMechanismIllustrationPoint(
                             WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                            new SubMechanismIllustrationPoint("Point 1", 0.9,
-                                                              Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                              Enumerable.Empty<IllustrationPointResult>()))
+                            new TestSubMechanismIllustrationPoint())
                     });
 
-                var tableControl = (IllustrationPointsTableControl) control.Controls.Find("IllustrationPointsTableControl", true).Single();
-                var dataGridView = (DataGridView) tableControl.Controls.Find("dataGridView", true).Single();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
+                DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
                 DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
                 selectedLocationRow.Cells[0].Value = true;
 
+                // Call
+                object selection = tableControl.Selection;
+
                 // Assert
-                Assert.AreSame(tableControl.Selection, control.Selection);
+                Assert.AreSame(selection, control.Selection);
             }
         }
     }

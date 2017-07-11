@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
     public class TestSubMechanismIllustrationPointTest
     {
         [Test]
-        public void DefaultConstructor_Test()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var illustrationPoint = new TestSubMechanismIllustrationPoint();
@@ -41,6 +41,24 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
             CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
             Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+        }
+
+        [Test]
+        public void ParameterdConstructor_ExpectedValues()
+        {
+            // Setup
+            const double beta = 1.23;
+
+            // Call
+            var illustrationPoint = new TestSubMechanismIllustrationPoint(beta);
+
+            // Assert
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(illustrationPoint);
+
+            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
         }
     }
 }

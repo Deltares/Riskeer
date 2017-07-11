@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -72,10 +73,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void OnLoad_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            IllustrationPointsTableControl control = ShowControl();
+            ShowControl();
 
             // Assert
-            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             Assert.AreEqual(4, dataGridView.ColumnCount);
             DataGridViewColumn windDirectionColumn = dataGridView.Columns[windDirectionColumnIndex];
             Assert.AreEqual("Windrichting", windDirectionColumn.HeaderText);
@@ -106,7 +107,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             control.Data = data;
 
             // Assert
-            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
@@ -116,14 +117,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0.90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0.70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsTrue(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
@@ -139,14 +140,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 1", 0.9,
-                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>())),
+                        new TestSubMechanismIllustrationPoint(0.9)),
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 2", 0.7,
-                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>()))
+                        new TestSubMechanismIllustrationPoint(0.7))
                 });
             IllustrationPointsTableControl control = ShowControl();
 
@@ -154,7 +151,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             control.Data = data;
 
             // Assert
-            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
@@ -164,14 +161,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual(0.9.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0.90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual(0.7.ToString(CultureInfo.CurrentCulture), cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0.70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
@@ -184,7 +181,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IllustrationPointsTableControl control = ShowControl();
             control.Data = data;
 
-            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true).Single();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
 
             // Precondition
@@ -209,7 +206,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var dataGridView = (DataGridView) control.Controls.Find("DataGridView", true)[0];
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             // When
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculatedProbabilityColumnIndex];
@@ -237,7 +234,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IllustrationPointsTableControl control = ShowControl();
             control.Data = GetGeneralResult();
 
-            var dataGridView = (DataGridView) testForm.Controls.Find("dataGridView", true).First();
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
             selectedLocationRow.Cells[0].Value = true;
 
@@ -269,14 +266,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Point 1", 0.9,
-                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>())),
+                        new TestSubMechanismIllustrationPoint(0.9)),
                     new TopLevelSubMechanismIllustrationPoint(
                         WindDirectionTestFactory.CreateTestWindDirection(), "Open",
-                        new SubMechanismIllustrationPoint("Point 2", 0.7,
-                                                          Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                          Enumerable.Empty<IllustrationPointResult>()))
+                        new TestSubMechanismIllustrationPoint(0.7))
                 });
         }
     }
