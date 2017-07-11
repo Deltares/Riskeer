@@ -109,12 +109,12 @@ namespace Core.Common.Gui.Commands
                     selectExportInfoDialog.AddItemType(GetItemName(exportInfo),
                                                        exportInfo.Category,
                                                        exportInfo.Image,
-                                                       null);
+                                                       exportInfo);
                 }
 
                 if (selectExportInfoDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return supportedExportInfos.First(info => info.Name == selectExportInfoDialog.SelectedItemTypeName);
+                    return (ExportInfo) selectExportInfoDialog.SelectedItemTag;
                 }
             }
 

@@ -123,12 +123,12 @@ namespace Core.Common.Gui.Commands
                     selectImporterDialog.AddItemType(GetItemName(importInfo),
                                                      importInfo.Category,
                                                      importInfo.Image,
-                                                     null);
+                                                     importInfo);
                 }
 
                 if (selectImporterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return supportedImportInfos.First(i => i.Name == selectImporterDialog.SelectedItemTypeName);
+                    return (ImportInfo) selectImporterDialog.SelectedItemTag;
                 }
             }
 
