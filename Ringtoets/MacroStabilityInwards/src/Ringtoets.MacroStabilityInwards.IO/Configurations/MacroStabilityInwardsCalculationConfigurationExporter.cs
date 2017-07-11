@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
@@ -76,6 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
+
+            calculationConfiguration.Scenario = calculation.ToScenarioConfiguration();
 
             return calculationConfiguration;
         }

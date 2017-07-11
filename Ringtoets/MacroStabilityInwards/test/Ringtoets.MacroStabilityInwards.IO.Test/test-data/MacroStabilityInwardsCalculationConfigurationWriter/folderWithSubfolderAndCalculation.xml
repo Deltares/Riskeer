@@ -6,6 +6,10 @@
       <profielschematisatie>PK001_0001</profielschematisatie>
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
       <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>0.3</bijdrage>
+      </scenario>
     </berekening>
     <map naam="PK001_0002">
       <berekening naam="PK001_0002 W1-6_4_1D1">
@@ -13,6 +17,10 @@
         <profielschematisatie>PK001_0002</profielschematisatie>
         <ondergrondmodel>PK001_0002_Macrostabiliteit</ondergrondmodel>
         <ondergrondschematisatie>W1-6_4_1D1</ondergrondschematisatie>
+        <scenario>
+          <gebruik>true</gebruik>
+          <bijdrage>0.3</bijdrage>
+        </scenario>
       </berekening>
     </map>
   </map>

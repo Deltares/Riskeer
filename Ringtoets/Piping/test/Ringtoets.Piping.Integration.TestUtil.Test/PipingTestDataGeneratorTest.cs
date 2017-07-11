@@ -128,6 +128,17 @@ namespace Ringtoets.Piping.Integration.TestUtil.Test
         }
 
         [Test]
+        public void GetIrrelevantPipingCalculationScenario_Always_ReturnCalculationScenario()
+        {
+            // Call
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario();
+
+            // Assert
+            Assert.IsFalse(calculation.IsRelevant);
+            Assert.AreEqual(0.5, calculation.Contribution, calculation.Contribution.GetAccuracy());
+        }
+
+        [Test]
         public void GetPipingCalculationScenarioWithNaNs_Always_ReturnCalculationScenarioWithNaNs()
         {
             // Call

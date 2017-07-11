@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
+            string filePath = TestHelper.GetScratchPadPath(nameof(Write_CalculationGroupsAndCalculation_ValidFile));
 
             var surfaceline = new RingtoetsMacroStabilityInwardsSurfaceLine
             {
@@ -53,9 +53,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = CreateFullCalculationConfiguration();
+            MacroStabilityInwardsCalculationConfiguration calculation = CreateFullCalculationConfiguration();
 
-            var calculation2 = CreateFullCalculationConfiguration();
+            MacroStabilityInwardsCalculationConfiguration calculation2 = CreateFullCalculationConfiguration();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.HydraulicBoundaryLocationName = "PUNT_SCH_17";
             calculation2.SurfaceLineName = "PK001_0002";
@@ -105,7 +105,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 HydraulicBoundaryLocationName = "PUNT_KAT_18",
                 SurfaceLineName = "PK001_0001",
                 StochasticSoilModelName = "PK001_0001_Macrostabiliteit",
-                StochasticSoilProfileName = "W1-6_0_1D1"
+                StochasticSoilProfileName = "W1-6_0_1D1",
+                Scenario = new ScenarioConfiguration
+                {
+                    IsRelevant = true,
+                    Contribution = 0.3
+                }
             };
         }
 

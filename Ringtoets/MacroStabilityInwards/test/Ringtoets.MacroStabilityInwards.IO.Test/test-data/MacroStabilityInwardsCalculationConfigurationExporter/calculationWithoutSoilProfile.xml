@@ -4,5 +4,9 @@
     <hrlocatie>PUNT_KAT_18</hrlocatie>
     <profielschematisatie>PK001_0001</profielschematisatie>
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>1</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

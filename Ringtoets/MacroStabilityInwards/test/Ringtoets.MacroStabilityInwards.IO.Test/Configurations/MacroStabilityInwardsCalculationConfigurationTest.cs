@@ -56,6 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(readCalculation.SurfaceLineName);
             Assert.IsNull(readCalculation.StochasticSoilModelName);
             Assert.IsNull(readCalculation.StochasticSoilProfileName);
+            Assert.IsNull(readCalculation.Scenario);
         }
 
         [Test]
@@ -68,6 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string surfaceLine = "Name of the surface line";
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
+            const double contribution = 2.2;
+            const bool isRelevant = false;
 
             // Call
             var readCalculation = new MacroStabilityInwardsCalculationConfiguration(calculationName)
@@ -76,7 +79,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
                 SurfaceLineName = surfaceLine,
                 StochasticSoilModelName = stochasticSoilModel,
-                StochasticSoilProfileName = stochasticSoilProfile
+                StochasticSoilProfileName = stochasticSoilProfile,
+                Scenario = new ScenarioConfiguration
+                {
+                    Contribution = contribution,
+                    IsRelevant = isRelevant
+                }
             };
 
             // Assert
@@ -86,6 +94,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(surfaceLine, readCalculation.SurfaceLineName);
             Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModelName);
             Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfileName);
+            Assert.AreEqual(contribution, readCalculation.Scenario.Contribution);
+            Assert.AreEqual(isRelevant, readCalculation.Scenario.IsRelevant);
         }
 
         [Test]

@@ -2,11 +2,12 @@
 <configuratie>
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <hrlocatie>PUNT_KAT_18</hrlocatie>
+    <profielschematisatie>PK001_0001</profielschematisatie>
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
     <scenario>
-      <gebruik>true</gebruik>
-      <bijdrage>1</bijdrage>
+      <gebruik>false</gebruik>
+      <bijdrage>0.5</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

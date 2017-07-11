@@ -23,7 +23,6 @@ using System;
 using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
-using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
@@ -51,6 +50,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
+            WriteCalculationElements(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteCalculationElements(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
             WriteElementWhenContentAvailable(writer,
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                              configuration.AssessmentLevel);
@@ -68,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                              configuration.StochasticSoilProfileName);
 
-            writer.WriteEndElement();
+            WriteScenarioWhenAvailable(writer, configuration.Scenario);
         }
     }
 }

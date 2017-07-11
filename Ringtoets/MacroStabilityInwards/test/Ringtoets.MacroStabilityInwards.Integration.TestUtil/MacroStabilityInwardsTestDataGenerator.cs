@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> without soil profile.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> without soil profile.
         /// </summary>
         /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> without soil profile.</returns>
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile()
@@ -111,9 +111,23 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         }
 
         /// <summary>
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> with relevance set to <c>false</c>.
+        /// </summary>
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with relevance set to <c>false</c>
+        /// .</returns>
+        public static MacroStabilityInwardsCalculationScenario GetIrrelevantMacroStabilityInwardsCalculationScenario()
+        {
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
+            calculation.Contribution = (RoundedDouble) 0.5;
+            calculation.IsRelevant = false;
+
+            return calculation;
+        }
+
+        /// <summary>
         /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/>.</returns>
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenario()
         {
             var surfaceline = new RingtoetsMacroStabilityInwardsSurfaceLine

@@ -62,6 +62,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 yield return new TestCaseData("calculationWithoutSoilProfile",
                                               MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile())
                     .SetName(testNameFormat);
+                yield return new TestCaseData("calculationIrrelevant",
+                                              MacroStabilityInwardsTestDataGenerator.GetIrrelevantMacroStabilityInwardsCalculationScenario())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithNaNs",
                                               MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithNaNs())
                     .SetName(testNameFormat);

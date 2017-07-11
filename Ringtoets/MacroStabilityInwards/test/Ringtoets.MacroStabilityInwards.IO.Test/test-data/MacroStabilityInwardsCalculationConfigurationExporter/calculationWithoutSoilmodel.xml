@@ -3,5 +3,9 @@
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <hrlocatie>PUNT_KAT_18</hrlocatie>
     <profielschematisatie>PK001_0001</profielschematisatie>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>1</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

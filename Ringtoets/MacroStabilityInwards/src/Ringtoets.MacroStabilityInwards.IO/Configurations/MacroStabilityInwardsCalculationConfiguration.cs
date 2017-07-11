@@ -25,7 +25,7 @@ using Ringtoets.Common.IO.Configurations;
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Class that represents a macro stability inwards calculation configuration.
+    /// Class that represents a configuration of a macro stability inwards calculation scenario.
     /// </summary>
     public class MacroStabilityInwardsCalculationConfiguration : IConfigurationItem
     {
@@ -65,6 +65,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// Gets or sets the name of the stochastic soil profile of the calculation.
         /// </summary>
         public string StochasticSoilProfileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the configuration of the scenario of the calculation.
+        /// </summary>
+        public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
         /// Gets or sets the name for the calculation.

@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.xml");
+            string filePath = TestHelper.GetScratchPadPath(nameof(Write_CalculationGroupsAndCalculation_ValidFile));
 
             var surfaceline = new RingtoetsPipingSurfaceLine
             {

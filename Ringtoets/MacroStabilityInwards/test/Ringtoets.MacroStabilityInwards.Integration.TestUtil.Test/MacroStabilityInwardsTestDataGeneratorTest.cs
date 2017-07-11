@@ -134,6 +134,17 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
         }
 
         [Test]
+        public void GetIrrelevantMacroStabilityInwardsCalculationScenario_Always_ReturnCalculationScenario()
+        {
+            // Call
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsTestDataGenerator.GetIrrelevantMacroStabilityInwardsCalculationScenario();
+
+            // Assert
+            Assert.IsFalse(calculation.IsRelevant);
+            Assert.AreEqual(0.5, calculation.Contribution, calculation.Contribution.GetAccuracy());
+        }
+
+        [Test]
         public void GetMacroStabilityInwardsCalculationScenarioWithNaNs_Always_ReturnCalculationScenarioWithNaNs()
         {
             // Call
