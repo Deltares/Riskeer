@@ -61,12 +61,14 @@
     </Compile>
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
+    <Compile Include="Configurations\Helpers\ICalculationScenarioConversionExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\WaveReductionConversionExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationValidationExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\DistributionConversionExtensionsTest.cs" />
     <Compile Include="Configurations\Helpers\ILogExtensionsTest.cs" />
     <Compile Include="Configurations\Import\ConfigurationImportHelperTest.cs" />
     <Compile Include="Configurations\StochastConfigurationTest.cs" />
+    <Compile Include="Configurations\ScenarioConfigurationTest.cs" />
     <Compile Include="Configurations\StructuresCalculationStochastAssignerTest.cs" />
     <Compile Include="Configurations\WaveReductionConfigurationTest.cs" />
     <Compile Include="Configurations\Export\CalculationConfigurationExporterTest.cs" />

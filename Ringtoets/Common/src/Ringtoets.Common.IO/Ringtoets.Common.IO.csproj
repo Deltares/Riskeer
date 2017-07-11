@@ -58,9 +58,11 @@
     <Compile Include="Configurations\Helpers\ConfigurationImportHelper.cs" />
     <Compile Include="Configurations\Helpers\DistributionConversionExtensions.cs" />
     <Compile Include="Configurations\Helpers\ILogExtensions.cs" />
+    <Compile Include="Configurations\Helpers\ICalculationScenarioConversionExtensions.cs" />
     <Compile Include="Configurations\Helpers\WaveReductionConversionExtensions.cs" />
     <Compile Include="Configurations\IConfigurationItem.cs" />
     <Compile Include="Configurations\StochastConfiguration.cs" />
+    <Compile Include="Configurations\ScenarioConfiguration.cs" />
     <Compile Include="Configurations\StructuresCalculationStochastAssigner.cs" />
     <Compile Include="Configurations\WaveReductionConfiguration.cs" />
     <Compile Include="Configurations\Helpers\ConfigurationBreakWaterTypeConverter.cs" />

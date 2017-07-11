@@ -185,5 +185,24 @@ namespace Ringtoets.Common.IO.Configurations
         public const string ForeshoreProfileNameElement = "voorlandprofiel";
 
         #endregion
+
+        #region Scenario calculation
+
+        /// <summary>
+        /// The identifier for scenario elements.
+        /// </summary>
+        public const string ScenarioElement = "scenario";
+
+        /// <summary>
+        /// The identifier for the scenario contribution name.
+        /// </summary>
+        public const string ContributionScenarioName = "bijdrage";
+
+        /// <summary>
+        /// The identifier for the scenario relevance name.
+        /// </summary>
+        public const string IsRelevantScenarioName = "gebruik";
+
+        #endregion
     }
 }

@@ -60,6 +60,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNull(readPipingCalculation.StochasticSoilProfileName);
             Assert.IsNull(readPipingCalculation.PhreaticLevelExit);
             Assert.IsNull(readPipingCalculation.DampingFactorExit);
+            Assert.IsNull(readPipingCalculation.Scenario);
         }
 
         [Test]
@@ -78,6 +79,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             const double phreaticLevelExitStandardDeviation = 5.5;
             const double dampingFactorExitMean = 6.6;
             const double dampingFactorExitStandardDeviation = 7.7;
+            const double contribution = 8.8;
+            const bool isRelevant = false;
 
             // Call
             var readPipingCalculation = new PipingCalculationConfiguration(calculationName)
@@ -98,6 +101,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 {
                     Mean = dampingFactorExitMean,
                     StandardDeviation = dampingFactorExitStandardDeviation
+                },
+                Scenario = new ScenarioConfiguration
+                {
+                    Contribution = contribution,
+                    IsRelevant = isRelevant
                 }
             };
 
@@ -114,6 +122,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExit.Mean);
             Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(contribution, readPipingCalculation.Scenario.Contribution);
+            Assert.AreEqual(isRelevant, readPipingCalculation.Scenario.IsRelevant);
         }
 
         [Test]

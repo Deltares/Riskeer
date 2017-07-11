@@ -35,10 +35,37 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual("map", ConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
             Assert.AreEqual("hrlocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
+            Assert.AreEqual("orientatie", ConfigurationSchemaIdentifiers.Orientation);
+
             Assert.AreEqual("stochasten", ConfigurationSchemaIdentifiers.StochastsElement);
             Assert.AreEqual("stochast", ConfigurationSchemaIdentifiers.StochastElement);
             Assert.AreEqual("verwachtingswaarde", ConfigurationSchemaIdentifiers.MeanElement);
             Assert.AreEqual("standaardafwijking", ConfigurationSchemaIdentifiers.StandardDeviationElement);
+            Assert.AreEqual("variatiecoefficient", ConfigurationSchemaIdentifiers.VariationCoefficientElement);
+            Assert.AreEqual("peilverhogingkomberging", ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName);
+            Assert.AreEqual("kritiekinstromenddebiet", ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName);
+            Assert.AreEqual("modelfactoroverloopdebiet", ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName);
+            Assert.AreEqual("breedtebodembescherming", ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName);
+            Assert.AreEqual("kombergendoppervlak", ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName);
+            Assert.AreEqual("stormduur", ConfigurationSchemaIdentifiers.StormDurationStochastName);
+            Assert.AreEqual("breedtedoorstroomopening", ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName);
+
+            Assert.AreEqual("golfreductie", ConfigurationSchemaIdentifiers.WaveReduction);
+            Assert.AreEqual("damgebruiken", ConfigurationSchemaIdentifiers.UseBreakWater);
+            Assert.AreEqual("damtype", ConfigurationSchemaIdentifiers.BreakWaterType);
+            Assert.AreEqual("damhoogte", ConfigurationSchemaIdentifiers.BreakWaterHeight);
+            Assert.AreEqual("voorlandgebruiken", ConfigurationSchemaIdentifiers.UseForeshore);
+            Assert.AreEqual("caisson", ConfigurationSchemaIdentifiers.BreakWaterCaisson);
+            Assert.AreEqual("havendam", ConfigurationSchemaIdentifiers.BreakWaterDam);
+            Assert.AreEqual("verticalewand", ConfigurationSchemaIdentifiers.BreakWaterWall);
+
+            Assert.AreEqual("faalkansgegevenerosiebodem", ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement);
+            Assert.AreEqual("kunstwerk", ConfigurationSchemaIdentifiers.StructureElement);
+            Assert.AreEqual("voorlandprofiel", ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement);
+
+            Assert.AreEqual("scenario", ConfigurationSchemaIdentifiers.ScenarioElement);
+            Assert.AreEqual("bijdrage", ConfigurationSchemaIdentifiers.ContributionScenarioName);
+            Assert.AreEqual("gebruik", ConfigurationSchemaIdentifiers.IsRelevantScenarioName);
         }
     }
 }

@@ -25,7 +25,7 @@ using Ringtoets.Common.IO.Configurations;
 namespace Ringtoets.Piping.IO.Configurations
 {
     /// <summary>
-    /// Configuration of a piping calculation.
+    /// Configuration of a piping calculation scenario.
     /// </summary>
     public class PipingCalculationConfiguration : IConfigurationItem
     {
@@ -85,6 +85,11 @@ namespace Ringtoets.Piping.IO.Configurations
         /// Gets or sets the configuration of the damping factor exit of the piping calculation.
         /// </summary>
         public StochastConfiguration DampingFactorExit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the configuration of the scenario of the piping calculation.
+        /// </summary>
+        public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the piping calculation.
