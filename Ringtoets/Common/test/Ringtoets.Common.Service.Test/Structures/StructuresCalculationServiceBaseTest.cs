@@ -218,6 +218,99 @@ namespace Ringtoets.Common.Service.Test.Structures
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Validate_InputInvalidAccordingToValidationRule_LogErrorAndReturnFalse()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            mocks.ReplayAll();
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    Structure = new TestStructure(),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    IsValid = false
+                }
+            };
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Validatie mislukt: Error message", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InputValidAccordingToValidationRule_ReturnTrue()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            mocks.ReplayAll();
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    Structure = new TestStructure(),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    IsValid = true
+                }
+            };
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+            });
+            Assert.IsTrue(isValid);
+
+            mocks.VerifyAll();
+        }
+
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
             TestStructuresInput,
             TestStructure> {}

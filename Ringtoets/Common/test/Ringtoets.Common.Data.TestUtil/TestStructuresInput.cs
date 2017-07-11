@@ -28,7 +28,20 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public class TestStructuresInput : StructuresInputBase<TestStructure>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStructuresInput"/>.
+        /// </summary>
+        public TestStructuresInput()
+        {
+            IsValid = true;
+        }
+
         public override bool IsStructureInputSynchronized { get; }
+
+        /// <summary>
+        /// Gets or sets whether the input is valid.
+        /// </summary>
+        public bool IsValid { get; set; }
 
         public override void SynchronizeStructureInput() {}
     }

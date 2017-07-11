@@ -32,7 +32,25 @@ namespace Ringtoets.Common.Service.TestUtil
     {
         public IEnumerable<ValidationRule> GetValidationRules(TestStructuresInput input)
         {
-            yield break;
+            yield return new TestRule(input);
+        }
+
+        private class TestRule : ValidationRule
+        {
+            private readonly TestStructuresInput input;
+
+            public TestRule(TestStructuresInput input)
+            {
+                this.input = input;
+            }
+
+            public override IEnumerable<string> Validate()
+            {
+                if (!input.IsValid)
+                {
+                    yield return "Error message";
+                }
+            }
         }
     }
 }

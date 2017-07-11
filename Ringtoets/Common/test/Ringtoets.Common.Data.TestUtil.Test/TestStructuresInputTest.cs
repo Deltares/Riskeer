@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<TestStructure>>(input);
+            Assert.IsTrue(input.IsValid);
         }
     }
 }
