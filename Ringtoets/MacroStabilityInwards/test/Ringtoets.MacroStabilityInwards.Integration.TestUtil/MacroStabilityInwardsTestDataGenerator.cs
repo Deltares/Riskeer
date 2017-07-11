@@ -49,24 +49,24 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> without hydraulic boundary location or design water level.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> without hydraulic boundary location or design water level.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> without hydraulic boundary location or design water level.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> without hydraulic boundary location or design water level.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> with manual design water level set.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> with manual design water level set.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> with a manual design water level.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithAssessmentLevel()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with a manual design water level.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
 
@@ -74,24 +74,24 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> without surface line.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> without surface line.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> without surface line.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithoutSurfaceLine()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> without surface line.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithoutSurfaceLine()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.SurfaceLine = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> without soil model.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> without soil model.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> without soil model .</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithoutSoilModel()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> without soil model.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithoutSoilModel()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.StochasticSoilModel = null;
             calculation.InputParameters.StochasticSoilProfile = null;
 
@@ -101,20 +101,20 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         /// <summary>
         /// Gets a <see cref="MacroStabilityInwardsCalculation"/> without soil profile.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> without soil profile.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithoutSoilProfile()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> without soil profile.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.StochasticSoilProfile = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/>.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
         /// <returns>A <see cref="MacroStabilityInwardsCalculation"/>.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculation()
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenario()
         {
             var surfaceline = new RingtoetsMacroStabilityInwardsSurfaceLine
             {
@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
@@ -149,24 +149,28 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> with <c>double.NaN</c> values set.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> with <c>double.NaN</c> values set.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> with <c>double.NaN</c> values.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithNaNs()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with <c>double.NaN</c> values.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithNaNs()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculationWithAssessmentLevel();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
+            calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="MacroStabilityInwardsCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values set.
+        /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values set.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values.</returns>
-        public static MacroStabilityInwardsCalculation GetMacroStabilityInwardsCalculationWithInfinities()
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values.</returns>
+        public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenarioWithInfinities()
         {
-            MacroStabilityInwardsCalculation calculation = GetMacroStabilityInwardsCalculationWithAssessmentLevel();
+            MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
+            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
             calculation.InputParameters.SurfaceLine.SetGeometry(new[]
             {

@@ -68,72 +68,81 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculation_Always_ReturnCalculationWithDataSet()
+        public void GetMacroStabilityInwardsCalculationScenario_Always_ReturnCalculationScenarioWithDataSet()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
 
             // Assert
             AssertCalculation(calculation);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel_Always_ReturnCalculationWithoutHydraulicLocationAndAssessmentLevel()
+        public void GetMacroStabilityInwardsCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel_Always_ReturnCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel();
 
             // Assert
             AssertCalculation(calculation, false);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithAssessmentLevel_Always_ReturnCalculationWithAssessmentLevel()
+        public void GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel_Always_ReturnCalculationScenarioWithAssessmentLevel()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithAssessmentLevel();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
 
             // Assert
             AssertCalculation(calculation, false, true);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithoutSurfaceLine_Always_ReturnCalculationWithoutSurfaceLine()
+        public void GetMacroStabilityInwardsCalculationScenarioWithoutSurfaceLine_Always_ReturnCalculationScenarioWithoutSurfaceLine()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSurfaceLine();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSurfaceLine();
 
             // Assert
             AssertCalculation(calculation, true, false, false);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithoutSoilModel_Always_ReturnCalculationWithoutSoilModel()
+        public void GetMacroStabilityInwardsCalculationScenarioWithoutSoilModel_Always_ReturnCalculationScenarioWithoutSoilModel()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilModel();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSoilModel();
 
             // Assert
             AssertCalculation(calculation, true, false, true, false);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithoutSoilProfile_Always_ReturnCalculationWithoutSoilProfile()
+        public void GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile_Always_ReturnCalculationScenarioWithoutSoilProfile()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilProfile();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile();
 
             // Assert
             AssertCalculation(calculation, true, false, true, true, false);
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithNaNs_Always_ReturnCalculationWithNaNs()
+        public void GetMacroStabilityInwardsCalculationScenarioWithNaNs_Always_ReturnCalculationScenarioWithNaNs()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithNaNs();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithNaNs();
 
             // Assert
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(double.NaN, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NaN, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
@@ -142,12 +151,15 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
         }
 
         [Test]
-        public void GetMacroStabilityInwardsCalculationWithInfinities_Always_ReturnCalculationWithInfinities()
+        public void GetMacroStabilityInwardsCalculationScenarioWithInfinities_Always_ReturnCalculationScenarioWithInfinities()
         {
             // Call
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithInfinities();
+            MacroStabilityInwardsCalculationScenario calculation =
+                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithInfinities();
 
             // Assert
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(double.PositiveInfinity, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
@@ -155,13 +167,15 @@ namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
             Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
         }
 
-        private static void AssertCalculation(MacroStabilityInwardsCalculation calculation,
+        private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,
                                               bool hasHydraulicLocation = true,
                                               bool hasAssessmentLevel = false,
                                               bool hasSurfaceLine = true,
                                               bool hasSoilModel = true,
                                               bool hasSoilProfile = true)
         {
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(1.0, calculation.Contribution, calculation.Contribution.GetAccuracy());
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             if (hasHydraulicLocation)

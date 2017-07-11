@@ -38,34 +38,36 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             MacroStabilityInwardsCalculationConfigurationExporter,
             MacroStabilityInwardsCalculationConfigurationWriter,
-            MacroStabilityInwardsCalculation,
+            MacroStabilityInwardsCalculationScenario,
             MacroStabilityInwardsCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
         {
             get
             {
+                const string testNameFormat = "{m}({0:40}.xml)";
+
                 yield return new TestCaseData("calculationWithoutHydraulicLocation",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutHydraulicLocationAndAssessmentLevel())
-                    .SetName("calculationWithoutHydraulicLocation");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithAssessmentLevel",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithAssessmentLevel())
-                    .SetName("calculationWithAssessmentLevel");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSurfaceLine",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSurfaceLine())
-                    .SetName("calculationWithoutSurfaceLine");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSurfaceLine())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSoilModel",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilModel())
-                    .SetName("calculationWithoutSoilModel");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSoilModel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSoilProfile",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithoutSoilProfile())
-                    .SetName("calculationWithoutSoilProfile");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithoutSoilProfile())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithNaNs",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithNaNs())
-                    .SetName("calculationWithNaNs");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithNaNs())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithInfinities",
-                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationWithInfinities())
-                    .SetName("calculationWithInfinities");
+                                              MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithInfinities())
+                    .SetName(testNameFormat);
             }
         }
 
@@ -73,9 +75,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            MacroStabilityInwardsCalculation calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
 
-            MacroStabilityInwardsCalculation calculation2 = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
             calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
@@ -132,9 +134,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override MacroStabilityInwardsCalculation CreateCalculation()
+        protected override MacroStabilityInwardsCalculationScenario CreateCalculation()
         {
-            return MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculation();
+            return MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
         }
 
         protected override MacroStabilityInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
