@@ -76,6 +76,8 @@
     <Compile Include="TestHydraulicBoundaryLocation.cs" />
     <Compile Include="TestHydraulicBoundaryLocationOutput.cs" />
     <Compile Include="TestStructure.cs" />
+    <Compile Include="TestStructuresCalculation.cs" />
+    <Compile Include="TestStructuresInput.cs" />
     <Compile Include="TestStructuresOutput.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTestFactory.cs" />
   </ItemGroup>
