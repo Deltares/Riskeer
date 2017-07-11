@@ -111,15 +111,5 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
                         "ry_can_be_found_on_location_0", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen belastingschematisering geselecteerd..
-        /// </summary>
-        internal static string StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationTyp" +
-                        "e_selected", resourceCulture);
-            }
-        }
     }
 }

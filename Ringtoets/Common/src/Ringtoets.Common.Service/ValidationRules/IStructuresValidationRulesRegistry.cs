@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 
@@ -42,6 +43,8 @@ namespace Ringtoets.Common.Service.ValidationRules
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ValidationRule"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
+        /// enum value is encountered.</exception>
         IEnumerable<ValidationRule> GetValidationRules(TStructuresInput input);
     }
 }

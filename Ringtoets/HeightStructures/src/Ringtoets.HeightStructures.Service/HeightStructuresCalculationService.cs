@@ -20,66 +20,32 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
-using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for height structures.
     /// </summary>
-    public class HeightStructuresCalculationService : StructuresCalculationServiceBase
+    public class HeightStructuresCalculationService : StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput, HeightStructure>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
 
         private IStructuresOvertoppingCalculator calculator;
         private bool canceled;
-
-        /// <summary>
-        /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
-        /// the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> for which to validate the values.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
-        /// <returns><c>True</c> if <paramref name="calculation"/> has no validation errors; <c>False</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool Validate(StructuresCalculation<HeightStructuresInput> calculation, IAssessmentSection assessmentSection)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            CalculationServiceHelper.LogValidationBegin();
-
-            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
-
-            CalculationServiceHelper.LogValidationEnd();
-
-            return !messages.Any();
-        }
 
         /// <summary>
         /// Cancels any currently running height structures calculation.
@@ -240,66 +206,6 @@ namespace Ringtoets.HeightStructures.Service
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
             return structuresOvertoppingCalculationInput;
-        }
-
-        private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)
-        {
-            var validationResults = new List<string>();
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                validationResults.Add(validationProblem);
-                return validationResults.ToArray();
-            }
-
-            if (inputParameters.HydraulicBoundaryLocation == null)
-            {
-                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
-
-            if (inputParameters.Structure == null)
-            {
-                validationResults.Add(RingtoetsCommonServiceResources.StructuresCalculationService_ValidateInput_No_Structure_selected);
-            }
-            else
-            {
-                IEnumerable<ValidationRule> inputValidationRules = GetInputValidationRules(inputParameters);
-                foreach (ValidationRule validationRule in inputValidationRules)
-                {
-                    validationResults.AddRange(validationRule.Validate());
-                }
-            }
-
-            return validationResults.ToArray();
-        }
-
-        private static ValidationRule[] GetInputValidationRules(HeightStructuresInput input)
-        {
-            var validationRules = new ValidationRule[]
-            {
-                new UseBreakWaterRule(input),
-                new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
-                new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
-                new NumericInputRule(input.StructureNormalOrientation,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)),
-                new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
-                new NormalDistributionRule(input.WidthFlowApertures,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
-                new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
-                new NormalDistributionRule(input.LevelCrestStructure,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
-            };
-
-            return validationRules;
         }
     }
 }

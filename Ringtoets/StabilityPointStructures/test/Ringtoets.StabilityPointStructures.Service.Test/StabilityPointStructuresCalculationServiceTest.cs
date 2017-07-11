@@ -58,189 +58,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var service = new StabilityPointStructuresCalculationService();
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculationServiceBase>(service);
-        }
-
-        [Test]
-        public void Validate_CalculationNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationService.Validate(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var calculation = new TestStabilityPointStructuresCalculation();
-
-            // Call
-            TestDelegate test = () => StabilityPointStructuresCalculationService.Validate(calculation, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-
-            var calculation = new TestStabilityPointStructuresCalculation();
-
-            var isValid = true;
-
-            // Call
-            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_ValidCalculationValidHydraulicBoundaryDatabaseNoSettings_ReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-
-            var calculation = new TestStabilityPointStructuresCalculation();
-
-            var isValid = false;
-
-            // Call
-            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_CalculationInputWithoutHydraulicBoundaryLocationValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
-
-            const string name = "<very nice name>";
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                Name = name,
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = null,
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            };
-
-            var isValid = false;
-
-            // Call
-            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            mockRepository.ReplayAll();
-
-            const string name = "<a very nice name>";
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                Name = name,
-                InputParameters =
-                {
-                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
-                    LoadSchematizationType = LoadSchematizationType.Linear,
-                    Structure = null
-                }
-            };
-
-            var isValid = false;
-
-            // Call
-            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
+            Assert.IsInstanceOf<StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
+                StabilityPointStructuresInput,
+                StabilityPointStructure>>(service);
         }
 
         [Test]
@@ -666,17 +486,17 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSectionStub);
             // Assert
-            const string expectedMessage = "The value of argument 'inputParameters' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
+            const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                     expectedMessage).ParamName;
-            Assert.AreEqual("inputParameters", paramName);
+            Assert.AreEqual("input", paramName);
             mockRepository.VerifyAll();
         }
 
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        public void Validate_InvalidLoadSchematizationType_LogsErrorAndReturnsFalse(StabilityPointStructureInflowModelType inflowModelType)
+        public void Validate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException(StabilityPointStructureInflowModelType inflowModelType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -704,19 +524,15 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var isValid = false;
 
-            // Call 
-            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
-
+            // Call
+            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
+                                                                                          assessmentSectionStub);
             // Assert
-            Assert.IsFalse(isValid);
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen belastingschematisering geselecteerd.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
+            const string expectedMessage = "The value of argument 'input' (100) is invalid for Enum type 'LoadSchematizationType'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                    expectedMessage).ParamName;
+            Assert.AreEqual("input", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]

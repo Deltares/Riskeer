@@ -19,10 +19,207 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.IO;
+using System.Linq;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.Structures;
+using Ringtoets.Common.Service.TestUtil;
 
 namespace Ringtoets.Common.Service.Test.Structures
 {
     [TestFixture]
-    public class StructuresCalculationServiceBaseTest {}
+    public class StructuresCalculationServiceBaseTest
+    {
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        [Test]
+        public void Validate_CalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestStructuresCalculationService.Validate(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new TestStructuresCalculation();
+
+            // Call
+            TestDelegate test = () => TestStructuresCalculationService.Validate(calculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
+            mocks.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+
+            var calculation = new TestStructuresCalculation();
+
+            var isValid = true;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_ValidCalculationValidHydraulicBoundaryDatabaseNoSettings_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
+            mocks.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+
+            var calculation = new TestStructuresCalculation();
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationInputWithoutHydraulicBoundaryLocationValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
+            mocks.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    Structure = new TestStructure()
+                }
+            };
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            mocks.ReplayAll();
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
+            TestStructuresInput,
+            TestStructure> {}
+    }
 }

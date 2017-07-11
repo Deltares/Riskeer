@@ -25,7 +25,6 @@ using System.ComponentModel;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsStabilityPointStructuresFormsResources = Ringtoets.StabilityPointStructures.Forms.Properties.Resources;
 
@@ -56,7 +55,9 @@ namespace Ringtoets.StabilityPointStructures.Service
                             validationRules = GetLowSillQuadraticValidationRules(input);
                             break;
                         default:
-                            throw new InvalidEnumArgumentException(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
+                            throw new InvalidEnumArgumentException(nameof(input),
+                                                           (int)input.LoadSchematizationType,
+                                                           typeof(LoadSchematizationType));
                     }
                     break;
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
@@ -69,7 +70,9 @@ namespace Ringtoets.StabilityPointStructures.Service
                             validationRules = GetFloodedCulvertQuadraticValidationRules(input);
                             break;
                         default:
-                            throw new InvalidEnumArgumentException(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
+                            throw new InvalidEnumArgumentException(nameof(input),
+                                                           (int)input.LoadSchematizationType,
+                                                           typeof(LoadSchematizationType));
                     }
                     break;
                 default:

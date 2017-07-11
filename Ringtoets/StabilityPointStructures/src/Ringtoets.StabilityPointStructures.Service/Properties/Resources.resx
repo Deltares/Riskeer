@@ -127,7 +127,4 @@
   <data name="StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_no_error_report" xml:space="preserve">
     <value>De berekening voor kunstwerk puntconstructies '{0}' is mislukt. Er is geen foutrapport beschikbaar.</value>
   </data>
-  <data name="StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected" xml:space="preserve">
-    <value>Er is geen belastingschematisering geselecteerd.</value>
-  </data>
 </root>

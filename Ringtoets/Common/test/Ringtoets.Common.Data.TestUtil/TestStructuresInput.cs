@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -30,9 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil
     public class TestStructuresInput : StructuresInputBase<TestStructure>
     {
         public override bool IsStructureInputSynchronized { get; }
-        public override void SynchronizeStructureInput()
-        {
-            throw new NotImplementedException();
-        }
+
+        public override void SynchronizeStructureInput() {}
     }
 }

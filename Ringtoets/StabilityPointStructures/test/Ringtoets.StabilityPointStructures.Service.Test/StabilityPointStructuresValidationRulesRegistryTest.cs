@@ -90,7 +90,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             });
 
             // Assert
-            const string message = "Er is geen belastingschematisering geselecteerd.";
+            const string message = "The value of argument 'input' (99) is invalid for Enum type 'LoadSchematizationType'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 

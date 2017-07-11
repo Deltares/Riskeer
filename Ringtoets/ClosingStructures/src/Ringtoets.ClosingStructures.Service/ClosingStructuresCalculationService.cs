@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -31,24 +29,21 @@ using Ringtoets.ClosingStructures.Service.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.Structures;
-using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-ring calculations for closing structures.
     /// </summary>
-    public class ClosingStructuresCalculationService : StructuresCalculationServiceBase
+    public class ClosingStructuresCalculationService : StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry,
+        ClosingStructuresInput,
+        ClosingStructure>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 
@@ -171,36 +166,7 @@ namespace Ringtoets.ClosingStructures.Service
         public void Cancel()
         {
             calculator?.Cancel();
-
             canceled = true;
-        }
-
-        /// <summary>
-        /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
-        /// the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> for which to validate the values.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
-        /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
-        /// <see cref="ClosingStructureInflowModelType"/>.</exception>
-        public static bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            CalculationServiceHelper.LogValidationBegin();
-            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
-            CalculationServiceHelper.LogValidationEnd();
-
-            return !messages.Any();
         }
 
         /// <summary>
@@ -340,144 +306,6 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.DrainCoefficient.Mean, calculation.InputParameters.DrainCoefficient.StandardDeviation,
                 calculation.InputParameters.AreaFlowApertures.Mean, calculation.InputParameters.AreaFlowApertures.StandardDeviation,
                 calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation);
-        }
-
-        private static string[] ValidateInput(ClosingStructuresInput inputParameters, IAssessmentSection assessmentSection)
-        {
-            var validationResults = new List<string>();
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                validationResults.Add(validationProblem);
-                return validationResults.ToArray();
-            }
-
-            if (inputParameters.HydraulicBoundaryLocation == null)
-            {
-                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
-            }
-
-            if (inputParameters.Structure == null)
-            {
-                validationResults.Add(RingtoetsCommonServiceResources.StructuresCalculationService_ValidateInput_No_Structure_selected);
-            }
-            else
-            {
-                IEnumerable<ValidationRule> validationRules = GetValidationRules(inputParameters);
-
-                foreach (ValidationRule validationRule in validationRules)
-                {
-                    validationResults.AddRange(validationRule.Validate());
-                }
-            }
-
-            return validationResults.ToArray();
-        }
-
-        private static IEnumerable<ValidationRule> GetValidationRules(ClosingStructuresInput inputParameters)
-        {
-            IEnumerable<ValidationRule> validationRules;
-            switch (inputParameters.InflowModelType)
-            {
-                case ClosingStructureInflowModelType.VerticalWall:
-                    validationRules = GetVerticalWallValidationRules(inputParameters);
-                    break;
-                case ClosingStructureInflowModelType.LowSill:
-                    validationRules = GetLowSillValidationRules(inputParameters);
-                    break;
-                case ClosingStructureInflowModelType.FloodedCulvert:
-                    validationRules = GetFloodedCulvertValidationRules(inputParameters);
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException("inputParameters",
-                                                           (int) inputParameters.InflowModelType,
-                                                           typeof(ClosingStructureInflowModelType));
-            }
-
-            return validationRules;
-        }
-
-        private static ValidationRule[] GetVerticalWallValidationRules(ClosingStructuresInput input)
-        {
-            return new ValidationRule[]
-            {
-                new UseBreakWaterRule(input),
-                new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
-                new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
-                new NumericInputRule(input.FactorStormDurationOpenStructure,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
-                new NormalDistributionRule(input.WidthFlowApertures,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
-                new NumericInputRule(input.StructureNormalOrientation,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName)),
-                new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
-                new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
-                new NormalDistributionRule(input.LevelCrestStructureNotClosing,
-                                           ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.LevelCrestStructureNotClosing_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
-            };
-        }
-
-        private static ValidationRule[] GetLowSillValidationRules(ClosingStructuresInput input)
-        {
-            return new ValidationRule[]
-            {
-                new UseBreakWaterRule(input),
-                new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
-                new NormalDistributionRule(input.InsideWaterLevel,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName)),
-                new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
-                new NumericInputRule(input.FactorStormDurationOpenStructure,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
-                new NormalDistributionRule(input.WidthFlowApertures,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
-                new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
-                new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
-                new NormalDistributionRule(input.ThresholdHeightOpenWeir,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
-            };
-        }
-
-        private static ValidationRule[] GetFloodedCulvertValidationRules(ClosingStructuresInput input)
-        {
-            return new ValidationRule[]
-            {
-                new UseBreakWaterRule(input),
-                new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
-                new NormalDistributionRule(input.InsideWaterLevel,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName)),
-                new NormalDistributionRule(input.DrainCoefficient,
-                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DrainCoefficient_DisplayName)),
-                new NumericInputRule(input.FactorStormDurationOpenStructure,
-                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
-                new LogNormalDistributionRule(input.AreaFlowApertures,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AreaFlowApertures_DisplayName)),
-                new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
-                new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,
-                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
-                new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
-                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
-            };
         }
     }
 }
