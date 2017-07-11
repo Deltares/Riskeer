@@ -65,11 +65,11 @@
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
+      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
