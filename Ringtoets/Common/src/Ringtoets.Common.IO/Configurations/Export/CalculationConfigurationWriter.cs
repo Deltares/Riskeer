@@ -106,6 +106,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="distributionName">The name of the distribution.</param>
         /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
         /// is <c>null</c>.</exception>
         protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
@@ -184,6 +186,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the wave reduction that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
         protected static void WriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
         {
@@ -195,6 +199,27 @@ namespace Ringtoets.Common.IO.Configurations.Export
             if (configuration != null)
             {
                 writer.WriteWaveReduction(configuration);
+            }
+        }
+
+        /// <summary>
+        /// Writes a scenario configuration when it has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration for the scenario that can be <c>null</c>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// closed.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
+        protected static void WriteScenarioWhenAvailable(XmlWriter writer, ScenarioConfiguration configuration)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (configuration != null)
+            {
+                writer.WriteScenario(configuration);
             }
         }
 

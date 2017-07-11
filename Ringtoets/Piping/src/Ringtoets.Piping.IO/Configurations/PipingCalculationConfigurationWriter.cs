@@ -48,8 +48,22 @@ namespace Ringtoets.Piping.IO.Configurations
         protected override void WriteCalculation(PipingCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
+
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
+            WriteCalculationElements(writer, configuration);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteCalculationElements(XmlWriter writer, PipingCalculationConfiguration configuration)
+        {
             WriteElementWhenContentAvailable(writer,
                                              PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                              configuration.AssessmentLevel);
@@ -73,6 +87,19 @@ namespace Ringtoets.Piping.IO.Configurations
                                              PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                              configuration.StochasticSoilProfileName);
 
+            WriteStochasts(writer, configuration);
+
+            WriteScenarioWhenAvailable(writer, configuration.Scenario);
+        }
+
+        /// <summary>
+        /// Writes the stochats elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteStochasts(XmlWriter writer, PipingCalculationConfiguration configuration)
+        {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);
 
             WriteDistributionWhenAvailable(writer,
@@ -82,8 +109,6 @@ namespace Ringtoets.Piping.IO.Configurations
             WriteDistributionWhenAvailable(writer,
                                            PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
                                            configuration.DampingFactorExit);
-
-            writer.WriteEndElement();
 
             writer.WriteEndElement();
         }

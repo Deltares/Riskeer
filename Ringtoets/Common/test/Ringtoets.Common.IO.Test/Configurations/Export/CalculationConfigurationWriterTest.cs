@@ -411,6 +411,56 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void WriteScenarioWhenAvailable_WriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                null,
+                new ScenarioConfiguration());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteScenarioWhenAvailable_ScenarioConfigurationNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                xmlWriter,
+                null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteScenarioWhenAvailable_ScenarioConfigurationSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            var configuration = new ScenarioConfiguration();
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteScenario(configuration));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteScenarioWhenAvailable(
+                xmlWriter,
+                configuration);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
         {
             var calculation1 = new TestConfigurationItem
@@ -488,6 +538,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             public static void PublicWriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
             {
                 WriteWaveReductionWhenAvailable(writer, configuration);
+            }
+
+            public static void PublicWriteScenarioWhenAvailable(XmlWriter writer, ScenarioConfiguration configuration)
+            {
+                WriteScenarioWhenAvailable(writer, configuration);
             }
 
             protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)

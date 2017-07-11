@@ -53,9 +53,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = CreateFullCalculationConfiguration();
+            PipingCalculationConfiguration calculation = CreateFullCalculationConfiguration();
 
-            var calculation2 = CreateFullCalculationConfiguration();
+            PipingCalculationConfiguration calculation2 = CreateFullCalculationConfiguration();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.HydraulicBoundaryLocationName = "PUNT_SCH_17";
             calculation2.SurfaceLineName = "PK001_0002";
@@ -119,6 +119,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 {
                     Mean = 0.7,
                     StandardDeviation = 0.1
+                },
+                Scenario = new ScenarioConfiguration
+                {
+                    IsRelevant = true,
+                    Contribution = 0.3
                 }
             };
         }

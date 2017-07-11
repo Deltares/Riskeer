@@ -78,7 +78,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteStartFolder_WithoutName_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteStartFolder_WithoutName_ThrowsArgumentNullException));
 
             try
             {
@@ -90,6 +90,31 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
                     Assert.AreEqual("name", exception.ParamName);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteStartFolder_WriterClosed_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteStartFolder_WriterClosed_ThrowsInvalidOperationException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    xmlWriter.Close();
+
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteStartFolder("name");
+
+                    // Assert
+                    Assert.Throws<InvalidOperationException>(testDelegate);
                 }
             }
             finally
@@ -113,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_StandardDeviationDistributionWithoutName_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_StandardDeviationDistributionWithoutName_ThrowsArgumentNullException));
 
             try
             {
@@ -137,7 +162,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_WithoutStandardDeviationDistribution_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithoutStandardDeviationDistribution_ThrowsArgumentNullException));
 
             try
             {
@@ -199,7 +224,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_VariationCoefficientDistributionWithoutName_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_VariationCoefficientDistributionWithoutName_ThrowsArgumentNullException));
 
             try
             {
@@ -223,7 +248,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteDistribution_WithoutVariationCoefficientDistribution_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithoutVariationCoefficientDistribution_ThrowsArgumentNullException));
 
             try
             {
@@ -235,6 +260,31 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
                     Assert.AreEqual("distribution", exception.ParamName);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteDistribution_WriterClosed_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WriterClosed_ThrowsInvalidOperationException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    xmlWriter.Close();
+
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteDistribution("name", new StochastConfiguration());
+
+                    // Assert
+                    Assert.Throws<InvalidOperationException>(testDelegate);
                 }
             }
             finally
@@ -285,7 +335,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void WriteWaveReduction_WithoutWaveReduction_ThrowsArgumentNullException()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteDistribution_WithDifferentSetParameters_WritesStochastWithSetParameters));
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWaveReduction_WithoutWaveReduction_ThrowsArgumentNullException));
 
             try
             {
@@ -297,6 +347,118 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     // Assert
                     var exception = Assert.Throws<ArgumentNullException>(testDelegate);
                     Assert.AreEqual("waveReduction", exception.ParamName);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteWaveReduction_WriterClosed_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWaveReduction_WriterClosed_ThrowsInvalidOperationException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    xmlWriter.Close();
+
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(new WaveReductionConfiguration());
+
+                    // Assert
+                    Assert.Throws<InvalidOperationException>(testDelegate);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetScenarioConfigurations))]
+        public void WriteScenario_WithoutDifferentSetParameters_WritesExpectedParameters(ScenarioConfiguration configuration, string fileName)
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(WriteScenario_WithoutDifferentSetParameters_WritesExpectedParameters)}.{fileName}");
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    // Call
+                    xmlWriter.WriteScenario(configuration);
+                }
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = GetTestFileContent(fileName);
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteScenario_WithoutWriter_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate testDelegate = () => ((XmlWriter) null).WriteScenario(new ScenarioConfiguration());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteScenario_WithoutScenarioConfiguration_ThrowsArgumentNullException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteScenario_WithoutScenarioConfiguration_ThrowsArgumentNullException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteScenario(null);
+
+                    // Assert
+                    var exception = Assert.Throws<ArgumentNullException>(testDelegate);
+                    Assert.AreEqual("scenarioConfiguration", exception.ParamName);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void WriteScenario_WriterClosed_ThrowsInvalidOperationException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteScenario_WriterClosed_ThrowsInvalidOperationException));
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    xmlWriter.Close();
+
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteScenario(new ScenarioConfiguration());
+
+                    // Assert
+                    Assert.Throws<InvalidOperationException>(testDelegate);
                 }
             }
             finally
@@ -360,7 +522,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             yield return new TestCaseData(
                     new WaveReductionConfiguration(),
                     "waveReductionWithoutParameters.xml")
-                .SetName("Wave reduction without any of its paramters set.");
+                .SetName("Wave reduction without any of its parameters set.");
 
             yield return new TestCaseData(
                     new WaveReductionConfiguration
@@ -371,7 +533,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                         UseForeshoreProfile = false
                     },
                     "waveReduction.xml")
-                .SetName("Wave reduction with all its paramters set.");
+                .SetName("Wave reduction with all its parameters set.");
 
             yield return new TestCaseData(
                     new WaveReductionConfiguration
@@ -412,6 +574,41 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     },
                     "waveReductionWithoutUseForeshoreProfile.xml")
                 .SetName("Wave reduction without use foreshore profile set.");
+        }
+
+        public static IEnumerable<TestCaseData> GetScenarioConfigurations()
+        {
+            const string testNameFormat = "{m}({1:40})";
+
+            yield return new TestCaseData(
+                    new ScenarioConfiguration(),
+                    "scenarioConfigurationWithoutParameters.xml")
+                .SetName(testNameFormat);
+
+            yield return new TestCaseData(
+                    new ScenarioConfiguration
+                    {
+                        IsRelevant = true,
+                        Contribution = 0.8
+                    },
+                    "scenarioConfiguration.xml")
+                .SetName(testNameFormat);
+
+            yield return new TestCaseData(
+                    new ScenarioConfiguration
+                    {
+                        IsRelevant = true
+                    },
+                    "scenarioConfigurationWithoutContribution.xml")
+                .SetName(testNameFormat);
+
+            yield return new TestCaseData(
+                    new ScenarioConfiguration
+                    {
+                        Contribution = 0.8
+                    },
+                    "scenarioConfigurationWithoutIsRelevant.xml")
+                .SetName(testNameFormat);
         }
 
         private string GetTestFileContent(string testFile)

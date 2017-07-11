@@ -64,7 +64,6 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("calculationWithoutSoilProfile",
                                               PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile())
                     .SetName(testNameFormat);
-
                 yield return new TestCaseData("calculationIrrelevant",
                                               PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario())
                     .SetName(testNameFormat);

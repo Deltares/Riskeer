@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="name">The name of the distribution to write.</param>
         /// <param name="distribution">The distribution to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// in an invalid state for writing.</exception>
+        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, StochastConfiguration distribution)
         {
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="writer">The writer to use to write the wave reduction.</param>
         /// <param name="waveReduction">The wave reduction to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// in an invalid state for writing.</exception>
+        /// closed</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)
         {
@@ -115,10 +115,45 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         }
 
         /// <summary>
+        /// Writes a single <see cref="ScenarioConfiguration"/> as a scenario element in file.
+        /// </summary>
+        /// <param name="writer">The writer to use to write the scenario.</param>
+        /// <param name="scenarioConfiguration">The scenario to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// closed.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        public static void WriteScenario(this XmlWriter writer, ScenarioConfiguration scenarioConfiguration)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (scenarioConfiguration == null)
+            {
+                throw new ArgumentNullException(nameof(scenarioConfiguration));
+            }
+
+            writer.WriteStartElement(ConfigurationSchemaIdentifiers.ScenarioElement);
+
+            if (scenarioConfiguration.IsRelevant.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantScenarioName, XmlConvert.ToString(scenarioConfiguration.IsRelevant.Value));
+            }
+            if (scenarioConfiguration.Contribution.HasValue)
+            {
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.ContributionScenarioName, XmlConvert.ToString(scenarioConfiguration.Contribution.Value));
+            }
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
         /// Writes the start tag of a folder element.
         /// </summary>
         /// <param name="writer">The writer to use to write the folder.</param>
         /// <param name="name">The name of the folder.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
+        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public static void WriteStartFolder(this XmlWriter writer, string name)
         {

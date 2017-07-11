@@ -83,6 +83,8 @@ namespace Ringtoets.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
+            calculationConfiguration.Scenario = calculation.ToScenarioConfiguration();
+
             return calculationConfiguration;
         }
     }
