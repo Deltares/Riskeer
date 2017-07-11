@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -97,6 +96,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Data_SetNewValueWithDifferentClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -117,19 +117,20 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual("0.90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0,90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual("0.70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0,70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsTrue(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Data_SetNewValueWithSameClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -161,14 +162,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual("0.90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0,90000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
             Assert.AreEqual("Regular", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
-            Assert.AreEqual("0.70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0,70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsFalse(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
