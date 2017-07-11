@@ -52,6 +52,7 @@
     <Compile Include="StabilityPointStructuresCalculationActivity.cs" />
     <Compile Include="StabilityPointStructuresCalculationService.cs" />
     <Compile Include="StabilityPointStructuresDataSynchronizationService.cs" />
+    <Compile Include="StabilityPointStructuresValidationRulesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
