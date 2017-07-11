@@ -50,24 +50,24 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> without hydraulic boundary location or design water level.
+        /// Gets a <see cref="PipingCalculationScenario"/> without hydraulic boundary location or design water level.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> without hydraulic boundary location or design water level.</returns>
-        public static PipingCalculation GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel()
+        /// <returns>A <see cref="PipingCalculationScenario"/> without hydraulic boundary location or design water level.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
-            PipingCalculation calculation = GetPipingCalculation();
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> with manual design water level set.
+        /// Gets a <see cref="PipingCalculationScenario"/> with manual design water level set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> with a manual design water level.</returns>
-        public static PipingCalculation GetPipingCalculationWithAssessmentLevel()
+        /// <returns>A <see cref="PipingCalculationScenario"/> with a manual design water level.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithAssessmentLevel()
         {
-            PipingCalculation calculation = GetPipingCalculation();
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
             calculation.InputParameters.UseAssessmentLevelManualInput = true;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble) 3.0;
 
@@ -75,24 +75,24 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> without surface line.
+        /// Gets a <see cref="PipingCalculationScenario"/> without surface line.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> without surface line.</returns>
-        public static PipingCalculation GetPipingCalculationWithoutSurfaceLine()
+        /// <returns>A <see cref="PipingCalculationScenario"/> without surface line.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSurfaceLine()
         {
-            PipingCalculation calculation = GetPipingCalculation();
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
             calculation.InputParameters.SurfaceLine = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> without soil model.
+        /// Gets a <see cref="PipingCalculationScenario"/> without soil model.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> without soil model .</returns>
-        public static PipingCalculation GetPipingCalculationWithoutSoilModel()
+        /// <returns>A <see cref="PipingCalculationScenario"/> without soil model .</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSoilModel()
         {
-            PipingCalculation calculation = GetPipingCalculation();
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
             calculation.InputParameters.StochasticSoilModel = null;
             calculation.InputParameters.StochasticSoilProfile = null;
 
@@ -100,22 +100,36 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> without soil profile.
+        /// Gets a <see cref="PipingCalculationScenario"/> without soil profile.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> without soil profile.</returns>
-        public static PipingCalculation GetPipingCalculationWithoutSoilProfile()
+        /// <returns>A <see cref="PipingCalculationScenario"/> without soil profile.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithoutSoilProfile()
         {
-            PipingCalculation calculation = GetPipingCalculation();
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
             calculation.InputParameters.StochasticSoilProfile = null;
 
             return calculation;
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/>.
+        /// Gets a <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/>.</returns>
-        public static PipingCalculation GetPipingCalculation()
+        /// <returns>A <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>
+        /// .</returns>
+        public static PipingCalculationScenario GetIrrelevantPipingCalculationScenario()
+        {
+            PipingCalculationScenario calculation = GetPipingCalculationScenario();
+            calculation.Contribution = (RoundedDouble) 0.5;
+            calculation.IsRelevant = false;
+
+            return calculation;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="PipingCalculationScenario"/>.
+        /// </summary>
+        /// <returns>A <see cref="PipingCalculationScenario"/>.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenario()
         {
             var surfaceline = new RingtoetsPipingSurfaceLine
             {
@@ -128,7 +142,7 @@ namespace Ringtoets.Piping.Integration.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
@@ -160,12 +174,13 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> with <c>double.NaN</c> values set.
+        /// Gets a <see cref="PipingCalculationScenario"/> with <c>double.NaN</c> values set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> with <c>double.NaN</c> values.</returns>
-        public static PipingCalculation GetPipingCalculationWithNaNs()
+        /// <returns>A <see cref="PipingCalculationScenario"/> with <c>double.NaN</c> values.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithNaNs()
         {
-            PipingCalculation calculation = GetPipingCalculationWithAssessmentLevel();
+            PipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
+            calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
@@ -184,12 +199,15 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Gets a <see cref="PipingCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values set.
+        /// Gets a <see cref="PipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values set.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculation"/> with <c>double.NegativeInfinity</c> and <c>double.PositiveInfinity</c> values.</returns>
-        public static PipingCalculation GetPipingCalculationWithInfinities()
+        /// <returns>A <see cref="PipingCalculationScenario"/> with <c>double.NegativeInfinity</c> 
+        /// and <c>double.PositiveInfinity</c> values.</returns>
+        public static PipingCalculationScenario GetPipingCalculationScenarioWithInfinities()
         {
-            PipingCalculation calculation = GetPipingCalculationWithAssessmentLevel();
+            PipingCalculationScenario calculation = GetPipingCalculationScenarioWithAssessmentLevel();
+            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
             calculation.InputParameters.SurfaceLine.SetGeometry(new[]
             {

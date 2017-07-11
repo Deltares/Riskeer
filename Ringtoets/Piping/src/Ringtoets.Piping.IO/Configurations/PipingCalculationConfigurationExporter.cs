@@ -31,10 +31,10 @@ namespace Ringtoets.Piping.IO.Configurations
     /// <summary>
     /// Exports a piping calculation configuration and stores it as an XML file.
     /// </summary>
-    public class PipingCalculationConfigurationExporter 
+    public class PipingCalculationConfigurationExporter
         : CalculationConfigurationExporter<
-            PipingCalculationConfigurationWriter, 
-            PipingCalculation, 
+            PipingCalculationConfigurationWriter,
+            PipingCalculationScenario,
             PipingCalculationConfiguration>
     {
         /// <summary>
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+        public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
         protected override PipingCalculationConfigurationWriter CreateWriter(string filePath)
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Configurations
             return new PipingCalculationConfigurationWriter(filePath);
         }
 
-        protected override PipingCalculationConfiguration ToConfiguration(PipingCalculation calculation)
+        protected override PipingCalculationConfiguration ToConfiguration(PipingCalculationScenario calculation)
         {
             PipingInput input = calculation.InputParameters;
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.IO.Configurations
             {
                 calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
             }
-            else if(input.UseAssessmentLevelManualInput)
+            else if (input.UseAssessmentLevelManualInput)
             {
                 calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
             }

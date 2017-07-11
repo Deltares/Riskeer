@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Integration.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
@@ -39,34 +40,40 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
-            PipingCalculation,
+            PipingCalculationScenario,
             PipingCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
         {
             get
             {
+                const string testNameFormat = "{m}({0:40}.xml)";
+
                 yield return new TestCaseData("calculationWithoutHydraulicLocation",
-                                              PipingTestDataGenerator.GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel())
-                    .SetName("calculationWithoutHydraulicLocation");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithAssessmentLevel",
-                                              PipingTestDataGenerator.GetPipingCalculationWithAssessmentLevel())
-                    .SetName("calculationWithAssessmentLevel");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSurfaceLine",
-                                              PipingTestDataGenerator.GetPipingCalculationWithoutSurfaceLine())
-                    .SetName("calculationWithoutSurfaceLine");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSoilModel",
-                                              PipingTestDataGenerator.GetPipingCalculationWithoutSoilModel())
-                    .SetName("calculationWithoutSoilModel");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithoutSoilProfile",
-                                              PipingTestDataGenerator.GetPipingCalculationWithoutSoilProfile())
-                    .SetName("calculationWithoutSoilProfile");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile())
+                    .SetName(testNameFormat);
+
+                yield return new TestCaseData("calculationIrrelevant",
+                                              PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithNaNs",
-                                              PipingTestDataGenerator.GetPipingCalculationWithNaNs())
-                    .SetName("calculationWithNaNs");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs())
+                    .SetName(testNameFormat);
                 yield return new TestCaseData("calculationWithInfinities",
-                                              PipingTestDataGenerator.GetPipingCalculationWithInfinities())
-                    .SetName("calculationWithInfinities");
+                                              PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities())
+                    .SetName(testNameFormat);
             }
         }
 
@@ -74,11 +81,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenario();
             calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
             calculation.InputParameters.ExitPointL = (RoundedDouble) 0.2;
 
-            PipingCalculation calculation2 = PipingTestDataGenerator.GetPipingCalculation();
+            PipingCalculationScenario calculation2 = PipingTestDataGenerator.GetPipingCalculationScenario();
             calculation2.Name = "PK001_0002 W1-6_4_1D1";
             calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
             calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
@@ -137,9 +144,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override PipingCalculation CreateCalculation()
+        protected override PipingCalculationScenario CreateCalculation()
         {
-            return PipingTestDataGenerator.GetPipingCalculation();
+            return PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
         }
 
         protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

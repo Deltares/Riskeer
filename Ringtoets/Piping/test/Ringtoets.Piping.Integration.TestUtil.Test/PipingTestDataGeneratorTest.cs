@@ -68,72 +68,74 @@ namespace Ringtoets.Piping.Integration.TestUtil.Test
         }
 
         [Test]
-        public void GetPipingCalculation_Always_ReturnCalculationWithDataSet()
+        public void GetPipingCalculationScenario_Always_ReturnCalculationWithDataSet()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculation();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenario();
 
             // Assert
-            AssertCalculation(calculation);
+            AssertCalculationScenario(calculation);
         }
 
         [Test]
-        public void GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel_Always_ReturnCalculationWithoutHydraulicLocationAndAssessmentLevel()
+        public void GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel_Always_ReturnCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithoutHydraulicLocationAndAssessmentLevel();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel();
 
             // Assert
-            AssertCalculation(calculation, false);
+            AssertCalculationScenario(calculation, false);
         }
 
         [Test]
-        public void GetPipingCalculationWithAssessmentLevel_Always_ReturnCalculationWithAssessmentLevel()
+        public void GetPipingCalculationScenarioWithAssessmentLevel_Always_ReturnCalculationScenarioWithAssessmentLevel()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithAssessmentLevel();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel();
 
             // Assert
-            AssertCalculation(calculation, false, true);
+            AssertCalculationScenario(calculation, false, true);
         }
 
         [Test]
-        public void GetPipingCalculationWithoutSurfaceLine_Always_ReturnCalculationWithoutSurfaceLine()
+        public void GetPipingCalculationScenarioWithoutSurfaceLine_Always_ReturnCalculationScenarioWithoutSurfaceLine()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithoutSurfaceLine();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine();
 
             // Assert
-            AssertCalculation(calculation, true, false, false);
+            AssertCalculationScenario(calculation, true, false, false);
         }
 
         [Test]
-        public void GetPipingCalculationWithoutSoilModel_Always_ReturnCalculationWithoutSoilModel()
+        public void GetPipingCalculationScenarioWithoutSoilModel_Always_ReturnCalculationScenarioWithoutSoilModel()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithoutSoilModel();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel();
 
             // Assert
-            AssertCalculation(calculation, true, false, true, false);
+            AssertCalculationScenario(calculation, true, false, true, false);
         }
 
         [Test]
-        public void GetPipingCalculationWithoutSoilProfile_Always_ReturnCalculationWithoutSoilProfile()
+        public void GetPipingCalculationScenarioWithoutSoilProfile_Always_ReturnCalculationScenarioWithoutSoilProfile()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithoutSoilProfile();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile();
 
             // Assert
-            AssertCalculation(calculation, true, false, true, true, false);
+            AssertCalculationScenario(calculation, true, false, true, true, false);
         }
 
         [Test]
-        public void GetPipingCalculationWithNaNs_Always_ReturnCalculationWithNaNs()
+        public void GetPipingCalculationScenarioWithNaNs_Always_ReturnCalculationScenarioWithNaNs()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithNaNs();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs();
 
             // Assert
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(double.NaN, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NaN, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
@@ -148,12 +150,14 @@ namespace Ringtoets.Piping.Integration.TestUtil.Test
         }
 
         [Test]
-        public void GetPipingCalculationWithInfinities_Always_ReturnCalculationWithInfinities()
+        public void GetPipingCalculationScenarioWithInfinities_Always_ReturnCalculationScenarioWithInfinities()
         {
             // Call
-            PipingCalculation calculation = PipingTestDataGenerator.GetPipingCalculationWithInfinities();
+            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities();
 
             // Assert
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(double.PositiveInfinity, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
             Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.AssessmentLevel.Value);
             Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
@@ -167,13 +171,15 @@ namespace Ringtoets.Piping.Integration.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
-        private static void AssertCalculation(PipingCalculation calculation,
-                                              bool hasHydraulicLocation = true,
-                                              bool hasAssessmentLevel = false,
-                                              bool hasSurfaceLine = true,
-                                              bool hasSoilModel = true,
-                                              bool hasSoilProfile = true)
+        private static void AssertCalculationScenario(PipingCalculationScenario calculation,
+                                                      bool hasHydraulicLocation = true,
+                                                      bool hasAssessmentLevel = false,
+                                                      bool hasSurfaceLine = true,
+                                                      bool hasSoilModel = true,
+                                                      bool hasSoilProfile = true)
         {
+            Assert.IsTrue(calculation.IsRelevant);
+            Assert.AreEqual(1.0, calculation.Contribution, calculation.Contribution.GetAccuracy());
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
             if (hasHydraulicLocation)
