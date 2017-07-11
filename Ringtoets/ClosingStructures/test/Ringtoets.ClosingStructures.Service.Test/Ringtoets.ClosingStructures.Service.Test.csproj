@@ -56,6 +56,7 @@
     <Compile Include="ClosingStructureDataSynchronizationServiceTest.cs" />
     <Compile Include="ClosingStructuresCalculationActivityTest.cs" />
     <Compile Include="ClosingStructuresCalculationServiceTest.cs" />
+    <Compile Include="ClosingStructuresValidationRulesRegistryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -55,6 +55,7 @@
     <Compile Include="HeightStructuresCalculationActivityTest.cs" />
     <Compile Include="HeightStructuresCalculationServiceTest.cs" />
     <Compile Include="HeightStructuresDataSynchronizationServiceTest.cs" />
+    <Compile Include="HeightStructuresValidationRulesRegistryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
