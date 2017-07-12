@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// Creates a <see cref="GeneralResultSubMechanismIllustrationPointEntity"/> based on the 
         /// information of <paramref name="generalResultSubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="generalResultSubMechanismIllustrationPoint">The general result submechanism
+        /// <param name="generalResultSubMechanismIllustrationPoint">The general result sub mechanism
         /// to create a database entity for.</param>
         /// <returns>A new <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/>

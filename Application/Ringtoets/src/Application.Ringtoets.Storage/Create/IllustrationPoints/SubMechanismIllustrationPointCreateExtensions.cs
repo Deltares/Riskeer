@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// Creates a <see cref="SubMechanismIllustrationPointEntity"/> based on 
         /// the information of <paramref name="subMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="subMechanismIllustrationPoint">The submechanism illustration
+        /// <param name="subMechanismIllustrationPoint">The sub mechanism illustration
         /// point to create a database entity for.</param>
         /// <returns>A new <see cref="SubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when 

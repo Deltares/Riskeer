@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.DbContext
         byte HydraulicLocationOutputType { set; }
 
         /// <summary>
-        /// Gets or sets the general submechanism illustration point entity.
+        /// Gets or sets the general sub mechanism illustration point entity.
         /// </summary>
         GeneralResultSubMechanismIllustrationPointEntity GeneralResultSubMechanismIllustrationPointEntity { get; set; }
     }

@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         public CalculationConvergence CalculationConvergence { get; }
 
         /// <summary>
-        /// Gets the general results with the submechanism illustration points.
+        /// Gets the general results with the sub mechanism illustration points.
         /// </summary>
         public GeneralResultSubMechanismIllustrationPoint GeneralResultSubMechanismIllustrationPoint { get; private set; }
 
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Sets the general result with the submechanism illustration points.
+        /// Sets the general result with the sub mechanism illustration points.
         /// </summary>
         /// <param name="generalResultSubMechanismIllustrationPoint"></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/> 

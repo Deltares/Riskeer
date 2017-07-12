@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         public string Name { get; }
 
         /// <summary>
-        /// Gets the realized stochasts that belong to this submechanism illustration point.
+        /// Gets the realized stochasts that belong to this sub mechanism illustration point.
         /// </summary>
         public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
 

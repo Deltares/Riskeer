@@ -25,7 +25,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
     /// Represents the top level combination of wind direction, closing situation and 
-    /// a submechanism illustration point.
+    /// a sub mechanism illustration point.
     /// </summary>
     public class TopLevelSubMechanismIllustrationPoint : TopLevelIllustrationPointBase
     {
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Gets the submechanism illustration point.
+        /// Gets the sub mechanism illustration point.
         /// </summary>
         public SubMechanismIllustrationPoint SubMechanismIllustrationPoint { get; }
     }

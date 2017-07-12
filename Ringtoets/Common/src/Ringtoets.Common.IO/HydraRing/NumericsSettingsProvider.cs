@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// </summary>
         /// <param name="locationId">The location id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSetting"/> for.</param>
-        /// <returns>A new <see cref="Dictionary{T, T}"/> where the key is the submechanism id, and the value is
+        /// <returns>A new <see cref="Dictionary{T, T}"/> where the key is the sub mechanism id, and the value is
         /// the <see cref="NumericsSetting"/> containing values corresponding to the provided failure mechanism type and location id.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="failureMechanismType"/> is not a valid
         /// <see cref="HydraRingFailureMechanismType"/> value.</exception>

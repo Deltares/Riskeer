@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// The general submechanism illustration points result.
+    /// The general sub mechanism illustration points result.
     /// </summary>
     public class GeneralResultSubMechanismIllustrationPoint
     {

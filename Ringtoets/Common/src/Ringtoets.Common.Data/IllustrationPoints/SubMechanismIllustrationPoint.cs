@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Gets the stochasts that belong to this submechanism illustration point.
+        /// Gets the stochasts that belong to this sub mechanism illustration point.
         /// </summary>
         public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
 

@@ -215,9 +215,9 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the general result with the submechanism illustration points.
+        /// Gets the general result with the sub mechanism illustration points.
         /// </summary>
-        /// <returns>The general result submechanism illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// <returns>The general result sub mechanism illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
         protected abstract GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints();
 

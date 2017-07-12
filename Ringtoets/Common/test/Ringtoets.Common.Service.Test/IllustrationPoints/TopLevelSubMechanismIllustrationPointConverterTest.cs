@@ -78,24 +78,21 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void CreateTopLevelSubMechanismIllustrationPoint_ValidArguments_ExpectedProperties()
         {
             // Setup
-            const string closingScenario = "closing scenario";
 
             var random = new Random(21);
-            double angle = random.NextDouble();
-            var hydraRingWindDirection = new HydraRingWindDirection("Name", angle);
+            var hydraRingWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
 
             var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(hydraRingWindDirection,
-                                                                                                    closingScenario);
+                                                                                                    "closing scenario");
 
             var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("HydraIllustrationPointResult",
                                                                                         random.NextDouble());
 
-            const string name = "HydraSubMechanismIllustrationPointStochast";
-            double alpha = random.NextDouble();
-            double duration = random.NextDouble();
-            double realization = random.NextDouble();
             var hydraRingSubMechanismIllustrationPointStochast =
-                new HydraRingSubMechanismIllustrationPointStochast(name, duration, alpha, realization);
+                new HydraRingSubMechanismIllustrationPointStochast("HydraSubMechanismIllustrationPointStochast",
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble());
 
             double beta = random.NextDouble();
             var hydraRingSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint("name", new[]
@@ -116,7 +113,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
             Assert.AreEqual(hydraRingWindDirection.Name, windDirection.Name);
 
-            Assert.AreEqual(closingScenario, combination.ClosingSituation);
+            Assert.AreEqual("closing scenario", combination.ClosingSituation);
 
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = combination.SubMechanismIllustrationPoint;
             Assert.AreEqual(hydraRingSubMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
