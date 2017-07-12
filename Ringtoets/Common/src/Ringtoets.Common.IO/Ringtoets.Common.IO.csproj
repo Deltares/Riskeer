@@ -150,6 +150,9 @@
     <None Include="Resources\OrientatieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\ScenarioSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\StochastSchema.xsd">
       <SubType>Designer</SubType>
     </None>

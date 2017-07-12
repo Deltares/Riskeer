@@ -261,5 +261,33 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             }
             return null;
         }
+
+        /// <summary>
+        /// Gets a scenario configuration based on the values found in the <paramref name="calculationElement"/>.
+        /// </summary>
+        /// <param name="calculationElement">The element containing values for scenario parameters.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when the value for contribution or is relevant 
+        /// for scenario is not in the correct format to convert to a value.</exception>
+        /// <exception cref="OverflowException">Thrown when the value for a contribution represents 
+        /// a number less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        public static ScenarioConfiguration GetScenarioConfiguration(this XElement calculationElement)
+        {
+            if (calculationElement == null)
+            {
+                throw new ArgumentNullException(nameof(calculationElement));
+            }
+
+            XElement scenario = calculationElement.GetDescendantElement(ConfigurationSchemaIdentifiers.ScenarioElement);
+            if (scenario != null)
+            {
+                return new ScenarioConfiguration
+                {
+                    IsRelevant = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.IsRelevantScenarioName),
+                    Contribution = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.ContributionScenarioName)
+                };
+            }
+            return null;
+        }
     }
 }

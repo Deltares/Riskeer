@@ -39,6 +39,7 @@ namespace Ringtoets.Piping.IO.Configurations
     {
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
+        private const string scenarioSchemaName = "ScenarioSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationConfigurationReader"/>.
@@ -63,12 +64,15 @@ namespace Ringtoets.Piping.IO.Configurations
                        },
                        {
                            stochastStandaardafwijkingSchemaName, RingtoetsCommonIOResources.StochastStandaardafwijkingSchema
+                       },
+                       {
+                           scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
                        }
                    }) {}
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var calculation = new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
+            var configuration = new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
@@ -78,10 +82,11 @@ namespace Ringtoets.Piping.IO.Configurations
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
                 StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
                 PhreaticLevelExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName),
-                DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName)
+                DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
+                Scenario = calculationElement.GetScenarioConfiguration()
             };
 
-            return calculation;
+            return configuration;
         }
     }
 }

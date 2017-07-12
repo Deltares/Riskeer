@@ -21,8 +21,11 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
+  
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
+  
+  <!--Definitie voor het specificeren van een berekeningsscenario.-->
+  <xs:include schemaLocation="ScenarioSchema.xsd"/>
 
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft. Hierin
   wordt een keuze gegeven voor specificatie van een HR locatie of een 
@@ -40,6 +43,7 @@ All rights reserved.
             <xs:element ref="ondergrondmodel" minOccurs="0"/>
             <xs:element ref="ondergrondschematisatie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
+            <xs:element ref="scenario" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>
@@ -56,7 +60,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:redefine>
   
-  <!--Generieke definitie voor de standaardafwijking van een stochast..-->
+  <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->

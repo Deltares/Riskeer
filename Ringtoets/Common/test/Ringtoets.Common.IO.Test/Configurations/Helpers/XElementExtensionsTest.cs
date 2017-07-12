@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
@@ -1057,6 +1058,145 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, waveReduction.BreakWaterType);
             Assert.IsTrue(waveReduction.UseForeshoreProfile);
             Assert.IsTrue(waveReduction.UseBreakWater);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_CalculationElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((XElement) null).GetScenarioConfiguration();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationElement", exception.ParamName);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_OtherDescendantElement_ReturnsNull()
+        {
+            // Setup
+            var xElement = new XElement("root", new XElement("OtherDescendantElement"));
+
+            // Call
+            ScenarioConfiguration configuration = xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.IsNull(configuration);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_WithContribution_ReturnsConfiguration()
+        {
+            // Setup
+            const double contribution = 2.1;
+
+            var contributionElement = new XElement("bijdrage", contribution);
+            var configurationElement = new XElement("scenario", contributionElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            ScenarioConfiguration configuration = xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.AreEqual(contribution, configuration.Contribution);
+            Assert.IsNull(configuration.IsRelevant);
+        }
+
+        [Test]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        public void GetScenarioConfiguration_WithTooLargeContribution_ThrowsOverflowException(double contributionValue)
+        {
+            // Setup
+            string contribution = string.Format(CultureInfo.InvariantCulture, "{0}9", contributionValue);
+
+            var contributionElement = new XElement("bijdrage", contribution);
+            var configurationElement = new XElement("scenario", contributionElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            TestDelegate test = () => xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_WithInvalidContribution_ThrowsFormatException()
+        {
+            // Setup
+            const string contribution = "very much";
+
+            var contributionElement = new XElement("bijdrage", contribution);
+            var configurationElement = new XElement("scenario", contributionElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            TestDelegate test = () => xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_WithIsRelevant_ReturnsConfiguration()
+        {
+            // Setup
+            const string isRelevant = "true";
+
+            var isRelevantElement = new XElement("gebruik", isRelevant);
+            var configurationElement = new XElement("scenario", isRelevantElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            ScenarioConfiguration configuration = xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.IsTrue(configuration.IsRelevant);
+            Assert.IsNull(configuration.Contribution);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_WithInvalidIsRelevant_ThrowsFormatException()
+        {
+            // Setup
+            const string isRelevant = "partially true";
+
+            var isRelevantElement = new XElement("gebruik", isRelevant);
+            var configurationElement = new XElement("scenario", isRelevantElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            TestDelegate test = () => xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.Throws<FormatException>(test);
+        }
+
+        [Test]
+        public void GetScenarioConfiguration_WithAllParameters_ReturnsConfiguration()
+        {
+            // Setup
+            var random = new Random(123);
+            double contribution = random.NextDouble();
+            bool isRelevant = random.NextBoolean();
+
+            var contributionElement = new XElement("bijdrage", contribution);
+            var isRelevantElement = new XElement("gebruik", isRelevant
+                                                                ? "true"
+                                                                : "false");
+
+            var configurationElement = new XElement("scenario",
+                                                    contributionElement,
+                                                    isRelevantElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            ScenarioConfiguration configuration = xElement.GetScenarioConfiguration();
+
+            // Assert
+            Assert.AreEqual(contribution, configuration.Contribution);
+            Assert.AreEqual(isRelevant, configuration.IsRelevant);
         }
 
         private class DoubleToBooleanConverter : TypeConverter
