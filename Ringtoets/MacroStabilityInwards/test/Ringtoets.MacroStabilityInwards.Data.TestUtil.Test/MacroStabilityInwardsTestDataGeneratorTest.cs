@@ -25,9 +25,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsTestDataGeneratorTest

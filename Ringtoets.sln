@@ -1576,16 +1576,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtil", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtil\Ringtoets.MacroStabilityInwards.Integration.TestUtil.csproj", "{FC576B83-0FB4-49C1-AE53-47FF9779110F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test\Ringtoets.MacroStabilityInwards.Integration.TestUtil.Test.csproj", "{371F39A4-B48D-4298-A7F9-53BABB55DE03}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.IO.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.IO.Test\Ringtoets.MacroStabilityInwards.IO.Test.csproj", "{3C95DD33-659C-4596-AF93-D51D0F96E16B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -4049,22 +4039,6 @@ Global
 		{165DB703-875C-416C-80DE-92FC692A08C6}.Release|x86.Build.0 = Release|x86
 		{165DB703-875C-416C-80DE-92FC692A08C6}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{165DB703-875C-416C-80DE-92FC692A08C6}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.Debug|x86.ActiveCfg = Debug|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.Debug|x86.Build.0 = Debug|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.Release|x86.ActiveCfg = Release|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.Release|x86.Build.0 = Release|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.Debug|x86.ActiveCfg = Debug|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.Debug|x86.Build.0 = Debug|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.Release|x86.ActiveCfg = Release|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.Release|x86.Build.0 = Release|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.Debug|x86.ActiveCfg = Debug|x86
@@ -4546,8 +4520,6 @@ Global
 		{7CB3D26F-9FE5-4105-A3BC-36F457C6EA1D} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{9279F3F9-C888-4FC6-8DFC-C575BEB164EC} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{165DB703-875C-416C-80DE-92FC692A08C6} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
-		{FC576B83-0FB4-49C1-AE53-47FF9779110F} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
-		{371F39A4-B48D-4298-A7F9-53BABB55DE03} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}

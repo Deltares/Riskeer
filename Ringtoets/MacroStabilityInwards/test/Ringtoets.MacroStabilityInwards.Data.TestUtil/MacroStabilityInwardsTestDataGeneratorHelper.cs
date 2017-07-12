@@ -23,10 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Integration.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Class to help asserting the <see cref="MacroStabilityInwardsTestDataGenerator"/>.

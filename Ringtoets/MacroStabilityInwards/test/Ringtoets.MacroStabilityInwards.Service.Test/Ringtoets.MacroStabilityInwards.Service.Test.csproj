@@ -105,10 +105,6 @@
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Integration.TestUtil\Ringtoets.MacroStabilityInwards.Integration.TestUtil.csproj">
-      <Project>{fc576b83-0fb4-49c1-ae53-47ff9779110f}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Integration.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
       <Project>{3810d738-6412-47d1-8bc0-729d55bc951f}</Project>
       <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
