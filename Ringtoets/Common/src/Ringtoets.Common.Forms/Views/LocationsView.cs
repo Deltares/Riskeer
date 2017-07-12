@@ -155,8 +155,12 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void HandleHydraulicBoundaryDatabaseUpdate()
         {
+            updatingControls = true;
+
             dataGridViewControl.RefreshDataGridView();
             illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
+
+            updatingControls = false;
         }
 
         private void LocalizeControls()
