@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="ClosingStructureDataSynchronizationServiceTest.cs" />
     <Compile Include="ClosingStructuresCalculationActivityTest.cs" />
+    <Compile Include="ClosingStructuresCalculationMessageProviderTest.cs" />
     <Compile Include="ClosingStructuresCalculationServiceTest.cs" />
     <Compile Include="ClosingStructuresValidationRulesRegistryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

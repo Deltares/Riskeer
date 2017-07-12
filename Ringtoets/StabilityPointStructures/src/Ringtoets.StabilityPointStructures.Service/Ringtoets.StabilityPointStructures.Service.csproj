@@ -50,6 +50,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StabilityPointStructuresCalculationActivity.cs" />
+    <Compile Include="StabilityPointStructuresCalculationMessageProvider.cs" />
     <Compile Include="StabilityPointStructuresCalculationService.cs" />
     <Compile Include="StabilityPointStructuresDataSynchronizationService.cs" />
     <Compile Include="StabilityPointStructuresValidationRulesRegistry.cs" />

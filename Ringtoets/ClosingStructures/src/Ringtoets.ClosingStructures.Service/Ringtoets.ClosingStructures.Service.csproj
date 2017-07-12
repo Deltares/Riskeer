@@ -44,6 +44,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ClosingStructuresCalculationActivity.cs" />
+    <Compile Include="ClosingStructuresCalculationMessageProvider.cs" />
     <Compile Include="ClosingStructuresCalculationService.cs" />
     <Compile Include="ClosingStructuresDataSynchronizationService.cs" />
     <Compile Include="ClosingStructuresValidationRulesRegistry.cs" />

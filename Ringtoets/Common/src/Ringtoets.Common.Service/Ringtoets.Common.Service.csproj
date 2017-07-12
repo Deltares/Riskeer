@@ -54,6 +54,7 @@
     <Compile Include="IllustrationPoints\StochastConverter.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverter.cs" />
+    <Compile Include="MessageProviders\IStructuresCalculationMessageProvider.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="Structures\StructuresCalculationServiceBase.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelper.cs" />

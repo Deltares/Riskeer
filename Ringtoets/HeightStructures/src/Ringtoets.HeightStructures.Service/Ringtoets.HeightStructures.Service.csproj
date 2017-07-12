@@ -44,6 +44,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="HeightStructuresCalculationActivity.cs" />
+    <Compile Include="HeightStructuresCalculationMessageProvider.cs" />
     <Compile Include="HeightStructuresCalculationService.cs" />
     <Compile Include="HeightStructuresDataSynchronizationService.cs" />
     <Compile Include="HeightStructuresValidationRulesRegistry.cs" />

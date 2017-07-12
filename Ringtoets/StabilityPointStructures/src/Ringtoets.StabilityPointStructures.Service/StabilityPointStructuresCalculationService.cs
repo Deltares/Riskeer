@@ -151,7 +151,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                     calculation.Name, lastErrorFileContent);
                 }
 
-                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 if (errorOccurred)

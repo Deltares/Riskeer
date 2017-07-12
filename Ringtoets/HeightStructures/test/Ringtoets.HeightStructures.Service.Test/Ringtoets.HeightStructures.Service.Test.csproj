@@ -53,6 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="HeightStructuresCalculationActivityTest.cs" />
+    <Compile Include="HeightStructuresCalculationMessageProviderTest.cs" />
     <Compile Include="HeightStructuresCalculationServiceTest.cs" />
     <Compile Include="HeightStructuresDataSynchronizationServiceTest.cs" />
     <Compile Include="HeightStructuresValidationRulesRegistryTest.cs" />

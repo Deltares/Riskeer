@@ -82,6 +82,16 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Puntconstructies berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        /// </summary>
+        internal static string StabilityPointStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationService_Calculate_Calculation_temporary_direct" +
+                        "ory_can_be_found_on_location_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
@@ -99,16 +109,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
             get {
                 return ResourceManager.GetString("StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStruc" +
                         "turesCalculation_0_no_error_report", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Puntconstructies berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
-        /// </summary>
-        internal static string StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0 {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directo" +
-                        "ry_can_be_found_on_location_0", resourceCulture);
             }
         }
     }
