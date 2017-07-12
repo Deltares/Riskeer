@@ -38,8 +38,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO, nameof(MacroStabilityInwardsCalculationConfigurationReader));
-        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO, nameof(MacroStabilityInwardsCalculationConfigurationImporter));
+        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                                                                        nameof(MacroStabilityInwardsCalculationConfigurationReader));
+
+        private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                                                                          nameof(MacroStabilityInwardsCalculationConfigurationImporter));
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -277,6 +280,94 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
+        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is voor scenario geen contributie of relevantie opgegeven. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 8.8
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertMacroStabilityInwardsCalculationScenario(expectedCalculation, (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
+                                                                                     calculationGroup,
+                                                                                     Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                     pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertMacroStabilityInwardsCalculationScenario(expectedCalculation, (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
         [TestCase(false, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
         [TestCase(true, "validConfigurationFullCalculationContainingAssessmentLevel.xml")]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(bool manualAssessmentLevel, string file)
@@ -346,7 +437,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
-                }
+                },
+                IsRelevant = false,
+                Contribution = (RoundedDouble) 8.8
             };
             if (manualAssessmentLevel)
             {
@@ -357,7 +450,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             AssertMacroStabilityInwardsCalculationScenario(expectedCalculation, (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
-        private static void AssertMacroStabilityInwardsCalculationScenario(MacroStabilityInwardsCalculationScenario expectedCalculation, MacroStabilityInwardsCalculationScenario actualCalculation)
+        private static void AssertMacroStabilityInwardsCalculationScenario(MacroStabilityInwardsCalculationScenario expectedCalculation,
+                                                                           MacroStabilityInwardsCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.InputParameters.UseAssessmentLevelManualInput, actualCalculation.InputParameters.UseAssessmentLevelManualInput);
@@ -372,6 +466,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreSame(expectedCalculation.InputParameters.SurfaceLine, actualCalculation.InputParameters.SurfaceLine);
             Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilModel, actualCalculation.InputParameters.StochasticSoilModel);
             Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilProfile, actualCalculation.InputParameters.StochasticSoilProfile);
+
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
         }
     }
 }

@@ -235,6 +235,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is voor scenario geen contributie of relevantie opgegeven..
+        /// </summary>
+        public static string CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kan geen spreiding voor stochast &apos;modelfactoroverloopdebiet&apos; opgegeven worden..
         /// </summary>
         public static string CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow {

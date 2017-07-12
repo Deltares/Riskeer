@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -89,7 +90,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             if (TryReadHydraulicBoundaryData(calculationConfiguration, calculation)
                 && TryReadSurfaceLine(calculationConfiguration, calculation)
                 && TryReadStochasticSoilModel(calculationConfiguration, calculation)
-                && TryReadStochasticSoilProfile(calculationConfiguration, calculation))
+                && TryReadStochasticSoilProfile(calculationConfiguration, calculation)
+                && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation))
             {
                 return calculation;
             }

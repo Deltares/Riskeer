@@ -299,6 +299,43 @@ namespace Ringtoets.Common.IO.Configurations.Import
             }
         }
 
+        /// <summary>
+        /// Assigns the <paramref name="scenarioConfiguration"/> parameters to the <paramref name="scenario"/>.
+        /// </summary>
+        /// <param name="scenarioConfiguration">The scenario configuration containing values for the parameters.</param>
+        /// <param name="scenario">The input to assign the values to.</param>
+        /// <returns><c>true</c> if no <paramref name="scenarioConfiguration"/> was giver, or when 
+        /// the <paramref name="scenarioConfiguration"/> is not empty. <c>false</c> otherwise.</returns>
+        protected bool TrySetScenarioParameters(ScenarioConfiguration scenarioConfiguration, ICalculationScenario scenario)
+        {
+            if (scenarioConfiguration == null)
+            {
+                return true;
+            }
+
+            bool hasContribution = scenarioConfiguration.Contribution.HasValue;
+            bool hasRelevance = scenarioConfiguration.IsRelevant.HasValue;
+
+            if (!hasContribution && !hasRelevance)
+            {
+                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty,
+                                                  scenario.Name);
+                return false;
+            }
+
+            if (hasContribution)
+            {
+                scenario.Contribution = (RoundedDouble)scenarioConfiguration.Contribution.Value;
+            }
+
+            if (hasRelevance)
+            {
+                scenario.IsRelevant = scenarioConfiguration.IsRelevant.Value;
+            }
+
+            return true;
+        }
+
         private ReadResult<IConfigurationItem> ReadConfiguration()
         {
             try

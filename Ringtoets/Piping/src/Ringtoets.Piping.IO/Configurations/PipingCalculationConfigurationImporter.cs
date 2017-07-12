@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
@@ -92,7 +91,7 @@ namespace Ringtoets.Piping.IO.Configurations
                 && TryReadStochasticSoilModel(calculationConfiguration, pipingCalculation)
                 && TryReadStochasticSoilProfile(calculationConfiguration, pipingCalculation)
                 && TryReadStochasts(calculationConfiguration, pipingCalculation)
-                && TryReadScenario(calculationConfiguration, pipingCalculation))
+                && TrySetScenarioParameters(calculationConfiguration.Scenario, pipingCalculation))
             {
                 return pipingCalculation;
             }
@@ -342,37 +341,6 @@ namespace Ringtoets.Piping.IO.Configurations
                 i => i.PhreaticLevelExit,
                 (i, s) => i.PhreaticLevelExit = s,
                 Log);
-        }
-
-        private bool TryReadScenario(PipingCalculationConfiguration calculationConfiguration, ICalculationScenario scenario)
-        {
-            ScenarioConfiguration scenarioConfiguration = calculationConfiguration.Scenario;
-            if (scenarioConfiguration == null)
-            {
-                return true;
-            }
-
-            bool hasContribution = scenarioConfiguration.Contribution.HasValue;
-            bool hasRelevance = scenarioConfiguration.IsRelevant.HasValue;
-
-            if (!hasContribution && !hasRelevance)
-            {
-                Log.LogCalculationConversionError("Er is voor scenario geen contributie of relevantie opgegeven.",
-                                                  scenario.Name);
-                return false;
-            }
-
-            if (hasContribution)
-            {
-                scenario.Contribution = (RoundedDouble) scenarioConfiguration.Contribution.Value;
-            }
-
-            if (hasRelevance)
-            {
-                scenario.IsRelevant = scenarioConfiguration.IsRelevant.Value;
-            }
-
-            return true;
         }
     }
 }

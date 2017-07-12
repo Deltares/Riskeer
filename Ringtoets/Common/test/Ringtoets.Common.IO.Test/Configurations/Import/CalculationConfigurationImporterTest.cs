@@ -29,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -706,6 +707,109 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             Assert.AreSame(expectedProfile, structure);
         }
 
+        [Test]
+        public void PublicTrySetScenarioParameters_NoScenario_NoDataAddedToModelReturnsTrue()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
+            mockRepository.ReplayAll();
+
+            var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
+                                                                new CalculationGroup());
+
+            // Call
+            bool successful = importer.PublicTrySetScenarioParameters(null, calculationScenario);
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PublicTrySetScenarioParameters_ScenarioEmpty_LogMessageReturnsFalse()
+        {
+            // Setup
+            const string calculationScenarioName = "calculationScenario";
+
+            var mockRepository = new MockRepository();
+            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
+            calculationScenario.Expect(cs => cs.Name).Return(calculationScenarioName);
+            mockRepository.ReplayAll();
+
+            var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
+                                                                new CalculationGroup());
+
+            // Call
+            var successful = true;
+            Action call = () => successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration(),
+                                                                                     calculationScenario);
+
+            // Assert
+            string expectedMessage = "Er is voor scenario geen contributie of relevantie opgegeven. " +
+                                     $"Berekening '{calculationScenarioName}' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsFalse(successful);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModelReturnsTrue()
+        {
+            // Setup
+            var random = new Random(45);
+            double contribution = random.NextDouble();
+
+            var mockRepository = new MockRepository();
+            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
+            calculationScenario.Expect(cs => cs.Contribution)
+                               .SetPropertyWithArgument((RoundedDouble) contribution);
+            mockRepository.ReplayAll();
+
+            var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
+                                                                new CalculationGroup());
+
+            // Call
+            bool successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration
+            {
+                Contribution = contribution
+            }, calculationScenario);
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModelReturnsTrue()
+        {
+            // Setup
+            var random = new Random(45);
+            bool isRelevant = random.NextBoolean();
+
+            var mockRepository = new MockRepository();
+            var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
+            calculationScenario.Expect(cs => cs.IsRelevant).SetPropertyWithArgument(isRelevant);
+            mockRepository.ReplayAll();
+
+            var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),
+                                                                new CalculationGroup());
+
+            // Call
+            bool successful = importer.PublicTrySetScenarioParameters(new ScenarioConfiguration
+            {
+                IsRelevant = isRelevant
+            }, calculationScenario);
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            mockRepository.VerifyAll();
+        }
+
         private class CalculationConfigurationImporter : CalculationConfigurationImporter<CalculationConfigurationReader, ReadCalculation>
         {
             public CalculationConfigurationImporter(string filePath, CalculationGroup importTarget)
@@ -730,6 +834,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             public bool PublicTryReadStructure(string locationName, string calculationName, IEnumerable<StructureBase> structures, out StructureBase location)
             {
                 return TryReadStructure(locationName, calculationName, structures, out location);
+            }
+
+            public bool PublicTrySetScenarioParameters(ScenarioConfiguration scenarioConfiguration, ICalculationScenario scenario)
+            {
+                return TrySetScenarioParameters(scenarioConfiguration, scenario);
             }
 
             protected override CalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
