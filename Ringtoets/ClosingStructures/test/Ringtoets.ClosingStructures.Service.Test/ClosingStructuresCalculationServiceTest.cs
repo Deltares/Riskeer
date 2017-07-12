@@ -59,7 +59,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var service = new ClosingStructuresCalculationService();
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry, ClosingStructuresInput, ClosingStructure>>(service);
+            Assert.IsInstanceOf<StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry, ClosingStructuresInput,
+                ClosingStructure, ClosingStructuresFailureMechanism>>(service);
         }
 
         [Test]
@@ -324,57 +325,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             Assert.IsFalse(isValid);
 
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculationNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new ClosingStructuresCalculationService().Calculate(null, assessmentSectionStub, new ClosingStructuresFailureMechanism(), string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new ClosingStructuresCalculationService().Calculate(new TestClosingStructuresCalculation(),
-                                                                                          null,
-                                                                                          new ClosingStructuresFailureMechanism(),
-                                                                                          string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new ClosingStructuresCalculationService().Calculate(new TestClosingStructuresCalculation(),
-                                                                                          assessmentSectionStub,
-                                                                                          null,
-                                                                                          string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

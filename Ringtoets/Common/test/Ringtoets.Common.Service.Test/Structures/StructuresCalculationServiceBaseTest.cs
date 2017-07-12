@@ -311,8 +311,71 @@ namespace Ringtoets.Common.Service.Test.Structures
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Calculate_CalculationNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new TestStructuresCalculationService().Calculate(null,
+                                                                                       assessmentSection,
+                                                                                       failureMechanism,
+                                                                                       string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new TestStructuresCalculation();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new TestStructuresCalculationService().Calculate(calculation,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new TestStructuresCalculation();
+
+            // Call
+            TestDelegate test = () => new TestStructuresCalculationService().Calculate(calculation,
+                                                                                       assessmentSection,
+                                                                                       null,
+                                                                                       string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
             TestStructuresInput,
-            TestStructure> {}
+            TestStructure,
+            TestFailureMechanism> {}
     }
 }

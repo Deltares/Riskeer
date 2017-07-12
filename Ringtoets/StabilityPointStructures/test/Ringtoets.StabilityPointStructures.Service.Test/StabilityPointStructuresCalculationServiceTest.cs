@@ -60,7 +60,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             Assert.IsInstanceOf<StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
                 StabilityPointStructuresInput,
-                StabilityPointStructure>>(service);
+                StabilityPointStructure,
+                StabilityPointStructuresFailureMechanism>>(service);
         }
 
         [Test]
@@ -533,68 +534,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                     expectedMessage).ParamName;
             Assert.AreEqual("input", paramName);
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculationNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(null,
-                                                                                                 assessmentSection,
-                                                                                                 failureMechanism,
-                                                                                                 string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var calculation = new TestStabilityPointStructuresCalculation();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new TestStabilityPointStructuresCalculation();
-
-            // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                                 assessmentSection,
-                                                                                                 null,
-                                                                                                 string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]

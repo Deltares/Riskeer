@@ -40,7 +40,8 @@ namespace Ringtoets.HeightStructures.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for height structures.
     /// </summary>
-    public class HeightStructuresCalculationService : StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput, HeightStructure>
+    public class HeightStructuresCalculationService : StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput,
+        HeightStructure, HeightStructuresFailureMechanism>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
 
@@ -77,23 +78,12 @@ namespace Ringtoets.HeightStructures.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
-                                IAssessmentSection assessmentSection,
-                                HeightStructuresFailureMechanism failureMechanism,
-                                string hydraulicBoundaryDatabaseFilePath)
+        public override void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
+                                       IAssessmentSection assessmentSection,
+                                       HeightStructuresFailureMechanism failureMechanism,
+                                       string hydraulicBoundaryDatabaseFilePath)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
+            base.Calculate(calculation, assessmentSection, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string calculationName = calculation.Name;
 

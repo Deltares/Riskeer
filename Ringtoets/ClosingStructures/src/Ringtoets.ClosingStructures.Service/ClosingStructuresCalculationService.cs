@@ -43,7 +43,8 @@ namespace Ringtoets.ClosingStructures.Service
     /// </summary>
     public class ClosingStructuresCalculationService : StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry,
         ClosingStructuresInput,
-        ClosingStructure>
+        ClosingStructure,
+        ClosingStructuresFailureMechanism>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 
@@ -74,23 +75,12 @@ namespace Ringtoets.ClosingStructures.Service
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
+        public override void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               ClosingStructuresFailureMechanism failureMechanism,
                               string hydraulicBoundaryDatabaseFilePath)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
+            base.Calculate(calculation, assessmentSection, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string calculationName = calculation.Name;
 

@@ -44,7 +44,8 @@ namespace Ringtoets.StabilityPointStructures.Service
     /// </summary>
     public class StabilityPointStructuresCalculationService : StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
         StabilityPointStructuresInput,
-        StabilityPointStructure>
+        StabilityPointStructure,
+        StabilityPointStructuresFailureMechanism>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
 
@@ -78,23 +79,12 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// <item><see cref="StabilityPointStructuresInput.LoadSchematizationType"/> is an invalid <see cref="LoadSchematizationType"/>.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation,
+        public override void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               StabilityPointStructuresFailureMechanism failureMechanism,
                               string hydraulicBoundaryDatabaseFilePath)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
+            base.Calculate(calculation, assessmentSection, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string calculationName = calculation.Name;
 
