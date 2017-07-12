@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         /// and use the information to construct a <see cref="SubMechanismIllustrationPointStochast"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SubMechanismIllustrationPointStochastEntity"/> to create 
-        /// <see cref="SubMechanismIllustrationPointStochast"/> for.</param>
+        /// a <see cref="SubMechanismIllustrationPointStochast"/> for.</param>
         /// <returns>A new <see cref="SubMechanismIllustrationPointStochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static SubMechanismIllustrationPointStochast Read(this SubMechanismIllustrationPointStochastEntity entity)

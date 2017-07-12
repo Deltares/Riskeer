@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateStochastEntity_ValidStochast_ReturnEntity()
+        public void CreateStochastEntity_ValidStochast_ReturnStochastEntity()
         {
             // Setup
             var random = new Random(123);

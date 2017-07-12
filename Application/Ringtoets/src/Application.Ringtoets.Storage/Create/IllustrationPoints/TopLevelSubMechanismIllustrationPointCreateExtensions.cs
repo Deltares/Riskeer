@@ -36,7 +36,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// Creates a <see cref="TopLevelSubMechanismIllustrationPointEntity"/>
         /// based on the information of <paramref name="topLevelSubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="topLevelSubMechanismIllustrationPoint"></param>
+        /// <param name="topLevelSubMechanismIllustrationPoint">The top level illustration point
+        /// to create a database entity for.</param>
         /// <param name="order">The index at which <paramref name="topLevelSubMechanismIllustrationPoint"/>
         /// resides within its parent.</param>
         /// <returns>A <see cref="TopLevelSubMechanismIllustrationPointEntity"/>.</returns>

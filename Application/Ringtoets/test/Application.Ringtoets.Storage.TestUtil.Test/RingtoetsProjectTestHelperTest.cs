@@ -325,27 +325,43 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(hydraulicBoundaryDatabase);
             Assert.AreEqual("1.0", hydraulicBoundaryDatabase.Version);
             Assert.AreEqual("/temp/test", hydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
+            Assert.AreEqual(2, hydraulicBoundaryDatabase.Locations.Count);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
-            AssertHydraulicBoundaryLocation(hydraulicBoundaryLocation);
-        }
-
-        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[0];
             Assert.AreEqual(13001, hydraulicBoundaryLocation.Id);
             Assert.AreEqual("test", hydraulicBoundaryLocation.Name);
             Assert.AreEqual(152.3, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(2938.5, hydraulicBoundaryLocation.Location.Y);
 
-            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation);
-            AssertHydraulicBoundaryLocationWaveHeightCalculation(hydraulicBoundaryLocation.WaveHeightCalculation);
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = hydraulicBoundaryLocation.WaveHeightCalculation;
+            Assert.IsFalse(waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocationWithIllustrationPoints = hydraulicBoundaryDatabase.Locations[1];
+            Assert.AreEqual(13002, hydraulicBoundaryLocationWithIllustrationPoints.Id);
+            Assert.AreEqual("test2", hydraulicBoundaryLocationWithIllustrationPoints.Name);
+            Assert.AreEqual(135.2, hydraulicBoundaryLocationWithIllustrationPoints.Location.X);
+            Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
+
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculationWithIllustrationPoints =
+                hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation;
+            Assert.IsTrue(designWaterLevelCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculationWithIllustrationPoints);
+            AssertGeneralResultSubMechanismIllustrationPoint(designWaterLevelCalculationWithIllustrationPoints.Output.GeneralResultSubMechanismIllustrationPoint);
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculationWithIllustrationPoints =
+                hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation;
+            Assert.IsTrue(waveHeightCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculationWithIllustrationPoints);
+            AssertGeneralResultSubMechanismIllustrationPoint(waveHeightCalculationWithIllustrationPoints.Output.GeneralResultSubMechanismIllustrationPoint);
         }
 
         private static void AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            Assert.IsFalse(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-
             HydraulicBoundaryLocationOutput output = calculation.Output;
             Assert.AreEqual(12.4, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
@@ -353,13 +369,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
-            Assert.IsNull(output.GeneralResultSubMechanismIllustrationPoint);
         }
 
         private static void AssertHydraulicBoundaryLocationWaveHeightCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            Assert.IsTrue(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-
             HydraulicBoundaryLocationOutput output = calculation.Output;
             Assert.AreEqual(2.4, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(0, output.TargetProbability);
@@ -367,9 +380,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(0, output.CalculatedProbability);
             Assert.AreEqual(0, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
-            AssertGeneralResultSubMechanismIllustrationPoint(output.GeneralResultSubMechanismIllustrationPoint);
         }
-
 
         private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint generalResult)
         {
@@ -383,15 +394,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(13, stochast.Duration, stochast.Duration.GetAccuracy());
 
             TopLevelSubMechanismIllustrationPoint actualTopLevelSubMechanismIllustrationPoint =
-               generalResult.TopLevelSubMechanismIllustrationPoints.Single();
+                generalResult.TopLevelSubMechanismIllustrationPoints.Single();
             Assert.AreEqual("Closing situation", actualTopLevelSubMechanismIllustrationPoint.ClosingSituation);
             Assert.AreEqual("60", actualTopLevelSubMechanismIllustrationPoint.WindDirection.Name);
-            Assert.AreEqual(60, actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle, 
-                actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle.GetAccuracy());
+            Assert.AreEqual(60, actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle,
+                            actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle.GetAccuracy());
 
             SubMechanismIllustrationPoint illustrationPoint = actualTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
             Assert.AreEqual("Name of illustrationPoint", illustrationPoint.Name);
-            Assert.AreEqual(3,illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(3, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
 
             SubMechanismIllustrationPointStochast illustrationPointStochast = illustrationPoint.Stochasts.Single();
             Assert.AreEqual("Name of a submechanism stochast", illustrationPointStochast.Name);

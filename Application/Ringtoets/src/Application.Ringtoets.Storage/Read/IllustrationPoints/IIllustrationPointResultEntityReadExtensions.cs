@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         /// construct an <see cref="IllustrationPointResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="IllustrationPointResultEntity"/> to create 
-        /// <see cref="IllustrationPointResult"/> for.</param>
+        /// a <see cref="IllustrationPointResult"/> for.</param>
         /// <returns>A new <see cref="IllustrationPointResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static IllustrationPointResult Read(this IllustrationPointResultEntity entity)

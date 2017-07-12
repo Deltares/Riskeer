@@ -1133,7 +1133,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             if (expectedCalculation.HasOutput)
             {
                 AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
-                                                 actualCalculation.Output.ProbabilityAssessmentOutput);
+                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
             }
             else
             {
@@ -1328,7 +1328,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             if (expectedCalculation.HasOutput)
             {
                 AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
-                                                 actualCalculation.Output.ProbabilityAssessmentOutput);
+                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
             }
             else
             {
@@ -1854,9 +1854,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return;
             }
 
-            WindDirection expectedGoverningWindDirection = expectedGeneralResult.GoverningWindDirection;
-            WindDirection actualGoverningWindDirection = actualGeneralResult.GoverningWindDirection;
-            AssertWindDirection(expectedGoverningWindDirection, actualGoverningWindDirection);
+            AssertWindDirection(expectedGeneralResult.GoverningWindDirection,
+                                actualGeneralResult.GoverningWindDirection);
 
             Stochast[] expectedStochasts = expectedGeneralResult.Stochasts.ToArray();
             Stochast[] actualStochasts = actualGeneralResult.Stochasts.ToArray();
@@ -1930,7 +1929,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             IllustrationPointResult[] actualIllustrationPointResults = actualSubMechanismIllustrationPoint.IllustrationPointResults.ToArray();
             int expectedNrOfIllustrationPointResults = expectedIllustrationPointResults.Length;
             Assert.AreEqual(expectedNrOfIllustrationPointResults, actualIllustrationPointResults.Length);
-            for (int i = 0; i < expectedNrOfIllustrationPointResults; i++)
+            for (var i = 0; i < expectedNrOfIllustrationPointResults; i++)
             {
                 AssertIllustrationPointResult(expectedIllustrationPointResults[i],
                                               actualIllustrationPointResults[i]);

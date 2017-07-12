@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnEntity()
+        public void CreateIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnIllustrationPointResultEntity()
         {
             // Setup
             var random = new Random(123);

@@ -323,14 +323,6 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "/temp/test",
-                Version = "1.0"
-            };
-
-            var waveHeightCalculationOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-            waveHeightCalculationOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
                 DesignWaterLevelCalculation =
@@ -341,15 +333,46 @@ namespace Application.Ringtoets.Storage.TestUtil
                 },
                 WaveHeightCalculation =
                 {
+                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                }
+            };
+
+            var designWaterLevelOutput = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
+                                                                             double.NaN, double.NaN,
+                                                                             double.NaN, CalculationConvergence.NotCalculated);
+            designWaterLevelOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
+            var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
+            waveHeightOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
+            var hydraulicBoundaryLocationWithIllustrationPoints = new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
+            {
+                DesignWaterLevelCalculation =
+                {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = waveHeightCalculationOutput
+                    Output = designWaterLevelOutput
+                },
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = waveHeightOutput
                 }
             };
 
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "/temp/test",
+                Version = "1.0",
+                Locations =
+                {
+                    hydraulicBoundaryLocation,
+                    hydraulicBoundaryLocationWithIllustrationPoints
+                }
+            };
 
             return hydraulicBoundaryDatabase;
         }

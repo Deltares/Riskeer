@@ -46,14 +46,11 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPoint_ReturnsEntity()
+        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPoint_ReturnsEntityWithoutStochastsAndTopLevelSubMechanismIllustrationPointEntities()
         {
             // Setup
             var random = new Random(21);
-
-            const string windDirectionName = "SSE";
-            double windDirectionAngle = random.NextDouble();
-            var governingWindDirection = new WindDirection(windDirectionName, windDirectionAngle);
+            var governingWindDirection = new WindDirection("SSE", random.NextDouble());
 
             var generalResult =
                 new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
@@ -65,28 +62,21 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 generalResult.CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
+            AssertWindDirection(governingWindDirection, entity);
+
             CollectionAssert.IsEmpty(entity.StochastEntities);
             CollectionAssert.IsEmpty(entity.TopLevelSubMechanismIllustrationPointEntities);
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPointWithStochasts_ReturnsEntity()
+        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPointWithStochasts_ReturnsEntityWithStochastsEntities()
         {
             // Setup
             var random = new Random(21);
+            var governingWindDirection = new WindDirection("SSE", random.NextDouble());
 
-            const string windDirectionName = "SSE";
-            double windDirectionAngle = random.NextDouble();
-            var governingWindDirection = new WindDirection(windDirectionName, windDirectionAngle);
-
-            const string stochastName = "stochast";
-            double duration = random.NextDouble();
-            double alpha = random.NextDouble();
-            var stochastOne = new Stochast(stochastName, duration, alpha);
-            var stochastTwo = new Stochast($"{stochastName}_Two", duration + 1, alpha + 1);
+            var stochastOne = new Stochast("stochastOne", random.NextDouble(), random.NextDouble());
+            var stochastTwo = new Stochast("stochastTwo", random.NextDouble(), random.NextDouble());
             var stochasts = new[]
             {
                 stochastOne,
@@ -103,10 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 generalResult.CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-            CollectionAssert.IsEmpty(entity.TopLevelSubMechanismIllustrationPointEntities);
+            AssertWindDirection(governingWindDirection, entity);
 
             StochastEntity[] stochastEntities = entity.StochastEntities.ToArray();
             Assert.AreEqual(stochasts.Length, stochastEntities.Length);
@@ -120,21 +107,17 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPointWithIllustrationPoints_ReturnsEntity()
+        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultSubMechanismIllustrationPointWithIllustrationPoints_ReturnsEntityWithTopLevelSubMechanismIllustrationPointEntities()
         {
             // Setup
             var random = new Random(21);
+            var governingWindDirection = new WindDirection("SSE", random.NextDouble());
 
-            const string windDirectionName = "SSE";
-            double windDirectionAngle = random.NextDouble();
-            var governingWindDirection = new WindDirection(windDirectionName, windDirectionAngle);
-
-            const string illustrationPointName = "illustrationPoint";
             var illustrationPointOne = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                 illustrationPointName,
+                                                                                 "IllustrationPointOne",
                                                                                  new TestSubMechanismIllustrationPoint());
             var illustrationPointTwo = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                 $"{illustrationPointName}_Two",
+                                                                                 "IllustrationPointTwo",
                                                                                  new TestSubMechanismIllustrationPoint());
             var illustrationPoints = new[]
             {
@@ -152,10 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 generalResult.CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-            CollectionAssert.IsEmpty(entity.StochastEntities);
+            AssertWindDirection(governingWindDirection, entity);
 
             TopLevelSubMechanismIllustrationPointEntity[] illustrationPointEntities =
                 entity.TopLevelSubMechanismIllustrationPointEntities.ToArray();
@@ -167,6 +147,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
                 AssertCreatedTopLevelSubMechanismIllustrationPointEntity(illustrationPoint, i, illustrationPointEntity);
             }
+        }
+
+        private static void AssertWindDirection(WindDirection expectedWindDirection,
+                                                GeneralResultSubMechanismIllustrationPointEntity entity)
+        {
+            TestHelper.AssertAreEqualButNotSame(expectedWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(expectedWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            expectedWindDirection.Angle.GetAccuracy());
         }
 
         private static void AssertCreatedStochastEntity(Stochast stochast,

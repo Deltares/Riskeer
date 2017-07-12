@@ -35,6 +35,21 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
     public class GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest
     {
         [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = (GrassCoverErosionOutwardsHydraulicLocationEntity) null;
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate call = () => entity.Read(collector);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         public void Read_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
@@ -136,8 +151,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual((RoundedDouble) designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
+            Assert.AreEqual(designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
             AssertHydraulicBoundaryLocationOutput(designWaterLevelOutputEntity, location.DesignWaterLevelCalculation.Output);
             AssertHydraulicBoundaryLocationOutput(waveheightOutputEntity, location.WaveHeightCalculation.Output);
         }
@@ -207,8 +222,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual((RoundedDouble) designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
+            Assert.AreEqual(designWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
 
             HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
             AssertShouldIllustrationPointsBeCalculated(shouldDesignWaterLevelIllustrationPointsBeCalculated, designWaterLevelCalculation);

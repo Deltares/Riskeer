@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="SubMechanismIllustrationPointStochast"/> 
+    /// Extension methods for <see cref="SubMechanismIllustrationPoint"/> 
     /// related to creating an instance of <see cref="SubMechanismIllustrationPointEntity"/>.
     /// </summary>
     internal static class SubMechanismIllustrationPointCreateExtensions
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 Name = subMechanismIllustrationPoint.Name.DeepClone()
             };
 
-            AddEntitiesForSubMechanismIllustrationPoints(entity, subMechanismIllustrationPoint.Stochasts);
+            AddEntitiesForSubMechanismIllustrationPointsStochasts(entity, subMechanismIllustrationPoint.Stochasts);
             AddEntitiesForIllustrationPointResults(entity, subMechanismIllustrationPoint.IllustrationPointResults);
 
             return entity;
@@ -73,8 +73,9 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             }
         }
 
-        private static void AddEntitiesForSubMechanismIllustrationPoints(SubMechanismIllustrationPointEntity entity,
-                                                                         IEnumerable<SubMechanismIllustrationPointStochast> stochasts)
+        private static void AddEntitiesForSubMechanismIllustrationPointsStochasts(
+            SubMechanismIllustrationPointEntity entity,
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts)
         {
             var order = 0;
             foreach (SubMechanismIllustrationPointStochast subMechanismIllustrationPointStochast in stochasts)

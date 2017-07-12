@@ -45,25 +45,18 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateTopLevelSubMechanismIllustrationPointEntity_ValidTopLevelSubMechanismIllustrationPoint_ReturnsEntity()
+        public void CreateTopLevelSubMechanismIllustrationPointEntity_ValidTopLevelSubMechanismIllustrationPoint_ReturnsEntityWithSubMechanismIllustrationPointEntity()
         {
             // Setup
             var random = new Random(21);
-
-            const string illustrationPointName = "Illustration point name";
-            double beta = random.NextDouble();
-            var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      beta,
+            var illustrationPoint = new SubMechanismIllustrationPoint("Illustration point name",
+                                                                      random.NextDouble(),
                                                                       Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
-            const string windDirectionName = "WindDirection Name";
-            double angle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName, angle);
-
-            const string closingSituation = "Just a situation";
+            var windDirection = new WindDirection("WindDirection Name", random.NextDouble());
             var topLevelSubMechanismIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(windDirection,
-                                                                                                  closingSituation,
+                                                                                                  "Just a situation",
                                                                                                   illustrationPoint);
             int order = random.Next();
 

@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPointStochastEntity_ValidRealizedStochast_ReturnEntity()
+        public void CreateSubMechanismIllustrationPointStochastEntity_ValidRealizedStochast_ReturnSubMechanismIllustrationPointStochastEntity()
         {
             // Setup
             var random = new Random(123);

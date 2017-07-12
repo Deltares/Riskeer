@@ -48,22 +48,17 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            const string illustrationPointName = "Illustration point name";
-            double beta = random.NextDouble();
             var subMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
             {
-                Name = illustrationPointName,
-                Beta = beta
+                Name = "Illustration point name",
+                Beta = random.NextDouble()
             };
 
-            const string closingSituation = "closingSituation";
-            const string windDirectionName = "WindDirectionName";
-            double windDirectionAngle = random.NextDouble();
             var entity = new TopLevelSubMechanismIllustrationPointEntity
             {
-                ClosingSituation = closingSituation,
-                WindDirectionName = windDirectionName,
-                WindDirectionAngle = windDirectionAngle,
+                ClosingSituation = "closingSituation",
+                WindDirectionName = "WindDirectionName",
+                WindDirectionAngle = random.NextDouble(),
                 SubMechanismIllustrationPointEntity = subMechanismIllustrationPointEntity
             };
 
@@ -71,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             TopLevelSubMechanismIllustrationPoint topLevelSubMechanismIllustrationPoint = entity.Read();
 
             // Assert
-            Assert.AreEqual(closingSituation, topLevelSubMechanismIllustrationPoint.ClosingSituation);
+            Assert.AreEqual(entity.ClosingSituation, topLevelSubMechanismIllustrationPoint.ClosingSituation);
 
             WindDirection actualWindDirection = topLevelSubMechanismIllustrationPoint.WindDirection;
             Assert.AreEqual(entity.WindDirectionName, actualWindDirection.Name);

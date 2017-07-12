@@ -48,53 +48,45 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
-
-            const string illustrationPointName = "Name";
-            double beta = random.NextDouble();
             var entity = new SubMechanismIllustrationPointEntity
             {
-                Name = illustrationPointName,
-                Beta = beta
+                Name = "Name",
+                Beta = random.NextDouble()
             };
 
             // Call
             SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.Name, illustrationPoint.Name);
-            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            AssertCommonProperties(entity, illustrationPoint);
 
             CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
             CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
         }
 
         [Test]
-        public void Read_ValidEntityWithIllustrationPointResults_ReturnsSubMechanismIllustrationPoint()
+        public void Read_ValidEntityWithIllustrationPointResults_ReturnsSubMechanismIllustrationPointWithResults()
         {
             // Setup
             var random = new Random(21);
 
-            const string illustrationPointResultDescription = "Description";
-            double value = random.NextDouble();
             var illustrationPointResultEntityOne = new IllustrationPointResultEntity
             {
-                Description = illustrationPointResultDescription,
-                Value = value,
+                Description = "Description",
+                Value = random.NextDouble(),
                 Order = 0
             };
             var illustrationPointResultEntityTwo = new IllustrationPointResultEntity
             {
-                Description = $"{illustrationPointResultDescription}_Two",
-                Value = value + 1,
+                Description = "Description_Two",
+                Value = random.NextDouble(),
                 Order = 1
             };
 
-            const string illustrationPointName = "Name";
-            double beta = random.NextDouble();
             var entity = new SubMechanismIllustrationPointEntity
             {
-                Name = illustrationPointName,
-                Beta = beta,
+                Name = "Name",
+                Beta = random.NextDouble(),
                 IllustrationPointResultEntities = new[]
                 {
                     illustrationPointResultEntityTwo,
@@ -106,9 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.Name, illustrationPoint.Name);
-            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            AssertCommonProperties(entity, illustrationPoint);
 
             IllustrationPointResult[] illustrationPointResults = illustrationPoint.IllustrationPointResults.ToArray();
             Assert.AreEqual(2, illustrationPointResults.Length);
@@ -117,29 +107,25 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntityWithStochasts_ReturnsSubMechanismIllustrationPoint()
+        public void Read_ValidEntityWithStochasts_ReturnsSubMechanismIllustrationPointWithStochasts()
         {
             // Setup
             var random = new Random(21);
 
-            const string stochastName = "Stochast";
-            double alpha = random.NextDouble();
-            double realization = random.NextDouble();
-            double duration = random.NextDouble();
             var stochastEntityOne = new SubMechanismIllustrationPointStochastEntity
             {
-                Name = stochastName,
-                Alpha = alpha,
-                Duration = duration,
-                Realization = realization,
+                Name = "Stochast",
+                Alpha = random.NextDouble(),
+                Duration = random.NextDouble(),
+                Realization = random.NextDouble(),
                 Order = 0
             };
             var stochastEntityTwo = new SubMechanismIllustrationPointStochastEntity
             {
-                Name = $"{stochastName}_Two",
-                Alpha = alpha + 1,
-                Duration = duration + 1,
-                Realization = realization + 1,
+                Name = "Stochast_Two",
+                Alpha = random.NextDouble(),
+                Duration = random.NextDouble(),
+                Realization = random.NextDouble(),
                 Order = 1
             };
 
@@ -160,14 +146,19 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             SubMechanismIllustrationPoint illustrationPoint = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.Name, illustrationPoint.Name);
-            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            AssertCommonProperties(entity, illustrationPoint);
 
             SubMechanismIllustrationPointStochast[] stochasts = illustrationPoint.Stochasts.ToArray();
             Assert.AreEqual(2, stochasts.Length);
             AssertReadStochast(stochastEntityOne, stochasts[0]);
             AssertReadStochast(stochastEntityTwo, stochasts[1]);
+        }
+
+        private static void AssertCommonProperties(SubMechanismIllustrationPointEntity expectedEntity,
+                                                   SubMechanismIllustrationPoint illustrationPoint)
+        {
+            Assert.AreEqual(expectedEntity.Name, illustrationPoint.Name);
+            Assert.AreEqual(expectedEntity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
         }
 
         private static void AssertReadIllustrationPointResult(IllustrationPointResultEntity illustrationPointResultEntity,

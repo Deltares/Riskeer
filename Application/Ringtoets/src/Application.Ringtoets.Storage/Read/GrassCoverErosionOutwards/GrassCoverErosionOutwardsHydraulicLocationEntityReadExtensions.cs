@@ -34,13 +34,20 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
     internal static class GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="HydraulicLocationEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocation"/>.
+        /// Reads the <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> 
+        /// and uses the information to construct a <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to create <see cref="HydraulicBoundaryLocation"/> for.</param>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to create 
+        /// <see cref="HydraulicBoundaryLocation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static HydraulicBoundaryLocation Read(this GrassCoverErosionOutwardsHydraulicLocationEntity entity, ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));

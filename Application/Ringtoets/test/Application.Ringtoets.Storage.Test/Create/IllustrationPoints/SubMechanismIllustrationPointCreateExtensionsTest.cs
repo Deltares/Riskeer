@@ -21,10 +21,10 @@
 
 using System;
 using System.Linq;
-using NUnit.Framework;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
+using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -45,69 +45,58 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_SubMechanismIllustrationPointWithoutResultsAndStochasts_ReturnEntity()
+        public void CreateSubMechanismIllustrationPoint_SubMechanismIllustrationPointWithoutResultsAndStochasts_ReturnSubMechanismIllustrationPointEntityWithoutResultsAndStochastsEntities()
         {
             // Setup
             var random = new Random(21);
 
-            const string illustrationPointName = "Illustration point name";
-            double beta = random.NextDouble();
-            var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      beta, 
-                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(), 
+            var illustrationPoint = new SubMechanismIllustrationPoint("Illustration point name",
+                                                                      random.NextDouble(),
+                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
-            Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
+            AssertCommonProperties(illustrationPoint, entity);
 
             CollectionAssert.IsEmpty(entity.IllustrationPointResultEntities);
             CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointStochastEntities);
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_ValidIllustrationPointWithStochasts_ReturnEntity()
+        public void CreateSubMechanismIllustrationPoint_ValidIllustrationPointWithStochasts_ReturnSubMechanismIllustrationPointEntityWithStochastEntities()
         {
             // Setup
             var random = new Random(21);
-
-            const string stochastName = "stochast name";
-            double duration = random.NextDouble();
-            double alpha = random.NextDouble();
-            double realization = random.NextDouble();
-            var stochastOne = new SubMechanismIllustrationPointStochast(stochastName,
-                                                                        duration,
-                                                                        alpha,
-                                                                        realization);
-            var stochastTwo = new SubMechanismIllustrationPointStochast($"{stochastName}_Two",
-                                                                        duration + 1,
-                                                                        alpha + 1,
-                                                                        realization + 1);
+            var stochastOne = new SubMechanismIllustrationPointStochast("stochast name",
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble());
+            var stochastTwo = new SubMechanismIllustrationPointStochast("Stochast name two",
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble());
             var stochasts = new[]
             {
                 stochastOne,
                 stochastTwo
             };
 
-            const string illustrationPointName = "Illustration point name";
-            double beta = random.NextDouble();
-            var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      beta, 
-                                                                      stochasts, 
+            var illustrationPoint = new SubMechanismIllustrationPoint("Illustration point name",
+                                                                      random.NextDouble(),
+                                                                      stochasts,
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
-            Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(entity.IllustrationPointResultEntities);
+            AssertCommonProperties(illustrationPoint, entity);
 
-            SubMechanismIllustrationPointStochastEntity[] stochastEntities = entity.SubMechanismIllustrationPointStochastEntities.ToArray();
+            SubMechanismIllustrationPointStochastEntity[] stochastEntities =
+                entity.SubMechanismIllustrationPointStochastEntities.ToArray();
             int expectedNrOfStochasts = stochasts.Length;
             Assert.AreEqual(expectedNrOfStochasts, stochastEntities.Length);
             for (var i = 0; i < expectedNrOfStochasts; i++)
@@ -124,36 +113,29 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_MultipleResultsAndValidIllustrationPoint_ReturnEntity()
+        public void CreateSubMechanismIllustrationPoint_MultipleResultsAndValidIllustrationPoint_ReturnSubMechanismIllustrationPointEntityWithResultEntities()
         {
             // Setup
             var random = new Random(21);
 
-            const string resultDescription = "result description";
-            double value = random.NextDouble();
-            var illustrationPointResultOne = new IllustrationPointResult(resultDescription, value);
-            var illustrationPointResultTwo = new IllustrationPointResult($"{resultDescription}_Two", value + 1);
+            var illustrationPointResultOne = new IllustrationPointResult("result description", random.NextDouble());
+            var illustrationPointResultTwo = new IllustrationPointResult("result description two", random.NextDouble());
             var illustrationPointResults = new[]
             {
                 illustrationPointResultOne,
                 illustrationPointResultTwo
             };
 
-            const string illustrationPointName = "Illustration point name";
-            double beta = random.NextDouble();
-
-            var illustrationPoint = new SubMechanismIllustrationPoint(illustrationPointName,
-                                                                      beta, 
-                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(), 
+            var illustrationPoint = new SubMechanismIllustrationPoint("Illustration point name",
+                                                                      random.NextDouble(),
+                                                                      Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       illustrationPointResults);
 
             // Call
             SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
-            Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
-            CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointStochastEntities);
+            AssertCommonProperties(illustrationPoint, entity);
 
             IllustrationPointResultEntity[] resultEntities = entity.IllustrationPointResultEntities.ToArray();
             int expectedNrOfIllustrationPoints = illustrationPointResults.Length;
@@ -168,6 +150,13 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                 illustrationPointResult.Value.GetAccuracy());
                 Assert.AreEqual(i, illustrationPointResultEntity.Order);
             }
+        }
+
+        private static void AssertCommonProperties(SubMechanismIllustrationPoint illustrationPoint,
+                                                   SubMechanismIllustrationPointEntity entity)
+        {
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
+            Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
         }
     }
 }
