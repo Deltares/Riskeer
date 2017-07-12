@@ -61,7 +61,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsInstanceOf<StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
                 StabilityPointStructuresInput,
                 StabilityPointStructure,
-                StabilityPointStructuresFailureMechanism>>(service);
+                StabilityPointStructuresFailureMechanism,
+                StructuresStabilityPointCalculationInput>>(service);
         }
 
         [Test]

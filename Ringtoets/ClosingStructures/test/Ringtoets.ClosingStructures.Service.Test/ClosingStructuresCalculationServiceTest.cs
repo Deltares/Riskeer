@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry, ClosingStructuresInput,
-                ClosingStructure, ClosingStructuresFailureMechanism>>(service);
+                ClosingStructure, ClosingStructuresFailureMechanism, StructuresClosureCalculationInput>>(service);
         }
 
         [Test]

@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput,
-                HeightStructure, HeightStructuresFailureMechanism>>(service);
+                HeightStructure, HeightStructuresFailureMechanism, StructuresOvertoppingCalculationInput>>(service);
         }
 
         [Test]

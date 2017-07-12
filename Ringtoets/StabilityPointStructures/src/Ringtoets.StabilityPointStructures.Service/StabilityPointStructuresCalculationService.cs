@@ -45,12 +45,22 @@ namespace Ringtoets.StabilityPointStructures.Service
     public class StabilityPointStructuresCalculationService : StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
         StabilityPointStructuresInput,
         StabilityPointStructure,
-        StabilityPointStructuresFailureMechanism>
+        StabilityPointStructuresFailureMechanism,
+        StructuresStabilityPointCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
 
         private bool canceled;
         private IStructuresStabilityPointCalculator calculator;
+
+        /// <summary>
+        /// Cancels any ongoing structures stability point calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            calculator?.Cancel();
+            canceled = true;
+        }
 
         /// <summary>
         /// Performs a stability point structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets 
@@ -80,17 +90,17 @@ namespace Ringtoets.StabilityPointStructures.Service
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public override void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                              IAssessmentSection assessmentSection,
-                              StabilityPointStructuresFailureMechanism failureMechanism,
-                              string hydraulicBoundaryDatabaseFilePath)
+                                       IAssessmentSection assessmentSection,
+                                       StabilityPointStructuresFailureMechanism failureMechanism,
+                                       string hydraulicBoundaryDatabaseFilePath)
         {
             base.Calculate(calculation, assessmentSection, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string calculationName = calculation.Name;
 
-            StructuresStabilityPointCalculationInput input = CreateStructuresStabilityPointCalculationInput(calculation,
-                                                                                                            failureMechanism,
-                                                                                                            hydraulicBoundaryDatabaseFilePath);
+            StructuresStabilityPointCalculationInput input = CreateInput(calculation,
+                                                                         failureMechanism,
+                                                                         hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresStabilityPointCalculator(hlcdDirectory);
@@ -152,40 +162,9 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
         }
 
-        /// <summary>
-        /// Cancels any ongoing structures stability point calculation.
-        /// </summary>
-        public void Cancel()
-        {
-            calculator?.Cancel();
-            canceled = true;
-        }
-
-        /// <summary>
-        /// Creates the input for a structures stability point calculation.
-        /// </summary>
-        /// <param name="calculation">The calculation to create the input for.</param>
-        /// <param name="failureMechanism">The failure mechanism that contains input to use in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <returns>A <see cref="StructuresStabilityPointCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="StabilityPointStructuresInput.InflowModelType"/> is an invalid <see cref="StabilityPointStructureInflowModelType"/>.</item>
-        /// <item><see cref="StabilityPointStructuresInput.LoadSchematizationType"/> is an invalid <see cref="LoadSchematizationType"/>.</item>
-        /// </list></exception>
-        private StructuresStabilityPointCalculationInput CreateStructuresStabilityPointCalculationInput(
-            StructuresCalculation<StabilityPointStructuresInput> calculation,
-            StabilityPointStructuresFailureMechanism failureMechanism,
-            string hydraulicBoundaryDatabaseFilePath)
+        protected override StructuresStabilityPointCalculationInput CreateInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
+                                                                                StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                                string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresStabilityPointCalculationInput input;
             switch (calculation.InputParameters.InflowModelType)
@@ -205,7 +184,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(calculation),
-                                                                   (int) calculation.InputParameters.LoadSchematizationType,
+                                                                   (int)calculation.InputParameters.LoadSchematizationType,
                                                                    typeof(LoadSchematizationType));
                     }
                     break;
@@ -224,13 +203,13 @@ namespace Ringtoets.StabilityPointStructures.Service
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(calculation),
-                                                                   (int) calculation.InputParameters.LoadSchematizationType,
+                                                                   (int)calculation.InputParameters.LoadSchematizationType,
                                                                    typeof(LoadSchematizationType));
                     }
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(calculation),
-                                                           (int) calculation.InputParameters.InflowModelType,
+                                                           (int)calculation.InputParameters.InflowModelType,
                                                            typeof(StabilityPointStructureInflowModelType));
             }
 

@@ -28,9 +28,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.Common.Service.Test.Structures
 {
@@ -374,8 +376,14 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
-            TestStructuresInput,
-            TestStructure,
-            TestFailureMechanism> {}
+            TestStructuresInput, TestStructure, TestFailureMechanism, ExceedanceProbabilityCalculationInput>
+        {
+            protected override ExceedanceProbabilityCalculationInput CreateInput(StructuresCalculation<TestStructuresInput> calculation,
+                                                                                 TestFailureMechanism failureMechanism,
+                                                                                 string hydraulicBoundaryDatabaseFilePath)
+            {
+                return null;
+            }
+        }
     }
 }

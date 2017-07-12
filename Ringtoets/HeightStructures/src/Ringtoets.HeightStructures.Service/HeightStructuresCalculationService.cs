@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Service
     /// Service that provides methods for performing Hydra-Ring calculations for height structures.
     /// </summary>
     public class HeightStructuresCalculationService : StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput,
-        HeightStructure, HeightStructuresFailureMechanism>
+        HeightStructure, HeightStructuresFailureMechanism, StructuresOvertoppingCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
 
@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.Service
 
             string calculationName = calculation.Name;
 
-            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
+            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory);
@@ -150,28 +150,12 @@ namespace Ringtoets.HeightStructures.Service
             }
         }
 
-        /// <summary>
-        /// Creates the input for a structures overtopping calculation.
-        /// </summary>
-        /// <param name="calculation">The calculation to create the input for.</param>
-        /// <param name="generalInput">The general input to use in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
-        /// <returns>A <see cref="StructuresOvertoppingCalculationInput"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
-        private static StructuresOvertoppingCalculationInput CreateInput(
-            StructuresCalculation<HeightStructuresInput> calculation,
-            GeneralHeightStructuresInput generalInput,
-            string hydraulicBoundaryDatabaseFilePath)
+        protected override StructuresOvertoppingCalculationInput CreateInput(StructuresCalculation<HeightStructuresInput> calculation,
+                                                                             HeightStructuresFailureMechanism failureMechanism,
+                                                                             string hydraulicBoundaryDatabaseFilePath)
         {
+            GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
+
             var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 calculation.InputParameters.StructureNormalOrientation,

@@ -42,14 +42,21 @@ namespace Ringtoets.ClosingStructures.Service
     /// Service that provides methods for performing Hydra-ring calculations for closing structures.
     /// </summary>
     public class ClosingStructuresCalculationService : StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry,
-        ClosingStructuresInput,
-        ClosingStructure,
-        ClosingStructuresFailureMechanism>
+        ClosingStructuresInput, ClosingStructure, ClosingStructuresFailureMechanism, StructuresClosureCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 
         private IStructuresClosureCalculator calculator;
         private bool canceled;
+
+        /// <summary>
+        /// Cancels any ongoing structures closure calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            calculator?.Cancel();
+            canceled = true;
+        }
 
         /// <summary>
         /// Performs a closing structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets 
@@ -76,17 +83,17 @@ namespace Ringtoets.ClosingStructures.Service
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public override void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
-                              IAssessmentSection assessmentSection,
-                              ClosingStructuresFailureMechanism failureMechanism,
-                              string hydraulicBoundaryDatabaseFilePath)
+                                       IAssessmentSection assessmentSection,
+                                       ClosingStructuresFailureMechanism failureMechanism,
+                                       string hydraulicBoundaryDatabaseFilePath)
         {
             base.Calculate(calculation, assessmentSection, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string calculationName = calculation.Name;
 
-            StructuresClosureCalculationInput input = CreateStructuresClosureCalculationInput(calculation,
-                                                                                              failureMechanism,
-                                                                                              hydraulicBoundaryDatabaseFilePath);
+            StructuresClosureCalculationInput input = CreateInput(calculation,
+                                                                  failureMechanism,
+                                                                  hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory);
@@ -150,42 +157,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
         }
 
-        /// <summary>
-        /// Cancels any ongoing structures closure calculation.
-        /// </summary>
-        public void Cancel()
-        {
-            calculator?.Cancel();
-            canceled = true;
-        }
-
-        /// <summary>
-        /// Creates the input for the calculation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to create
-        /// the input for.</param>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
-        /// that holds the information about the contribution 
-        /// and the general inputs used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
-        /// boundary database.</param>
-        /// <returns>A <see cref="StructuresClosureCalculationInput"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/>
-        /// is an invalid <see cref="ClosingStructureInflowModelType"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list>
-        /// </exception>
-        private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(
-            StructuresCalculation<ClosingStructuresInput> calculation,
-            ClosingStructuresFailureMechanism failureMechanism,
-            string hydraulicBoundaryDatabaseFilePath)
+        protected override StructuresClosureCalculationInput CreateInput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresFailureMechanism failureMechanism, string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresClosureCalculationInput input;
             switch (calculation.InputParameters.InflowModelType)
@@ -200,7 +172,7 @@ namespace Ringtoets.ClosingStructures.Service
                     input = CreateFloodedCulvertCalculationInput(calculation, failureMechanism.GeneralInput);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("calculation",
+                    throw new InvalidEnumArgumentException(nameof(calculation),
                                                            (int) calculation.InputParameters.InflowModelType,
                                                            typeof(ClosingStructureInflowModelType));
             }

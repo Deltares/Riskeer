@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.Data;
@@ -31,6 +32,8 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.Common.Service.ValidationRules;
+using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.Common.Service.Structures
@@ -42,11 +45,13 @@ namespace Ringtoets.Common.Service.Structures
     /// <typeparam name="TStructureInput">The input type.</typeparam>
     /// <typeparam name="TStructure">The structure type.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism type.</typeparam>
-    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TFailureMechanism>
+    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TFailureMechanism, TCalculationInput>
         where TStructureValidationRules : IStructuresValidationRulesRegistry<TStructureInput, TStructure>, new()
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
         where TFailureMechanism : IFailureMechanism
+        where TCalculationInput : ExceedanceProbabilityCalculationInput
+
     {
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -76,6 +81,78 @@ namespace Ringtoets.Common.Service.Structures
 
             return !messages.Any();
         }
+
+        /// <summary>
+        /// Performs a structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets <see cref="StructuresCalculation{T}.Output"/>
+        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="failureMechanism"> The <see cref="TFailureMechanism"/> that holds the information about the contribution 
+        /// and the general inputs used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
+        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
+        /// enum value is encountered.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list></exception>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        public virtual void Calculate(StructuresCalculation<TStructureInput> calculation,
+                                      IAssessmentSection assessmentSection,
+                                      TFailureMechanism failureMechanism,
+                                      string hydraulicBoundaryDatabaseFilePath)
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            string calculationName = calculation.Name;
+
+            TCalculationInput input = CreateInput(calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath);
+
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+        }
+
+        /// <summary>
+        /// Creates the input for a structures calculation.
+        /// </summary>
+        /// <param name="calculation">The calculation to create the input for.</param>
+        /// <param name="failureMechanism">The <see cref="TFailureMechanism"/> that holds the information about 
+        /// the contribution and the general inputs used in the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <returns>A <see cref="TCalculationInput"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
+        /// enum value is encountered.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// with the same name.</item>
+        /// <item>Unable to open settings database file.</item>
+        /// <item>Unable to read required data from database file.</item>
+        /// </list>
+        /// </exception>
+        protected abstract TCalculationInput CreateInput(StructuresCalculation<TStructureInput> calculation,
+                                                         TFailureMechanism failureMechanism,
+                                                         string hydraulicBoundaryDatabaseFilePath);
 
         private static string[] ValidateInput(TStructureInput input, IAssessmentSection assessmentSection)
         {
@@ -107,46 +184,6 @@ namespace Ringtoets.Common.Service.Structures
                 }
             }
             return validationResults.ToArray();
-        }
-
-        /// <summary>
-        /// Performs a structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets <see cref="StructuresCalculation{T}.Output"/>
-        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanism"> The <see cref="TFailureMechanism"/> that holds the information about the contribution 
-        /// and the general inputs used in the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
-        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
-        /// contains invalid characters.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// with the same name.</item>
-        /// <item>Unable to open settings database file.</item>
-        /// <item>Unable to read required data from database file.</item>
-        /// </list></exception>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public virtual void Calculate(StructuresCalculation<TStructureInput> calculation,
-                                IAssessmentSection assessmentSection,
-                                TFailureMechanism failureMechanism,
-                                string hydraulicBoundaryDatabaseFilePath)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
         }
     }
 }
