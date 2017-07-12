@@ -19,7 +19,7 @@
     </stochasten>
     <scenario>
       <gebruik>false</gebruik>
-      <bijdrage>0.5</bijdrage>
+      <bijdrage>50</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

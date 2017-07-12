@@ -5,7 +5,7 @@
     <profielschematisatie>PK001_0001</profielschematisatie>
     <scenario>
       <gebruik>true</gebruik>
-      <bijdrage>1</bijdrage>
+      <bijdrage>100</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

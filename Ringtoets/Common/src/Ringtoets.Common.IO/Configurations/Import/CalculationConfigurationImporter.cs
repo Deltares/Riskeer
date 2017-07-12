@@ -325,7 +325,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
 
             if (hasContribution)
             {
-                scenario.Contribution = (RoundedDouble)scenarioConfiguration.Contribution.Value;
+                scenario.Contribution = (RoundedDouble) (scenarioConfiguration.Contribution.Value / 100);
             }
 
             if (hasRelevance)

@@ -49,7 +49,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
             return new ScenarioConfiguration
             {
-                Contribution = calculationScenario.Contribution,
+                Contribution = calculationScenario.Contribution * 100,
                 IsRelevant = calculationScenario.IsRelevant
             };
         }

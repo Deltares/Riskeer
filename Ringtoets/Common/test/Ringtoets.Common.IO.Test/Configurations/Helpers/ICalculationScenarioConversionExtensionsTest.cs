@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             ScenarioConfiguration configuration = scenario.ToScenarioConfiguration();
 
             // Assert
-            Assert.AreEqual(contribution, configuration.Contribution);
+            Assert.AreEqual(contribution * 100, configuration.Contribution);
             Assert.AreEqual(relevant, configuration.IsRelevant);
         }
     }

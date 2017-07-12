@@ -765,7 +765,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var mockRepository = new MockRepository();
             var calculationScenario = mockRepository.StrictMock<ICalculationScenario>();
             calculationScenario.Expect(cs => cs.Contribution)
-                               .SetPropertyWithArgument((RoundedDouble) contribution);
+                               .SetPropertyWithArgument((RoundedDouble) (contribution / 100));
             mockRepository.ReplayAll();
 
             var importer = new CalculationConfigurationImporter(Path.Combine(readerPath, "validConfiguration.xml"),

@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Configurations;
@@ -523,7 +524,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Name = "Calculation",
-                Contribution = (RoundedDouble) 8.8
+                Contribution = (RoundedDouble) 0.088
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -644,7 +645,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                         StandardDeviation = (RoundedDouble) 7.7
                     }
                 },
-                Contribution = (RoundedDouble) 8.8,
+                Contribution = (RoundedDouble) 0.088,
                 IsRelevant = false
             };
             if (manualAssessmentLevel)
@@ -679,7 +680,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value, actualCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
-            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
         }
     }
 }

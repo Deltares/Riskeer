@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
@@ -329,7 +330,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
                 Name = "Calculation",
-                Contribution = (RoundedDouble) 8.8
+                Contribution = (RoundedDouble) 0.088
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -439,7 +440,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     StochasticSoilProfile = stochasticSoilProfile
                 },
                 IsRelevant = false,
-                Contribution = (RoundedDouble) 8.8
+                Contribution = (RoundedDouble) 0.088
             };
             if (manualAssessmentLevel)
             {
@@ -468,7 +469,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreSame(expectedCalculation.InputParameters.StochasticSoilProfile, actualCalculation.InputParameters.StochasticSoilProfile);
 
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
-            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution, actualCalculation.Contribution.GetAccuracy());
         }
     }
 }
