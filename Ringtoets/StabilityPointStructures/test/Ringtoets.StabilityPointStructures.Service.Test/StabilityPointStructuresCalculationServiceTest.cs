@@ -61,7 +61,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsInstanceOf<StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
                 StabilityPointStructuresInput,
                 StabilityPointStructure,
-                StabilityPointStructuresFailureMechanism,
+                GeneralStabilityPointStructuresInput,
                 StructuresStabilityPointCalculationInput>>(service);
         }
 
@@ -549,7 +549,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
@@ -568,9 +569,11 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
-                                                            assessmentSectionStub,
-                                                            failureMechanism,
-                                                            testDataPath);
+                                                            failureMechanism.GeneralInput,
+                                                            failureMechanism.GeneralInput.N,
+                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                            failureMechanism.Contribution,
+                                                            validFilePath);
 
                 // Assert
                 const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
@@ -595,7 +598,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
@@ -614,9 +618,11 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
-                                                            assessmentSectionStub,
-                                                            failureMechanism,
-                                                            testDataPath);
+                                                            failureMechanism.GeneralInput,
+                                                            failureMechanism.GeneralInput.N,
+                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                            failureMechanism.Contribution,
+                                                            validFilePath);
 
                 // Assert
                 const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.";
@@ -664,8 +670,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
 
                 // Assert
@@ -783,8 +791,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
 
                 // Assert
@@ -902,8 +912,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
 
                 // Assert
@@ -1021,8 +1033,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
 
                 // Assert
@@ -1158,8 +1172,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
-                                                                                               failureMechanism,
+                                                                                               failureMechanism.GeneralInput,
+                                                                                               failureMechanism.GeneralInput.N,
+                                                                                               assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                               failureMechanism.Contribution,
                                                                                                validFilePath);
 
                 // Assert
@@ -1220,8 +1236,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     try
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.GeneralInput.N,
+                                                                                   assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath);
                     }
                     catch (HydraRingCalculationException)
@@ -1287,8 +1305,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     try
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.GeneralInput.N,
+                                                                                   assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath);
                     }
                     catch (HydraRingCalculationException)
@@ -1355,8 +1375,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     try
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.GeneralInput.N,
+                                                                                   assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath);
                     }
                     catch (HydraRingCalculationException e)

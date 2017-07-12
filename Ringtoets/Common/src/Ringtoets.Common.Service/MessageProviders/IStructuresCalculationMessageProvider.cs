@@ -44,8 +44,8 @@ namespace Ringtoets.Common.Service.MessageProviders
         /// <summary>
         /// Gets the message that should be used when a calculation is performed.
         /// </summary>
-        /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
+        /// <param name="outputDirectory">The output directory used in the calculation.</param>
         /// <returns>The message.</returns>
-        string GetCalculationPerformedMessage(string calculationSubject);
+        string GetCalculationPerformedMessage(string outputDirectory);
     }
 }

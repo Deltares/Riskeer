@@ -88,8 +88,10 @@ namespace Ringtoets.HeightStructures.Service
             calculation.ClearOutput();
 
             calculationService.Calculate(calculation,
-                                         assessmentSection,
-                                         failureMechanism,
+                                         failureMechanism.GeneralInput,
+                                         failureMechanism.GeneralInput.N,
+                                         assessmentSection.FailureMechanismContribution.Norm,
+                                         failureMechanism.Contribution,
                                          hydraulicBoundaryDatabaseFilePath);
         }
 

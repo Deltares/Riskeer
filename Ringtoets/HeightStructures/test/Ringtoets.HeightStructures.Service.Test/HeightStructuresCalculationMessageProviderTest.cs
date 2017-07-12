@@ -78,16 +78,16 @@ namespace Ringtoets.HeightStructures.Service.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculationPerformedMessage_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetCalculationPerformedMessage_VariousParameters_ReturnsExpectedValue(string directory)
         {
             // Setup
             var provider = new HeightStructuresCalculationMessageProvider();
 
             // Call
-            string message = provider.GetCalculationPerformedMessage(name);
+            string message = provider.GetCalculationPerformedMessage(directory);
 
             // Assert
-            string expectedMessage = $"Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie '{name}'. " +
+            string expectedMessage = $"Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie '{directory}'. " +
                                      "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.";
             Assert.AreEqual(expectedMessage, message);
         }

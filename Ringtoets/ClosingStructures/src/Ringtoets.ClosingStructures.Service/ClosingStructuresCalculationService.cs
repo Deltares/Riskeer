@@ -20,18 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using log4net;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Service.Properties;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
-using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.ClosingStructures.Service
 {
@@ -39,28 +32,26 @@ namespace Ringtoets.ClosingStructures.Service
     /// Service that provides methods for performing Hydra-ring calculations for closing structures.
     /// </summary>
     public class ClosingStructuresCalculationService : StructuresCalculationServiceBase<ClosingStructuresValidationRulesRegistry,
-        ClosingStructuresInput, ClosingStructure, ClosingStructuresFailureMechanism, StructuresClosureCalculationInput>
+        ClosingStructuresInput, ClosingStructure, GeneralClosingStructuresInput, StructuresClosureCalculationInput>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationService"/>.
         /// </summary>
         public ClosingStructuresCalculationService() : base(new ClosingStructuresCalculationMessageProvider()) {}
 
-        protected override StructuresClosureCalculationInput CreateInput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresFailureMechanism failureMechanism, string hydraulicBoundaryDatabaseFilePath)
+        protected override StructuresClosureCalculationInput CreateInput(StructuresCalculation<ClosingStructuresInput> calculation, GeneralClosingStructuresInput generalInput, string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresClosureCalculationInput input;
             switch (calculation.InputParameters.InflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
-                    input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanism.GeneralInput);
+                    input = CreateClosureVerticalWallCalculationInput(calculation, generalInput);
                     break;
                 case ClosingStructureInflowModelType.LowSill:
-                    input = CreateLowSillCalculationInput(calculation, failureMechanism.GeneralInput);
+                    input = CreateLowSillCalculationInput(calculation, generalInput);
                     break;
                 case ClosingStructureInflowModelType.FloodedCulvert:
-                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanism.GeneralInput);
+                    input = CreateFloodedCulvertCalculationInput(calculation, generalInput);
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(calculation),
@@ -70,69 +61,6 @@ namespace Ringtoets.ClosingStructures.Service
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
             return input;
-        }
-
-        protected override void PerformCalculation(IStructuresCalculator<StructuresClosureCalculationInput> calculator,
-                                                   StructuresClosureCalculationInput input,
-                                                   StructuresCalculation<ClosingStructuresInput> calculation,
-                                                   IAssessmentSection assessmentSection,
-                                                   ClosingStructuresFailureMechanism failureMechanism)
-        {
-            var exceptionThrown = false;
-
-            try
-            {
-                calculator.Calculate(input);
-
-                if (!Canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
-                {
-                    ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                        ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                               failureMechanism.Contribution,
-                                                               failureMechanism.GeneralInput.N,
-                                                               calculator.ExceedanceProbabilityBeta);
-                    calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
-                }
-            }
-            catch (HydraRingCalculationException)
-            {
-                if (!Canceled)
-                {
-                    string lastErrorFileContent = calculator.LastErrorFileContent;
-                    if (string.IsNullOrEmpty(lastErrorFileContent))
-                    {
-                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_ClosingStructuresCalculation_0_no_error_report,
-                                        calculation.Name);
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_ClosingStructuresCalculation_0_click_details_for_last_error_report_1,
-                                        calculation.Name, lastErrorFileContent);
-                    }
-
-                    exceptionThrown = true;
-                    throw;
-                }
-            }
-            finally
-            {
-                string lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
-                if (errorOccurred)
-                {
-                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_ClosingStructuresCalculation_0_click_details_for_last_error_report_1,
-                                    calculation.Name, lastErrorFileContent);
-                }
-
-                log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
-                               calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEnd();
-
-                if (errorOccurred)
-                {
-                    throw new HydraRingCalculationException(lastErrorFileContent);
-                }
-            }
         }
 
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(

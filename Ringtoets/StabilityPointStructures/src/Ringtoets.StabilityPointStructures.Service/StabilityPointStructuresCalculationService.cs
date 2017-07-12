@@ -20,18 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
-using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
-using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Service.Properties;
 
 namespace Ringtoets.StabilityPointStructures.Service
 {
@@ -41,18 +34,16 @@ namespace Ringtoets.StabilityPointStructures.Service
     public class StabilityPointStructuresCalculationService : StructuresCalculationServiceBase<StabilityPointStructuresValidationRulesRegistry,
         StabilityPointStructuresInput,
         StabilityPointStructure,
-        StabilityPointStructuresFailureMechanism,
+        GeneralStabilityPointStructuresInput,
         StructuresStabilityPointCalculationInput>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationService"/>.
         /// </summary>
         public StabilityPointStructuresCalculationService() : base(new StabilityPointStructuresCalculationMessageProvider()) {}
 
         protected override StructuresStabilityPointCalculationInput CreateInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                                                StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                                GeneralStabilityPointStructuresInput generalInput,
                                                                                 string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresStabilityPointCalculationInput input;
@@ -64,12 +55,12 @@ namespace Ringtoets.StabilityPointStructures.Service
                         case LoadSchematizationType.Linear:
                             input = CreateLowSillLinearCalculationInput(
                                 calculation,
-                                failureMechanism.GeneralInput);
+                                generalInput);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateLowSillQuadraticCalculationInput(
                                 calculation,
-                                failureMechanism.GeneralInput);
+                                generalInput);
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(calculation),
@@ -83,12 +74,12 @@ namespace Ringtoets.StabilityPointStructures.Service
                         case LoadSchematizationType.Linear:
                             input = CreateFloodedCulvertLinearCalculationInput(
                                 calculation,
-                                failureMechanism.GeneralInput);
+                                generalInput);
                             break;
                         case LoadSchematizationType.Quadratic:
                             input = CreateFloodedCulvertQuadraticCalculationInput(
                                 calculation,
-                                failureMechanism.GeneralInput);
+                                generalInput);
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(calculation),
@@ -104,67 +95,6 @@ namespace Ringtoets.StabilityPointStructures.Service
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath);
             return input;
-        }
-
-        protected override void PerformCalculation(IStructuresCalculator<StructuresStabilityPointCalculationInput> calculator,
-                                                   StructuresStabilityPointCalculationInput input,
-                                                   StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                   IAssessmentSection assessmentSection,
-                                                   StabilityPointStructuresFailureMechanism failureMechanism)
-        {
-            var exceptionThrown = false;
-            try
-            {
-                calculator.Calculate(input);
-
-                if (!Canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
-                {
-                    ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                        ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                               failureMechanism.Contribution,
-                                                               failureMechanism.GeneralInput.N,
-                                                               calculator.ExceedanceProbabilityBeta);
-                    calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
-                }
-            }
-            catch (HydraRingCalculationException)
-            {
-                if (!Canceled)
-                {
-                    string lastErrorContent = calculator.LastErrorFileContent;
-                    if (string.IsNullOrEmpty(lastErrorContent))
-                    {
-                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_no_error_report,
-                                        calculation.Name);
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_click_details_for_last_error_report_1,
-                                        calculation.Name, lastErrorContent);
-                    }
-
-                    exceptionThrown = true;
-                    throw;
-                }
-            }
-            finally
-            {
-                string lastErrorFileContent = calculator.LastErrorFileContent;
-                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(Canceled, exceptionThrown, lastErrorFileContent);
-                if (errorOccurred)
-                {
-                    log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_StabilityPointStructuresCalculation_0_click_details_for_last_error_report_1,
-                                    calculation.Name, lastErrorFileContent);
-                }
-
-                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEnd();
-
-                if (errorOccurred)
-                {
-                    throw new HydraRingCalculationException(lastErrorFileContent);
-                }
-            }
         }
 
         private StructuresStabilityPointLowSillLinearCalculationInput CreateLowSillLinearCalculationInput(StructuresCalculation<StabilityPointStructuresInput> calculation,

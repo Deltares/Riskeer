@@ -33,10 +33,10 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -334,17 +334,20 @@ namespace Ringtoets.Common.Service.Test.Structures
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new TestFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mocks);
+            mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(null,
-                                                                                       assessmentSection,
-                                                                                       failureMechanism,
-                                                                                       string.Empty);
+                                                                                                                new GeneralTestInput(),
+                                                                                                                0,
+                                                                                                                assessmentSection.FailureMechanismContribution.Norm,
+                                                                                                                failureMechanism.Contribution,
+                                                                                                                string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -353,42 +356,29 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new TestStructuresCalculation();
             var failureMechanism = new TestFailureMechanism();
 
-            // Call
-            TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Calculate_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mocks);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation();
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
-                                                                                       assessmentSection,
-                                                                                       null,
-                                                                                       string.Empty);
+                                                                                                                null,
+                                                                                                                0,
+                                                                                                                assessmentSection.FailureMechanismContribution.Norm,
+                                                                                                                failureMechanism.Contribution,
+                                                                                                                string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("generalInput", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -398,14 +388,14 @@ namespace Ringtoets.Common.Service.Test.Structures
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            var mockRepository = new MockRepository();
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mocks);
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
             {
@@ -421,8 +411,10 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                 // Call
                 service.Calculate(calculation,
-                                  assessmentSectionStub,
-                                  failureMechanism,
+                                  new GeneralTestInput(),
+                                  0,
+                                  assessmentSectionStub.FailureMechanismContribution.Norm,
+                                  failureMechanism.Contribution,
                                   validFilePath);
 
                 // Assert
@@ -434,7 +426,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -443,14 +435,14 @@ namespace Ringtoets.Common.Service.Test.Structures
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            var mockRepository = new MockRepository();
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+                                                                                                           mocks);
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
             {
@@ -467,36 +459,247 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                 // Call
                 service.Calculate(calculation,
-                                  assessmentSectionStub,
-                                  failureMechanism,
+                                  new GeneralTestInput(),
+                                  0,
+                                  assessmentSectionStub.FailureMechanismContribution.Norm,
+                                  failureMechanism.Contribution,
                                   validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var generalInput = new GeneralTestInput();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks);
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                LastErrorFileContent = "An error occurred",
+                EndInFailure = true
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mocks.ReplayAll();
+
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
+                                                                                                  generalInput,
+                                                                                                  generalInput.N,
+                                                                                                  assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                                  failureMechanism.Contribution,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"Calculation '{calculation.Name}' failed with report 'An error occurred'.", msgs[1]);
+                    Assert.AreEqual("Calculation performed in directory ''.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var generalInput = new GeneralTestInput();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks);
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                EndInFailure = true
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mocks.ReplayAll();
+
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
+                                                                                                  generalInput,
+                                                                                                  generalInput.N,
+                                                                                                  assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                                  failureMechanism.Contribution,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingCalculationException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"Calculation '{calculation.Name}' failed.", msgs[1]);
+                    StringAssert.StartsWith("Calculation performed in directory ''", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var generalInput = new GeneralTestInput();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks);
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                EndInFailure = false,
+                LastErrorFileContent = "An error occurred"
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mocks.ReplayAll();
+
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var exceptionThrown = false;
+                string exceptionMessage = string.Empty;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
+                                                                                                  generalInput,
+                                                                                                  generalInput.N,
+                                                                                                  assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                                  failureMechanism.Contribution,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingCalculationException e)
+                    {
+                        exceptionThrown = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    StringAssert.StartsWith($"Calculation '{calculation.Name}' failed with report 'An error occurred'.", msgs[1]);
+                    StringAssert.StartsWith("Calculation performed in directory ''", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(calculation.Output);
+                Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
+            }
+            mocks.VerifyAll();
         }
 
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
-            TestStructuresInput, TestStructure, TestFailureMechanism, ExceedanceProbabilityCalculationInput>
+            TestStructuresInput, TestStructure, GeneralTestInput, ExceedanceProbabilityCalculationInput>
         {
             public TestStructuresCalculationService(IStructuresCalculationMessageProvider messageProvider) : base(messageProvider) {}
 
             protected override ExceedanceProbabilityCalculationInput CreateInput(StructuresCalculation<TestStructuresInput> calculation,
-                                                                                 TestFailureMechanism failureMechanism,
+                                                                                 GeneralTestInput generalInput,
                                                                                  string hydraulicBoundaryDatabaseFilePath)
             {
                 return new TestExceedanceProbabilityCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id);
-            }
-
-            protected override void PerformCalculation(IStructuresCalculator<ExceedanceProbabilityCalculationInput> calculator,
-                                                       ExceedanceProbabilityCalculationInput input,
-                                                       StructuresCalculation<TestStructuresInput> calculation,
-                                                       IAssessmentSection assessmentSection,
-                                                       TestFailureMechanism failureMechanism)
-            {
-                calculator.Calculate(input);
             }
         }
 
@@ -521,17 +724,28 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             public string GetCalculationFailedMessage(string calculationSubject)
             {
-                return $"Calculation {calculationSubject} failed.";
+                return $"Calculation '{calculationSubject}' failed.";
             }
 
             public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
             {
-                return $"Calculation {calculationSubject} failed with report {errorReport}.";
+                return $"Calculation '{calculationSubject}' failed with report '{errorReport}'.";
             }
 
-            public string GetCalculationPerformedMessage(string calculationSubject)
+            public string GetCalculationPerformedMessage(string outputDirectory)
             {
-                return $"Calculation {calculationSubject} performed.";
+                return $"Calculation performed in directory '{outputDirectory}'.";
+            }
+        }
+
+        private class GeneralTestInput
+        {
+            public double N
+            {
+                get
+                {
+                    return 0;
+                }
             }
         }
     }

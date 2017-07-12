@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationServiceBase<HeightStructuresValidationRulesRegistry, HeightStructuresInput,
-                HeightStructure, HeightStructuresFailureMechanism, StructuresOvertoppingCalculationInput>>(service);
+                HeightStructure, GeneralHeightStructuresInput, StructuresOvertoppingCalculationInput>>(service);
         }
 
         [Test]
@@ -384,15 +384,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void Calculate_ValidCalculationInputAndForeshoreWithValidBreakWater_LogStartAndEndAndReturnOutput(CalculationType calculationType)
         {
             // Setup
-            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
@@ -429,8 +429,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
-                                                                                       assessmentSectionStub,
-                                                                                       heightStructuresFailureMechanism,
+                                                                                       failureMechanism.GeneralInput,
+                                                                                       failureMechanism.GeneralInput.N,
+                                                                                       assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                       failureMechanism.Contribution,
                                                                                        validFilePath);
 
                 // Assert
@@ -456,15 +458,15 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void Calculate_ValidCalculationInputAndForeshoreWithInvalidBreakWater_LogStartAndEndAndReturnOutput(double height)
         {
             // Setup
-            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
@@ -486,8 +488,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
-                                                                                       assessmentSectionStub,
-                                                                                       heightStructuresFailureMechanism,
+                                                                                       failureMechanism.GeneralInput,
+                                                                                       failureMechanism.GeneralInput.N,
+                                                                                       assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                       failureMechanism.Contribution,
                                                                                        validFilePath);
 
                 // Assert
@@ -511,10 +515,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void Calculate_VariousCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
         {
             // Setup
-            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -539,15 +543,17 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
-                                                                   assessmentSectionStub,
-                                                                   heightStructuresFailureMechanism,
+                                                                   failureMechanism.GeneralInput,
+                                                                   failureMechanism.GeneralInput.N,
+                                                                   assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                   failureMechanism.Contribution,
                                                                    validFilePath);
 
                 // Assert
                 StructuresOvertoppingCalculationInput[] overtoppingCalculationInputs = calculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, overtoppingCalculationInputs.Length);
 
-                GeneralHeightStructuresInput generalInput = heightStructuresFailureMechanism.GeneralInput;
+                GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
                 HeightStructuresInput input = calculation.InputParameters;
                 var expectedInput = new StructuresOvertoppingCalculationInput(
                     1300001,
@@ -620,8 +626,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
                     }
                     catch (HydraRingCalculationException)
@@ -688,8 +696,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
                     }
                     catch (HydraRingCalculationException)
@@ -757,8 +767,10 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
-                                                                           failureMechanism,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.GeneralInput.N,
+                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           failureMechanism.Contribution,
                                                                            validFilePath);
                     }
                     catch (HydraRingCalculationException e)

@@ -25,9 +25,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.MessageProviders;
@@ -46,19 +48,23 @@ namespace Ringtoets.Common.Service.Structures
     /// <typeparam name="TStructureValidationRules">The type of the validation rules.</typeparam>
     /// <typeparam name="TStructureInput">The structure input type.</typeparam>
     /// <typeparam name="TStructure">The structure type.</typeparam>
-    /// <typeparam name="TFailureMechanism">The failure mechanism type.</typeparam>
+    /// <typeparam name="TGeneralInput">The general input type.</typeparam>
     /// <typeparam name="TCalculationInput">The calculation input type.</typeparam>
-    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TFailureMechanism, TCalculationInput>
+    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TGeneralInput, TCalculationInput>
         where TStructureValidationRules : IStructuresValidationRulesRegistry<TStructureInput, TStructure>, new()
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
-        where TFailureMechanism : IFailureMechanism
+        where TGeneralInput : class
         where TCalculationInput : ExceedanceProbabilityCalculationInput
     {
+        private readonly IStructuresCalculationMessageProvider messageProvider;
+        private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TGeneralInput, TCalculationInput>));
+
         private IStructuresCalculator<TCalculationInput> calculator;
+        private bool canceled;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StructuresCalculationServiceBase{TStructureValidationRules,TStructureInput,TStructure,TFailureMechanism,TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="StructuresCalculationServiceBase{TStructureValidationRules,TStructureInput,TStructure,TGeneralInput,TCalculationInput}"/>.
         /// </summary>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>
@@ -69,6 +75,8 @@ namespace Ringtoets.Common.Service.Structures
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+
+            this.messageProvider = messageProvider;
         }
 
         /// <summary>
@@ -105,12 +113,13 @@ namespace Ringtoets.Common.Service.Structures
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanism"> The <see cref="TFailureMechanism"/> that holds the information about the contribution 
-        /// and the general inputs used in the calculation.</param>
+        /// <param name="generalInput">The general inputs used in the calculations.</param>
+        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="norm">The norm used in the calculation.</param>
+        /// <param name="contribution">The contribution used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="assessmentSection"/>
-        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
         /// contains invalid characters.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
@@ -124,31 +133,78 @@ namespace Ringtoets.Common.Service.Structures
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(StructuresCalculation<TStructureInput> calculation,
-                              IAssessmentSection assessmentSection,
-                              TFailureMechanism failureMechanism,
+                              TGeneralInput generalInput,
+                              double lengthEffectN,
+                              double norm,
+                              double contribution,
                               string hydraulicBoundaryDatabaseFilePath)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
-            if (assessmentSection == null)
+            if (generalInput == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(generalInput));
             }
 
-            TCalculationInput input = CreateInput(calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath);
+            TCalculationInput input = CreateInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory);
+            string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            PerformCalculation(calculator, input, calculation, assessmentSection, failureMechanism);
+            var exceptionThrown = false;
+            try
+            {
+                calculator.Calculate(input);
+
+                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
+                {
+                    ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                        ProbabilityAssessmentService.Calculate(norm,
+                                                               contribution,
+                                                               lengthEffectN,
+                                                               calculator.ExceedanceProbabilityBeta);
+                    calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
+                }
+            }
+            catch (HydraRingCalculationException)
+            {
+                if (!canceled)
+                {
+                    string lastErrorFileContent = calculator.LastErrorFileContent;
+
+                    string message = string.IsNullOrEmpty(lastErrorFileContent)
+                                         ? messageProvider.GetCalculationFailedMessage(calculationName)
+                                         : messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent);
+
+                    log.Error(message);
+
+                    exceptionThrown = true;
+                    throw;
+                }
+            }
+            finally
+            {
+                string lastErrorFileContent = calculator.LastErrorFileContent;
+                bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
+                if (errorOccurred)
+                {
+                    log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent));
+                }
+
+                log.Info(messageProvider.GetCalculationPerformedMessage(calculator.OutputDirectory));
+                
+                CalculationServiceHelper.LogCalculationEnd();
+
+                if (errorOccurred)
+                {
+                    throw new HydraRingCalculationException(lastErrorFileContent);
+                }
+            }
         }
 
         /// <summary>
@@ -157,37 +213,14 @@ namespace Ringtoets.Common.Service.Structures
         public void Cancel()
         {
             calculator?.Cancel();
-            Canceled = true;
+            canceled = true;
         }
-
-        /// <summary>
-        /// Gets the indicator whether the calculation is canceled.
-        /// </summary>
-        protected bool Canceled { get; private set; }
-
-        /// <summary>
-        /// Performs a structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets <see cref="StructuresCalculation{T}.Output"/>
-        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculator">The calculator to perform the calculation with.</param>
-        /// <param name="input">The input of the calculation.</param>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanism"> The <see cref="TFailureMechanism"/> that holds the information about the contribution 
-        /// and the general inputs used in the calculation.</param>
-        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        protected abstract void PerformCalculation(IStructuresCalculator<TCalculationInput> calculator,
-                                                   TCalculationInput input,
-                                                   StructuresCalculation<TStructureInput> calculation,
-                                                   IAssessmentSection assessmentSection,
-                                                   TFailureMechanism failureMechanism);
 
         /// <summary>
         /// Creates the input for a structures calculation.
         /// </summary>
         /// <param name="calculation">The calculation to create the input for.</param>
-        /// <param name="failureMechanism">The <see cref="TFailureMechanism"/> that holds the information about 
-        /// the contribution and the general inputs used in the calculation.</param>
+        /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
@@ -203,7 +236,7 @@ namespace Ringtoets.Common.Service.Structures
         /// </list>
         /// </exception>
         protected abstract TCalculationInput CreateInput(StructuresCalculation<TStructureInput> calculation,
-                                                         TFailureMechanism failureMechanism,
+                                                         TGeneralInput generalInput,
                                                          string hydraulicBoundaryDatabaseFilePath);
 
         private static string[] ValidateInput(TStructureInput input, IAssessmentSection assessmentSection)

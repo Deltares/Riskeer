@@ -41,10 +41,10 @@ namespace Ringtoets.StabilityPointStructures.Service
                                  calculationSubject, errorReport);
         }
 
-        public string GetCalculationPerformedMessage(string calculationSubject)
+        public string GetCalculationPerformedMessage(string outputDirectory)
         {
             return string.Format(Resources.StabilityPointStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
-                                 calculationSubject);
+                                 outputDirectory);
         }
     }
 }

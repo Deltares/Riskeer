@@ -78,16 +78,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculationPerformedMessage_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetCalculationPerformedMessage_VariousParameters_ReturnsExpectedValue(string directory)
         {
             // Setup
             var provider = new ClosingStructuresCalculationMessageProvider();
 
             // Call
-            string message = provider.GetCalculationPerformedMessage(name);
+            string message = provider.GetCalculationPerformedMessage(directory);
 
             // Assert
-            string expectedMessage = $"Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie '{name}'. " +
+            string expectedMessage = $"Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie '{directory}'. " +
                                      "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.";
             Assert.AreEqual(expectedMessage, message);
         }
