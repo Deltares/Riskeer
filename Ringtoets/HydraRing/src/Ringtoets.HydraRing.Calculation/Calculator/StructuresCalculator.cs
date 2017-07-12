@@ -22,25 +22,26 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator for calculating probability of failure by a non-closing structure. 
-    /// This is used in a closure structures assessment.
+    /// Calculator for calculating probability of failure by a structure. 
+    /// This is used in a structures assessment.
     /// </summary>
-    internal class StructuresClosureCalculator : HydraRingCalculatorBase, IStructuresClosureCalculator
+    internal class StructuresCalculator<TInput> : HydraRingCalculatorBase, IStructuresCalculator<TInput>
+        where TInput : ExceedanceProbabilityCalculationInput
     {
         private readonly ExceedanceProbabilityCalculationParser exceedanceProbabilityCalculationParser;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StructuresClosureCalculator"/>.
+        /// Creates a new instance of <see cref="StructuresCalculator{T}"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        public StructuresClosureCalculator(string hlcdDirectory)
+        public StructuresCalculator(string hlcdDirectory)
             : base(hlcdDirectory)
         {
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
@@ -49,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public double ExceedanceProbabilityBeta { get; private set; }
 
-        public void Calculate(StructuresClosureCalculationInput input)
+        public void Calculate(TInput input)
         {
             Calculate(HydraRingUncertaintiesType.All, input);
         }

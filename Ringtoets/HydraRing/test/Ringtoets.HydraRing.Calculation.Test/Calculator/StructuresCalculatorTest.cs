@@ -21,20 +21,22 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
-    public class StructuresOvertoppingCalculatorTest
+    public class StructuresCalculatorTest
     {
         [Test]
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new StructuresOvertoppingCalculator(string.Empty);
+            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsInstanceOf<IStructuresCalculator<ExceedanceProbabilityCalculationInput>>(calculator);
             Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
             Assert.IsNull(calculator.OutputDirectory);
         }

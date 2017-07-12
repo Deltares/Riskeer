@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -79,21 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool? Converged { get; set; }
     }
 
-    public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator
-    {
-        public double ExceedanceProbabilityBeta { get; set; }
-        public string OutputDirectory { get; set; }
-        public string LastErrorFileContent { get; set; }
-    }
-
-    public class TestStructuresClosureCalculator : TestHydraRingCalculator<StructuresClosureCalculationInput>, IStructuresClosureCalculator
-    {
-        public double ExceedanceProbabilityBeta { get; set; }
-        public string OutputDirectory { get; set; }
-        public string LastErrorFileContent { get; set; }
-    }
-
-    public class TestStructuresStabilityPointCalculator : TestHydraRingCalculator<StructuresStabilityPointCalculationInput>, IStructuresStabilityPointCalculator
+    public class TestStructuresCalculator<TInput> : TestHydraRingCalculator<TInput>, IStructuresCalculator<TInput> where TInput : ExceedanceProbabilityCalculationInput
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }

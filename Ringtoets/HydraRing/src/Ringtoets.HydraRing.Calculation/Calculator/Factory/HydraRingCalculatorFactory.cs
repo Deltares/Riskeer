@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.HydraRing.Calculation.Data.Input;
+
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
     /// <summary>
@@ -74,24 +76,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new WaveHeightCalculator(hlcdDirectory);
         }
 
-        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory)
-        {
-            return new StructuresOvertoppingCalculator(hlcdDirectory);
-        }
-
-        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory)
-        {
-            return new StructuresClosureCalculator(hlcdDirectory);
-        }
-
-        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory)
-        {
-            return new StructuresStabilityPointCalculator(hlcdDirectory);
-        }
-
         public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory)
         {
             return new DunesBoundaryConditionsCalculator(hlcdDirectory);
+        }
+
+        public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) where TCalculationInput : ExceedanceProbabilityCalculationInput
+        {
+            return new StructuresCalculator<TCalculationInput>(hlcdDirectory);
         }
     }
 }

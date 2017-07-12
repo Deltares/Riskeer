@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -94,8 +95,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             // Setup
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
-                             .Return(new TestStructuresStabilityPointCalculator());
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
+                             .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -154,7 +155,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         public void Run_InvalidCalculationRan_PerformValidationAndCalculationActivityStateFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            var calculator = new TestStructuresStabilityPointCalculator
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
@@ -162,7 +163,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
                              .Return(calculator);
             mockRepository.ReplayAll();
 
@@ -213,8 +214,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             observerMock.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
-                             .Return(new TestStructuresStabilityPointCalculator());
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
+                             .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -270,13 +271,13 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var calculator = new TestStructuresStabilityPointCalculator
+            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 EndInFailure = endInFailure,
                 LastErrorFileContent = lastErrorFileContent
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
                              .Return(calculator);
             mockRepository.ReplayAll();
 

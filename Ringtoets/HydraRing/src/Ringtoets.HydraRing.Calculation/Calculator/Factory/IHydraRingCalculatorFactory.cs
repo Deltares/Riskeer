@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
@@ -78,35 +79,20 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory);
 
         /// <summary>
-        /// Creates a calculator for performing a calculation for structures overtopping.
-        /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IStructuresOvertoppingCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory);
-
-        /// <summary>
-        /// Creates a calculator for performing a calculation for structures closure.
-        /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IStructuresOvertoppingCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory);
-
-        /// <summary>
-        /// Creates a calculator for performing a calculation for structures stability point.
-        /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IStructuresStabilityPointCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory);
-
-        /// <summary>
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <returns>A new <see cref="IStructuresStabilityPointCalculator"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory);
+
+        /// <summary>
+        /// Creates a calculator for performing a calculation for structures.
+        /// </summary>
+        /// <typeparam name="TCalculationInput">The type of the input.</typeparam>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <returns>A new <see cref="IStructuresCalculator{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
+        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) where TCalculationInput : ExceedanceProbabilityCalculationInput;
     }
 }

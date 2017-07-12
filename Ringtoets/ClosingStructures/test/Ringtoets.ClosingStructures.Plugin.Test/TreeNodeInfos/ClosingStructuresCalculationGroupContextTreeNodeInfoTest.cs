@@ -51,6 +51,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -817,8 +818,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresClosureCalculator(testDataPath))
-                                 .Return(new TestStructuresClosureCalculator())
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
+                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>())
                                  .Repeat
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();

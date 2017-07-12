@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -684,8 +685,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateStructuresStabilityPointCalculator(testDataPath))
-                                 .Return(new TestStructuresStabilityPointCalculator())
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
+                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>())
                                  .Repeat
                                  .Times(nrOfCalculators);
                 mocksRepository.ReplayAll();

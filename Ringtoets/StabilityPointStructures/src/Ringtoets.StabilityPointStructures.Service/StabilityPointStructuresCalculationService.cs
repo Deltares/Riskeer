@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
 
         private bool canceled;
-        private IStructuresStabilityPointCalculator calculator;
+        private IStructuresCalculator<StructuresStabilityPointCalculationInput> calculator;
 
         /// <summary>
         /// Cancels any ongoing structures stability point calculation.
@@ -103,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                          hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresStabilityPointCalculator(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBegin();
 

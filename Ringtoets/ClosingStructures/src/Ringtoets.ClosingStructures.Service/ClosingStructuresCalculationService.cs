@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Service
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 
-        private IStructuresClosureCalculator calculator;
+        private IStructuresCalculator<StructuresClosureCalculationInput> calculator;
         private bool canceled;
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Service
                                                                   hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<StructuresClosureCalculationInput>(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBegin();
 

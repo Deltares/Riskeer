@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Service
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
 
-        private IStructuresOvertoppingCalculator calculator;
+        private IStructuresCalculator<StructuresOvertoppingCalculationInput> calculator;
         private bool canceled;
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Ringtoets.HeightStructures.Service
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(hlcdDirectory);
 
             CalculationServiceHelper.LogCalculationBegin();
 

@@ -19,16 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Interface for a calculator calculating probability of failure by a non-closing structure. 
-    /// This is used in a closure structures assessment.
+    /// Interface for a calculator calculating probability of failure by a structure. 
+    /// This is used in a structures assessment.
     /// </summary>
-    public interface IStructuresClosureCalculator
+    public interface IStructuresCalculator<in TInput> where TInput : ExceedanceProbabilityCalculationInput
     {
         /// <summary>
         /// Gets the probability of failure.
@@ -48,10 +48,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
-        /// <param name="input">The <see cref="StructuresClosureCalculationInput"/> which contains all the necessary input
+        /// <param name="input">The <see cref="TInput"/> which contains all the necessary input
         /// for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        void Calculate(StructuresClosureCalculationInput input);
+        void Calculate(TInput input);
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
