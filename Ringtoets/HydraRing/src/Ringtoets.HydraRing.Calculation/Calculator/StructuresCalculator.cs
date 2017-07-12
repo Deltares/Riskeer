@@ -31,6 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator for calculating probability of failure by a structure. 
     /// This is used in a structures assessment.
     /// </summary>
+    /// <typeparam name="TInput">The type of the input.</typeparam>
     internal class StructuresCalculator<TInput> : HydraRingCalculatorBase, IStructuresCalculator<TInput>
         where TInput : ExceedanceProbabilityCalculationInput
     {

@@ -28,6 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator calculating probability of failure by a structure. 
     /// This is used in a structures assessment.
     /// </summary>
+    /// <typeparam name="TInput">The type of the input.</typeparam>
     public interface IStructuresCalculator<in TInput> where TInput : ExceedanceProbabilityCalculationInput
     {
         /// <summary>

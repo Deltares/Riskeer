@@ -56,8 +56,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(input),
-                                                           (int)input.LoadSchematizationType,
-                                                           typeof(LoadSchematizationType));
+                                                                   (int) input.LoadSchematizationType,
+                                                                   typeof(LoadSchematizationType));
                     }
                     break;
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
@@ -71,13 +71,13 @@ namespace Ringtoets.StabilityPointStructures.Service
                             break;
                         default:
                             throw new InvalidEnumArgumentException(nameof(input),
-                                                           (int)input.LoadSchematizationType,
-                                                           typeof(LoadSchematizationType));
+                                                                   (int) input.LoadSchematizationType,
+                                                                   typeof(LoadSchematizationType));
                     }
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(input),
-                                                           (int)input.InflowModelType,
+                                                           (int) input.InflowModelType,
                                                            typeof(StabilityPointStructureInflowModelType));
             }
 
