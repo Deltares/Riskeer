@@ -70,8 +70,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(control);
                 form.Show();
 
-                IllustrationPointsChartControl chartControl = ControlTestHelper.GetControls<IllustrationPointsChartControl>(form, "IllustrationPointsChartControl").First();
-                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
+                IllustrationPointsChartControl chartControl = ControlTestHelper.GetControls<IllustrationPointsChartControl>(form, "IllustrationPointsChartControl").Single();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
 
                 var data = new TestGeneralResultSubMechanismIllustrationPoint();
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
 
                 // When
                 EventHelper.RaiseEvent(tableControl, "SelectionChanged");
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                             new TestSubMechanismIllustrationPoint())
                     });
 
-                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").First();
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
                 DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
                 selectedLocationRow.Cells[0].Value = true;

@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void ParameterdConstructor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             const double beta = 1.23;

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="form">The form to get the control from.</param>
         /// <param name="controlName">The name of the control.</param>
         /// <returns>The found control.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
         public static DataGridViewControl GetDataGridViewControl(Form form, string controlName)
         {
             return GetControls<DataGridViewControl>(form, controlName).FirstOrDefault();
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="control">The control to get the nested control from.</param>
         /// <param name="controlName">The name of the control.</param>
         /// <returns>The found control.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
         public static DataGridView GetDataGridView(Control control, string controlName)
         {
             return GetControls<DataGridView>(control, controlName).FirstOrDefault();
@@ -62,10 +62,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="control">The control to get the nested control from.</param>
         /// <param name="controlName">The name of the controls.</param>
         /// <returns>The found controls.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<TView> GetControls<TView>(Control control, string controlName) where TView : Control
         {
-            return control.Controls.Find(controlName, true).Cast<TView>();
+            return control.Controls.Find(controlName, true).OfType<TView>();
         }
     }
 }

@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void GetControl_NoControlsOnForm_ReturnEmptyList()
+        public void GetControls_NoControlsOnForm_ReturnEmptyList()
         {
             // Call
             IEnumerable<Control> controls = ControlTestHelper.GetControls<Control>(new Form(), "name");
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void GetControl_ControlsOnFormWithSameName_ReturnControls()
+        public void GetControls_ControlsOnFormWithSameName_ReturnControls()
         {
             // Setup
             const string controlName = "control";
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void GetControl_ControlOnForm_ReturnControl()
+        public void GetControls_ControlOnForm_ReturnControl()
         {
             // Setup
             using (var form = new Form())
@@ -187,6 +187,35 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 CollectionAssert.AreEqual(new[]
                 {
                     control1
+                }, controls);
+            }
+        }
+
+        [Test]
+        public void GetControls_DifferentControlsWithSameName_ReturnUserControl()
+        {
+            // Setup
+            const string controlName = "control";
+            using (var form = new Form())
+            using (var userControl = new UserControl
+            {
+                Name = controlName
+            })
+            using (var control = new Control
+            {
+                Name = controlName
+            })
+            {
+                form.Controls.Add(userControl);
+                form.Controls.Add(control);
+
+                // Call
+                IEnumerable<UserControl> controls = ControlTestHelper.GetControls<UserControl>(form, controlName);
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    userControl
                 }, controls);
             }
         }
