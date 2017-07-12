@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.ValidationRules;
@@ -40,7 +41,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         }
 
         [Test]
-        public void GetValidationRules_Always_ReturnEmpty()
+        public void GetValidationRules_Always_ReturnSingleRule()
         {
             // Setup
             var input = new TestStructuresInput();
@@ -50,7 +51,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             IEnumerable<ValidationRule> rules = registry.GetValidationRules(input);
 
             // Assert
-            CollectionAssert.IsEmpty(rules);
+            Assert.AreEqual(1, rules.Count());
         }
     }
 }
