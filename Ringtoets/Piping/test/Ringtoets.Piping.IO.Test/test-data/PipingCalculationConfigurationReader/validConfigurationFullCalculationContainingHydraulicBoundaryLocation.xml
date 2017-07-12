@@ -17,5 +17,9 @@
         <standaardafwijking>7.7</standaardafwijking>
       </stochast>
     </stochasten>
+    <scenario>
+      <gebruik>false</gebruik>
+      <bijdrage>8.8</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

@@ -474,6 +474,94 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
+        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Er is voor scenario geen contributie of relevantie opgegeven. Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 8.8
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var importer = new PipingCalculationConfigurationImporter(filePath,
+                                                                      calculationGroup,
+                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                      pipingFailureMechanism);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
@@ -555,7 +643,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                         Mean = (RoundedDouble) 6.6,
                         StandardDeviation = (RoundedDouble) 7.7
                     }
-                }
+                },
+                Contribution = (RoundedDouble) 8.8,
+                IsRelevant = false
             };
             if (manualAssessmentLevel)
             {
@@ -587,6 +677,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value, actualCalculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
             Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.Mean.Value, actualCalculation.InputParameters.DampingFactorExit.Mean.Value);
             Assert.AreEqual(expectedCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value, actualCalculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
+
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
         }
     }
 }
