@@ -25,9 +25,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Integration.TestUtil.Test
+namespace Ringtoets.Piping.Data.TestUtil.Test
 {
     [TestFixture]
     public class PipingTestDataGeneratorTest

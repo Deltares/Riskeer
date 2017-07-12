@@ -105,10 +105,6 @@
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Integration.TestUtil\Ringtoets.Piping.Integration.TestUtil.csproj">
-      <Project>{a4972765-ddbb-4a1e-b17c-7185577e5591}</Project>
-      <Name>Ringtoets.Piping.Integration.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>

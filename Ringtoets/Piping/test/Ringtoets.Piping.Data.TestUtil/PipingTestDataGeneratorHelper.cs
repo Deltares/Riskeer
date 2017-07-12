@@ -23,10 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.TestUtil
+namespace Ringtoets.Piping.Data.TestUtil
 {
     /// <summary>
     /// Class to help asserting the <see cref="PipingTestDataGenerator"/>.
@@ -71,7 +70,7 @@ namespace Ringtoets.Piping.Integration.TestUtil
         }
 
         /// <summary>
-        /// Asserts sthat the <paramref name="failureMechanism"/> contains <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         public static void AssertHasSurfaceLines(PipingFailureMechanism failureMechanism)

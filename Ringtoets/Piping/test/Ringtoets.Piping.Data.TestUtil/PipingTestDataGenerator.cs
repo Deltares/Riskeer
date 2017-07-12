@@ -24,12 +24,10 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Integration.TestUtil
+namespace Ringtoets.Piping.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.
