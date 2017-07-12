@@ -14,6 +14,10 @@
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <intredepunt>2.2</intredepunt>
+    <scenario>
+      <bijdrage>8.8</bijdrage>
+      <gebruik>false</gebruik>
+    </scenario>
     <uittredepunt>3.3</uittredepunt>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <toetspeil>1.1</toetspeil>

@@ -129,6 +129,24 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
                                               "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
+                yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
+                                              "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleContribution");
+                yield return new TestCaseData("invalidScenarioContributionEmpty.xml",
+                                              "The 'bijdrage' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionEmpty");
+                yield return new TestCaseData("invalidScenarioContributionNoDouble.xml",
+                                              "The 'bijdrage' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionNoDouble");
+                yield return new TestCaseData("invalidScenarioMultipleRelevant.xml",
+                                              "Element 'gebruik' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleRelevant");
+                yield return new TestCaseData("invalidScenarioRelevantEmpty.xml",
+                                              "The 'gebruik' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioRelevantEmpty");
+                yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
+                                              "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioContributionNoDouble");
             }
         }
 
@@ -185,6 +203,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNull(calculation.StochasticSoilProfileName);
             Assert.IsNull(calculation.PhreaticLevelExit);
             Assert.IsNull(calculation.DampingFactorExit);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -226,6 +245,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNaN(calculation.PhreaticLevelExit.StandardDeviation);
             Assert.IsNaN(calculation.DampingFactorExit.Mean);
             Assert.IsNaN(calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNaN(calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -250,6 +270,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNotNull(calculation.PhreaticLevelExit.StandardDeviation);
             Assert.IsNotNull(calculation.DampingFactorExit.Mean);
             Assert.IsNotNull(calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNotNull(calculation.Scenario.Contribution);
 
             Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.EntryPointL.Value));
@@ -258,6 +279,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExit.StandardDeviation.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.Mean.Value));
             Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(calculation.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -322,6 +344,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
             Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            Assert.IsFalse(calculation.Scenario.IsRelevant);
         }
 
         [Test]
@@ -409,6 +433,24 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
             Assert.IsNull(calculation.DampingFactorExit.Mean);
             Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyScenario_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyScenario.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IList<IConfigurationItem> readConfigurationItems = reader.Read().ToList();
+
+            // Assert
+            Assert.AreEqual(1, readConfigurationItems.Count);
+
+            var calculation = (PipingCalculationConfiguration) readConfigurationItems[0];
+            Assert.IsNull(calculation.Scenario.Contribution);
+            Assert.IsNull(calculation.Scenario.IsRelevant);
         }
     }
 }
