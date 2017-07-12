@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -55,6 +56,20 @@ namespace Ringtoets.Common.Service.Structures
         where TCalculationInput : ExceedanceProbabilityCalculationInput
     {
         private IStructuresCalculator<TCalculationInput> calculator;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StructuresCalculationServiceBase{TStructureValidationRules,TStructureInput,TStructure,TFailureMechanism,TCalculationInput}"/>.
+        /// </summary>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>
+        /// is <c>null</c>.</exception>
+        protected StructuresCalculationServiceBase(IStructuresCalculationMessageProvider messageProvider)
+        {
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
+        }
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during

@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -44,6 +45,11 @@ namespace Ringtoets.StabilityPointStructures.Service
         StructuresStabilityPointCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StabilityPointStructuresCalculationService));
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationService"/>.
+        /// </summary>
+        public StabilityPointStructuresCalculationService() : base(new StabilityPointStructuresCalculationMessageProvider()) {}
 
         protected override StructuresStabilityPointCalculationInput CreateInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
                                                                                 StabilityPointStructuresFailureMechanism failureMechanism,

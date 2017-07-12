@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -46,6 +47,17 @@ namespace Ringtoets.Common.Service.Test.Structures
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        [Test]
+        public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new TestStructuresCalculationService(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("messageProvider", exception.ParamName);
+        }
 
         [Test]
         public void Validate_CalculationNull_ThrowArgumentNullException()
@@ -329,7 +341,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService().Calculate(null,
+            TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(null,
                                                                                        assessmentSection,
                                                                                        failureMechanism,
                                                                                        string.Empty);
@@ -348,7 +360,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService().Calculate(calculation,
+            TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        string.Empty);
@@ -369,7 +381,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var calculation = new TestStructuresCalculation();
 
             // Call
-            TestDelegate test = () => new TestStructuresCalculationService().Calculate(calculation,
+            TestDelegate test = () => new TestStructuresCalculationService(new TestMessageProvider()).Calculate(calculation,
                                                                                        assessmentSection,
                                                                                        null,
                                                                                        string.Empty);
@@ -405,7 +417,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var service = new TestStructuresCalculationService();
+                var service = new TestStructuresCalculationService(new TestMessageProvider());
 
                 // Call
                 service.Calculate(calculation,
@@ -450,7 +462,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var service = new TestStructuresCalculationService();
+                var service = new TestStructuresCalculationService(new TestMessageProvider());
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
@@ -469,6 +481,8 @@ namespace Ringtoets.Common.Service.Test.Structures
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
             TestStructuresInput, TestStructure, TestFailureMechanism, ExceedanceProbabilityCalculationInput>
         {
+            public TestStructuresCalculationService(IStructuresCalculationMessageProvider messageProvider) : base(messageProvider) {}
+
             protected override ExceedanceProbabilityCalculationInput CreateInput(StructuresCalculation<TestStructuresInput> calculation,
                                                                                  TestFailureMechanism failureMechanism,
                                                                                  string hydraulicBoundaryDatabaseFilePath)
@@ -500,6 +514,24 @@ namespace Ringtoets.Common.Service.Test.Structures
                 {
                     return new HydraRingSection(0, 0, 0);
                 }
+            }
+        }
+
+        private class TestMessageProvider : IStructuresCalculationMessageProvider
+        {
+            public string GetCalculationFailedMessage(string calculationSubject)
+            {
+                return $"Calculation {calculationSubject} failed.";
+            }
+
+            public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
+            {
+                return $"Calculation {calculationSubject} failed with report {errorReport}.";
+            }
+
+            public string GetCalculationPerformedMessage(string calculationSubject)
+            {
+                return $"Calculation {calculationSubject} performed.";
             }
         }
     }

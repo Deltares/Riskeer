@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -41,6 +42,11 @@ namespace Ringtoets.ClosingStructures.Service
         ClosingStructuresInput, ClosingStructure, ClosingStructuresFailureMechanism, StructuresClosureCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationService"/>.
+        /// </summary>
+        public ClosingStructuresCalculationService() : base(new ClosingStructuresCalculationMessageProvider()) {}
 
         protected override StructuresClosureCalculationInput CreateInput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresFailureMechanism failureMechanism, string hydraulicBoundaryDatabaseFilePath)
         {

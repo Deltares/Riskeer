@@ -24,6 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
@@ -40,6 +41,11 @@ namespace Ringtoets.HeightStructures.Service
         HeightStructure, HeightStructuresFailureMechanism, StructuresOvertoppingCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresCalculationService"/>.
+        /// </summary>
+        public HeightStructuresCalculationService() : base(new HeightStructuresCalculationMessageProvider()) {}
 
         protected override StructuresOvertoppingCalculationInput CreateInput(StructuresCalculation<HeightStructuresInput> calculation,
                                                                              HeightStructuresFailureMechanism failureMechanism,
