@@ -28,7 +28,6 @@ using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
@@ -57,8 +56,8 @@ namespace Ringtoets.Common.Service.Structures
         where TGeneralInput : class
         where TCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private readonly IStructuresCalculationMessageProvider messageProvider;
         private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TGeneralInput, TCalculationInput>));
+        private readonly IStructuresCalculationMessageProvider messageProvider;
 
         private IStructuresCalculator<TCalculationInput> calculator;
         private bool canceled;
@@ -197,7 +196,7 @@ namespace Ringtoets.Common.Service.Structures
                 }
 
                 log.Info(messageProvider.GetCalculationPerformedMessage(calculator.OutputDirectory));
-                
+
                 CalculationServiceHelper.LogCalculationEnd();
 
                 if (errorOccurred)
