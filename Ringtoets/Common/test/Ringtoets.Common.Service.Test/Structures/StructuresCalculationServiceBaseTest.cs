@@ -32,7 +32,12 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Service.Test.Structures
 {
@@ -375,6 +380,92 @@ namespace Ringtoets.Common.Service.Test.Structures
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Calculate_Always_InputPropertiesCorrectlySentToCalculator()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService();
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanism,
+                                  validFilePath);
+
+                // Assert
+                ExceedanceProbabilityCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+
+                var expectedInput = new TestExceedanceProbabilityCalculationInput(1300001);
+                ExceedanceProbabilityCalculationInput actualInput = calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService();
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanism,
+                                  validFilePath);
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
         private class TestStructuresCalculationService : StructuresCalculationServiceBase<TestStructureValidationRulesRegistry,
             TestStructuresInput, TestStructure, TestFailureMechanism, ExceedanceProbabilityCalculationInput>
         {
@@ -382,7 +473,33 @@ namespace Ringtoets.Common.Service.Test.Structures
                                                                                  TestFailureMechanism failureMechanism,
                                                                                  string hydraulicBoundaryDatabaseFilePath)
             {
-                return null;
+                return new TestExceedanceProbabilityCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id);
+            }
+
+            protected override void PerformCalculation(IStructuresCalculator<ExceedanceProbabilityCalculationInput> calculator,
+                                                       ExceedanceProbabilityCalculationInput input,
+                                                       StructuresCalculation<TestStructuresInput> calculation,
+                                                       IAssessmentSection assessmentSection,
+                                                       TestFailureMechanism failureMechanism)
+            {
+                calculator.Calculate(input);
+            }
+        }
+
+        private class TestExceedanceProbabilityCalculationInput : ExceedanceProbabilityCalculationInput
+        {
+            public TestExceedanceProbabilityCalculationInput(long hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
+
+            public override HydraRingFailureMechanismType FailureMechanismType { get; }
+
+            public override int VariableId { get; }
+
+            public override HydraRingSection Section
+            {
+                get
+                {
+                    return new HydraRingSection(0, 0, 0);
+                }
             }
         }
     }

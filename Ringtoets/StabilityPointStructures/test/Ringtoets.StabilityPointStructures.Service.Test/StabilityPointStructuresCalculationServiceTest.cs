@@ -1178,54 +1178,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-
-            var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
-                             .Return(calculator);
-            mockRepository.ReplayAll();
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
-                    LoadSchematizationType = LoadSchematizationType.Linear
-                }
-            };
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var service = new StabilityPointStructuresCalculationService();
-                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
-
-                // Call
-                service.Calculate(calculation,
-                                  assessmentSectionStub,
-                                  failureMechanism,
-                                  validFilePath);
-
-                // Assert
-                Assert.IsNull(calculation.Output);
-                Assert.IsTrue(calculator.IsCanceled);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup

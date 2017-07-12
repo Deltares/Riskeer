@@ -32,8 +32,9 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.Common.Service.ValidationRules;
+using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.Common.Service.Structures
@@ -42,17 +43,19 @@ namespace Ringtoets.Common.Service.Structures
     /// Service that provides generic logic for performing Hydra-Ring calculations for structures.
     /// </summary>
     /// <typeparam name="TStructureValidationRules">The type of the validation rules.</typeparam>
-    /// <typeparam name="TStructureInput">The input type.</typeparam>
+    /// <typeparam name="TStructureInput">The structure input type.</typeparam>
     /// <typeparam name="TStructure">The structure type.</typeparam>
     /// <typeparam name="TFailureMechanism">The failure mechanism type.</typeparam>
+    /// <typeparam name="TCalculationInput">The calculation input type.</typeparam>
     public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TFailureMechanism, TCalculationInput>
         where TStructureValidationRules : IStructuresValidationRulesRegistry<TStructureInput, TStructure>, new()
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
         where TFailureMechanism : IFailureMechanism
         where TCalculationInput : ExceedanceProbabilityCalculationInput
-
     {
+        private IStructuresCalculator<TCalculationInput> calculator;
+
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -105,10 +108,10 @@ namespace Ringtoets.Common.Service.Structures
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public virtual void Calculate(StructuresCalculation<TStructureInput> calculation,
-                                      IAssessmentSection assessmentSection,
-                                      TFailureMechanism failureMechanism,
-                                      string hydraulicBoundaryDatabaseFilePath)
+        public void Calculate(StructuresCalculation<TStructureInput> calculation,
+                              IAssessmentSection assessmentSection,
+                              TFailureMechanism failureMechanism,
+                              string hydraulicBoundaryDatabaseFilePath)
         {
             if (calculation == null)
             {
@@ -123,12 +126,46 @@ namespace Ringtoets.Common.Service.Structures
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            string calculationName = calculation.Name;
-
             TCalculationInput input = CreateInput(calculation, failureMechanism, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory);
+
+            CalculationServiceHelper.LogCalculationBegin();
+
+            PerformCalculation(calculator, input, calculation, assessmentSection, failureMechanism);
         }
+
+        /// <summary>
+        /// Cancels any currently running height structures calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            calculator?.Cancel();
+            Canceled = true;
+        }
+
+        /// <summary>
+        /// Gets the indicator whether the calculation is canceled.
+        /// </summary>
+        protected bool Canceled { get; private set; }
+
+        /// <summary>
+        /// Performs a structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets <see cref="StructuresCalculation{T}.Output"/>
+        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculator">The calculator to perform the calculation with.</param>
+        /// <param name="input">The input of the calculation.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="failureMechanism"> The <see cref="TFailureMechanism"/> that holds the information about the contribution 
+        /// and the general inputs used in the calculation.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        protected abstract void PerformCalculation(IStructuresCalculator<TCalculationInput> calculator,
+                                                   TCalculationInput input,
+                                                   StructuresCalculation<TStructureInput> calculation,
+                                                   IAssessmentSection assessmentSection,
+                                                   TFailureMechanism failureMechanism);
 
         /// <summary>
         /// Creates the input for a structures calculation.
