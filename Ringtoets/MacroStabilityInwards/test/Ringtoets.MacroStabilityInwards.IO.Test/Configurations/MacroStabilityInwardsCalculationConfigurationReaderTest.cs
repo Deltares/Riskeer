@@ -78,6 +78,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
                                               "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
+                yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
+                                              "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleContribution");
+                yield return new TestCaseData("invalidScenarioContributionEmpty.xml",
+                                              "The 'bijdrage' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionEmpty");
+                yield return new TestCaseData("invalidScenarioContributionNoDouble.xml",
+                                              "The 'bijdrage' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionNoDouble");
+                yield return new TestCaseData("invalidScenarioMultipleRelevant.xml",
+                                              "Element 'gebruik' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleRelevant");
+                yield return new TestCaseData("invalidScenarioRelevantEmpty.xml",
+                                              "The 'gebruik' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioRelevantEmpty");
+                yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
+                                              "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioRelevantNoBoolean");
             }
         }
 
@@ -130,6 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(calculation.SurfaceLineName);
             Assert.IsNull(calculation.StochasticSoilModelName);
             Assert.IsNull(calculation.StochasticSoilProfileName);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -147,6 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
             Assert.IsNaN(calculation.AssessmentLevel);
+            Assert.IsNaN(calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -165,8 +185,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var calculation = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems[0];
 
             Assert.IsNotNull(calculation.AssessmentLevel);
+            Assert.IsNotNull(calculation.Scenario.Contribution);
 
             Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -193,6 +215,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            Assert.IsFalse(calculation.Scenario.IsRelevant);
         }
 
         [Test]
@@ -219,6 +243,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
             Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            Assert.IsFalse(calculation.Scenario.IsRelevant);
         }
 
         [Test]

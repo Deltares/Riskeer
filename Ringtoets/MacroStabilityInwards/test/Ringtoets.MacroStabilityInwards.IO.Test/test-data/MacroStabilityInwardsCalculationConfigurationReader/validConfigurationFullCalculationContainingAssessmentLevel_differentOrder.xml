@@ -3,6 +3,10 @@
   <berekening naam="Calculation">
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
+    <scenario>
+      <gebruik>false</gebruik>
+      <bijdrage>8.8</bijdrage>
+    </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <toetspeil>1.1</toetspeil>
   </berekening>

@@ -5,5 +5,9 @@
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
+    <scenario>
+      <gebruik>false</gebruik>
+      <bijdrage>8.8</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

@@ -27,6 +27,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
@@ -36,6 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// </summary>
     public class MacroStabilityInwardsCalculationConfigurationReader : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
+        private const string scenarioSchemaName = "ScenarioSchema.xsd";
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationReader"/>.
         /// </summary>
@@ -52,7 +55,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         internal MacroStabilityInwardsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath,
                    Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
-                   new Dictionary<string, string>()) {}
+                   new Dictionary<string, string>
+                   {
+                       {
+                           scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
+                       }
+                   }) {}
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
@@ -63,7 +71,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement),
-                StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement)
+                StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
+                Scenario = calculationElement.GetScenarioConfiguration()
             };
 
             return configuration;

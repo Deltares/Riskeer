@@ -2,5 +2,8 @@
 <configuratie>
   <berekening naam="Calculation">
     <toetspeil>-INF</toetspeil>
+    <scenario>
+      <bijdrage>INF</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

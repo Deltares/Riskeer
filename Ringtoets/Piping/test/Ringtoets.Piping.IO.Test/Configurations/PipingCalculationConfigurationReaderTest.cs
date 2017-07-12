@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                     .SetName("invalidScenarioRelevantEmpty");
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
-                    .SetName("invalidScenarioContributionNoDouble");
+                    .SetName("invalidScenarioRelevantNoBoolean");
             }
         }
 
@@ -312,6 +312,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
             Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
             Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            Assert.IsFalse(calculation.Scenario.IsRelevant);
         }
 
         [Test]

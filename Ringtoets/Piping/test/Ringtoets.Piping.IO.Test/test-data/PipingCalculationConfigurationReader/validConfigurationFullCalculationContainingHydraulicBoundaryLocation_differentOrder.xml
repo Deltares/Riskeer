@@ -15,6 +15,10 @@
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <uittredepunt>3.3</uittredepunt>
     <intredepunt>2.2</intredepunt>
+    <scenario>
+      <gebruik>false</gebruik>
+      <bijdrage>8.8</bijdrage>
+    </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <hrlocatie>HRlocatie</hrlocatie>
   </berekening>

@@ -24,6 +24,9 @@ All rights reserved.
 
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
 
+  <!--Definitie voor het specificeren van een berekeningsscenario.-->
+  <xs:include schemaLocation="ScenarioSchema.xsd"/>
+
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft. Hierin
   wordt een keuze gegeven voor specificatie van een HR locatie of een 
   toetspeil (handmatig gespecificeerd toetspeil) vergelijkbaar met een
@@ -37,6 +40,7 @@ All rights reserved.
             <xs:element ref="profielschematisatie" minOccurs="0"/>
             <xs:element ref="ondergrondmodel" minOccurs="0"/>
             <xs:element ref="ondergrondschematisatie" minOccurs="0"/>
+            <xs:element ref="scenario" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>
