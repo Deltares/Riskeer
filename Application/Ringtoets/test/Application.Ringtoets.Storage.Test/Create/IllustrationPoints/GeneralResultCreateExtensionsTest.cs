@@ -152,6 +152,45 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             }
         }
 
+        [Test]
+        public void CreateGeneralResultFaultTreeIllustrationPointEntity_GeneralResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
+
+            // Call
+            TestDelegate call = () => generalResult.CreateGeneralResultFaultTreeIllustrationPointEntity();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("generalResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateGeneralResultFaultTreeIllustrationPointEntity_ValidGeneralResult_ReturnsExpectedGeneralResultFaultTreeIllustrationPointEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var governingWindDirection = new WindDirection("SSE", random.NextDouble());
+
+            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                governingWindDirection,
+                Enumerable.Empty<Stochast>(),
+                Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>());
+
+            // Call
+            GeneralResultFaultTreeIllustrationPointEntity entity =
+                generalResult.CreateGeneralResultFaultTreeIllustrationPointEntity();
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            CollectionAssert.IsEmpty(entity.StochastEntities);
+            CollectionAssert.IsEmpty(entity.TopLevelFaultTreeIllustrationPointEntities);
+        }
+
         private static void AssertWindDirection(WindDirection expectedWindDirection,
                                                 GeneralResultSubMechanismIllustrationPointEntity entity)
         {

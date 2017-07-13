@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/>
         /// is <c>null</c>.</exception>
-        internal static GeneralResultSubMechanismIllustrationPointEntity CreateGeneralResultSubMechanismIllustrationPointEntity(
+        public static GeneralResultSubMechanismIllustrationPointEntity CreateGeneralResultSubMechanismIllustrationPointEntity(
             this GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint)
         {
             if (generalResultSubMechanismIllustrationPoint == null)
@@ -65,7 +65,47 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             return entity;
         }
 
+        /// <summary>
+        /// Creates a <see cref="GeneralResultFaultTreeIllustrationPointEntity"/> based on the 
+        /// information of <paramref name="generalResult"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result to create a database entity for.</param>
+        /// <returns>A new <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
+        /// is <c>null</c>.</exception>
+        public static GeneralResultFaultTreeIllustrationPointEntity CreateGeneralResultFaultTreeIllustrationPointEntity(
+            this GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            if (generalResult == null)
+            {
+                throw new ArgumentNullException(nameof(generalResult));
+            }
+
+            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
+            var entity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionAngle = governingWindDirection.Angle,
+                GoverningWindDirectionName = governingWindDirection.Name.DeepClone()
+            };
+
+            AddEntitiesForStochasts(entity, generalResult.Stochasts);
+            AddEntitiesForTopLevelFaultTreeIllustrationPoints(
+                entity, generalResult.TopLevelIllustrationPoints);
+
+            return entity;
+        }
+
         private static void AddEntitiesForStochasts(GeneralResultSubMechanismIllustrationPointEntity entity,
+                                                    IEnumerable<Stochast> stochasts)
+        {
+            var order = 0;
+            foreach (Stochast stochast in stochasts)
+            {
+                entity.StochastEntities.Add(stochast.Create(order++));
+            }
+        }
+
+        private static void AddEntitiesForStochasts(GeneralResultFaultTreeIllustrationPointEntity entity,
                                                     IEnumerable<Stochast> stochasts)
         {
             var order = 0;
@@ -83,6 +123,18 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             foreach (TopLevelSubMechanismIllustrationPoint illustrationPoint in illustrationPoints)
             {
                 entity.TopLevelSubMechanismIllustrationPointEntities.Add(
+                    illustrationPoint.Create(order++));
+            }
+        }
+
+        private static void AddEntitiesForTopLevelFaultTreeIllustrationPoints(
+            GeneralResultFaultTreeIllustrationPointEntity entity,
+            IEnumerable<TopLevelFaultTreeIllustrationPoint> illustrationPoints)
+        {
+            var order = 0;
+            foreach (TopLevelFaultTreeIllustrationPoint illustrationPoint in illustrationPoints)
+            {
+                entity.TopLevelFaultTreeIllustrationPointEntities.Add(
                     illustrationPoint.Create(order++));
             }
         }

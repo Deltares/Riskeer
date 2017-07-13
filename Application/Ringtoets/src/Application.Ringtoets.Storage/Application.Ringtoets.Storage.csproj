@@ -72,11 +72,13 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensions.cs" />
+    <Compile Include="Create\IllustrationPoints\FaultTreeIllustrationPointCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
+    <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
