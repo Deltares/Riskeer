@@ -129,6 +129,7 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\IllustrationPointControlItem.cs" />
     <Compile Include="Views\IllustrationPointRow.cs" />
     <Compile Include="Views\IllustrationPointsChartControl.cs">
       <SubType>UserControl</SubType>

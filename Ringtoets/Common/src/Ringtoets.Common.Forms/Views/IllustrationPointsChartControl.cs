@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Components.Stack.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -31,7 +32,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsChartControl : UserControl
     {
-        private GeneralResultSubMechanismIllustrationPoint data;
+        private IEnumerable<IllustrationPointControlItem> data;
 
         private readonly StackChartData chartData;
 
@@ -49,7 +50,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResultSubMechanismIllustrationPoint Data
+        public IEnumerable<IllustrationPointControlItem> Data
         {
             get
             {

@@ -272,7 +272,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 return null;
             }
 
-            protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
+            protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
             {
                 return null;
             }

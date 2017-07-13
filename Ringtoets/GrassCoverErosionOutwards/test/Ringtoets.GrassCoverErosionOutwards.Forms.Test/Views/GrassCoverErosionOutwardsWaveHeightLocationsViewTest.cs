@@ -35,9 +35,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -102,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRow currentRow = dataGridView.Rows[1];
 
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
             // When
             dataGridView.CurrentCell = currentRow.Cells[0];
@@ -422,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSectionStub);
-            var locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
             DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -527,8 +529,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.IsNull(illustrationPointsControl.Data);
 
             var output = new TestHydraulicBoundaryLocationOutput(1);
-            var result = new TestGeneralResultSubMechanismIllustrationPoint();
-            output.SetIllustrationPoints(result);
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            output.SetIllustrationPoints(generalResult);
 
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
@@ -537,7 +545,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             locations.NotifyObservers();
 
             // Assert
-            Assert.AreSame(result, illustrationPointsControl.Data);
+            var expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+        }
+
+        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
+            GeneralResultSubMechanismIllustrationPoint generalResult)
+        {
+            return generalResult.TopLevelSubMechanismIllustrationPoints
+                                .Select(topLevelIllustrationPoint =>
+                                {
+                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
+                                                                            topLevelIllustrationPoint.WindDirection.Name,
+                                                                            topLevelIllustrationPoint.ClosingSituation,
+                                                                            illustrationPoint.Stochasts,
+                                                                            illustrationPoint.Beta);
+                                });
         }
 
         private DataGridViewControl GetDataGridViewControl()

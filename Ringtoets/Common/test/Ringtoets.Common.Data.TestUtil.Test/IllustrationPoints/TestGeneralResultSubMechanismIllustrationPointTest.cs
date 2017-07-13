@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -39,6 +41,23 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
             CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
+        }
+
+        [Test]
+        public void Constructor_TopLevelSubMechanismIllustrationPoint_ExpectedProperties()
+        {
+            // Setup
+            IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints = 
+                Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>();
+
+            // Call
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPoint>(generalResult);
+            AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+            Assert.AreSame(topLevelIllustrationPoints, generalResult.TopLevelSubMechanismIllustrationPoints);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)

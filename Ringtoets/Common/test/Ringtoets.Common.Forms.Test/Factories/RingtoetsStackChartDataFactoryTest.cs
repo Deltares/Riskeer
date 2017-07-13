@@ -22,12 +22,14 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Factories
 {
@@ -46,21 +48,21 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateColumns_GeneralResultSubMechanismIllustrationPointNull_ThrowArgumentNullException()
+        public void CreateColumns_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalResultSubMechanismIllustrationPoint", exception.ParamName);
+            Assert.AreEqual("illustrationPointControlItems", exception.ParamName);
         }
 
         [Test]
         public void CreateColumns_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(new TestGeneralResultSubMechanismIllustrationPoint(), null);
+            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateColumns(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,87 +74,97 @@ namespace Ringtoets.Common.Forms.Test.Factories
         {
             // Setup
             var stackChartData = new StackChartData();
-            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
-                windDirection,
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, "Regular",
-                        new TestSubMechanismIllustrationPoint()),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, "Regular",
-                        new TestSubMechanismIllustrationPoint()),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, "Regular",
-                        new TestSubMechanismIllustrationPoint())
-                });
+
+            const string windDirectionName = "SSE";
+            const string closingSituation = "Regular";
+            var beta = (RoundedDouble) 3.14;
+            var controlItems = new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta)
+            };
 
             // Call
-            RingtoetsStackChartDataFactory.CreateColumns(generalResult, stackChartData);
+            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual(windDirection.Name, columns[0]);
-            Assert.AreEqual(windDirection.Name, columns[1]);
-            Assert.AreEqual(windDirection.Name, columns[2]);
+            Assert.AreEqual(windDirectionName, columns[0]);
+            Assert.AreEqual(windDirectionName, columns[1]);
+            Assert.AreEqual(windDirectionName, columns[2]);
         }
 
         [Test]
         public void CreateColumns_DifferentClosingSituations_ColumnsAddedToStackChartData()
         {
+            // Setup
             const string closingSituationRegular = "Regular";
             const string closingSituationClosed = "Closed";
             const string closingSituationOpen = "Open";
-
-            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            const string windDirectionName = "SSE";
+            var beta = (RoundedDouble)3.14;
 
             var stackChartData = new StackChartData();
-            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
-                windDirection,
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, closingSituationRegular,
-                        new TestSubMechanismIllustrationPoint()),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, closingSituationClosed,
-                        new TestSubMechanismIllustrationPoint()),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        windDirection, closingSituationOpen,
-                        new TestSubMechanismIllustrationPoint())
-                });
+            var controlItems = new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituationRegular,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituationClosed,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituationOpen,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta)
+            };
 
             // Call
-            RingtoetsStackChartDataFactory.CreateColumns(generalResult, stackChartData);
+            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual($"{windDirection.Name} ({closingSituationRegular})", columns[0]);
-            Assert.AreEqual($"{windDirection.Name} ({closingSituationClosed})", columns[1]);
-            Assert.AreEqual($"{windDirection.Name} ({closingSituationOpen})", columns[2]);
+            Assert.AreEqual($"{windDirectionName} ({closingSituationRegular})", columns[0]);
+            Assert.AreEqual($"{windDirectionName} ({closingSituationClosed})", columns[1]);
+            Assert.AreEqual($"{windDirectionName} ({closingSituationOpen})", columns[2]);
         }
 
         [Test]
-        public void CreateRows_GeneralResultSubMechanismIllustrationPointNull_ThrowArgumentNullException()
+        public void CreateRows_IllustrationPointControlItemsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(null, new StackChartData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("generalResultSubMechanismIllustrationPoint", exception.ParamName);
+            Assert.AreEqual("illustrationPointControlItems", exception.ParamName);
         }
 
         [Test]
         public void CreateRows_StackChartDataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(new TestGeneralResultSubMechanismIllustrationPoint(), null);
+            TestDelegate test = () => RingtoetsStackChartDataFactory.CreateRows(Enumerable.Empty<IllustrationPointControlItem>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -163,47 +175,52 @@ namespace Ringtoets.Common.Forms.Test.Factories
         public void CreateRows_WithAllData_RowsAddedToStackChartData()
         {
             var stackChartData = new StackChartData();
-            var generalResult = new GeneralResultSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-            Enumerable.Empty<Stochast>(),
-               new[]
-               {
-                    new TopLevelSubMechanismIllustrationPoint(
-                       WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 1", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
-                        }, Enumerable.Empty<IllustrationPointResult>())),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 2", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.9)
-                        }, Enumerable.Empty<IllustrationPointResult>())),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 3", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
-                        }, Enumerable.Empty<IllustrationPointResult>()))
-               });
 
-            RingtoetsStackChartDataFactory.CreateColumns(generalResult, stackChartData);
+            const string windDirectionName = "SSE";
+            const string closingSituation = "Regular";
+            var beta = (RoundedDouble) 3.14;
+
+            var controlItems = new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
+                                                 }, beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.9)
+                                                 }, beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
+                                                 }, beta)
+            };
+
+            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
 
             // Call
-            RingtoetsStackChartDataFactory.CreateRows(generalResult, stackChartData);
+            RingtoetsStackChartDataFactory.CreateRows(controlItems, stackChartData);
 
             // Assert
             RowChartData[] rows = stackChartData.Rows.ToArray();

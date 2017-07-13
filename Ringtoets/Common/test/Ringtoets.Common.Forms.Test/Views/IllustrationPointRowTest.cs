@@ -15,16 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-// All names, logos, and references to "Deltares" are registered trademarks of
+// All names, logos, and references to "Deltares" are registered trademarks of 
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 
@@ -34,29 +35,35 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class IllustrationPointRowTest
     {
         [Test]
-        public void Constructor_IllustrationPointNull_ThrowArgumentNullException()
+        public void Constructor_IllustrationPointControlItemNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new IllustrationPointRow(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("illustrationPoint", exception.ParamName);
+            Assert.AreEqual("illustrationPointControlItem", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double beta = 123.789;
+            var source = new object();
+            const string windDirectionName = "Name";
+            const string closingSituation = "Closing situation";
 
-            var illustrationPoint = new TopLevelSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                "Regular",
-                new TestSubMechanismIllustrationPoint(beta));
+            const int nrOfDecimals = 10;
+            var beta = new RoundedDouble(nrOfDecimals, 123.789);
+
+            var controlItem = new IllustrationPointControlItem(source,
+                                                               windDirectionName,
+                                                               closingSituation,
+                                                               Enumerable.Empty<Stochast>(),
+                                                               beta);
 
             // Call
-            var row = new IllustrationPointRow(illustrationPoint);
+            var row = new IllustrationPointRow(controlItem);
 
             // Assert
             TestHelper.AssertTypeConverter<IllustrationPointRow, NoProbabilityValueDoubleConverter>(
@@ -65,13 +72,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestHelper.AssertTypeConverter<IllustrationPointRow, NoValueRoundedDoubleConverter>(
                 nameof(IllustrationPointRow.Reliability));
 
-            double expectedProbability = StatisticsConverter.ReliabilityToProbability(illustrationPoint.SubMechanismIllustrationPoint.Beta);
+            double expectedProbability = StatisticsConverter.ReliabilityToProbability(controlItem.Beta);
 
-            Assert.AreSame(illustrationPoint, row.IllustrationPoint);
-            Assert.AreEqual(illustrationPoint.WindDirection.Name, row.WindDirection);
-            Assert.AreEqual(illustrationPoint.ClosingSituation, row.ClosingSituation);
+            Assert.AreSame(controlItem, row.IllustrationPointControlItem);
+            Assert.AreEqual(controlItem.WindDirectionName, row.WindDirection);
+            Assert.AreEqual(controlItem.ClosingSituation, row.ClosingSituation);
             Assert.AreEqual(expectedProbability, row.Probability);
             Assert.AreEqual(beta, row.Reliability);
+            Assert.AreEqual(nrOfDecimals, row.Reliability.NumberOfDecimalPlaces);
+
         }
     }
 }

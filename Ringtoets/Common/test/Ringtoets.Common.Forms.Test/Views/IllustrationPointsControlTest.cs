@@ -19,23 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Ringtoets.Common.Forms.Views;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
+using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
     public class IllustrationPointsControlTest
     {
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 IllustrationPointsChartControl chartControl = ControlTestHelper.GetControls<IllustrationPointsChartControl>(form, "IllustrationPointsChartControl").Single();
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
 
-                var data = new TestGeneralResultSubMechanismIllustrationPoint();
+                IEnumerable<IllustrationPointControlItem> data = Enumerable.Empty<IllustrationPointControlItem>();
 
                 // Call
                 control.Data = data;
@@ -95,7 +95,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(control);
                 form.Show();
 
-                control.Data = new TestGeneralResultSubMechanismIllustrationPoint();
+                control.Data = new[]
+                {
+                    new IllustrationPointControlItem(new object(),
+                                                     "SSE",
+                                                     "Regular",
+                                                     Enumerable.Empty<Stochast>(),
+                                                     (RoundedDouble) 3.14)
+                };
 
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
@@ -120,15 +127,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(control);
                 form.Show();
 
-                control.Data = new GeneralResultSubMechanismIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    Enumerable.Empty<Stochast>(),
-                    new[]
-                    {
-                        new TopLevelSubMechanismIllustrationPoint(
-                            WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                            new TestSubMechanismIllustrationPoint())
-                    });
+                control.Data = new[]
+                {
+                    new IllustrationPointControlItem(new object(),
+                                                     "SSE",
+                                                     "Regular",
+                                                     Enumerable.Empty<Stochast>(),
+                                                     (RoundedDouble) 3.14)
+                };
 
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");

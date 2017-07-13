@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Components.Stack.Data;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -48,27 +48,26 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Creates the columns for the given <paramref name="stackChartData"/>.
         /// </summary>
-        /// <param name="generalResultSubMechanismIllustrationPoint">The data to create the columns from.</param>
+        /// <param name="illustrationPointControlItems">The data to create the columns from.</param>
         /// <param name="stackChartData">The stack chart data to create the columns for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void CreateColumns(GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint, StackChartData stackChartData)
+        public static void CreateColumns(IEnumerable<IllustrationPointControlItem> illustrationPointControlItems, StackChartData stackChartData)
         {
-            if (generalResultSubMechanismIllustrationPoint == null)
+            if (illustrationPointControlItems == null)
             {
-                throw new ArgumentNullException(nameof(generalResultSubMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(illustrationPointControlItems));
             }
             if (stackChartData == null)
             {
                 throw new ArgumentNullException(nameof(stackChartData));
             }
 
-            Tuple<string, string>[] labels = generalResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints
-                                                          .Select(illustrationPoint =>
-                                                                      new Tuple<string, string>(illustrationPoint.WindDirection.Name,
-                                                                                                illustrationPoint.ClosingSituation))
-                                                          .ToArray();
+            Tuple<string, string>[] labels = illustrationPointControlItems.Select(controlItem =>
+                                                                                      new Tuple<string, string>(controlItem.WindDirectionName,
+                                                                                                                controlItem.ClosingSituation))
+                                                                          .ToArray();
 
-            bool showClosingSituation = !generalResultSubMechanismIllustrationPoint.AreAllClosingSituationsSame();
+            bool showClosingSituation = labels.Any(item => item.Item2 != labels.First().Item2);
 
             foreach (Tuple<string, string> label in labels)
             {
@@ -88,14 +87,14 @@ namespace Ringtoets.Common.Forms.Factories
         /// <summary>
         /// Creates the rows for the given <paramref name="stackChartData"/>.
         /// </summary>
-        /// <param name="generalResultSubMechanismIllustrationPoint">The data to create the rows from.</param>
+        /// <param name="illustrationPointControlItems">The data to create the rows from.</param>
         /// <param name="stackChartData">The stack chart data to create the rows for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void CreateRows(GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint, StackChartData stackChartData)
+        public static void CreateRows(IEnumerable<IllustrationPointControlItem> illustrationPointControlItems, StackChartData stackChartData)
         {
-            if (generalResultSubMechanismIllustrationPoint == null)
+            if (illustrationPointControlItems == null)
             {
-                throw new ArgumentNullException(nameof(generalResultSubMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(illustrationPointControlItems));
             }
             if (stackChartData == null)
             {
@@ -104,12 +103,12 @@ namespace Ringtoets.Common.Forms.Factories
 
             var stochastValues = new List<Tuple<string, double>>();
 
-            foreach (TopLevelSubMechanismIllustrationPoint illustrationPoint in generalResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints)
+            foreach (IllustrationPointControlItem illustrationPointControlItem in illustrationPointControlItems)
             {
-                stochastValues.AddRange(illustrationPoint.SubMechanismIllustrationPoint.Stochasts
-                                                         .Select(illustrationPointStochast =>
-                                                                     new Tuple<string, double>(illustrationPointStochast.Name,
-                                                                                               Math.Pow(illustrationPointStochast.Alpha, 2))));
+                stochastValues.AddRange(illustrationPointControlItem.Stochasts
+                                                                    .Select(illustrationPointStochast =>
+                                                                                new Tuple<string, double>(illustrationPointStochast.Name,
+                                                                                                          Math.Pow(illustrationPointStochast.Alpha, 2))));
             }
 
             IDictionary<string, List<double>> stochasts = CreateStochastsLookup(stochastValues);

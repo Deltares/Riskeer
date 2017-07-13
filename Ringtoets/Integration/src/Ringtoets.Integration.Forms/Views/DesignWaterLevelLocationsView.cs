@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -105,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
+        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             if (currentRow == null)
@@ -115,10 +116,25 @@ namespace Ringtoets.Integration.Forms.Views
 
             HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
-            return location.DesignWaterLevelCalculation.HasOutput
-                   && location.DesignWaterLevelCalculation.Output.HasIllustrationPoints
-                       ? location.DesignWaterLevelCalculation.Output.GeneralResultSubMechanismIllustrationPoint
-                       : null;
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
+            HydraulicBoundaryLocationOutput designWaterLevelOutput = designWaterLevelCalculation.Output;
+            if (designWaterLevelCalculation.HasOutput
+                && designWaterLevelOutput.HasIllustrationPoints)
+            {
+                return designWaterLevelOutput.GeneralResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints.Select(
+                    topLevelSubMechanismIllustrationPoint =>
+                    {
+                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
+                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                                subMechanismIllustrationPoint.Stochasts,
+                                                                subMechanismIllustrationPoint.Beta);
+                    });
+            }
+
+            return null;
         }
 
         private void UpdateHydraulicBoundaryDatabase()

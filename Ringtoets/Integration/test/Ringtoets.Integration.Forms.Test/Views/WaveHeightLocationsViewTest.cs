@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
@@ -385,7 +386,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightlLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
+        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
@@ -400,15 +401,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsNull(illustrationPointsControl.Data);
 
             var output = new TestHydraulicBoundaryLocationOutput(1);
-            var result = new TestGeneralResultSubMechanismIllustrationPoint();
-            output.SetIllustrationPoints(result);
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            output.SetIllustrationPoints(generalResult);
 
             // Call
             view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].WaveHeightCalculation.Output = output;
             view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
 
             // Assert
-            Assert.AreSame(result, illustrationPointsControl.Data);
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+        }
+
+        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
+            GeneralResultSubMechanismIllustrationPoint generalResult)
+        {
+            return generalResult.TopLevelSubMechanismIllustrationPoints
+                                .Select(topLevelIllustrationPoint =>
+                                {
+                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
+                                                                            topLevelIllustrationPoint.WindDirection.Name,
+                                                                            topLevelIllustrationPoint.ClosingSituation,
+                                                                            illustrationPoint.Stochasts,
+                                                                            illustrationPoint.Beta);
+                                });
         }
 
         private WaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection)

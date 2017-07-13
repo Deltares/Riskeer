@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Forms.Views
             updatingControls = true;
 
             dataGridViewControl.RefreshDataGridView();
-            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
 
             updatingControls = false;
         }
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             updatingControls = true;
 
-            illustrationPointsControl.Data = GetGeneralResultSubMechanismIllustrationPoints();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
 
             Selection = CreateSelectedItemFromCurrentRow();
             OnSelectionChanged();
@@ -215,11 +215,11 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the general result with the sub mechanism illustration points.
+        /// Gets the illustration point control items based on the data of the illustration points.
         /// </summary>
-        /// <returns>The general result sub mechanism illustration points if it has obtained as part of the calculation, <c>null</c>
+        /// <returns>The illustration point control items if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
-        protected abstract GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints();
+        protected abstract IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems();
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {

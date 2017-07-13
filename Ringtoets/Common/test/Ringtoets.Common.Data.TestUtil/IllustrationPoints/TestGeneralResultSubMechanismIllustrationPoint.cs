@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
@@ -36,5 +38,18 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
             : base(WindDirectionTestFactory.CreateTestWindDirection(),
                    Enumerable.Empty<Stochast>(),
                    Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>()) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestGeneralResultSubMechanismIllustrationPoint"/>
+        /// with specified <see cref="TopLevelSubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="topLevelIllustrationPoints">The top level illustration 
+        /// points that are associated with this general result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="topLevelIllustrationPoints"/>
+        /// is <c>null</c>.</exception>
+        public TestGeneralResultSubMechanismIllustrationPoint(IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints)
+            : base(WindDirectionTestFactory.CreateTestWindDirection(),
+                   Enumerable.Empty<Stochast>(),
+                   topLevelIllustrationPoints) {}
     }
 }

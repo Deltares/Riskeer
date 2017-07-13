@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -100,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetNewValueWithDifferentClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            GeneralResultSubMechanismIllustrationPoint data = GetGeneralResult();
+            IEnumerable<IllustrationPointControlItem> data = GetControlItems();
             IllustrationPointsTableControl control = ShowControl();
 
             // Call
@@ -134,18 +135,19 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetNewValueWithSameClosingSituations_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var data = new GeneralResultSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new TestSubMechanismIllustrationPoint(0.9)),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new TestSubMechanismIllustrationPoint(0.7))
-                });
+            var data = new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 "SSE",
+                                                 "Regular",
+                                                 Enumerable.Empty<Stochast>(),
+                                                 new RoundedDouble(5, 0.9)),
+                new IllustrationPointControlItem(new object(),
+                                                 "SSE",
+                                                 "Regular",
+                                                 Enumerable.Empty<Stochast>(),
+                                                 new RoundedDouble(5, 0.7))
+            };
             IllustrationPointsTableControl control = ShowControl();
 
             // Call
@@ -178,7 +180,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetToNull_DataGridViewCleared()
         {
             // Setup
-            GeneralResultSubMechanismIllustrationPoint data = GetGeneralResult();
+            IEnumerable<IllustrationPointControlItem> data = GetControlItems();
             IllustrationPointsTableControl control = ShowControl();
             control.Data = data;
 
@@ -202,7 +204,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             IllustrationPointsTableControl control = ShowControl();
-            control.Data = GetGeneralResult();
+            control.Data = GetControlItems();
 
             var selectionChangedCount = 0;
             control.SelectionChanged += (sender, args) => selectionChangedCount++;
@@ -233,19 +235,19 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             IllustrationPointsTableControl control = ShowControl();
-            control.Data = GetGeneralResult();
+            control.Data = GetControlItems();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
-            var selection = control.Selection as TopLevelSubMechanismIllustrationPoint;
+            object selection = control.Selection;
             var dataBoundItem = selectedLocationRow.DataBoundItem as IllustrationPointRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.IllustrationPoint, selection);
+            Assert.AreSame(dataBoundItem.IllustrationPointControlItem.Source, selection);
         }
 
         private IllustrationPointsTableControl ShowControl()
@@ -258,20 +260,21 @@ namespace Ringtoets.Common.Forms.Test.Views
             return control;
         }
 
-        private static GeneralResultSubMechanismIllustrationPoint GetGeneralResult()
+        private static IEnumerable<IllustrationPointControlItem> GetControlItems()
         {
-            return new GeneralResultSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new TestSubMechanismIllustrationPoint(0.9)),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Open",
-                        new TestSubMechanismIllustrationPoint(0.7))
-                });
+            return new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 "SSE",
+                                                 "Regular",
+                                                 Enumerable.Empty<Stochast>(),
+                                                 new RoundedDouble(5, 0.9)),
+                new IllustrationPointControlItem(new object(),
+                                                 "SSE",
+                                                 "Open",
+                                                 Enumerable.Empty<Stochast>(),
+                                                 new RoundedDouble(5, 0.7))
+            };
         }
     }
 }

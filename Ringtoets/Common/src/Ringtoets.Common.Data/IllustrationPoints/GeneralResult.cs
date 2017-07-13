@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <param name="governingWindDirection">The governing wind direction.</param>
         /// <param name="stochasts">The general alpha values.</param>
         /// <param name="topLevelIllustrationPoints">A collection of illustration points
-        ///     for every combination of wind directions and closing situations.</param>
+        /// for every combination of wind directions and closing situations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input
         /// parameters are <c>null</c>.</exception>
         public GeneralResult(WindDirection governingWindDirection,

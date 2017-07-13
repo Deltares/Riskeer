@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
@@ -55,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var chartControl = new IllustrationPointsChartControl();
 
             // When
-            chartControl.Data = GetGeneralResult();
+            chartControl.Data = GetControlItems();
 
             // Then
             IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
@@ -101,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var chartControl = new IllustrationPointsChartControl
             {
-                Data = GetGeneralResult()
+                Data = GetControlItems()
             };
 
             // When
@@ -119,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var chartControl = new IllustrationPointsChartControl
             {
-                Data = GetGeneralResult()
+                Data = GetControlItems()
             };
 
             // Precondition
@@ -129,26 +130,28 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(3, chart.Data.Rows.Count());
 
             // When
-            chartControl.Data = new GeneralResultSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 1", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.43589)
-                        }, Enumerable.Empty<IllustrationPointResult>())),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 2", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.9)
-                        }, Enumerable.Empty<IllustrationPointResult>()))
-                });
+            const string windDirectionName = "SSE";
+            const string closingSituation = "Regular";
+            var beta = (RoundedDouble) 1.0;
+            chartControl.Data = new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.43589)
+                                                 }, beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.9)
+                                                 }, beta)
+            };
 
             // Then
             Assert.AreEqual(2, chart.Data.Columns.Count());
@@ -160,41 +163,45 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Stochast 4", rows[1].Name);
         }
 
-        private static GeneralResultSubMechanismIllustrationPoint GetGeneralResult()
+        private static IEnumerable<IllustrationPointControlItem> GetControlItems()
         {
-            return new GeneralResultSubMechanismIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                Enumerable.Empty<Stochast>(),
-                new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 1", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01)
-                        }, Enumerable.Empty<IllustrationPointResult>())),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 2", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02)
-                        }, Enumerable.Empty<IllustrationPointResult>())),
-                    new TopLevelSubMechanismIllustrationPoint(
-                        WindDirectionTestFactory.CreateTestWindDirection(), "Regular",
-                        new SubMechanismIllustrationPoint("Punt 3", 1, new[]
-                        {
-                            new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
-                            new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03)
-                        }, Enumerable.Empty<IllustrationPointResult>()))
-                });
+            const string windDirectionName = "SSE";
+            const string closingSituation = "Regular";
+            var beta = (RoundedDouble) 1.0;
+
+            return new[]
+            {
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01)
+                                                 }, beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02)
+                                                 }, beta),
+                new IllustrationPointControlItem(new object(),
+                                                 windDirectionName,
+                                                 closingSituation,
+                                                 new[]
+                                                 {
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
+                                                     new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03)
+                                                 }, beta)
+            };
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="ControlTestHelper.cs" />
     <Compile Include="DistributionPropertiesTestHelper.cs" />
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTester.cs" />
+    <Compile Include="IllustrationPointControlItemComparer.cs" />
     <Compile Include="MapDataTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCalculation.cs" />

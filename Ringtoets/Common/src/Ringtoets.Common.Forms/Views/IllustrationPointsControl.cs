@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -31,7 +32,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class IllustrationPointsControl : UserControl, ISelectionProvider
     {
-        private GeneralResultSubMechanismIllustrationPoint data;
+        private IEnumerable<IllustrationPointControlItem> data;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -47,7 +48,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResultSubMechanismIllustrationPoint Data
+        public IEnumerable<IllustrationPointControlItem> Data
         {
             get
             {

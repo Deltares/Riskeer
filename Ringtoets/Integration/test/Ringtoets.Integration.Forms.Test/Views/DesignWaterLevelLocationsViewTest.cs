@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
@@ -40,7 +41,6 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Service.MessageProviders;
-using Button = System.Windows.Forms.Button;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow currentRow = dataGridView.Rows[1];
 
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow)currentRow.DataBoundItem).CalculatableObject;
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
             // When
             dataGridView.CurrentCell = currentRow.Cells[0];
@@ -397,22 +397,45 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-            
+
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
             // Precondition
             Assert.IsNull(illustrationPointsControl.Data);
 
             var output = new TestHydraulicBoundaryLocationOutput(1);
-            var result = new TestGeneralResultSubMechanismIllustrationPoint();
-            output.SetIllustrationPoints(result);
+
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            output.SetIllustrationPoints(generalResult);
 
             // Call
             view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].DesignWaterLevelCalculation.Output = output;
             view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
 
             // Assert
-            Assert.AreSame(result, illustrationPointsControl.Data);
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+        }
+
+        private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
+            GeneralResultSubMechanismIllustrationPoint generalResult)
+        {
+            return generalResult.TopLevelSubMechanismIllustrationPoints
+                                .Select(topLevelIllustrationPoint =>
+                                {
+                                    SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
+                                    return new IllustrationPointControlItem(topLevelIllustrationPoint,
+                                                                            topLevelIllustrationPoint.WindDirection.Name,
+                                                                            topLevelIllustrationPoint.ClosingSituation,
+                                                                            illustrationPoint.Stochasts,
+                                                                            illustrationPoint.Beta);
+                                });
         }
 
         private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)

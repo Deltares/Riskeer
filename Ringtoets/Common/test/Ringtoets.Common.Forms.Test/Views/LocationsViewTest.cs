@@ -416,11 +416,23 @@ namespace Ringtoets.Common.Forms.Test.Views
                     .Select(row => row.CalculatableObject);
             }
 
-            protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
+            protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
             {
                 TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
 
-                return calculatableObject?.GeneralResult;
+                if (calculatableObject?.GeneralResult != null)
+                {
+                    return calculatableObject.GeneralResult
+                                             .TopLevelSubMechanismIllustrationPoints
+                                             .Select(topLevelSubMechanismIllustrationPoint =>
+                                                         new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                                                          topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                                                          topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                                                          topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts,
+                                                                                          topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta));
+                }
+
+                return null;
             }
         }
     }

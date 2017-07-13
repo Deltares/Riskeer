@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Events;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -36,7 +34,7 @@ namespace Ringtoets.Common.Forms.Views
     public partial class IllustrationPointsTableControl : UserControl, ISelectionProvider
     {
         private const int closingSituationColumnIndex = 1;
-        private GeneralResultSubMechanismIllustrationPoint data;
+        private IEnumerable<IllustrationPointControlItem> data;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -52,7 +50,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public GeneralResultSubMechanismIllustrationPoint Data
+        public IEnumerable<IllustrationPointControlItem> Data
         {
             get
             {
@@ -76,7 +74,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 DataGridViewRow currentRow = illustrationPointsDataGridViewControl.CurrentRow;
 
-                return ((IllustrationPointRow) currentRow?.DataBoundItem)?.IllustrationPoint;
+                return ((IllustrationPointRow) currentRow?.DataBoundItem)?.IllustrationPointControlItem.Source;
             }
         }
 
@@ -100,7 +98,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (data != null)
             {
-                if (!data.AreAllClosingSituationsSame())
+                if (data.Any(item => item.ClosingSituation != data.First().ClosingSituation))
                 {
                     illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
                     return;
@@ -115,7 +113,7 @@ namespace Ringtoets.Common.Forms.Views
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.WindDirection),
                                                                    Resources.IllustrationPoint_WindDirection_DisplayName,
                                                                    true);
-            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.ClosingSituation), 
+            illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.ClosingSituation),
                                                                    Resources.IllustrationPoint_ClosingSituation_DisplayName,
                                                                    true);
             illustrationPointsDataGridViewControl.AddTextBoxColumn(nameof(IllustrationPointRow.Probability),
@@ -130,8 +128,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private List<IllustrationPointRow> CreateRows()
         {
-            return data.TopLevelSubMechanismIllustrationPoints
-                       .Select(illustrationPoint => new IllustrationPointRow(illustrationPoint))
+            return data.Select(illustrationPoint => new IllustrationPointRow(illustrationPoint))
                        .ToList();
         }
 

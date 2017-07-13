@@ -22,31 +22,30 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Base.TypeConverters;
 using Core.Common.Utils;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="SubMechanismIllustrationPoint"/> in the <see cref="IllustrationPointsTableControl"/>.
+    /// This class represents a row of <see cref="Views.IllustrationPointControlItem"/> 
+    /// in the <see cref="IllustrationPointsTableControl"/>.
     /// </summary>
     internal class IllustrationPointRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointRow"/>.
         /// </summary>
-        /// <param name="illustrationPoint">The illustration point to create the row for.</param>
+        /// <param name="illustrationPointControlItem">The illustration point to create the row for.</param>
         /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="illustrationPoint"/> is <c>null</c>.</exception>
-        public IllustrationPointRow(TopLevelSubMechanismIllustrationPoint illustrationPoint)
+        /// <paramref name="illustrationPointControlItem"/> is <c>null</c>.</exception>
+        public IllustrationPointRow(IllustrationPointControlItem illustrationPointControlItem)
         {
-            if (illustrationPoint == null)
+            if (illustrationPointControlItem == null)
             {
-                throw new ArgumentNullException(nameof(illustrationPoint));
+                throw new ArgumentNullException(nameof(illustrationPointControlItem));
             }
-            IllustrationPoint = illustrationPoint;
+            IllustrationPointControlItem = illustrationPointControlItem;
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return IllustrationPoint.WindDirection.Name;
+                return IllustrationPointControlItem.WindDirectionName;
             }
         }
 
@@ -67,7 +66,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return IllustrationPoint.ClosingSituation;
+                return IllustrationPointControlItem.ClosingSituation;
             }
         }
 
@@ -79,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return StatisticsConverter.ReliabilityToProbability(IllustrationPoint.SubMechanismIllustrationPoint.Beta);
+                return StatisticsConverter.ReliabilityToProbability(IllustrationPointControlItem.Beta);
             }
         }
 
@@ -91,13 +90,13 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return IllustrationPoint.SubMechanismIllustrationPoint.Beta;
+                return IllustrationPointControlItem.Beta;
             }
         }
 
         /// <summary>
-        /// Gets the wrapped illustration point.
+        /// Gets the wrapped illustration point control item.
         /// </summary>
-        public TopLevelSubMechanismIllustrationPoint IllustrationPoint { get; }
+        public IllustrationPointControlItem IllustrationPointControlItem { get; }
     }
 }
