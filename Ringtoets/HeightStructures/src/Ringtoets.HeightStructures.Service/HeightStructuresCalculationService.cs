@@ -39,30 +39,30 @@ namespace Ringtoets.HeightStructures.Service
         /// </summary>
         public HeightStructuresCalculationService() : base(new HeightStructuresCalculationMessageProvider()) {}
 
-        protected override StructuresOvertoppingCalculationInput CreateInput(StructuresCalculation<HeightStructuresInput> calculation,
+        protected override StructuresOvertoppingCalculationInput CreateInput(HeightStructuresInput structureInput,
                                                                              GeneralHeightStructuresInput generalInput,
                                                                              string hydraulicBoundaryDatabaseFilePath)
         {
             var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
-                calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                calculation.InputParameters.StructureNormalOrientation,
-                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                structureInput.HydraulicBoundaryLocation.Id,
+                structureInput.StructureNormalOrientation,
+                HydraRingInputParser.ParseForeshore(structureInput),
+                HydraRingInputParser.ParseBreakWater(structureInput),
                 generalInput.GravitationalAcceleration,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
-                calculation.InputParameters.LevelCrestStructure.Mean, calculation.InputParameters.LevelCrestStructure.StandardDeviation,
-                calculation.InputParameters.StructureNormalOrientation,
-                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                structureInput.LevelCrestStructure.Mean, structureInput.LevelCrestStructure.StandardDeviation,
+                structureInput.StructureNormalOrientation,
+                structureInput.ModelFactorSuperCriticalFlow.Mean, structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
+                structureInput.AllowedLevelIncreaseStorage.Mean, structureInput.AllowedLevelIncreaseStorage.StandardDeviation,
                 generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
-                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                structureInput.StorageStructureArea.Mean, structureInput.StorageStructureArea.CoefficientOfVariation,
                 generalInput.ModelFactorInflowVolume,
-                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation,
-                calculation.InputParameters.DeviationWaveDirection,
-                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation);
+                structureInput.FlowWidthAtBottomProtection.Mean, structureInput.FlowWidthAtBottomProtection.StandardDeviation,
+                structureInput.CriticalOvertoppingDischarge.Mean, structureInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                structureInput.FailureProbabilityStructureWithErosion,
+                structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation,
+                structureInput.DeviationWaveDirection,
+                structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
 

@@ -49,21 +49,23 @@ namespace Ringtoets.Common.Service.Structures
     /// <typeparam name="TStructure">The structure type.</typeparam>
     /// <typeparam name="TGeneralInput">The general input type.</typeparam>
     /// <typeparam name="TCalculationInput">The calculation input type.</typeparam>
-    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TGeneralInput, TCalculationInput>
+    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput,
+                                                           TStructure, TGeneralInput, TCalculationInput>
         where TStructureValidationRules : IStructuresValidationRulesRegistry<TStructureInput, TStructure>, new()
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
         where TGeneralInput : class
         where TCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput, TStructure, TGeneralInput, TCalculationInput>));
+        private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput,
+                                                                    TStructure, TGeneralInput, TCalculationInput>));
         private readonly IStructuresCalculationMessageProvider messageProvider;
 
         private IStructuresCalculator<TCalculationInput> calculator;
         private bool canceled;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StructuresCalculationServiceBase{TStructureValidationRules,TStructureInput,TStructure,TGeneralInput,TCalculationInput}"/>.
+        /// Creates a new instance of <see cref="StructuresCalculationServiceBase{TStructureValidationRules,TStructureInput, TStructure,TGeneralInput,TCalculationInput}"/>.
         /// </summary>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>
@@ -147,7 +149,7 @@ namespace Ringtoets.Common.Service.Structures
                 throw new ArgumentNullException(nameof(generalInput));
             }
 
-            TCalculationInput input = CreateInput(calculation, generalInput, hydraulicBoundaryDatabaseFilePath);
+            TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, hydraulicBoundaryDatabaseFilePath);
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory);
@@ -207,7 +209,7 @@ namespace Ringtoets.Common.Service.Structures
         }
 
         /// <summary>
-        /// Cancels any currently running height structures calculation.
+        /// Cancels any currently running structures calculation.
         /// </summary>
         public void Cancel()
         {
@@ -218,7 +220,7 @@ namespace Ringtoets.Common.Service.Structures
         /// <summary>
         /// Creates the input for a structures calculation.
         /// </summary>
-        /// <param name="calculation">The calculation to create the input for.</param>
+        /// <param name="structureInput">The structure input to create the calculation input for.</param>
         /// <param name="generalInput">The <see cref="TGeneralInput"/> that is used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
         /// <returns>A <see cref="TCalculationInput"/>.</returns>
@@ -234,10 +236,19 @@ namespace Ringtoets.Common.Service.Structures
         /// <item>Unable to read required data from database file.</item>
         /// </list>
         /// </exception>
-        protected abstract TCalculationInput CreateInput(StructuresCalculation<TStructureInput> calculation,
+        protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
                                                          string hydraulicBoundaryDatabaseFilePath);
 
+        /// <summary>
+        /// Validates the input.
+        /// </summary>
+        /// <param name="input">The input of the calculation.</param>
+        /// <param name="assessmentSection">The assessment section that holds
+        /// information about the hydraulic boundary database.</param>
+        /// <returns>An <see cref="Array"/> of validation messages.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when an unexpected
+        /// enum value is encountered.</exception>
         private static string[] ValidateInput(TStructureInput input, IAssessmentSection assessmentSection)
         {
             var validationResults = new List<string>();

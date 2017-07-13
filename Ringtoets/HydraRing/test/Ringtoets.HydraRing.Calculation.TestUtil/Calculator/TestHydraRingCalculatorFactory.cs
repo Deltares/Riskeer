@@ -79,7 +79,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool? Converged { get; set; }
     }
 
-    public class TestStructuresCalculator<TInput> : TestHydraRingCalculator<TInput>, IStructuresCalculator<TInput> where TInput : ExceedanceProbabilityCalculationInput
+    public class TestStructuresCalculator<TInput> : TestHydraRingCalculator<TInput>, IStructuresCalculator<TInput>
+        where TInput : ExceedanceProbabilityCalculationInput
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }

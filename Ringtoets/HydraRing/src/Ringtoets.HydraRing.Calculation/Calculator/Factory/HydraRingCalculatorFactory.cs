@@ -81,7 +81,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new DunesBoundaryConditionsCalculator(hlcdDirectory);
         }
 
-        public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) where TCalculationInput : ExceedanceProbabilityCalculationInput
+        public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory)
+            where TCalculationInput : ExceedanceProbabilityCalculationInput
         {
             return new StructuresCalculator<TCalculationInput>(hlcdDirectory);
         }

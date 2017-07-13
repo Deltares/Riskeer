@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <returns>A new <see cref="IStructuresStabilityPointCalculator"/>.</returns>
+        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory);
 
@@ -93,6 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <returns>A new <see cref="IStructuresCalculator{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
-        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) where TCalculationInput : ExceedanceProbabilityCalculationInput;
+        IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory) 
+            where TCalculationInput : ExceedanceProbabilityCalculationInput;
     }
 }

@@ -366,10 +366,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                             validFilePath);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'ClosingStructureInflowModelType'.";
+                const string expectedMessage = "The value of argument 'structureInput' (100) is invalid for Enum type 'ClosingStructureInflowModelType'.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                         expectedMessage).ParamName;
-                Assert.AreEqual("calculation", paramName);
+                Assert.AreEqual("structureInput", paramName);
             }
             mockRepository.VerifyAll();
         }

@@ -524,8 +524,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            var isValid = false;
-
             // Call
             TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
                                                                                           assessmentSectionStub);
@@ -576,10 +574,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                             validFilePath);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
+                const string expectedMessage = "The value of argument 'structureInput' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                         expectedMessage).ParamName;
-                Assert.AreEqual("calculation", paramName);
+                Assert.AreEqual("structureInput", paramName);
             }
             mockRepository.VerifyAll();
         }
@@ -625,10 +623,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                             validFilePath);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.";
+                const string expectedMessage = "The value of argument 'structureInput' (100) is invalid for Enum type 'LoadSchematizationType'.";
                 string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                         expectedMessage).ParamName;
-                Assert.AreEqual("calculation", paramName);
+                Assert.AreEqual("structureInput", paramName);
             }
             mockRepository.VerifyAll();
         }

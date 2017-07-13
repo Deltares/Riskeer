@@ -39,23 +39,25 @@ namespace Ringtoets.ClosingStructures.Service
         /// </summary>
         public ClosingStructuresCalculationService() : base(new ClosingStructuresCalculationMessageProvider()) {}
 
-        protected override StructuresClosureCalculationInput CreateInput(StructuresCalculation<ClosingStructuresInput> calculation, GeneralClosingStructuresInput generalInput, string hydraulicBoundaryDatabaseFilePath)
+        protected override StructuresClosureCalculationInput CreateInput(ClosingStructuresInput structureInput,
+                                                                         GeneralClosingStructuresInput generalInput,
+                                                                         string hydraulicBoundaryDatabaseFilePath)
         {
             StructuresClosureCalculationInput input;
-            switch (calculation.InputParameters.InflowModelType)
+            switch (structureInput.InflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
-                    input = CreateClosureVerticalWallCalculationInput(calculation, generalInput);
+                    input = CreateClosureVerticalWallCalculationInput(structureInput, generalInput);
                     break;
                 case ClosingStructureInflowModelType.LowSill:
-                    input = CreateLowSillCalculationInput(calculation, generalInput);
+                    input = CreateLowSillCalculationInput(structureInput, generalInput);
                     break;
                 case ClosingStructureInflowModelType.FloodedCulvert:
-                    input = CreateFloodedCulvertCalculationInput(calculation, generalInput);
+                    input = CreateFloodedCulvertCalculationInput(structureInput, generalInput);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(calculation),
-                                                           (int) calculation.InputParameters.InflowModelType,
+                    throw new InvalidEnumArgumentException(nameof(structureInput),
+                                                           (int) structureInput.InflowModelType,
                                                            typeof(ClosingStructureInflowModelType));
             }
 
@@ -64,92 +66,92 @@ namespace Ringtoets.ClosingStructures.Service
         }
 
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(
-            StructuresCalculation<ClosingStructuresInput> calculation,
+            ClosingStructuresInput structureInput,
             GeneralClosingStructuresInput generalInput)
         {
             return new StructuresClosureVerticalWallCalculationInput(
-                calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                calculation.InputParameters.StructureNormalOrientation,
-                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                structureInput.HydraulicBoundaryLocation.Id,
+                structureInput.StructureNormalOrientation,
+                HydraRingInputParser.ParseForeshore(structureInput),
+                HydraRingInputParser.ParseBreakWater(structureInput),
                 generalInput.GravitationalAcceleration,
-                calculation.InputParameters.FactorStormDurationOpenStructure,
-                calculation.InputParameters.FailureProbabilityOpenStructure,
-                calculation.InputParameters.FailureProbabilityReparation,
-                calculation.InputParameters.IdenticalApertures,
-                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                structureInput.FactorStormDurationOpenStructure,
+                structureInput.FailureProbabilityOpenStructure,
+                structureInput.FailureProbabilityReparation,
+                structureInput.IdenticalApertures,
+                structureInput.AllowedLevelIncreaseStorage.Mean, structureInput.AllowedLevelIncreaseStorage.StandardDeviation,
                 generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
-                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                structureInput.StorageStructureArea.Mean, structureInput.StorageStructureArea.CoefficientOfVariation,
                 generalInput.ModelFactorInflowVolume,
-                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                calculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                structureInput.FlowWidthAtBottomProtection.Mean, structureInput.FlowWidthAtBottomProtection.StandardDeviation,
+                structureInput.CriticalOvertoppingDischarge.Mean, structureInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                structureInput.FailureProbabilityStructureWithErosion,
+                structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation,
+                structureInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
-                calculation.InputParameters.StructureNormalOrientation,
-                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                calculation.InputParameters.LevelCrestStructureNotClosing.Mean, calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation,
-                calculation.InputParameters.DeviationWaveDirection);
+                structureInput.StructureNormalOrientation,
+                structureInput.ModelFactorSuperCriticalFlow.Mean, structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
+                structureInput.LevelCrestStructureNotClosing.Mean, structureInput.LevelCrestStructureNotClosing.StandardDeviation,
+                structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation,
+                structureInput.DeviationWaveDirection);
         }
 
         private static StructuresClosureLowSillCalculationInput CreateLowSillCalculationInput(
-            StructuresCalculation<ClosingStructuresInput> calculation,
+            ClosingStructuresInput structureInput,
             GeneralClosingStructuresInput generalInput)
         {
             return new StructuresClosureLowSillCalculationInput(
-                calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                calculation.InputParameters.StructureNormalOrientation,
-                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                structureInput.HydraulicBoundaryLocation.Id,
+                structureInput.StructureNormalOrientation,
+                HydraRingInputParser.ParseForeshore(structureInput),
+                HydraRingInputParser.ParseBreakWater(structureInput),
                 generalInput.GravitationalAcceleration,
-                calculation.InputParameters.FactorStormDurationOpenStructure,
-                calculation.InputParameters.FailureProbabilityOpenStructure,
-                calculation.InputParameters.FailureProbabilityReparation,
-                calculation.InputParameters.IdenticalApertures,
-                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                structureInput.FactorStormDurationOpenStructure,
+                structureInput.FailureProbabilityOpenStructure,
+                structureInput.FailureProbabilityReparation,
+                structureInput.IdenticalApertures,
+                structureInput.AllowedLevelIncreaseStorage.Mean, structureInput.AllowedLevelIncreaseStorage.StandardDeviation,
                 generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
-                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                structureInput.StorageStructureArea.Mean, structureInput.StorageStructureArea.CoefficientOfVariation,
                 generalInput.ModelFactorInflowVolume,
-                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                calculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
-                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                structureInput.FlowWidthAtBottomProtection.Mean, structureInput.FlowWidthAtBottomProtection.StandardDeviation,
+                structureInput.CriticalOvertoppingDischarge.Mean, structureInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                structureInput.FailureProbabilityStructureWithErosion,
+                structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation,
+                structureInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                structureInput.ModelFactorSuperCriticalFlow.Mean, structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
                 generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
-                calculation.InputParameters.ThresholdHeightOpenWeir.Mean, calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
-                calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation,
-                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.StandardDeviation);
+                structureInput.ThresholdHeightOpenWeir.Mean, structureInput.ThresholdHeightOpenWeir.StandardDeviation,
+                structureInput.InsideWaterLevel.Mean, structureInput.InsideWaterLevel.StandardDeviation,
+                structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation);
         }
 
         private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(
-            StructuresCalculation<ClosingStructuresInput> calculation,
+            ClosingStructuresInput structureInput,
             GeneralClosingStructuresInput generalInput)
         {
             return new StructuresClosureFloodedCulvertCalculationInput(
-                calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                calculation.InputParameters.StructureNormalOrientation,
-                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                structureInput.HydraulicBoundaryLocation.Id,
+                structureInput.StructureNormalOrientation,
+                HydraRingInputParser.ParseForeshore(structureInput),
+                HydraRingInputParser.ParseBreakWater(structureInput),
                 generalInput.GravitationalAcceleration,
-                calculation.InputParameters.FactorStormDurationOpenStructure,
-                calculation.InputParameters.FailureProbabilityOpenStructure,
-                calculation.InputParameters.FailureProbabilityReparation,
-                calculation.InputParameters.IdenticalApertures,
-                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                structureInput.FactorStormDurationOpenStructure,
+                structureInput.FailureProbabilityOpenStructure,
+                structureInput.FailureProbabilityReparation,
+                structureInput.IdenticalApertures,
+                structureInput.AllowedLevelIncreaseStorage.Mean, structureInput.AllowedLevelIncreaseStorage.StandardDeviation,
                 generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
-                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                structureInput.StorageStructureArea.Mean, structureInput.StorageStructureArea.CoefficientOfVariation,
                 generalInput.ModelFactorInflowVolume,
-                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                calculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
-                calculation.InputParameters.DrainCoefficient.Mean, calculation.InputParameters.DrainCoefficient.StandardDeviation,
-                calculation.InputParameters.AreaFlowApertures.Mean, calculation.InputParameters.AreaFlowApertures.StandardDeviation,
-                calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation);
+                structureInput.FlowWidthAtBottomProtection.Mean, structureInput.FlowWidthAtBottomProtection.StandardDeviation,
+                structureInput.CriticalOvertoppingDischarge.Mean, structureInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                structureInput.FailureProbabilityStructureWithErosion,
+                structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation,
+                structureInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                structureInput.DrainCoefficient.Mean, structureInput.DrainCoefficient.StandardDeviation,
+                structureInput.AreaFlowApertures.Mean, structureInput.AreaFlowApertures.StandardDeviation,
+                structureInput.InsideWaterLevel.Mean, structureInput.InsideWaterLevel.StandardDeviation);
         }
     }
 }
