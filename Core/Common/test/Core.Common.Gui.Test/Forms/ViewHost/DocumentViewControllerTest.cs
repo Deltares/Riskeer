@@ -581,7 +581,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { viewList.Add(invocation.Arguments[0] as TestView); });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
-            viewHost.Expect(vh => vh.SetFocusToView(Arg<TestView>.Matches(c => c == viewList.First())));
+            viewHost.Expect(vh => vh.BringToFront(Arg<TestView>.Matches(c => c == viewList.First())));
 
             mocks.ReplayAll();
 

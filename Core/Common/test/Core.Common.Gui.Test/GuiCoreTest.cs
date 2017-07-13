@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
@@ -46,6 +47,7 @@ using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Core.Common.Gui.Test
 {
@@ -1218,7 +1220,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithoutSelection_WhenSelectionProviderAddedAndFocussed_ThenSelectionSynced()
+        public void GivenGuiWithoutSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1232,13 +1234,13 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
+                gui.ViewHost.AddDocumentView(selectionProvider);
 
                 // Precondition
                 Assert.IsNull(gui.Selection);
 
                 // When
-                gui.ViewHost.AddDocumentView(selectionProvider);
-                gui.ViewHost.SetFocusToView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
@@ -1248,7 +1250,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenSelectionProviderAddedAndFocussed_ThenSelectionSynced()
+        public void GivenGuiWithRandomSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1262,12 +1264,12 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
+                gui.ViewHost.AddDocumentView(selectionProvider);
 
                 gui.Selection = new object();
 
                 // When
-                gui.ViewHost.AddDocumentView(selectionProvider);
-                gui.ViewHost.SetFocusToView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
@@ -1277,35 +1279,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenNonSelectionProviderAdded_ThenSelectionPreserved()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
-            mocks.ReplayAll();
-
-            var selection = new object();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Run();
-
-                gui.Selection = selection;
-
-                // When
-                gui.ViewHost.AddDocumentView(new TestView());
-
-                // Then
-                Assert.AreSame(selection, gui.Selection);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenSelectionChangedOnAddedAndFocussedSelectionProvider_ThenSelectionSynced()
+        public void GivenGuiWithRandomSelection_WhenSelectionChangedOnActiveSelectionProvider_ThenSelectionSynced()
         {
             // Given
             var mocks = new MockRepository();
@@ -1320,7 +1294,7 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
-                gui.ViewHost.SetFocusToView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 gui.Selection = new object();
 
@@ -1351,6 +1325,8 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
+
                 gui.ViewHost.Remove(selectionProvider);
 
                 gui.Selection = selection;
@@ -1366,37 +1342,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenSelectionProviderBecomesActiveView_ThenSelectionSynced()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
-            mocks.ReplayAll();
-
-            var selectionProvider = new TestSelectionProvider();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider);
-                gui.ViewHost.AddDocumentView(new TestView());
-
-                gui.Selection = new object();
-
-                // When
-                gui.ViewHost.SetFocusToView(selectionProvider);
-
-                // Then
-                Assert.AreSame(selectionProvider.Selection, gui.Selection);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithRandomSelection_WhenNonSelectionProviderBecomesActiveView_ThenSelectionPreserved()
+        public void GivenGuiWithRandomSelection_WhenNonSelectionProviderSetAsActiveView_ThenSelectionPreserved()
         {
             // Given
             var mocks = new MockRepository();
@@ -1416,7 +1362,7 @@ namespace Core.Common.Gui.Test
                 gui.Selection = selection;
 
                 // When
-                gui.ViewHost.SetFocusToView(testView);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, testView);
 
                 // Then
                 Assert.AreSame(selection, gui.Selection);
@@ -1471,7 +1417,7 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
-                gui.ViewHost.SetFocusToView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 // Precondition
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
@@ -1502,6 +1448,7 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
+                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 gui.Dispose();
 
@@ -1515,6 +1462,14 @@ namespace Core.Common.Gui.Test
                 Assert.IsNull(gui.Selection);
             }
             mocks.VerifyAll();
+        }
+
+        private static void SetActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
+        {
+            avalonDockViewHost.DockingManager.Layout.Descendents()
+                              .OfType<LayoutContent>()
+                              .First(d => ((WindowsFormsHost) d.Content).Child == view)
+                              .IsActive = true;
         }
 
         private static IProjectFactory CreateProjectFactory(MockRepository mocks)
@@ -1534,9 +1489,9 @@ namespace Core.Common.Gui.Test
                 Selection = new object();
             }
 
-            public object Data { get; set; }
-
             public object Selection { get; private set; }
+
+            public object Data { get; set; }
 
             public void ChangeSelection()
             {

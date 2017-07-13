@@ -433,20 +433,20 @@ namespace Core.Common.Gui
         {
             mainWindow.Loaded += delegate
             {
-                // make sure these windows come on top
+                // Make sure these windows come on top
                 if (ViewHost.ToolViews.Contains(mainWindow.PropertyGrid))
                 {
-                    ViewHost.SetFocusToView(mainWindow.PropertyGrid);
+                    ViewHost.BringToFront(mainWindow.PropertyGrid);
                 }
 
                 if (ViewHost.ToolViews.Contains(mainWindow.MessageWindow))
                 {
-                    ViewHost.SetFocusToView(mainWindow.MessageWindow);
+                    ViewHost.BringToFront(mainWindow.MessageWindow);
                 }
 
                 if (ViewHost.ToolViews.Contains(ProjectExplorer))
                 {
-                    ViewHost.SetFocusToView(ProjectExplorer);
+                    ViewHost.BringToFront(ProjectExplorer);
                 }
 
                 mainWindow.ValidateItems();

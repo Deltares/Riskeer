@@ -42,7 +42,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private readonly List<IView> documentViews;
         private readonly List<WindowsFormsHost> hostControls;
 
-        private IView focussedView;
+        private IView activeView;
         private IView activeDocumentView;
         private bool removingProgrammatically;
 
@@ -114,11 +114,10 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            // If the view was already added, just focus it
+            // If the view was already added, just bring it to front
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
-                PerformWithoutChangingActiveContent(() => { SetFocusToView(view); });
-
+                BringToFront(view);
                 return;
             }
 
@@ -132,16 +131,15 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Content = hostControl
             };
 
-            documentViews.Add(view);
-            hostControls.Add(hostControl);
-
             PerformWithoutChangingActiveContent(() =>
             {
                 AddLayoutDocument(layoutDocument);
-                SetFocusToView(view);
+                layoutDocument.IsActive = true;
             });
 
-            layoutDocument.Closing += OnLayoutDocumentClosing;
+            documentViews.Add(view);
+            hostControls.Add(hostControl);
+
             layoutDocument.Closed += OnLayoutDocumentClosed;
 
             OnViewOpenedEvent(view);
@@ -155,11 +153,10 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            // If the view was already added, just focus it
+            // If the view was already added, just bring it to front
             if (documentViews.Contains(view) || toolViews.Contains(view))
             {
-                PerformWithoutChangingActiveContent(() => { SetFocusToView(view); });
-
+                BringToFront(view);
                 return;
             }
 
@@ -176,12 +173,11 @@ namespace Core.Common.Gui.Forms.ViewHost
             PerformWithoutChangingActiveContent(() =>
             {
                 AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
-
-                toolViews.Add(view);
-                hostControls.Add(hostControl);
-
-                SetFocusToView(view);
+                layoutAnchorable.IsActive = true;
             });
+
+            toolViews.Add(view);
+            hostControls.Add(hostControl);
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
             layoutAnchorable.Closing += OnLayoutAnchorableClosing;
@@ -195,14 +191,6 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             if (documentViews.Contains(view))
             {
-                if (ActiveDocumentView == view)
-                {
-                    // Note: When removing the active document view programmatically, always set focus to this
-                    // view in order to make the view host behave as expected (in this case AvalonDock will help
-                    // us selecting the previous active document view based on active content changes).
-                    SetFocusToView(view);
-                }
-
                 var layoutDocument = GetLayoutContent<LayoutDocument>(view);
                 layoutDocument.Close();
                 UpdateDockingManager();
@@ -217,26 +205,23 @@ namespace Core.Common.Gui.Forms.ViewHost
             removingProgrammatically = false;
         }
 
-        public void SetFocusToView(IView view)
+        public void BringToFront(IView view)
         {
-            if (documentViews.Contains(view))
+            PerformWithoutChangingActiveContent(() =>
             {
-                var layoutDocument = GetLayoutContent<LayoutDocument>(view);
-                if (!layoutDocument.IsActive)
-                {
-                    DockingManager.Layout.ActiveContent = layoutDocument;
-                }
-            }
-            else if (toolViews.Contains(view))
-            {
-                var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
-                if (!layoutAnchorable.IsActive)
-                {
-                    DockingManager.Layout.ActiveContent = layoutAnchorable;
-                }
-            }
+                LayoutContent layoutContent = documentViews.Contains(view)
+                                                  ? (LayoutContent) GetLayoutContent<LayoutDocument>(view)
+                                                  : toolViews.Contains(view)
+                                                      ? GetLayoutContent<LayoutAnchorable>(view)
+                                                      : null;
 
-            UpdateDockingManager();
+                if (layoutContent != null && !layoutContent.IsActive)
+                {
+                    layoutContent.IsActive = true;
+                }
+
+                UpdateDockingManager();
+            });
         }
 
         public void SetImage(IView view, Image image)
@@ -258,7 +243,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            var userControl = focussedView as UserControl;
+            var userControl = activeView as UserControl;
             if (userControl != null)
             {
                 // Note: Raise (un)focus related events manually as changing focus from one WindowsFormsHost to another does not raise them
@@ -266,16 +251,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 // While doing so:
                 // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
                 // - prevent circular active content changes (which explains the code structure below).
-                DockingManager.ActiveContentChanged -= OnActiveContentChanged;
-                object activeContent = DockingManager.ActiveContent;
-
-                userControl.ValidateChildren();
-
-                if (!ReferenceEquals(activeContent, DockingManager.ActiveContent))
-                {
-                    DockingManager.ActiveContent = activeContent;
-                }
-                DockingManager.ActiveContentChanged += OnActiveContentChanged;
+                PerformWithoutChangingActiveContent(() => userControl.ValidateChildren());
             }
         }
 
@@ -311,51 +287,29 @@ namespace Core.Common.Gui.Forms.ViewHost
             // While doing so:
             // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
             // - prevent circular active content changes (which explains the code structure below).
-            if (focussedView != null && !removingProgrammatically)
+            if (activeView != null && !removingProgrammatically)
             {
-                DockingManager.ActiveContentChanged -= OnActiveContentChanged;
-                object activeContent = DockingManager.ActiveContent;
-                NativeMethods.UnfocusActiveControl(focussedView as IContainerControl);
-                DockingManager.ActiveContent = activeContent;
-                DockingManager.ActiveContentChanged += OnActiveContentChanged;
+                PerformWithoutChangingActiveContent(() => NativeMethods.UnfocusActiveControl(activeView as IContainerControl));
             }
 
-            focussedView = GetView(DockingManager.ActiveContent);
+            activeView = GetView(DockingManager.ActiveContent);
 
-            if (documentViews.Contains(focussedView))
+            if (documentViews.Contains(activeView))
             {
-                ActiveDocumentView = focussedView;
-                OnActiveViewChangedEvent();
-            }
-            else if (toolViews.Contains(focussedView))
-            {
-                OnActiveViewChangedEvent();
+                ActiveDocumentView = activeView;
             }
             else if (DockingManager.ActiveContent == null)
             {
                 ActiveDocumentView = null;
             }
-        }
 
-        private void OnLayoutDocumentClosing(object sender, CancelEventArgs e)
-        {
-            var layoutDocument = (LayoutDocument) sender;
-            IView view = GetView(layoutDocument.Content);
-
-            if (ActiveDocumentView == view)
-            {
-                // Note: When removing the active document view via AvalonDock, always set focus to this
-                // view in order to make the view host behave as expected (in this case AvalonDock will help
-                // us selecting the previous active document view based on active content changes).
-                SetFocusToView(view);
-            }
+            OnActiveViewChangedEvent();
         }
 
         private void OnLayoutDocumentClosed(object sender, EventArgs e)
         {
             var layoutDocument = (LayoutDocument) sender;
 
-            layoutDocument.Closing -= OnLayoutDocumentClosing;
             layoutDocument.Closed -= OnLayoutDocumentClosed;
 
             OnViewClosed(GetView(layoutDocument.Content));

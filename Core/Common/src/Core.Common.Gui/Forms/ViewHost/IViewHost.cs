@@ -92,10 +92,10 @@ namespace Core.Common.Gui.Forms.ViewHost
         void Remove(IView view);
 
         /// <summary>
-        /// Sets focus to a document view or tool view and makes it visible.
+        /// Brings a document view or tool view to the front.
         /// </summary>
-        /// <param name="view">The view to set focus to.</param>
-        void SetFocusToView(IView view);
+        /// <param name="view">The view to bring to front.</param>
+        void BringToFront(IView view);
 
         /// <summary>
         /// Sets the image for a document view or tool view.

@@ -159,7 +159,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             if (view != null)
             {
-                viewHost.SetFocusToView(view);
+                viewHost.BringToFront(view);
                 return;
             }
 

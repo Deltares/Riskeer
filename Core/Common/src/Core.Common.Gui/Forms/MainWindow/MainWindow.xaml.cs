@@ -306,7 +306,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             else
             {
-                viewController.ViewHost.SetFocusToView(propertyGrid);
+                viewController.ViewHost.BringToFront(propertyGrid);
             }
         }
 
@@ -410,7 +410,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             else
             {
-                viewController.ViewHost.SetFocusToView(messageWindow);
+                viewController.ViewHost.BringToFront(messageWindow);
             }
         }
 
