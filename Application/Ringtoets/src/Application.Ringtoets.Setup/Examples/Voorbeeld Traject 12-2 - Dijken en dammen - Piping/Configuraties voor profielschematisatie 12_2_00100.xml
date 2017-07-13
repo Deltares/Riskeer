@@ -17,6 +17,10 @@
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
     </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>75</bijdrage>
+    </scenario>
   </berekening>
   <berekening naam="12_2_00100 Segment_12004_1D2">
     <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
@@ -35,6 +39,10 @@
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
     </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>25</bijdrage>
+    </scenario>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="1D2 met ander toetspeil">
@@ -54,6 +62,10 @@
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
       </stochasten>
+      <scenario>
+        <gebruik>false</gebruik>
+        <bijdrage>80</bijdrage>
+      </scenario>
     </berekening>
   </map>
 </configuratie>
