@@ -44,15 +44,14 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
         /// <returns>The newly created <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingGeneralResult"/> is <c>null</c>.</exception>
-        public static GeneralResultSubMechanismIllustrationPoint CreateGeneralResultSubmechanismIllustrationPoint(
-            HydraRingGeneralResult hydraRingGeneralResult)
+        public static GeneralResultSubMechanismIllustrationPoint Create(HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
             {
                 throw new ArgumentNullException(nameof(hydraRingGeneralResult));
             }
 
-            WindDirection windDirection = WindDirectionConverter.CreateWindDirection(hydraRingGeneralResult.GoverningWindDirection);
+            WindDirection windDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraRingGeneralResult);
             IEnumerable<TopLevelSubMechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetWindDirectionClosingSituationIllustrationPoint(hydraRingGeneralResult);
@@ -77,7 +76,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 var subMechanismIllustrationPoint = hydraIllustrationPoint as HydraRingSubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    combinations.Add(TopLevelSubMechanismIllustrationPointConverter.CreateTopLevelSubMechanismIllustrationPoint(
+                    combinations.Add(TopLevelSubMechanismIllustrationPointConverter.Create(
                                          hydraWindDirectionClosingSituation, subMechanismIllustrationPoint));
                 }
             }

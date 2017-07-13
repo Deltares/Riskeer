@@ -32,10 +32,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class IllustrationPointResultConverterTest
     {
         [Test]
-        public void CreateIllustrationPointResult_HydraRingIllustrationPointResultNull_ThrowsArgumentNullException()
+        public void Create_HydraRingIllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IllustrationPointResultConverter.CreateIllustrationPointResult(null);
+            TestDelegate call = () => IllustrationPointResultConverter.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateIllustrationPointResult_ValidArguments_ExpectedProperties()
+        public void Create_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                                                                                         random.NextDouble());
 
             // Call
-            IllustrationPointResult illustrationPointResult = IllustrationPointResultConverter.CreateIllustrationPointResult(hydraRingIllustrationPointResult);
+            IllustrationPointResult illustrationPointResult = IllustrationPointResultConverter.Create(hydraRingIllustrationPointResult);
 
             // Assert
             Assert.AreEqual(illustrationPointResult.Description, illustrationPointResult.Description);

@@ -35,10 +35,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class SubMechanismIllustrationPointConverterTest
     {
         [Test]
-        public void CreateIllustrationPoint_HydraRingSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
+        public void Create_HydraRingSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SubMechanismIllustrationPointConverter.CreateSubMechanismIllustrationPoint(null);
+            TestDelegate call = () => SubMechanismIllustrationPointConverter.Create(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateIllustrationPoint_ValidArguments_ExpectedProperties()
+        public void Create_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             SubMechanismIllustrationPoint subMechanismIllustrationPoint =
-                SubMechanismIllustrationPointConverter.CreateSubMechanismIllustrationPoint(hydraSubMechanismIllustrationPoint);
+                SubMechanismIllustrationPointConverter.Create(hydraSubMechanismIllustrationPoint);
 
             // Assert
             Assert.AreEqual(subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
