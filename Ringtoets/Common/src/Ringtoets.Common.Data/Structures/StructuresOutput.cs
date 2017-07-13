@@ -45,6 +45,9 @@ namespace Ringtoets.Common.Data.Structures
             ProbabilityAssessmentOutput = probabilityAssessmentOutput;
         }
 
+        /// <summary>
+        /// Gets the probabilistic assessment output.
+        /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
     }
 }

@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="AssessmentSectionHelperTest.cs" />
     <Compile Include="ForeshoreProfilePermutationHelperTest.cs" />
+    <Compile Include="IllustrationPoints\TestGeneralResultFaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointStochastTest.cs" />

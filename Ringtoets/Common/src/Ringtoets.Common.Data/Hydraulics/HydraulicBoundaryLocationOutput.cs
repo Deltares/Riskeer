@@ -113,9 +113,10 @@ namespace Ringtoets.Common.Data.Hydraulics
         }
 
         /// <summary>
-        /// Sets the general result with the sub mechanism illustration points.
+        /// Sets the general result of this output with the sub mechanism illustration points.
         /// </summary>
-        /// <param name="generalResultSubMechanismIllustrationPoint"></param>
+        /// <param name="generalResultSubMechanismIllustrationPoint">The general result which 
+        /// belongs to this output.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
         public void SetIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint)

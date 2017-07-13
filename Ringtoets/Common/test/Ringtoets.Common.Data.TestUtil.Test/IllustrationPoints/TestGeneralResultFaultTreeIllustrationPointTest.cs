@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -28,36 +26,19 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
-    public class TestGeneralResultSubMechanismIllustrationPointTest
+    public class TestGeneralResultFaultTreeIllustrationPointTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void Constructor_ReturnsExpectedElements()
         {
             // Call
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<GeneralResult<TopLevelSubMechanismIllustrationPoint>>(generalResult);
+            Assert.IsInstanceOf<GeneralResult<TopLevelFaultTreeIllustrationPoint>>(generalResult);
             AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
             CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
-        }
-
-        [Test]
-        public void Constructor_TopLevelSubMechanismIllustrationPoint_ExpectedProperties()
-        {
-            // Setup
-            IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints = 
-                Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>();
-
-            // Call
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-
-            // Assert
-            Assert.IsInstanceOf<GeneralResult<TopLevelSubMechanismIllustrationPoint>>(generalResult);
-            AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
-            CollectionAssert.IsEmpty(generalResult.Stochasts);
-            Assert.AreSame(topLevelIllustrationPoints, generalResult.TopLevelIllustrationPoints);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)

@@ -23,6 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -62,6 +63,47 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
+            Assert.IsFalse(output.HasIllustrationPoints);
+        }
+
+        [Test]
+        public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            var output = new ProbabilityAssessmentOutput(random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble());
+
+            // Call
+            TestDelegate call = () => output.SetIllustrationPoints(null) ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("generalResultFaultTreeIllustrationPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void SetIllustrationPoints_ValidGeneralResult_SetExpectedProperties()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            var random = new Random(21);
+            var output = new ProbabilityAssessmentOutput(random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble(),
+                                                         random.NextDouble());
+
+            // Call
+            output.SetIllustrationPoints(generalResult);
+
+            // Assert
+            Assert.AreSame(generalResult, output.GeneralFaultTreeIllustrationPoint);
+            Assert.IsTrue(output.HasIllustrationPoints);
         }
     }
 }
