@@ -32,13 +32,16 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
     [TestFixture]
-    public class GeneralResultSubMechanismIllustrationPointCreateExtensionsTest
+    public class GeneralResultCreateExtensionsTest
     {
         [Test]
         public void CreateGeneralResultSubMechanismIllustrationPointEntity_GeneralResultSubMechanismIllustraionPointNull_ThrowsArgumentNullException()
         {
+            // Setup
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
+
             // Call
-            TestDelegate call = () => ((GeneralResultSubMechanismIllustrationPoint) null).CreateGeneralResultSubMechanismIllustrationPointEntity();
+            TestDelegate call = () => generalResult.CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,9 +56,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             var governingWindDirection = new WindDirection("SSE", random.NextDouble());
 
             var generalResult =
-                new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
-                                                               Enumerable.Empty<Stochast>(),
-                                                               Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
+                new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
 
             // Call
             GeneralResultSubMechanismIllustrationPointEntity entity =
@@ -84,9 +87,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             };
 
             var generalResult =
-                new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
-                                                               stochasts,
-                                                               Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
+                new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                         stochasts,
+                                                                         Enumerable.Empty<TopLevelSubMechanismIllustrationPoint>());
 
             // Call
             GeneralResultSubMechanismIllustrationPointEntity entity =
@@ -126,9 +129,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             };
 
             var generalResult =
-                new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
-                                                               Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                               illustrationPoints);
+                new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                         Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                         illustrationPoints);
 
             // Call
             GeneralResultSubMechanismIllustrationPointEntity entity =

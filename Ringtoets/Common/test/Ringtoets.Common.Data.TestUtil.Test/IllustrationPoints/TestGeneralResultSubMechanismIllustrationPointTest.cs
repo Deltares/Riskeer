@@ -37,10 +37,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
 
             // Assert
-            Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPoint>(generalResult);
+            Assert.IsInstanceOf<GeneralResult<TopLevelSubMechanismIllustrationPoint>>(generalResult);
             AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
-            CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
         }
 
         [Test]
@@ -54,10 +54,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
 
             // Assert
-            Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPoint>(generalResult);
+            Assert.IsInstanceOf<GeneralResult<TopLevelSubMechanismIllustrationPoint>>(generalResult);
             AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
-            Assert.AreSame(topLevelIllustrationPoints, generalResult.TopLevelSubMechanismIllustrationPoints);
+            Assert.AreSame(topLevelIllustrationPoints, generalResult.TopLevelIllustrationPoints);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)

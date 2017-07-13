@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            GeneralResultSubMechanismIllustrationPoint generalResult = entity.Read();
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
             WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
                             actualGoverningWindDirection.Angle.GetAccuracy());
             CollectionAssert.IsEmpty(generalResult.Stochasts);
-            CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
         }
 
         [Test]
@@ -108,14 +108,13 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            GeneralResultSubMechanismIllustrationPoint generalResult = entity.Read();
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
             WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
             Assert.AreEqual(entity.GoverningWindDirectionName, actualGoverningWindDirection.Name);
             Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
                             actualGoverningWindDirection.Angle.GetAccuracy());
-            CollectionAssert.IsEmpty(generalResult.TopLevelSubMechanismIllustrationPoints);
 
             Stochast[] stochasts = generalResult.Stochasts.ToArray();
             Assert.AreEqual(2, stochasts.Length);
@@ -170,17 +169,16 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             };
 
             // Call
-            GeneralResultSubMechanismIllustrationPoint generalResult = entity.Read();
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
             WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
             Assert.AreEqual(entity.GoverningWindDirectionName, actualGoverningWindDirection.Name);
             Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
                             actualGoverningWindDirection.Angle.GetAccuracy());
-            CollectionAssert.IsEmpty(generalResult.Stochasts);
 
             TopLevelSubMechanismIllustrationPoint[] illustrationPoints =
-                generalResult.TopLevelSubMechanismIllustrationPoints.ToArray();
+                generalResult.TopLevelIllustrationPoints.ToArray();
             Assert.AreEqual(2, illustrationPoints.Length);
             AssertReadTopLevelSubMechanismIllustrationPoint(illustrationPointEntityOne, illustrationPoints[0]);
             AssertReadTopLevelSubMechanismIllustrationPoint(illustrationPointEntityOne, illustrationPoints[1]);

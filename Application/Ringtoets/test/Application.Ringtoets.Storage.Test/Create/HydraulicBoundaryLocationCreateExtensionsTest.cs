@@ -455,7 +455,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
         }
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint illustrationPoint,
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
                                                                              GeneralResultSubMechanismIllustrationPointEntity entity)
         {
             WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
@@ -464,7 +464,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                             governingWindDirection.Angle.GetAccuracy());
 
             Assert.AreEqual(illustrationPoint.Stochasts.Count(), entity.StochastEntities.Count);
-            Assert.AreEqual(illustrationPoint.TopLevelSubMechanismIllustrationPoints.Count(),
+            Assert.AreEqual(illustrationPoint.TopLevelIllustrationPoints.Count(),
                             entity.TopLevelSubMechanismIllustrationPointEntities.Count);
         }
     }

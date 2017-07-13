@@ -1845,8 +1845,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         #region IllustrationPoints
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint expectedGeneralResult,
-                                                                             GeneralResultSubMechanismIllustrationPoint actualGeneralResult)
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult,
+                                                                             GeneralResult<TopLevelSubMechanismIllustrationPoint> actualGeneralResult)
         {
             if (expectedGeneralResult == null)
             {
@@ -1867,9 +1867,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             TopLevelSubMechanismIllustrationPoint[] expectedTopLevelSubMechanismIllustrationPoints =
-                expectedGeneralResult.TopLevelSubMechanismIllustrationPoints.ToArray();
+                expectedGeneralResult.TopLevelIllustrationPoints.ToArray();
             TopLevelSubMechanismIllustrationPoint[] actualTopLevelSubMechanismIllustrationPoints =
-                actualGeneralResult.TopLevelSubMechanismIllustrationPoints.ToArray();
+                actualGeneralResult.TopLevelIllustrationPoints.ToArray();
             int expectedNrOfTopLevelSubMechanismIllustrationPoints = expectedTopLevelSubMechanismIllustrationPoints.Length;
             Assert.AreEqual(expectedNrOfTopLevelSubMechanismIllustrationPoints,
                             actualTopLevelSubMechanismIllustrationPoints.Length);

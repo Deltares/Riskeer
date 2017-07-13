@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             public bool WithGeneralResult;
 
-            protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
+            protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
             {
                 return WithGeneralResult ? new TestGeneralResultSubMechanismIllustrationPoint() : null;
             }

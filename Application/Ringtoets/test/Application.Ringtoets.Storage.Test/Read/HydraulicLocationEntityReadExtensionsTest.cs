@@ -295,7 +295,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity expected,
-                                                                             GeneralResultSubMechanismIllustrationPoint illustrationPoint)
+                                                                             GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint)
         {
             if (expected == null)
             {
@@ -309,7 +309,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                             actualGoverningWindDirection.Angle.GetAccuracy());
 
             Assert.AreEqual(expected.TopLevelSubMechanismIllustrationPointEntities.Count,
-                            illustrationPoint.TopLevelSubMechanismIllustrationPoints.Count());
+                            illustrationPoint.TopLevelIllustrationPoints.Count());
             Assert.AreEqual(expected.StochastEntities.Count, illustrationPoint.Stochasts.Count());
         }
     }

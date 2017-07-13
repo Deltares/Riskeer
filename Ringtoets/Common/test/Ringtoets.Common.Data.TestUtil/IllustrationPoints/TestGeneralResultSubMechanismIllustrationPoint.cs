@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
     /// <summary>
     /// A simple general result which can be used for testing.
     /// </summary>
-    public class TestGeneralResultSubMechanismIllustrationPoint : GeneralResultSubMechanismIllustrationPoint
+    public class TestGeneralResultSubMechanismIllustrationPoint : GeneralResult<TopLevelSubMechanismIllustrationPoint>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestGeneralResultSubMechanismIllustrationPoint"/>.

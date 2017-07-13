@@ -71,8 +71,6 @@
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNode.cs" />
     <Compile Include="IllustrationPoints\GeneralResult.cs" />
-    <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPoint.cs" />
-    <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPointExtensions.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointBase.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResult.cs" />

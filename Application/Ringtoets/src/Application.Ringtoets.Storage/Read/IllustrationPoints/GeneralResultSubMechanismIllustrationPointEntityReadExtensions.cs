@@ -29,20 +29,21 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
-    /// related to creating a <see cref="GeneralResultSubMechanismIllustrationPoint"/>.
+    /// related to creating a <see cref="GeneralResult{T}"/> for top level sub 
+    /// mechanism illustration point.
     /// </summary>
     internal static class GeneralResultSubMechanismIllustrationPointEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GeneralResultSubMechanismIllustrationPointEntity"/> and uses 
-        /// the information to construct a <see cref="GeneralResultSubMechanismIllustrationPoint"/>.
+        /// the information to construct a <see cref="GeneralResult{T}"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
-        /// to create a <see cref="GeneralResultSubMechanismIllustrationPoint"/> for.</param>
+        /// to create a <see cref="GeneralResult{T}"/> for.</param>
         /// <returns>A new <see cref="GetReadTopLevelSubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="entity"/> is <c>null</c>.</exception>
-        public static GeneralResultSubMechanismIllustrationPoint Read(
+        public static GeneralResult<TopLevelSubMechanismIllustrationPoint> Read(
             this GeneralResultSubMechanismIllustrationPointEntity entity)
         {
             if (entity == null)
@@ -57,9 +58,9 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
             IEnumerable<TopLevelSubMechanismIllustrationPoint> illustrationPoints =
                 GetReadTopLevelSubMechanismIllustrationPoint(entity.TopLevelSubMechanismIllustrationPointEntities);
 
-            return new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
-                                                                  stochasts,
-                                                                  illustrationPoints);
+            return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                            stochasts,
+                                                                            illustrationPoints);
         }
 
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)

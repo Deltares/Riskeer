@@ -377,7 +377,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             return hydraulicBoundaryDatabase;
         }
 
-        private static GeneralResultSubMechanismIllustrationPoint GetConfiguredGeneralResultSubMechanismIllustrationPoint()
+        private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultSubMechanismIllustrationPoint()
         {
             var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
             var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a submechanism stochast", 10, 9, 8);
@@ -397,15 +397,15 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             var governingWindDirection = new WindDirection("SSE", 120);
             var stochast = new Stochast("Name of stochast", 13, 37);
-            return new GeneralResultSubMechanismIllustrationPoint(governingWindDirection,
-                                                                  new[]
-                                                                  {
-                                                                      stochast
-                                                                  },
-                                                                  new[]
-                                                                  {
-                                                                      topLevelIllustrationPoint
-                                                                  });
+            return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                            new[]
+                                                                            {
+                                                                                stochast
+                                                                            },
+                                                                            new[]
+                                                                            {
+                                                                                topLevelIllustrationPoint
+                                                                            });
         }
 
         private static AssessmentLayerOneState GetAssessmentLayerOneState()

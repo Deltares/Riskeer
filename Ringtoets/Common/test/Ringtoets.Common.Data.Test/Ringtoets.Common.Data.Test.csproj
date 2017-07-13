@@ -81,8 +81,6 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeTest.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTest.cs" />
-    <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPointExtensionsTest.cs" />
-    <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointBaseTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultTest.cs" />

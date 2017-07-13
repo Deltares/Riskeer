@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return GetGeneralResultSubMechanismIllustrationPoints()
-                    .TopLevelSubMechanismIllustrationPoints
+                    .TopLevelIllustrationPoints
                     .Select(p => new TopLevelSubMechanismIllustrationPointProperties
                     {
                         Data = p
@@ -211,7 +211,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// </summary>
         /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
-        protected abstract GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints();
+        protected abstract GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints();
 
         public override string ToString()
         {

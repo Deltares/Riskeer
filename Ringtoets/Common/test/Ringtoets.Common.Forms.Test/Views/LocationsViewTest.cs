@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             object selection = view.Selection;
 
             // Then
-            Assert.AreSame(calculatableObject.GeneralResult.TopLevelSubMechanismIllustrationPoints.ElementAt(1), selection);
+            Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1), selection);
         }
 
         [Test]
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new TestCalculatableObject
                 {
-                    GeneralResult = new GeneralResultSubMechanismIllustrationPoint(
+                    GeneralResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
                         WindDirectionTestFactory.CreateTestWindDirection(),
                         Enumerable.Empty<Stochast>(),
                         new[]
@@ -333,7 +333,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 },
                 new TestCalculatableObject
                 {
-                    GeneralResult = new GeneralResultSubMechanismIllustrationPoint(
+                    GeneralResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
                         WindDirectionTestFactory.CreateTestWindDirection(),
                         Enumerable.Empty<Stochast>(),
                         new[]
@@ -371,7 +371,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             public bool IsChecked { get; }
 
-            public GeneralResultSubMechanismIllustrationPoint GeneralResult { get; set; }
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; set; }
         }
 
         private class TestLocationsView : LocationsView<TestCalculatableObject>
@@ -423,7 +423,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 if (calculatableObject?.GeneralResult != null)
                 {
                     return calculatableObject.GeneralResult
-                                             .TopLevelSubMechanismIllustrationPoints
+                                             .TopLevelIllustrationPoints
                                              .Select(topLevelSubMechanismIllustrationPoint =>
                                                          new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
                                                                                           topLevelSubMechanismIllustrationPoint.WindDirection.Name,

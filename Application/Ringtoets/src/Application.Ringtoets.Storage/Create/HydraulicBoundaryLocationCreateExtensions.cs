@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         private static void CreateGeneralResultSubMechanismIllustrationPoint(IHydraulicLocationOutputEntity entity,
-                                                                             GeneralResultSubMechanismIllustrationPoint illustrationPoint)
+                                                                             GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint)
         {
             if (illustrationPoint != null)
             {

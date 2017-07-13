@@ -551,9 +551,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
-            GeneralResultSubMechanismIllustrationPoint generalResult)
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
-            return generalResult.TopLevelSubMechanismIllustrationPoints
+            return generalResult.TopLevelIllustrationPoints
                                 .Select(topLevelIllustrationPoint =>
                                 {
                                     SubMechanismIllustrationPoint illustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;

@@ -199,20 +199,20 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Sets a <see cref="GeneralResultSubMechanismIllustrationPoint"/> based on the information 
+        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
         /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="hydraulicBoundaryLocationOutput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
-        /// for which to set the <see cref="GeneralResultSubMechanismIllustrationPoint"/>.</param>
+        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
-        /// <see cref="GeneralResultSubMechanismIllustrationPoint"/> to create on.</param>
+        /// <see cref="GeneralResult{T}"/> to create on.</param>
         private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
                                                         HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult != null)
             {
-                GeneralResultSubMechanismIllustrationPoint generalResult =
-                    GeneralResultSubmechanismIllustrationPointConverter.Create(hydraRingGeneralResult);
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                    GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
                 hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
             }
         }

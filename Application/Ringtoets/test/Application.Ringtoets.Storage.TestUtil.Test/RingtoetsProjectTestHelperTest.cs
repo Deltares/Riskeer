@@ -382,7 +382,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
         }
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPoint generalResult)
+        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
             WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
             Assert.AreEqual("SSE", actualGoverningWindDirection.Name);
@@ -394,7 +394,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(13, stochast.Duration, stochast.Duration.GetAccuracy());
 
             TopLevelSubMechanismIllustrationPoint actualTopLevelSubMechanismIllustrationPoint =
-                generalResult.TopLevelSubMechanismIllustrationPoints.Single();
+                generalResult.TopLevelIllustrationPoints.Single();
             Assert.AreEqual("Closing situation", actualTopLevelSubMechanismIllustrationPoint.ClosingSituation);
             Assert.AreEqual("60", actualTopLevelSubMechanismIllustrationPoint.WindDirection.Name);
             Assert.AreEqual(60, actualTopLevelSubMechanismIllustrationPoint.WindDirection.Angle,

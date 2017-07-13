@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (waveHeightCalculation.HasOutput
                 && waveHeightOutput.HasIllustrationPoints)
             {
-                return waveHeightOutput.GeneralResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints.Select(
+                return waveHeightOutput.GeneralResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints.Select(
                     topLevelSubMechanismIllustrationPoint =>
                     {
                         SubMechanismIllustrationPoint subMechanismIllustrationPoint =

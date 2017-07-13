@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        protected override GeneralResultSubMechanismIllustrationPoint GetGeneralResultSubMechanismIllustrationPoints()
+        protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
         {
             if (data.HydraulicBoundaryLocation.WaveHeightCalculation.HasOutput
                 && data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.HasIllustrationPoints)

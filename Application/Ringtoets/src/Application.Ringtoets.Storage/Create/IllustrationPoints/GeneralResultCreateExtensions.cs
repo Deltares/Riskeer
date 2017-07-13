@@ -28,10 +28,10 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Create.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="GeneralResultSubMechanismIllustrationPoint"/>
+    /// Extension methods for <see cref="GeneralResult{T}"/>
     /// related to creating an instance of <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>.
     /// </summary>
-    internal static class GeneralResultSubMechanismIllustrationPointCreateExtensions
+    internal static class GeneralResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="GeneralResultSubMechanismIllustrationPointEntity"/> based on the 
@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultSubMechanismIllustrationPoint"/>
         /// is <c>null</c>.</exception>
         internal static GeneralResultSubMechanismIllustrationPointEntity CreateGeneralResultSubMechanismIllustrationPointEntity(
-            this GeneralResultSubMechanismIllustrationPoint generalResultSubMechanismIllustrationPoint)
+            this GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint)
         {
             if (generalResultSubMechanismIllustrationPoint == null)
             {
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             AddEntitiesForStochasts(entity, generalResultSubMechanismIllustrationPoint.Stochasts);
             AddEntitiesForTopLevelSubMechanismIllustrationPoints(
                 entity,
-                generalResultSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoints);
+                generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints);
 
             return entity;
         }
