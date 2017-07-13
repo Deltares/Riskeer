@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             var order = 0;
             foreach (Stochast stochast in stochasts)
             {
-                entity.StochastEntities.Add(stochast.CreateStochastEntity(order++));
+                entity.StochastEntities.Add(stochast.Create(order++));
             }
         }
 
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             foreach (TopLevelSubMechanismIllustrationPoint illustrationPoint in illustrationPoints)
             {
                 entity.TopLevelSubMechanismIllustrationPointEntities.Add(
-                    illustrationPoint.CreateTopLevelSubMechanismIllustrationPointEntity(order++));
+                    illustrationPoint.Create(order++));
             }
         }
     }

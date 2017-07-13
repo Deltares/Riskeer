@@ -33,10 +33,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class IllustrationPointResultCreateExtensionsTest
     {
         [Test]
-        public void CreateIllustrationPointResultEntity_IllustrationPointResultNull_ThrowsArgumentNullException()
+        public void Create_IllustrationPointResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((IllustrationPointResult) null).CreateIllustrationPointResultEntity(0);
+            TestDelegate call = () => ((IllustrationPointResult) null).Create(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateIllustrationPointResultEntity_ValidIllustrationPointResult_ReturnIllustrationPointResultEntity()
+        public void Create_ValidIllustrationPointResult_ReturnIllustrationPointResultEntity()
         {
             // Setup
             var random = new Random(123);
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             // Call
             IllustrationPointResultEntity entity =
-                illustrationPointResult.CreateIllustrationPointResultEntity(order);
+                illustrationPointResult.Create(order);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(illustrationPointResult.Description, entity.Description);

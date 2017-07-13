@@ -33,10 +33,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class SubMechanismIllustrationPointStochastCreateExtensionsTest
     {
         [Test]
-        public void CreateSubMechanismIllustrationPointStochastEntity_StochastNull_ThrowsArgumentNullException()
+        public void Create_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPointStochast) null).CreateSubMechanismIllustrationPointStochastEntity(0);
+            TestDelegate call = () => ((SubMechanismIllustrationPointStochast) null).Create(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPointStochastEntity_ValidRealizedStochast_ReturnSubMechanismIllustrationPointStochastEntity()
+        public void Create_ValidStochast_ReturnSubMechanismIllustrationPointStochastEntity()
         {
             // Setup
             var random = new Random(123);
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             int order = random.Next();
 
             // Call
-            SubMechanismIllustrationPointStochastEntity entity = stochast.CreateSubMechanismIllustrationPointStochastEntity(order);
+            SubMechanismIllustrationPointStochastEntity entity = stochast.Create(order);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);

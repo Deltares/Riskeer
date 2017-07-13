@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="SubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="subMechanismIllustrationPoint"/> is <c>null</c>.</exception>
-        internal static SubMechanismIllustrationPointEntity CreateSubMechanismIllustrationPointEntity(
+        internal static SubMechanismIllustrationPointEntity Create(
             this SubMechanismIllustrationPoint subMechanismIllustrationPoint)
         {
             if (subMechanismIllustrationPoint == null)
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             foreach (IllustrationPointResult illustrationPointResult in illustrationPointResults)
             {
                 entity.IllustrationPointResultEntities.Add(
-                    illustrationPointResult.CreateIllustrationPointResultEntity(order++));
+                    illustrationPointResult.Create(order++));
             }
         }
 
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             foreach (SubMechanismIllustrationPointStochast subMechanismIllustrationPointStochast in stochasts)
             {
                 entity.SubMechanismIllustrationPointStochastEntities.Add(
-                    subMechanismIllustrationPointStochast.CreateSubMechanismIllustrationPointStochastEntity(order++));
+                    subMechanismIllustrationPointStochast.Create(order++));
             }
         }
     }

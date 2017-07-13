@@ -33,10 +33,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class StochastCreateExtensionsTest
     {
         [Test]
-        public void CreateStochastEntity_StochastNull_ThrowsArgumentNullException()
+        public void Create_StochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((Stochast) null).CreateStochastEntity(0);
+            TestDelegate call = () => ((Stochast) null).Create(0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateStochastEntity_ValidStochast_ReturnStochastEntity()
+        public void Create_ValidStochast_ReturnStochastEntity()
         {
             // Setup
             var random = new Random(123);
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             int order = random.Next();
 
             // Call
-            StochastEntity entity = stochast.CreateStochastEntity(order);
+            StochastEntity entity = stochast.Create(order);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(stochast.Name, entity.Name);

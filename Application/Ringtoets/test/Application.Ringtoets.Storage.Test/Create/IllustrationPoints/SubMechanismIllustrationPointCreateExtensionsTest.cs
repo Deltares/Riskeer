@@ -34,10 +34,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class SubMechanismIllustrationPointCreateExtensionsTest
     {
         [Test]
-        public void CreateSubMechanismIllustrationPoint_IllustrationPointNull_ThrowsArgumentNullException()
+        public void Create_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).CreateSubMechanismIllustrationPointEntity();
+            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_SubMechanismIllustrationPointWithoutResultsAndStochasts_ReturnSubMechanismIllustrationPointEntityWithoutResultsAndStochastsEntities()
+        public void Create_SubMechanismIllustrationPointWithoutResultsAndStochasts_ReturnSubMechanismIllustrationPointEntityWithoutResultsAndStochastsEntities()
         {
             // Setup
             var random = new Random(21);
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_ValidIllustrationPointWithStochasts_ReturnSubMechanismIllustrationPointEntityWithStochastEntities()
+        public void Create_ValidIllustrationPointWithStochasts_ReturnSubMechanismIllustrationPointEntityWithStochastEntities()
         {
             // Setup
             var random = new Random(21);
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       Enumerable.Empty<IllustrationPointResult>());
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationPoint_MultipleResultsAndValidIllustrationPoint_ReturnSubMechanismIllustrationPointEntityWithResultEntities()
+        public void Create_MultipleResultsAndValidIllustrationPoint_ReturnSubMechanismIllustrationPointEntityWithResultEntities()
         {
             // Setup
             var random = new Random(21);
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       illustrationPointResults);
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.CreateSubMechanismIllustrationPointEntity();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);

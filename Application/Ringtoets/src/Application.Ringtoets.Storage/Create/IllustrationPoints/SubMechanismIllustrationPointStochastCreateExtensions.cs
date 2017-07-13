@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="SubMechanismIllustrationPointStochastEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
-        internal static SubMechanismIllustrationPointStochastEntity CreateSubMechanismIllustrationPointStochastEntity(
+        internal static SubMechanismIllustrationPointStochastEntity Create(
             this SubMechanismIllustrationPointStochast subMechanismIllustrationPointStochast, int order)
         {
             if (subMechanismIllustrationPointStochast == null)

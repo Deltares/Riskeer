@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class GeneralResultCreateExtensionsTest
     {
         [Test]
-        public void CreateGeneralResultSubMechanismIllustrationPointEntity_GeneralResultSubMechanismIllustraionPointNull_ThrowsArgumentNullException()
+        public void CreateGeneralResultSubMechanismIllustrationPointEntity_GeneralResultSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;

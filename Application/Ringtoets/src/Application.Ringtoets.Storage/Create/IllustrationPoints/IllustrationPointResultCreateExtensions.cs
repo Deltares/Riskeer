@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="IllustrationPointResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointResult"/> 
         /// is <c>null</c>.</exception>
-        internal static IllustrationPointResultEntity CreateIllustrationPointResultEntity(
+        internal static IllustrationPointResultEntity Create(
             this IllustrationPointResult illustrationPointResult, int order)
         {
             if (illustrationPointResult == null)

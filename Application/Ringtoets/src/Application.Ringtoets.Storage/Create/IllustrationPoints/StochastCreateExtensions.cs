@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="StochastEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochast"/> 
         /// is <c>null</c>.</exception>
-        internal static StochastEntity CreateStochastEntity(
+        internal static StochastEntity Create(
             this Stochast stochast, int order)
         {
             if (stochast == null)

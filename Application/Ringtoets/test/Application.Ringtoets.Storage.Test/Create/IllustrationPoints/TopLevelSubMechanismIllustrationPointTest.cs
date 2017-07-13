@@ -34,10 +34,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
     public class TopLevelSubMechanismIllustrationPointTest
     {
         [Test]
-        public void CreateTopLevelSubMechanismIllustrationPointEntity_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
+        public void Create_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((TopLevelSubMechanismIllustrationPoint) null).CreateTopLevelSubMechanismIllustrationPointEntity(0);
+            TestDelegate call = () => ((TopLevelSubMechanismIllustrationPoint) null).Create(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateTopLevelSubMechanismIllustrationPointEntity_ValidTopLevelSubMechanismIllustrationPoint_ReturnsEntityWithSubMechanismIllustrationPointEntity()
+        public void Create_ValidTopLevelSubMechanismIllustrationPoint_ReturnsEntityWithSubMechanismIllustrationPointEntity()
         {
             // Setup
             var random = new Random(21);
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             // Call
             TopLevelSubMechanismIllustrationPointEntity entity =
-                topLevelSubMechanismIllustrationPoint.CreateTopLevelSubMechanismIllustrationPointEntity(order);
+                topLevelSubMechanismIllustrationPoint.Create(order);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(topLevelSubMechanismIllustrationPoint.ClosingSituation, entity.ClosingSituation);

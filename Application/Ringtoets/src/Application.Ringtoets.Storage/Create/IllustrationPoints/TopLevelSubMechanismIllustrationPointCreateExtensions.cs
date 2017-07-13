@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A <see cref="TopLevelSubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="topLevelSubMechanismIllustrationPoint"/> is <c>null</c>.</exception>
-        internal static TopLevelSubMechanismIllustrationPointEntity CreateTopLevelSubMechanismIllustrationPointEntity(
+        internal static TopLevelSubMechanismIllustrationPointEntity Create(
             this TopLevelSubMechanismIllustrationPoint topLevelSubMechanismIllustrationPoint,
             int order)
         {
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 WindDirectionAngle = windDirection.Angle,
                 SubMechanismIllustrationPointEntity =
                     topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint
-                                                         .CreateSubMechanismIllustrationPointEntity(),
+                                                         .Create(),
                 Order = order
             };
         }
