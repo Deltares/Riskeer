@@ -65,7 +65,9 @@
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelperTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidatorTest.cs" />
+    <Compile Include="IllustrationPoints\CombinationTypeConverterTest.cs" />
     <Compile Include="IllustrationPoints\CreateGeneralResultSubmechanismIllustrationPointConverterTest.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointConverterTest.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverterTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverterTest.cs" />
     <Compile Include="IllustrationPoints\StochastConverterTest.cs" />

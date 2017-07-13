@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             SubMechanismIllustrationPointStochast stochast = subMechanismIllustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
-            Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Name, stochast.Name);
             Assert.AreEqual(hydraRingSubMechanismIllustrationPointStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
         }

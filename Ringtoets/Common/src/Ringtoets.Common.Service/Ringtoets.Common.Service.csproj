@@ -48,6 +48,8 @@
     <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidator.cs" />
+    <Compile Include="IllustrationPoints\CombinationTypeConverter.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\GeneralResultSubmechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverter.cs" />
