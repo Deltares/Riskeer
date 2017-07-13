@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidWaveHeightCalculation_StartsCalculationWithRightParameters(bool readIllustationPoints)
+        public void Calculate_ValidWaveHeightCalculation_StartsCalculationWithRightParameters(bool readIllustrationPoints)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return(locationName);
             calculation.Expect(c => c.Id).Return(id);
-            calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustationPoints);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustrationPoints);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Service.Test
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
 
-                Assert.AreEqual(readIllustationPoints, calculation.Output.HasIllustrationPoints);
+                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }

@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_SubMechanismIllustationPointNull_ThrowsArgumentNullException()
+        public void Constructor_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
