@@ -33,32 +33,35 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class SubMechanismIllustrationPointEntity
+    public class GeneralResultFaultTreeIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubMechanismIllustrationPointEntity()
+        public GeneralResultFaultTreeIllustrationPointEntity()
         {
-            IllustrationPointResultEntities = new HashSet<IllustrationPointResultEntity>();
-            SubMechanismIllustrationPointStochastEntities = new HashSet<SubMechanismIllustrationPointStochastEntity>();
-            TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
-            FaultTreeIllustrationPointEntities = new HashSet<FaultTreeIllustrationPointEntity>();
+            ClosingStructuresOutputEntities = new HashSet<ClosingStructuresOutputEntity>();
+            HeightStructuresOutputEntities = new HashSet<HeightStructuresOutputEntity>();
+            StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
+            TopLevelFaultTreeIllustrationPointEntities = new HashSet<TopLevelFaultTreeIllustrationPointEntity>();
+            StochastEntities = new HashSet<StochastEntity>();
         }
 
-        public long SubMechanismIllustrationPointEntityId { get; set; }
-        public string Name { get; set; }
-        public double Beta { get; set; }
-        public int Order { get; set; }
+        public long GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
+        public string GoverningWindDirectionName { get; set; }
+        public double GoverningWindDirectionAngle { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }
+        public virtual ICollection<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
+        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
+        public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FaultTreeIllustrationPointEntity> FaultTreeIllustrationPointEntities { get; set; }
+        public virtual ICollection<TopLevelFaultTreeIllustrationPointEntity> TopLevelFaultTreeIllustrationPointEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StochastEntity> StochastEntities { get; set; }
     }
 }

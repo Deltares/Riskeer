@@ -38,6 +38,8 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StochastEntity()
         {
+            FaultTreeIllustrationPointEntities = new HashSet<FaultTreeIllustrationPointEntity>();
+            GeneralResultFaultTreeIllustrationPointEntities = new HashSet<GeneralResultFaultTreeIllustrationPointEntity>();
             GeneralResultSubMechanismIllustrationPointEntities = new HashSet<GeneralResultSubMechanismIllustrationPointEntity>();
         }
 
@@ -46,6 +48,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public double Duration { get; set; }
         public double Alpha { get; set; }
         public int Order { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FaultTreeIllustrationPointEntity> FaultTreeIllustrationPointEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GeneralResultFaultTreeIllustrationPointEntity> GeneralResultFaultTreeIllustrationPointEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GeneralResultSubMechanismIllustrationPointEntity> GeneralResultSubMechanismIllustrationPointEntities { get; set; }

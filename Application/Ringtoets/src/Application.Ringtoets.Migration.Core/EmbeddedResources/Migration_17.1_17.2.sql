@@ -102,7 +102,25 @@ SELECT
 	LEFT JOIN [SOURCEPROJECT].ClosingStructureEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
-INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO ClosingStructuresOutputEntity(
+	[ClosingStructuresOutputEntityId],
+	[ClosingStructuresCalculationEntityId],
+	[GeneralResultFaultTreeIllustrationPointEntityId],
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety])
+SELECT
+	[ClosingStructuresOutputEntityId],
+	[ClosingStructuresCalculationEntityId],
+	NULL,
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety]
+	FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
@@ -284,7 +302,25 @@ SELECT
 	LEFT JOIN [SOURCEPROJECT].HeightStructureEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
-INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO HeightStructuresOutputEntity(
+	[HeightStructuresOutputEntityId],
+	[HeightStructuresCalculationEntityId],
+	[GeneralResultFaultTreeIllustrationPointEntityId],
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety])
+SELECT
+	[HeightStructuresOutputEntityId],
+	[HeightStructuresCalculationEntityId],
+	NULL,
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety]
+	FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicLocationEntity (
 	[HydraulicLocationEntityId],
@@ -498,7 +534,25 @@ SELECT
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].StabilityPointStructureEntity USING (FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityId;
-INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO StabilityPointStructuresOutputEntity(
+	[StabilityPointStructuresOutputEntity],
+	[StabilityPointStructuresCalculationEntityId],
+	[GeneralResultFaultTreeIllustrationPointEntityId],
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety])
+SELECT
+	[StabilityPointStructuresOutputEntity],
+	[StabilityPointStructuresCalculationEntityId],
+	NULL,
+	[RequiredProbability],
+	[RequiredReliability],
+	[Probability],
+	[Reliability],
+	[FactorOfSafety]
+	FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;

@@ -138,7 +138,13 @@
     <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\FaultTreeIllustrationPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\ForeshoreProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GeneralResultFaultTreeIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GeneralResultSubMechanismIllustrationPointEntity.cs">
@@ -307,6 +313,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\TopLevelFaultTreeIllustrationPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TopLevelSubMechanismIllustrationPointEntity.cs">

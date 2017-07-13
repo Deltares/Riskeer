@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTITrunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -161,6 +161,7 @@
           </Key>
           <Property Name="ClosingStructuresOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
           <Property Name="RequiredProbability" Type="real" />
           <Property Name="RequiredReliability" Type="real" />
           <Property Name="Probability" Type="real" />
@@ -267,6 +268,33 @@
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="FailureMechanismSectionPointXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
+        <EntityType Name="FaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentFaultTreeIllustrationPointEntityId" Type="integer" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Beta" Type="real" Nullable="false" />
+          <Property Name="CombinationType" Type="tinyint" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FaultTreeIllustrationPointStochastEntity">
+          <Key>
+            <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            <PropertyRef Name="StochastEntityId" />
+          </Key>
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="StochastEntityId" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FaultTreeSubmechanismIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="SubMechanismIllustrationPointEntityId" />
+            <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="SubMechanismIllustrationPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="ForeshoreProfileEntity">
           <Key>
             <PropertyRef Name="ForeshoreProfileEntityId" />
@@ -283,6 +311,22 @@
           <Property Name="Y" Type="real" />
           <Property Name="X0" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneralResultFaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoverningWindDirectionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="GoverningWindDirectionAngle" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneralResultFaultTreeIllustrationPointStochastEntity">
+          <Key>
+            <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            <PropertyRef Name="StochastEntityId" />
+          </Key>
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="StochastEntityId" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneralResultSubMechanismIllustrationPointEntity">
           <Key>
@@ -566,6 +610,7 @@
           </Key>
           <Property Name="HeightStructuresOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HeightStructuresCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
           <Property Name="RequiredProbability" Type="real" />
           <Property Name="RequiredReliability" Type="real" />
           <Property Name="Probability" Type="real" />
@@ -919,6 +964,7 @@
           </Key>
           <Property Name="StabilityPointStructuresOutputEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
           <Property Name="RequiredProbability" Type="real" />
           <Property Name="RequiredReliability" Type="real" />
           <Property Name="Probability" Type="real" />
@@ -1075,6 +1121,18 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
+        </EntityType>
+        <EntityType Name="TopLevelFaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="TopLevelFaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="TopLevelFaultTreeIllustrationPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" Nullable="false" />
+          <Property Name="ClosingSituation" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="WindDirectionName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="WindDirectionAngle" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TopLevelSubMechanismIllustrationPointEntity">
           <Key>
@@ -1297,6 +1355,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ClosingStructuresOutputEntity_0_0">
+          <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Role="ClosingStructuresOutputEntity" Type="Self.ClosingStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingStructuresOutputEntity_1_0">
           <End Role="ClosingStructuresCalculationEntity" Type="Self.ClosingStructuresCalculationEntity" Multiplicity="1" />
           <End Role="ClosingStructuresOutputEntity" Type="Self.ClosingStructuresOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1428,6 +1498,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FaultTreeIllustrationPointEntity_0_0">
+          <End Role="FaultTreeIllustrationPointEntity" Type="Self.FaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Role="FaultTreeIllustrationPointEntity1" Type="Self.FaultTreeIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeIllustrationPointEntity1">
+              <PropertyRef Name="ParentFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FaultTreeIllustrationPointStochastEntity_0_0">
+          <End Role="StochastEntity" Type="Self.StochastEntity" Multiplicity="1" />
+          <End Role="FaultTreeIllustrationPointStochastEntity" Type="Self.FaultTreeIllustrationPointStochastEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochastEntity">
+              <PropertyRef Name="StochastEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeIllustrationPointStochastEntity">
+              <PropertyRef Name="StochastEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FaultTreeIllustrationPointStochastEntity_1_0">
+          <End Role="FaultTreeIllustrationPointEntity" Type="Self.FaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Role="FaultTreeIllustrationPointStochastEntity" Type="Self.FaultTreeIllustrationPointStochastEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeIllustrationPointStochastEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FaultTreeSubmechanismIllustrationPointEntity_0_0">
+          <End Role="SubMechanismIllustrationPointEntity" Type="Self.SubMechanismIllustrationPointEntity" Multiplicity="1" />
+          <End Role="FaultTreeSubmechanismIllustrationPointEntity" Type="Self.FaultTreeSubmechanismIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMechanismIllustrationPointEntity">
+              <PropertyRef Name="SubMechanismIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeSubmechanismIllustrationPointEntity">
+              <PropertyRef Name="SubMechanismIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FaultTreeSubmechanismIllustrationPointEntity_1_0">
+          <End Role="FaultTreeIllustrationPointEntity" Type="Self.FaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Role="FaultTreeSubmechanismIllustrationPointEntity" Type="Self.FaultTreeSubmechanismIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeSubmechanismIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ForeshoreProfileEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="ForeshoreProfileEntity" Type="Self.ForeshoreProfileEntity" Multiplicity="*" />
@@ -1437,6 +1567,30 @@
             </Principal>
             <Dependent Role="ForeshoreProfileEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralResultFaultTreeIllustrationPointStochastEntity_0_0">
+          <End Role="StochastEntity" Type="Self.StochastEntity" Multiplicity="1" />
+          <End Role="GeneralResultFaultTreeIllustrationPointStochastEntity" Type="Self.GeneralResultFaultTreeIllustrationPointStochastEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochastEntity">
+              <PropertyRef Name="StochastEntityId" />
+            </Principal>
+            <Dependent Role="GeneralResultFaultTreeIllustrationPointStochastEntity">
+              <PropertyRef Name="StochastEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralResultFaultTreeIllustrationPointStochastEntity_1_0">
+          <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Role="GeneralResultFaultTreeIllustrationPointStochastEntity" Type="Self.GeneralResultFaultTreeIllustrationPointStochastEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="GeneralResultFaultTreeIllustrationPointStochastEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1788,6 +1942,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresOutputEntity_1_0">
+          <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Role="HeightStructuresOutputEntity" Type="Self.HeightStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HeightStructuresSectionResultEntity_0_0">
           <End Role="HeightStructuresCalculationEntity" Type="Self.HeightStructuresCalculationEntity" Multiplicity="0..1" />
           <End Role="HeightStructuresSectionResultEntity" Type="Self.HeightStructuresSectionResultEntity" Multiplicity="*" />
@@ -2100,6 +2266,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StabilityPointStructuresOutputEntity_1_0">
+          <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Role="StabilityPointStructuresOutputEntity" Type="Self.StabilityPointStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityPointStructuresSectionResultEntity_0_0">
           <End Role="StabilityPointStructuresCalculationEntity" Type="Self.StabilityPointStructuresCalculationEntity" Multiplicity="0..1" />
           <End Role="StabilityPointStructuresSectionResultEntity" Type="Self.StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
@@ -2280,6 +2458,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TopLevelFaultTreeIllustrationPointEntity_0_0">
+          <End Role="GeneralResultFaultTreeIllustrationPointEntity" Type="Self.GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Role="TopLevelFaultTreeIllustrationPointEntity" Type="Self.TopLevelFaultTreeIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="TopLevelFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TopLevelFaultTreeIllustrationPointEntity_1_0">
+          <End Role="FaultTreeIllustrationPointEntity" Type="Self.FaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Role="TopLevelFaultTreeIllustrationPointEntity" Type="Self.TopLevelFaultTreeIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="TopLevelFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TopLevelSubMechanismIllustrationPointEntity_0_0">
           <End Role="SubMechanismIllustrationPointEntity" Type="Self.SubMechanismIllustrationPointEntity" Multiplicity="1" />
           <End Role="TopLevelSubMechanismIllustrationPointEntity" Type="Self.TopLevelSubMechanismIllustrationPointEntity" Multiplicity="*" />
@@ -2406,7 +2608,12 @@
           <EntitySet Name="DuneLocationOutputEntity" EntityType="Self.DuneLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
+          <EntitySet Name="FaultTreeIllustrationPointEntity" EntityType="Self.FaultTreeIllustrationPointEntity" store:Type="Tables" />
+          <EntitySet Name="FaultTreeIllustrationPointStochastEntity" EntityType="Self.FaultTreeIllustrationPointStochastEntity" store:Type="Tables" />
+          <EntitySet Name="FaultTreeSubmechanismIllustrationPointEntity" EntityType="Self.FaultTreeSubmechanismIllustrationPointEntity" store:Type="Tables" />
           <EntitySet Name="ForeshoreProfileEntity" EntityType="Self.ForeshoreProfileEntity" store:Type="Tables" />
+          <EntitySet Name="GeneralResultFaultTreeIllustrationPointEntity" EntityType="Self.GeneralResultFaultTreeIllustrationPointEntity" store:Type="Tables" />
+          <EntitySet Name="GeneralResultFaultTreeIllustrationPointStochastEntity" EntityType="Self.GeneralResultFaultTreeIllustrationPointStochastEntity" store:Type="Tables" />
           <EntitySet Name="GeneralResultSubMechanismIllustrationPointEntity" EntityType="Self.GeneralResultSubMechanismIllustrationPointEntity" store:Type="Tables" />
           <EntitySet Name="GeneralResultSubMechanismIllustrationPointStochastEntity" EntityType="Self.GeneralResultSubMechanismIllustrationPointStochastEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsCalculationEntity" EntityType="Self.GrassCoverErosionInwardsCalculationEntity" store:Type="Tables" />
@@ -2460,6 +2667,7 @@
           <EntitySet Name="SubMechanismIllustrationPointStochastEntity" EntityType="Self.SubMechanismIllustrationPointStochastEntity" store:Type="Tables" />
           <EntitySet Name="SurfaceLineEntity" EntityType="Self.SurfaceLineEntity" store:Type="Tables" />
           <EntitySet Name="TechnicalInnovationSectionResultEntity" EntityType="Self.TechnicalInnovationSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="TopLevelFaultTreeIllustrationPointEntity" EntityType="Self.TopLevelFaultTreeIllustrationPointEntity" store:Type="Tables" />
           <EntitySet Name="TopLevelSubMechanismIllustrationPointEntity" EntityType="Self.TopLevelSubMechanismIllustrationPointEntity" store:Type="Tables" />
           <EntitySet Name="VersionEntity" EntityType="Self.VersionEntity" store:Type="Tables" />
           <EntitySet Name="WaterPressureAsphaltCoverSectionResultEntity" EntityType="Self.WaterPressureAsphaltCoverSectionResultEntity" store:Type="Tables" />
@@ -2512,6 +2720,10 @@
             <End Role="ClosingStructuresFailureMechanismMetaEntity" EntitySet="ClosingStructuresFailureMechanismMetaEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresOutputEntity_0_0" Association="Self.FK_ClosingStructuresOutputEntity_0_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
+            <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructuresOutputEntity_1_0" Association="Self.FK_ClosingStructuresOutputEntity_1_0">
             <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntity" />
             <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntity" />
           </AssociationSet>
@@ -2555,9 +2767,37 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeIllustrationPointEntity_0_0" Association="Self.FK_FaultTreeIllustrationPointEntity_0_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntity" />
+            <End Role="FaultTreeIllustrationPointEntity1" EntitySet="FaultTreeIllustrationPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeIllustrationPointStochastEntity_0_0" Association="Self.FK_FaultTreeIllustrationPointStochastEntity_0_0">
+            <End Role="StochastEntity" EntitySet="StochastEntity" />
+            <End Role="FaultTreeIllustrationPointStochastEntity" EntitySet="FaultTreeIllustrationPointStochastEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeIllustrationPointStochastEntity_1_0" Association="Self.FK_FaultTreeIllustrationPointStochastEntity_1_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntity" />
+            <End Role="FaultTreeIllustrationPointStochastEntity" EntitySet="FaultTreeIllustrationPointStochastEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeSubmechanismIllustrationPointEntity_0_0" Association="Self.FK_FaultTreeSubmechanismIllustrationPointEntity_0_0">
+            <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntity" />
+            <End Role="FaultTreeSubmechanismIllustrationPointEntity" EntitySet="FaultTreeSubmechanismIllustrationPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeSubmechanismIllustrationPointEntity_1_0" Association="Self.FK_FaultTreeSubmechanismIllustrationPointEntity_1_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntity" />
+            <End Role="FaultTreeSubmechanismIllustrationPointEntity" EntitySet="FaultTreeSubmechanismIllustrationPointEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_ForeshoreProfileEntity_0_0" Association="Self.FK_ForeshoreProfileEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralResultFaultTreeIllustrationPointStochastEntity_0_0" Association="Self.FK_GeneralResultFaultTreeIllustrationPointStochastEntity_0_0">
+            <End Role="StochastEntity" EntitySet="StochastEntity" />
+            <End Role="GeneralResultFaultTreeIllustrationPointStochastEntity" EntitySet="GeneralResultFaultTreeIllustrationPointStochastEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralResultFaultTreeIllustrationPointStochastEntity_1_0" Association="Self.FK_GeneralResultFaultTreeIllustrationPointStochastEntity_1_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
+            <End Role="GeneralResultFaultTreeIllustrationPointStochastEntity" EntitySet="GeneralResultFaultTreeIllustrationPointStochastEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GeneralResultSubMechanismIllustrationPointStochastEntity_0_0" Association="Self.FK_GeneralResultSubMechanismIllustrationPointStochastEntity_0_0">
             <End Role="StochastEntity" EntitySet="StochastEntity" />
@@ -2675,6 +2915,10 @@
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
             <End Role="HeightStructuresOutputEntity" EntitySet="HeightStructuresOutputEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresOutputEntity_1_0" Association="Self.FK_HeightStructuresOutputEntity_1_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
+            <End Role="HeightStructuresOutputEntity" EntitySet="HeightStructuresOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_HeightStructuresSectionResultEntity_0_0" Association="Self.FK_HeightStructuresSectionResultEntity_0_0">
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntity" />
@@ -2779,6 +3023,10 @@
             <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntity" />
             <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_1_0" Association="Self.FK_StabilityPointStructuresOutputEntity_1_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
+            <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="Self.FK_StabilityPointStructuresSectionResultEntity_0_0">
             <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntity" />
             <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntity" />
@@ -2839,6 +3087,14 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="TechnicalInnovationSectionResultEntity" EntitySet="TechnicalInnovationSectionResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_TopLevelFaultTreeIllustrationPointEntity_0_0" Association="Self.FK_TopLevelFaultTreeIllustrationPointEntity_0_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntity" />
+            <End Role="TopLevelFaultTreeIllustrationPointEntity" EntitySet="TopLevelFaultTreeIllustrationPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TopLevelFaultTreeIllustrationPointEntity_1_0" Association="Self.FK_TopLevelFaultTreeIllustrationPointEntity_1_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntity" />
+            <End Role="TopLevelFaultTreeIllustrationPointEntity" EntitySet="TopLevelFaultTreeIllustrationPointEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_TopLevelSubMechanismIllustrationPointEntity_0_0" Association="Self.FK_TopLevelSubMechanismIllustrationPointEntity_0_0">
             <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntity" />
             <End Role="TopLevelSubMechanismIllustrationPointEntity" EntitySet="TopLevelSubMechanismIllustrationPointEntity" />
@@ -2898,7 +3154,9 @@
           <EntitySet Name="DuneLocationOutputEntities" EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
+          <EntitySet Name="FaultTreeIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" />
           <EntitySet Name="ForeshoreProfileEntities" EntityType="RingtoetsEntitiesModel.ForeshoreProfileEntity" />
+          <EntitySet Name="GeneralResultFaultTreeIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" />
           <EntitySet Name="GeneralResultSubMechanismIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" />
           <EntitySet Name="GrassCoverErosionInwardsCalculationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" />
           <EntitySet Name="GrassCoverErosionInwardsDikeHeightOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" />
@@ -2951,6 +3209,7 @@
           <EntitySet Name="SubMechanismIllustrationPointStochastEntities" EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointStochastEntity" />
           <EntitySet Name="SurfaceLineEntities" EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" />
           <EntitySet Name="TechnicalInnovationSectionResultEntities" EntityType="RingtoetsEntitiesModel.TechnicalInnovationSectionResultEntity" />
+          <EntitySet Name="TopLevelFaultTreeIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" />
           <EntitySet Name="TopLevelSubMechanismIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" />
           <EntitySet Name="VersionEntities" EntityType="RingtoetsEntitiesModel.VersionEntity" />
           <EntitySet Name="WaterPressureAsphaltCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" />
@@ -3038,7 +3297,7 @@
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClosingStructuresOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0">
+          <AssociationSet Name="FK_ClosingStructuresOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_1_0">
             <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
             <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntities" />
           </AssociationSet>
@@ -3049,6 +3308,10 @@
           <AssociationSet Name="FK_ClosingStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="ClosingStructuresFailureMechanismMetaEntity" EntitySet="ClosingStructuresFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructuresOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
+            <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
@@ -3198,6 +3461,14 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="WaveImpactAsphaltCoverSectionResultEntity" EntitySet="WaveImpactAsphaltCoverSectionResultEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_FaultTreeIllustrationPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_FaultTreeIllustrationPointEntity_0_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntities" />
+            <End Role="FaultTreeIllustrationPointEntity1" EntitySet="FaultTreeIllustrationPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TopLevelFaultTreeIllustrationPointEntity_1_0" Association="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_1_0">
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntities" />
+            <End Role="TopLevelFaultTreeIllustrationPointEntity" EntitySet="TopLevelFaultTreeIllustrationPointEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0">
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
@@ -3217,6 +3488,18 @@
           <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0">
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_1_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
+            <End Role="HeightStructuresOutputEntity" EntitySet="HeightStructuresOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
+            <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TopLevelFaultTreeIllustrationPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_0_0">
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
+            <End Role="TopLevelFaultTreeIllustrationPointEntity" EntitySet="TopLevelFaultTreeIllustrationPointEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0">
             <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntities" />
@@ -3357,6 +3640,18 @@
           <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsOutputEntity_0_0">
             <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
             <End Role="WaveImpactAsphaltCoverWaveConditionsOutputEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FaultTreeIllustrationPointStochastEntity" Association="RingtoetsEntitiesModel.FaultTreeIllustrationPointStochastEntity">
+            <End Role="StochastEntity" EntitySet="StochastEntities" />
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FaultTreeSubmechanismIllustrationPointEntity" Association="RingtoetsEntitiesModel.FaultTreeSubmechanismIllustrationPointEntity">
+            <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntities" />
+            <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="GeneralResultFaultTreeIllustrationPointStochastEntity" Association="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity">
+            <End Role="StochastEntity" EntitySet="StochastEntities" />
+            <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
           </AssociationSet>
           <AssociationSet Name="GeneralResultSubMechanismIllustrationPointStochastEntity" Association="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointStochastEntity">
             <End Role="StochastEntity" EntitySet="StochastEntities" />
@@ -3527,7 +3822,7 @@
           <NavigationProperty Name="ClosingStructureEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_2_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructureEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
-          <NavigationProperty Name="ClosingStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresOutputEntity" />
+          <NavigationProperty Name="ClosingStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresOutputEntity" />
           <NavigationProperty Name="ClosingStructuresSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresSectionResultEntity" />
         </EntityType>
         <EntityType Name="ClosingStructuresFailureMechanismMetaEntity">
@@ -3547,12 +3842,14 @@
           </Key>
           <Property Name="ClosingStructuresOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
           <Property Name="RequiredProbability" Type="Double" />
           <Property Name="RequiredReliability" Type="Double" />
           <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
           <Property Name="FactorOfSafety" Type="Double" />
-          <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="ClosingStructuresOutputEntity" ToRole="ClosingStructuresCalculationEntity" />
+          <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_1_0" FromRole="ClosingStructuresOutputEntity" ToRole="ClosingStructuresCalculationEntity" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="ClosingStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="ClosingStructuresSectionResultEntity">
           <Key>
@@ -3703,6 +4000,22 @@
           <NavigationProperty Name="WaterPressureAsphaltCoverSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_WaterPressureAsphaltCoverSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="WaterPressureAsphaltCoverSectionResultEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="WaveImpactAsphaltCoverSectionResultEntity" />
         </EntityType>
+        <EntityType Name="FaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentFaultTreeIllustrationPointEntityId" Type="Int64" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Beta" Type="Double" Nullable="false" />
+          <Property Name="CombinationType" Type="Byte" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FaultTreeIllustrationPointEntity1" Relationship="RingtoetsEntitiesModel.FK_FaultTreeIllustrationPointEntity_0_0" FromRole="FaultTreeIllustrationPointEntity" ToRole="FaultTreeIllustrationPointEntity1" />
+          <NavigationProperty Name="FaultTreeIllustrationPointEntity2" Relationship="RingtoetsEntitiesModel.FK_FaultTreeIllustrationPointEntity_0_0" FromRole="FaultTreeIllustrationPointEntity1" ToRole="FaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="TopLevelFaultTreeIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_1_0" FromRole="FaultTreeIllustrationPointEntity" ToRole="TopLevelFaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="StochastEntities" Relationship="RingtoetsEntitiesModel.FaultTreeIllustrationPointStochastEntity" FromRole="FaultTreeIllustrationPointEntity" ToRole="StochastEntity" />
+          <NavigationProperty Name="SubMechanismIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FaultTreeSubmechanismIllustrationPointEntity" FromRole="FaultTreeIllustrationPointEntity" ToRole="SubMechanismIllustrationPointEntity" />
+        </EntityType>
         <EntityType Name="ForeshoreProfileEntity">
           <Key>
             <PropertyRef Name="ForeshoreProfileEntityId" />
@@ -3726,6 +4039,19 @@
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="ForeshoreProfileEntity" ToRole="StabilityPointStructuresCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
+        </EntityType>
+        <EntityType Name="GeneralResultFaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoverningWindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="GoverningWindDirectionAngle" Type="Double" Nullable="false" />
+          <NavigationProperty Name="ClosingStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="ClosingStructuresOutputEntity" />
+          <NavigationProperty Name="HeightStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="HeightStructuresOutputEntity" />
+          <NavigationProperty Name="StabilityPointStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="StabilityPointStructuresOutputEntity" />
+          <NavigationProperty Name="TopLevelFaultTreeIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_0_0" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="TopLevelFaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="StochastEntities" Relationship="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity" FromRole="GeneralResultFaultTreeIllustrationPointEntity" ToRole="StochastEntity" />
         </EntityType>
         <EntityType Name="GeneralResultSubMechanismIllustrationPointEntity">
           <Key>
@@ -4041,11 +4367,13 @@
           </Key>
           <Property Name="HeightStructuresOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HeightStructuresCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
           <Property Name="RequiredProbability" Type="Double" />
           <Property Name="RequiredReliability" Type="Double" />
           <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
           <Property Name="FactorOfSafety" Type="Double" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_1_0" FromRole="HeightStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_0_0" FromRole="HeightStructuresOutputEntity" ToRole="HeightStructuresCalculationEntity" />
         </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
@@ -4436,11 +4764,13 @@
           </Key>
           <Property Name="StabilityPointStructuresOutputEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
           <Property Name="RequiredProbability" Type="Double" />
           <Property Name="RequiredReliability" Type="Double" />
           <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
           <Property Name="FactorOfSafety" Type="Double" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0" FromRole="StabilityPointStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" FromRole="StabilityPointStructuresOutputEntity" ToRole="StabilityPointStructuresCalculationEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
@@ -4530,6 +4860,8 @@
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Alpha" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FaultTreeIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FaultTreeIllustrationPointStochastEntity" FromRole="StochastEntity" ToRole="FaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity" FromRole="StochastEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="GeneralResultSubMechanismIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointStochastEntity" FromRole="StochastEntity" ToRole="GeneralResultSubMechanismIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
@@ -4579,6 +4911,7 @@
           <NavigationProperty Name="IllustrationPointResultEntities" Relationship="RingtoetsEntitiesModel.FK_IllustrationPointResultEntity_0_0" FromRole="SubMechanismIllustrationPointEntity" ToRole="IllustrationPointResultEntity" />
           <NavigationProperty Name="SubMechanismIllustrationPointStochastEntities" Relationship="RingtoetsEntitiesModel.FK_SubMechanismIllustrationPointStochastEntity_0_0" FromRole="SubMechanismIllustrationPointEntity" ToRole="SubMechanismIllustrationPointStochastEntity" />
           <NavigationProperty Name="TopLevelSubMechanismIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FK_TopLevelSubMechanismIllustrationPointEntity_0_0" FromRole="SubMechanismIllustrationPointEntity" ToRole="TopLevelSubMechanismIllustrationPointEntity" />
+          <NavigationProperty Name="FaultTreeIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FaultTreeSubmechanismIllustrationPointEntity" FromRole="SubMechanismIllustrationPointEntity" ToRole="FaultTreeIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="SubMechanismIllustrationPointStochastEntity">
           <Key>
@@ -4617,6 +4950,20 @@
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_TechnicalInnovationSectionResultEntity_0_0" FromRole="TechnicalInnovationSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="TopLevelFaultTreeIllustrationPointEntity">
+          <Key>
+            <PropertyRef Name="TopLevelFaultTreeIllustrationPointEntityId" />
+          </Key>
+          <Property Name="TopLevelFaultTreeIllustrationPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FaultTreeIllustrationPointEntityId" Type="Int64" Nullable="false" />
+          <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" Nullable="false" />
+          <Property Name="ClosingSituation" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="WindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="WindDirectionAngle" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_1_0" FromRole="TopLevelFaultTreeIllustrationPointEntity" ToRole="FaultTreeIllustrationPointEntity" />
+          <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_TopLevelFaultTreeIllustrationPointEntity_0_0" FromRole="TopLevelFaultTreeIllustrationPointEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
         </EntityType>
         <EntityType Name="TopLevelSubMechanismIllustrationPointEntity">
           <Key>
@@ -4956,7 +5303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClosingStructuresOutputEntity_0_0">
+        <Association Name="FK_ClosingStructuresOutputEntity_1_0">
           <End Type="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Role="ClosingStructuresCalculationEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Role="ClosingStructuresOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -4989,6 +5336,18 @@
             </Principal>
             <Dependent Role="ClosingStructuresFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingStructuresOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Role="ClosingStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5436,6 +5795,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FaultTreeIllustrationPointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="FaultTreeIllustrationPointEntity1">
+              <PropertyRef Name="ParentFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TopLevelFaultTreeIllustrationPointEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Role="TopLevelFaultTreeIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="TopLevelFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="FaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0">
           <End Type="RingtoetsEntitiesModel.ForeshoreProfileEntity" Role="ForeshoreProfileEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Multiplicity="*" />
@@ -5493,6 +5876,42 @@
             </Principal>
             <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
               <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresOutputEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresOutputEntity" Role="HeightStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StabilityPointStructuresOutputEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Role="StabilityPointStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresOutputEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TopLevelFaultTreeIllustrationPointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Role="TopLevelFaultTreeIllustrationPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralResultFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </Principal>
+            <Dependent Role="TopLevelFaultTreeIllustrationPointEntity">
+              <PropertyRef Name="GeneralResultFaultTreeIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5916,6 +6335,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FaultTreeIllustrationPointStochastEntity">
+          <End Type="RingtoetsEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity" Multiplicity="*" />
+        </Association>
+        <Association Name="FaultTreeSubmechanismIllustrationPointEntity">
+          <End Type="RingtoetsEntitiesModel.SubMechanismIllustrationPointEntity" Role="SubMechanismIllustrationPointEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity" Multiplicity="*" />
+        </Association>
+        <Association Name="GeneralResultFaultTreeIllustrationPointStochastEntity">
+          <End Type="RingtoetsEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Role="GeneralResultFaultTreeIllustrationPointEntity" Multiplicity="*" />
+        </Association>
         <Association Name="GeneralResultSubMechanismIllustrationPointStochastEntity">
           <End Type="RingtoetsEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
           <End Type="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Role="GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="*" />
@@ -6092,6 +6523,7 @@
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
                 <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
                 <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="ClosingStructuresOutputEntityId" ColumnName="ClosingStructuresOutputEntityId" />
               </MappingFragment>
@@ -6205,6 +6637,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FaultTreeIllustrationPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity">
+              <MappingFragment StoreEntitySet="FaultTreeIllustrationPointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="CombinationType" ColumnName="CombinationType" />
+                <ScalarProperty Name="Beta" ColumnName="Beta" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentFaultTreeIllustrationPointEntityId" ColumnName="ParentFaultTreeIllustrationPointEntityId" />
+                <ScalarProperty Name="FaultTreeIllustrationPointEntityId" ColumnName="FaultTreeIllustrationPointEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ForeshoreProfileEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ForeshoreProfileEntity">
               <MappingFragment StoreEntitySet="ForeshoreProfileEntity">
@@ -6220,6 +6664,15 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="ForeshoreProfileEntityId" ColumnName="ForeshoreProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralResultFaultTreeIllustrationPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity">
+              <MappingFragment StoreEntitySet="GeneralResultFaultTreeIllustrationPointEntity">
+                <ScalarProperty Name="GoverningWindDirectionAngle" ColumnName="GoverningWindDirectionAngle" />
+                <ScalarProperty Name="GoverningWindDirectionName" ColumnName="GoverningWindDirectionName" />
+                <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6517,6 +6970,7 @@
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
                 <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
                 <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="HeightStructuresCalculationEntityId" ColumnName="HeightStructuresCalculationEntityId" />
                 <ScalarProperty Name="HeightStructuresOutputEntityId" ColumnName="HeightStructuresOutputEntityId" />
               </MappingFragment>
@@ -6890,6 +7344,7 @@
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
                 <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
                 <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresCalculationEntityId" ColumnName="StabilityPointStructuresCalculationEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresOutputEntity1" ColumnName="StabilityPointStructuresOutputEntity" />
               </MappingFragment>
@@ -7059,6 +7514,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TopLevelFaultTreeIllustrationPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity">
+              <MappingFragment StoreEntitySet="TopLevelFaultTreeIllustrationPointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="WindDirectionAngle" ColumnName="WindDirectionAngle" />
+                <ScalarProperty Name="WindDirectionName" ColumnName="WindDirectionName" />
+                <ScalarProperty Name="ClosingSituation" ColumnName="ClosingSituation" />
+                <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
+                <ScalarProperty Name="FaultTreeIllustrationPointEntityId" ColumnName="FaultTreeIllustrationPointEntityId" />
+                <ScalarProperty Name="TopLevelFaultTreeIllustrationPointEntityId" ColumnName="TopLevelFaultTreeIllustrationPointEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TopLevelSubMechanismIllustrationPointEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity">
               <MappingFragment StoreEntitySet="TopLevelSubMechanismIllustrationPointEntity">
@@ -7154,6 +7622,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="FaultTreeIllustrationPointStochastEntity" TypeName="RingtoetsEntitiesModel.FaultTreeIllustrationPointStochastEntity" StoreEntitySet="FaultTreeIllustrationPointStochastEntity">
+            <EndProperty Name="FaultTreeIllustrationPointEntity">
+              <ScalarProperty Name="FaultTreeIllustrationPointEntityId" ColumnName="FaultTreeIllustrationPointEntityId" />
+            </EndProperty>
+            <EndProperty Name="StochastEntity">
+              <ScalarProperty Name="StochastEntityId" ColumnName="StochastEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FaultTreeSubmechanismIllustrationPointEntity" TypeName="RingtoetsEntitiesModel.FaultTreeSubmechanismIllustrationPointEntity" StoreEntitySet="FaultTreeSubmechanismIllustrationPointEntity">
+            <EndProperty Name="FaultTreeIllustrationPointEntity">
+              <ScalarProperty Name="FaultTreeIllustrationPointEntityId" ColumnName="FaultTreeIllustrationPointEntityId" />
+            </EndProperty>
+            <EndProperty Name="SubMechanismIllustrationPointEntity">
+              <ScalarProperty Name="SubMechanismIllustrationPointEntityId" ColumnName="SubMechanismIllustrationPointEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="GeneralResultFaultTreeIllustrationPointStochastEntity" TypeName="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity" StoreEntitySet="GeneralResultFaultTreeIllustrationPointStochastEntity">
+            <EndProperty Name="GeneralResultFaultTreeIllustrationPointEntity">
+              <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
+            </EndProperty>
+            <EndProperty Name="StochastEntity">
+              <ScalarProperty Name="StochastEntityId" ColumnName="StochastEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="GeneralResultSubMechanismIllustrationPointStochastEntity" TypeName="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointStochastEntity" StoreEntitySet="GeneralResultSubMechanismIllustrationPointStochastEntity">
             <EndProperty Name="GeneralResultSubMechanismIllustrationPointEntity">
               <ScalarProperty Name="GeneralResultSubMechanismIllustrationPointEntityId" ColumnName="GeneralResultSubMechanismIllustrationPointEntityId" />

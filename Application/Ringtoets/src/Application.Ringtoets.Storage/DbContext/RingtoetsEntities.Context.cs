@@ -52,7 +52,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
+        public virtual DbSet<FaultTreeIllustrationPointEntity> FaultTreeIllustrationPointEntities { get; set; }
         public virtual DbSet<ForeshoreProfileEntity> ForeshoreProfileEntities { get; set; }
+        public virtual DbSet<GeneralResultFaultTreeIllustrationPointEntity> GeneralResultFaultTreeIllustrationPointEntities { get; set; }
         public virtual DbSet<GeneralResultSubMechanismIllustrationPointEntity> GeneralResultSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsDikeHeightOutputEntity> GrassCoverErosionInwardsDikeHeightOutputEntities { get; set; }
@@ -105,6 +107,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
         public virtual DbSet<SurfaceLineEntity> SurfaceLineEntities { get; set; }
         public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
+        public virtual DbSet<TopLevelFaultTreeIllustrationPointEntity> TopLevelFaultTreeIllustrationPointEntities { get; set; }
         public virtual DbSet<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
         public virtual DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
