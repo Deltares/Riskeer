@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? DeviationWaveDirection { get; set; }
         public double? DrainCoefficientMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ClosingStructureEntity ClosingStructureEntity { get; set; }

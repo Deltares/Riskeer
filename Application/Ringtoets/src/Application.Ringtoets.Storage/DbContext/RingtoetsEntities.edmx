@@ -144,6 +144,7 @@
           <Property Name="ModelFactorSuperCriticalFlowMean" Type="real" />
           <Property Name="StormDurationMean" Type="real" />
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="ClosingStructuresFailureMechanismMetaEntity">
           <Key>
@@ -593,6 +594,7 @@
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
@@ -947,6 +949,7 @@
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
           <Property Name="DrainCoefficientMean" Type="real" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -3818,6 +3821,7 @@
           <Property Name="ModelFactorSuperCriticalFlowMean" Type="Double" />
           <Property Name="StormDurationMean" Type="Double" />
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_3_0" FromRole="ClosingStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_2_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructureEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -4343,6 +4347,7 @@
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="HeightStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_2_0" FromRole="HeightStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HeightStructureEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_1_0" FromRole="HeightStructuresCalculationEntity" ToRole="HeightStructureEntity" />
@@ -4740,6 +4745,7 @@
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
           <Property Name="DrainCoefficientMean" Type="Double" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_3_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -6458,6 +6464,7 @@
           <EntitySetMapping Name="ClosingStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresCalculationEntity">
+                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="FactorStormDurationOpenStructure" ColumnName="FactorStormDurationOpenStructure" />
                 <ScalarProperty Name="StormDurationMean" ColumnName="StormDurationMean" />
                 <ScalarProperty Name="ModelFactorSuperCriticalFlowMean" ColumnName="ModelFactorSuperCriticalFlowMean" />
@@ -6919,6 +6926,7 @@
           <EntitySetMapping Name="HeightStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="HeightStructuresCalculationEntity">
+                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="UseForeshore" ColumnName="UseForeshore" />
@@ -7259,6 +7267,7 @@
           <EntitySetMapping Name="StabilityPointStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresCalculationEntity">
+                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="DrainCoefficientMean" ColumnName="DrainCoefficientMean" />
                 <ScalarProperty Name="FactorStormDurationOpenStructure" ColumnName="FactorStormDurationOpenStructure" />

@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? LevelCrestStructureMean { get; set; }
         public double? LevelCrestStructureStandardDeviation { get; set; }
         public double? DeviationWaveDirection { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HeightStructureEntity HeightStructureEntity { get; set; }
