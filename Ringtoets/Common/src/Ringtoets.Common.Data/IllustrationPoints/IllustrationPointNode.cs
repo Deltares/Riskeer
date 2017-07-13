@@ -30,16 +30,16 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// A node with attached illustration point data that is part of a tree. Multiple
     /// nodes form the tree structure describing how the illustration points are related.
     /// </summary>
-    public class FaultTreeIllustrationPointNode
+    public class IllustrationPointNode
     {
         /// <summary>
-        /// Creates a new node with associated data.
+        /// Creates a new instance of <see cref="IllustrationPointNode"/>.
         /// </summary>
         /// <param name="data">The illustration point data that is attached
         /// to this node.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
         /// is <c>null</c>.</exception>
-        public FaultTreeIllustrationPointNode(IllustrationPointBase data)
+        public IllustrationPointNode(IllustrationPointBase data)
         {
             if (data == null)
             {
@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
 
             Data = data;
+            Children = Enumerable.Empty<IllustrationPointNode>();
         }
 
         /// <summary>
@@ -57,8 +58,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the attached child nodes of this node.
         /// </summary>
-        public IEnumerable<FaultTreeIllustrationPointNode> Children { get; private set; }
-            = Enumerable.Empty<FaultTreeIllustrationPointNode>();
+        public IEnumerable<IllustrationPointNode> Children { get; private set; }
 
         /// <summary>
         /// Sets the children to this node.
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <param name="children">The children that are attached to this node.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/>
         /// does not contain 0 or 2 elements.</exception>
-        public void SetChildren(FaultTreeIllustrationPointNode[] children)
+        public void SetChildren(IllustrationPointNode[] children)
         {
             if (children == null)
             {

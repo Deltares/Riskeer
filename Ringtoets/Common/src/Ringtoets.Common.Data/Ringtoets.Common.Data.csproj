@@ -69,7 +69,7 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutput.cs" />
     <Compile Include="IllustrationPoints\CombinationType.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPoint.cs" />
-    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointNode.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNode.cs" />
     <Compile Include="IllustrationPoints\GeneralResult.cs" />
     <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\GeneralResultSubMechanismIllustrationPointExtensions.cs" />

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// is <c>null</c>.</exception>
         public TopLevelFaultTreeIllustrationPoint(WindDirection windDirection,
                                                   string closingSituation,
-                                                  FaultTreeIllustrationPointNode faultTreeNodeRoot)
+                                                  IllustrationPointNode faultTreeNodeRoot)
             : base(windDirection, closingSituation)
         {
             if (windDirection == null)
@@ -61,6 +61,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the root of the illustration points of the fault tree. 
         /// </summary>
-        public FaultTreeIllustrationPointNode FaultTreeNodeRoot { get; }
+        public IllustrationPointNode FaultTreeNodeRoot { get; }
     }
 }

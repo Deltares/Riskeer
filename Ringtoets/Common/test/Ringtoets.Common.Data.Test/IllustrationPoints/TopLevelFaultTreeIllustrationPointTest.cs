@@ -12,7 +12,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var faultTreeNode = new FaultTreeIllustrationPointNode(new TestIllustrationPoint());
+            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
             TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(null,
@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            var faultTreeNode = new FaultTreeIllustrationPointNode(new TestIllustrationPoint());
+            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
             TestDelegate call = () => new TopLevelFaultTreeIllustrationPoint(windDirection,
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             const string closingSituation = "closing situation";
 
-            var faultTreeNode = new FaultTreeIllustrationPointNode(new TestIllustrationPoint());
+            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
             var illustrationPoint = new TopLevelFaultTreeIllustrationPoint(windDirection, closingSituation, faultTreeNode);
