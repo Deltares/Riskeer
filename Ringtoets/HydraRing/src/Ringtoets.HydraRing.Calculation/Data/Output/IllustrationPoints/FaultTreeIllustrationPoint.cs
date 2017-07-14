@@ -47,6 +47,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(name));
             }
+            if (stochasts == null)
+            {
+                throw new ArgumentNullException(nameof(stochasts));
+            }
 
             Beta = beta;
             CombinationType = combinationType;
