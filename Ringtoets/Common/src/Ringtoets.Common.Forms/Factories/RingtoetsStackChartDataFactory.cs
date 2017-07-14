@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Components.Stack.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
@@ -101,30 +102,30 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(stackChartData));
             }
 
-            var stochastValues = new List<Tuple<string, double>>();
+            var stochastValues = new List<Tuple<string, RoundedDouble>>();
 
             foreach (IllustrationPointControlItem illustrationPointControlItem in illustrationPointControlItems)
             {
                 stochastValues.AddRange(illustrationPointControlItem.Stochasts
                                                                     .Select(illustrationPointStochast =>
-                                                                                new Tuple<string, double>(illustrationPointStochast.Name,
-                                                                                                          Math.Pow(illustrationPointStochast.Alpha, 2))));
+                                                                                new Tuple<string, RoundedDouble>(illustrationPointStochast.Name,
+                                                                                                          new RoundedDouble(5, Math.Pow(illustrationPointStochast.Alpha, 2)))));
             }
 
-            IDictionary<string, List<double>> stochasts = CreateStochastsLookup(stochastValues);
+            IDictionary<string, List<RoundedDouble>> stochasts = CreateStochastsLookup(stochastValues);
 
             CreateRowsForStochasts(stackChartData, stochasts);
         }
 
-        private static IDictionary<string, List<double>> CreateStochastsLookup(IEnumerable<Tuple<string, double>> stochastValues)
+        private static IDictionary<string, List<RoundedDouble>> CreateStochastsLookup(IEnumerable<Tuple<string, RoundedDouble>> stochastValues)
         {
-            var lookup = new Dictionary<string, List<double>>();
+            var lookup = new Dictionary<string, List<RoundedDouble>>();
 
-            foreach (Tuple<string, double> stochastValue in stochastValues)
+            foreach (Tuple<string, RoundedDouble> stochastValue in stochastValues)
             {
                 if (!lookup.ContainsKey(stochastValue.Item1))
                 {
-                    lookup.Add(stochastValue.Item1, new List<double>());
+                    lookup.Add(stochastValue.Item1, new List<RoundedDouble>());
                 }
 
                 lookup[stochastValue.Item1].Add(stochastValue.Item2);
@@ -132,12 +133,12 @@ namespace Ringtoets.Common.Forms.Factories
             return lookup;
         }
 
-        private static void CreateRowsForStochasts(StackChartData stackChartData, IDictionary<string, List<double>> stochasts)
+        private static void CreateRowsForStochasts(StackChartData stackChartData, IDictionary<string, List<RoundedDouble>> stochasts)
         {
-            IDictionary<string, List<double>> significantStochasts = new Dictionary<string, List<double>>();
-            IDictionary<string, List<double>> remainingStochasts = new Dictionary<string, List<double>>();
+            IDictionary<string, List<RoundedDouble>> significantStochasts = new Dictionary<string, List<RoundedDouble>>();
+            IDictionary<string, List<RoundedDouble>> remainingStochasts = new Dictionary<string, List<RoundedDouble>>();
 
-            foreach (KeyValuePair<string, List<double>> stochast in stochasts)
+            foreach (KeyValuePair<string, List<RoundedDouble>> stochast in stochasts)
             {
                 if (StochastIsSignificant(stochast))
                 {
@@ -149,9 +150,9 @@ namespace Ringtoets.Common.Forms.Factories
                 }
             }
 
-            foreach (KeyValuePair<string, List<double>> significantStochast in significantStochasts)
+            foreach (KeyValuePair<string, List<RoundedDouble>> significantStochast in significantStochasts)
             {
-                stackChartData.AddRow(significantStochast.Key, significantStochast.Value.ToArray());
+                stackChartData.AddRow(significantStochast.Key, significantStochast.Value.Select(v => v.Value).ToArray());
             }
 
             if (remainingStochasts.Any())
@@ -162,17 +163,17 @@ namespace Ringtoets.Common.Forms.Factories
             }
         }
 
-        private static bool StochastIsSignificant(KeyValuePair<string, List<double>> stochast)
+        private static bool StochastIsSignificant(KeyValuePair<string, List<RoundedDouble>> stochast)
         {
             return stochast.Value.Any(v => v > minAlphaSquared);
         }
 
-        private static double[] GetValuesForRemainingRow(IDictionary<string, List<double>> stochasts)
+        private static double[] GetValuesForRemainingRow(IDictionary<string, List<RoundedDouble>> stochasts)
         {
             var values = new double[stochasts.First().Value.Count];
             var index = 0;
 
-            foreach (KeyValuePair<string, List<double>> stochast in stochasts)
+            foreach (KeyValuePair<string, List<RoundedDouble>> stochast in stochasts)
             {
                 foreach (double value in stochast.Value)
                 {

@@ -246,9 +246,9 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual("Stochast 5", rows[2].Name);
             CollectionAssert.AreEqual(new[]
             {
-                0.009801,
+                0.00980,
                 0.81,
-                0.009801
+                0.00980
             }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
             Assert.IsNull(rows[2].Color);
             Assert.AreEqual("Overig", rows[3].Name);
