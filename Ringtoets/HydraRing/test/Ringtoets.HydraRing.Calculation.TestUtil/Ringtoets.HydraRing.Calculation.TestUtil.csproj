@@ -55,7 +55,9 @@
     <Compile Include="Calculator\HydraRingCalculatorFactoryConfig.cs" />
     <Compile Include="Calculator\HydraRingCalculatorTestCaseProvider.cs" />
     <Compile Include="HydraRingDataEqualityHelper.cs" />
+    <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResult.cs" />
+    <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestWindDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Calculator\TestHydraRingCalculatorFactory.cs" />

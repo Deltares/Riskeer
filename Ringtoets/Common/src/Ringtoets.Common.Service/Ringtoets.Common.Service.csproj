@@ -51,6 +51,7 @@
     <Compile Include="IllustrationPoints\CombinationTypeConverter.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\GeneralResultConverter.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNodeConverter.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverter.cs" />
     <Compile Include="IllustrationPoints\StochastConverter.cs" />
