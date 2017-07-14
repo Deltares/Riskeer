@@ -216,10 +216,12 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
+    <Compile Include="DbContext\IGeneralResultEntity.cs" />
     <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\ITopLevelIllustrationPointEntity.cs" />
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -233,12 +235,16 @@
     <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
     <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
+    <Compile Include="DbContext\PartialGeneralResultFaultTreeIllustrationPointEntity.cs" />
+    <Compile Include="DbContext\PartialGeneralResultSubMechanismIllustrationPointEntity.cs" />
     <Compile Include="DbContext\PartialGrassCoverErosionOutwardsHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PartialHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
+    <Compile Include="DbContext\PartialTopLevelFaultTreeIllustrationPointEntity.cs" />
+    <Compile Include="DbContext\PartialTopLevelSubMechanismIllustrationPointEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

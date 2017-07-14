@@ -33,7 +33,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class GeneralResultFaultTreeIllustrationPointEntity
+    public partial class GeneralResultFaultTreeIllustrationPointEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GeneralResultFaultTreeIllustrationPointEntity()
