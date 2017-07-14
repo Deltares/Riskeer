@@ -89,6 +89,7 @@
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StructureCollectionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StructuresOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesBaseTest.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionPropertiesTest.cs" />

@@ -50,6 +50,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -303,6 +304,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
+            yield return new PropertyInfo<StructuresOutput, StructuresOutputProperties>();
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
@@ -346,10 +348,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseDesignWaterLevelLocationsViewForData,
                 CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
@@ -359,10 +358,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseWaveHeightLocationsViewForData,
                 CreateInstance = context => new WaveHeightLocationsView(context.WrappedData),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -744,6 +740,15 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<StructuresOutput>
+            {
+                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };

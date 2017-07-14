@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
