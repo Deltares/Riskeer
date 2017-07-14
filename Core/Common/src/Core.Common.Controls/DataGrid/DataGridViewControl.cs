@@ -42,6 +42,8 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
             SubscribeEvents();
+
+            dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
         }
 
         /// <summary>
@@ -477,7 +479,6 @@ namespace Core.Common.Controls.DataGrid
         {
             dataGridView.ColumnAdded += DataGridViewOnColumnAdded;
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewOnCurrentCellDirtyStateChanged;
-            dataGridView.GotFocus += DataGridViewOnGotFocus;
             dataGridView.CellEndEdit += DataGridViewOnCellEndEdit;
             dataGridView.DataError += DataGridViewOnDataError;
             dataGridView.Leave += DataGridViewOnLeave;
@@ -511,14 +512,6 @@ namespace Core.Common.Controls.DataGrid
             if (currentColumn is DataGridViewCheckBoxColumn || currentColumn is DataGridViewComboBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-        }
-
-        private void DataGridViewOnGotFocus(object sender, EventArgs e)
-        {
-            if (dataGridView.CurrentCell != null)
-            {
-                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
             }
         }
 
