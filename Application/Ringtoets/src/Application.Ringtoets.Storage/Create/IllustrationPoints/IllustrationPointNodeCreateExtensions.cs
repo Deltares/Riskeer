@@ -55,17 +55,16 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 throw new ArgumentNullException(nameof(illustrationPointNode));
             }
 
-            IllustrationPointBase illustrationPoint = illustrationPointNode.Data;
-            IllustrationPointNode[] children = illustrationPointNode.Children.ToArray();
-
-            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
+            var faultTreeIllustrationPoint = illustrationPointNode.Data as FaultTreeIllustrationPoint;
             if (faultTreeIllustrationPoint == null)
             {
-                throw new InvalidOperationException($"Illustration point type '{illustrationPoint.GetType()}' is not supported.");
+                throw new InvalidOperationException($"Illustration point type '{illustrationPointNode.Data.GetType()}' is not supported.");
             }
 
-            FaultTreeIllustrationPointEntity entity = CreateFaultTreeIllustrationPoint(faultTreeIllustrationPoint, order);
-            CreateChildElements(children, entity);
+            FaultTreeIllustrationPointEntity entity = CreateFaultTreeIllustrationPoint(faultTreeIllustrationPoint,
+                                                                                       order);
+
+            CreateChildElements(illustrationPointNode.Children.ToArray(), entity);
             return entity;
         }
 
@@ -89,18 +88,18 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         {
             for (var i = 0; i < illustrationPointNodes.Length; i++)
             {
-                IllustrationPointNode node = illustrationPointNodes[0];
+                IllustrationPointNode node = illustrationPointNodes[i];
 
                 var faultTreeIllustrationPoint = node.Data as FaultTreeIllustrationPoint;
                 if (faultTreeIllustrationPoint != null)
                 {
-                    entity.FaultTreeIllustrationPointEntity1.Add(node.Create(i + 1));
+                    entity.FaultTreeIllustrationPointEntity1.Add(node.Create(i));
                 }
 
                 var subMechanismIllustrationPoint = node.Data as SubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    entity.SubMechanismIllustrationPointEntities.Add(subMechanismIllustrationPoint.Create(i + 1));
+                    entity.SubMechanismIllustrationPointEntities.Add(subMechanismIllustrationPoint.Create(i));
                 }
             }
         }

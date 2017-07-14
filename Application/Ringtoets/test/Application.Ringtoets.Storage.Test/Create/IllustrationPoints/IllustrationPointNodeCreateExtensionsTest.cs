@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
@@ -87,6 +88,117 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             // Assert
             string message = Assert.Throws<InvalidOperationException>(call).Message;
             Assert.AreEqual($"Illustration point type '{typeof(TestSubMechanismIllustrationPoint)}' is not supported.", message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetValidIllustrationPointNodes))]
+        public void Create_IllustrationPointNodeWithSubMechanismIllustrationPointChildren_ReturnFaultTreeIllustrationPointEntity(
+            IEnumerable<IllustrationPointNode> children)
+        {
+            // Setup
+            var random = new Random(21);
+
+            var illustrationPoint = new FaultTreeIllustrationPoint("Illustration point name",
+                                                                   random.NextDouble(),
+                                                                   Enumerable.Empty<Stochast>(),
+                                                                   random.NextEnumValue<CombinationType>());
+            int order = random.Next();
+
+            var node = new IllustrationPointNode(illustrationPoint);
+            node.SetChildren(children.ToArray());
+
+            // Call
+            FaultTreeIllustrationPointEntity entity = node.Create(order);
+
+            // Assert
+            AssertFaultTreeIllustrationPointEntity(illustrationPoint, entity);
+            AssertIllustrationPointEntities(node.Children.ToArray(),
+                                            entity.SubMechanismIllustrationPointEntities.ToArray(),
+                                            entity.FaultTreeIllustrationPointEntity1.ToArray());
+
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        private static IEnumerable<TestCaseData> GetValidIllustrationPointNodes()
+        {
+            yield return new TestCaseData(new List<IllustrationPointNode>
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+            }).SetName("SubMechanismIllustrationPoints");
+
+            yield return new TestCaseData(new List<IllustrationPointNode>
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+            }).SetName("SubMechanismAndFaultTreeIllustrationPoints");
+
+            yield return new TestCaseData(new List<IllustrationPointNode>
+            {
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+            }).SetName("FaultTreeIllustrationPoints");
+
+            var node = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
+            node.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+            });
+
+            yield return new TestCaseData(new List<IllustrationPointNode>
+            {
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()),
+                node
+            }).SetName("IllustrationPointsWithChildren");
+        }
+
+        private static void AssertIllustrationPointEntities(
+            IllustrationPointNode[] children,
+            IList<SubMechanismIllustrationPointEntity> subMechanismIllustrationPointEntities,
+            IList<FaultTreeIllustrationPointEntity> faultTreeIllustrationPointEntity
+        )
+        {
+            for (var i = 0; i < children.Length; i++)
+            {
+                IllustrationPointNode child = children[i];
+
+                var subMechanismIllustrationPoint = child.Data as SubMechanismIllustrationPoint;
+                if (subMechanismIllustrationPoint != null)
+                {
+                    SubMechanismIllustrationPointEntity illustrationPointEntity = subMechanismIllustrationPointEntities.Single(s => s.Order == i);
+                    AssertSubMechanismIllustrationPointEntity(subMechanismIllustrationPoint, illustrationPointEntity);
+                }
+
+                var faultTreeIllustrationPoint = child.Data as FaultTreeIllustrationPoint;
+                if (faultTreeIllustrationPoint != null)
+                {
+                    FaultTreeIllustrationPointEntity illustrationPointEntity = faultTreeIllustrationPointEntity.Single(f => f.Order == i);
+                    AssertFaultTreeIllustrationPointEntity(faultTreeIllustrationPoint, illustrationPointEntity);
+
+                    AssertIllustrationPointEntities(child.Children.ToArray(),
+                                                    illustrationPointEntity.SubMechanismIllustrationPointEntities.ToArray(),
+                                                    illustrationPointEntity.FaultTreeIllustrationPointEntity1.ToArray());
+                }
+            }
+        }
+
+        private static void AssertSubMechanismIllustrationPointEntity(IllustrationPointBase illustrationPoint,
+                                                                      SubMechanismIllustrationPointEntity illustrationPointEntity)
+        {
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(illustrationPoint.Beta, illustrationPointEntity.Beta, illustrationPoint.Beta.GetAccuracy());
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, illustrationPointEntity.Name);
+        }
+
+        private static void AssertFaultTreeIllustrationPointEntity(FaultTreeIllustrationPoint illustrationPoint,
+                                                                   FaultTreeIllustrationPointEntity illustrationPointEntity)
+        {
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(illustrationPoint.Beta, illustrationPointEntity.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(Convert.ToByte(illustrationPoint.CombinationType), illustrationPointEntity.CombinationType);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, illustrationPointEntity.Name);
+            CollectionAssert.IsEmpty(illustrationPointEntity.StochastEntities);
         }
     }
 }
