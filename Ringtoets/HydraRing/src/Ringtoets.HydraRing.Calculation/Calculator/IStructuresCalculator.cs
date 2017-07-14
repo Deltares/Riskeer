@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
@@ -45,6 +46,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the content of the last error file generated during the Hydra-Ring calculation.
         /// </summary>
         string LastErrorFileContent { get; }
+
+        /// <summary>
+        /// Gets the result of parsing the illustration points in the Hydra-Ring database.
+        /// </summary>
+        GeneralResult IllustrationPointsResult { get; }
 
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
@@ -38,11 +39,29 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Call
             TestDelegate call = () => new FaultTreeIllustrationPoint(null,
                                                                      random.NextDouble(),
+                                                                     Enumerable.Empty<Stochast>(), 
                                                                      random.NextEnumValue<CombinationType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("name", paramName);
+        }
+
+        [Test]
+        public void Constructor_StochastsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(123);
+
+            // Call
+            TestDelegate call = () => new FaultTreeIllustrationPoint("name",
+                                                                     random.NextDouble(),
+                                                                     null,
+                                                                     random.NextEnumValue<CombinationType>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("stochasts", exception.ParamName);
         }
 
         [Test]
@@ -53,9 +72,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             const string name = "name";
             double beta = random.NextDouble();
             var combinationType = random.NextEnumValue<CombinationType>();
+            var stochasts = Enumerable.Empty<Stochast>();
 
             // Call
-            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, combinationType);
+            var illustrationPoint = new FaultTreeIllustrationPoint(name, beta, stochasts, combinationType);
 
             // Assert
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
@@ -63,6 +83,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             Assert.IsEmpty(illustrationPoint.Stochasts);
             Assert.AreEqual(beta, illustrationPoint.Beta);
             Assert.AreEqual(combinationType, illustrationPoint.CombinationType);
+            Assert.AreSame(stochasts, illustrationPoint.Stochasts);
         }
     }
 }

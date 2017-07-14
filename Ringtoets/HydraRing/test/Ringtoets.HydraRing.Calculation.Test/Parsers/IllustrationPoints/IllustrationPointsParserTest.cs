@@ -221,7 +221,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
             Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(2.23881, faultTreeIllustrationPoint.Beta);
-            Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count);
+            Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count());
             Assert.AreEqual(new[]
             {
                 Tuple.Create("Kerende hoogte van het kunstwerk", 0.0, 4383.0),

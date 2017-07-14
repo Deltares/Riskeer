@@ -35,10 +35,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsInstanceOf<IDesignWaterLevelCalculator>(calculator);
             Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNaN(calculator.DesignWaterLevel);
             Assert.IsNull(calculator.Converged);
             Assert.IsNull(calculator.OutputDirectory);
+            Assert.IsNull(calculator.IllustrationPointsResult);
         }
     }
 }

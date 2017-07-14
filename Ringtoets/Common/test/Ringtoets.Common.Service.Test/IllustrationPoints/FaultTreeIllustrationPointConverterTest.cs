@@ -57,8 +57,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraRingStochast = new HydraRingStochast(name, duration, alpha);
 
             double beta = random.NextDouble();
-            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("name", beta, HydraRingCombinationType.And);
-            hydraRingFaultTreeIllustrationPoint.Stochasts.Add(hydraRingStochast);
+            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("name", beta, new[]
+            {
+                hydraRingStochast
+            }, HydraRingCombinationType.And);
 
             // Call
             FaultTreeIllustrationPoint faultTreeIllustrationPoint =
@@ -67,7 +69,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             // Assert
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta.GetAccuracy());
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Name, faultTreeIllustrationPoint.Name);
-            Assert.AreEqual((int)hydraRingFaultTreeIllustrationPoint.CombinationType, (int)faultTreeIllustrationPoint.CombinationType);
+            Assert.AreEqual((int) hydraRingFaultTreeIllustrationPoint.CombinationType, (int) faultTreeIllustrationPoint.CombinationType);
 
             Stochast stochast = faultTreeIllustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());

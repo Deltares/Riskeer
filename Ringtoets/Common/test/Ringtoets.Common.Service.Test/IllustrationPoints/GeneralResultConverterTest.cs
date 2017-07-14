@@ -146,6 +146,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraRingIllustrationPoint = new HydraRingFaultTreeIllustrationPoint(
                 "IllustrationPoint",
                 random.NextDouble(),
+                Enumerable.Empty<HydraRingStochast>(),
                 random.NextEnumValue<HydraRingCombinationType>());
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 

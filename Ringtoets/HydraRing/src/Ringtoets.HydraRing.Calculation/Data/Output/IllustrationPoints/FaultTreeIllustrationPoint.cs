@@ -35,9 +35,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// </summary>
         /// <param name="name">The name of the fault tree illustration point</param>
         /// <param name="beta">The combined beta values of its children.</param>
+        /// <param name="stochasts">The combined stochasts of its children.</param>
         /// <param name="combinationType">The way in which the sub illustration points are combined.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public FaultTreeIllustrationPoint(string name, double beta, CombinationType combinationType)
+        public FaultTreeIllustrationPoint(string name,
+                                          double beta,
+                                          IEnumerable<Stochast> stochasts,
+                                          CombinationType combinationType)
         {
             if (name == null)
             {
@@ -47,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             Beta = beta;
             CombinationType = combinationType;
             Name = name;
-            Stochasts = new List<Stochast>();
+            Stochasts = stochasts;
         }
 
         /// <summary>
@@ -58,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the combined stochasts of its children.
         /// </summary>
-        public ICollection<Stochast> Stochasts { get; }
+        public IEnumerable<Stochast> Stochasts { get; }
 
         /// <summary>
         /// Gets the combined beta values of its children.
