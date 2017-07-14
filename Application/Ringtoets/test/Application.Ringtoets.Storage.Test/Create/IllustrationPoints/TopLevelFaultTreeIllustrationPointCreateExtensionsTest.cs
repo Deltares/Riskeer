@@ -21,8 +21,12 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
+using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
@@ -38,6 +42,29 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("topLevelFaultTreeIllustrationPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_ValidTopLevelFaultTreeIllustrationPoint_ReturnsTopLevelFaultTreeIllustrationPointEntity()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var windDirection = new WindDirection("WindDirection Name", random.NextDouble());
+            var illustrationPoint = new TopLevelFaultTreeIllustrationPoint(
+                windDirection,
+                "Just a situation",
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()));
+            int order = random.Next();
+
+            // Call
+            TopLevelFaultTreeIllustrationPointEntity entity = illustrationPoint.Create(order);
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, entity.ClosingSituation);
+            TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
+            Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(order, entity.Order);
         }
     }
 }

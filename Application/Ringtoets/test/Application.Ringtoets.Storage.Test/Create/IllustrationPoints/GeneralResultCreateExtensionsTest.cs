@@ -173,6 +173,35 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             AssertGeneralResultFaultTreeIllustrationPointEntity(generalResult, entity);
         }
 
+        [Test]
+        public void CreateGeneralResultFaultTreeIllustrationPointEntity_ValidGeneralWithIllustrationPoints_ReturnsEntityWithTopLevelFaultTreeIllustrationPointEntities()
+        {
+            // Setup
+            var random = new Random(22);
+
+            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                new WindDirection("SSE", random.NextDouble()),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    new TopLevelFaultTreeIllustrationPoint(
+                        WindDirectionTestFactory.CreateTestWindDirection(),
+                        "IllustrationPointOne",
+                        new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())),
+                    new TopLevelFaultTreeIllustrationPoint(
+                        WindDirectionTestFactory.CreateTestWindDirection(),
+                        "IllustrationPointTwo",
+                        new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()))
+                });
+
+            // Call
+            GeneralResultFaultTreeIllustrationPointEntity entity =
+                generalResult.CreateGeneralResultFaultTreeIllustrationPointEntity();
+
+            // Assert
+            AssertGeneralResultFaultTreeIllustrationPointEntity(generalResult, entity);
+        }
+
         private static void AssertGeneralResultSubMechanismIllustrationPointEntity(
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult,
             GeneralResultSubMechanismIllustrationPointEntity entity)
