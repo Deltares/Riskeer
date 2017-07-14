@@ -134,8 +134,9 @@ namespace Core.Common.Gui.Forms.ViewHost
             PerformWithoutChangingActiveContent(() =>
             {
                 AddLayoutDocument(layoutDocument);
-                layoutDocument.IsActive = true;
             });
+
+            BringToFront(view);
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
@@ -173,8 +174,9 @@ namespace Core.Common.Gui.Forms.ViewHost
             PerformWithoutChangingActiveContent(() =>
             {
                 AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
-                layoutAnchorable.IsActive = true;
             });
+
+            BringToFront(view);
 
             toolViews.Add(view);
             hostControls.Add(hostControl);
