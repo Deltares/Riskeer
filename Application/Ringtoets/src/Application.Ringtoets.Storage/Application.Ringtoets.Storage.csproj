@@ -368,6 +368,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\GeneralResultFaultTreeIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\GeneralResultSubMechanismIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\IIllustrationPointResultEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensions.cs" />

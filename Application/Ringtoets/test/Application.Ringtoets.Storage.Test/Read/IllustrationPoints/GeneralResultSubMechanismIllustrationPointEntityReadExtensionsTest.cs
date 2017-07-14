@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {
@@ -48,24 +48,17 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         public void Read_ValidEntityWithoutStochastsAndIllustrationPoints_ReturnsGeneralResultSubMechanismIllustrationPoint()
         {
             // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "SSE";
-            double windDirectionAngle = random.NextDouble();
             var entity = new GeneralResultSubMechanismIllustrationPointEntity
             {
-                GoverningWindDirectionName = windDirectionName,
-                GoverningWindDirectionAngle = windDirectionAngle
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = new Random(21).NextDouble()
             };
 
             // Call
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
-            WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
-            Assert.AreEqual(entity.GoverningWindDirectionName, actualGoverningWindDirection.Name);
-            Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
-                            actualGoverningWindDirection.Angle.GetAccuracy());
+            AssertWindDirection(entity, generalResult.GoverningWindDirection);
             CollectionAssert.IsEmpty(generalResult.Stochasts);
             CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
         }
@@ -76,34 +69,26 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            const string stochastName = "Stochast Name";
-            double alpha = random.NextDouble();
-            double duration = random.NextDouble();
-            var stochastEntityOne = new StochastEntity
-            {
-                Name = stochastName,
-                Duration = duration,
-                Alpha = alpha,
-                Order = 0
-            };
-            var stochastEntityTwo = new StochastEntity
-            {
-                Name = $"{stochastName}_Two",
-                Duration = duration + 1,
-                Alpha = alpha + 1,
-                Order = 1
-            };
-
-            const string windDirectionName = "SSE";
-            double windDirectionAngle = random.NextDouble();
             var entity = new GeneralResultSubMechanismIllustrationPointEntity
             {
-                GoverningWindDirectionName = windDirectionName,
-                GoverningWindDirectionAngle = windDirectionAngle,
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble(),
                 StochastEntities = new[]
                 {
-                    stochastEntityTwo,
-                    stochastEntityOne
+                    new StochastEntity
+                    {
+                        Name = "stochastEntityOne",
+                        Duration = random.NextDouble(),
+                        Alpha = random.NextDouble(),
+                        Order = 0
+                    },
+                    new StochastEntity
+                    {
+                        Name = "stochastEntityTwo",
+                        Duration = random.NextDouble(),
+                        Alpha = random.NextDouble(),
+                        Order = 1
+                    }
                 }
             };
 
@@ -111,80 +96,72 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
-            WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
-            Assert.AreEqual(entity.GoverningWindDirectionName, actualGoverningWindDirection.Name);
-            Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
-                            actualGoverningWindDirection.Angle.GetAccuracy());
-
-            Stochast[] stochasts = generalResult.Stochasts.ToArray();
-            Assert.AreEqual(2, stochasts.Length);
-            AssertReadStochast(stochastEntityOne, stochasts[0]);
-            AssertReadStochast(stochastEntityTwo, stochasts[1]);
+            AssertWindDirection(entity, generalResult.GoverningWindDirection);
+            AssertStochasts(entity.StochastEntities.ToArray(), generalResult.Stochasts.ToArray());
         }
 
         [Test]
         public void Read_ValidEntityWithIllustrationPoints_ReturnsGeneralResultSubMechanismIllustrationPoint()
         {
             // Setup
-            const string stochastName = "Stochast Name";
-            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            SubMechanismIllustrationPoint illustrationPoint = new TestSubMechanismIllustrationPoint();
-            var illustrationPointEntityOne = new TopLevelSubMechanismIllustrationPointEntity
+            var random = new Random(210);
+
+            var topLevelSubMechanismIllustrationPointEntities = new[]
             {
-                WindDirectionName = windDirection.Name,
-                WindDirectionAngle = windDirection.Angle,
-                ClosingSituation = stochastName,
-                SubMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
+                new TopLevelSubMechanismIllustrationPointEntity
                 {
-                    Beta = illustrationPoint.Beta,
-                    Name = illustrationPoint.Name
+                    WindDirectionName = "WindDirectionOne",
+                    WindDirectionAngle = random.NextDouble(),
+                    ClosingSituation = "ClosingSituationOne",
+                    SubMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
+                    {
+                        Beta = random.NextDouble(),
+                        Name = "IllustrationPointOne"
+                    },
+                    Order = 0
                 },
-                Order = 0
-            };
-            var illustrationPointEntityTwo = new TopLevelSubMechanismIllustrationPointEntity
-            {
-                WindDirectionName = windDirection.Name,
-                WindDirectionAngle = windDirection.Angle,
-                ClosingSituation = stochastName,
-                SubMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
+                new TopLevelSubMechanismIllustrationPointEntity
                 {
-                    Beta = illustrationPoint.Beta,
-                    Name = illustrationPoint.Name
-                },
-                Order = 1
+                    WindDirectionName = "WindDirectionTwo",
+                    WindDirectionAngle = random.NextDouble(),
+                    ClosingSituation = "ClosingSituationTwo",
+                    SubMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
+                    {
+                        Beta = random.NextDouble(),
+                        Name = "IllustrationPointTwo"
+                    },
+                    Order = 1
+                }
             };
 
-            var random = new Random(21);
-            double windDirectionAngle = random.NextDouble();
-            const string windDirectionName = "SSE";
             var entity = new GeneralResultSubMechanismIllustrationPointEntity
             {
-                GoverningWindDirectionName = windDirectionName,
-                GoverningWindDirectionAngle = windDirectionAngle,
-                TopLevelSubMechanismIllustrationPointEntities = new[]
-                {
-                    illustrationPointEntityTwo,
-                    illustrationPointEntityOne
-                }
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble(),
+                TopLevelSubMechanismIllustrationPointEntities = topLevelSubMechanismIllustrationPointEntities
             };
 
             // Call
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = entity.Read();
 
             // Assert
-            WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
-            Assert.AreEqual(entity.GoverningWindDirectionName, actualGoverningWindDirection.Name);
-            Assert.AreEqual(entity.GoverningWindDirectionAngle, actualGoverningWindDirection.Angle,
-                            actualGoverningWindDirection.Angle.GetAccuracy());
-
-            TopLevelSubMechanismIllustrationPoint[] illustrationPoints =
-                generalResult.TopLevelIllustrationPoints.ToArray();
-            Assert.AreEqual(2, illustrationPoints.Length);
-            AssertReadTopLevelSubMechanismIllustrationPoint(illustrationPointEntityOne, illustrationPoints[0]);
-            AssertReadTopLevelSubMechanismIllustrationPoint(illustrationPointEntityOne, illustrationPoints[1]);
+            AssertWindDirection(entity, generalResult.GoverningWindDirection);
+            AssertAssertIllustrationPoints(entity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
+                                           generalResult.TopLevelIllustrationPoints.ToArray());
         }
 
-        private static void AssertReadTopLevelSubMechanismIllustrationPoint(
+        private static void AssertAssertIllustrationPoints(
+            IList<TopLevelSubMechanismIllustrationPointEntity> entities,
+            IList<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
+        {
+            Assert.AreEqual(entities.Count, illustrationPoints.Count);
+            for (var i = 0; i < entities.Count; i++)
+            {
+                AssertTopLevelSubMechanismIllustrationPoint(entities[i], illustrationPoints[i]);
+            }
+        }
+
+        private static void AssertTopLevelSubMechanismIllustrationPoint(
             TopLevelSubMechanismIllustrationPointEntity illustrationPointEntity,
             TopLevelSubMechanismIllustrationPoint readTopLevelSubMechanismIllustrationPoint)
         {
@@ -197,12 +174,28 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             Assert.IsNotNull(readTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
         }
 
-        private static void AssertReadStochast(StochastEntity stochastEntity,
-                                               Stochast readStochast)
+        private static void AssertStochasts(IList<StochastEntity> entities, IList<Stochast> stochasts)
+        {
+            Assert.AreEqual(entities.Count, stochasts.Count);
+            for (var i = 0; i < entities.Count; i++)
+            {
+                AssertStochast(entities[i], stochasts[i]);
+            }
+        }
+
+        private static void AssertStochast(StochastEntity stochastEntity,
+                                           Stochast readStochast)
         {
             Assert.AreEqual(stochastEntity.Name, readStochast.Name);
             Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
             Assert.AreEqual(stochastEntity.Duration, readStochast.Duration, readStochast.Duration.GetAccuracy());
+        }
+
+        private static void AssertWindDirection(IGeneralResultEntity entity, WindDirection windDirection)
+        {
+            Assert.AreEqual(entity.GoverningWindDirectionName, windDirection.Name);
+            Assert.AreEqual(entity.GoverningWindDirectionAngle, windDirection.Angle,
+                            windDirection.Angle.GetAccuracy());
         }
     }
 }

@@ -28,39 +28,44 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 {
     /// <summary>
-    /// Extension methods for <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
-    /// related to creating a <see cref="GeneralResult{T}"/> for top level sub 
-    /// mechanism illustration point.
+    /// Extension methods for <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
+    /// related to creating a <see cref="GeneralResult{T}"/> for fault tree illustration point.
     /// </summary>
-    internal static class GeneralResultSubMechanismIllustrationPointEntityReadExtensions
+    internal static class GeneralResultFaultTreeIllustrationPointEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GeneralResultSubMechanismIllustrationPointEntity"/> and uses 
+        /// Reads the <see cref="GeneralResultFaultTreeIllustrationPointEntity"/> and uses 
         /// the information to construct a <see cref="GeneralResult{T}"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GeneralResultSubMechanismIllustrationPointEntity"/>
+        /// <param name="entity">The <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
         /// to create a <see cref="GeneralResult{T}"/> for.</param>
         /// <returns>A new <see cref="GeneralResult{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <paramref name="entity"/> is <c>null</c>.</exception>
-        public static GeneralResult<TopLevelSubMechanismIllustrationPoint> Read(
-            this GeneralResultSubMechanismIllustrationPointEntity entity)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is 
+        /// <c>null</c>.</exception>
+        public static GeneralResult<TopLevelFaultTreeIllustrationPoint> Read(
+            this GeneralResultFaultTreeIllustrationPointEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var governingWindDirection = new WindDirection(entity.GoverningWindDirectionName,
-                                                           entity.GoverningWindDirectionAngle);
+            WindDirection governingWindDirection = GetGoverningWindDirection(entity);
 
             IEnumerable<Stochast> stochasts = GetReadStochasts(entity.StochastEntities);
-            IEnumerable<TopLevelSubMechanismIllustrationPoint> illustrationPoints =
-                GetReadTopLevelSubMechanismIllustrationPoint(entity.TopLevelSubMechanismIllustrationPointEntities);
 
-            return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
-                                                                            stochasts,
-                                                                            illustrationPoints);
+            IEnumerable<TopLevelFaultTreeIllustrationPoint> illustrationPoints =
+                GetReadTopLevelFaultTreeIllustrationPoint(entity.TopLevelFaultTreeIllustrationPointEntities);
+
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(governingWindDirection,
+                                                                         stochasts,
+                                                                         illustrationPoints);
+        }
+
+        private static WindDirection GetGoverningWindDirection(IGeneralResultEntity entity)
+        {
+            return new WindDirection(entity.GoverningWindDirectionName,
+                                     entity.GoverningWindDirectionAngle);
         }
 
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)
@@ -71,13 +76,10 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
             return stochasts;
         }
 
-        private static IEnumerable<TopLevelSubMechanismIllustrationPoint> GetReadTopLevelSubMechanismIllustrationPoint(
-            IEnumerable<TopLevelSubMechanismIllustrationPointEntity> illustrationPointEntities)
+        private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetReadTopLevelFaultTreeIllustrationPoint(
+            IEnumerable<TopLevelFaultTreeIllustrationPointEntity> illustrationPointEntities)
         {
-            var stochasts = new List<TopLevelSubMechanismIllustrationPoint>();
-            stochasts.AddRange(illustrationPointEntities.OrderBy(st => st.Order)
-                                                        .Select(st => st.Read()));
-            return stochasts;
+            return new List<TopLevelFaultTreeIllustrationPoint>();
         }
     }
 }
