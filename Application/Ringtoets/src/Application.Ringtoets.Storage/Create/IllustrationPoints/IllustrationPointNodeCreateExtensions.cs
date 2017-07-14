@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 var subMechanismIllustrationPoint = node.Data as SubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    entity.SubMechanismIllustrationPointEntities.Add(subMechanismIllustrationPoint.Create());
+                    entity.SubMechanismIllustrationPointEntities.Add(subMechanismIllustrationPoint.Create(i + 1));
                 }
             }
         }

@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         public void Create_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).Create();
+            TestDelegate call = () => ((SubMechanismIllustrationPoint) null).Create(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,13 +54,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       random.NextDouble(),
                                                                       Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       Enumerable.Empty<IllustrationPointResult>());
+            int order = random.Next();
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create(order);
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);
-
+            Assert.AreEqual(order, entity.Order);
             CollectionAssert.IsEmpty(entity.IllustrationPointResultEntities);
             CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointStochastEntities);
         }
@@ -88,13 +89,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       random.NextDouble(),
                                                                       stochasts,
                                                                       Enumerable.Empty<IllustrationPointResult>());
+            int order = random.Next();
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create(order);
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);
-
+            Assert.AreEqual(order, entity.Order);
             SubMechanismIllustrationPointStochastEntity[] stochastEntities =
                 entity.SubMechanismIllustrationPointStochastEntities.ToArray();
             int expectedNrOfStochasts = stochasts.Length;
@@ -130,13 +132,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                       random.NextDouble(),
                                                                       Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                       illustrationPointResults);
+            int order = random.Next();
 
             // Call
-            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create();
+            SubMechanismIllustrationPointEntity entity = illustrationPoint.Create(order);
 
             // Assert
             AssertCommonProperties(illustrationPoint, entity);
-
+            Assert.AreEqual(order, entity.Order);
             IllustrationPointResultEntity[] resultEntities = entity.IllustrationPointResultEntities.ToArray();
             int expectedNrOfIllustrationPoints = illustrationPointResults.Length;
             Assert.AreEqual(expectedNrOfIllustrationPoints, resultEntities.Length);

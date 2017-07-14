@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 WindDirectionAngle = windDirection.Angle,
                 SubMechanismIllustrationPointEntity =
                     topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint
-                                                         .Create(),
+                                                         .Create(0),
                 Order = order
             };
         }

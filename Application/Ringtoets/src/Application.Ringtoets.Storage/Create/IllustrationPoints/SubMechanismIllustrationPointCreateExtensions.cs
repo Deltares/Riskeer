@@ -39,11 +39,14 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// </summary>
         /// <param name="subMechanismIllustrationPoint">The sub mechanism illustration
         /// point to create a database entity for.</param>
+        /// <param name="order">The index at which <paramref name="subMechanismIllustrationPoint"/>
+        /// resides within its parent.</param>
         /// <returns>A new <see cref="SubMechanismIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <paramref name="subMechanismIllustrationPoint"/> is <c>null</c>.</exception>
         internal static SubMechanismIllustrationPointEntity Create(
-            this SubMechanismIllustrationPoint subMechanismIllustrationPoint)
+            this SubMechanismIllustrationPoint subMechanismIllustrationPoint,
+            int order)
         {
             if (subMechanismIllustrationPoint == null)
             {
@@ -53,7 +56,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             var entity = new SubMechanismIllustrationPointEntity
             {
                 Beta = subMechanismIllustrationPoint.Beta,
-                Name = subMechanismIllustrationPoint.Name.DeepClone()
+                Name = subMechanismIllustrationPoint.Name.DeepClone(),
+                Order = order
             };
 
             AddEntitiesForSubMechanismIllustrationPointsStochasts(entity, subMechanismIllustrationPoint.Stochasts);
