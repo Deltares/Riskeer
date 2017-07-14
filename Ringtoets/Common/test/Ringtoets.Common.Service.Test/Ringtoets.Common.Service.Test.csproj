@@ -72,6 +72,7 @@
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverterTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverterTest.cs" />
     <Compile Include="IllustrationPoints\StochastConverterTest.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointConverterTest.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointConverterTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverterTest.cs" />
     <Compile Include="ParameterNameExtractorTest.cs" />

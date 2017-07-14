@@ -55,6 +55,7 @@
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultConverter.cs" />
     <Compile Include="IllustrationPoints\StochastConverter.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointConverter.cs" />
     <Compile Include="IllustrationPoints\WindDirectionConverter.cs" />
     <Compile Include="MessageProviders\IStructuresCalculationMessageProvider.cs" />

@@ -78,7 +78,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void Create_ValidArguments_ExpectedProperties()
         {
             // Setup
-
             var random = new Random(21);
             var hydraRingWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
 
@@ -94,14 +93,13 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                                                                    random.NextDouble(),
                                                                    random.NextDouble());
 
-            double beta = random.NextDouble();
             var hydraRingSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint("name", new[]
             {
                 hydraRingSubMechanismIllustrationPointStochast
             }, new[]
             {
                 hydraRingIllustrationPointResult
-            }, beta);
+            }, random.NextDouble());
 
             // Call
             TopLevelSubMechanismIllustrationPoint combination =
@@ -113,7 +111,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());
             Assert.AreEqual(hydraRingWindDirection.Name, windDirection.Name);
 
-            Assert.AreEqual("closing scenario", combination.ClosingSituation);
+            Assert.AreEqual(hydraRingWindDirectionClosingSituation.ClosingSituation, combination.ClosingSituation);
 
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = combination.SubMechanismIllustrationPoint;
             Assert.AreEqual(hydraRingSubMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta, subMechanismIllustrationPoint.Beta.GetAccuracy());
