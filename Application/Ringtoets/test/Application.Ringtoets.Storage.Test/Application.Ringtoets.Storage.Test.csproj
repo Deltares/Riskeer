@@ -90,7 +90,7 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\FaultTreeIllustrationPointCreateExtensionsTest.cs" />
+    <Compile Include="Create\IllustrationPoints\IllustrationPointNodeCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\GeneralResultCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\IllustrationPointResultCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointCreateExtensionsTest.cs" />

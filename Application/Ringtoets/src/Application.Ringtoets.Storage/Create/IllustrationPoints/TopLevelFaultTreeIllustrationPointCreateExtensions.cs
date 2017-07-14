@@ -58,6 +58,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 ClosingSituation = topLevelFaultTreeIllustrationPoint.ClosingSituation.DeepClone(),
                 WindDirectionName = windDirection.Name.DeepClone(),
                 WindDirectionAngle = windDirection.Angle,
+                FaultTreeIllustrationPointEntity = 
+                    topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.Create(0),
                 Order = order
             };
         }

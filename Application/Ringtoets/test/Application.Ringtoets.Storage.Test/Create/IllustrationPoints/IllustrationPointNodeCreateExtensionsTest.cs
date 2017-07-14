@@ -27,25 +27,26 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
     [TestFixture]
-    public class FaultTreeIllustrationPointCreateExtensionsTest
+    public class IllustrationPointNodeCreateExtensionsTest
     {
         [Test]
-        public void Create_IllustrationPointNull_ThrowsArgumentNullException()
+        public void Create_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((FaultTreeIllustrationPoint) null).Create();
+            TestDelegate call = () => ((IllustrationPointNode) null).Create(0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("faultTreeIllustrationPoint", exception.ParamName);
+            Assert.AreEqual("illustrationPointNode", exception.ParamName);
         }
 
         [Test]
-        public void Create_FaultTreeIllustrationPointWithoutStochasts_ReturnFaultTreeIllustrationPointEntityWithoutStochasts()
+        public void Create_IllustrationPointNodeWithFaultTreeIllustrationPoint_ReturnFaultTreeIllustrationPointEntity()
         {
             // Setup
             var random = new Random(21);
@@ -54,9 +55,12 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                                                                    random.NextDouble(),
                                                                    Enumerable.Empty<Stochast>(),
                                                                    random.NextEnumValue<CombinationType>());
+            int order = random.Next();
+
+            var node = new IllustrationPointNode(illustrationPoint);
 
             // Call
-            FaultTreeIllustrationPointEntity entity = illustrationPoint.Create();
+            FaultTreeIllustrationPointEntity entity = node.Create(order);
 
             // Assert
             Assert.IsNull(entity.ParentFaultTreeIllustrationPointEntityId);
@@ -68,7 +72,21 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             CollectionAssert.IsEmpty(entity.StochastEntities);
             CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointEntities);
             CollectionAssert.IsEmpty(entity.TopLevelFaultTreeIllustrationPointEntities);
-            Assert.AreEqual(0, entity.Order);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_IllustrationPointNodeWithSubMechanismIllustrationPoint_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var node = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
+
+            // Call
+            TestDelegate call = () => node.Create(0);
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            Assert.AreEqual($"Illustration point type '{typeof(TestSubMechanismIllustrationPoint)}' is not supported.", message);
         }
     }
 }
