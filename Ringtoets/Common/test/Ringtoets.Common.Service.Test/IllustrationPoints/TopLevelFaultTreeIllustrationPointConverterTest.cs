@@ -162,8 +162,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                                                                                                          random.NextDouble());
 
             var treeNodeRoot = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPointRoot);
-            treeNodeRoot.Children.Add(new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPointChildOne));
-            treeNodeRoot.Children.Add(new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPointChildTwo));
+            treeNodeRoot.SetChildren(new[]
+            {
+                new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPointChildOne),
+                new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPointChildTwo)
+            });
 
             // Call
             TopLevelFaultTreeIllustrationPoint topLevelIllustrationPoint =
@@ -187,7 +190,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
 
-            Assert.AreEqual(treeNodeRoot.Children.Count, illustrationPoint.Children.Count());
+            Assert.AreEqual(treeNodeRoot.Children.Count(), illustrationPoint.Children.Count());
             IllustrationPointNode[] children = illustrationPoint.Children.ToArray();
             CollectionAssert.IsEmpty(children[0].Children);
             CollectionAssert.IsEmpty(children[1].Children);
