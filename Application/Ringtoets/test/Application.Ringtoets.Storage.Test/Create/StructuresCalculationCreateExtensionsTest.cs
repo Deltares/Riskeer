@@ -123,7 +123,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Height = (RoundedDouble) random.NextDouble(),
                         Type = BreakWaterType.Dam
-                    }
+                    },
+                    ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }
             };
 
@@ -134,8 +135,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(0, entity.HeightStructuresCalculationEntityId);
-            Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual(comments, entity.Comments);
+            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(comments, entity.Comments);
             Assert.AreEqual(order, entity.Order);
 
             HeightStructuresInput input = calculation.InputParameters;
@@ -167,6 +168,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual((short) input.BreakWater.Type, entity.BreakWaterType);
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
+
+            Assert.AreEqual(Convert.ToByte(input.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
 
             CollectionAssert.IsEmpty(entity.HeightStructuresOutputEntities);
         }
@@ -250,36 +253,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.LevelCrestStructureStandardDeviation);
 
             Assert.IsNull(entity.BreakWaterHeight);
-        }
-
-        [Test]
-        public void CreateForHeightStructures_StringPropertiesDoNotShareReference()
-        {
-            // Setup
-            const string name = "A";
-            const string comment = "B";
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Name = name,
-                Comments =
-                {
-                    Body = comment
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            HeightStructuresCalculationEntity entity = calculation.CreateForHeightStructures(registry, 0);
-
-            // Assert
-            Assert.AreNotSame(name, entity.Name,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(name, entity.Name);
-
-            Assert.AreNotSame(comment, entity.Comments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(comment, entity.Comments);
         }
 
         [Test]
@@ -480,7 +453,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                         Mean = (RoundedDouble) random.NextDouble(),
                         StandardDeviation = (RoundedDouble) random.NextDouble()
                     },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = (RoundedDouble) random.NextDouble()
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = (RoundedDouble) random.NextDouble(),
+                    ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }
             };
 
@@ -492,8 +466,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, order);
 
             // Assert
-            Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments.Body, entity.Comments);
+            TestHelper.AssertAreEqualButNotSame(calculation.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(calculation.Comments.Body, entity.Comments);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
@@ -533,6 +507,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.Mean.Value, entity.LevelCrestStructureNotClosingMean);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value, entity.LevelCrestStructureNotClosingStandardDeviation);
             Assert.AreEqual(inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(Convert.ToByte(inputParameters.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.ClosingStructuresOutputEntities);
@@ -895,7 +870,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                     DrainCoefficient =
                     {
                         Mean = (RoundedDouble) random.NextDouble()
-                    }
+                    },
+                    ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }
             };
 
@@ -907,8 +883,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, order);
 
             // Assert
-            Assert.AreEqual(calculation.Name, entity.Name);
-            Assert.AreEqual(calculation.Comments.Body, entity.Comments);
+            TestHelper.AssertAreEqualButNotSame(calculation.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(calculation.Comments.Body, entity.Comments);
 
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
@@ -970,6 +946,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.VolumicWeightWater.Value, entity.VolumicWeightWater);
             Assert.AreEqual(inputParameters.FactorStormDurationOpenStructure.Value, entity.FactorStormDurationOpenStructure);
             Assert.AreEqual(inputParameters.DrainCoefficient.Mean.Value, entity.DrainCoefficientMean);
+            Assert.AreEqual(Convert.ToByte(inputParameters.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.StabilityPointStructuresOutputEntities);

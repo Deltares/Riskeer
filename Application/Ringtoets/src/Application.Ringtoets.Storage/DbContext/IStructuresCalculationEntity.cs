@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
         byte UseForeshore { get; set; }
         byte BreakWaterType { get; set; }
         double? BreakWaterHeight { get; set; }
+        byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }

@@ -85,6 +85,8 @@ namespace Application.Ringtoets.Storage.Create
 
             entityToUpdate.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.ToNaNAsNull();
             entityToUpdate.WidthFlowAperturesStandardDeviation = input.WidthFlowApertures.StandardDeviation.ToNaNAsNull();
+
+            entityToUpdate.ShouldIllustrationPointsBeCalculated = Convert.ToByte(input.ShouldIllustrationPointsBeCalculated);
         }
 
         #region ClosingStructures
