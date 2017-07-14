@@ -129,11 +129,17 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             var nestedHydraRingSubMechanismIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint());
             var nestedHydraRingFaultTreeIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
-            nestedHydraRingFaultTreeIllustrationPointTreeNode.Children.Add(new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()));
-            nestedHydraRingFaultTreeIllustrationPointTreeNode.Children.Add(new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()));
+            nestedHydraRingFaultTreeIllustrationPointTreeNode.SetChildren(new[]
+            {
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()),
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint())
+            });
 
-            hydraRingIllustrationPointTreeNode.Children.Add(nestedHydraRingSubMechanismIllustrationPointTreeNode);
-            hydraRingIllustrationPointTreeNode.Children.Add(nestedHydraRingFaultTreeIllustrationPointTreeNode);
+            hydraRingIllustrationPointTreeNode.SetChildren(new[]
+            {
+                nestedHydraRingSubMechanismIllustrationPointTreeNode,
+                nestedHydraRingFaultTreeIllustrationPointTreeNode
+            });
 
             // Call
             IllustrationPointNode illustrationPointNode = IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode);
@@ -145,25 +151,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.IsInstanceOf<FaultTreeIllustrationPoint>(children[1].Data);
             CollectionAssert.IsEmpty(children[0].Children);
             Assert.AreEqual(2, children[1].Children.Count());
-        }
-
-        [Test]
-        public void Create_TreeNodeWithInvalidNumberOfChildren_ThrowsArgumentException()
-        {
-            // Setup
-            var hydraRingFaultTreeIllustrationPoint = new TestHydraRingFaultTreeIllustrationPoint();
-            var hydraRingIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
-
-            var nestedHydraRingSubMechanismIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint());
-            hydraRingIllustrationPointTreeNode.Children.Add(nestedHydraRingSubMechanismIllustrationPointTreeNode);
-
-            // Call
-            TestDelegate test = () => IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode);
-
-            // Assert
-            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            Assert.AreEqual("children", exception.ParamName);
         }
     }
 }

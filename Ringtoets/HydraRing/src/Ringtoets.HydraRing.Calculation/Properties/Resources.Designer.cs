@@ -176,6 +176,15 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben..
+        /// </summary>
+        internal static string IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes {
+            get {
+                return ResourceManager.GetString("IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen resultaat voor overslag en overloop gevonden in de Hydra-Ring uitvoerdatabase..
         /// </summary>
         internal static string OvertoppingCalculationWaveHeightParser_No_overtopping_found_in_output_file {

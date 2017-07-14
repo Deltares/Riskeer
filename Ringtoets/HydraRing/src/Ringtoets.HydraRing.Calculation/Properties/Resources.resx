@@ -163,4 +163,7 @@
   <data name="IllustrationPointsParser_Parse_No_governing_wind_direction_found" xml:space="preserve">
     <value>Er is geen maatgevende windrichting gevonden in de uitvoer database.</value>
   </data>
+  <data name="IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes" xml:space="preserve">
+    <value>Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.</value>
+  </data>
 </root>

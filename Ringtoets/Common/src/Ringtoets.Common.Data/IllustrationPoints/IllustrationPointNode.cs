@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
             else
             {
-                throw new ArgumentException(Resources.FaultTreeIllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
+                throw new ArgumentException(Resources.IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
                                             nameof(children));
             }
         }

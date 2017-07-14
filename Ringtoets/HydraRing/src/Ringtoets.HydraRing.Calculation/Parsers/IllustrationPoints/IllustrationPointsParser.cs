@@ -363,7 +363,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             Tuple<int, WindDirection, int, string> windDirectionClosingSituation,
             int faultTreeId,
             CombinationType combinationType,
-            ICollection<Tuple<int?, int, Type, CombinationType>> results)
+            IEnumerable<Tuple<int?, int, Type, CombinationType>> results)
         {
             var dataKey = new ThreeKeyIndex(windDirectionClosingSituation.Item1, windDirectionClosingSituation.Item3, faultTreeId);
             var faultTreeIllustrationPointStochasts = new List<Stochast>();
@@ -383,12 +383,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                                                                    combinationType);
 
             var node = new IllustrationPointTreeNode(illustrationPoint);
-            foreach (Tuple<int?, int, Type, CombinationType> child in results.Where(r => r.Item1 == faultTreeId))
-            {
-                node.Children.Add(child.Item3 == typeof(FaultTreeIllustrationPoint)
-                                      ? BuildFaultTree(windDirectionClosingSituation, child.Item2, child.Item4, results)
-                                      : BuildSubMechanism(windDirectionClosingSituation, child.Item2));
-            }
+            node.SetChildren(results.Where(r => r.Item1 == faultTreeId)
+                                    .Select(child => child.Item3 == typeof(FaultTreeIllustrationPoint)
+                                                         ? BuildFaultTree(windDirectionClosingSituation, child.Item2, child.Item4, results)
+                                                         : BuildSubMechanism(windDirectionClosingSituation, child.Item2)).ToArray());
             return node;
         }
 

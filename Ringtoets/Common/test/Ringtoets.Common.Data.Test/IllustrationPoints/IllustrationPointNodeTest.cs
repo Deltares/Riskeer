@@ -49,21 +49,21 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var data = new TestIllustrationPoint();
 
             // Call
-            var faultTreeNode = new IllustrationPointNode(data);
+            var treeNode = new IllustrationPointNode(data);
 
             // Assert
-            Assert.AreSame(data, faultTreeNode.Data);
-            Assert.IsEmpty(faultTreeNode.Children);
+            Assert.AreSame(data, treeNode.Data);
+            Assert.IsEmpty(treeNode.Children);
         }
 
         [Test]
         public void SetChildren_ChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
-            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            TestDelegate call = () => faultTreeNode.SetChildren(null);
+            TestDelegate call = () => treeNode.SetChildren(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void SetChildren_InvalidNrOfChildren_ThrowsInvalidArgumentException(int nrOfChildren)
         {
             // Setup
-            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             var childrenToBeAttached = new List<IllustrationPointNode>();
             for (var i = 0; i < nrOfChildren; i++)
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             }
 
             // Call
-            TestDelegate call = () => faultTreeNode.SetChildren(childrenToBeAttached.ToArray());
+            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached.ToArray());
 
             // Assert
             const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.";
@@ -97,20 +97,20 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void SetChildren_NoChildren_ReturnsExpectedProperties()
         {
             // Setup
-            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            faultTreeNode.SetChildren(new IllustrationPointNode[0]);
+            treeNode.SetChildren(new IllustrationPointNode[0]);
 
             // Assert
-            CollectionAssert.IsEmpty(faultTreeNode.Children);
+            CollectionAssert.IsEmpty(treeNode.Children);
         }
 
         [Test]
         public void SetChildren_TwoChildren_ReturnsExpectedProperties()
         {
             // Setup
-            var faultTreeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             var childrenToBeAttached = new[]
             {
@@ -119,10 +119,10 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            faultTreeNode.SetChildren(childrenToBeAttached);
+            treeNode.SetChildren(childrenToBeAttached);
 
             // Assert
-            CollectionAssert.AreEqual(childrenToBeAttached, faultTreeNode.Children);
+            CollectionAssert.AreEqual(childrenToBeAttached, treeNode.Children);
         }
     }
 }

@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
@@ -44,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
                 throw new ArgumentNullException(nameof(data));
             }
             Data = data;
-            Children = new List<IllustrationPointTreeNode>(2);
+            Children = Enumerable.Empty<IllustrationPointTreeNode>();
         }
 
         /// <summary>
@@ -55,6 +57,31 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// <summary>
         /// Gets the child nodes of this node.
         /// </summary>
-        public IList<IllustrationPointTreeNode> Children { get; }
+        public IEnumerable<IllustrationPointTreeNode> Children { get; private set; }
+
+        /// <summary>
+        /// Sets the children to this node.
+        /// </summary>
+        /// <param name="children">The children that are attached to this node.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="children"/>
+        /// does not contain 0 or 2 elements.</exception>
+        public void SetChildren(IllustrationPointTreeNode[] children)
+        {
+            if (children == null)
+            {
+                throw new ArgumentNullException(nameof(children));
+            }
+
+            int nrOfChildren = children.Length;
+            if (nrOfChildren == 0 || nrOfChildren == 2)
+            {
+                Children = children;
+            }
+            else
+            {
+                throw new ArgumentException(Resources.IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
+                                            nameof(children));
+            }
+        }
     }
 }

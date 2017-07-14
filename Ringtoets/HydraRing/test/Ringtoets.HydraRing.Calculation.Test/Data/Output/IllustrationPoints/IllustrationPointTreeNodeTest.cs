@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
@@ -55,6 +57,91 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             Assert.AreSame(data, node.Data);
             Assert.IsEmpty(node.Children);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void SetChildren_ChildrenNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IIllustrationPoint>();
+            mocks.ReplayAll();
+
+            var treeNode = new IllustrationPointTreeNode(data);
+
+            // Call
+            TestDelegate call = () => treeNode.SetChildren(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("children", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(3)]
+        public void SetChildren_InvalidNrOfChildren_ThrowsInvalidArgumentException(int nrOfChildren)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IIllustrationPoint>();
+            mocks.ReplayAll();
+
+            var treeNode = new IllustrationPointTreeNode(data);
+
+            var childrenToBeAttached = new List<IllustrationPointTreeNode>();
+            for (var i = 0; i < nrOfChildren; i++)
+            {
+                childrenToBeAttached.Add(new IllustrationPointTreeNode(data));
+            }
+
+            // Call
+            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached.ToArray());
+
+            // Assert
+            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            Assert.AreEqual("children", exception.ParamName);
+        }
+
+        [Test]
+        public void SetChildren_NoChildren_ReturnsExpectedProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IIllustrationPoint>();
+            mocks.ReplayAll();
+
+            var treeNode = new IllustrationPointTreeNode(data);
+
+            // Call
+            treeNode.SetChildren(new IllustrationPointTreeNode[0]);
+
+            // Assert
+            CollectionAssert.IsEmpty(treeNode.Children);
+        }
+
+        [Test]
+        public void SetChildren_TwoChildren_ReturnsExpectedProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IIllustrationPoint>();
+            mocks.ReplayAll();
+
+            var treeNode = new IllustrationPointTreeNode(data);
+
+            var childrenToBeAttached = new[]
+            {
+                new IllustrationPointTreeNode(data),
+                new IllustrationPointTreeNode(data)
+            };
+
+            // Call
+            treeNode.SetChildren(childrenToBeAttached);
+
+            // Assert
+            CollectionAssert.AreEqual(childrenToBeAttached, treeNode.Children);
         }
     }
 }
