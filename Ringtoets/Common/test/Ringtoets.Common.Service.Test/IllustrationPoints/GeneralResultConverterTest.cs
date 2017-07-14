@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
@@ -55,7 +56,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
+        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -80,7 +81,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ExpectedProperties()
+        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ExpectedProperties()
         {
             // Setup
             const string closingSituation = "Closing situation";
@@ -132,7 +133,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ExpectedProperties()
+        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
         {
             // Setup
             var random = new Random(21);
@@ -166,14 +167,149 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint =
-                GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
-            WindDirection generalResultGoverningWindDirection = generalResultSubMechanismIllustrationPoint.GoverningWindDirection;
+            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            string expectedMessage = $"Expected a fault tree node with data of type {typeof(HydraRingSubMechanismIllustrationPoint)} as root, " +
+                                     $"but got {hydraRingIllustrationPoint.GetType()}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("hydraRingGeneralResult", paramName);
+        }
+
+        [Test]
+        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraGoverningWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
+
+            var hydraRingGeneralResult = new HydraRingGeneralResult(
+                random.NextDouble(),
+                hydraGoverningWindDirection,
+                Enumerable.Empty<HydraRingStochast>(),
+                new Dictionary<
+                    HydraRingWindDirectionClosingSituation,
+                    HydraRingIllustrationPointTreeNode>());
+
+            // Call
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+
+            // Assert
+            AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+        }
+
+        [Test]
+        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
+        {
+            // Setup
+            const string closingSituation = "Closing situation";
+
+            var random = new Random(21);
+            var hydraRingWindDirection = new HydraRingWindDirection("SSE", random.NextDouble());
+            var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(
+                hydraRingWindDirection, closingSituation);
+
+            var hydraRingIllustrationPoint = new HydraRingSubMechanismIllustrationPoint(
+                "Illustration Point",
+                Enumerable.Empty<HydraRingSubMechanismIllustrationPointStochast>(),
+                Enumerable.Empty<HydraRingIllustrationPointResult>(),
+                random.NextDouble());
+            var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
+
+            double governingWindDirectionAngle = random.NextDouble();
+            var governingHydraWindDirection = new HydraRingWindDirection("Name", governingWindDirectionAngle);
+            var hydraGeneralResult = new HydraRingGeneralResult(
+                random.NextDouble(),
+                governingHydraWindDirection,
+                Enumerable.Empty<HydraRingStochast>(),
+                new Dictionary<HydraRingWindDirectionClosingSituation, HydraRingIllustrationPointTreeNode>
+                {
+                    {
+                        hydraRingWindDirectionClosingSituation, hydraRingIllustrationTreeNode
+                    }
+                });
+
+            // Call
+            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraGeneralResult);
+
+            // Assert
+            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            string expectedMessage = $"Expected a fault tree node with data of type {typeof(HydraRingFaultTreeIllustrationPoint)} as root, but got {hydraRingIllustrationPoint.GetType()}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(21);
+
+            const string closingSituation = "Closing situation";
+            var hydraRingWindDirection = new HydraRingWindDirection("SSE", random.NextDouble());
+            var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(
+                hydraRingWindDirection,
+                closingSituation);
+
+            var hydraRingIllustrationPoint = new HydraRingFaultTreeIllustrationPoint(
+                "IllustrationPoint",
+                random.NextDouble(),
+                Enumerable.Empty<HydraRingStochast>(),
+                random.NextEnumValue<HydraRingCombinationType>());
+            var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
+
+            double governingWindDirectionAngle = random.NextDouble();
+            var governingHydraRingWindDirection = new HydraRingWindDirection(
+                "Name",
+                governingWindDirectionAngle);
+            var hydraRingGeneralResult = new HydraRingGeneralResult(
+                random.NextDouble(),
+                governingHydraRingWindDirection,
+                Enumerable.Empty<HydraRingStochast>(),
+                new Dictionary<HydraRingWindDirectionClosingSituation, HydraRingIllustrationPointTreeNode>
+                {
+                    {
+                        hydraRingWindDirectionClosingSituation, hydraRingIllustrationTreeNode
+                    }
+                });
+
+            // Call
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultSubMechanismIllustrationPoint =
+                GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+
+            // Assert
+            WindDirection generalResultGoverningWindDirection =
+                generalResultSubMechanismIllustrationPoint.GoverningWindDirection;
             AssertWindDirection(governingHydraRingWindDirection, generalResultGoverningWindDirection);
-            CollectionAssert.IsEmpty(generalResultSubMechanismIllustrationPoint.Stochasts);
-            CollectionAssert.IsEmpty(generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints);
+
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint =
+                generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints.Single();
+            AssertWindDirection(hydraRingWindDirection, topLevelFaultTreeIllustrationPoint.WindDirection);
+            Assert.AreEqual(closingSituation, topLevelFaultTreeIllustrationPoint.ClosingSituation);
+
+            IllustrationPointNode faultTreeIllustrationPoint =
+                topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
+            CollectionAssert.IsEmpty(faultTreeIllustrationPoint.Children);
+
+            var faultTreeIllustrationPointData = (FaultTreeIllustrationPoint) faultTreeIllustrationPoint.Data;
+            CollectionAssert.IsEmpty(faultTreeIllustrationPointData.Stochasts);
+            Assert.AreEqual(hydraRingIllustrationPoint.Name, faultTreeIllustrationPointData.Name);
+            Assert.AreEqual(hydraRingIllustrationPoint.Beta, faultTreeIllustrationPointData.Beta,
+                            faultTreeIllustrationPointData.Beta.GetAccuracy());
+            Assert.AreEqual((CombinationType) hydraRingIllustrationPoint.CombinationType, faultTreeIllustrationPointData.CombinationType);
         }
 
         private static void AssertWindDirection(HydraRingWindDirection hydraRingWindDirection, WindDirection windDirection)

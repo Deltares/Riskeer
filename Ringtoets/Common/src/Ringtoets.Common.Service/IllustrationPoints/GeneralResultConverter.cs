@@ -22,12 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraRingIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 using IHydraRingIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
 using HydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
+using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -36,6 +38,13 @@ namespace Ringtoets.Common.Service.IllustrationPoints
     /// </summary>
     public static class GeneralResultConverter
     {
+        private static IEnumerable<Stochast> GetStochasts(HydraRingGeneralResult hydraGeneralResult)
+        {
+            return hydraGeneralResult.Stochasts.Select(StochastConverter.CreateStochast);
+        }
+
+        #region SubMechanismIllustrationPoint
+
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult{T}"/> for top level sub
         /// mechanism illustration points based on the information of <paramref name="hydraRingGeneralResult"/>.
@@ -44,6 +53,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <see cref="GeneralResult{T}"/> to create on.</param>
         /// <returns>The newly created <see cref="GeneralResult{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingGeneralResult"/> is <c>null</c>.</exception>
+        /// <exception cref="IllustrationPointConversionException">Thrown when the <paramref name="hydraRingGeneralResult"/>
+        /// cannot be converted to a <see cref="GeneralResult{T}"/> with top level sub mechanism illustration points.</exception>
         public static GeneralResult<TopLevelSubMechanismIllustrationPoint> CreateGeneralResultTopLevelSubMechanismIllustrationPoint(
             HydraRingGeneralResult hydraRingGeneralResult)
         {
@@ -52,37 +63,128 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingGeneralResult));
             }
 
-            WindDirection windDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
+            WindDirection governingWindDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraRingGeneralResult);
             IEnumerable<TopLevelSubMechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
-                GetWindDirectionClosingSituationIllustrationPoint(hydraRingGeneralResult);
+                GetTopLevelSubMechanismIllustrationPoints(hydraRingGeneralResult.IllustrationPoints);
 
-            return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(windDirection, stochasts, windDirectionClosingScenarioIllustrationPoints);
+            return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
+                                                                            stochasts,
+                                                                            windDirectionClosingScenarioIllustrationPoints);
         }
 
-        private static IEnumerable<Stochast> GetStochasts(HydraRingGeneralResult hydraGeneralResult)
+        /// <summary>
+        /// Creates all the top level fault tree illustration points based on the 
+        /// combinations of <see cref="HydraRingWindDirectionClosingSituation"/> and 
+        /// <see cref="HydraRingFaultTreeIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="hydraRingTopLevelIllustrationPoints">The collection of 
+        /// <see cref="HydraRingWindDirectionClosingSituation"/> and <see cref="HydraRingFaultTreeIllustrationPoint"/> 
+        /// combinations to base the <see cref="TopLevelFaultTreeIllustrationPoint"/> on.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="TopLevelFaultTreeIllustrationPoint"/>.</returns>
+        /// <exception cref="IllustrationPointConversionException">Thrown when the combination of 
+        /// <see cref="HydraRingWindDirectionClosingSituation"/> and <see cref="HydraRingFaultTreeIllustrationPoint"/> 
+        /// cannot be converted to <see cref="TopLevelSubMechanismIllustrationPoint"/>.</exception>
+        private static IEnumerable<TopLevelSubMechanismIllustrationPoint> GetTopLevelSubMechanismIllustrationPoints(
+            IDictionary<HydraRingWindDirectionClosingSituation, HydraRingIllustrationPointTreeNode> hydraRingTopLevelIllustrationPoints)
         {
-            return hydraGeneralResult.Stochasts.Select(StochastConverter.CreateStochast);
-        }
-
-        private static IEnumerable<TopLevelSubMechanismIllustrationPoint> GetWindDirectionClosingSituationIllustrationPoint(
-            HydraRingGeneralResult hydraGeneralResult)
-        {
-            var combinations = new List<TopLevelSubMechanismIllustrationPoint>();
-            foreach (KeyValuePair<HydraRingWindDirectionClosingSituation, HydraRingIllustrationPointTreeNode> illustrationPointTreeNode in hydraGeneralResult.IllustrationPoints)
+            var topLevelIlustrationPoints = new List<TopLevelSubMechanismIllustrationPoint>();
+            foreach (KeyValuePair<HydraRingWindDirectionClosingSituation,
+                HydraRingIllustrationPointTreeNode> topLevelIllustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
             {
-                IHydraRingIllustrationPoint hydraIllustrationPoint = illustrationPointTreeNode.Value.Data;
-                HydraRingWindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
+                IHydraRingIllustrationPoint hydraIllustrationPointData = topLevelIllustrationPointTreeNode.Value.Data;
+                HydraRingWindDirectionClosingSituation hydraWindDirectionClosingSituation = topLevelIllustrationPointTreeNode.Key;
 
-                var subMechanismIllustrationPoint = hydraIllustrationPoint as HydraRingSubMechanismIllustrationPoint;
+                var subMechanismIllustrationPoint = hydraIllustrationPointData as HydraRingSubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    combinations.Add(TopLevelSubMechanismIllustrationPointConverter.Create(
+                    topLevelIlustrationPoints.Add(TopLevelSubMechanismIllustrationPointConverter.Create(
                                          hydraWindDirectionClosingSituation, subMechanismIllustrationPoint));
+                }
+                else
+                {
+                    string exceptionMessage = $"Expected a fault tree node with data of type {typeof(HydraRingSubMechanismIllustrationPoint)} as root, " +
+                                              $"but got {hydraIllustrationPointData.GetType()}";
+                    throw new IllustrationPointConversionException(exceptionMessage);
                 }
             }
 
-            return combinations;
+            return topLevelIlustrationPoints;
         }
+
+        #endregion
+
+        #region FaultTreeIllustrationPoint
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GeneralResult{T}"/> for fault tree illustration points
+        /// based on the information of <see cref="HydraRingGeneralResult"/>.
+        /// </summary>
+        /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/>
+        /// to base the <see cref="GeneralResult{T}"/> to create on.</param>
+        /// <returns>The newly created <see cref="GeneralResult{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingGeneralResult"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="IllustrationPointConversionException">Thrown when the <paramref name="hydraRingGeneralResult"/>
+        /// cannot be converted to a <see cref="GeneralResult{T}"/> with top level fault tree illustration points.</exception>
+        public static GeneralResult<TopLevelFaultTreeIllustrationPoint> CreateGeneralResultTopLevelFaultTreeIllustrationPoint(
+            HydraRingGeneralResult hydraRingGeneralResult)
+        {
+            if (hydraRingGeneralResult == null)
+            {
+                throw new ArgumentNullException(nameof(hydraRingGeneralResult));
+            }
+
+            WindDirection governingWindDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
+            IEnumerable<Stochast> stochasts = GetStochasts(hydraRingGeneralResult);
+            IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelIllustrationPoints =
+                GetTopLevelFaultTreeIllustrationPoints(hydraRingGeneralResult.IllustrationPoints);
+
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(governingWindDirection,
+                                                                         stochasts,
+                                                                         topLevelIllustrationPoints);
+        }
+
+        /// <summary>
+        /// Creates all the top level fault tree illustration points based on the 
+        /// combinations of <see cref="HydraRingWindDirectionClosingSituation"/> and 
+        /// <see cref="HydraRingFaultTreeIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="hydraRingTopLevelIllustrationPoints">The collection of 
+        /// <see cref="HydraRingWindDirectionClosingSituation"/> and <see cref="HydraRingFaultTreeIllustrationPoint"/> 
+        /// combinations to base the <see cref="TopLevelFaultTreeIllustrationPoint"/> on.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="TopLevelFaultTreeIllustrationPoint"/>.</returns>
+        /// <exception cref="IllustrationPointConversionException">Thrown when the combination of 
+        /// <see cref="HydraRingWindDirectionClosingSituation"/> and <see cref="HydraRingFaultTreeIllustrationPoint"/> 
+        /// cannot be converted to <see cref="TopLevelFaultTreeIllustrationPoint"/>.</exception>
+        private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetTopLevelFaultTreeIllustrationPoints(
+            IDictionary<HydraRingWindDirectionClosingSituation, HydraRingIllustrationPointTreeNode> hydraRingTopLevelIllustrationPoints)
+        {
+            var topLevelIllustrationPoints = new List<TopLevelFaultTreeIllustrationPoint>();
+            foreach (KeyValuePair<HydraRingWindDirectionClosingSituation,
+                HydraRingIllustrationPointTreeNode> illustrationPointTreeNode in hydraRingTopLevelIllustrationPoints)
+            {
+                HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode = illustrationPointTreeNode.Value;
+                IHydraRingIllustrationPoint hydraIllustrationPointData = hydraRingIllustrationPointTreeNode.Data;
+                HydraRingWindDirectionClosingSituation hydraWindDirectionClosingSituation = illustrationPointTreeNode.Key;
+
+                var faultTreeIllustrationPoint = hydraIllustrationPointData as HydraRingFaultTreeIllustrationPoint;
+                if (faultTreeIllustrationPoint != null)
+                {
+                    topLevelIllustrationPoints.Add(TopLevelFaultTreeIllustrationPointConverter.Create(
+                                                       hydraWindDirectionClosingSituation, hydraRingIllustrationPointTreeNode));
+                }
+                else
+                {
+                    string exceptionMessage = $"Expected a fault tree node with data of type {typeof(HydraRingFaultTreeIllustrationPoint)} as root, " +
+                                              $"but got {hydraIllustrationPointData.GetType()}";
+                    throw new IllustrationPointConversionException(exceptionMessage);
+                }
+            }
+
+            return topLevelIllustrationPoints;
+        }
+
+        #endregion
     }
 }
