@@ -99,7 +99,6 @@
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
-    <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
     <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointProperties.cs" />

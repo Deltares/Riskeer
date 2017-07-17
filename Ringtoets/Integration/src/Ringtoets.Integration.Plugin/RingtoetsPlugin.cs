@@ -49,7 +49,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
@@ -305,7 +304,6 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<StructuresOutput, StructuresOutputProperties>();
-            yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
@@ -697,15 +695,6 @@ namespace Ringtoets.Integration.Plugin
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<ProbabilityAssessmentOutput>
-            {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 

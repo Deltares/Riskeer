@@ -102,7 +102,6 @@
     <Compile Include="PropertyClasses\TruncatedNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\UseForeshorePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\ProbabilityAssessmentOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointPropertiesTest.cs" />
     <Compile Include="ScenarioSelectionControlTest.cs" />
     <Compile Include="SelectionDialogBaseTest.cs" />

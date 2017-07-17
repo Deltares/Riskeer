@@ -106,7 +106,6 @@
     <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MicrostabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
