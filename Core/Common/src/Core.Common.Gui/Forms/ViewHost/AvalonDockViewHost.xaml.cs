@@ -267,14 +267,9 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnActiveContentChanged(object sender, EventArgs eventArgs)
         {
-            // Note: Raise (un)focus related events manually as changing focus from one WindowsFormsHost to another does not raise them
-            // (see https://msdn.microsoft.com/en-us/library/ms751797(v=vs.100).aspx#Windows_Presentation_Foundation_Application_Hosting).
-            // While doing so:
-            // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
-            // - prevent circular active content changes (which explains the code structure below).
-            if (activeView != null && !removingProgrammatically)
+            if (!removingProgrammatically)
             {
-                PerformWithoutChangingActiveContent(() => NativeMethods.UnfocusActiveControl(activeView as IContainerControl));
+                UnfocusActiveView();
             }
 
             activeView = GetView(DockingManager.ActiveContent);
@@ -289,6 +284,32 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
 
             OnActiveViewChanged();
+        }
+
+        /// <summary>
+        /// Performs unfocus action for the current active view.
+        /// </summary>
+        /// <remarks>
+        /// Raising unfocus events manually is necessary when changing focus from one WindowsFormsHost to another (also see
+        /// https://msdn.microsoft.com/en-us/library/ms751797(v=vs.100).aspx#Windows_Presentation_Foundation_Application_Hosting).
+        ///</remarks>
+        private void UnfocusActiveView()
+        {
+            var containerControl = activeView as IContainerControl;
+            if (containerControl == null)
+            {
+                return;
+            }
+
+            PerformWithoutChangingActiveContent(() =>
+            {
+                while (containerControl.ActiveControl is IContainerControl)
+                {
+                    containerControl = (IContainerControl) containerControl.ActiveControl;
+                }
+
+                containerControl.ActiveControl = null;
+            });
         }
 
         private void OnLayoutDocumentClosed(object sender, EventArgs e)

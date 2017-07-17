@@ -64,25 +64,5 @@ namespace Core.Common.Gui.Forms
         /// <returns></returns>
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         public static extern int SetWindowTheme(IntPtr hWnd, string textSubAppName, string textSubIdList);
-
-        /// <summary>
-        /// Call this method on a view if you want to trigger data binding. For example 
-        /// when switching between views, closing a view or when performing a save.
-        /// </summary>
-        /// <param name="containerControl">Control to unfocus / trigger validation.</param>
-        public static void UnfocusActiveControl(IContainerControl containerControl)
-        {
-            if (containerControl == null)
-            {
-                return;
-            }
-
-            while (containerControl.ActiveControl is IContainerControl)
-            {
-                containerControl = (IContainerControl) containerControl.ActiveControl;
-            }
-
-            containerControl.ActiveControl = null; // Unfocus the current control (to force binding to happen)
-        }
     }
 }
