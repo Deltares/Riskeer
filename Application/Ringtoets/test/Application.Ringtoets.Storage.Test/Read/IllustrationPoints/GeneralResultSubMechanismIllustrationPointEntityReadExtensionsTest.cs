@@ -146,11 +146,11 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             // Assert
             AssertWindDirection(entity, generalResult.GoverningWindDirection);
-            AssertAssertIllustrationPoints(entity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
-                                           generalResult.TopLevelIllustrationPoints.ToArray());
+            AssertIllustrationPoints(entity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
+                                     generalResult.TopLevelIllustrationPoints.ToArray());
         }
 
-        private static void AssertAssertIllustrationPoints(
+        private static void AssertIllustrationPoints(
             IList<TopLevelSubMechanismIllustrationPointEntity> entities,
             IList<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
         {

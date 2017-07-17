@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.IllustrationPoints;
 
@@ -51,7 +49,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 
             WindDirection windDirection = GetWindDirection(entity);
 
-            IllustrationPointNode node = CreateIllustrationPointRootNode(entity.FaultTreeIllustrationPointEntity);
+            IllustrationPointNode node = entity.FaultTreeIllustrationPointEntity.Read();
 
             return new TopLevelFaultTreeIllustrationPoint(windDirection, entity.ClosingSituation, node);
         }
@@ -60,27 +58,6 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         {
             return new WindDirection(entity.WindDirectionName,
                                      entity.WindDirectionAngle);
-        }
-
-        private static IllustrationPointNode CreateIllustrationPointRootNode(FaultTreeIllustrationPointEntity entity)
-        {
-            IEnumerable<Stochast> stochasts = GetReadStochasts(entity.StochastEntities);
-
-            return new IllustrationPointNode(
-                new FaultTreeIllustrationPoint(entity.Name, entity.Beta, stochasts, GetCombinationType(entity)));
-        }
-
-        private static CombinationType GetCombinationType(FaultTreeIllustrationPointEntity entity)
-        {
-            return entity.CombinationType == (byte) CombinationType.And
-                       ? CombinationType.And
-                       : CombinationType.Or;
-        }
-
-        private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)
-        {
-            return stochastEntities.OrderBy(st => st.Order)
-                                   .Select(st => st.Read());
         }
     }
 }

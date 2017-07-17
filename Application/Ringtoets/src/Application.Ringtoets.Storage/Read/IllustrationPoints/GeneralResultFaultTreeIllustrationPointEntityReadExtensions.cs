@@ -77,7 +77,8 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetReadTopLevelFaultTreeIllustrationPoint(
             IEnumerable<TopLevelFaultTreeIllustrationPointEntity> illustrationPointEntities)
         {
-            return new List<TopLevelFaultTreeIllustrationPoint>();
+            return illustrationPointEntities.OrderBy(ip => ip.Order)
+                                            .Select(ip => ip.Read());
         }
     }
 }

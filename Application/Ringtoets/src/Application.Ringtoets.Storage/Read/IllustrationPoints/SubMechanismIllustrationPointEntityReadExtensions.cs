@@ -64,19 +64,15 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         private static IEnumerable<SubMechanismIllustrationPointStochast> GetReadSubMechanismIllustrationPointStochasts(
             IEnumerable<SubMechanismIllustrationPointStochastEntity> stochastEntities)
         {
-            var stochasts = new List<SubMechanismIllustrationPointStochast>();
-            stochasts.AddRange(stochastEntities.OrderBy(st => st.Order)
-                                               .Select(st => st.Read()));
-            return stochasts;
+            return stochastEntities.OrderBy(st => st.Order)
+                                   .Select(st => st.Read());
         }
 
         private static IEnumerable<IllustrationPointResult> GetReadIllustrationPointResults(
             IEnumerable<IllustrationPointResultEntity> illustrationPointResultEntities)
         {
-            var illustrationPointResults = new List<IllustrationPointResult>();
-            illustrationPointResults.AddRange(illustrationPointResultEntities.OrderBy(ipr => ipr.Order)
-                                                                             .Select(ipr => ipr.Read()));
-            return illustrationPointResults;
+            return illustrationPointResultEntities.OrderBy(ipr => ipr.Order)
+                                                  .Select(ipr => ipr.Read());
         }
     }
 }

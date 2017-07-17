@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -64,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntityWithStochasts_ReturnsGeneralResultSubMechanismIllustrationPoint()
+        public void Read_ValidEntityWithStochasts_ReturnsGeneralResultFaultTreeIllustrationPoint()
         {
             // Setup
             var random = new Random(21);
@@ -100,6 +101,58 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             AssertStochasts(entity.StochastEntities.ToArray(), generalResult.Stochasts.ToArray());
         }
 
+        [Test]
+        public void Read_ValidEntityWithIllustrationPoints_ReturnsGeneralResultFaultTreeIllustrationPoint()
+        {
+            // Setup
+            var random = new Random(210);
+
+            var topLevelFaultTreeIllustrationPointEntities = new[]
+            {
+                new TopLevelFaultTreeIllustrationPointEntity
+                {
+                    WindDirectionName = "WindDirectionOne",
+                    WindDirectionAngle = random.NextDouble(),
+                    ClosingSituation = "ClosingSituationOne",
+                    FaultTreeIllustrationPointEntity = new FaultTreeIllustrationPointEntity
+                    {
+                        Beta = random.NextDouble(),
+                        CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                        Name = "IllustrationPointOne"
+                    },
+                    Order = 0
+                },
+                new TopLevelFaultTreeIllustrationPointEntity
+                {
+                    WindDirectionName = "WindDirectionTwo",
+                    WindDirectionAngle = random.NextDouble(),
+                    ClosingSituation = "ClosingSituationTwo",
+                    FaultTreeIllustrationPointEntity = new FaultTreeIllustrationPointEntity
+                    {
+                        Beta = random.NextDouble(),
+                        CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                        Name = "IllustrationPointTwo"
+                    },
+                    Order = 1
+                }
+            };
+
+            var entity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble(),
+                TopLevelFaultTreeIllustrationPointEntities = topLevelFaultTreeIllustrationPointEntities
+            };
+
+            // Call
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = entity.Read();
+
+            // Assert
+            AssertWindDirection(entity, generalResult.GoverningWindDirection);
+            AssertIllustrationPoints(entity.TopLevelFaultTreeIllustrationPointEntities.ToArray(),
+                                     generalResult.TopLevelIllustrationPoints.ToArray());
+        }
+
         private static void AssertWindDirection(IGeneralResultEntity entity, WindDirection windDirection)
         {
             Assert.AreEqual(entity.GoverningWindDirectionName, windDirection.Name);
@@ -122,6 +175,30 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             Assert.AreEqual(stochastEntity.Name, readStochast.Name);
             Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
             Assert.AreEqual(stochastEntity.Duration, readStochast.Duration, readStochast.Duration.GetAccuracy());
+        }
+
+        private static void AssertIllustrationPoints(
+            IList<TopLevelFaultTreeIllustrationPointEntity> entities,
+            IList<TopLevelFaultTreeIllustrationPoint> illustrationPoints)
+        {
+            Assert.AreEqual(entities.Count, illustrationPoints.Count);
+            for (var i = 0; i < entities.Count; i++)
+            {
+                TopLevelFaultTreeIllustrationPoint(entities[i], illustrationPoints[i]);
+            }
+        }
+
+        private static void TopLevelFaultTreeIllustrationPoint(
+            TopLevelFaultTreeIllustrationPointEntity illustrationPointEntity,
+            TopLevelFaultTreeIllustrationPoint illustrationPoint)
+        {
+            Assert.AreEqual(illustrationPointEntity.ClosingSituation, illustrationPoint.ClosingSituation);
+
+            WindDirection actualWindDirection = illustrationPoint.WindDirection;
+            Assert.AreEqual(illustrationPointEntity.WindDirectionName, actualWindDirection.Name);
+            Assert.AreEqual(illustrationPointEntity.WindDirectionAngle, actualWindDirection.Angle, actualWindDirection.Angle);
+
+            Assert.IsNotNull(illustrationPoint.FaultTreeNodeRoot);
         }
     }
 }

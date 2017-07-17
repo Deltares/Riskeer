@@ -78,10 +78,8 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         private static IEnumerable<TopLevelSubMechanismIllustrationPoint> GetReadTopLevelSubMechanismIllustrationPoint(
             IEnumerable<TopLevelSubMechanismIllustrationPointEntity> illustrationPointEntities)
         {
-            var stochasts = new List<TopLevelSubMechanismIllustrationPoint>();
-            stochasts.AddRange(illustrationPointEntities.OrderBy(st => st.Order)
-                                                        .Select(st => st.Read()));
-            return stochasts;
+            return illustrationPointEntities.OrderBy(ip => ip.Order)
+                                            .Select(ip => ip.Read());
         }
     }
 }
