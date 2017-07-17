@@ -131,12 +131,9 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Content = hostControl
             };
 
-            PerformWithoutChangingActiveContent(() =>
-            {
-                AddLayoutDocument(layoutDocument);
-            });
+            PerformWithoutChangingActiveContent(() => { AddLayoutDocument(layoutDocument); });
 
-            BringToFront(view);
+            BringToFront(layoutDocument);
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
@@ -171,12 +168,9 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Title = view.Text
             };
 
-            PerformWithoutChangingActiveContent(() =>
-            {
-                AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
-            });
+            PerformWithoutChangingActiveContent(() => { AddLayoutAnchorable(layoutAnchorable, toolViewLocation); });
 
-            BringToFront(view);
+            BringToFront(layoutAnchorable);
 
             toolViews.Add(view);
             hostControls.Add(hostControl);
@@ -209,21 +203,13 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void BringToFront(IView view)
         {
-            PerformWithoutChangingActiveContent(() =>
-            {
-                LayoutContent layoutContent = documentViews.Contains(view)
-                                                  ? (LayoutContent) GetLayoutContent<LayoutDocument>(view)
-                                                  : toolViews.Contains(view)
-                                                      ? GetLayoutContent<LayoutAnchorable>(view)
-                                                      : null;
+            LayoutContent layoutContent = documentViews.Contains(view)
+                                              ? (LayoutContent) GetLayoutContent<LayoutDocument>(view)
+                                              : toolViews.Contains(view)
+                                                  ? GetLayoutContent<LayoutAnchorable>(view)
+                                                  : null;
 
-                if (layoutContent != null && !layoutContent.IsActive)
-                {
-                    layoutContent.IsActive = true;
-                }
-
-                UpdateDockingManager();
-            });
+            BringToFront(layoutContent);
         }
 
         public void SetImage(IView view, Image image)
@@ -241,6 +227,19 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 Remove(view);
             }
+        }
+
+        private void BringToFront(LayoutContent layoutContent)
+        {
+            PerformWithoutChangingActiveContent(() =>
+            {
+                if (layoutContent != null && !layoutContent.IsActive)
+                {
+                    layoutContent.IsActive = true;
+
+                    UpdateDockingManager();
+                }
+            });
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
