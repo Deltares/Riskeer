@@ -324,10 +324,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Left);
                 SetActiveView(avalonDockViewHost, testView1);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) =>
-                {
-                    activeDocumentViewChangingCounter++;
-                };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
                 avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
 

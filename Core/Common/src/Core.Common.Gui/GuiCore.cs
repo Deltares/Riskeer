@@ -433,7 +433,6 @@ namespace Core.Common.Gui
         {
             mainWindow.Loaded += delegate
             {
-                // Make sure these windows come on top
                 if (ViewHost.ToolViews.Contains(mainWindow.PropertyGrid))
                 {
                     ViewHost.BringToFront(mainWindow.PropertyGrid);

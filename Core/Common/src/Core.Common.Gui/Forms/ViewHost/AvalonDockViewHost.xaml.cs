@@ -98,11 +98,11 @@ namespace Core.Common.Gui.Forms.ViewHost
                     return;
                 }
 
-                OnActiveDocumentViewChangingEvent();
+                OnActiveDocumentViewChanging();
 
                 activeDocumentView = value;
 
-                OnActiveDocumentViewChangedEvent();
+                OnActiveDocumentViewChanged();
             }
         }
 
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             layoutDocument.Closed += OnLayoutDocumentClosed;
 
-            OnViewOpenedEvent(view);
+            OnViewOpened(view);
         }
 
         public void AddToolView(IView view, ToolViewLocation toolViewLocation)
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
             layoutAnchorable.Closing += OnLayoutAnchorableClosing;
 
-            OnViewOpenedEvent(view);
+            OnViewOpened(view);
         }
 
         public void Remove(IView view)
@@ -256,27 +256,27 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
-        private void OnActiveDocumentViewChangingEvent()
+        private void OnActiveDocumentViewChanging()
         {
             ActiveDocumentViewChanging?.Invoke(this, new EventArgs());
         }
 
-        private void OnActiveDocumentViewChangedEvent()
+        private void OnActiveDocumentViewChanged()
         {
             ActiveDocumentViewChanged?.Invoke(this, new EventArgs());
         }
 
-        private void OnActiveViewChangedEvent()
+        private void OnActiveViewChanged()
         {
             ActiveViewChanged?.Invoke(this, new ViewChangeEventArgs(GetView(DockingManager.ActiveContent)));
         }
 
-        private void OnViewOpenedEvent(IView view)
+        private void OnViewOpened(IView view)
         {
             ViewOpened?.Invoke(this, new ViewChangeEventArgs(view));
         }
 
-        private void OnViewClosedEvent(IView view)
+        private void OnViewClosed(IView view)
         {
             ViewClosed?.Invoke(this, new ViewChangeEventArgs(view));
         }
@@ -304,7 +304,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 ActiveDocumentView = null;
             }
 
-            OnActiveViewChangedEvent();
+            OnActiveViewChanged();
         }
 
         private void OnLayoutDocumentClosed(object sender, EventArgs e)
@@ -313,7 +313,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             layoutDocument.Closed -= OnLayoutDocumentClosed;
 
-            OnViewClosed(GetView(layoutDocument.Content));
+            CloseView(GetView(layoutDocument.Content));
         }
 
         private static void OnLayoutAnchorableClosing(object sender, CancelEventArgs eventArgs)
@@ -332,10 +332,10 @@ namespace Core.Common.Gui.Forms.ViewHost
             layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
             layoutAnchorable.Closing -= OnLayoutAnchorableClosing;
 
-            OnViewClosed(GetView(layoutAnchorable.Content));
+            CloseView(GetView(layoutAnchorable.Content));
         }
 
-        private void OnViewClosed(IView view)
+        private void CloseView(IView view)
         {
             if (documentViews.Contains(view))
             {
@@ -351,7 +351,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             view.Data = null;
             view.Dispose();
 
-            OnViewClosedEvent(view);
+            OnViewClosed(view);
         }
 
         private void PerformWithoutChangingActiveContent(Action actionToPerform)
