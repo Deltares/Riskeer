@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Stack.Data;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
@@ -68,7 +69,7 @@ namespace Ringtoets.Common.Forms.Factories
                                                                                                                 controlItem.ClosingSituation))
                                                                           .ToArray();
 
-            bool showClosingSituation = labels.Any(item => item.Item2 != labels.First().Item2);
+            bool showClosingSituation = !IllustrationPointControlItemHelper.AreClosingSituationsSame(illustrationPointControlItems);
 
             foreach (Tuple<string, string> label in labels)
             {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (data != null)
             {
-                if (data.Any(item => item.ClosingSituation != data.First().ClosingSituation))
+                if (!IllustrationPointControlItemHelper.AreClosingSituationsSame(data))
                 {
                     illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
                     return;
