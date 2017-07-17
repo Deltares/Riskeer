@@ -22,21 +22,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// 
+    /// Helper class for <see cref="IllustrationPointControlItem"/>.
     /// </summary>
     public static class IllustrationPointControlItemHelper
     {
         /// <summary>
-        /// 
+        /// Determines whether the items in <paramref name="illustrationPointControlItems"/>
+        /// have the same closing situation.
         /// </summary>
-        /// <param name="illustrationPointControlItems"></param>
-        /// <returns></returns>
+        /// <param name="illustrationPointControlItems">The collection of <see cref="IllustrationPointControlItem"/>
+        /// to determine the closing situations for.</param>
+        /// <returns><c>true</c> if all items in the collection have the same closing situation; 
+        /// <c>false</c> if otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointControlItems"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointControlItems"/>
+        /// contains <c>null</c> items.</exception>
         public static bool AreClosingSituationsSame(IEnumerable<IllustrationPointControlItem> illustrationPointControlItems)
         {
             if (illustrationPointControlItems == null)
