@@ -68,6 +68,28 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             Assert.IsInstanceOf<FaultTreeIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
         }
 
+        [Test]
+        public void CreateGeneralResultWithSubMechanismIllustrationPoints_ExpectedProperties()
+        {
+            // Call
+            TestGeneralResult generalResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints();
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.AreEqual(0, generalResult.Beta);
+
+            var expectedWindDirection = new TestWindDirection();
+            AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+
+            KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> topLevelIllustrationPoint =
+                generalResult.IllustrationPoints.Single();
+            WindDirectionClosingSituation actualWindDirectionClosingSituation = topLevelIllustrationPoint.Key;
+            AssertWindDirection(expectedWindDirection, actualWindDirectionClosingSituation.WindDirection);
+            Assert.AreEqual("closing situation", actualWindDirectionClosingSituation.ClosingSituation);
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
+        }
+
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);

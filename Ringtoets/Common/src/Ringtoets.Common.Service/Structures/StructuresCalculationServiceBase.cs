@@ -28,9 +28,13 @@ using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.Common.Service.ValidationRules;
@@ -38,6 +42,7 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Exceptions;
+using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.Common.Service.Structures
 {
@@ -170,9 +175,14 @@ namespace Ringtoets.Common.Service.Structures
                                                                lengthEffectN,
                                                                calculator.ExceedanceProbabilityBeta);
                     calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
+
+                    if (calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
+                    {
+                        SetIllustrationPointsResult(calculation.Output, calculator.IllustrationPointsResult);
+                    }
                 }
             }
-            catch (HydraRingCalculationException)
+            catch (HydraRingCalculationException e)
             {
                 if (!canceled)
                 {
@@ -182,7 +192,7 @@ namespace Ringtoets.Common.Service.Structures
                                          ? messageProvider.GetCalculationFailedMessage(calculationName)
                                          : messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent);
 
-                    log.Error(message);
+                    log.Error(message, e);
 
                     exceptionThrown = true;
                     throw;
@@ -204,6 +214,32 @@ namespace Ringtoets.Common.Service.Structures
                 if (errorOccurred)
                 {
                     throw new HydraRingCalculationException(lastErrorFileContent);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
+        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="structuresOutput"/>.
+        /// </summary>
+        /// <param name="structuresOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
+        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
+        /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
+        /// <see cref="GeneralResult{T}"/> to create on.</param>
+        private static void SetIllustrationPointsResult(StructuresOutput structuresOutput,
+                                                        HydraRingGeneralResult hydraRingGeneralResult)
+        {
+            if (hydraRingGeneralResult != null)
+            {
+                try
+                {
+                    GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                        GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                    structuresOutput.SetIllustrationPoints(generalResult);
+                }
+                catch (IllustrationPointConversionException e)
+                {
+                    log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
                 }
             }
         }

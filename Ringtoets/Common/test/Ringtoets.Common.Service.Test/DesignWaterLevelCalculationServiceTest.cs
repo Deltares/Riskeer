@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidDesignWaterLevelCalculationAndDoesNotConverge_StartsCalculationWithRightParametersAndLogsWarning(bool readIllustrationPoints)
+        public void Calculate_ValidDesignWaterLevelCalculationAndDoesNotConverge_SetsOutputAndLogs(bool readIllustrationPoints)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationButInvalidIllustrationPointResults_StartsCalculationWithRightParametersAndLogsWarning()
+        public void Calculate_ValidDesignWaterLevelCalculationButInvalidIllustrationPointResults_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -298,10 +298,6 @@ namespace Ringtoets.Common.Service.Test
 
                     Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[1].Item3);
                 });
-
-                AssessmentLevelCalculationInput expectedInput = CreateInput(id, norm);
-                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
-                Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.HasIllustrationPoints);
             }
@@ -487,15 +483,22 @@ namespace Ringtoets.Common.Service.Test
                 };
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] generatedMessages = messages.ToArray();
+
+                    string[] msgs = generatedMessages.Select(msg => msg.Item1).ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(calculationFailedMessage, msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+
+                    if (!endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
+                    {
+                        Assert.IsInstanceOf<HydraRingCalculationException>(generatedMessages[1].Item3);
+                    }
                 });
 
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);

@@ -63,7 +63,8 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
-            Assert.IsFalse(output.HasIllustrationPoints);
+            Assert.IsFalse(structuresOutput.HasIllustrationPoints);
+            Assert.IsNull(structuresOutput.GeneralFaultTreeIllustrationPoint);
         }
 
         [Test]
@@ -71,14 +72,15 @@ namespace Ringtoets.Common.Data.Test.Structures
         {
             // Setup
             var random = new Random(21);
-            var output = new ProbabilityAssessmentOutput(random.NextDouble(),
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble());
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
 
             // Call
-            TestDelegate call = () => output.SetIllustrationPoints(null) ;
+            TestDelegate call = () => structuresOutput.SetIllustrationPoints(null) ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -92,18 +94,20 @@ namespace Ringtoets.Common.Data.Test.Structures
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
             var random = new Random(21);
-            var output = new ProbabilityAssessmentOutput(random.NextDouble(),
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble(),
                                                          random.NextDouble());
 
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+
             // Call
-            output.SetIllustrationPoints(generalResult);
+            structuresOutput.SetIllustrationPoints(generalResult);
 
             // Assert
-            Assert.AreSame(generalResult, output.GeneralFaultTreeIllustrationPoint);
-            Assert.IsTrue(output.HasIllustrationPoints);
+            Assert.AreSame(generalResult, structuresOutput.GeneralFaultTreeIllustrationPoint);
+            Assert.IsTrue(structuresOutput.HasIllustrationPoints);
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.Structures
@@ -49,5 +50,38 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets the probabilistic assessment output.
         /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
+
+        /// <summary>
+        /// Gets the value indicating whether the output contains illustration points.
+        /// </summary>
+        public bool HasIllustrationPoints
+        {
+            get
+            {
+                return GeneralFaultTreeIllustrationPoint != null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the general result with the fault tree illustration points.
+        /// </summary>
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralFaultTreeIllustrationPoint { get; private set; }
+
+        /// <summary>
+        /// Sets the general result of this output with the fault tree illustration points.
+        /// </summary>
+        /// <param name="generalResultFaultTreeIllustrationPoint">The general result which belongs
+        /// to this output.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultFaultTreeIllustrationPoint"/>
+        /// is <c>null</c>.</exception>
+        public void SetIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFaultTreeIllustrationPoint)
+        {
+            if (generalResultFaultTreeIllustrationPoint == null)
+            {
+                throw new ArgumentNullException(nameof(generalResultFaultTreeIllustrationPoint));
+            }
+
+            GeneralFaultTreeIllustrationPoint = generalResultFaultTreeIllustrationPoint;
+        }
     }
 }

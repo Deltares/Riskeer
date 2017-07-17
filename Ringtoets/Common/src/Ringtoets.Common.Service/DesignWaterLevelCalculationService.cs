@@ -121,9 +121,9 @@ namespace Ringtoets.Common.Service
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
-                    log.Error(!string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorContent)
-                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, e.Message),
+                    log.Error(string.IsNullOrEmpty(lastErrorContent)
+                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, e.Message)
+                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorContent),
                               e);
 
                     exceptionThrown = true;
@@ -219,7 +219,7 @@ namespace Ringtoets.Common.Service
                 }
                 catch (IllustrationPointConversionException e)
                 {
-                    log.Warn("Het uitlezen van illustratiepunten is mislukt.", e);
+                    log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
                 }
             }
         }

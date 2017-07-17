@@ -53,5 +53,19 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
             return generalResult;
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestGeneralResult"/> with only sub mechanism
+        /// illustration points.
+        /// </summary>
+        /// <returns>A <see cref="TestGeneralResult"/> with sub mechanism illustration points.</returns>
+        public static TestGeneralResult CreateGeneralResultWithSubMechanismIllustrationPoints()
+        {
+            var generalResult = new TestGeneralResult();
+            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(new TestWindDirection(), "closing situation"),
+                                                 new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint()));
+
+            return generalResult;
+        }
     }
 }

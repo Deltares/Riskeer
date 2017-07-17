@@ -209,4 +209,7 @@
   <data name="DesignWaterLevelCalculationService_SetIllustrationPointsResult_No_general_result_found" xml:space="preserve">
     <value>Er konden geen illustratiepunten worden uitgelezen.</value>
   </data>
+  <data name="SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
+    <value>Het uitlezen van illustratiepunten is mislukt.</value>
+  </data>
 </root>
