@@ -116,7 +116,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             const string closingSituationClosed = "Closed";
             const string closingSituationOpen = "Open";
             const string windDirectionName = "SSE";
-            var beta = (RoundedDouble)3.14;
+            var beta = (RoundedDouble) 3.14;
 
             var stackChartData = new StackChartData();
             var controlItems = new[]

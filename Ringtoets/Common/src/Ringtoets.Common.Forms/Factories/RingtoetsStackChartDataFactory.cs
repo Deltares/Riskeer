@@ -106,15 +106,20 @@ namespace Ringtoets.Common.Forms.Factories
 
             foreach (IllustrationPointControlItem illustrationPointControlItem in illustrationPointControlItems)
             {
-                stochastValues.AddRange(illustrationPointControlItem.Stochasts
-                                                                    .Select(illustrationPointStochast =>
-                                                                                new Tuple<string, RoundedDouble>(illustrationPointStochast.Name,
-                                                                                                          new RoundedDouble(5, Math.Pow(illustrationPointStochast.Alpha, 2)))));
+                stochastValues.AddRange(GetStochastValues(illustrationPointControlItem));
             }
 
             IDictionary<string, List<RoundedDouble>> stochasts = CreateStochastsLookup(stochastValues);
 
             CreateRowsForStochasts(stackChartData, stochasts);
+        }
+
+        private static IEnumerable<Tuple<string, RoundedDouble>> GetStochastValues(IllustrationPointControlItem illustrationPointControlItem)
+        {
+            return illustrationPointControlItem.Stochasts
+                                               .Select(stochast => new Tuple<string, RoundedDouble>(
+                                                           stochast.Name,
+                                                           new RoundedDouble(5, Math.Pow(stochast.Alpha, 2))));
         }
 
         private static IDictionary<string, List<RoundedDouble>> CreateStochastsLookup(IEnumerable<Tuple<string, RoundedDouble>> stochastValues)
