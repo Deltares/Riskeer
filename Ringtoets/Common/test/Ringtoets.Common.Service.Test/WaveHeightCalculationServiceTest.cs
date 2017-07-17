@@ -23,8 +23,10 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
@@ -128,7 +130,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidWaveHeightCalculation_StartsCalculationWithRightParameters(bool readIllustrationPoints)
+        public void Calculate_ValidWaveHeightCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool readIllustrationPoints)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -139,7 +141,8 @@ namespace Ringtoets.Common.Service.Test
 
             var calculator = new TestWaveHeightCalculator
             {
-                IllustrationPointsResult = new TestGeneralResult()
+                IllustrationPointsResult = new TestGeneralResult(),
+                Converged = true
             };
 
             var mockRepository = new MockRepository();
@@ -151,23 +154,154 @@ namespace Ringtoets.Common.Service.Test
             calculation.Expect(c => c.Id).Return(id);
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustrationPoints);
 
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                new WaveHeightCalculationService().Calculate(calculation,
-                                                             validFilePath,
-                                                             norm,
-                                                             calculationMessageProvider);
+                Action call = () => new WaveHeightCalculationService().Calculate(calculation,
+                                                                                 validFilePath,
+                                                                                 norm,
+                                                                                 calculationMessageProvider);
 
                 // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+                });
+
                 AssessmentLevelCalculationInput expectedInput = CreateInput(id, norm);
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
-
+                Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_ValidWaveHeightCalculationAndDoesNotConverge_StartsCalculationWithRightParametersAndLogsWarning(bool readIllustrationPoints)
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, validFile);
+
+            const long id = 100;
+            const string locationName = "punt_flw_ 1";
+            const double norm = 1.0 / 30;
+
+            var calculator = new TestWaveHeightCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult(),
+                Converged = false
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(id);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustrationPoints);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            const string failedConvergenceMessage = "Did not converge";
+            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                Action call = () => new WaveHeightCalculationService().Calculate(calculation,
+                                                                                 validFilePath,
+                                                                                 norm,
+                                                                                 calculationMessageProvider);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual(failedConvergenceMessage, msgs[1]);
+                    Assert.AreEqual($"Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+
+                AssessmentLevelCalculationInput expectedInput = CreateInput(id, norm);
+                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
+                Assert.IsFalse(calculator.IsCanceled);
+                Assert.IsNotNull(calculation.Output);
+                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidDesignWaterLevelCalculationButInvalidIllustrationPointResults_StartsCalculationWithRightParametersAndLogsWarning()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, validFile);
+
+            const long id = 100;
+            const string locationName = "punt_flw_ 1";
+            const double norm = 1.0 / 30;
+
+            var calculator = new TestWaveHeightCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints(),
+                Converged = true
+            };
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(id);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                Action call = () => new WaveHeightCalculationService().Calculate(calculation,
+                                                                                 validFilePath,
+                                                                                 norm,
+                                                                                 calculationMessageProvider);
+
+                // Assert
+                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[1]);
+                    Assert.AreEqual($"Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[1].Item3);
+                });
+
+                AssessmentLevelCalculationInput expectedInput = CreateInput(id, norm);
+                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
+                Assert.IsFalse(calculator.IsCanceled);
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -40,17 +42,34 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
 
             var expectedWindDirection = new TestWindDirection();
             AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
-            Assert.IsEmpty(generalResult.Stochasts);
-            Assert.IsEmpty(generalResult.IllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+            CollectionAssert.IsEmpty(generalResult.IllustrationPoints);
+        }
+
+        [Test]
+        public void CreateGeneralResultWithFaultTreeIllustrationPoints_ExpectedProperties()
+        {
+            // Call
+            TestGeneralResult generalResult = TestGeneralResult.CreateGeneralResultWithFaultTreeIllustrationPoints();
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.AreEqual(0, generalResult.Beta);
+
+            var expectedWindDirection = new TestWindDirection();
+            AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
+
+            KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> topLevelIllustrationPoint =
+                generalResult.IllustrationPoints.Single();
+            WindDirectionClosingSituation actualWindDirectionClosingSituation = topLevelIllustrationPoint.Key;
+            AssertWindDirection(expectedWindDirection, actualWindDirectionClosingSituation.WindDirection);
+            Assert.AreEqual("closing situation", actualWindDirectionClosingSituation.ClosingSituation);
+            Assert.IsInstanceOf<FaultTreeIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)
         {
-            if (expected == null)
-            {
-                Assert.IsNull(actual);
-                return;
-            }
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Angle, actual.Angle);
         }

@@ -38,5 +38,20 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
                    new TestWindDirection(),
                    Enumerable.Empty<Stochast>(),
                    new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>()) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestGeneralResult"/> with only fault tree
+        /// illustration points.
+        /// </summary>
+        /// <returns>A <see cref="TestGeneralResult"/> with fault tree illustration points.</returns>
+        public static TestGeneralResult CreateGeneralResultWithFaultTreeIllustrationPoints()
+        {
+            var generalResult = new TestGeneralResult();
+
+            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(new TestWindDirection(), "closing situation"),
+                                                 new IllustrationPointTreeNode(new TestFaultTreeIllustrationPoint()));
+
+            return generalResult;
+        }
     }
 }

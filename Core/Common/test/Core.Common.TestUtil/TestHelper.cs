@@ -228,6 +228,19 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Method use to perform any type of assertion on the generated log while performing
+        /// a particular action.
+        /// </summary>
+        /// <param name="action">Action to be performed while recording the log.</param>
+        /// <param name="assertLogMessagesAndExceptions">The assertion logic performed on the generated log-messages.</param>
+        public static void AssertLogMessagesAndLoggedExceptions(Action action,
+                                                                Action<IEnumerable<Tuple<string, Level, Exception>>> assertLogMessagesAndExceptions)
+        {
+            IEnumerable<Tuple<string, Level, Exception>> renderedMessages = GetAllRenderedMessagesWithExceptions(action);
+            assertLogMessagesAndExceptions(renderedMessages);
+        }
+
+        /// <summary>
         /// Checks the number of messages in the log.
         /// </summary>
         /// <param name="action">Action to be performed while recording the log</param>
@@ -582,6 +595,26 @@ namespace Core.Common.TestUtil
             action();
 
             List<Tuple<string, Level>> renderedMessages = memoryAppender.GetEvents().Select(le => Tuple.Create(le.RenderedMessage, le.Level)).ToList();
+
+            memoryAppender.Close();
+            LogHelper.ResetLogging();
+
+            return renderedMessages;
+        }
+
+        private static IEnumerable<Tuple<string, Level, Exception>> GetAllRenderedMessagesWithExceptions(Action action)
+        {
+            var memoryAppender = new MemoryAppender();
+            BasicConfigurator.Configure(memoryAppender);
+            LogHelper.SetLoggingLevel(Level.All);
+
+            action();
+
+            List<Tuple<string, Level, Exception>> renderedMessages = memoryAppender.GetEvents()
+                                                                                   .Select(le => Tuple.Create(le.RenderedMessage,
+                                                                                                              le.Level,
+                                                                                                              le.ExceptionObject))
+                                                                                   .ToList();
 
             memoryAppender.Close();
             LogHelper.ResetLogging();

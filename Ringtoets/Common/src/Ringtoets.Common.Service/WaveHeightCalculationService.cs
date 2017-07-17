@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.IO.HydraRing;
@@ -211,9 +212,16 @@ namespace Ringtoets.Common.Service
         {
             if (hydraRingGeneralResult != null)
             {
-                GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
-                    GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
+                try
+                {
+                    GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                        GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+                    hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
+                }
+                catch (IllustrationPointConversionException e)
+                {
+                    log.Warn("Het uitlezen van illustratiepunten is mislukt.", e);
+                }
             }
         }
 
