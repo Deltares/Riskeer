@@ -131,7 +131,6 @@
     <Compile Include="ExceptionDialog.Designer.cs">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NativeMethods.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>

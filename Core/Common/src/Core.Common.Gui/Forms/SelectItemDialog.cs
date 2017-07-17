@@ -46,13 +46,6 @@ namespace Core.Common.Gui.Forms
             InitializeComponent();
 
             this.text = text;
-
-            listViewItemTypes.HandleCreated += ListViewItemTypesOnHandleCreated;
-
-            // http://blogs.msdn.com/b/oldnewthing/archive/2005/05/03/414317.aspx
-            // WM_CHANGEUISTATE, UIS_INITIALIZE
-            // Sometimes required by controls, e.g. ListView. If this is not called - dotted focus rectangle is not drawn.
-            NativeMethods.SendMessage(Handle, 0x127, 0x30001, 0);
         }
 
         /// <summary>
@@ -124,11 +117,6 @@ namespace Core.Common.Gui.Forms
                 int selectedIndex = listViewItemTypes.SelectedIndices[0];
                 return listViewItemTypes.Items[selectedIndex];
             }
-        }
-
-        private void ListViewItemTypesOnHandleCreated(object sender, EventArgs eventArgs)
-        {
-            NativeMethods.SetWindowTheme(listViewItemTypes.Handle, Resources.SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer, null);
         }
 
         private bool ContainsCategory(string category)

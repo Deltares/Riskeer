@@ -1575,15 +1575,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verkenner.
-        /// </summary>
-        public static string SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer {
-            get {
-                return ResourceManager.GetString("SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to - (Standaard).
         /// </summary>
         public static string SelectViewDialog_listBox_DrawItem_Default {
