@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Service.IllustrationPoints;
@@ -56,7 +55,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var hydraRingStochast = new HydraRingStochast("stochast", 1, 2);
-            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("point", 3, new []
+            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("point", 3, new[]
             {
                 hydraRingStochast
             }, HydraRingCombinationType.And);
@@ -71,7 +70,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Name, faultTreeIllustrationPointTreeNodeData.Name);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPointTreeNodeData.Beta);
-            Assert.AreEqual((int) hydraRingFaultTreeIllustrationPoint.CombinationType, (int) faultTreeIllustrationPointTreeNodeData.CombinationType);
+            Assert.AreEqual(CombinationType.And, faultTreeIllustrationPointTreeNodeData.CombinationType);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Stochasts.Count(), faultTreeIllustrationPointTreeNodeData.Stochasts.Count());
             Stochast stochast = faultTreeIllustrationPointTreeNodeData.Stochasts.First();
 

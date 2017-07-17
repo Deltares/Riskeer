@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             // Assert
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta.GetAccuracy());
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Name, faultTreeIllustrationPoint.Name);
-            Assert.AreEqual((int) hydraRingFaultTreeIllustrationPoint.CombinationType, (int) faultTreeIllustrationPoint.CombinationType);
+            Assert.AreEqual(CombinationType.And, faultTreeIllustrationPoint.CombinationType);
 
             Stochast stochast = faultTreeIllustrationPoint.Stochasts.Single();
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());

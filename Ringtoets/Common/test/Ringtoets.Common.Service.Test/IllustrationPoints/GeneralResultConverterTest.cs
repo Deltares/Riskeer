@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 "IllustrationPoint",
                 random.NextDouble(),
                 Enumerable.Empty<HydraRingStochast>(),
-                random.NextEnumValue<HydraRingCombinationType>());
+                HydraRingCombinationType.Or);
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 
             double governingWindDirectionAngle = random.NextDouble();
@@ -309,7 +309,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingIllustrationPoint.Name, faultTreeIllustrationPointData.Name);
             Assert.AreEqual(hydraRingIllustrationPoint.Beta, faultTreeIllustrationPointData.Beta,
                             faultTreeIllustrationPointData.Beta.GetAccuracy());
-            Assert.AreEqual((CombinationType) hydraRingIllustrationPoint.CombinationType, faultTreeIllustrationPointData.CombinationType);
+            Assert.AreEqual(CombinationType.Or, faultTreeIllustrationPointData.CombinationType);
         }
 
         private static void AssertWindDirection(HydraRingWindDirection hydraRingWindDirection, WindDirection windDirection)

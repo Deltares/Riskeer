@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// </summary>
     public enum CombinationType
     {
-        Or,
-        And
+        Or = 1,
+        And = 2
     }
 }

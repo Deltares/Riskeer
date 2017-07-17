@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -44,17 +43,16 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidHydraRingCombinationType_ReturnCombinationType()
+        [TestCase(HydraRingCombinationType.And, CombinationType.And)]
+        [TestCase(HydraRingCombinationType.Or, CombinationType.Or)]
+        public void Create_HydraRingCombinationType_ReturnCombinationType(HydraRingCombinationType hydraRingCombinationType,
+                                                                          CombinationType expectedCombinationType)
         {
-            // Setup
-            var random = new Random();
-            var hydraRingCombinationType = random.NextEnumValue<HydraRingCombinationType>();
-
             // Call
             CombinationType combinationType = CombinationTypeConverter.Create(hydraRingCombinationType);
 
             // Assert
-            Assert.AreEqual((int) hydraRingCombinationType, (int) combinationType);
+            Assert.AreEqual(expectedCombinationType, combinationType);
         }
     }
 }
