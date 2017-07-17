@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
@@ -45,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         [Test]
-        public void Read_ValidEntity_ReturnsIllustrationPointNode()
+        public void Read_ValidEntityWithStochasts_ReturnsIllustrationPointNode()
         {
             // Setup
             var random = new Random(21);
@@ -82,20 +83,211 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             CollectionAssert.IsEmpty(node.Children);
         }
 
-        private static void AssertStochasts(StochastEntity[] stochastEntities, Stochast[] stochasts)
+        [Test]
+        public void Read_ValidEntityWithIllustrationPoints_ReturnsIllustrationPointNode()
         {
-            Assert.AreEqual(stochastEntities.Length, stochasts.Length);
-            for (var i = 0; i < stochasts.Length; i++)
+            // Setup
+            var random = new Random(21);
+            var entity = new FaultTreeIllustrationPointEntity
             {
-                AssertStochast(stochastEntities[i], stochasts[i]);
+                Name = "FaultTreeIllustrationPointEntity",
+                Beta = random.NextDouble(),
+                CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                SubMechanismIllustrationPointEntities =
+                {
+                    new SubMechanismIllustrationPointEntity
+                    {
+                        Name = "SubMechanismIllustrationPointEntity",
+                        Beta = random.NextDouble(),
+                        Order = 10
+                    }
+                },
+                FaultTreeIllustrationPointEntity1 =
+                {
+                    new FaultTreeIllustrationPointEntity
+                    {
+                        Name = "FaultTreeIllustrationPointEntity",
+                        Beta = random.NextDouble(),
+                        CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                        Order = 5
+                    }
+                }
+            };
+
+            // Call
+            IllustrationPointNode node = entity.Read();
+
+            // Assert
+            var illustrationPoint = node.Data as FaultTreeIllustrationPoint;
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(entity.Name, illustrationPoint.Name);
+            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual((CombinationType) entity.CombinationType, illustrationPoint.CombinationType);
+
+            IllustrationPointNode[] children = node.Children.ToArray();
+            Assert.AreEqual(2, children.Length);
+
+            AssertFaultTreeIllustrationPoint(entity.FaultTreeIllustrationPointEntity1.First(), children[0]);
+            AssertSubMechanismIllustrationPoint(entity.SubMechanismIllustrationPointEntities.First(), children[1]);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithNestedIllustrationPoints_ReturnsIllustrationPointNodeWithNesting()
+        {
+            // Setup
+            var random = new Random(21);
+            var entity = new FaultTreeIllustrationPointEntity
+            {
+                Name = "FaultTreeIllustrationPointEntity",
+                Beta = random.NextDouble(),
+                CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                SubMechanismIllustrationPointEntities =
+                {
+                    new SubMechanismIllustrationPointEntity
+                    {
+                        Name = "SubMechanismIllustrationPointEntity",
+                        Beta = random.NextDouble(),
+                        Order = 0
+                    }
+                },
+                FaultTreeIllustrationPointEntity1 =
+                {
+                    new FaultTreeIllustrationPointEntity
+                    {
+                        Name = "FaultTreeIllustrationPointEntityChild",
+                        Beta = random.NextDouble(),
+                        CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                        Order = 1,
+                        FaultTreeIllustrationPointEntity1 =
+                        {
+                            new FaultTreeIllustrationPointEntity
+                            {
+                                Name = "FaultTreeIllustrationPointEntityChildsChild",
+                                Beta = random.NextDouble(),
+                                CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                                Order = 0
+                            },
+                            new FaultTreeIllustrationPointEntity
+                            {
+                                Name = "FaultTreeIllustrationPointEntityChildsSecondChild",
+                                Beta = random.NextDouble(),
+                                CombinationType = Convert.ToByte(random.NextEnumValue<CombinationType>()),
+                                Order = 1
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Call
+            IllustrationPointNode node = entity.Read();
+
+            // Assert
+            var illustrationPoint = node.Data as FaultTreeIllustrationPoint;
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(entity.Name, illustrationPoint.Name);
+            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual((CombinationType) entity.CombinationType, illustrationPoint.CombinationType);
+
+            IllustrationPointNode[] children = node.Children.ToArray();
+            Assert.AreEqual(2, children.Length);
+
+            AssertIllustrationPointNodes(entity.FaultTreeIllustrationPointEntity1, children);
+            AssertIllustrationPointNodes(entity.SubMechanismIllustrationPointEntities, children);
+        }
+
+        private static void AssertIllustrationPointNodes(ICollection<FaultTreeIllustrationPointEntity> entities,
+                                                         IEnumerable<IllustrationPointNode> nodes)
+        {
+            FaultTreeIllustrationPointEntity[] entitiesArray = entities.OrderBy(ip => ip.Order).ToArray();
+            IllustrationPointNode[] faultTreeNodes = nodes.Where(n => n.Data.GetType() == typeof(FaultTreeIllustrationPoint)).ToArray();
+
+            Assert.AreEqual(entitiesArray.Length, faultTreeNodes.Length);
+
+            for (var i = 0; i < faultTreeNodes.Length; i++)
+            {
+                FaultTreeIllustrationPointEntity entity = entitiesArray[i];
+                IllustrationPointNode node = faultTreeNodes[i];
+
+                AssertFaultTreeIllustrationPoint(entity, node);
             }
         }
 
-        private static void AssertStochast(StochastEntity stochastEntity, Stochast readStochast)
+        private static void AssertIllustrationPointNodes(ICollection<SubMechanismIllustrationPointEntity> entities,
+                                                         IEnumerable<IllustrationPointNode> nodes)
         {
-            Assert.AreEqual(stochastEntity.Name, readStochast.Name);
-            Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
-            Assert.AreEqual(stochastEntity.Duration, readStochast.Duration, readStochast.Duration.GetAccuracy());
+            SubMechanismIllustrationPointEntity[] entitiesArray = entities.OrderBy(ip => ip.Order).ToArray();
+            IllustrationPointNode[] subMechanismNodes = nodes.Where(n => n.Data.GetType() == typeof(SubMechanismIllustrationPoint)).ToArray();
+
+            Assert.AreEqual(entitiesArray.Length, subMechanismNodes.Length);
+
+            for (var i = 0; i < subMechanismNodes.Length; i++)
+            {
+                SubMechanismIllustrationPointEntity entity = entitiesArray[i];
+                IllustrationPointNode node = subMechanismNodes[i];
+
+                AssertSubMechanismIllustrationPoint(entity, node);
+            }
+        }
+
+        private static void AssertFaultTreeIllustrationPoint(FaultTreeIllustrationPointEntity entity,
+                                                             IllustrationPointNode node)
+        {
+            var illustrationPoint = node.Data as FaultTreeIllustrationPoint;
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(entity.Name, illustrationPoint.Name);
+            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual((CombinationType) entity.CombinationType, illustrationPoint.CombinationType);
+            AssertStochasts(entity.StochastEntities.ToArray(), illustrationPoint.Stochasts.ToArray());
+
+            AssertIllustrationPointNodes(entity.FaultTreeIllustrationPointEntity1, node.Children);
+            AssertIllustrationPointNodes(entity.SubMechanismIllustrationPointEntities, node.Children);
+        }
+
+        private static void AssertSubMechanismIllustrationPoint(SubMechanismIllustrationPointEntity entity,
+                                                                IllustrationPointNode node)
+        {
+            var illustrationPoint = node.Data as SubMechanismIllustrationPoint;
+            Assert.IsNotNull(illustrationPoint);
+            Assert.AreEqual(entity.Name, illustrationPoint.Name);
+            Assert.AreEqual(entity.Beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            AssertStochasts(entity.SubMechanismIllustrationPointStochastEntities.ToArray(), illustrationPoint.Stochasts.ToArray());
+
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.IllustrationPointResults);
+            CollectionAssert.IsEmpty(node.Children);
+        }
+
+        private static void AssertStochasts(SubMechanismIllustrationPointStochastEntity[] stochastEntities,
+                                            SubMechanismIllustrationPointStochast[] stochasts)
+        {
+            Assert.AreEqual(stochastEntities.Length, stochasts.Length);
+
+            for (var i = 0; i < stochasts.Length; i++)
+            {
+                SubMechanismIllustrationPointStochastEntity stochastEntity = stochastEntities[i];
+                SubMechanismIllustrationPointStochast stochast = stochasts[i];
+
+                Assert.AreEqual(stochastEntity.Name, stochast.Name);
+                Assert.AreEqual(stochastEntity.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+                Assert.AreEqual(stochastEntity.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
+                Assert.AreEqual(stochastEntity.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
+            }
+        }
+
+        private static void AssertStochasts(StochastEntity[] stochastEntities, Stochast[] stochasts)
+        {
+            Assert.AreEqual(stochastEntities.Length, stochasts.Length);
+
+            for (var i = 0; i < stochasts.Length; i++)
+            {
+                StochastEntity stochastEntity = stochastEntities[i];
+                Stochast stochast = stochasts[i];
+
+                Assert.AreEqual(stochastEntity.Name, stochast.Name);
+                Assert.AreEqual(stochastEntity.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+                Assert.AreEqual(stochastEntity.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            }
         }
     }
 }

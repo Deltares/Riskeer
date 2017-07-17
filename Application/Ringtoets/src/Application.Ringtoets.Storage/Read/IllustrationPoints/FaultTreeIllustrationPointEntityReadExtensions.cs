@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
@@ -49,14 +50,57 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new IllustrationPointNode(GetFaultTreeIllustrationPoint(entity));
+            var node = new IllustrationPointNode(GetFaultTreeIllustrationPoint(entity));
+
+            node.SetChildren(GetChildren(entity).ToArray());
+
+            return node;
+        }
+
+        private static IEnumerable<IllustrationPointNode> GetChildren(FaultTreeIllustrationPointEntity entity)
+        {
+            foreach (object childEntity in GetChildEntitiesInOrder(entity))
+            {
+                var faultTreeIllustrationPointEntity = childEntity as FaultTreeIllustrationPointEntity;
+                if (faultTreeIllustrationPointEntity != null)
+                {
+                    yield return faultTreeIllustrationPointEntity.Read();
+                }
+
+                var subMechanismIllustrationPointEntity = childEntity as SubMechanismIllustrationPointEntity;
+                if (subMechanismIllustrationPointEntity != null)
+                {
+                    yield return new IllustrationPointNode(subMechanismIllustrationPointEntity.Read());
+                }
+            }
+        }
+
+        private static IEnumerable GetChildEntitiesInOrder(FaultTreeIllustrationPointEntity entity)
+        {
+            var sortedList = new SortedList();
+
+            foreach (FaultTreeIllustrationPointEntity childEntity in entity.FaultTreeIllustrationPointEntity1
+                                                                           .OrderBy(ip => ip.Order))
+            {
+                sortedList.Add(childEntity.Order, childEntity);
+            }
+            foreach (SubMechanismIllustrationPointEntity childEntity in entity.SubMechanismIllustrationPointEntities
+                                                                              .OrderBy(ip => ip.Order))
+            {
+                sortedList.Add(childEntity.Order, childEntity);
+            }
+
+            return sortedList.Values;
         }
 
         private static FaultTreeIllustrationPoint GetFaultTreeIllustrationPoint(FaultTreeIllustrationPointEntity entity)
         {
             IEnumerable<Stochast> stochasts = GetReadStochasts(entity.StochastEntities);
 
-            return new FaultTreeIllustrationPoint(entity.Name, entity.Beta, stochasts, GetCombinationType(entity));
+            return new FaultTreeIllustrationPoint(entity.Name,
+                                                  entity.Beta,
+                                                  stochasts,
+                                                  GetCombinationType(entity));
         }
 
         private static CombinationType GetCombinationType(FaultTreeIllustrationPointEntity entity)
