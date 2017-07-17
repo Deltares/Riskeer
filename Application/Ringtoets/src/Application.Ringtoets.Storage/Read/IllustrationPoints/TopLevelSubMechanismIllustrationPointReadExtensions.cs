@@ -47,14 +47,20 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var windDirection = new WindDirection(entity.WindDirectionName,
-                                                  entity.WindDirectionAngle);
+            WindDirection windDirection = GetWindDirection(entity);
+
             SubMechanismIllustrationPoint subMechanismIllustrationPoint =
                 entity.SubMechanismIllustrationPointEntity.Read();
 
             return new TopLevelSubMechanismIllustrationPoint(windDirection,
                                                              entity.ClosingSituation,
                                                              subMechanismIllustrationPoint);
+        }
+
+        private static WindDirection GetWindDirection(ITopLevelIllustrationPointEntity entity)
+        {
+            return new WindDirection(entity.WindDirectionName,
+                                     entity.WindDirectionAngle);
         }
     }
 }

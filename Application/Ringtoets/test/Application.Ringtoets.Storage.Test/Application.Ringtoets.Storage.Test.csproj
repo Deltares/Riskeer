@@ -135,6 +135,7 @@
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />

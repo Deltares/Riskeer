@@ -374,6 +374,7 @@
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\SubMechanismIllustrationPointStochastEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
+    <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\IStructureCalculationEntityReadExtensions.cs" />

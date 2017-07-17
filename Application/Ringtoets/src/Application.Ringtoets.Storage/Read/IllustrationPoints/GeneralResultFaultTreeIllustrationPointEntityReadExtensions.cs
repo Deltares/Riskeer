@@ -70,10 +70,8 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)
         {
-            var stochasts = new List<Stochast>();
-            stochasts.AddRange(stochastEntities.OrderBy(st => st.Order)
-                                               .Select(st => st.Read()));
-            return stochasts;
+            return stochastEntities.OrderBy(st => st.Order)
+                                   .Select(st => st.Read());
         }
 
         private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetReadTopLevelFaultTreeIllustrationPoint(
