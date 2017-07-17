@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
@@ -101,47 +100,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.AreNotEqual(0, activeViewChangedCounter);
             Assert.IsNull(avalonDockViewHost.ActiveDocumentView);
             Assert.IsFalse(IsAnyViewActive(avalonDockViewHost));
-        }
-
-        [Test]
-        public void GivenHostWithView_WhenHostFocusLost_ViewChildrenAreValidated()
-        {
-            // Setup
-            const string validatingTextBoxEventName = "Validating_TextBox", validatedTextBoxEventName = "Validated_TextBox";
-            const string validatingNumericUpDownEventName = "Validating_NumericUpDown", validatedNumericUpDownEventName = "Validated_NumericUpDown";
-            var firedEvents = new List<string>();
-
-            var control1 = new TextBox();
-            control1.Validating += (sender, args) => firedEvents.Add(validatingTextBoxEventName);
-            control1.Validated += (sender, args) => firedEvents.Add(validatedTextBoxEventName);
-
-            var control2 = new NumericUpDown();
-            control2.Validating += (sender, args) => firedEvents.Add(validatingNumericUpDownEventName);
-            control2.Validated += (sender, args) => firedEvents.Add(validatedNumericUpDownEventName);
-
-            var testView = new TestView();
-            testView.Controls.AddRange(new Control[]
-            {
-                control1,
-                control2
-            });
-
-            using (var avalonDockViewHost = new AvalonDockViewHost())
-            {
-                avalonDockViewHost.AddDocumentView(testView);
-                SetActiveView(avalonDockViewHost, testView);
-
-                // When
-                avalonDockViewHost.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
-            }
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                validatingTextBoxEventName,
-                validatedTextBoxEventName,
-                validatingNumericUpDownEventName,
-                validatedNumericUpDownEventName
-            }, firedEvents);
         }
 
         private class TestView : UserControl, IView

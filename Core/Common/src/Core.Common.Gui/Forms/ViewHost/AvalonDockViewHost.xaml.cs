@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
@@ -66,7 +65,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             hostControls = new List<WindowsFormsHost>();
 
             DockingManager.ActiveContentChanged += OnActiveContentChanged;
-            LostFocus += OnLostFocus;
         }
 
         public IEnumerable<IView> DocumentViews
@@ -240,20 +238,6 @@ namespace Core.Common.Gui.Forms.ViewHost
                     UpdateDockingManager();
                 }
             });
-        }
-
-        private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
-        {
-            var userControl = activeView as UserControl;
-            if (userControl != null)
-            {
-                // Note: Raise (un)focus related events manually as changing focus from one WindowsFormsHost to another does not raise them
-                // (see https://msdn.microsoft.com/en-us/library/ms751797(v=vs.100).aspx#Windows_Presentation_Foundation_Application_Hosting).
-                // While doing so:
-                // - prevent unfocus actions when removing views programmatically (not necessary and might interfere with AvalonDock's active content change behavior);
-                // - prevent circular active content changes (which explains the code structure below).
-                PerformWithoutChangingActiveContent(() => userControl.ValidateChildren());
-            }
         }
 
         private void OnActiveDocumentViewChanging()
