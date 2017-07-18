@@ -240,6 +240,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var calculationWithOutput = (StructuresCalculation<HeightStructuresInput>) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
+            Assert.IsTrue(calculationWithOutput.Output.HasIllustrationPoints);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
@@ -264,6 +265,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var calculationWithOutput = (StructuresCalculation<ClosingStructuresInput>) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
+            Assert.IsTrue(calculationWithOutput.Output.HasIllustrationPoints);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
@@ -306,8 +308,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
 
             var calculationWithOutput = (StructuresCalculation<StabilityPointStructuresInput>) firstCalculationGroup.Children[0];
-            Assert.AreEqual("Calculation 1", calculationWithOutput.Name);
             Assert.IsTrue(calculationWithOutput.HasOutput);
+            Assert.IsTrue(calculationWithOutput.Output.HasIllustrationPoints);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);

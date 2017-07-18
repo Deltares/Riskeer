@@ -420,6 +420,51 @@ namespace Application.Ringtoets.Storage.TestUtil
             return (AssessmentLayerTwoAResult) random.Next(1, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length + 1);
         }
 
+        private static StructuresOutput GetStructuresOutputWithIllustrationPoints()
+        {
+            var random = new Random(56);
+            var output = new StructuresOutput(new ProbabilityAssessmentOutput(random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble()));
+            output.SetIllustrationPoints(GetConfiguredGeneralResultFaultTreeIllustrationPoint());
+            return output;
+        }
+
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetConfiguredGeneralResultFaultTreeIllustrationPoint()
+        {
+            var random = new Random(57);
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                new WindDirection("GoverningWindDirection",
+                                  random.NextDouble()),
+                new[]
+                {
+                    new Stochast("Stochast",
+                                 random.NextDouble(),
+                                 random.NextDouble())
+                },
+                new[]
+                {
+                    new TopLevelFaultTreeIllustrationPoint(
+                        new WindDirection("WindDirection",
+                                          random.NextDouble()),
+                        "ClosingSituation",
+                        new IllustrationPointNode(
+                            new FaultTreeIllustrationPoint("FaultTreeIllustrationPoint",
+                                                           random.NextDouble(),
+                                                           new[]
+                                                           {
+                                                               new Stochast("Stochast",
+                                                                            random.NextDouble(),
+                                                                            random.NextDouble())
+                                                           }, random.NextEnumValue<CombinationType>()
+                            ))
+                    )
+                }
+            );
+        }
+
         #region StabilityPointStructures FailureMechanism
 
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
@@ -477,9 +522,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) random.NextDouble()
                             },
-                            Structure = stabilityPointStructure
+                            Structure = stabilityPointStructure,
+                            ShouldIllustrationPointsBeCalculated = true
                         },
-                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.7, 0.85, 0.9, 0.10, 0.11))
+                        Output = GetStructuresOutputWithIllustrationPoints()
                     }
                 }
             });
@@ -558,9 +604,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             Structure = closingStructure,
                             UseBreakWater = true,
-                            UseForeshore = true
+                            UseForeshore = true,
+                            ShouldIllustrationPointsBeCalculated = true
                         },
-                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12))
+                        Output = GetStructuresOutputWithIllustrationPoints()
                     }
                 }
             });
@@ -686,9 +733,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) 1.7
                             },
-                            Structure = heightStructure
+                            Structure = heightStructure,
+                            ShouldIllustrationPointsBeCalculated = true
                         },
-                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12))
+                        Output = GetStructuresOutputWithIllustrationPoints()
                     }
                 }
             });
