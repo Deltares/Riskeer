@@ -70,6 +70,8 @@ namespace Ringtoets.Common.Forms.Views
             this.BorderStyle = BorderStyle.FixedSingle;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(400, 300);
             this.Controls.Add(this.stackChartControl);
             this.Name = "IllustrationPointsChartControl";
             this.ResumeLayout(false);
