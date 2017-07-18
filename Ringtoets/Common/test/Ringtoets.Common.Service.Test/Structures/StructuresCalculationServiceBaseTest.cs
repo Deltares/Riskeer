@@ -30,12 +30,10 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
 using Ringtoets.Common.Service.TestUtil;
-using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -613,8 +611,6 @@ namespace Ringtoets.Common.Service.Test.Structures
             const string calculationPerformedMessage = "Calculation performed";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
 
-
-            // TODO: WTI-1308 remove if statement when it's clear what needs to be done
             if (endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
             {
                 messageProvider.Expect(mp => mp.GetCalculationFailedMessage(calculation.Name)).Return(calculationFailedMessage);
@@ -649,21 +645,14 @@ namespace Ringtoets.Common.Service.Test.Structures
                 };
 
                 // Assert
-                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessages(call, messages =>
                 {
-                    Tuple<string, Level, Exception>[] generatedMessages = messages.ToArray();
-
-                    string[] msgs = generatedMessages.Select(msg => msg.Item1).ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(calculationFailedMessage, msgs[1]);
                     Assert.AreEqual(calculationPerformedMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
-
-                    if (!endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
-                    {
-                        Assert.IsInstanceOf<HydraRingCalculationException>(generatedMessages[1].Item3);
-                    }
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);

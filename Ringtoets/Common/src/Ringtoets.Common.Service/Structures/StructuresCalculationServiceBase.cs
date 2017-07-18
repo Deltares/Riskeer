@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Service.Structures
                     }
                 }
             }
-            catch (HydraRingCalculationException e)
+            catch (HydraRingCalculationException)
             {
                 if (!canceled)
                 {
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.Service.Structures
                                          ? messageProvider.GetCalculationFailedMessage(calculationName)
                                          : messageProvider.GetCalculationFailedWithErrorReportMessage(calculationName, lastErrorFileContent);
 
-                    log.Error(message, e);
+                    log.Error(message);
 
                     exceptionThrown = true;
                     throw;
