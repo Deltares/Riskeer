@@ -44,13 +44,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public StochasticSoilModelUpdateDataStrategy(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism, new SoilModelNameEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.StochasticSoilModels, new SoilModelNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
-                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-                                                                    string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
+            return UpdateTargetCollectionData(stochasticSoilModels, sourceFilePath);
         }
 
         #region Remove Data Functions

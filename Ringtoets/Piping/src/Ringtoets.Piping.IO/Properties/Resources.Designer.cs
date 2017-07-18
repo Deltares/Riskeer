@@ -82,76 +82,11 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_File_invalid_header {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_File_invalid_header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to locatie &apos;{0}&apos;.
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_LocationName_0_ {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_LocationName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regel heeft geen ID..
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separat" +
-                        "or_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst..
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_val" +
-                        "ues_for_characteristic_points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}..
         /// </summary>
         public static string Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_ {
             get {
                 return ResourceManager.GetString("Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
-        /// </summary>
-        public static string Error_CharacteristicPoint_has_not_double {
-            get {
-                return ResourceManager.GetString("Error_CharacteristicPoint_has_not_double", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
-        /// </summary>
-        public static string Error_CharacteristicPoint_parsing_causes_overflow {
-            get {
-                return ResourceManager.GetString("Error_CharacteristicPoint_parsing_causes_overflow", resourceCulture);
             }
         }
         
@@ -171,24 +106,6 @@ namespace Ringtoets.Piping.IO.Properties {
             get {
                 return ResourceManager.GetString("Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" +
                         "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
-        /// </summary>
-        public static string Error_SurfaceLine_has_not_double {
-            get {
-                return ResourceManager.GetString("Error_SurfaceLine_has_not_double", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
-        /// </summary>
-        public static string Error_SurfaceLine_parsing_causes_overflow {
-            get {
-                return ResourceManager.GetString("Error_SurfaceLine_parsing_causes_overflow", resourceCulture);
             }
         }
         
@@ -323,70 +240,6 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string PipingSoilProfileReader_SoilProfileName_0_ {
             get {
                 return ResourceManager.GetString("PipingSoilProfileReader_SoilProfileName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1)..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_File_invalid_header {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_File_invalid_header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regel heeft geen ID..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_ {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_trip" +
-                        "let", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to profielschematisatie &apos;{0}&apos;.
-        /// </summary>
-        public static string PipingSurfaceLinesCsvReader_SurfaceLineName_0_ {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
             }
         }
         

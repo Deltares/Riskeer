@@ -120,12 +120,6 @@
   <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_" xml:space="preserve">
     <value>Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
-  <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">
-    <value>Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>
-  </data>
-  <data name="Error_SurfaceLine_parsing_causes_overflow" xml:space="preserve">
-    <value>Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
-  </data>
   <data name="Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" xml:space="preserve">
     <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
   </data>
@@ -134,21 +128,6 @@
   </data>
   <data name="PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
     <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
-    <value>Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry" xml:space="preserve">
-    <value>Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
-    <value>Ontbrekend scheidingsteken '{0}'.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
-    <value>Regel heeft geen ID.</value>
   </data>
   <data name="PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
@@ -168,35 +147,8 @@
   <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
     <value>Coördinaat van een punt bevat ongeldige waarde.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
-    <value>profielschematisatie '{0}'</value>
-  </data>
   <data name="PipingSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
     <value>ondergrondschematisatie '{0}'</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
-    <value>Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
-  </data>
-  <data name="Error_CharacteristicPoint_has_not_double" xml:space="preserve">
-    <value>Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>
-  </data>
-  <data name="Error_CharacteristicPoint_parsing_causes_overflow" xml:space="preserve">
-    <value>Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
-    <value>locatie '{0}'</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID" xml:space="preserve">
-    <value>Regel heeft geen ID.</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
-    <value>Ontbrekend scheidingsteken '{0}'.</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
-    <value>Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
-    <value>Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
   </data>
   <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
     <value>Kon geen stochastische ondergrondmodellen verkrijgen uit de database.</value>

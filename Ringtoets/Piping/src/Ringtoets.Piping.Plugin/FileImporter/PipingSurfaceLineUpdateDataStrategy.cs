@@ -25,10 +25,10 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
-using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -37,22 +37,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
-                                                                ISurfaceLineUpdateDataStrategy
+    public class PipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
+                                                       ISurfaceLineUpdateDataStrategy<RingtoetsPipingSurfaceLine>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineUpdateDataStrategy"/>.
+        /// Creates a new instance of <see cref="PipingSurfaceLineUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
+        public PipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
+            : base(failureMechanism, failureMechanism?.SurfaceLines, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsPipingSurfaceLineCollection targetDataCollection,
-                                                                           IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
-                                                                           string sourceFilePath)
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readRingtoetsPipingSurfaceLines, sourceFilePath);
+            return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)

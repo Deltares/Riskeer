@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
@@ -45,13 +44,11 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
         /// <param name="failureMechanism">The failure mechanism in which the closing structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public ClosingStructureReplaceDataStrategy(ClosingStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+            : base(failureMechanism, failureMechanism?.ClosingStructures) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<ClosingStructure> targetDataCollection,
-                                                                         IEnumerable<ClosingStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<ClosingStructure> readStructures, string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStructures, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

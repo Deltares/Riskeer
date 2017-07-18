@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), null, string.Empty);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -83,25 +83,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new StochasticSoilModelCollection(), new List<StochasticSoilModel>(), null);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("sourceFilePath", paramName);
-        }
-
-        [Test]
-        public void UpdateModelWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(null, new List<StochasticSoilModel>(), string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
@@ -124,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);
@@ -148,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, sourceFilePath);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(test);
@@ -167,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var targetCollection = new StochasticSoilModelCollection();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, importedStochasticSoilModels, "path");
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");
 
             // Assert
             Assert.IsEmpty(targetCollection);
@@ -189,12 +175,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var readModel = new TestStochasticSoilModel("read");
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(
-                failureMechanism.StochasticSoilModels,
-                new[]
-                {
-                    readModel
-                }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
+            {
+                readModel
+            }, sourceFilePath);
 
             // Assert
             Assert.AreSame(readModel, failureMechanism.StochasticSoilModels[0]);
@@ -211,17 +195,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
             var readModel = new TestStochasticSoilModel(modelsName);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
             {
                 readModel
             }, sourceFilePath);
@@ -243,17 +228,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
-            var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
             StochasticSoilModel readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
             {
                 readModel
             }, sourceFilePath);
@@ -276,7 +262,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -295,14 +282,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             calculationWithDeletedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
             calculationWithDeletedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationWithDeletedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
             {
                 readModel
             }, sourceFilePath).ToArray();
@@ -330,7 +316,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -350,14 +337,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithUpdatedProfile);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
             {
                 readModel
             }, sourceFilePath).ToArray();
@@ -406,7 +392,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(stochasticSoilModelCollection, new List<StochasticSoilModel>(), sourceFilePath).ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -427,7 +413,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string modelsName = "same model";
             var existingModel = new TestStochasticSoilModel(modelsName);
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -448,14 +435,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = unaffectedProfile;
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithRemovedProfile);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(targetCollection, new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
             {
                 readModel
             }, sourceFilePath).ToArray();

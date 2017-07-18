@@ -159,9 +159,6 @@
   <data name="StochasticSoilProfile_Probability_Should_be_in_range_0_" xml:space="preserve">
     <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen.</value>
   </data>
-  <data name="PipingSurfaceLineCollection_TypeDescriptor" xml:space="preserve">
-    <value>Profielschematisaties</value>
-  </data>
   <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
   </data>

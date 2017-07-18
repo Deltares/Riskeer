@@ -78,6 +78,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Importers\MacrostabilityInwardsSurfaceLineTransformerTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
-    <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLinesCsvReaderTest.cs" />
     <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>

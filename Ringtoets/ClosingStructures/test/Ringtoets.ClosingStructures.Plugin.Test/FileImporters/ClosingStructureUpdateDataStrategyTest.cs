@@ -70,29 +70,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
-
-            // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null, Enumerable.Empty<ClosingStructure>(),
-                                                                                string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_ReadStructuresNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(new StructureCollection<ClosingStructure>(),
-                                                                                null,
+            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
                                                                                 string.Empty);
 
             // Assert
@@ -107,8 +91,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(new StructureCollection<ClosingStructure>(),
-                                                                                Enumerable.Empty<ClosingStructure>(),
+            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
                                                                                 null);
 
             // Assert
@@ -131,8 +114,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                readStructures,
+            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(readStructures,
                                                                                 sourceFilePath);
 
             // Assert
@@ -168,8 +150,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                readStructures,
+            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(readStructures,
                                                                                 sourceFilePath);
 
             // Assert
@@ -202,8 +183,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
-                                                                                                 importedStructures,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(importedStructures,
                                                                                                  sourceFilePath);
 
             // Assert
@@ -239,8 +219,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
-                                                                                                 importedStructures, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(importedStructures, sourceFilePath);
 
             // Assert
             Assert.AreEqual(1, structures.Count);
@@ -281,8 +260,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
-                                                                                                 importedStructures, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(importedStructures, sourceFilePath);
 
             // Assert
             Assert.AreEqual(2, structures.Count);
@@ -311,16 +289,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             // Setup
             ClosingStructure structure = new TestClosingStructure();
 
-            var targetCollection = new StructureCollection<ClosingStructure>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            StructureCollection<ClosingStructure> targetCollection = failureMechanism.ClosingStructures;
             targetCollection.AddRange(new[]
             {
                 structure
             }, sourceFilePath);
-            var strategy = new ClosingStructureUpdateDataStrategy(new ClosingStructuresFailureMechanism());
+            var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                                 new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
                                                                                                  {
                                                                                                      readStructure
                                                                                                  },
@@ -369,8 +347,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(failureMechanism.ClosingStructures,
-                                                                                                 new[]
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
                                                                                                  {
                                                                                                      readStructure
                                                                                                  },
@@ -439,12 +416,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             ClosingStructure readUnaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
-                                                                                                 new[]
-                                                                                                 {
-                                                                                                     readAffectedStructure,
-                                                                                                     readUnaffectedStructure
-                                                                                                 }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
+            {
+                readAffectedStructure,
+                readUnaffectedStructure
+            }, sourceFilePath);
             // Assert
             Assert.IsTrue(affectedCalculation.HasOutput);
             ClosingStructure inputParametersAffectedStructure = affectedCalculation.InputParameters.Structure;
@@ -501,9 +477,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                targetDataCollection,
-                Enumerable.Empty<ClosingStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
                 sourceFilePath);
 
             // Assert
@@ -569,11 +543,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             ClosingStructure readUnaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(targetDataCollection,
-                                                                                                 new[]
-                                                                                                 {
-                                                                                                     readUnaffectedStructure
-                                                                                                 }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
+            {
+                readUnaffectedStructure
+            }, sourceFilePath);
             // Assert
             Assert.IsFalse(affectedCalculation.HasOutput);
             Assert.IsNull(affectedCalculation.InputParameters.Structure);
@@ -629,11 +602,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(structures,
-                                                                                                 new[]
-                                                                                                 {
-                                                                                                     structureToUpdateFrom
-                                                                                                 }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
+            {
+                structureToUpdateFrom
+            }, sourceFilePath);
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -699,12 +671,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             Assert.IsNull(sectionResults[1].Calculation);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.ClosingStructures,
-                new[]
-                {
-                    readStructure
-                },
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
+                                                                                                 {
+                                                                                                     readStructure
+                                                                                                 },
                 sourceFilePath);
 
             // Assert
@@ -773,9 +743,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             Assert.AreSame(calculation, sectionResults[0].Calculation);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.ClosingStructures,
-                Enumerable.Empty<ClosingStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
                 sourceFilePath);
 
             // Assert

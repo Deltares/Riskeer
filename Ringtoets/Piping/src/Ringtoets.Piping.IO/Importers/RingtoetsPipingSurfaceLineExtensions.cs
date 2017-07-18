@@ -22,10 +22,11 @@
 using System;
 using Core.Common.Base.Geometry;
 using log4net;
-using Ringtoets.Piping.Plugin.Properties;
+using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+using Resources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
     /// Extension methods for the <see cref="RingtoetsPipingSurfaceLine"/> class.
@@ -198,7 +199,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private static void LogError(RingtoetsPipingSurfaceLine surfaceLine, ArgumentException e)
         {
-            log.ErrorFormat(Resources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
+            log.ErrorFormat(Resources.SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
                             surfaceLine.Name,
                             e.Message);
         }

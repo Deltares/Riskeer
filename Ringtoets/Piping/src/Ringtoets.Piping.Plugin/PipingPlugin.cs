@@ -41,6 +41,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
@@ -93,12 +94,16 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ImportInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new ImportMessageProvider(), new RingtoetsPipingSurfaceLineReplaceDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                    context.WrappedData,
+                    filePath,
+                    new ImportMessageProvider(),
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm)
             };
 
@@ -139,13 +144,17 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Name = PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => PipingSurfaceLinesCsvImporter(context, filePath, new UpdateMessageProvider(), new RingtoetsPipingSurfaceLineUpdateDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                    context.WrappedData,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
@@ -257,7 +266,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
             {
-                Text = ringtoetsPipingSurfaceLine => PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
+                Text = ringtoetsPipingSurfaceLine => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
@@ -1058,25 +1067,13 @@ namespace Ringtoets.Piping.Plugin
 
         #region Ringtoets piping surface line importer
 
-        private static PipingSurfaceLinesCsvImporter PipingSurfaceLinesCsvImporter(RingtoetsPipingSurfaceLinesContext context,
-                                                                                   string filePath,
-                                                                                   IImporterMessageProvider messageProvider,
-                                                                                   ISurfaceLineUpdateDataStrategy strategy)
-        {
-            return new PipingSurfaceLinesCsvImporter(context.WrappedData,
-                                                     context.AssessmentSection.ReferenceLine,
-                                                     filePath,
-                                                     messageProvider,
-                                                     strategy);
-        }
-
         private static FileFilterGenerator RingtoetsPipingSurfaceLineFileFilter
         {
             get
             {
                 return new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    $"{RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

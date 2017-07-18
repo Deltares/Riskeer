@@ -60,6 +60,10 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

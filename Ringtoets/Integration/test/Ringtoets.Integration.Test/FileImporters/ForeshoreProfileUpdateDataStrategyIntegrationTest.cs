@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Test.FileImporters
             ForeshoreProfile profileToUpdateFrom = DeepCloneAndModify(profileToBeUpdated);
             ForeshoreProfile profileToBeRemoved = foreshoreProfiles[1];
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism, foreshoreProfiles);
 
             ICalculation<ICalculationInput>[] calculationsWithUpdatedForeshoreProfile =
                 failureMechanism.Calculations
@@ -103,8 +103,7 @@ namespace Ringtoets.Integration.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 new[]
+                strategy.UpdateForeshoreProfilesWithImportedData(new[]
                                                                  {
                                                                      profileToUpdateFrom,
                                                                      new TestForeshoreProfile(unaffectedForeshoreProfile.Name,

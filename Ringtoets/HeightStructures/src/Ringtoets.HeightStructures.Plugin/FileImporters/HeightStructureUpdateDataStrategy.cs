@@ -35,7 +35,7 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
+    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
     /// updating height structures based on imported data.
     /// </summary>
     public class HeightStructureUpdateDataStrategy : UpdateDataStrategyBase<HeightStructure, HeightStructuresFailureMechanism>,
@@ -47,13 +47,11 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         /// <param name="failureMechanism">The failure mechanism in which the structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public HeightStructureUpdateDataStrategy(HeightStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism, new StructureIdEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.HeightStructures, new StructureIdEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<HeightStructure> targetDataCollection,
-                                                                         IEnumerable<HeightStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<HeightStructure> readStructures, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
+            return UpdateTargetCollectionData(readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(HeightStructure removedObject)

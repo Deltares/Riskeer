@@ -75,8 +75,7 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<ForeshoreProfile> importedForeshoreProfiles =
                 CreateForeshoreProfiles(importProfileLocationResult.Items, importDikeProfileDataResult.Items);
 
-            affectedObjects = foreshoreProfileUpdateStrategy.UpdateForeshoreProfilesWithImportedData(ImportTarget,
-                                                                                                     importedForeshoreProfiles,
+            affectedObjects = foreshoreProfileUpdateStrategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
                                                                                                      FilePath);
         }
 

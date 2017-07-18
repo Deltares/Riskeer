@@ -68,30 +68,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
-
-            // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
-                                                                                Enumerable.Empty<HeightStructure>(),
-                                                                                string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_ReadHeightStructuresNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(new StructureCollection<HeightStructure>(),
-                                                                                null,
+            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
                                                                                 string.Empty);
 
             // Assert
@@ -106,8 +89,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(new StructureCollection<HeightStructure>(),
-                                                                                Enumerable.Empty<HeightStructure>(),
+            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                                                                                 null);
 
             // Assert
@@ -119,15 +101,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         public void UpdateStructuresWithImportedData_DifferentSourcePath_UpdatesSourcePathOfTargetCollection()
         {
             // Setup 
-            var targetCollection = new StructureCollection<HeightStructure>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            StructureCollection<HeightStructure> targetCollection = failureMechanism.HeightStructures;
 
-            var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
+            var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
             const string newSourcePath = "some/other/path";
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                targetCollection,
-                Enumerable.Empty<HeightStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                 newSourcePath);
 
             // Assert
@@ -144,14 +125,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var targetCollection = new StructureCollection<HeightStructure>();
+            StructureCollection<HeightStructure> targetCollection = failureMechanism.HeightStructures;
 
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                targetCollection,
-                Enumerable.Empty<HeightStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                 sourceFilePath);
 
             // Assert
@@ -176,9 +155,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.HeightStructures,
-                importedStructures,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(importedStructures,
                 sourceFilePath);
 
             // Assert
@@ -206,12 +183,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.HeightStructures,
-                new[]
-                {
-                    importedStructure
-                }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
+            {
+                importedStructure
+            }, sourceFilePath);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -258,9 +233,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.HeightStructures,
-                Enumerable.Empty<HeightStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                 sourceFilePath).ToArray();
 
             // Assert
@@ -305,9 +278,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.HeightStructures,
-                Enumerable.Empty<HeightStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                 sourceFilePath).ToArray();
 
             // Assert
@@ -362,9 +333,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(
-                failureMechanism.HeightStructures,
-                Enumerable.Empty<HeightStructure>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
                 sourceFilePath).ToArray();
 
             // Assert
@@ -393,8 +362,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(targetCollection,
-                                                                                importedHeightStructures,
+            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedHeightStructures,
                                                                                 sourceFilePath);
 
             // Assert

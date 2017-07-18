@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Utils;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating 
+    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating 
     /// dike profiles based on imported data.
     /// </summary>
     public class GrassCoverErosionInwardsDikeProfileUpdateDataStrategy
@@ -48,13 +48,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-            : base(failureMechanism, new DikeProfileIdEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.DikeProfiles, new DikeProfileIdEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(DikeProfileCollection targetDataCollection,
-                                                                           IEnumerable<DikeProfile> importedDataCollection,
-                                                                           string sourceFilePath)
+        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(IEnumerable<DikeProfile> importedDataCollection, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, importedDataCollection, sourceFilePath);
+            return UpdateTargetCollectionData(importedDataCollection, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(DikeProfile removedObject)

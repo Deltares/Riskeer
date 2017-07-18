@@ -27,6 +27,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 
@@ -35,7 +36,7 @@ namespace Ringtoets.Piping.Primitives
     /// <summary>
     /// Definition of a surfaceline for piping.
     /// </summary>
-    public class RingtoetsPipingSurfaceLine : Observable
+    public class RingtoetsPipingSurfaceLine : Observable, IMechanismSurfaceLine
     {
         private const int numberOfDecimalPlaces = 2;
         private Point2D[] localGeometry;

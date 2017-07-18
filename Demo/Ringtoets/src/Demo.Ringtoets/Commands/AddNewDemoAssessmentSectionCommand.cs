@@ -38,6 +38,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -46,6 +47,7 @@ using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -538,12 +540,12 @@ namespace Demo.Ringtoets.Commands
                                                                                    "DR6_surfacelines.csv",
                                                                                    "DR6_surfacelines.krp.csv"))
             {
-                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines,
-                                                                             demoAssessmentSection.ReferenceLine,
-                                                                             Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
-                                                                                          "DR6_surfacelines.csv"),
-                                                                             new ImportMessageProvider(),
-                                                                             new RingtoetsPipingSurfaceLineReplaceDataStrategy(pipingFailureMechanism));
+                var surfaceLinesImporter = new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                    pipingFailureMechanism.SurfaceLines,
+                    Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
+                                 "DR6_surfacelines.csv"),
+                    new ImportMessageProvider(),
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(demoAssessmentSection.PipingFailureMechanism, demoAssessmentSection.ReferenceLine));
                 surfaceLinesImporter.Import();
             }
 

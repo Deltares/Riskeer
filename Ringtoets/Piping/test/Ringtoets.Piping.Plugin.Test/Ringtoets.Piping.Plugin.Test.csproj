@@ -68,10 +68,10 @@
     </Compile>
     <Compile Include="ExportInfos\PipingCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\PipingCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FileImporter\RingtoetsPipingSurfaceLineReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\PipingSurfaceLineReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineUpdateDataStrategyTest.cs" />
-    <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
-    <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
+    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
+    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="ImportInfos\PipingCalculationGroupContextImportInfoTest.cs" />

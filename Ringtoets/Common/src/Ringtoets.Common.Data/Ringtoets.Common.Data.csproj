@@ -83,6 +83,7 @@
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPoint.cs" />
     <Compile Include="Hydraulics\IHydraulicBoundaryWrapperCalculation.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculation.cs" />
+    <Compile Include="IMechanismSurfaceLine.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />

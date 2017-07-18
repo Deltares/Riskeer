@@ -46,14 +46,19 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     {
         protected readonly TFailureMechanism FailureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
+        private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
+        /// Creates a new instance of <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which needs to be updated.</param>
+        /// <param name="targetCollection">The collection to add the updated objects to.</param>
         /// <param name="equalityComparer">The comparer which should be used to determine when two objects are equal.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected UpdateDataStrategyBase(TFailureMechanism failureMechanism, IEqualityComparer<TTargetData> equalityComparer)
+        protected UpdateDataStrategyBase(
+            TFailureMechanism failureMechanism,
+            ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection,
+            IEqualityComparer<TTargetData> equalityComparer)
         {
             if (failureMechanism == null)
             {
@@ -63,8 +68,13 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(equalityComparer));
             }
+            if (targetCollection == null)
+            {
+                throw new ArgumentNullException(nameof(targetCollection));
+            }
 
             this.equalityComparer = equalityComparer;
+            this.targetCollection = targetCollection;
             FailureMechanism = failureMechanism;
         }
 
@@ -89,22 +99,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// Updates the items and their associated data within the target collection with the data contained 
         /// in the imported data collection.
         /// </summary>
-        /// <param name="targetDataCollection">The target collection that needs to be updated.</param>
         /// <param name="importedDataCollection">The imported data collection that is used to update
-        /// the <paramref name="targetDataCollection"/>.</param>
+        /// the <see cref="targetCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when an error occurred while updating the data.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="importedDataCollection"/> contains 
         /// <c>null</c> elements.</exception>
-        protected IEnumerable<IObservable> UpdateTargetCollectionData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
-                                                                      IEnumerable<TTargetData> importedDataCollection,
+        protected IEnumerable<IObservable> UpdateTargetCollectionData(IEnumerable<TTargetData> importedDataCollection,
                                                                       string sourceFilePath)
         {
-            if (targetDataCollection == null)
-            {
-                throw new ArgumentNullException(nameof(targetDataCollection));
-            }
             if (importedDataCollection == null)
             {
                 throw new ArgumentNullException(nameof(importedDataCollection));
@@ -113,8 +117,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
-
-            return ModifyDataCollection(targetDataCollection, importedDataCollection, sourceFilePath);
+            return ModifyDataCollection(importedDataCollection, sourceFilePath);
         }
 
         /// <summary>
@@ -122,38 +125,36 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// when compared with the imported data and performs the necessary operations for 
         /// the dependent data of the affected elements. 
         /// </summary>
-        /// <param name="targetDataCollection">The target data collection which needs to be updated.</param>
         /// <param name="importedDataCollection">The imported data collection which is used to update 
-        /// the <paramref name="targetDataCollection"/>.</param>
+        /// the <see cref="targetCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> with affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when:
         /// <list type="bullet">
-        /// <item>duplicate items are being added to the <paramref name="targetDataCollection"/>.</item>
+        /// <item>duplicate items are being added to the <see cref="targetCollection"/>.</item>
         /// <item>duplicate items are found in the <paramref name="importedDataCollection"/>.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="targetDataCollection"/> 
-        /// or <paramref name="importedDataCollection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importedDataCollection"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="importedDataCollection"/> contains 
         /// <c>null</c> elements.</exception>
-        private IEnumerable<IObservable> ModifyDataCollection(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
-                                                              IEnumerable<TTargetData> importedDataCollection,
+        private IEnumerable<IObservable> ModifyDataCollection(IEnumerable<TTargetData> importedDataCollection,
                                                               string sourceFilePath)
         {
             TTargetData[] importedObjects = importedDataCollection.ToArray();
 
-            var modification = new CollectionModification(targetDataCollection, importedObjects, equalityComparer);
+            var modification = new CollectionModification(targetCollection, importedObjects, equalityComparer);
 
             var affectedObjects = new List<IObservable>();
             if (modification.HasUpdates())
             {
-                affectedObjects.Add(targetDataCollection);
+                affectedObjects.Add(targetCollection);
             }
             affectedObjects.AddRange(UpdateData(modification.ObjectsToBeUpdated.Values, importedObjects));
             affectedObjects.AddRange(RemoveData(modification.ObjectsToBeRemoved));
-            targetDataCollection.Clear();
-            targetDataCollection.AddRange(modification.GetModifiedCollection(), sourceFilePath);
+            targetCollection.Clear();
+            targetCollection.AddRange(modification.GetModifiedCollection(), sourceFilePath);
 
             return affectedObjects.Distinct(new ReferenceEqualityComparer<IObservable>());
         }
@@ -316,7 +317,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             }
 
             private Dictionary<int, TTargetData> ObjectsToBeAdded { get; } = new Dictionary<int, TTargetData>();
-            
+
             private static int FindIndex(TTargetData[] collectionToLookIn, TTargetData objectToFind, IEqualityComparer<TTargetData> equalityComparer)
             {
                 for (var i = 0; i < collectionToLookIn.Length; i++)

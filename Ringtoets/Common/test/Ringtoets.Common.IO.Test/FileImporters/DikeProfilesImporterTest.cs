@@ -542,7 +542,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             const string exceptionMessage = "Look, an exception!";
             var strategy = mocks.StrictMock<IDikeProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateDikeProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateDikeProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .Throw(new UpdateDataException(exceptionMessage));
             mocks.ReplayAll();

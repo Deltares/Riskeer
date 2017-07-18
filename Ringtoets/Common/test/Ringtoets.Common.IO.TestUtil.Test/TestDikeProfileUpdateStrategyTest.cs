@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             };
 
             // Call
-            strategy.UpdateDikeProfilesWithImportedData(null, readDikeProfiles, filePath);
+            strategy.UpdateDikeProfilesWithImportedData(readDikeProfiles, filePath);
 
             // Assert
             Assert.AreEqual(filePath, strategy.FilePath);
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             strategy.UpdatedInstances = updatedInstances;
 
             // Call
-            strategy.UpdateDikeProfilesWithImportedData(null, Enumerable.Empty<DikeProfile>(), string.Empty);
+            strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(), string.Empty);
 
             // Assert
             Assert.AreSame(updatedInstances, strategy.UpdatedInstances);

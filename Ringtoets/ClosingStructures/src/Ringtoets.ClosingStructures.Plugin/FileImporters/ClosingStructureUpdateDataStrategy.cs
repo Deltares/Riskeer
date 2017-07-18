@@ -35,7 +35,7 @@ using Ringtoets.Common.Utils;
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
+    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
     /// updating closing structures based on imported data.
     /// </summary>
     public class ClosingStructureUpdateDataStrategy : UpdateDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,
@@ -47,13 +47,11 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
         /// <param name="failureMechanism">The failure mechanism in which the structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public ClosingStructureUpdateDataStrategy(ClosingStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism, new StructureIdEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.ClosingStructures, new StructureIdEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<ClosingStructure> targetDataCollection,
-                                                                         IEnumerable<ClosingStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<ClosingStructure> readStructures, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
+            return UpdateTargetCollectionData(readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ClosingStructure removedObject)

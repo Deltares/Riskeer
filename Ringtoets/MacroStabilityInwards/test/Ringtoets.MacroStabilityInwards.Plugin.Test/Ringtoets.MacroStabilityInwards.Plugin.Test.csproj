@@ -67,11 +67,11 @@
     </Compile>
     <Compile Include="ExportInfos\MacroStabilityInwardsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\MacroStabilityInwardsCalculationGroupContextExportInfoTest.cs" />
-    <Compile Include="FileImporter\RingtoetsMacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
-    <Compile Include="FileImporter\RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
-    <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLinesCsvImporterTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategyTest.cs" />
+    <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
     <Compile Include="ImportInfos\MacroStabilityInwardsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\RingtoetsMacroStabilityInwardsSurfaceLinesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\StochasticSoilModelCollectionContextImportInfoTest.cs" />

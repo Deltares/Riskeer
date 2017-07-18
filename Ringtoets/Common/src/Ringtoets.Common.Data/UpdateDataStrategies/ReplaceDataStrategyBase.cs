@@ -38,13 +38,15 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         where TFailureMechanism : IFailureMechanism
     {
         protected readonly TFailureMechanism FailureMechanism;
+        private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 
         /// <summary>
         /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the target collection should be updated.</param>
+        /// <param name="targetCollection">The collection that needs to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c></exception>
-        protected ReplaceDataStrategyBase(TFailureMechanism failureMechanism)
+        protected ReplaceDataStrategyBase(TFailureMechanism failureMechanism, ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection)
         {
             if (failureMechanism == null)
             {
@@ -52,6 +54,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             }
 
             FailureMechanism = failureMechanism;
+            this.targetCollection = targetCollection;
         }
 
         /// <summary>
@@ -62,23 +65,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         protected abstract IEnumerable<IObservable> ClearData();
 
         /// <summary>
-        /// Replaces the data of the <paramref name="targetDataCollection"/> with the imported data in <paramref name="importedDataCollection"/>.
+        /// Replaces the data of the <see cref="targetCollection"/> with the imported data in <paramref name="importedDataCollection"/>.
         /// </summary>
-        /// <param name="targetDataCollection">The collection that needs to be updated.</param>
         /// <param name="importedDataCollection">The data that was imported.</param>
         /// <param name="sourceFilePath">The source file path where the imported data comes from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> with affected objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when replacing the data has failed.</exception>
-        protected IEnumerable<IObservable> ReplaceTargetCollectionWithImportedData(
-            ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetDataCollection,
-            IEnumerable<TTargetData> importedDataCollection,
+        protected IEnumerable<IObservable> ReplaceTargetCollectionWithImportedData(IEnumerable<TTargetData> importedDataCollection,
             string sourceFilePath)
         {
-            if (targetDataCollection == null)
-            {
-                throw new ArgumentNullException(nameof(targetDataCollection));
-            }
             if (importedDataCollection == null)
             {
                 throw new ArgumentNullException(nameof(importedDataCollection));
@@ -90,21 +86,19 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(ClearData());
-            AddData(targetDataCollection, importedDataCollection, sourceFilePath);
+            AddData(importedDataCollection, sourceFilePath);
 
             return affectedObjects;
         }
 
         /// <summary>
-        /// Adds read data from the <paramref name="sourceFilePath"/> to the <paramref name="targetCollection"/>.
+        /// Adds read data from the <paramref name="sourceFilePath"/> to the <see cref="targetCollection"/>.
         /// </summary>
-        /// <param name="targetCollection">The target collection which needs to be updated.</param>
         /// <param name="importedDataCollection">The data that was imported.</param>
         /// <param name="sourceFilePath">The source file path where the imported data comes from.</param>
         /// <exception cref="UpdateDataException">Thrown when an error occurs while
-        /// adding data to the <paramref name="targetCollection"/>.</exception>
-        private static void AddData(ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection,
-                                    IEnumerable<TTargetData> importedDataCollection, string sourceFilePath)
+        /// adding data to the <see cref="targetCollection"/>.</exception>
+        private void AddData(IEnumerable<TTargetData> importedDataCollection, string sourceFilePath)
         {
             try
             {

@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.Piping.Data
     public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
     {
         public RingtoetsPipingSurfaceLineCollection() : base(line => line.Name,
-                                                             Resources.PipingSurfaceLineCollection_TypeDescriptor,
+                                                             RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                                              Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

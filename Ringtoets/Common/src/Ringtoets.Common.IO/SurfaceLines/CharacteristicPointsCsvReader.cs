@@ -30,10 +30,10 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Common.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.SurfaceLines
+namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             {
                 try
                 {
-                    return CreatePipingCharacteristicPointsLocation(readText);
+                    return CreateCharacteristicPointsLocation(readText);
                 }
                 finally
                 {
@@ -349,7 +349,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <item><paramref name="readText"/> has too many or few columns.</item>
         /// <item><paramref name="readText"/> contains a coordinate value which could not be parsed to <see cref="double"/>.</item>
         /// </list></exception>
-        private CharacteristicPoints CreatePipingCharacteristicPointsLocation(string readText)
+        private CharacteristicPoints CreateCharacteristicPointsLocation(string readText)
         {
             string[] tokenizedString = TokenizeString(readText);
             string locationName = GetLocationName(tokenizedString);
@@ -452,7 +452,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             string name = tokenizedString.Any() ? tokenizedString[columnsInFile[locationIdKey]].Trim() : null;
             if (string.IsNullOrEmpty(name))
             {
-                throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                throw CreateLineParseException(lineNumber, Resources.CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
             }
             return name;
         }

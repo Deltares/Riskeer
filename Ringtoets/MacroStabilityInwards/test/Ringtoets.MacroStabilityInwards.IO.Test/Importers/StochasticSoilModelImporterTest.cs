@@ -979,9 +979,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                            .Return("error {0}");
 
             var strategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy>();
-            strategy.Expect(s => s.UpdateModelWithImportedData(
-                                Arg<StochasticSoilModelCollection>.Is.Same(importTarget),
-                                Arg<StochasticSoilModel[]>.Is.NotNull,
+            strategy.Expect(s => s.UpdateModelWithImportedData(Arg<StochasticSoilModel[]>.Is.NotNull,
                                 Arg<string>.Is.Same(filePath)
                             )).Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();

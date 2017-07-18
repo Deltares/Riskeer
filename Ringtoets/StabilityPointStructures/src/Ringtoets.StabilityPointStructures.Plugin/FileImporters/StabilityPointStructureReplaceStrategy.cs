@@ -47,13 +47,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public StabilityPointStructureReplaceStrategy(StabilityPointStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+            : base(failureMechanism, failureMechanism?.StabilityPointStructures) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<StabilityPointStructure> targetDataCollection,
-                                                                         IEnumerable<StabilityPointStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<StabilityPointStructure> readStructures, string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStructures, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

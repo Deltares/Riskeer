@@ -45,13 +45,11 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
         /// <param name="failureMechanism">The failure mechanism in which the height structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public HeightStructureReplaceDataStrategy(HeightStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+            : base(failureMechanism, failureMechanism?.HeightStructures) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<HeightStructure> targetDataCollection,
-                                                                         IEnumerable<HeightStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<HeightStructure> readStructures, string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStructures, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(readStructures, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

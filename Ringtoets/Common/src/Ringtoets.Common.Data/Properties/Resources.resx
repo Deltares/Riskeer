@@ -306,4 +306,7 @@
   <data name="IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes" xml:space="preserve">
     <value>Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.</value>
   </data>
+  <data name="SurfaceLineCollection_TypeDescriptor" xml:space="preserve">
+    <value>Profielschematisaties</value>
+  </data>
 </root>

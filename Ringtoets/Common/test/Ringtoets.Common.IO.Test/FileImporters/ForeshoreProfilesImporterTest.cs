@@ -195,14 +195,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
-                        Assert.AreSame(filePath, invocation.Arguments[2]);
+                        Assert.AreSame(filePath, invocation.Arguments[1]);
 
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
 
@@ -283,14 +282,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
-                        Assert.AreSame(filePath, invocation.Arguments[2]);
+                        Assert.AreSame(filePath, invocation.Arguments[1]);
 
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
 
@@ -342,14 +340,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
-                        Assert.AreSame(filePath, invocation.Arguments[2]);
+                        Assert.AreSame(filePath, invocation.Arguments[1]);
 
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
                         ForeshoreProfile[] readForeshoreProfilesArray = readForeshoreProfiles.ToArray();
                         Assert.AreEqual(5, readForeshoreProfilesArray.Length);
 
@@ -413,14 +410,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
-                        Assert.AreSame(filePath, invocation.Arguments[2]);
+                        Assert.AreSame(filePath, invocation.Arguments[1]);
 
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
                         Assert.AreEqual(5, readForeshoreProfiles.Count());
                     });
 
@@ -554,14 +550,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(foreshoreProfiles, invocation.Arguments[0]);
-                        Assert.AreSame(filePath, invocation.Arguments[2]);
+                        Assert.AreSame(filePath, invocation.Arguments[1]);
 
-                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[1];
+                        var readForeshoreProfiles = (IEnumerable<ForeshoreProfile>) invocation.Arguments[0];
                         {
                             Assert.AreEqual(5, readForeshoreProfiles.Count());
                         }
@@ -601,7 +596,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             const string exceptionMessage = "Look, an exception!";
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .Throw(new UpdateDataException(exceptionMessage));
             mockRepository.ReplayAll();
@@ -642,7 +637,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null, null))
+            strategy.Expect(strat => strat.UpdateForeshoreProfilesWithImportedData(null, null))
                     .IgnoreArguments()
                     .Return(new[]
                     {

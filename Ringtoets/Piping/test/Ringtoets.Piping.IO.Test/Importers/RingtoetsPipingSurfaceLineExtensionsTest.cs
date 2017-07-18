@@ -23,11 +23,10 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Properties;
-using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
     public class RingtoetsPipingSurfaceLineExtensionsTest

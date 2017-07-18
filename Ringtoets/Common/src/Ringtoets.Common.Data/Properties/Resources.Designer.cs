@@ -634,6 +634,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielschematisaties.
+        /// </summary>
+        public static string SurfaceLineCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("SurfaceLineCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data moet unieke elementen bevatten..
         /// </summary>
         public static string UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_unique_items {

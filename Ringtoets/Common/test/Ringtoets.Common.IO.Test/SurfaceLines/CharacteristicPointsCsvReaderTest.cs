@@ -1,4 +1,4 @@
-ï»¿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -27,9 +27,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.SurfaceLines;
+using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Piping.IO.Test.SurfaceLines
+namespace Ringtoets.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class CharacteristicPointsCsvReaderTest
@@ -433,7 +433,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'Invalid'")
-                    .Build("Karakteristiek punt heeft een coÃ¶rdinaatwaarde die niet omgezet kan worden naar een getal.");
+                    .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'InvalidNumber'")
-                    .Build("Karakteristiek punt heeft een coÃ¶rdinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                    .Build("Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }

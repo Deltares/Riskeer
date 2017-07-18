@@ -40,6 +40,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -96,7 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => MacroStabilityInwardsSurfaceLinesCsvImporter(context, filePath, new ImportMessageProvider(), new RingtoetsMacroStabilityInwardsSurfaceLineReplaceDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                    context.WrappedData,
+                    filePath,
+                    new ImportMessageProvider(),
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
                 VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surfacelines_calculation_output_will_be_cleared_confirm)
             };
 
@@ -143,7 +148,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => MacroStabilityInwardsSurfaceLinesCsvImporter(context, filePath, new UpdateMessageProvider(), new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                    context.WrappedData,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
                 VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
@@ -950,18 +959,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         #endregion
 
         #region Ringtoets macro stability inwards surface line importer
-
-        private static MacroStabilityInwardsSurfaceLinesCsvImporter MacroStabilityInwardsSurfaceLinesCsvImporter(RingtoetsMacroStabilityInwardsSurfaceLinesContext context,
-                                                                                                                 string filePath,
-                                                                                                                 IImporterMessageProvider messageProvider,
-                                                                                                                 ISurfaceLineUpdateDataStrategy strategy)
-        {
-            return new MacroStabilityInwardsSurfaceLinesCsvImporter(context.WrappedData,
-                                                                    context.AssessmentSection.ReferenceLine,
-                                                                    filePath,
-                                                                    messageProvider,
-                                                                    strategy);
-        }
 
         private static FileFilterGenerator SurfaceLineFileFilter
         {

@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
             try
             {
-                updatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(ImportTarget, validStochasticSoilModels, FilePath);
+                updatedInstances = modelUpdateStrategy.UpdateModelWithImportedData(validStochasticSoilModels, FilePath);
             }
             catch (UpdateDataException e)
             {

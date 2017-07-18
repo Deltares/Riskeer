@@ -31,6 +31,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
@@ -268,7 +269,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLinesCsvImporter>(importer);
+            Assert.IsInstanceOf<SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>>(importer);
             mocks.VerifyAll();
         }
     }

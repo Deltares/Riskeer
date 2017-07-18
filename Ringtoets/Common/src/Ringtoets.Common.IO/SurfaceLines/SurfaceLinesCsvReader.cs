@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -30,11 +30,10 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.MacroStabilityInwards.IO.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Common.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
+namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
@@ -44,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
     /// Where {ID} has to be a particular accepted text, and n triplets of doubles form the
     /// 3D coordinates defining the geometric shape of the surfaceline.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLinesCsvReader : IDisposable
+    public class SurfaceLinesCsvReader : IDisposable
     {
         private const char separator = ';';
 
@@ -70,12 +69,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         private int startGeometryColumnIndex;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsSurfaceLinesCsvReader"/> class
+        /// Initializes a new instance of the <see cref="SurfaceLinesCsvReader"/> class
         /// and opens a given file path.
         /// </summary>
         /// <param name="path">The path to the file to be read.</param>
         /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
-        public MacroStabilityInwardsSurfaceLinesCsvReader(string path)
+        public SurfaceLinesCsvReader(string path)
         {
             IOUtils.ValidateFilePath(path);
 
@@ -83,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
+        /// Reads the file to determine the number of available <see cref="SurfaceLine"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
@@ -109,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
 
         /// <summary>
         /// Reads and consumes the next data row which contains a surface line, parsing the data to create an instance 
-        /// of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+        /// of <see cref="SurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parsed surfaceline, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
@@ -131,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         /// <item>The row is missing values to form a surface line point.</item>
         /// </list>
         /// </exception>
-        public RingtoetsMacroStabilityInwardsSurfaceLine ReadSurfaceLine()
+        public SurfaceLine ReadSurfaceLine()
         {
             if (fileReader == null)
             {
@@ -147,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             {
                 try
                 {
-                    return CreateRingtoetsMacroStabilityInwardsSurfaceLine(readText);
+                    return CreateSurfaceLine(readText);
                 }
                 finally
                 {
@@ -189,14 +188,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             return readText;
         }
 
-        private RingtoetsMacroStabilityInwardsSurfaceLine CreateRingtoetsMacroStabilityInwardsSurfaceLine(string readText)
+        private SurfaceLine CreateSurfaceLine(string readText)
         {
             string[] tokenizedString = TokenizeString(readText);
 
             string surfaceLineName = GetSurfaceLineName(tokenizedString);
             IEnumerable<Point3D> points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new SurfaceLine
             {
                 Name = surfaceLineName
             };
@@ -212,38 +211,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         /// </summary>
         /// <param name="surfaceLine">The surface line to be checked.</param>
         /// <exception cref="LineParseException">Surface line geometry is invalid.</exception>
-        private void CheckIfGeometryIsValid(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private void CheckIfGeometryIsValid(SurfaceLine surfaceLine)
         {
-            CheckZeroLength(surfaceLine);
-            CheckReclinging(surfaceLine);
-        }
-
-        private void CheckZeroLength(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            Point3D lastPoint = null;
-            foreach (Point3D point in surfaceLine.Points)
+            if (surfaceLine.IsZeroLength())
             {
-                if (lastPoint != null)
-                {
-                    if (!Equals(lastPoint, point))
-                    {
-                        return;
-                    }
-                }
-                lastPoint = point;
+                throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
             }
-            throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
-        }
-
-        private void CheckReclinging(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
-            for (var i = 1; i < lCoordinates.Length; i++)
+            if (surfaceLine.IsReclining())
             {
-                if (lCoordinates[i - 1] > lCoordinates[i])
-                {
-                    throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
-                }
+                throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
             }
         }
 
@@ -257,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         {
             if (!readText.Contains(separator))
             {
-                throw CreateLineParseException(lineNumber, string.Format(Resources.MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_,
+                throw CreateLineParseException(lineNumber, string.Format(Resources.SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_,
                                                                          separator));
             }
             return readText.Split(separator)
@@ -285,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             double[] worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
             if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
-                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
+                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
             }
 
             int coordinateCount = worldCoordinateValues.Length / expectedValuesForPoint;
@@ -311,7 +287,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             string name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
-                throw CreateLineParseException(lineNumber, Resources.MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                throw CreateLineParseException(lineNumber, Resources.SurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
             }
             return name;
         }
@@ -359,7 +335,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             {
                 if (!IsHeaderValid(header))
                 {
-                    throw CreateCriticalFileReadException(currentLine, Resources.MacroStabilityInwardsSurfaceLinesCsvReader_File_invalid_header);
+                    throw CreateCriticalFileReadException(currentLine, Resources.SurfaceLinesCsvReader_File_invalid_header);
                 }
             }
             else
@@ -408,7 +384,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
         private LineParseException CreateLineParseException(int currentLine, string surfaceLineName, string lineParseErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(UtilsResources.TextFile_On_LineNumber_0_, currentLine);
-            string subjectDescription = string.Format(Resources.MacroStabilityInwardsSurfaceLinesCsvReader_SurfaceLineName_0_, surfaceLineName);
+            string subjectDescription = string.Format(Resources.SurfaceLinesCsvReader_SurfaceLineName_0_, surfaceLineName);
             string message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                         .WithSubject(subjectDescription)
                                                                         .Build(lineParseErrorMessage);

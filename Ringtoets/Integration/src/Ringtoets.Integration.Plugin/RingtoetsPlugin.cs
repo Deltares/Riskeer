@@ -491,7 +491,7 @@ namespace Ringtoets.Integration.Plugin
                     new ForeshoreProfilesImporter(context.WrappedData,
                                                   context.ParentAssessmentSection.ReferenceLine,
                                                   filePath,
-                                                  new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism),
+                                                  new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism, context.WrappedData),
                                                   new UpdateMessageProvider()),
                 Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,

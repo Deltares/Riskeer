@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Piping.IO.SurfaceLines
+namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// This class represents a collection of characterizing locations on a surface line.

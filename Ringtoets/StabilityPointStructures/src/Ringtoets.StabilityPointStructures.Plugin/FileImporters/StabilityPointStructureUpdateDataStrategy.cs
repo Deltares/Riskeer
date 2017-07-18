@@ -35,7 +35,7 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> 
+    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> 
     /// implementation for updating stability point structures based on imported
     /// data.
     /// </summary>
@@ -50,13 +50,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public StabilityPointStructureUpdateDataStrategy(StabilityPointStructuresFailureMechanism failureMechanism)
-            : base(failureMechanism, new StructureIdEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.StabilityPointStructures, new StructureIdEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateStructuresWithImportedData(StructureCollection<StabilityPointStructure> targetDataCollection,
-                                                                         IEnumerable<StabilityPointStructure> readStructures,
-                                                                         string sourceFilePath)
+        public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<StabilityPointStructure> readStructures, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readStructures, sourceFilePath);
+            return UpdateTargetCollectionData(readStructures, sourceFilePath);
         }
 
         #region Removing Data Functions

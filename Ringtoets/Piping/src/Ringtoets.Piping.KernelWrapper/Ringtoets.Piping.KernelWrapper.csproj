@@ -72,6 +72,10 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>

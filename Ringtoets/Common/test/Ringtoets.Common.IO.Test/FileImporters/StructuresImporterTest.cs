@@ -610,14 +610,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null, null))
-                          .IgnoreArguments()
-                          .WhenCalled(i =>
-                          {
-                              Assert.AreSame(targetCollection, i.Arguments[0]);
-                              Assert.AreSame(createdStructures, i.Arguments[1]);
-                              Assert.AreSame(filePath, i.Arguments[2]);
-                          });
+            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(createdStructures, filePath));
             mocks.ReplayAll();
 
             ReferenceLine referenceLine = CreateReferenceLine();
@@ -673,7 +666,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return("");
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText("Kunstwerken")).Return("error {0}");
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(us => us.UpdateStructuresWithImportedData(null, null, null))
+            updateStrategy.Expect(us => us.UpdateStructuresWithImportedData(null, null))
                           .IgnoreArguments()
                           .Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
@@ -712,7 +705,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             observableB.Expect(o => o.NotifyObservers());
 
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<TestStructure>>();
-            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null, null))
+            updateStrategy.Expect(strat => strat.UpdateStructuresWithImportedData(null, null))
                           .IgnoreArguments()
                           .Return(new[]
                           {

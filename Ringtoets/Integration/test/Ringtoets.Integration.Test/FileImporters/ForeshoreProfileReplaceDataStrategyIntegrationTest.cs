@@ -67,8 +67,7 @@ namespace Ringtoets.Integration.Test.FileImporters
 
             // Call 
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
                                                                  sourceFilePath);
 
             // Assert

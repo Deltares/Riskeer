@@ -74,8 +74,7 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importProfileLocationResult.Items,
                                                                                importDikeProfileDataResult.Items);
 
-            updatedInstances = dikeProfileUpdateDataStrategy.UpdateDikeProfilesWithImportedData(ImportTarget,
-                                                                                                importedDikeProfiles,
+            updatedInstances = dikeProfileUpdateDataStrategy.UpdateDikeProfilesWithImportedData(importedDikeProfiles,
                                                                                                 FilePath);
         }
 

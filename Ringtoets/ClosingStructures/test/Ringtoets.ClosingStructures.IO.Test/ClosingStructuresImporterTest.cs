@@ -139,12 +139,11 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
-                var closingStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
+                var closingStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
                 Assert.AreEqual(1, closingStructures.Count());
 
                 ClosingStructure structure = closingStructures.First();
@@ -231,11 +230,10 @@ namespace Ringtoets.ClosingStructures.IO.Test
                                            "Kunstwerken.shp");
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
-                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i.Arguments[1]).Count());
+                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(4, ((IEnumerable<ClosingStructure>) i.Arguments[0]).Count());
             });
             mocks.ReplayAll();
 
@@ -268,10 +266,9 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
                 var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                 {
@@ -280,7 +277,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                     Id = "id"
                 });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
+                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
                 Assert.AreEqual(1, readStructures.Count());
                 ClosingStructure importedStructure = readStructures.First();
                 DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -326,10 +323,9 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
                 var defaultStructure = new ClosingStructure(new ClosingStructure.ConstructionProperties
                 {
@@ -338,7 +334,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                     Id = "id"
                 });
 
-                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[1];
+                var readStructures = (IEnumerable<ClosingStructure>) i.Arguments[0];
                 Assert.AreEqual(1, readStructures.Count());
                 ClosingStructure importedStructure = readStructures.First();
                 DistributionAssert.AreEqual(defaultStructure.StorageStructureArea, importedStructure.StorageStructureArea);
@@ -384,13 +380,12 @@ namespace Ringtoets.ClosingStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<ClosingStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<ClosingStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                     })
                     .Return(Enumerable.Empty<IObservable>());
@@ -475,7 +470,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
 
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<ClosingStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, nameof(ClosingStructuresImporter),

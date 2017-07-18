@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;

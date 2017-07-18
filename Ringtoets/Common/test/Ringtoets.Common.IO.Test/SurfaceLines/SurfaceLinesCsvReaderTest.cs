@@ -28,13 +28,12 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Piping.IO.Test.SurfaceLines
+namespace Ringtoets.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
-    public class PipingSurfaceLinesCsvReaderTest
+    public class SurfaceLinesCsvReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines" + Path.DirectorySeparatorChar);
 
@@ -45,7 +44,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
         public void Constructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesCsvReader(path);
+            TestDelegate call = () => new SurfaceLinesCsvReader(path);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(path).Build("Bestandspad mag niet leeg of ongedefinieerd zijn.");
@@ -63,7 +62,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
+            TestDelegate call = () => new SurfaceLinesCsvReader(corruptPath);
 
             // Assert
             const string innerExpectedMessage = "Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
@@ -75,7 +74,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
         public void Constructor_PathToFolder_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new PipingSurfaceLinesCsvReader(testDataPath);
+            TestDelegate call = () => new SurfaceLinesCsvReader(testDataPath);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -90,7 +89,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             const string fakeFilePath = @"I\Dont\Really\Exist";
 
             // Call
-            using (var reader = new PipingSurfaceLinesCsvReader(fakeFilePath))
+            using (var reader = new SurfaceLinesCsvReader(fakeFilePath))
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(reader);
@@ -103,7 +102,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 int linesCount = reader.GetSurfaceLinesCount();
@@ -119,7 +118,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOptionalHeaders.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 int linesCount = reader.GetSurfaceLinesCount();
@@ -135,7 +134,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "ValidFileWithoutSurfaceLines.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 int linesCount = reader.GetSurfaceLinesCount();
@@ -154,7 +153,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsFalse(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
@@ -176,7 +175,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsFalse(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
@@ -198,7 +197,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
@@ -219,7 +218,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
@@ -246,7 +245,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
@@ -283,11 +282,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition:
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
-                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
@@ -295,14 +294,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
-                Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
-                Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
-                Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
-                Assert.AreEqual(94331.1767309, surfaceLine1.EndingWorldPoint.X);
-                Assert.AreEqual(427960.112661, surfaceLine1.EndingWorldPoint.Y);
-                Assert.AreEqual(1.44, surfaceLine1.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine1.StartingWorldPoint, surfaceLine1.Points.First());
-                Assert.AreEqual(surfaceLine1.EndingWorldPoint, surfaceLine1.Points.Last());
+                Assert.AreEqual(94263.0026213, surfaceLine1.Points.First().X);
+                Assert.AreEqual(427776.654093, surfaceLine1.Points.First().Y);
+                Assert.AreEqual(-1.02, surfaceLine1.Points.First().Z);
+                Assert.AreEqual(94331.1767309, surfaceLine1.Points.Last().X);
+                Assert.AreEqual(427960.112661, surfaceLine1.Points.Last().Y);
+                Assert.AreEqual(1.44, surfaceLine1.Points.Last().Z);
+                Assert.AreEqual(surfaceLine1.Points.First(), surfaceLine1.Points.First());
+                Assert.AreEqual(surfaceLine1.Points.Last(), surfaceLine1.Points.Last());
 
                 #endregion
 
@@ -310,14 +309,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);
-                Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
-                Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
-                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
-                Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());
-                Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
+                Assert.AreEqual(2.3, surfaceLine2.Points.First().X);
+                Assert.AreEqual(0, surfaceLine2.Points.First().Y);
+                Assert.AreEqual(1, surfaceLine2.Points.First().Z);
+                Assert.AreEqual(5.7, surfaceLine2.Points.Last().X);
+                Assert.AreEqual(0, surfaceLine2.Points.Last().Y);
+                Assert.AreEqual(1.1, surfaceLine2.Points.Last().Z);
+                Assert.AreEqual(surfaceLine2.Points.First(), surfaceLine2.Points.First());
+                Assert.AreEqual(surfaceLine2.Points.Last(), surfaceLine2.Points.Last());
 
                 #endregion
             }
@@ -332,11 +331,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition:
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
-                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
@@ -344,14 +343,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
-                Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
-                Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
-                Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
-                Assert.AreEqual(94331.1767309, surfaceLine1.EndingWorldPoint.X);
-                Assert.AreEqual(427960.112661, surfaceLine1.EndingWorldPoint.Y);
-                Assert.AreEqual(1.44, surfaceLine1.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine1.StartingWorldPoint, surfaceLine1.Points.First());
-                Assert.AreEqual(surfaceLine1.EndingWorldPoint, surfaceLine1.Points.Last());
+                Assert.AreEqual(94263.0026213, surfaceLine1.Points.First().X);
+                Assert.AreEqual(427776.654093, surfaceLine1.Points.First().Y);
+                Assert.AreEqual(-1.02, surfaceLine1.Points.First().Z);
+                Assert.AreEqual(94331.1767309, surfaceLine1.Points.Last().X);
+                Assert.AreEqual(427960.112661, surfaceLine1.Points.Last().Y);
+                Assert.AreEqual(1.44, surfaceLine1.Points.Last().Z);
+                Assert.AreEqual(surfaceLine1.Points.First(), surfaceLine1.Points.First());
+                Assert.AreEqual(surfaceLine1.Points.Last(), surfaceLine1.Points.Last());
 
                 #endregion
 
@@ -359,14 +358,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);
-                Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
-                Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
-                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
-                Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());
-                Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
+                Assert.AreEqual(2.3, surfaceLine2.Points.First().X);
+                Assert.AreEqual(0, surfaceLine2.Points.First().Y);
+                Assert.AreEqual(1, surfaceLine2.Points.First().Z);
+                Assert.AreEqual(5.7, surfaceLine2.Points.Last().X);
+                Assert.AreEqual(0, surfaceLine2.Points.Last().Y);
+                Assert.AreEqual(1.1, surfaceLine2.Points.Last().Z);
+                Assert.AreEqual(surfaceLine2.Points.First(), surfaceLine2.Points.First());
+                Assert.AreEqual(surfaceLine2.Points.Last(), surfaceLine2.Points.Last());
 
                 #endregion
             }
@@ -383,20 +382,20 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition:
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
 
                 // Assert
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Point3D[] geometryPoints = surfaceLine1.Points.ToArray();
                 Assert.AreNotEqual(geometryPoints.Length, geometryPoints.Distinct().Count(),
                                    "Duplicate points should be parsed.");
-                Assert.AreEqual(geometryPoints[0].X, geometryPoints[1].X,
+                Assert.AreEqual(geometryPoints.First().X, geometryPoints[1].X,
                                 "Consecutive duplicate points are still parsed.");
-                Assert.AreEqual(surfaceLine1.StartingWorldPoint, geometryPoints.First());
-                Assert.AreEqual(surfaceLine1.EndingWorldPoint, geometryPoints.Last());
+                Assert.AreEqual(surfaceLine1.Points.First(), geometryPoints.First());
+                Assert.AreEqual(surfaceLine1.Points.Last(), geometryPoints.Last());
             }
         }
 
@@ -406,19 +405,19 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 int surfaceLinesCount = reader.GetSurfaceLinesCount();
                 for (var i = 0; i < surfaceLinesCount; i++)
                 {
-                    RingtoetsPipingSurfaceLine pipingSurfaceLine = reader.ReadSurfaceLine();
+                    SurfaceLine pipingSurfaceLine = reader.ReadSurfaceLine();
                     Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
                                                         "Fail Fast: Disposal logic required to be implemented in test.");
                     Assert.IsNotNull(pipingSurfaceLine);
                 }
 
                 // Call
-                RingtoetsPipingSurfaceLine result = reader.ReadSurfaceLine();
+                SurfaceLine result = reader.ReadSurfaceLine();
 
                 // Assert
                 Assert.IsNull(result);
@@ -434,7 +433,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsFalse(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -456,7 +455,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsFalse(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -478,7 +477,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -501,7 +500,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -528,7 +527,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -554,7 +553,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -585,7 +584,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -610,7 +609,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -641,7 +640,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -672,7 +671,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -695,7 +694,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -718,7 +717,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -751,7 +750,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -777,7 +776,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
                 TestDelegate call = () => reader.ReadSurfaceLine();
@@ -802,7 +801,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             Assert.IsTrue(File.Exists(path));
 
             // Call
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 reader.ReadSurfaceLine();
                 reader.ReadSurfaceLine();
@@ -820,11 +819,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Precondition:
             Assert.IsTrue(File.Exists(path));
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new SurfaceLinesCsvReader(path))
             {
                 // Call
-                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
-                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                SurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
@@ -832,14 +831,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
-                Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
-                Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
-                Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
-                Assert.AreEqual(94331.1767309, surfaceLine1.EndingWorldPoint.X);
-                Assert.AreEqual(427960.112661, surfaceLine1.EndingWorldPoint.Y);
-                Assert.AreEqual(1.44, surfaceLine1.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine1.StartingWorldPoint, surfaceLine1.Points.First());
-                Assert.AreEqual(surfaceLine1.EndingWorldPoint, surfaceLine1.Points.Last());
+                Assert.AreEqual(94263.0026213, surfaceLine1.Points.First().X);
+                Assert.AreEqual(427776.654093, surfaceLine1.Points.First().Y);
+                Assert.AreEqual(-1.02, surfaceLine1.Points.First().Z);
+                Assert.AreEqual(94331.1767309, surfaceLine1.Points.Last().X);
+                Assert.AreEqual(427960.112661, surfaceLine1.Points.Last().Y);
+                Assert.AreEqual(1.44, surfaceLine1.Points.Last().Z);
+                Assert.AreEqual(surfaceLine1.Points.First(), surfaceLine1.Points.First());
+                Assert.AreEqual(surfaceLine1.Points.Last(), surfaceLine1.Points.Last());
 
                 #endregion
 
@@ -847,14 +846,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);
-                Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
-                Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
-                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
-                Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
-                Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
-                Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());
-                Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
+                Assert.AreEqual(2.3, surfaceLine2.Points.First().X);
+                Assert.AreEqual(0, surfaceLine2.Points.First().Y);
+                Assert.AreEqual(1, surfaceLine2.Points.First().Z);
+                Assert.AreEqual(5.7, surfaceLine2.Points.Last().X);
+                Assert.AreEqual(0, surfaceLine2.Points.Last().Y);
+                Assert.AreEqual(1.1, surfaceLine2.Points.Last().Z);
+                Assert.AreEqual(surfaceLine2.Points.First(), surfaceLine2.Points.First());
+                Assert.AreEqual(surfaceLine2.Points.Last(), surfaceLine2.Points.Last());
 
                 #endregion
             }

@@ -68,30 +68,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateDikeProfilesWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
-
-            // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(null,
-                                                                                  Enumerable.Empty<DikeProfile>(),
-                                                                                  string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("targetDataCollection", exception.ParamName);
-        }
-
-        [Test]
         public void UpdateDikeProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(new DikeProfileCollection(),
-                                                                                  null,
+            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(null,
                                                                                   string.Empty);
 
             // Assert
@@ -106,8 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(new DikeProfileCollection(),
-                                                                                  Enumerable.Empty<DikeProfile>(),
+            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                   null);
 
             // Assert
@@ -122,20 +104,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var dikeProfileToUpdate = new TestDikeProfile("name", "ID A");
             DikeProfile dikeProfileToUpdateFrom = DeepCloneAndModify(dikeProfileToUpdate);
 
-            var targetCollection = new DikeProfileCollection();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            DikeProfileCollection targetCollection = failureMechanism.DikeProfiles;
             targetCollection.AddRange(new[]
             {
                 dikeProfileToUpdate
             }, sourceFilePath);
 
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                        new[]
-                                                        {
-                                                            dikeProfileToUpdateFrom
-                                                        }, sourceFilePath);
+            strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                dikeProfileToUpdateFrom
+            }, sourceFilePath);
 
             // Assert
             Assert.AreSame(dikeProfileToUpdate, targetCollection[0]);
@@ -154,12 +136,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                                                  new[]
-                                                                                  {
-                                                                                      dikeProfileOne,
-                                                                                      dikeProfileTwo
-                                                                                  }, sourceFilePath);
+            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                dikeProfileOne,
+                dikeProfileTwo
+            }, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
@@ -193,8 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                                                  importedTargetCollection,
+            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(importedTargetCollection,
                                                                                   sourceFilePath);
 
             // Assert
@@ -212,7 +192,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             // Setup
             const string id = "Just an ID";
             var targetDikeProfile = new TestDikeProfile("name", id);
-            var targetCollection = new DikeProfileCollection();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            DikeProfileCollection targetCollection = failureMechanism.DikeProfiles;
             targetCollection.AddRange(new[]
             {
                 targetDikeProfile
@@ -224,11 +206,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 readDikeProfile
             };
 
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
+            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(targetCollection,
-                                                                                                   readDikeProfiles,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(readDikeProfiles,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -267,8 +248,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   readDikeProfiles,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(readDikeProfiles,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -312,8 +292,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   readDikeProfiles,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(readDikeProfiles,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -365,8 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfileCollection,
-                                                                                                   Enumerable.Empty<DikeProfile>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                                    sourceFilePath);
 
             // Assert
@@ -423,12 +401,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedAffectedProfile,
-                                                                                                       importedUnaffectedProfile
-                                                                                                   }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                importedAffectedProfile,
+                importedUnaffectedProfile
+            }, sourceFilePath);
             // Assert
             Assert.IsTrue(unaffectedCalculation.HasOutput);
             DikeProfile inputParametersUnaffectedDikeProfile = unaffectedCalculation.InputParameters.DikeProfile;
@@ -490,11 +467,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedUnaffectedProfile
-                                                                                                   }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                importedUnaffectedProfile
+            }, sourceFilePath);
             // Assert
             Assert.IsTrue(unaffectedCalculation.HasOutput);
             DikeProfile inputParametersUnaffectedDikeProfile = unaffectedCalculation.InputParameters.DikeProfile;
@@ -540,11 +516,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       profileToUpdateFrom
-                                                                                                   }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                profileToUpdateFrom
+            }, sourceFilePath);
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -609,11 +584,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       profileToUpdateFrom
-                                                                                                   }, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(new[]
+            {
+                profileToUpdateFrom
+            }, sourceFilePath);
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -675,8 +649,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                                                                   Enumerable.Empty<DikeProfile>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
                                                                                                    sourceFilePath);
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
@@ -715,13 +688,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 
             var profileToUpdateFrom = new TestDikeProfile(Enumerable.Empty<Point2D>(), id);
 
-            var dikeProfiles = new DikeProfileCollection();
-            var originalDikeProfiles = new[]
-            {
-                affectedProfile
-            };
-            dikeProfiles.AddRange(originalDikeProfiles, sourceFilePath);
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 CalculationsGroup =
@@ -733,12 +699,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 }
             };
 
+            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
+            var originalDikeProfiles = new[]
+            {
+                affectedProfile
+            };
+            dikeProfiles.AddRange(originalDikeProfiles, sourceFilePath);
+
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateDikeProfilesWithImportedData(dikeProfiles,
-                                                            new[]
+                strategy.UpdateDikeProfilesWithImportedData(new[]
                                                             {
                                                                 profileToUpdateFrom
                                                             },

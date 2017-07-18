@@ -22,33 +22,27 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new surface lines 
     /// have been imported.
     /// </summary>
-    public interface ISurfaceLineUpdateDataStrategy
+    public interface ISurfaceLineUpdateDataStrategy<in T> where T : IMechanismSurfaceLine
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="targetDataCollection"/>.
+        /// Updates the surface lines using the <paramref name="surfaceLines"/>.
         /// </summary>
-        /// <param name="targetDataCollection">The target collection which needs to be updated.</param>
-        /// <param name="readRingtoetsPipingSurfaceLines">The imported surface lines.</param>
+        /// <param name="surfaceLines">The surface lines that need to be set on the data model.</param>
         /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed. The 
         /// <see cref="UpdateDataException.InnerException"/> is set with a more detailed explanation
         /// of why the exception occurs.</exception>
-        IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(
-            RingtoetsPipingSurfaceLineCollection targetDataCollection,
-            IEnumerable<RingtoetsPipingSurfaceLine> readRingtoetsPipingSurfaceLines,
-            string sourceFilePath);
+        IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<T> surfaceLines, string sourceFilePath);
     }
 }

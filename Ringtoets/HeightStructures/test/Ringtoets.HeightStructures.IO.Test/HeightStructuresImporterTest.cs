@@ -137,13 +137,12 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
@@ -224,13 +223,12 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
@@ -282,13 +280,12 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                         HeightStructure structure = readStructures.First();
                         var defaultStructure = new HeightStructure(new HeightStructure.ConstructionProperties
@@ -340,13 +337,12 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
                         Assert.AreEqual(4, readStructures.Count());
                     })
                     .Return(Enumerable.Empty<IObservable>());
@@ -382,13 +378,12 @@ namespace Ringtoets.HeightStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<HeightStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                     })
                     .Return(Enumerable.Empty<IObservable>());
@@ -544,8 +539,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(progressText);
 
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(Arg.Is(importTarget),
-                                                                    Arg<IEnumerable<HeightStructure>>.Is.NotNull,
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(Arg<IEnumerable<HeightStructure>>.Is.NotNull,
                                                                     Arg.Is(validFilePath)))
                     .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
@@ -589,7 +583,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
 
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<HeightStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, nameof(HeightStructuresImporter),

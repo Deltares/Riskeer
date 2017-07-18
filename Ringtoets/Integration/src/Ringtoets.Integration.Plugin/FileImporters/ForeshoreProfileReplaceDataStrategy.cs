@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <param name="foreshoreProfiles">The collection containing the foreshore profiles.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public ForeshoreProfileReplaceDataStrategy(IFailureMechanism failureMechanism,
-                                                   ForeshoreProfileCollection foreshoreProfiles) : base(failureMechanism)
+        public ForeshoreProfileReplaceDataStrategy(IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
+            : base(failureMechanism, foreshoreProfiles)
         {
             if (foreshoreProfiles == null)
             {
@@ -62,11 +62,9 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             foreshoreProfileCollection = foreshoreProfiles;
         }
 
-        public IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(ForeshoreProfileCollection foreshoreProfiles,
-                                                                                IEnumerable<ForeshoreProfile> importedDataCollection,
-                                                                                string sourceFilePath)
+        public IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(IEnumerable<ForeshoreProfile> importedDataCollection, string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(foreshoreProfiles, importedDataCollection, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(importedDataCollection, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

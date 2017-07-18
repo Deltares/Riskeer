@@ -124,12 +124,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
-                var structures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+                var structures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
 
                 Assert.AreEqual(1, structures.Count());
                 StabilityPointStructure structure = structures.First();
@@ -238,11 +237,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
-                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i.Arguments[1]).Count());
+                Assert.AreEqual(filePath, i.Arguments[1]);
+                Assert.AreEqual(4, ((IEnumerable<StabilityPointStructure>) i.Arguments[0]).Count());
             });
             mocks.ReplayAll();
 
@@ -280,12 +278,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
 
                 Assert.AreEqual(1, readStructures.Count());
                 StabilityPointStructure importedStructure = readStructures.First();
@@ -343,12 +340,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var updateStrategy = mocks.Stub<IStructureUpdateStrategy<StabilityPointStructure>>();
-            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().WhenCalled(i =>
+            updateStrategy.Expect(u => u.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().WhenCalled(i =>
             {
-                Assert.AreSame(importTarget, i.Arguments[0]);
-                Assert.AreEqual(filePath, i.Arguments[2]);
+                Assert.AreEqual(filePath, i.Arguments[1]);
 
-                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[1];
+                var readStructures = (IEnumerable<StabilityPointStructure>) i.Arguments[0];
 
                 Assert.AreEqual(1, readStructures.Count());
                 StabilityPointStructure importedStructure = readStructures.First();
@@ -405,13 +401,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments()
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments()
                     .WhenCalled(invocation =>
                     {
-                        Assert.AreSame(invocation.Arguments[0], importTarget);
-                        Assert.AreSame(invocation.Arguments[2], filePath);
+                        Assert.AreSame(invocation.Arguments[1], filePath);
 
-                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation.Arguments[1];
+                        var readStructures = (IEnumerable<StabilityPointStructure>) invocation.Arguments[0];
                         Assert.AreEqual(1, readStructures.Count());
                     })
                     .Return(Enumerable.Empty<IObservable>());
@@ -496,7 +491,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             };
 
             var strategy = mocks.StrictMock<IStructureUpdateStrategy<StabilityPointStructure>>();
-            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null, null)).IgnoreArguments().Return(observables);
+            strategy.Expect(s => s.UpdateStructuresWithImportedData(null, null)).IgnoreArguments().Return(observables);
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, nameof(StabilityPointStructuresImporter),

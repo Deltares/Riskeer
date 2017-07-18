@@ -54,12 +54,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         public IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
-                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-                                                                    string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
         {
             Updated = true;
-            EvaluateGetValidStochasticSoilModelsMethod(readStochasticSoilModels);
+            EvaluateGetValidStochasticSoilModelsMethod(stochasticSoilModels);
             FilePath = sourceFilePath;
 
             return UpdatedInstances;

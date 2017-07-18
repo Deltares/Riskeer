@@ -78,6 +78,8 @@
     <Compile Include="Configurations\PipingCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Importers\PipingSurfaceLineTransformerTest.cs" />
+    <Compile Include="Importers\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
@@ -85,8 +87,6 @@
     <Compile Include="SoilProfile\StochasticSoilProfileReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="Importers\StochasticSoilModelImporterTest.cs" />
-    <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
-    <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
     <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DReaderTest.cs" />
@@ -94,7 +94,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
-    <Compile Include="SurfaceLines\PipingSurfaceLinesCsvReaderTest.cs" />
     <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>

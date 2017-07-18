@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Piping.IO.SurfaceLines;
+using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Piping.IO.Test.SurfaceLines
+namespace Ringtoets.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class CharacteristicPointsTest

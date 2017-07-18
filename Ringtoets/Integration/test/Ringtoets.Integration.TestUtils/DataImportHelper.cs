@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
@@ -43,6 +44,8 @@ using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using StochasticSoilModelReplaceDataStrategy = Ringtoets.Piping.Plugin.FileImporter.StochasticSoilModelReplaceDataStrategy;
+using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
+using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 
 namespace Ringtoets.Integration.TestUtils
 {
@@ -190,12 +193,13 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_surfacelines.krp.csv"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
-                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines,
-                                                                                        assessmentSection.ReferenceLine,
-                                                                                        filePath,
-                                                                                        new ImportMessageProvider(),
-                                                                                        new RingtoetsPipingSurfaceLineReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
-                                                      "PipingSurfaceLinesCsvImporter");
+                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                                                          assessmentSection.PipingFailureMechanism.SurfaceLines,
+                                                          filePath,
+                                                          new ImportMessageProvider(),
+                                                          PipingSurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.PipingFailureMechanism, assessmentSection.ReferenceLine)),
+                                                      "PipingSurfaceLinesCsvImporter")
+                    ;
                 activity.Run();
                 activity.Finish();
             }
@@ -242,11 +246,11 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_surfacelines.csv"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
-                var activity = new FileImportActivity(new MacroStabilityInwardsSurfaceLinesCsvImporter(assessmentSection.MacroStabilityInwards.SurfaceLines,
-                                                                                        assessmentSection.ReferenceLine,
-                                                                                        filePath,
-                                                                                        new ImportMessageProvider(),
-                                                                                        new RingtoetsMacroStabilityInwardsSurfaceLineReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
+                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                                                          assessmentSection.MacroStabilityInwards.SurfaceLines,
+                                                          filePath,
+                                                          new ImportMessageProvider(),
+                                                          MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.MacroStabilityInwards, assessmentSection.ReferenceLine)),
                                                       "MacroStabilityInwardsSurfaceLinesCsvImporter");
                 activity.Run();
                 activity.Finish();

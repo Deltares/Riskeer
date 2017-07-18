@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
@@ -46,7 +47,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new RingtoetsPipingSurfaceLineUpdateDataStrategy(null);
+            TestDelegate call = () => new PipingSurfaceLineUpdateDataStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,36 +58,21 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<RingtoetsPipingSurfaceLine>>(strategy);
             Assert.IsInstanceOf<UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>>(strategy);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
         public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
-                                                                                  null,
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
                                                                                   string.Empty);
 
             // Assert
@@ -98,11 +84,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsPipingSurfaceLineCollection(),
-                                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                   null);
 
             // Assert
@@ -126,16 +111,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             expectedGeometry.AddRange(surfaceLine.Points);
             surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
+            strategy.UpdateSurfaceLinesWithImportedData(new[]
                                                         {
                                                             surfaceLineToUpdateFrom
                                                         },
@@ -163,11 +148,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 surfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
+            strategy.UpdateSurfaceLinesWithImportedData(new[]
                                                         {
                                                             surfaceLineToUpdateFrom
                                                         },
@@ -192,16 +176,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
+            strategy.UpdateSurfaceLinesWithImportedData(new[]
                                                         {
                                                             surfaceLineToUpdateFrom
                                                         },
@@ -222,16 +206,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             RingtoetsPipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
             RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = DeepCloneAndModifyPoints(surfaceLine);
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
+            strategy.UpdateSurfaceLinesWithImportedData(new[]
                                                         {
                                                             surfaceLineToUpdateFrom
                                                         },
@@ -273,11 +257,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                  importedSurfaceLines,
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert
@@ -326,11 +309,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 }
             };
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                  importedSurfaceLines,
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert
@@ -343,7 +325,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             CollectionAssert.AreEqual(expectedGeometry, actualSurfaceLine.Points);
         }
-        
+
         [Test]
         public void UpdateSurfaceLinesWithImportedData_WithCurrentCollectionNotEmptyAndImportedDataHasFullOverlap_UpdatesTargetCollection()
         {
@@ -353,7 +335,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = collectionSurfaceLineName
             };
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 targetSurfaceLine
@@ -365,11 +348,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 readSurfaceLine
             };
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -411,11 +393,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 targetSurfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -465,11 +446,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 readSurfaceLineTwo
             };
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -518,11 +498,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 surfaceLine
             }, sourceFilePath);
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    sourceFilePath).ToArray();
 
             // Assert
@@ -582,14 +561,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
-            var collection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine,
                 unaffectedSurfaceLine
             }, sourceFilePath);
 
-            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
             failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
 
@@ -597,15 +576,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             RingtoetsPipingSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
             importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedAffectedSurfaceLine,
-                                                                                                       importedUnaffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedAffectedSurfaceLine,
+                importedUnaffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsTrue(unAffectedCalculation.HasOutput);
@@ -686,14 +664,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             RingtoetsPipingSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
             importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedUnaffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedUnaffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsTrue(unAffectedCalculation.HasOutput);
@@ -769,14 +746,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             PipingInput calculationInput = calculation.InputParameters;
@@ -860,14 +836,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             PipingInput calculationInput = calculation.InputParameters;
@@ -921,11 +896,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 soilModel
             }, "path");
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    "path").ToArray();
 
             // Assert
@@ -974,11 +948,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 soilModel
             }, "path");
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                    "path").ToArray();
 
             // Assert
@@ -1076,14 +1049,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             PipingInput affectedInput = affectedCalculation.InputParameters;
@@ -1138,14 +1110,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             RingtoetsPipingSurfaceLine importedSurfaceLine = DeepCloneAndModifyPoints(affectedSurfaceLine);
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]
@@ -1186,13 +1157,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
-            var collection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine
             }, sourceFilePath);
 
-            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
             RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneName(affectedSurfaceLine);
@@ -1202,14 +1173,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 0, 1)
             });
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedAffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedAffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsFalse(affectedCalculation.HasOutput);
@@ -1257,13 +1227,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput()
             };
 
-            var collection = new RingtoetsPipingSurfaceLineCollection();
+            var failureMechanism = new PipingFailureMechanism();
+            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine
             }, sourceFilePath);
 
-            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
             RingtoetsPipingSurfaceLine importedAffectedSurfaceLine = DeepCloneName(affectedSurfaceLine);
@@ -1273,14 +1243,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 0, 2)
             });
 
-            var strategy = new RingtoetsPipingSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedAffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedAffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsFalse(affectedCalculation.HasOutput);

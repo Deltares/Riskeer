@@ -46,13 +46,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+            : base(failureMechanism, failureMechanism?.DikeProfiles) {}
 
-        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(DikeProfileCollection targetCollection,
-                                                                           IEnumerable<DikeProfile> importedDataCollection,
-                                                                           string sourceFilePath)
+        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(IEnumerable<DikeProfile> importedDataCollection, string sourceFilePath)
         {
-            return ReplaceTargetCollectionWithImportedData(targetCollection, importedDataCollection, sourceFilePath);
+            return ReplaceTargetCollectionWithImportedData(importedDataCollection, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

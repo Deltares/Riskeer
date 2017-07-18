@@ -54,9 +54,7 @@ namespace Ringtoets.Common.IO.TestUtil
         /// </summary>
         public IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
-        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(DikeProfileCollection targetDataCollection,
-                                                                           IEnumerable<DikeProfile> importedDataCollection,
-                                                                           string sourceFilePath)
+        public IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(IEnumerable<DikeProfile> importedDataCollection, string sourceFilePath)
         {
             Updated = true;
             FilePath = sourceFilePath;

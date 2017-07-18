@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void DefaultConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteStrategyClass(null);
+            TestDelegate call = () => new ConcreteStrategyClass(null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,35 +48,21 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void DefaultConstructor_FailureMechanisNotNull_DoesNotThrowException()
         {
             // Call
-            TestDelegate call = () => new ConcreteStrategyClass(new TestFailureMechanism());
+            TestDelegate call = () => new ConcreteStrategyClass(new TestFailureMechanism(), null);
 
             // Assert
             Assert.DoesNotThrow(call);
         }
 
         [Test]
-        public void ReplaceData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
-
-            // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(null, Enumerable.Empty<TestItem>(), string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
-        }
-
-        [Test]
         public void ReplaceData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(collection, null, string.Empty);
+            TestDelegate call = () => strategy.ConcreteReplaceData(null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -87,11 +73,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(collection, Enumerable.Empty<TestItem>(), null);
+            TestDelegate call = () => strategy.ConcreteReplaceData(Enumerable.Empty<TestItem>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -102,11 +88,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_Always_CallsClearData()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             // Call
-            strategy.ConcreteReplaceData(collection, Enumerable.Empty<TestItem>(), "some/source");
+            strategy.ConcreteReplaceData(Enumerable.Empty<TestItem>(), "some/source");
 
             // Assert
             Assert.IsTrue(strategy.IsClearDataCalled);
@@ -116,8 +102,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_ImportedDataCollectionContainsDuplicateItems_ThrowsUpdateDataException()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             const string duplicateName = "Item A";
             var itemsToAdd = new[]
@@ -127,7 +113,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(collection, itemsToAdd, "some/source");
+            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
 
             // Assert
             CollectionAssert.IsEmpty(collection);
@@ -141,8 +127,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_ImportedDataCollectionContainsNull_ThrowsUpdateDataException()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             var itemsToAdd = new[]
             {
@@ -152,7 +138,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(collection, itemsToAdd, "some/source");
+            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, "some/source");
 
             // Assert
             CollectionAssert.IsEmpty(collection);
@@ -167,8 +153,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_InvalidSourceFilePath_ThrowsUpdateDataException(string invalidPath)
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             const string duplicateName = "Item A";
             var itemsToAdd = new[]
@@ -178,7 +164,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            TestDelegate call = () => strategy.ConcreteReplaceData(collection, itemsToAdd, invalidPath);
+            TestDelegate call = () => strategy.ConcreteReplaceData(itemsToAdd, invalidPath);
 
             // Assert
             CollectionAssert.IsEmpty(collection);
@@ -191,8 +177,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void ReplaceData_ImportedDataCollectionAndValidSourcePath_UpdatesTargetCollectionAndSourcePath()
         {
             // Setup
-            var strategy = new ConcreteStrategyClass(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = new ConcreteStrategyClass(new TestFailureMechanism(), collection);
 
             var itemsToAdd = new[]
             {
@@ -203,7 +189,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             const string expectedSourcePath = "some/source";
 
             // Call
-            strategy.ConcreteReplaceData(collection, itemsToAdd, expectedSourcePath);
+            strategy.ConcreteReplaceData(itemsToAdd, expectedSourcePath);
 
             // Assert
             CollectionAssert.AreEqual(itemsToAdd, collection);
@@ -216,7 +202,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             // Setup
             var failureMechanism = new TestFailureMechanism();
             var collection = new TestUniqueItemCollection();
-            var strategy = new ConcreteStrategyClass(failureMechanism);
+            var strategy = new ConcreteStrategyClass(failureMechanism, collection);
             var expectedObservables = new[]
             {
                 collection
@@ -224,8 +210,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             strategy.ClearDataReturnedList = expectedObservables;
 
             // Call
-            IObservable[] affectedObjects = strategy.ConcreteReplaceData(collection,
-                                                                         Enumerable.Empty<TestItem>(),
+            IObservable[] affectedObjects = strategy.ConcreteReplaceData(Enumerable.Empty<TestItem>(),
                                                                          "some/source").ToArray();
 
             // Assert
@@ -237,16 +222,15 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
         private class ConcreteStrategyClass : ReplaceDataStrategyBase<TestItem, TestFailureMechanism>
         {
-            public ConcreteStrategyClass(TestFailureMechanism failureMechanism) : base(failureMechanism) {}
+            public ConcreteStrategyClass(TestFailureMechanism failureMechanism, ObservableUniqueItemCollectionWithSourcePath<TestItem> items) : base(failureMechanism, items) {}
             public bool IsClearDataCalled { get; private set; }
             public TestFailureMechanism ClearDataFailureMechanism { get; private set; }
             public IEnumerable<IObservable> ClearDataReturnedList { private get; set; } = Enumerable.Empty<IObservable>();
 
-            public IEnumerable<IObservable> ConcreteReplaceData(ObservableUniqueItemCollectionWithSourcePath<TestItem> items,
-                                                                IEnumerable<TestItem> readItems,
+            public IEnumerable<IObservable> ConcreteReplaceData(IEnumerable<TestItem> readItems,
                                                                 string sourceFilePath)
             {
-                return ReplaceTargetCollectionWithImportedData(items, readItems, sourceFilePath);
+                return ReplaceTargetCollectionWithImportedData(readItems, sourceFilePath);
             }
 
             protected override IEnumerable<IObservable> ClearData()

@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(null);
+            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(null, new ForeshoreProfileCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -105,10 +105,21 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Constructor_ForeshoreProfilesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("targetCollection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
@@ -116,30 +127,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateForeshoreProfilesWithImportedData_TargetDataCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
-
-            // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
-                                                                                       Enumerable.Empty<ForeshoreProfile>(),
-                                                                                       sourceFilePath);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("targetDataCollection", exception.ParamName);
-        }
-
-        [Test]
         public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
-                                                                                       null,
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
                                                                                        sourceFilePath);
 
             // Assert
@@ -151,11 +145,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(new ForeshoreProfileCollection(),
-                                                                                       Enumerable.Empty<ForeshoreProfile>(),
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
                                                                                        null);
 
             // Assert
@@ -177,14 +170,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 profileToBeUpdated
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), targetCollection);
 
             // Call
-            strategy.UpdateForeshoreProfilesWithImportedData(targetCollection,
-                                                             new[]
-                                                             {
-                                                                 readForeshoreProfile
-                                                             }, sourceFilePath);
+            strategy.UpdateForeshoreProfilesWithImportedData(new[]
+            {
+                readForeshoreProfile
+            }, sourceFilePath);
 
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
@@ -196,7 +188,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_CurrentCollectionEmptyImportedCollectionContainDuplicateIDs_ThrowUpdateException()
         {
             // Setup 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
             var foreshoreProfiles = new ForeshoreProfileCollection();
 
             const string duplicateId = "duplicate ID";
@@ -206,9 +197,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                       importedForeshoreProfiles,
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
                                                                                        sourceFilePath);
 
             // Assert
@@ -223,7 +215,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionNotEmptyAndImportedCollectionHasProfilesWithSameId_ThrowsUpdateException()
         {
             // Setup 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var originalForeshoreProfiles = new[]
@@ -239,9 +230,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+
             // Call
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                       importedForeshoreProfiles,
+            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
                                                                                        sourceFilePath);
 
             // Assert
@@ -272,12 +264,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 targetForeshoreProfile
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 readForeshoreProfiles,
+                strategy.UpdateForeshoreProfilesWithImportedData(readForeshoreProfiles,
                                                                  sourceFilePath);
 
             // Assert
@@ -294,7 +285,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionAndImportedCollectionHasFullOverlap_UpdatesTargetDataCollection()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var targetForeshoreProfile = new TestForeshoreProfile("Name", "ID");
@@ -309,9 +299,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 readForeshoreProfile
             };
 
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        importedForeshoreProfiles,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
                                                                                                         sourceFilePath);
 
             // Assert
@@ -330,8 +321,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_WithCurrentCollectionAndImportedCollectionHasPartialOverlap_UpdatesTargetDataCollection()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism());
-
             var commonName = "Name";
             var foreshoreProfileToBeUpdated = new TestForeshoreProfile(commonName, "Updated ID");
             var foreshoreProfileToBeRemoved = new TestForeshoreProfile(commonName, "Removed ID");
@@ -351,9 +340,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 foreshoreProfileToBeAdded
             };
 
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                                                        importedForeshoreProfiles,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
                                                                                                         sourceFilePath);
 
             // Assert
@@ -397,12 +387,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 calculation
             });
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism, foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
                                                                  sourceFilePath);
 
             // Assert
@@ -447,12 +436,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 unaffectedCalculation
             });
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism, foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 new[]
+                strategy.UpdateForeshoreProfilesWithImportedData(new[]
                                                                  {
                                                                      new TestForeshoreProfile(unaffectedProfileName,
                                                                                               unaffectedProfileId),
@@ -503,12 +491,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 calculationSameReference
             });
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism, foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 new[]
+                strategy.UpdateForeshoreProfilesWithImportedData(new[]
                                                                  {
                                                                      profileToUpdateFrom
                                                                  },
@@ -554,12 +541,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 affectedCalculation
             });
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(failureMechanism, foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
-                strategy.UpdateForeshoreProfilesWithImportedData(foreshoreProfiles,
-                                                                 new[]
+                strategy.UpdateForeshoreProfilesWithImportedData(new[]
                                                                  {
                                                                      profileToUpdateFrom
                                                                  },

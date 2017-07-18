@@ -302,6 +302,62 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_File_invalid_header {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_File_invalid_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to locatie &apos;{0}&apos;.
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_LocationName_0_ {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_LocationName_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel heeft geen ID..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separat" +
+                        "or_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_val" +
+                        "ues_for_characteristic_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel heeft geen ID..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
@@ -661,6 +717,42 @@ namespace Ringtoets.Common.IO.Properties {
         public static string DikeProfilesImporter_No_dike_geometry_file_0_skipped {
             get {
                 return ResourceManager.GetString("DikeProfilesImporter_No_dike_geometry_file_0_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
+        /// </summary>
+        public static string Error_CharacteristicPoint_has_not_double {
+            get {
+                return ResourceManager.GetString("Error_CharacteristicPoint_has_not_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
+        /// </summary>
+        public static string Error_CharacteristicPoint_parsing_causes_overflow {
+            get {
+                return ResourceManager.GetString("Error_CharacteristicPoint_parsing_causes_overflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
+        /// </summary>
+        public static string Error_SurfaceLine_has_not_double {
+            get {
+                return ResourceManager.GetString("Error_SurfaceLine_has_not_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
+        /// </summary>
+        public static string Error_SurfaceLine_parsing_causes_overflow {
+            get {
+                return ResourceManager.GetString("Error_SurfaceLine_parsing_causes_overflow", resourceCulture);
             }
         }
         
@@ -1888,6 +1980,303 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StructuresReader_GetNextStructure_Invalid_KWKIDENT {
             get {
                 return ResourceManager.GetString("StructuresReader_GetNextStructure_Invalid_KWKIDENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een punt in de geometrie voor de profielschematisatie heeft geen waarde..
+        /// </summary>
+        public static string SurfaceLine_A_point_in_the_collection_was_null {
+            get {
+                return ResourceManager.GetString("SurfaceLine_A_point_in_the_collection_was_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde..
+        /// </summary>
+        public static string SurfaceLine_Collection_of_points_for_geometry_is_null {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Collection_of_points_for_geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_un" +
+                        "known_SurfaceLine_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerdere karakteristieke punten definities gevonden voor locatie &apos;{0}&apos;. Alleen de eerste definitie wordt geïmporteerd..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_cha" +
+                        "racteristic_point_location_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerdere definities gevonden voor profielschematisatie &apos;{0}&apos;. Alleen de eerste definitie wordt geïmporteerd..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_loc" +
+                        "ation_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor locatie &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_Surfa" +
+                        "ceLine_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karakteristiek punt van profielschematisatie &apos;{0}&apos; is overgeslagen. {1}.
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to" +
+                        "_ExitPointL_for_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_co" +
+                        "rrespond_to_current_referenceline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_co" +
+                        "rrespond_to_current_referenceline_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coor" +
+                        "dinates_being_local_coordinate_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Het bestand wordt overgeslagen..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {0}).
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_fil" +
+                        "e_expecting_file_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen &apos;{0}&apos;.
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_Read_CharacteristicPoints_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_Read_CharacteristicPoints_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen &apos;{0}&apos;.
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_Read_SurfaceLines_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_Read_SurfaceLines_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klaar met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_" +
+                        "points_from_File_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Deze locatie met karakteristieke punten wordt overgeslagen..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_Characterist" +
+                        "icPoints_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_poi" +
+                        "nts_from_File_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het karakteristieke punten-bestand..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_Reading_characteristic_points_file {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_Reading_characteristic_points_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het profielschematisatiesbestand..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_Reading_surface_line_file {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_Reading_surface_line_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klaar met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File" +
+                        "_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Deze profielschematisatie wordt overgeslagen..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie {0} bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_" +
+                        "is_ignored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1)..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_File_invalid_header {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_File_invalid_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel heeft geen ID..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_ReadLine_Line_lacks_ID {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
+        /// </summary>
+        public static string SurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to profielschematisatie &apos;{0}&apos;.
+        /// </summary>
+        public static string SurfaceLinesCsvReader_SurfaceLineName_0_ {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
             }
         }
         

@@ -36,18 +36,22 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     public class StochasticSoilModelReplaceDataStrategy : ReplaceDataStrategyBase<StochasticSoilModel, MacroStabilityInwardsFailureMechanism>,
                                                           IStochasticSoilModelUpdateModelStrategy
     {
+        private ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> targetDataCollection;
+
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public StochasticSoilModelReplaceDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism) : base(failureMechanism) {}
-
-        public IEnumerable<IObservable> UpdateModelWithImportedData(StochasticSoilModelCollection targetDataCollection,
-                                                                    IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-                                                                    string sourceFilePath)
+        public StochasticSoilModelReplaceDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
+            : base(failureMechanism, failureMechanism?.StochasticSoilModels)
         {
-            return ReplaceTargetCollectionWithImportedData(targetDataCollection, readStochasticSoilModels, sourceFilePath);
+            targetDataCollection = failureMechanism.StochasticSoilModels;
+        }
+
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
+        {
+            return ReplaceTargetCollectionWithImportedData(stochasticSoilModels, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> ClearData()

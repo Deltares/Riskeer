@@ -36,10 +36,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         private const string sourceFilePath = "path";
 
         [Test]
-        public void DefaultConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(null);
+            TestDelegate call = () => new TestUpdateDataStrategy(null, new NameComparer(), new TestUniqueItemCollection());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -47,10 +47,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void DefaultConstructor_EqualityComparerNull_ThrowsArgumentNullException()
+        public void Constructor_EqualityComparerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), null);
+            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), null, new TestUniqueItemCollection());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -58,34 +58,31 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void DefaultConstructor_FailureMechanismNotNull_DoesNotThrowException()
+        public void Constructor_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism());
+            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("targetCollection", paramName);
+        }
+
+        [Test]
+        public void Constructor_ParametersSet_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () => new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), new TestUniqueItemCollection());
 
             // Assert
             Assert.DoesNotThrow(call);
         }
 
         [Test]
-        public void UpdateTargetCollectionData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
-
-            // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(null, Enumerable.Empty<TestItem>(), string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
-        }
-
-        [Test]
         public void UpdateTargetCollectionData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
             TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), null, string.Empty);
@@ -99,7 +96,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void UpdateTargetCollectionData_ImportedDataCollectionContainsNullElement_ThrowsArgumentException()
         {
             // Setup
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
             TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), new TestItem[]
@@ -116,8 +113,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void UpdateTargetCollectionData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
             var collection = new TestUniqueItemCollection();
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             TestDelegate call = () => strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), null);
@@ -134,7 +131,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var collection = new TestUniqueItemCollection();
 
             const string filePath = "path";
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
@@ -161,10 +158,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
             collection.AddRange(itemsRemoved, filePath);
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
-            {
-                ItemsToRemove = itemsRemoved
-            };
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToRemove = itemsRemoved;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
@@ -202,7 +197,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Name B")
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, sourceFilePath);
@@ -239,7 +234,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem(duplicateName)
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             TestDelegate call = () => strategy.ConcreteUpdateData(collection, importedCollection, sourceFilePath);
@@ -276,10 +271,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 currentCollection[1].DeepClone()
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
-            {
-                ItemsToUpdate = currentCollection
-            };
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToUpdate = currentCollection;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -323,10 +316,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 currentCollection[1].DeepClone()
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
-            {
-                ItemsToUpdate = currentCollection
-            };
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToUpdate = currentCollection;
 
             const string newSourceFilePath = "Something/Different/From/Onbekend";
 
@@ -367,16 +358,14 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 itemToAdd
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToUpdate = new[]
             {
-                ItemsToUpdate = new[]
-                {
-                    itemToUpdate
-                },
-                ItemsToRemove = new[]
-                {
-                    itemToRemove
-                }
+                itemToUpdate
+            };
+            strategy.ItemsToRemove = new[]
+            {
+                itemToRemove
             };
 
             // Call
@@ -427,10 +416,8 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item four")
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
-            {
-                ItemsToRemove = currentCollection
-            };
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToRemove = currentCollection;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -479,7 +466,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item one")
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             strategy.ConcreteUpdateData(collection,
@@ -509,7 +496,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item one")
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             strategy.ConcreteUpdateData(collection,
@@ -538,7 +525,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem(name)
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism());
+            var strategy = CreateDefaultTestStrategy(collection);
 
             // Call
             TestDelegate call = () => strategy.ConcreteUpdateData(collection,
@@ -568,12 +555,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 itemTwo
             };
 
-            var strategy = new TestUpdateDataStrategy(new TestFailureMechanism())
-            {
-                ItemsToUpdate = currentCollection,
-                ItemsToUpdateFrom = importedItems,
-                AddObjectToUpdateToAffectedItems = true
-            };
+            var strategy = CreateDefaultTestStrategy(collection);
+            strategy.ItemsToUpdate = currentCollection;
+            strategy.ItemsToUpdateFrom = importedItems;
+            strategy.AddObjectToUpdateToAffectedItems = true;
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
@@ -590,15 +575,17 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }
 
+        private TestUpdateDataStrategy CreateDefaultTestStrategy(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection)
+        {
+            return new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), targetCollection);
+        }
+
         private class TestUpdateDataStrategy : UpdateDataStrategyBase<TestItem, TestFailureMechanism>
         {
             public bool AddObjectToUpdateToAffectedItems;
 
-            public TestUpdateDataStrategy(TestFailureMechanism failureMechanism, IEqualityComparer<TestItem> comparer)
-                : base(failureMechanism, comparer) {}
-
-            public TestUpdateDataStrategy(TestFailureMechanism failureMechanism)
-                : base(failureMechanism, new NameComparer()) {}
+            public TestUpdateDataStrategy(TestFailureMechanism failureMechanism, IEqualityComparer<TestItem> comparer, ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection)
+                : base(failureMechanism, targetCollection, comparer) {}
 
             public bool IsUpdateDataCalled { get; private set; }
             public bool IsRemoveObjectAndDependentDataCalled { get; private set; }
@@ -621,7 +608,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                                                                IEnumerable<TestItem> importedDataCollection,
                                                                string sourceFilePath)
             {
-                return UpdateTargetCollectionData(targetCollection, importedDataCollection, sourceFilePath);
+                return UpdateTargetCollectionData(importedDataCollection, sourceFilePath);
             }
 
             protected override IEnumerable<IObservable> UpdateObjectAndDependentData(TestItem objectToUpdate, TestItem objectToUpdateFrom)
@@ -645,18 +632,18 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
 
                 return ItemsToRemove;
             }
+        }
 
-            private class NameComparer : IEqualityComparer<TestItem>
+        private class NameComparer : IEqualityComparer<TestItem>
+        {
+            public bool Equals(TestItem x, TestItem y)
             {
-                public bool Equals(TestItem x, TestItem y)
-                {
-                    return x.Name == y.Name;
-                }
+                return x.Name == y.Name;
+            }
 
-                public int GetHashCode(TestItem obj)
-                {
-                    return obj.Name.GetHashCode();
-                }
+            public int GetHashCode(TestItem obj)
+            {
+                return obj.Name.GetHashCode();
             }
         }
 

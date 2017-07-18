@@ -34,20 +34,15 @@ namespace Ringtoets.Piping.IO.Importers
     public interface IStochasticSoilModelUpdateModelStrategy
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="targetDataCollection"/>.
+        /// Updates the surface lines using the <paramref name="stochasticSoilModels"/>.
         /// </summary>
-        /// <param name="targetDataCollection">The <see cref="StochasticSoilModelCollection"/> to which the imported data
-        /// is added.</param>
-        /// <param name="readStochasticSoilModels">The stochastic soil models which were imported.</param>
+        /// <param name="stochasticSoilModels">The stochastic soil models which were imported.</param>
         /// <param name="sourceFilePath">The path to the source file from which the soil models were imported.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when applying the strategy failed.
         /// <see cref="UpdateDataException.InnerException"/> is set with the more detailed
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
-        IEnumerable<IObservable> UpdateModelWithImportedData(
-            StochasticSoilModelCollection targetDataCollection,
-            IEnumerable<StochasticSoilModel> readStochasticSoilModels,
-            string sourceFilePath);
+        IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath);
     }
 }

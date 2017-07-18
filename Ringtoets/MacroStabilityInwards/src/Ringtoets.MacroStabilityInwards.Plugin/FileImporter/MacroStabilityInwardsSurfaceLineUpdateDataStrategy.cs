@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
 
@@ -36,22 +36,20 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
-    public class RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
-                                                                               ISurfaceLineUpdateDataStrategy
+    public class MacroStabilityInwardsSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
+                                                                      ISurfaceLineUpdateDataStrategy<RingtoetsMacroStabilityInwardsSurfaceLine>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
-            : base(failureMechanism, new RingtoetsMacroStabilityInwardsSurfaceLineNameEqualityComparer()) {}
+        public MacroStabilityInwardsSurfaceLineUpdateDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
+            : base(failureMechanism, failureMechanism?.SurfaceLines, new RingtoetsMacroStabilityInwardsSurfaceLineNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(RingtoetsMacroStabilityInwardsSurfaceLineCollection targetDataCollection,
-                                                                           IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> readSurfaceLines,
-                                                                           string sourceFilePath)
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, string sourceFilePath)
         {
-            return UpdateTargetCollectionData(targetDataCollection, readSurfaceLines, sourceFilePath);
+            return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsMacroStabilityInwardsSurfaceLine removedSurfaceLine)

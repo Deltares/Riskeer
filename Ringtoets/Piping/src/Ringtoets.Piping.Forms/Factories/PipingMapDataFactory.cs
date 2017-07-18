@@ -25,6 +25,7 @@ using Core.Components.Gis.Style;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Factories
@@ -40,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(PipingDataResources.PipingSurfaceLineCollection_TypeDescriptor,
+            return new MapLineData(RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.DarkSeaGreen,

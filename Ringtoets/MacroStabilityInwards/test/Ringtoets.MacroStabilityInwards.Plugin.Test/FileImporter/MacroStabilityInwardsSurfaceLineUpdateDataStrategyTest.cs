@@ -27,9 +27,9 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
+using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -37,7 +37,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategyTest
+    public class MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
 
@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(null);
+            TestDelegate call = () => new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -56,36 +56,21 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<RingtoetsMacroStabilityInwardsSurfaceLine>>(strategy);
             Assert.IsInstanceOf<UpdateDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>>(strategy);
-        }
-
-        [Test]
-        public void UpdateSurfaceLinesWithImportedData_TargetCollectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null, Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(), string.Empty);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("targetDataCollection", paramName);
         }
 
         [Test]
         public void UpdateSurfaceLinesWithImportedData_ReadSurfaceLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsMacroStabilityInwardsSurfaceLineCollection(),
-                                                                                  null,
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(null,
                                                                                   string.Empty);
 
             // Assert
@@ -97,11 +82,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(new RingtoetsMacroStabilityInwardsSurfaceLineCollection(),
-                                                                                  Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
                                                                                   null);
 
             // Assert
@@ -125,16 +109,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             expectedGeometry.AddRange(surfaceLine.Points);
             surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
 
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            RingtoetsMacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                        new[]
+            strategy.UpdateSurfaceLinesWithImportedData(new[]
                                                         {
                                                             surfaceLineToUpdateFrom
                                                         },
@@ -175,11 +159,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                  importedSurfaceLines,
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert
@@ -228,11 +211,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 }
             };
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                  importedSurfaceLines,
+            TestDelegate call = () => strategy.UpdateSurfaceLinesWithImportedData(importedSurfaceLines,
                                                                                   sourceFilePath);
 
             // Assert
@@ -250,12 +232,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentCollectionNotEmptyAndImportedDataHasFullOverlap_UpdatesTargetCollection()
         {
             // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
             const string collectionSurfaceLineName = "Name A";
-            var targetSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                Name = collectionSurfaceLineName
-            };
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var targetSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            targetSurfaceLine.Name = collectionSurfaceLineName;
+            RingtoetsMacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 targetSurfaceLine
@@ -267,11 +249,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 readSurfaceLine
             };
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(targetCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -313,11 +294,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             {
                 targetSurfaceLine
             }, sourceFilePath);
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -367,11 +347,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 readSurfaceLineTwo
             };
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -420,11 +399,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 surfaceLine
             }, sourceFilePath);
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(surfaceLineCollection,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
                                                                                                    sourceFilePath).ToArray();
 
             // Assert
@@ -484,14 +462,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };
 
-            var collection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            RingtoetsMacroStabilityInwardsSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine,
                 unaffectedSurfaceLine
             }, sourceFilePath);
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
             failureMechanism.CalculationsGroup.Children.Add(unAffectedCalculation);
 
@@ -499,15 +477,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             RingtoetsMacroStabilityInwardsSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
             importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedAffectedSurfaceLine,
-                                                                                                       importedUnaffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedAffectedSurfaceLine,
+                importedUnaffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsTrue(unAffectedCalculation.HasOutput);
@@ -588,14 +565,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             RingtoetsMacroStabilityInwardsSurfaceLine importedUnaffectedSurfaceLine = DeepCloneName(unaffectedSurfaceLine);
             importedUnaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(collection,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedUnaffectedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedUnaffectedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             Assert.IsTrue(unAffectedCalculation.HasOutput);
@@ -671,14 +647,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             MacroStabilityInwardsInput calculationInput = calculation.InputParameters;
@@ -762,14 +737,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             MacroStabilityInwardsInput calculationInput = calculation.InputParameters;
@@ -823,11 +797,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 soilModel
             }, "path");
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
                                                                                                    "path").ToArray();
 
             // Assert
@@ -876,11 +849,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 soilModel
             }, "path");
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
                                                                                                    "path").ToArray();
 
             // Assert
@@ -978,14 +950,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 0, 0)
             });
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             MacroStabilityInwardsInput affectedInput = affectedCalculation.InputParameters;
@@ -1040,14 +1011,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             RingtoetsMacroStabilityInwardsSurfaceLine importedSurfaceLine = DeepCloneAndModifyPoints(affectedSurfaceLine);
 
-            var strategy = new RingtoetsMacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
+            var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(failureMechanism.SurfaceLines,
-                                                                                                   new[]
-                                                                                                   {
-                                                                                                       importedSurfaceLine
-                                                                                                   }, "path").ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(new[]
+            {
+                importedSurfaceLine
+            }, "path").ToArray();
 
             // Assert
             CollectionAssert.AreEquivalent(new IObservable[]

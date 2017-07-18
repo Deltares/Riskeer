@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
             var filePath = new string('x', new Random(21).Next(5, 23));
 
             // Call
-            strategy.UpdateModelWithImportedData(null, readModels, filePath);
+            strategy.UpdateModelWithImportedData(readModels, filePath);
 
             // Assert
             Assert.IsTrue(strategy.Updated);
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
             strategy.UpdatedInstances = updatedInstances;
 
             // Call
-            IEnumerable<IObservable> updatedData = strategy.UpdateModelWithImportedData(null, readModels, filePath);
+            IEnumerable<IObservable> updatedData = strategy.UpdateModelWithImportedData(readModels, filePath);
 
             // Assert
             Assert.AreSame(updatedInstances, updatedData);

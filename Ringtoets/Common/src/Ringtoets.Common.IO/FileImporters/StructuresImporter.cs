@@ -423,8 +423,7 @@ namespace Ringtoets.Common.IO.FileImporters
         private IEnumerable<IObservable> UpdateWithCreatedStructures(IEnumerable<StructureLocation> structureLocations,
                                                                      IDictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            return structureUpdateStrategy.UpdateStructuresWithImportedData(ImportTarget,
-                                                                            CreateStructures(structureLocations.ToList(),
+            return structureUpdateStrategy.UpdateStructuresWithImportedData(CreateStructures(structureLocations.ToList(),
                                                                                              groupedStructureParameterRows),
                                                                             FilePath);
         }

@@ -128,6 +128,14 @@
     <Compile Include="Configurations\Export\CalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\Export\StructureCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\Helpers\XmlWriterExtensions.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
+    <Compile Include="SurfaceLines\CharacteristicPointsCsvReader.cs" />
+    <Compile Include="SurfaceLines\ISurfaceLineTransformer.cs" />
+    <Compile Include="SurfaceLines\ISurfaceLineUpdateDataStrategy.cs" />
+    <Compile Include="SurfaceLines\SurfaceLine.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporter.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfiguration.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

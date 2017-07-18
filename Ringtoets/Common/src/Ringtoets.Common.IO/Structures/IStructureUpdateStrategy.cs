@@ -34,18 +34,14 @@ namespace Ringtoets.Common.IO.Structures
     public interface IStructureUpdateStrategy<TStructure> where TStructure : StructureBase
     {
         /// <summary>
-        /// Updates the <paramref name="targetDataCollection"/> and its dependent data with data
+        /// Updates the strucutres and its dependent data with data
         /// from <paramref name="readStructures"/>.
         /// </summary>
-        /// <param name="targetDataCollection">The target collection which needs to be updated.</param>
         /// <param name="readStructures">The imported structures.</param>
         /// <param name="sourceFilePath">The source path from where the structures were imported from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed.</exception>
-        IEnumerable<IObservable> UpdateStructuresWithImportedData(
-            StructureCollection<TStructure> targetDataCollection,
-            IEnumerable<TStructure> readStructures,
-            string sourceFilePath);
+        IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<TStructure> readStructures, string sourceFilePath);
     }
 }
