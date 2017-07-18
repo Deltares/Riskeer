@@ -71,7 +71,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
-                Assert.AreEqual(DataGridViewEditMode.EditOnEnter, dataGridView.EditMode);
+                Assert.AreEqual(DataGridViewEditMode.EditProgrammatically, dataGridView.EditMode);
                 Assert.AreEqual(DataGridViewColumnHeadersHeightSizeMode.DisableResizing, dataGridView.ColumnHeadersHeightSizeMode);
                 Assert.AreEqual(DataGridViewRowHeadersWidthSizeMode.DisableResizing, dataGridView.RowHeadersWidthSizeMode);
                 Assert.IsFalse(dataGridView.AllowUserToResizeColumns);
@@ -101,7 +101,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
-                Assert.AreEqual(DataGridViewEditMode.EditOnEnter, dataGridView.EditMode);
+                Assert.AreEqual(DataGridViewEditMode.EditProgrammatically, dataGridView.EditMode);
                 Assert.AreEqual(DataGridViewColumnHeadersHeightSizeMode.AutoSize, dataGridView.ColumnHeadersHeightSizeMode);
                 Assert.AreEqual(DataGridViewRowHeadersWidthSizeMode.DisableResizing, dataGridView.RowHeadersWidthSizeMode);
                 Assert.IsFalse(dataGridView.AllowUserToResizeColumns);
@@ -1525,77 +1525,6 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void DataGridView_GotFocusCurrentCellSet_CellInEditMode()
-        {
-            // Setup
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                // Make sure the cell is not in edit mode when setting the current cell.
-                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
-
-                control.AddTextBoxColumn("Test property", "Test header");
-
-                control.SetDataSource(new[]
-                {
-                    ""
-                });
-
-                DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
-                control.SetCurrentCell(dataGridViewCell);
-
-                // Precondition
-                Assert.IsFalse(control.IsCurrentCellInEditMode);
-
-                // Call
-                gridTester.FireEvent("GotFocus", EventArgs.Empty);
-
-                // Assert
-                Assert.IsTrue(control.IsCurrentCellInEditMode);
-            }
-        }
-
-        [Test]
-        public void DataGridView_GotFocusCurrentCellNull_CellNotInEditMode()
-        {
-            // Setup
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                // Make sure the cell is not in edit mode when setting the current cell.
-                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
-
-                control.AddTextBoxColumn("Test property", "Test header");
-                control.SetDataSource(new[]
-                {
-                    ""
-                });
-                control.ClearCurrentCell();
-
-                // Precondition
-                Assert.IsFalse(control.IsCurrentCellInEditMode);
-
-                // Call
-                gridTester.FireEvent("GotFocus", EventArgs.Empty);
-
-                // Assert
-                Assert.IsFalse(control.IsCurrentCellInEditMode);
-            }
-        }
-
-        [Test]
         public void DataGridView_CellValidatingValueValid_DoesNotShowErrorToolTip()
         {
             // Setup
@@ -1664,6 +1593,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
 
                 var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
                 control.SetDataSource(new[]
                 {
                     new TestDataGridViewRow(new RoundedDouble(0, 25))
@@ -1673,6 +1604,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.SetCurrentCell(dataGridViewCell);
                 const string newValue = "3";
 
+                control.SetCurrentCell(dataGridViewCell);
+                dataGridView.BeginEdit(false);
                 dataGridViewCell.Value = newValue;
 
                 // Precondition
@@ -1702,6 +1635,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
 
                 var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
                 control.SetDataSource(new[]
                 {
                     new TestDataGridViewRow(new RoundedDouble(0, initialValue))
@@ -1711,6 +1646,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.SetCurrentCell(dataGridViewCell);
                 const string newValue = "test";
 
+                control.SetCurrentCell(dataGridViewCell);
+                dataGridView.BeginEdit(false);
                 dataGridViewCell.Value = newValue;
 
                 // Precondition
