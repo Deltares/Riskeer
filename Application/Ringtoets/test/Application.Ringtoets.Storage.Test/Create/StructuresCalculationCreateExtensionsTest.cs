@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -29,9 +30,11 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -42,6 +45,19 @@ namespace Application.Ringtoets.Storage.Test.Create
     [TestFixture]
     public class StructuresCalculationCreateExtensionsTest
     {
+        private static StructuresOutput GetStructuresOutputWithIllustrationPoints()
+        {
+            var structuresOutput = new StructuresOutput(
+                new ProbabilityAssessmentOutput(double.NaN, double.NaN,
+                                                double.NaN, double.NaN,
+                                                double.NaN));
+            structuresOutput.SetIllustrationPoints(new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                       WindDirectionTestFactory.CreateTestWindDirection(),
+                                                       Enumerable.Empty<Stochast>(),
+                                                       Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()));
+            return structuresOutput;
+        }
+
         #region CreateForHeightStructures
 
         [Test]
@@ -347,6 +363,26 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, entity.HeightStructuresOutputEntities.Count);
+        }
+
+        [Test]
+        public void CreateForHeightStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = GetStructuresOutputWithIllustrationPoints()
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            HeightStructuresCalculationEntity entity = calculation.CreateForHeightStructures(registry, 0);
+
+            // Assert
+            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            Assert.IsNotNull(outputEntity);
+            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         #endregion
@@ -712,6 +748,26 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, entity.ClosingStructuresOutputEntities.Count);
+        }
+
+        [Test]
+        public void CreateForClosingStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = GetStructuresOutputWithIllustrationPoints()
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, 0);
+
+            // Assert
+            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            Assert.IsNotNull(outputEntity);
+            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         #endregion
@@ -1226,6 +1282,26 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, entity.StabilityPointStructuresOutputEntities.Count);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = GetStructuresOutputWithIllustrationPoints()
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
+
+            // Assert
+            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            Assert.IsNotNull(outputEntity);
+            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         #endregion
