@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
@@ -43,7 +44,8 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<ClosingStructuresInput> Read(this ClosingStructuresCalculationEntity entity, ReadConversionCollector collector)
+        internal static StructuresCalculation<ClosingStructuresInput> Read(this ClosingStructuresCalculationEntity entity,
+                                                                           ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -70,7 +72,9 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             return calculation;
         }
 
-        private static void ReadInputParameters(ClosingStructuresInput inputParameters, ClosingStructuresCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(ClosingStructuresInput inputParameters,
+                                                ClosingStructuresCalculationEntity entity,
+                                                ReadConversionCollector collector)
         {
             if (entity.ClosingStructureEntity != null)
             {
@@ -97,13 +101,23 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding = entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
         }
 
-        private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationEntity entity)
+        private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation,
+                                       ClosingStructuresCalculationEntity entity)
         {
-            ClosingStructuresOutputEntity output = entity.ClosingStructuresOutputEntities.FirstOrDefault();
-            if (output != null)
+            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            if (outputEntity == null)
             {
-                calculation.Output = new StructuresOutput(output.Read());
+                return;
             }
+
+            var output = new StructuresOutput(outputEntity.Read());
+
+            if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
+            {
+                output.SetIllustrationPoints(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
+            }
+
+            calculation.Output = output;
         }
     }
 }

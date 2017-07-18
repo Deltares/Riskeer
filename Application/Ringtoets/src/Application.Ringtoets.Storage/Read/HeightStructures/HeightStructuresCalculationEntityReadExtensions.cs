@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
@@ -43,7 +44,8 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity, ReadConversionCollector collector)
+        internal static StructuresCalculation<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity,
+                                                                          ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -70,7 +72,9 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             return calculation;
         }
 
-        private static void ReadInputParameters(HeightStructuresInput inputParameters, HeightStructuresCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(HeightStructuresInput inputParameters,
+                                                HeightStructuresCalculationEntity entity,
+                                                ReadConversionCollector collector)
         {
             if (entity.HeightStructureEntity != null)
             {
@@ -84,13 +88,23 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
         }
 
-        private static void ReadOutput(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationEntity entity)
+        private static void ReadOutput(StructuresCalculation<HeightStructuresInput> calculation,
+                                       HeightStructuresCalculationEntity entity)
         {
-            HeightStructuresOutputEntity output = entity.HeightStructuresOutputEntities.FirstOrDefault();
-            if (output != null)
+            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            if (outputEntity == null)
             {
-                calculation.Output = new StructuresOutput(output.Read());
+                return;
             }
+
+            var output = new StructuresOutput(outputEntity.Read());
+
+            if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
+            {
+                output.SetIllustrationPoints(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
+            }
+
+            calculation.Output = output;
         }
     }
 }

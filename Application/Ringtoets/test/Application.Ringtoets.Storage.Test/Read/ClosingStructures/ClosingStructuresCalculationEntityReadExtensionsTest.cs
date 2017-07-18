@@ -311,6 +311,37 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
+            Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputAndIllustrationPoints_ReturnCalculationWithOutputAndIllustrationPoints()
+        {
+            // Setup
+            var random = new Random(678);
+            var entity = new ClosingStructuresCalculationEntity
+            {
+                ClosingStructuresOutputEntities =
+                {
+                    new ClosingStructuresOutputEntity
+                    {
+                        GeneralResultFaultTreeIllustrationPointEntity = new GeneralResultFaultTreeIllustrationPointEntity
+                        {
+                            GoverningWindDirectionName = "name",
+                            GoverningWindDirectionAngle = random.NextDouble()
+                        }
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
+            Assert.IsTrue(calculation.Output.HasIllustrationPoints);
         }
 
         [Test]

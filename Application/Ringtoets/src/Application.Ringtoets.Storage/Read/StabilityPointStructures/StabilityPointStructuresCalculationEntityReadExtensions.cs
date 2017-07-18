@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
@@ -43,7 +44,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<StabilityPointStructuresInput> Read(this StabilityPointStructuresCalculationEntity entity, ReadConversionCollector collector)
+        internal static StructuresCalculation<StabilityPointStructuresInput> Read(this StabilityPointStructuresCalculationEntity entity,
+                                                                                  ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -70,7 +72,9 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             return calculation;
         }
 
-        private static void ReadInputParameters(StabilityPointStructuresInput inputParameters, StabilityPointStructuresCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(StabilityPointStructuresInput inputParameters,
+                                                StabilityPointStructuresCalculationEntity entity,
+                                                ReadConversionCollector collector)
         {
             if (entity.StabilityPointStructureEntity != null)
             {
@@ -118,13 +122,23 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             inputParameters.DrainCoefficient.Mean = (RoundedDouble) entity.DrainCoefficientMean.ToNullAsNaN();
         }
 
-        private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationEntity entity)
+        private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation,
+                                       StabilityPointStructuresCalculationEntity entity)
         {
-            StabilityPointStructuresOutputEntity output = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
-            if (output != null)
+            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            if (outputEntity == null)
             {
-                calculation.Output = new StructuresOutput(output.Read());
+                return;
             }
+
+            var output = new StructuresOutput(outputEntity.Read());
+
+            if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
+            {
+                output.SetIllustrationPoints(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
+            }
+
+            calculation.Output = output;
         }
     }
 }

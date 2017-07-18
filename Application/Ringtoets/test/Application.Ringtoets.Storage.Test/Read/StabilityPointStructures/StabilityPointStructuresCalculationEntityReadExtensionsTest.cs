@@ -395,6 +395,37 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
+            Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputAndIllustrationPoints_ReturnCalculationWithOutputAndIllustrationPoints()
+        {
+            // Setup
+            var random = new Random(678);
+            var entity = new StabilityPointStructuresCalculationEntity
+            {
+                StabilityPointStructuresOutputEntities =
+                {
+                    new StabilityPointStructuresOutputEntity
+                    {
+                        GeneralResultFaultTreeIllustrationPointEntity = new GeneralResultFaultTreeIllustrationPointEntity
+                        {
+                            GoverningWindDirectionName = "name",
+                            GoverningWindDirectionAngle = random.NextDouble()
+                        }
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
+            Assert.IsTrue(calculation.Output.HasIllustrationPoints);
         }
 
         [Test]
