@@ -77,6 +77,48 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
+        public void Create_IllustrationPointNodeWithFaultTreeIllustrationPointAndStochast_ReturnFaultTreeIllustrationPointEntity()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                "Illustration point name",
+                random.NextDouble(),
+                new[]
+                {
+                    new Stochast("Stochast",
+                                 random.NextDouble(),
+                                 random.NextDouble())
+                },
+                random.NextEnumValue<CombinationType>());
+            int order = random.Next();
+
+            var node = new IllustrationPointNode(illustrationPoint);
+
+            // Call
+            FaultTreeIllustrationPointEntity entity = node.Create(order);
+
+            // Assert
+            Assert.IsNull(entity.ParentFaultTreeIllustrationPointEntityId);
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, entity.Name);
+            Assert.AreEqual(illustrationPoint.Beta, entity.Beta, illustrationPoint.Beta.GetAccuracy());
+            byte expectedCombinationType = Convert.ToByte(illustrationPoint.CombinationType);
+            Assert.AreEqual(expectedCombinationType, entity.CombinationType);
+            CollectionAssert.IsEmpty(entity.FaultTreeIllustrationPointEntity1);
+            CollectionAssert.IsEmpty(entity.SubMechanismIllustrationPointEntities);
+            CollectionAssert.IsEmpty(entity.TopLevelFaultTreeIllustrationPointEntities);
+            Assert.AreEqual(order, entity.Order);
+
+            StochastEntity entityStochastEntity = entity.StochastEntities.FirstOrDefault();
+            Assert.IsNotNull(entityStochastEntity);
+            Stochast stochast = illustrationPoint.Stochasts.First();
+            Assert.AreEqual(stochast.Name, entityStochastEntity.Name);
+            Assert.AreEqual(stochast.Alpha, entityStochastEntity.Alpha);
+            Assert.AreEqual(stochast.Duration, entityStochastEntity.Duration);
+        }
+
+        [Test]
         public void Create_IllustrationPointNodeWithSubMechanismIllustrationPoint_ThrowsInvalidOperationException()
         {
             // Setup
@@ -92,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
         [Test]
         [TestCaseSource(nameof(GetValidIllustrationPointNodes))]
-        public void Create_IllustrationPointNodeWithSubMechanismIllustrationPointChildren_ReturnFaultTreeIllustrationPointEntity(
+        public void Create_IllustrationPointNodeWithValidChildren_ReturnFaultTreeIllustrationPointEntity(
             IEnumerable<IllustrationPointNode> children)
         {
             // Setup

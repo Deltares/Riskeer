@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
@@ -79,8 +80,19 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 Name = illustrationPoint.Name.DeepClone(),
                 Order = order
             };
+            AddEntitiesForStochasts(entity, illustrationPoint.Stochasts);
 
             return entity;
+        }
+
+        private static void AddEntitiesForStochasts(FaultTreeIllustrationPointEntity entity,
+                                                    IEnumerable<Stochast> stochasts)
+        {
+            var order = 0;
+            foreach (Stochast stochast in stochasts)
+            {
+                entity.StochastEntities.Add(stochast.Create(order++));
+            }
         }
 
         private static void CreateChildElements(IllustrationPointNode[] illustrationPointNodes,

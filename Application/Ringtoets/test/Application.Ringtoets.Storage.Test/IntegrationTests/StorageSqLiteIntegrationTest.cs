@@ -939,15 +939,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertStabilityPointStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
-            if (expectedCalculation.HasOutput)
-            {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
-                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
-            }
-            else
+            if (!expectedCalculation.HasOutput)
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
+                return;
             }
+
+            StructuresOutput expectedOutput = expectedCalculation.Output;
+            StructuresOutput actualOutput = actualCalculation.Output;
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
+                                              actualOutput.ProbabilityAssessmentOutput);
+
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
+                expectedOutput.GeneralFaultTreeIllustrationPoint,
+                actualOutput.GeneralFaultTreeIllustrationPoint);
         }
 
         private static void AssertStabilityPointStructuresInput(StabilityPointStructuresInput expectedInput,
@@ -1069,15 +1074,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertClosingStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
-            if (expectedCalculation.HasOutput)
-            {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
-                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
-            }
-            else
+            if (!expectedCalculation.HasOutput)
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
+                return;
             }
+
+            StructuresOutput expectedOutput = expectedCalculation.Output;
+            StructuresOutput actualOutput = actualCalculation.Output;
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
+                                              actualOutput.ProbabilityAssessmentOutput);
+
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
+                expectedOutput.GeneralFaultTreeIllustrationPoint,
+                actualOutput.GeneralFaultTreeIllustrationPoint);
         }
 
         private static void AssertClosingStructuresInput(ClosingStructuresInput expectedInput,
@@ -1246,15 +1256,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertHeightStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
-            if (expectedCalculation.HasOutput)
-            {
-                AssertProbabilityAssessmentOutput(expectedCalculation.Output.ProbabilityAssessmentOutput,
-                                                  actualCalculation.Output.ProbabilityAssessmentOutput);
-            }
-            else
+            if (!expectedCalculation.HasOutput)
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
+                return;
             }
+
+            StructuresOutput expectedOutput = expectedCalculation.Output;
+            StructuresOutput actualOutput = actualCalculation.Output;
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
+                                              actualOutput.ProbabilityAssessmentOutput);
+
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
+                expectedOutput.GeneralFaultTreeIllustrationPoint,
+                actualOutput.GeneralFaultTreeIllustrationPoint);
         }
 
         private static void AssertHeightStructuresInput(HeightStructuresInput expectedInput,
@@ -1724,16 +1739,86 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
 
-            AssertGeneralResultSubMechanismIllustrationPoint(expectedOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                             actualOutput.GeneralResultSubMechanismIllustrationPoint);
+            AssertGeneralResultTopLevelSubMechanismIllustrationPoint(expectedOutput.GeneralResultSubMechanismIllustrationPoint,
+                                                                     actualOutput.GeneralResultSubMechanismIllustrationPoint);
         }
 
         #endregion
 
         #region IllustrationPoints
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult,
-                                                                             GeneralResult<TopLevelSubMechanismIllustrationPoint> actualGeneralResult)
+        private static void AssertGeneralResultTopLevelFaultTreeIllustrationPoint(GeneralResult<TopLevelFaultTreeIllustrationPoint> expected,
+                                                                                  GeneralResult<TopLevelFaultTreeIllustrationPoint> actual)
+        {
+            if (expected == null)
+            {
+                Assert.IsNull(actual);
+                return;
+            }
+
+            AssertWindDirection(expected.GoverningWindDirection, 
+                actual.GoverningWindDirection);
+
+            AssertCollectionAndItems(expected.Stochasts, 
+                actual.Stochasts, 
+                AssertStochast);
+
+            AssertCollectionAndItems(expected.TopLevelIllustrationPoints, 
+                actual.TopLevelIllustrationPoints,
+                                     AssertTopLevelFaultTreeIllustrationPoint);
+        }
+
+        private static void AssertTopLevelFaultTreeIllustrationPoint(TopLevelFaultTreeIllustrationPoint expected,
+                                                                     TopLevelFaultTreeIllustrationPoint actual)
+        {
+            AssertWindDirection(expected.WindDirection, actual.WindDirection);
+
+            Assert.AreEqual(expected.ClosingSituation, actual.ClosingSituation);
+
+            AssertIllustrationPointNode(expected.FaultTreeNodeRoot, actual.FaultTreeNodeRoot);
+        }
+
+        private static void AssertIllustrationPointNode(IllustrationPointNode expected, IllustrationPointNode actual)
+        {
+            var expectedFaultTreeIllustrationPoint = expected.Data as FaultTreeIllustrationPoint;
+            if (expectedFaultTreeIllustrationPoint != null)
+            {
+                var actualFaultTreeIllustrationPoint = actual.Data as FaultTreeIllustrationPoint;
+                Assert.IsNotNull(actualFaultTreeIllustrationPoint);
+
+                AssertFaultTreeIllustrationPoint(expectedFaultTreeIllustrationPoint, 
+                    actualFaultTreeIllustrationPoint);
+
+                AssertCollectionAndItems(expected.Children, 
+                    actual.Children, 
+                    AssertIllustrationPointNode);
+                return;
+            }
+
+            var expectedSubMechanismIllustrationPoint = expected.Data as SubMechanismIllustrationPoint;
+            if (expectedSubMechanismIllustrationPoint != null)
+            {
+                var actualSubMechanismIllustrationPoint = actual.Data as SubMechanismIllustrationPoint;
+                Assert.IsNotNull(actualSubMechanismIllustrationPoint);
+
+                AssertSubMechanismIllustrationPoint(expectedSubMechanismIllustrationPoint,
+                                                    actualSubMechanismIllustrationPoint);
+            }
+        }
+
+        private static void AssertFaultTreeIllustrationPoint(FaultTreeIllustrationPoint expected,
+                                                             FaultTreeIllustrationPoint actual)
+        {
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Beta, actual.Beta);
+            Assert.AreEqual(expected.CombinationType, actual.CombinationType);
+
+            AssertCollectionAndItems(expected.Stochasts, actual.Stochasts, AssertStochast);
+        }
+
+        private static void AssertGeneralResultTopLevelSubMechanismIllustrationPoint(
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult,
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> actualGeneralResult)
         {
             if (expectedGeneralResult == null)
             {
