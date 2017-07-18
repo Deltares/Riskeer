@@ -37,12 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         [Test]
         public void Read_EntityIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            DuneLocationEntity entity = null;
-            var collector = new ReadConversionCollector();
-
             // Call
-            TestDelegate call = () => entity.Read(collector);
+            TestDelegate call = () => ((DuneLocationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

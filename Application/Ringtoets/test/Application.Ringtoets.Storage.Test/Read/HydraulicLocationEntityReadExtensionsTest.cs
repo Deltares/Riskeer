@@ -38,12 +38,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         public void Read_EntityIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            HydraulicLocationEntity entity = null;
-            var collector = new ReadConversionCollector();
-
             // Call
-            TestDelegate call = () => entity.Read(collector);
+            TestDelegate call = () => ((HydraulicLocationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

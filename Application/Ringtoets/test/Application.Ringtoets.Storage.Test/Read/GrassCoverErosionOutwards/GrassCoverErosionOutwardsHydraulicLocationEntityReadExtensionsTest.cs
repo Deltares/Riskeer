@@ -37,12 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var entity = (GrassCoverErosionOutwardsHydraulicLocationEntity) null;
-            var collector = new ReadConversionCollector();
-
             // Call
-            TestDelegate call = () => entity.Read(collector);
+            TestDelegate call = () => ((GrassCoverErosionOutwardsHydraulicLocationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
