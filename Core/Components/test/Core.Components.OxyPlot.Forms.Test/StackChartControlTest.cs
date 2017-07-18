@@ -50,9 +50,6 @@ namespace Core.Components.OxyPlot.Forms.Test
             CategoryPlotView plotView = chart.Controls.OfType<CategoryPlotView>().Single();
             Assert.AreEqual(Color.White, plotView.BackColor);
             Assert.IsTrue(plotView.Model.IsLegendVisible);
-
-            Assert.AreEqual(200, chart.MinimumSize.Width);
-            Assert.AreEqual(200, chart.MinimumSize.Height);
         }
 
         [Test]

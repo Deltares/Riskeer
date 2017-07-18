@@ -140,14 +140,12 @@ namespace Ringtoets.Common.Forms.Views
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.AutoScroll = true;
-            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(613, 0);
+            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(535, 0);
             this.splitContainer.Panel1.Controls.Add(this.dataGridViewControl);
             this.splitContainer.Panel1.Controls.Add(this.ButtonGroupBox);
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.AutoScroll = true;
-            this.splitContainer.Panel2.AutoScrollMinSize = new System.Drawing.Size(470, 0);
             this.splitContainer.Panel2.Controls.Add(this.illustrationPointsControl);
             // 
             // illustrationPointsControl

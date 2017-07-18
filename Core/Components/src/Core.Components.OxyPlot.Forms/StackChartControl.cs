@@ -44,8 +44,6 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         public StackChartControl()
         {
-            MinimumSize = new Size(200, 200);
-
             plotView = new CategoryPlotView
             {
                 BackColor = Color.White,

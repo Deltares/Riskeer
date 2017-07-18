@@ -71,8 +71,6 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.AutoScroll = true;
-            this.splitContainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(0, 230);
             this.splitContainer.Panel1.Controls.Add(this.illustrationPointsChartControl);
             // 
             // splitContainer.Panel2
