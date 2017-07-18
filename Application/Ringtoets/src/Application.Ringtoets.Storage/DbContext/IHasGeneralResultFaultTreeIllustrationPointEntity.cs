@@ -22,9 +22,13 @@
 namespace Application.Ringtoets.Storage.DbContext
 {
     /// <summary>
-    /// Partial implementation of <see cref="HeightStructuresOutputEntity"/> that implements 
-    /// <see cref="IProbabilityAssessmentOutputEntity"/> and <see cref="IHasGeneralResultFaultTreeIllustrationPointEntity"/>.
+    /// Interface for an entity that contains a general result fault tree illustration point.
     /// </summary>
-    public partial class HeightStructuresOutputEntity : IProbabilityAssessmentOutputEntity,
-                                                        IHasGeneralResultFaultTreeIllustrationPointEntity {}
+    public interface IHasGeneralResultFaultTreeIllustrationPointEntity
+    {
+        /// <summary>
+        /// Gets or sets the general result fault tree illustration point.
+        /// </summary>
+        GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
+    }
 }

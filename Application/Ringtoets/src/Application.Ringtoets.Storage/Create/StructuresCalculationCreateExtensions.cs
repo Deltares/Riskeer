@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
@@ -87,6 +89,31 @@ namespace Application.Ringtoets.Storage.Create
             entityToUpdate.WidthFlowAperturesStandardDeviation = input.WidthFlowApertures.StandardDeviation.ToNaNAsNull();
 
             entityToUpdate.ShouldIllustrationPointsBeCalculated = Convert.ToByte(input.ShouldIllustrationPointsBeCalculated);
+        }
+
+        private static void SetStructuresOutput<TOutputEntity>(ICollection<TOutputEntity> outputEntities,
+                                                               StructuresOutput calculationOutput)
+            where TOutputEntity : IProbabilityAssessmentOutputEntity,
+            IHasGeneralResultFaultTreeIllustrationPointEntity,
+            new()
+        {
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
+            var outputEntity = probabilityAssessmentOutput.Create<TOutputEntity>();
+
+            SetIllustrationPoints(outputEntity, calculationOutput);
+
+            outputEntities.Add(outputEntity);
+        }
+
+        private static void SetIllustrationPoints(IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity,
+                                                  StructuresOutput calculationOutput)
+        {
+            if (calculationOutput.HasIllustrationPoints)
+            {
+                outputEntity.GeneralResultFaultTreeIllustrationPointEntity =
+                    calculationOutput.GeneralFaultTreeIllustrationPoint
+                                     .CreateGeneralResultFaultTreeIllustrationPointEntity();
+            }
         }
 
         #region ClosingStructures
@@ -167,9 +194,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                    calculation.Output.ProbabilityAssessmentOutput;
-                entity.ClosingStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<ClosingStructuresOutputEntity>());
+                SetStructuresOutput(entity.ClosingStructuresOutputEntities, calculation.Output);
             }
         }
 
@@ -230,9 +255,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                    calculation.Output.ProbabilityAssessmentOutput;
-                entity.HeightStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<HeightStructuresOutputEntity>());
+                SetStructuresOutput(entity.HeightStructuresOutputEntities, calculation.Output);
             }
         }
 
@@ -345,9 +368,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (calculation.HasOutput)
             {
-                ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                    calculation.Output.ProbabilityAssessmentOutput;
-                entity.StabilityPointStructuresOutputEntities.Add(probabilityAssessmentOutput.Create<StabilityPointStructuresOutputEntity>());
+                SetStructuresOutput(entity.StabilityPointStructuresOutputEntities, calculation.Output);
             }
         }
 

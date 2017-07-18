@@ -23,7 +23,8 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="ClosingStructuresOutputEntity"/> that implements 
-    /// <see cref="IProbabilityAssessmentOutputEntity"/>.
+    /// <see cref="IProbabilityAssessmentOutputEntity"/> and <see cref="IHasGeneralResultFaultTreeIllustrationPointEntity"/>.
     /// </summary>
-    public partial class ClosingStructuresOutputEntity : IProbabilityAssessmentOutputEntity {}
+    public partial class ClosingStructuresOutputEntity : IProbabilityAssessmentOutputEntity,
+                                                         IHasGeneralResultFaultTreeIllustrationPointEntity {}
 }

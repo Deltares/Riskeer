@@ -217,6 +217,7 @@
     </Compile>
     <Compile Include="DbContext\HydraulicLocationOutputType.cs" />
     <Compile Include="DbContext\IGeneralResultEntity.cs" />
+    <Compile Include="DbContext\IHasGeneralResultFaultTreeIllustrationPointEntity.cs" />
     <Compile Include="DbContext\IHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>

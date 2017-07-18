@@ -94,8 +94,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.WidthFlowAperturesMean = random.GetFromRange(1e-6, 9999.9999);
             entity.WidthFlowAperturesStandardDeviation = random.GetFromRange(1e-6, 9999.9999);
             entity.StormDurationMean = random.GetFromRange(1e-6, 9999.9999);
-            entity.UseForeshore = 1;
-            entity.UseBreakWater = 1;
+            entity.UseForeshore = Convert.ToByte(random.NextBoolean());
+            entity.UseBreakWater = Convert.ToByte(random.NextBoolean());
+            entity.ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean());
             mocks.ReplayAll();
 
             var inputToUpdate = new SimpleStructuresInput();
@@ -105,8 +106,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.Read(inputToUpdate, collector);
 
             // Assert
-            Assert.IsTrue(inputToUpdate.UseForeshore);
-            Assert.IsTrue(inputToUpdate.UseBreakWater);
+            AssertBoolean(entity.UseForeshore, inputToUpdate.UseForeshore);
+            AssertBoolean(entity.UseBreakWater, inputToUpdate.UseBreakWater);
+            AssertBoolean(entity.ShouldIllustrationPointsBeCalculated, inputToUpdate.ShouldIllustrationPointsBeCalculated);
 
             AssertRoundedDouble(entity.StructureNormalOrientation, inputToUpdate.StructureNormalOrientation);
             AssertRoundedDouble(entity.ModelFactorSuperCriticalFlowMean, inputToUpdate.ModelFactorSuperCriticalFlow.Mean);
@@ -214,6 +216,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, inputToUpdate.HydraulicBoundaryLocation);
             mocks.VerifyAll();
+        }
+
+        private static void AssertBoolean(byte expectedByte, bool actual)
+        {
+            Assert.AreEqual(Convert.ToBoolean(expectedByte), actual);
         }
 
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)

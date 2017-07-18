@@ -85,6 +85,8 @@ namespace Application.Ringtoets.Storage.Read
             inputToUpdate.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
             inputToUpdate.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
             inputToUpdate.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
+
+            inputToUpdate.ShouldIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldIllustrationPointsBeCalculated);
         }
     }
 }
