@@ -117,15 +117,15 @@ namespace Ringtoets.Common.Service
                                    norm,
                                    messageProvider);
             }
-            catch (HydraRingCalculationException e)
+            catch (HydraRingCalculationException)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, e.Message)
-                                  : messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, lastErrorContent),
-                              e);
+                                  ? messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name)
+                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(waveHeightCalculation.Name,
+                                                                                               lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -137,7 +137,8 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(waveHeightCalculation.Name, lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(waveHeightCalculation.Name,
+                                                                                         lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);

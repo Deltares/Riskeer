@@ -29,19 +29,24 @@ namespace Ringtoets.Integration.Service.MessageProviders
     /// </summary>
     public class WaveHeightCalculationMessageProvider : ICalculationMessageProvider
     {
-        public string GetActivityDescription(string locationName)
+        public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_, locationName);
+            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_, calculationSubject);
         }
 
-        public string GetCalculationFailedMessage(string locationName, string failureMessage)
+        public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1, locationName, failureMessage);
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report, calculationSubject);
         }
 
-        public string GetCalculatedNotConvergedMessage(string locationName)
+        public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged, locationName);
+            return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged, calculationSubject);
+        }
+
+        public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
+        {
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1, calculationSubject, errorReport);
         }
     }
 }

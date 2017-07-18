@@ -139,7 +139,6 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             string inValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "testLocation";
-            const string calculationName = "calculationName";
             const string activityDescription = "activityDescription";
 
             var calculation = new WaveHeightCalculation(new TestHydraulicBoundaryLocation(locationName));
@@ -172,7 +171,6 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
-            const string calculationName = "calculationName";
             const string activityDescription = "activityDescription";
             const double norm = 1.0 / 30;
 
@@ -306,11 +304,11 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
         {
             nameof(Run_InvalidCalculation_LogsErrorOutputNotUpdated)
         })]
-        public void Run_InvalidCalculation_LogsErrorOutputNotUpdated(bool endInFailure, string lastErrorFileContent, string detailedReport)
+        public void Run_InvalidCalculation_LogsErrorOutputNotUpdated(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             const string locationName = "locationName";
@@ -321,11 +319,24 @@ namespace Ringtoets.Common.Service.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
+            const string failureMessage = "Failed calculation";
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null, null)).IgnoreArguments().Return(detailedReport);
+            if (string.IsNullOrEmpty(lastErrorFileContent))
+            {
+                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null))
+                                          .IgnoreArguments()
+                                          .Return(failureMessage);
+            }
+            else
+            {
+                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedWithErrorReportMessage(null, null))
+                                          .IgnoreArguments()
+                                          .Return(failureMessage);
+            }
+
             mockRepository.ReplayAll();
 
             var output = new TestHydraulicBoundaryLocationOutput(double.NaN, CalculationConvergence.CalculatedConverged);
@@ -356,7 +367,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, detailedReport, 7);
+                TestHelper.AssertLogMessageIsGenerated(call, failureMessage, 7);
                 Assert.AreSame(output, hydraulicBoundaryLocation.WaveHeightCalculation.Output);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             }
@@ -441,10 +452,14 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(calculator);
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName,
-                                                                                     string.IsNullOrEmpty(lastErrorFileContent)
-                                                                                         ? calculator.HydraRingCalculationException.Message
-                                                                                         : lastErrorFileContent)).Return(string.Empty);
+            if (string.IsNullOrEmpty(lastErrorFileContent))
+            {
+                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName)).Return(string.Empty);
+            }
+            else
+            {
+                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedWithErrorReportMessage(locationName, lastErrorFileContent)).Return(string.Empty);
+            }
             calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 

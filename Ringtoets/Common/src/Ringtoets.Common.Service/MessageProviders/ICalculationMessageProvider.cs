@@ -37,9 +37,8 @@ namespace Ringtoets.Common.Service.MessageProviders
         /// Gets the message that should be used when a calculation fails.
         /// </summary>
         /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
-        /// <param name="failureMessage">The failure message provided by the calculation.</param>
         /// <returns>The message.</returns>
-        string GetCalculationFailedMessage(string calculationSubject, string failureMessage);
+        string GetCalculationFailedMessage(string calculationSubject);
 
         /// <summary>
         /// Gets the message that should be used when a calculation cannot be converged.
@@ -47,5 +46,13 @@ namespace Ringtoets.Common.Service.MessageProviders
         /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
         /// <returns>The message.</returns>
         string GetCalculatedNotConvergedMessage(string calculationSubject);
+
+        /// <summary>
+        /// Gets the message that should be used when a calculation fails and an error report is present.
+        /// </summary>
+        /// <param name="calculationSubject">The calculation subject used in the calculation name.</param>
+        /// <param name="errorReport">The error report provided by the calculation.</param>
+        /// <returns>The message.</returns>
+        string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport);
     }
 }

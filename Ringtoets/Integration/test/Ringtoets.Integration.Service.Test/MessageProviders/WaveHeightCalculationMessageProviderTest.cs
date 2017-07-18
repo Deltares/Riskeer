@@ -64,16 +64,55 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         {
             // Setup
             var provider = new WaveHeightCalculationMessageProvider();
-            const string failureMessage = "It failed!";
 
             // Call
-            string message = provider.GetCalculationFailedMessage(name, failureMessage);
+            string message = provider.GetCalculationFailedMessage(name);
+
+            // Assert
+            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening '{name}'. " +
+                                     "Er is geen foutrapport beschikbaar.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("value")]
+        public void GetCalculationFailedWithErrorReportMessage_ValidNames_ExpectedValues(string name)
+        {
+            // Setup
+            var provider = new WaveHeightCalculationMessageProvider();
+            const string failureMessage = "It failed";
+
+            // Call
+            string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
             string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening '{name}'. " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("value")]
+        public void GetCalculationFailedWithErrorReportMessage_ValidFailureMessages_ExpectedValues(string failureMessage)
+        {
+            // Setup
+            var provider = new WaveHeightCalculationMessageProvider();
+            const string name = "calculation name";
+
+            // Call
+            string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
+
+            // Assert
+            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening '{name}'. " +
+                                     $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
 
         [Test]
         [TestCase(null)]

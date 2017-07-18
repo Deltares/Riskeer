@@ -116,15 +116,15 @@ namespace Ringtoets.Common.Service
                                    norm,
                                    messageProvider);
             }
-            catch (HydraRingCalculationException e)
+            catch (HydraRingCalculationException)
             {
                 if (!canceled)
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, e.Message)
-                                  : messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorContent),
-                              e);
+                                  ? messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name)
+                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(designWaterLevelCalculation.Name,
+                                                                                               lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -136,7 +136,8 @@ namespace Ringtoets.Common.Service
                 bool errorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (errorOccurred)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(designWaterLevelCalculation.Name, lastErrorFileContent));
+                    log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(designWaterLevelCalculation.Name,
+                                                                                         lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);

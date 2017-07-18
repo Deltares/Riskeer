@@ -149,6 +149,16 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
+            get {
+                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
+                        "_0_no_error_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
         public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_ {
@@ -364,6 +374,16 @@ namespace Ringtoets.Common.Service.Properties {
             get {
                 return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_det" +
                         "ails_for_last_error_report_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_" +
+                        "report", resourceCulture);
             }
         }
         

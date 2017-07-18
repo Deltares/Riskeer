@@ -328,7 +328,7 @@ namespace Ringtoets.Common.Service.Test
             calculation.Expect(c => c.Id).Return(100);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -367,9 +367,9 @@ namespace Ringtoets.Common.Service.Test
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(
-                                                locationName, "Er konden geen illustratiepunten worden uitgelezen."))
+            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
+            calculationMessageProvider.Stub(mp => mp.GetCalculationFailedMessage(
+                                                locationName))
                                       .Return(string.Empty);
             mockRepository.ReplayAll();
 
@@ -427,11 +427,11 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
         {
             nameof(Run_InvalidCalculation_LogsErrorAndThrowException)
         })]
-        public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent, string detailedReport)
+        public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -455,11 +455,18 @@ namespace Ringtoets.Common.Service.Test
             calculation.Expect(c => c.Id).Return(0);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetCalculationFailedMessage(locationName,
-                                                                                       endInFailure && string.IsNullOrEmpty(lastErrorFileContent)
-                                                                                           ? calculator.HydraRingCalculationException.Message
-                                                                                           : lastErrorFileContent
-                                              )).Return(calculationFailedMessage);
+            if (endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
+            {
+                calculationMessageProvider.Expect(mp => mp.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
+            }
+            else
+            {
+                calculationMessageProvider.Expect(mp => mp.GetCalculationFailedWithErrorReportMessage(locationName,
+                                                                                                      endInFailure && string.IsNullOrEmpty(lastErrorFileContent)
+                                                                                                          ? calculator.HydraRingCalculationException.Message
+                                                                                                          : lastErrorFileContent
+                                                  )).Return(calculationFailedMessage);
+            }
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -483,22 +490,15 @@ namespace Ringtoets.Common.Service.Test
                 };
 
                 // Assert
-                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessages(call, messages =>
                 {
-                    Tuple<string, Level, Exception>[] generatedMessages = messages.ToArray();
-
-                    string[] msgs = generatedMessages.Select(msg => msg.Item1).ToArray();
+                    string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(calculationFailedMessage, msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
-
-                    if (!endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
-                    {
-                        Assert.IsInstanceOf<HydraRingCalculationException>(generatedMessages[1].Item3);
-                    }
                 });
 
                 Assert.IsInstanceOf<HydraRingCalculationException>(exception);

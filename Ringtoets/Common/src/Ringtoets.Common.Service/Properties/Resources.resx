@@ -212,4 +212,10 @@
   <data name="SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
     <value>Het uitlezen van illustratiepunten is mislukt.</value>
   </data>
+  <data name="DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
+  </data>
+  <data name="WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
+  </data>
 </root>
