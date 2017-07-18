@@ -301,13 +301,13 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
+            while (containerControl.ActiveControl is IContainerControl)
+            {
+                containerControl = (IContainerControl)containerControl.ActiveControl;
+            }
+
             PerformWithoutChangingActiveContent(() =>
             {
-                while (containerControl.ActiveControl is IContainerControl)
-                {
-                    containerControl = (IContainerControl) containerControl.ActiveControl;
-                }
-
                 containerControl.ActiveControl = null;
             });
         }
