@@ -665,10 +665,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty" xml:space="preserve">
     <value>Er is voor scenario geen contributie of relevantie opgegeven.</value>
   </data>
-  <data name="SurfaceLine_A_point_in_the_collection_was_null" xml:space="preserve">
+  <data name="SurfaceLine_SetGeometry_A_point_in_the_collection_was_null" xml:space="preserve">
     <value>Een punt in de geometrie voor de profielschematisatie heeft geen waarde.</value>
   </data>
-  <data name="SurfaceLine_Collection_of_points_for_geometry_is_null" xml:space="preserve">
+  <data name="SurfaceLine_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.</value>
   </data>
   <data name="CharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
@@ -698,7 +698,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).</value>
   </data>
-  <data name="SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry" xml:space="preserve">
+  <data name="SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry" xml:space="preserve">
     <value>Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
   </data>
   <data name="SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
@@ -713,7 +713,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
     <value>profielschematisatie '{0}'</value>
   </data>
-  <data name="SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
+  <data name="SurfaceLine_SetGeometry_SurfaceLine_has_zero_length" xml:space="preserve">
     <value>Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
   </data>
   <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">

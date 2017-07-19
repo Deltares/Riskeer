@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.ProjectGeometryToLZ();
+            RoundedPoint2DCollection localGeometry = pipingInput.SurfaceLine.LocalGeometry;
 
             // Assert
             Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.ExitPointL.NumberOfDecimalPlaces);
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            RoundedPoint2DCollection localGeometry = surfaceLine.ProjectGeometryToLZ();
+            RoundedPoint2DCollection localGeometry = surfaceLine.LocalGeometry;
 
             // Assert
             Assert.AreEqual(localGeometry.NumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);

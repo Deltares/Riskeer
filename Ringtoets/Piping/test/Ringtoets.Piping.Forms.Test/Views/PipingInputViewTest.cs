@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -836,7 +837,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var surfaceLineChartData = (ChartLineData) chartData;
 
             Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Length);
-            CollectionAssert.AreEqual(surfaceLine.ProjectGeometryToLZ(), surfaceLineChartData.Points);
+            CollectionAssert.AreEqual(surfaceLine.LocalGeometry, surfaceLineChartData.Points);
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }
 

@@ -270,7 +270,7 @@ namespace Ringtoets.Piping.Data
             int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
             int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
 
-            Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] localGeometry = SurfaceLine.LocalGeometry.ToArray();
 
             tempEntryPointL = localGeometry[0].X;
             tempExitPointL = localGeometry[localGeometry.Length - 1].X;

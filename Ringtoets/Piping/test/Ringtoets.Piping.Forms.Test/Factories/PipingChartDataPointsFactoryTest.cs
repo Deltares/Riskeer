@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             Point2D[] points = PipingChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
 
             // Assert
-            AssertEqualPointCollections(surfaceLine.ProjectGeometryToLZ(), points);
+            AssertEqualPointCollections(surfaceLine.LocalGeometry, points);
         }
 
         [Test]

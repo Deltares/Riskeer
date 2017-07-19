@@ -89,6 +89,8 @@
     <Compile Include="FormattableConstantsTest.cs" />
     <Compile Include="Geometry\Math2DTest.cs" />
     <Compile Include="Geometry\Point2DTest.cs" />
+    <Compile Include="Geometry\Point2DCollectionExtensionsTest.cs" />
+    <Compile Include="Geometry\Point3DCollectionExtensionsTest.cs" />
     <Compile Include="Geometry\Point3DExtensionsTest.cs" />
     <Compile Include="Geometry\Point3DTest.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResultTest.cs" />

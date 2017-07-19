@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Chart.Data;
@@ -43,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
         public static Point2D[] CreateSurfaceLinePoints(RingtoetsPipingSurfaceLine surfaceLine)
         {
-            return surfaceLine?.ProjectGeometryToLZ().ToArray() ?? new Point2D[0];
+            return surfaceLine?.LocalGeometry.ToArray() ?? new Point2D[0];
         }
 
         /// <summary>
@@ -231,7 +232,7 @@ namespace Ringtoets.Piping.Forms.Factories
                 return Enumerable.Empty<Point2D[]>();
             }
 
-            Point2D[] surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] surfaceLineLocalGeometry = surfaceLine.LocalGeometry.ToArray();
 
             if (IsSurfaceLineAboveSoilLayer(surfaceLineLocalGeometry, soilLayer))
             {

@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using Ringtoets.Piping.Primitives;
@@ -54,7 +55,7 @@ namespace Ringtoets.Piping.KernelWrapper
 
         private static IEnumerable<PipingPoint> CreatePoints(RingtoetsPipingSurfaceLine line)
         {
-            Point2D[] projectedPoints = line.ProjectGeometryToLZ().ToArray();
+            Point2D[] projectedPoints = line.LocalGeometry.ToArray();
             var pipingPoints = new List<PipingPoint>();
 
             for (var i = 0; i < line.Points.Length; i++)

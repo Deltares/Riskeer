@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SurfaceLines;
@@ -154,124 +153,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             {
                 Assert.DoesNotThrow(test);
             }
-        }
-
-        [Test]
-        [TestCase(3.01, true)]
-        [TestCase(3 + 1e-6, false)]
-        [TestCase(3, false)]
-        [TestCase(2, false)]
-        [TestCase(1, false)]
-        [TestCase(1 - 1e-6, false)]
-        [TestCase(0.99, true)]
-        [TestCase(0, true)]
-        [TestCase(-5, true)]
-        public void IsReclining_ThirdPointDifferingInPosition_ReturnsTrueIfThirdPointBeforeSecondOrAfterFourth(double thirdPointL, bool expectedResult)
-        {
-            // Setup
-            var random = new Random(21);
-            double randomY = random.NextDouble();
-            var points = new[]
-            {
-                new Point3D(0, randomY, random.NextDouble()),
-                new Point3D(1, randomY, random.NextDouble()),
-                new Point3D(thirdPointL, randomY, random.NextDouble()),
-                new Point3D(3, randomY, random.NextDouble())
-            };
-
-            // Call
-            bool result = points.IsReclining();
-
-            // Assert
-            Assert.AreEqual(expectedResult, result);
-        }
-
-        [Test]
-        [TestCase(3)]
-        [TestCase(2.01)]
-        [TestCase(1.99)]
-        [TestCase(1)]
-        public void IsZeroLength_DifferenceInX_ReturnsFalse(double otherPointX)
-        {
-            // Setup
-            var random = new Random(21);
-            double randomY = random.NextDouble();
-            double randomZ = random.NextDouble();
-            var points = new[]
-            {
-                new Point3D(2, randomY, randomZ),
-                new Point3D(otherPointX, randomY, randomZ)
-            };
-
-            // Call
-            bool result = points.IsZeroLength();
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCase(3)]
-        [TestCase(2.01)]
-        [TestCase(1.99)]
-        [TestCase(1)]
-        public void IsZeroLength_DifferenceInZ_ReturnsFalse(double otherPointZ)
-        {
-            // Setup
-            var random = new Random(21);
-            double randomX = random.NextDouble();
-            double randomY = random.NextDouble();
-            var points = new[]
-            {
-                new Point3D(randomX, randomY, 2),
-                new Point3D(randomX, randomY, otherPointZ)
-            };
-
-            // Call
-            bool result = points.IsZeroLength();
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCase(3)]
-        [TestCase(2.01)]
-        [TestCase(1.99)]
-        [TestCase(1)]
-        public void IsZeroLength_DifferenceInY_ReturnsFalse(double otherPointY)
-        {
-            // Setup
-            var random = new Random(21);
-            double randomX = random.NextDouble();
-            double randomZ = random.NextDouble();
-            var points = new[]
-            {
-                new Point3D(randomX, 2, randomZ),
-                new Point3D(randomX, otherPointY, randomZ)
-            };
-
-            // Call
-            bool result = points.IsZeroLength();
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(12)]
-        public void IsZeroLength_PointsEqualToEachother_ReturnsTrue(int pointCount)
-        {
-            // Setup
-            IEnumerable<Point3D> points = Enumerable.Repeat(new Point3D(3, 4, 7), pointCount);
-
-            // Call
-            bool result = points.IsZeroLength();
-
-            // Assert
-            Assert.IsTrue(result);
         }
     }
 }

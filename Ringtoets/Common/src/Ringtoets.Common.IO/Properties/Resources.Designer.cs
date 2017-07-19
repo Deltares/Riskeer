@@ -1986,18 +1986,36 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor de profielschematisatie heeft geen waarde..
         /// </summary>
-        public static string SurfaceLine_A_point_in_the_collection_was_null {
+        public static string SurfaceLine_SetGeometry_A_point_in_the_collection_was_null {
             get {
-                return ResourceManager.GetString("SurfaceLine_A_point_in_the_collection_was_null", resourceCulture);
+                return ResourceManager.GetString("SurfaceLine_SetGeometry_A_point_in_the_collection_was_null", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde..
         /// </summary>
-        public static string SurfaceLine_Collection_of_points_for_geometry_is_null {
+        public static string SurfaceLine_SetGeometry_Collection_of_points_for_geometry_is_null {
             get {
-                return ResourceManager.GetString("SurfaceLine_Collection_of_points_for_geometry_is_null", resourceCulture);
+                return ResourceManager.GetString("SurfaceLine_SetGeometry_Collection_of_points_for_geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
+        /// </summary>
+        public static string SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry {
+            get {
+                return ResourceManager.GetString("SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft..
+        /// </summary>
+        public static string SurfaceLine_SetGeometry_SurfaceLine_has_zero_length {
+            get {
+                return ResourceManager.GetString("SurfaceLine_SetGeometry_SurfaceLine_has_zero_length", resourceCulture);
             }
         }
         
@@ -2241,24 +2259,6 @@ namespace Ringtoets.Common.IO.Properties {
         public static string SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_ {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
-        /// </summary>
-        public static string SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft..
-        /// </summary>
-        public static string SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length", resourceCulture);
             }
         }
         
