@@ -26,86 +26,62 @@ using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
-using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Importers
+namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
-    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+    /// Extension methods for the <see cref="SurfaceLine"/>.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public static class SurfaceLineExtensions
     {
-        private enum ReferenceLineIntersectionsResult
+        private static readonly ILog log = LogManager.GetLogger(typeof(SurfaceLineExtensions));
+
+        /// <summary>
+        /// The type of the intersection possible with a reference line.
+        /// </summary>
+        public enum ReferenceLineIntersectionsResult
         {
             NoIntersections,
             OneIntersection,
             MultipleIntersectionsOrOverlap
         }
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsSurfaceLineTransformer));
-        private readonly ReferenceLine referenceLine;
-
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineTransformer"/>.
+        /// Finds out if there is an intersection of the <paramref name="surfaceLine"/> and
+        /// the <paramref name="referenceLine"/>
         /// </summary>
-        /// <param name="referenceLine">The reference line to determine locations for the surface
-        /// lines for.</param>
-        public MacroStabilityInwardsSurfaceLineTransformer(ReferenceLine referenceLine)
+        /// <param name="surfaceLine">The surface line.</param>
+        /// <param name="referenceLine">The reference line.</param>
+        /// <returns>A new <see cref="ReferenceLineIntersectionResult"/> with a type of intersection and
+        /// possibly an intersection point, if there was only one found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static ReferenceLineIntersectionResult CheckReferenceLineInterSections(this SurfaceLine surfaceLine, ReferenceLine referenceLine)
         {
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException(nameof(surfaceLine));
+            }
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
-            this.referenceLine = referenceLine;
-        }
-
-        public RingtoetsMacroStabilityInwardsSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
-        {
-            var macroStabilityInwardsSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
-            macroStabilityInwardsSurfaceLine.SetGeometry(surfaceLine.Points);
-
-            ReferenceLineIntersectionResult result = CheckReferenceLineInterSections(macroStabilityInwardsSurfaceLine, referenceLine);
-
-            if (result.TypeOfIntersection != ReferenceLineIntersectionsResult.OneIntersection)
-            {
-                return null;
-            }
-
-            macroStabilityInwardsSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
-
-            SetCharacteristicPointsOnSurfaceLine(macroStabilityInwardsSurfaceLine, characteristicPoints);
-
-            return macroStabilityInwardsSurfaceLine;
-        }
-
-        private static void SetCharacteristicPointsOnSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)
-        {
-            // TODO add characteristic points to surface line
-        }
-
-        private static ReferenceLineIntersectionResult CheckReferenceLineInterSections(RingtoetsMacroStabilityInwardsSurfaceLine readSurfaceLine, ReferenceLine line)
-        {
-            ReferenceLineIntersectionResult result = GetReferenceLineIntersections(line, readSurfaceLine);
+            ReferenceLineIntersectionResult result = GetReferenceLineIntersections(referenceLine, surfaceLine);
 
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.NoIntersections)
             {
                 log.ErrorFormat(Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
-                                readSurfaceLine.Name,
+                                surfaceLine.Name,
                                 Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
             }
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
-                log.ErrorFormat(Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, readSurfaceLine.Name);
+                log.ErrorFormat(Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
             }
 
             return result;
         }
 
-        private static ReferenceLineIntersectionResult GetReferenceLineIntersections(ReferenceLine referenceLine, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private static ReferenceLineIntersectionResult GetReferenceLineIntersections(ReferenceLine referenceLine, SurfaceLine surfaceLine)
         {
             IEnumerable<Segment2D> surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
             Segment2D[] referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points).ToArray();
@@ -144,7 +120,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
                        : ReferenceLineIntersectionResult.CreateNoSingleIntersectionResult();
         }
 
-        private class ReferenceLineIntersectionResult
+        /// <summary>
+        /// Result of finding the intersections of a surface line and a reference line.
+        /// </summary>
+        public class ReferenceLineIntersectionResult
         {
             private ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult typeOfIntersection, Point2D intersectionPoint)
             {
@@ -152,7 +131,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
                 IntersectionPoint = intersectionPoint;
             }
 
+            /// <summary>
+            /// Gets the type of intersection that was found.
+            /// </summary>
             public ReferenceLineIntersectionsResult TypeOfIntersection { get; }
+
+            /// <summary>
+            /// Gets the intersection point of the surface line and the reference line if 
+            /// there was only one found; or <c>null</c> otherwise.
+            /// </summary>
             public Point2D IntersectionPoint { get; }
 
             public static ReferenceLineIntersectionResult CreateNoSingleIntersectionResult()

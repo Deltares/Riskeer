@@ -25,6 +25,9 @@ using System.Linq;
 
 namespace Core.Common.Base.Geometry
 {
+    /// <summary>
+    /// Extension methods for collections of <see cref="Point3D"/>.
+    /// </summary>
     public static class Point3DCollectionExtensions
     {
         /// <summary>

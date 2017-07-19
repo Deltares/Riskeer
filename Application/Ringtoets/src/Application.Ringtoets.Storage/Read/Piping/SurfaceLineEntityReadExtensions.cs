@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("type",
+                    throw new InvalidEnumArgumentException(nameof(type),
                                                            (int) type,
                                                            typeof(CharacteristicPointType));
             }

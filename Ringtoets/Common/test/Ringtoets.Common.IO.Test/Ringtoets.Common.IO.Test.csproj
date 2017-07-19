@@ -120,6 +120,7 @@
     <Compile Include="Configurations\Helpers\XmlWriterExtensionsTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineExtensionsTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLineTest.cs" />

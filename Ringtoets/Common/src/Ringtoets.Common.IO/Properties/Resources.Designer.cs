@@ -2020,6 +2020,36 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd..
+        /// </summary>
+        public static string SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline {
+            get {
+                return ResourceManager.GetString("SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_corr" +
+                        "espond_to_current_referenceline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
+        /// </summary>
+        public static string SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_ {
+            get {
+                return ResourceManager.GetString("SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_corr" +
+                        "espond_to_current_referenceline_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
+        /// </summary>
+        public static string SurfaceLineExtensions_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system {
+            get {
+                return ResourceManager.GetString("SurfaceLineExtensions_CheckReferenceLineInterSections_This_could_be_caused_coordi" +
+                        "nates_being_local_coordinate_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
@@ -2075,36 +2105,6 @@ namespace Ringtoets.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to" +
                         "_ExitPointL_for_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_co" +
-                        "rrespond_to_current_referenceline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_ {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_co" +
-                        "rrespond_to_current_referenceline_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coor" +
-                        "dinates_being_local_coordinate_system", resourceCulture);
             }
         }
         

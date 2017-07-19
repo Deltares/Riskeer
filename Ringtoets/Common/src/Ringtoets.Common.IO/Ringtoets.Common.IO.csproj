@@ -133,6 +133,7 @@
     <Compile Include="SurfaceLines\ISurfaceLineTransformer.cs" />
     <Compile Include="SurfaceLines\ISurfaceLineUpdateDataStrategy.cs" />
     <Compile Include="SurfaceLines\SurfaceLine.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineExtensions.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporter.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfiguration.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvReader.cs" />
