@@ -1003,7 +1003,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Tijdsduren waarop de stochasten betrekking hebben.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Durations_DisplayName" xml:space="preserve">
-    <value>Tijdsduren</value>
+    <value>Tijdsduren [min]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_GoverningWindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.</value>
@@ -1021,7 +1021,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Berekende invloedscoëfficiënten voor alle beschouwde stochasten.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_AlphaValues_DisplayName" xml:space="preserve">
-    <value>Alfa's</value>
+    <value>Alfa's [-]</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">
     <value>Het sluitscenario waarvoor dit illustratiepunt is berekend.</value>
@@ -1055,5 +1055,14 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="ShouldIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen</value>
+  </data>
+  <data name="CalculationOutput_IllustrationPointName_Description" xml:space="preserve">
+    <value>De naam van dit berekende illustratiepunt.</value>
+  </data>
+  <data name="CalculationOutput_IllustrationPointName_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
 </root>

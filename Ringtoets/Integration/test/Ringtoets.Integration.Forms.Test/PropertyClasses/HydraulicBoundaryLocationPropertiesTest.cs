@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Alfa's",
+                                                                            "Alfa's [-]",
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategory,
-                                                                            "Tijdsduren",
+                                                                            "Tijdsduren [min]",
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
