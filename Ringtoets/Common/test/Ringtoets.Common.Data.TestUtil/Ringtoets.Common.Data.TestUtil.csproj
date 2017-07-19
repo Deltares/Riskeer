@@ -82,6 +82,7 @@
     <Compile Include="TestStructuresInput.cs" />
     <Compile Include="TestStructuresOutput.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTestFactory.cs" />
+    <Compile Include="IllustrationPoints\TestTopLevelIllustrationPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

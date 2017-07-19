@@ -74,6 +74,7 @@
     <Compile Include="PresentationObjects\MapCalculationData.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
+    <Compile Include="PresentationObjects\SelectableTopLevelIllustrationPoint.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

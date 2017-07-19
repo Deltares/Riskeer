@@ -161,13 +161,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResultSubMechanismIllustrationPoints()
-                    .TopLevelIllustrationPoints
-                    .Select(p => new TopLevelSubMechanismIllustrationPointProperties
-                    {
-                        Data = p
-                    })
-                    .ToArray();
+                IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
+                    GetGeneralResultSubMechanismIllustrationPoints().TopLevelIllustrationPoints;
+
+                IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation)
+                                                                                  .ToArray();
+
+                return topLevelIllustrationPoints.Select(p => new TopLevelSubMechanismIllustrationPointProperties(p, closingSituations))
+                                                 .ToArray();
             }
         }
 

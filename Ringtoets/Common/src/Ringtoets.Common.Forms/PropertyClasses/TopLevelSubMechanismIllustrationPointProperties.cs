@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -39,6 +41,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TopLevelSubMechanismIllustrationPointProperties : ObjectProperties<TopLevelSubMechanismIllustrationPoint>
     {
+        private readonly IEnumerable<string> closingSituations;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPointProperties"/>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="closingSituations">The calculated closing situations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is 
+        /// <c>null</c>.</exception>
+        public TopLevelSubMechanismIllustrationPointProperties(TopLevelSubMechanismIllustrationPoint data,
+                                                               IEnumerable<string> closingSituations)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (closingSituations == null)
+            {
+                throw new ArgumentNullException(nameof(closingSituations));
+            }
+            Data = data;
+            this.closingSituations = closingSituations;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_IllustrationPointName_DisplayName))]
@@ -90,6 +116,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
@@ -143,9 +170,27 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(ClosingSituation))
+            {
+                return !AreClosingSituationsSame();
+            }
+
+            return false;
+        }
+
+        private bool AreClosingSituationsSame()
+        {
+            return closingSituations.All(cs => cs == closingSituations.First());
+        }
+
         public override string ToString()
         {
-            return string.Format(Resources.TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1,
+            return AreClosingSituationsSame()
+                ? data.WindDirection.Name
+                : string.Format(Resources.TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1,
                                  data.WindDirection.Name,
                                  data.ClosingSituation);
         }

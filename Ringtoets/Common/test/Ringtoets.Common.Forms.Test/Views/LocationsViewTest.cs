@@ -30,6 +30,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -188,7 +189,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             object selection = view.Selection;
 
             // Then
-            Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1), selection);
+            var selectableTopLevelIllustrationPoint = selection as SelectableTopLevelIllustrationPoint;
+            Assert.IsNotNull(selectableTopLevelIllustrationPoint);
+            Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1),
+                           selectableTopLevelIllustrationPoint.TopLevelIllustrationPoint);
         }
 
         [Test]

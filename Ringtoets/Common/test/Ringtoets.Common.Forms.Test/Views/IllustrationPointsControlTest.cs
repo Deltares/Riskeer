@@ -28,6 +28,8 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -129,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 control.Data = new[]
                 {
-                    new IllustrationPointControlItem(new object(),
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
                                                      "SSE",
                                                      "Regular",
                                                      Enumerable.Empty<Stochast>(),
@@ -145,7 +147,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 object selection = tableControl.Selection;
 
                 // Assert
-                Assert.AreSame(selection, control.Selection);
+                var expectedSelection = selection as SelectableTopLevelIllustrationPoint;
+                var controlSelection = control.Selection as SelectableTopLevelIllustrationPoint;
+                Assert.IsNotNull(expectedSelection);
+                Assert.IsNotNull(controlSelection);
+
+                Assert.AreSame(expectedSelection.TopLevelIllustrationPoint, controlSelection.TopLevelIllustrationPoint);
+                CollectionAssert.AreEqual(expectedSelection.ClosingSituations, controlSelection.ClosingSituations);
             }
         }
     }

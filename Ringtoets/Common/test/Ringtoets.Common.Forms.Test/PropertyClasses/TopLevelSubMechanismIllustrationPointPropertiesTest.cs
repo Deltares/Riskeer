@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -39,23 +40,52 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int calculatedProbabilityPropertyIndex = 1;
         private const int calculatedReliabilityPropertyIndex = 2;
         private const int windDirectionNamePropertyIndex = 3;
-        private const int closingSituationPropertyIndex = 4;
-        private const int alphaValuesPropertyIndex = 5;
-        private const int durationPropertyIndex = 6;
-        private const int illustrationPointResultsPropertyIndex = 7;
+        private const int alphaValuesPropertyIndex = 4;
+        private const int durationPropertyIndex = 5;
+        private const int illustrationPointResultsPropertyIndex = 6;
+
+        [Test]
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TopLevelSubMechanismIllustrationPointProperties(null, Enumerable.Empty<string>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                 string.Empty,
+                                                                 new TestSubMechanismIllustrationPoint());
+
+            // Call
+            TestDelegate call = () => new TopLevelSubMechanismIllustrationPointProperties(data, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("closingSituations", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_DefaultArgumentValues_DoesNotThrowException()
         {
             // Call
-            var properties = new TopLevelSubMechanismIllustrationPointProperties();
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          string.Empty,
+                                                          new TestSubMechanismIllustrationPoint()), Enumerable.Empty<string>());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<TopLevelSubMechanismIllustrationPoint>>(properties);
         }
 
         [Test]
-        public void ToString_Always_ReturnsCombinationOfWindDirectionAndClosingSituation()
+        public void ToString_DifferentClosingSituations_ReturnsCombinationOfWindDirectionAndClosingSituation()
         {
             // Setup
             string illustrationPointName = string.Empty;
@@ -72,14 +102,78 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                     submechanismIllustrationPoint);
 
             // Call
-            var hydraulicBoundaryLocationProperties = new TopLevelSubMechanismIllustrationPointProperties
-            {
-                Data = context
-            };
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(
+                context,
+                new[]
+                {
+                    closingSituation,
+                    "Different situation"
+                });
 
             // Assert
             string expectedStringValue = $"{windDirection.Name} ({closingSituation})";
-            Assert.AreEqual(expectedStringValue, hydraulicBoundaryLocationProperties.ToString());
+            Assert.AreEqual(expectedStringValue, properties.ToString());
+        }
+
+        [Test]
+        public void ToString_SameClosingSituations_ReturnsWindDirectionName()
+        {
+            // Setup
+            string illustrationPointName = string.Empty;
+            var submechanismIllustrationPoint =
+                new SubMechanismIllustrationPoint(illustrationPointName,
+                                                  3,
+                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                  Enumerable.Empty<IllustrationPointResult>());
+
+            const string closingSituation = "direction";
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            var context = new TopLevelSubMechanismIllustrationPoint(windDirection,
+                                                                    closingSituation,
+                                                                    submechanismIllustrationPoint);
+
+            // Call
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(
+                context,
+                Enumerable.Empty<string>());
+
+            // Assert
+            string expectedStringValue = $"{windDirection.Name}";
+            Assert.AreEqual(expectedStringValue, properties.ToString());
+        }
+
+        [Test]
+        public void GetProperties_DifferentClosingSituations_ReturnsExpectedAttributeValues()
+        {
+            // Setup
+            var submechanismIllustrationPoint =
+                new SubMechanismIllustrationPoint(string.Empty,
+                                                  3,
+                                                  Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                  Enumerable.Empty<IllustrationPointResult>());
+
+            const string closingSituation = "Closing Situation";
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            var data = new TopLevelSubMechanismIllustrationPoint(windDirection,
+                                                                 closingSituation,
+                                                                 submechanismIllustrationPoint);
+
+            // Call
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(data, new[]
+            {
+                closingSituation,
+                "Different closing situation"
+            });
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[4],
+                                                                            "Algemeen",
+                                                                            "Sluitscenario",
+                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            true);
         }
 
         [Test]
@@ -110,10 +204,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var context = new TopLevelSubMechanismIllustrationPoint(windDirection, closingSituation, submechanismIllustrationPoint);
 
             // Call
-            var properties = new TopLevelSubMechanismIllustrationPointProperties
-            {
-                Data = context
-            };
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(context, Enumerable.Empty<string>());
 
             // Assert
             Assert.AreEqual(illustrationPointName, properties.Name);
@@ -127,7 +218,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
             const string generalCategory = "Algemeen";
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[namePropertyIndex],
@@ -152,12 +243,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Windrichting",
                                                                             "De windrichting waarvoor dit illlustratiepunt is berekend.",
-                                                                            true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[closingSituationPropertyIndex],
-                                                                            generalCategory,
-                                                                            "Sluitscenario",
-                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
             TestHelper.AssertTypeConverter<TopLevelSubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(nameof(TopLevelSubMechanismIllustrationPointProperties.AlphaValues));

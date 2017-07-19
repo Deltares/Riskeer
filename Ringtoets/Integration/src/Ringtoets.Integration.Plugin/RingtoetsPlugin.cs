@@ -321,7 +321,19 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new ForeshoreProfileCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<TopLevelSubMechanismIllustrationPoint, TopLevelSubMechanismIllustrationPointProperties>();
+            yield return new PropertyInfo<SelectableTopLevelIllustrationPoint, TopLevelSubMechanismIllustrationPointProperties>
+            {
+                CreateInstance = illustrationPoint =>
+                {
+                    var topLevelIllustrationPoint = illustrationPoint.TopLevelIllustrationPoint as TopLevelSubMechanismIllustrationPoint;
+                    if (topLevelIllustrationPoint != null)
+                    {
+                        return new TopLevelSubMechanismIllustrationPointProperties(topLevelIllustrationPoint,
+                                                                                   illustrationPoint.ClosingSituations);
+                    }
+                    return null;
+                }
+            };
         }
 
         /// <summary>

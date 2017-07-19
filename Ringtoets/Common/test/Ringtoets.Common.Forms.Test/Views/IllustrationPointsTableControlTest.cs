@@ -28,6 +28,8 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -242,12 +244,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
-            object selection = control.Selection;
+            var selection = control.Selection as SelectableTopLevelIllustrationPoint;
             var dataBoundItem = selectedLocationRow.DataBoundItem as IllustrationPointRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.IllustrationPointControlItem.Source, selection);
+            Assert.AreSame(dataBoundItem.IllustrationPointControlItem.Source, selection.TopLevelIllustrationPoint);
+
+            string[] expectedClosingSituations = control.Data.Select(ipc => ipc.ClosingSituation).ToArray();
+            CollectionAssert.AreEqual(expectedClosingSituations, selection.ClosingSituations);
         }
 
         private IllustrationPointsTableControl ShowControl()
@@ -264,12 +269,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             return new[]
             {
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
                                                  "SSE",
                                                  "Regular",
                                                  Enumerable.Empty<Stochast>(),
                                                  new RoundedDouble(5, 0.9)),
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
                                                  "SSE",
                                                  "Open",
                                                  Enumerable.Empty<Stochast>(),
