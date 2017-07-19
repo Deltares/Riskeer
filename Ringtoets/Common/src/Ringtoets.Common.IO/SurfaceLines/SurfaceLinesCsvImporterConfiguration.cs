@@ -25,7 +25,7 @@ using Ringtoets.Common.Data;
 namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
-    /// Class for configuring the used components in <see cref="SurfaceLinesCsvImporter{T}"/>.
+    /// Configuration of the used components in <see cref="SurfaceLinesCsvImporter{T}"/>.
     /// </summary>
     public class SurfaceLinesCsvImporterConfiguration<T> where T : IMechanismSurfaceLine
     {
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// The strategy for updating the data model with the imported surface lines.
+        /// The strategy for updating the data model with the mechanism specific surface lines.
         /// </summary>
         public ISurfaceLineUpdateDataStrategy<T> UpdateUpdateStrategy { get; }
 

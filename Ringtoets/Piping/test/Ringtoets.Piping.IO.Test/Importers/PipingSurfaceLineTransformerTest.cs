@@ -98,7 +98,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(3.0, 4.0, 2.1)
+                new Point3D(3.0, 4.0, 2.1),
+                new Point3D(3.0, 5.0, 2.1)
             });
             referenceLine.SetGeometry(new[]
             {
@@ -108,7 +109,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             IMechanismSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, null); };
+            Action call = () => result = transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -143,7 +144,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             IMechanismSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, null); };
+            Action call = () => result = transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
@@ -152,11 +153,10 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [TestCase(-1e-3)]
-        [TestCase(0)]
-        [TestCase(1e-8)]
-        [TestCase(6)]
-        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_LogErrorAndReturnNull(double delta)
+        [TestCase(2.0)]
+        [TestCase(3.0)]
+        [TestCase(3.5)]
+        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_LogErrorAndReturnNull(double xDikeToePolder)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -172,25 +172,25 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 new Point3D(2.0, randomY, randomZ),
                 new Point3D(3.0, randomY, randomZ),
-                new Point3D(3 - delta, randomY, randomZ),
+                new Point3D(3.5, randomY, randomZ),
                 new Point3D(4.0, randomY, randomZ)
             });
             var characteristicPoints = new CharacteristicPoints(locationName)
             {
-                DikeToeAtRiver = new Point3D(3, 4, randomZ),
-                DikeToeAtPolder = new Point3D(3 - delta, 4, randomZ)
+                DikeToeAtRiver = new Point3D(3.5, 4, randomZ),
+                DikeToeAtPolder = new Point3D(xDikeToePolder, 4, randomZ)
             };
 
             referenceLine.SetGeometry(new[]
             {
-                new Point2D(3.5, randomY - 1),
-                new Point2D(3.5, randomY + 1)
+                new Point2D(3.2, randomY - 1),
+                new Point2D(3.2, randomY + 1)
             });
 
             IMechanismSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, characteristicPoints); };
+            Action call = () => result = transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
             string message = $"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {locationName}.";
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             RingtoetsPipingSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, characteristicPoints); };
+            Action call = () => result = transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
             string message = $"Karakteristiek punt van profielschematisatie '{locationName}' is overgeslagen. De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als '{changedCharacteristicPointName}' in te stellen.";

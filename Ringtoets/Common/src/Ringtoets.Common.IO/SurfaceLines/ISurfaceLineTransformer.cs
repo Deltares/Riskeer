@@ -24,7 +24,7 @@ using Ringtoets.Common.Data;
 namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
-    /// Interface for transformers of generic surface lines into mechanism specific surface lines.
+    /// Interface for transforming generic surface lines into mechanism specific surface lines.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ISurfaceLineTransformer<out T> where T : IMechanismSurfaceLine

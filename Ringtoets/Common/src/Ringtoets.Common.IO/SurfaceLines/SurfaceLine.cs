@@ -30,12 +30,10 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
-    /// Definition of a surfaceline for piping.
+    /// Definition of the surface line, which is the top level geometry of a dike.
     /// </summary>
     public class SurfaceLine : Observable
     {
-        private const int numberOfDecimalPlaces = 2;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SurfaceLine"/> class.
         /// </summary>
@@ -60,7 +58,13 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="points">The collection of points defining the surfaceline geometry.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item>Any element of <paramref name="points"/> is <c>null</c></item>
+        /// <item>The given points are too close to eachother</item>
+        /// <item>The given points form a reclining line: one in which the local L-coordinates of the points
+        /// are not in ascending order.</item>
+        /// </list></exception>
         public void SetGeometry(IEnumerable<Point3D> points)
         {
             if (points == null)
@@ -71,79 +75,15 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentException(Resources.SurfaceLine_A_point_in_the_collection_was_null);
             }
+            if (points.IsZeroLength())
+            {
+                throw new ArgumentException(Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
+            }
+            if (points.IsReclining())
+            {
+                throw new ArgumentException(Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
+            }
             Points = points.Select(p => new Point3D(p)).ToArray();
-        }
-
-        /// <summary>
-        /// Projects the points in <see cref="Points"/> to localized coordinate (LZ-plane) system.
-        /// Z-values are retained, and the first point is put a L=0.
-        /// </summary>
-        /// <returns>Collection of 2D points in the LZ-plane.</returns>
-        private RoundedPoint2DCollection ProjectGeometryToLZ()
-        {
-            int count = Points.Length;
-            if (count == 0)
-            {
-                return new RoundedPoint2DCollection(numberOfDecimalPlaces, Enumerable.Empty<Point2D>());
-            }
-
-            Point3D first = Points.First();
-            if (count == 1)
-            {
-                return new RoundedPoint2DCollection(numberOfDecimalPlaces, new[]
-                {
-                    new Point2D(0.0, first.Z)
-                });
-            }
-
-            Point3D last = Points.Last();
-            var firstPoint = new Point2D(first.X, first.Y);
-            var lastPoint = new Point2D(last.X, last.Y);
-            return new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)));
-        }
-
-        /// <summary>
-        /// Checks whether the current <see cref="Points"/> collection results in 
-        /// <see cref="SurfaceLine"/> of zero length.
-        /// </summary>
-        /// <returns><c>true</c> if the surface line has a length of zero; <c>false</c>
-        /// otherwise.</returns>
-        public bool IsZeroLength()
-        {
-            Point3D lastPoint = null;
-            foreach (Point3D point in Points)
-            {
-                if (lastPoint != null)
-                {
-                    if (!Equals(lastPoint, point))
-                    {
-                        return false;
-                    }
-                }
-                lastPoint = point;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Checks whether the current <see cref="ProjectGeometryToLZ()"/> would
-        /// return a reclining geometry. That is, given a point from the geometry
-        /// with an L-coordinate, has a point further in the geometry that has an
-        /// L-coordinate smaller than the L-coordinate of the given point.
-        /// </summary>
-        /// <returns><c>true</c> if the surface line  is reclining; <c>false</c>
-        /// otherwise.</returns>
-        public bool IsReclining()
-        {
-            double[] lCoordinates = ProjectGeometryToLZ().Select(p => p.X).ToArray();
-            for (var i = 1; i < lCoordinates.Length; i++)
-            {
-                if (lCoordinates[i - 1] > lCoordinates[i])
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

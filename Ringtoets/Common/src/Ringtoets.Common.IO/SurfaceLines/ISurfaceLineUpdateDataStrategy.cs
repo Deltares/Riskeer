@@ -28,13 +28,12 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
-    /// Interface describing the method of updating the data model after new surface lines 
-    /// have been imported.
+    /// Interface for updating the data model after new surface lines have been imported.
     /// </summary>
     public interface ISurfaceLineUpdateDataStrategy<in T> where T : IMechanismSurfaceLine
     {
         /// <summary>
-        /// Updates the surface lines using the <paramref name="surfaceLines"/>.
+        /// Updates the surface lines on the data model using the <paramref name="surfaceLines"/>.
         /// </summary>
         /// <param name="surfaceLines">The surface lines that need to be set on the data model.</param>
         /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>

@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SurfaceLines;
 
@@ -42,40 +44,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Assert.IsInstanceOf<Observable>(surfaceLine);
             Assert.IsEmpty(surfaceLine.Name);
             CollectionAssert.IsEmpty(surfaceLine.Points);
-        }
-
-        [Test]
-        public void SetGeometry_EmptyCollection_PointsSetEmptyAndNullStartAndEndWorldPoints()
-        {
-            // Setup
-            var surfaceLine = new SurfaceLine();
-
-            IEnumerable<Point3D> sourceData = Enumerable.Empty<Point3D>();
-
-            // Call
-            surfaceLine.SetGeometry(sourceData);
-
-            // Assert
-            CollectionAssert.IsEmpty(surfaceLine.Points);
-        }
-
-        [Test]
-        public void SetGeometry_CollectionOfOnePoint_InitializeStartAndEndWorldPointsToSameInstanceAndInitializePoints()
-        {
-            // Setup
-            var surfaceLine = new SurfaceLine();
-
-            var sourceData = new[]
-            {
-                new Point3D(1.1, 2.2, 3.3)
-            };
-
-            // Call
-            surfaceLine.SetGeometry(sourceData);
-
-            // Assert
-            Assert.AreNotSame(sourceData, surfaceLine.Points);
-            CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
         }
 
         [Test]
@@ -132,6 +100,63 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(12)]
+        public void SetGeometry_GeometryIsZeroLength_ThrowArgumentException(int pointCount)
+        {
+            // Setup
+            var surfaceLine = new SurfaceLine();
+            IEnumerable<Point3D> zeroLengthGeometry = Enumerable.Repeat(new Point3D(3, 4, 7), pointCount);
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetGeometry(zeroLengthGeometry);
+
+            // Assert
+            const string expectedMessage = "Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(3.01, true)]
+        [TestCase(3 + 1e-6, false)]
+        [TestCase(3, false)]
+        [TestCase(2, false)]
+        [TestCase(1, false)]
+        [TestCase(1 - 1e-6, false)]
+        [TestCase(0.99, true)]
+        [TestCase(0, true)]
+        [TestCase(-5, true)]
+        public void SetGeometry_GeometryIsReclining_ThrowArgumentException(double thirdPointL, bool expectedThrowsException)
+        {
+            // Setup
+            var random = new Random(21);
+            double randomY = random.NextDouble();
+            var points = new[]
+            {
+                new Point3D(0, randomY, random.NextDouble()),
+                new Point3D(1, randomY, random.NextDouble()),
+                new Point3D(thirdPointL, randomY, random.NextDouble()),
+                new Point3D(3, randomY, random.NextDouble())
+            };
+            var surfaceLine = new SurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetGeometry(points);
+
+            // Assert
+            const string expectedMessage = "Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).";
+            if (expectedThrowsException)
+            {
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            }
+            else
+            {
+                Assert.DoesNotThrow(test);
+            }
+        }
+
+        [Test]
         [TestCase(3.01, true)]
         [TestCase(3 + 1e-6, false)]
         [TestCase(3, false)]
@@ -146,17 +171,16 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             // Setup
             var random = new Random(21);
             double randomY = random.NextDouble();
-            var surfaceLine = new SurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var points = new[]
             {
                 new Point3D(0, randomY, random.NextDouble()),
                 new Point3D(1, randomY, random.NextDouble()),
                 new Point3D(thirdPointL, randomY, random.NextDouble()),
                 new Point3D(3, randomY, random.NextDouble())
-            });
+            };
 
             // Call
-            bool result = surfaceLine.IsReclining();
+            bool result = points.IsReclining();
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -173,15 +197,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             var random = new Random(21);
             double randomY = random.NextDouble();
             double randomZ = random.NextDouble();
-            var surfaceLine = new SurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var points = new[]
             {
                 new Point3D(2, randomY, randomZ),
                 new Point3D(otherPointX, randomY, randomZ)
-            });
+            };
 
             // Call
-            bool result = surfaceLine.IsZeroLength();
+            bool result = points.IsZeroLength();
 
             // Assert
             Assert.IsFalse(result);
@@ -198,15 +221,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             var random = new Random(21);
             double randomX = random.NextDouble();
             double randomY = random.NextDouble();
-            var surfaceLine = new SurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var points = new[]
             {
                 new Point3D(randomX, randomY, 2),
                 new Point3D(randomX, randomY, otherPointZ)
-            });
+            };
 
             // Call
-            bool result = surfaceLine.IsZeroLength();
+            bool result = points.IsZeroLength();
 
             // Assert
             Assert.IsFalse(result);
@@ -223,15 +245,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             var random = new Random(21);
             double randomX = random.NextDouble();
             double randomZ = random.NextDouble();
-            var surfaceLine = new SurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var points = new[]
             {
                 new Point3D(randomX, 2, randomZ),
                 new Point3D(randomX, otherPointY, randomZ)
-            });
+            };
 
             // Call
-            bool result = surfaceLine.IsZeroLength();
+            bool result = points.IsZeroLength();
 
             // Assert
             Assert.IsFalse(result);
@@ -244,11 +265,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void IsZeroLength_PointsEqualToEachother_ReturnsTrue(int pointCount)
         {
             // Setup
-            var surfaceLine = new SurfaceLine();
-            surfaceLine.SetGeometry(Enumerable.Repeat(new Point3D(3, 4, 7), pointCount));
+            IEnumerable<Point3D> points = Enumerable.Repeat(new Point3D(3, 4, 7), pointCount);
 
             // Call
-            bool result = surfaceLine.IsZeroLength();
+            bool result = points.IsZeroLength();
 
             // Assert
             Assert.IsTrue(result);

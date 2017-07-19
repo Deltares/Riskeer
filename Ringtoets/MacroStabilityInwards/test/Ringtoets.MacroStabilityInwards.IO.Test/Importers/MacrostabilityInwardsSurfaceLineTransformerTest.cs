@@ -57,7 +57,8 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(3.0, 4.0, 2.1)
+                new Point3D(3.0, 4.0, 2.1),
+                new Point3D(3.0, 5.0, 2.1)
             });
             referenceLine.SetGeometry(new[]
             {
@@ -67,7 +68,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             IMechanismSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, null); };
+            Action call = () => result = transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -102,7 +103,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             IMechanismSurfaceLine result = null;
 
             // Call
-            Action call = () => { result = transformer.Transform(surfaceLine, null); };
+            Action call = () => result = transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";

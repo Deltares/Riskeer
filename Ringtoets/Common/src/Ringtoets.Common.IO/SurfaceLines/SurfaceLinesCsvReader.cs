@@ -199,28 +199,16 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 Name = surfaceLineName
             };
-            surfaceLine.SetGeometry(points);
-
-            CheckIfGeometryIsValid(surfaceLine);
+            try
+            {
+                surfaceLine.SetGeometry(points);
+            }
+            catch (ArgumentException e)
+            {
+                throw CreateLineParseException(lineNumber, surfaceLine.Name, e.Message);
+            }
 
             return surfaceLine;
-        }
-
-        /// <summary>
-        /// Checks if the geometry defining the surface line is valid.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line to be checked.</param>
-        /// <exception cref="LineParseException">Surface line geometry is invalid.</exception>
-        private void CheckIfGeometryIsValid(SurfaceLine surfaceLine)
-        {
-            if (surfaceLine.IsZeroLength())
-            {
-                throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
-            }
-            if (surfaceLine.IsReclining())
-            {
-                throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.SurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
-            }
         }
 
         /// <summary>
