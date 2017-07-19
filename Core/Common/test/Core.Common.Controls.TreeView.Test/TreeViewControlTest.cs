@@ -1849,15 +1849,15 @@ namespace Core.Common.Controls.TreeView.Test
                 .SetName("ItemsAddedToEmptyList");
 
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
-                                                           list => { list.Insert(0, new object()); }))
+                                                           list => list.Insert(0, new object())))
                 .SetName("ItemAddedFirstInList");
 
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
-                                                           list => { list.Insert(1, new object()); }))
+                                                           list => list.Insert(1, new object())))
                 .SetName("ItemAddedInMiddleOfList");
 
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
-                                                           list => { list.Add(new object()); }))
+                                                           list => list.Add(new object())))
                 .SetName("ItemAddedLastInList");
 
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),

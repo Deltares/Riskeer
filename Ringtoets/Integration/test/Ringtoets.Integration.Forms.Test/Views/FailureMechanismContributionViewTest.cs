@@ -620,12 +620,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.IsRelevant = initialIsRelevant;
             failureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation => { failureMechanismObservers.Add((IObserver) invocation.Arguments[0]); });
+                            .WhenCalled(invocation => failureMechanismObservers.Add((IObserver) invocation.Arguments[0]));
             failureMechanism.Stub(fm => fm.NotifyObservers())
-                            .WhenCalled(invocation => { failureMechanismObservers[0].UpdateObserver(); });
+                            .WhenCalled(invocation => failureMechanismObservers[0].UpdateObserver());
             failureMechanism.Stub(fm => fm.Detach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation => { failureMechanismObservers.Remove((IObserver) invocation.Arguments[0]); });
+                            .WhenCalled(invocation => failureMechanismObservers.Remove((IObserver) invocation.Arguments[0]));
 
             var failureMechanisms = new[]
             {

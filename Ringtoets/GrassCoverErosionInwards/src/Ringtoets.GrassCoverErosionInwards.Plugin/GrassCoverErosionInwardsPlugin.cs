@@ -725,7 +725,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                 calculationGroupGenerateCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowDikeProfileSelectionDialog(nodeData); })
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowDikeProfileSelectionDialog(nodeData))
             {
                 Enabled = isDikeProfileAvailable
             };

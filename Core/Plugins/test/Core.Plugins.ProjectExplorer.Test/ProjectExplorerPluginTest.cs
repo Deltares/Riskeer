@@ -242,7 +242,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Activate
             var toolViews = new List<IView>();
             viewHost.Stub(vm => vm.ToolViews).Return(toolViews);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViews.Add(invocation.Arguments[0] as ProjectExplorer); });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => toolViews.Add(invocation.Arguments[0] as ProjectExplorer));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             // Dispose

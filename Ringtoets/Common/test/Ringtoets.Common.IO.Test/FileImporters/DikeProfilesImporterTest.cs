@@ -259,7 +259,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var updateDataStrategy = new TestDikeProfileUpdateStrategy();
             var dikeProfilesImporter = new DikeProfilesImporter(new DikeProfileCollection(), referenceLine, filePath, updateDataStrategy, messageProvider);
-            dikeProfilesImporter.SetProgressChanged((description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); });
+            dikeProfilesImporter.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
             // Call
             bool importResult = dikeProfilesImporter.Import();

@@ -449,7 +449,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
+                                             (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
             };

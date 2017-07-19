@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Forms.Test
                 connectButton.PerformClick();
 
                 DataGridViewControl wmtsDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                wmtsLocationControl.SelectedMapDataChanged += (sender, args) => { wmtsLocationControlSelectedMapDataChanged++; };
+                wmtsLocationControl.SelectedMapDataChanged += (sender, args) => wmtsLocationControlSelectedMapDataChanged++;
 
                 comboBox.SelectedItem = wellKnownMapDataControl;
                 DataGridViewControl wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
@@ -384,7 +384,7 @@ namespace Ringtoets.Integration.Forms.Test
                 comboBox.SelectedItem = wellKnownControl;
 
                 DataGridViewControl wellKnownDataGridViewControl = dialog.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                wellKnownControl.SelectedMapDataChanged += (sender, args) => { wellKnownSelectedMapDataChanged++; };
+                wellKnownControl.SelectedMapDataChanged += (sender, args) => wellKnownSelectedMapDataChanged++;
 
                 // When
                 wellKnownDataGridViewControl.SetCurrentCell(wellKnownDataGridViewControl.GetCell(4, 0));

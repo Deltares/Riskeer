@@ -126,7 +126,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private Task RunAllActivitiesAsTask(int activityCount, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew(() => { RunAllActivities(activityCount, cancellationToken); }, cancellationToken);
+            return Task.Factory.StartNew(() => RunAllActivities(activityCount, cancellationToken), cancellationToken);
         }
 
         private void RunAllActivities(int activityCount, CancellationToken cancellationToken)

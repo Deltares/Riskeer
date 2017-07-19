@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage
             try
             {
                 var writer = new BackedUpFileWriter(databaseFilePath);
-                writer.Perform(() => { SaveProjectInDatabase(databaseFilePath); });
+                writer.Perform(() => SaveProjectInDatabase(databaseFilePath));
             }
             catch (IOException e)
             {

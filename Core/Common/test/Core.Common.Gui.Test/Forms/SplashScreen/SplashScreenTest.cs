@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
             // Setup
             var screen = new Gui.Forms.SplashScreen.SplashScreen();
             var screenClosedCalled = false;
-            screen.Closed += (sender, args) => { screenClosedCalled = true; };
+            screen.Closed += (sender, args) => screenClosedCalled = true;
             screen.Show();
 
             // Call

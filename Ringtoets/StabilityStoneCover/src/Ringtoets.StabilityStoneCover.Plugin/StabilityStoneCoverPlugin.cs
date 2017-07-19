@@ -445,7 +445,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
+                                             (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
             };

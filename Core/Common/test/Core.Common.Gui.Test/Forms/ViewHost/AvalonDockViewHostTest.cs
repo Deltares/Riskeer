@@ -85,9 +85,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 },
                 avalonDockViewHost.ToolViews);
 
-            avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-            avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-            avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+            avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+            avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+            avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
             // Call
             avalonDockViewHost.Dispose();
@@ -282,9 +282,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Left);
                 SetActiveView(avalonDockViewHost, testView1);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.Remove(testView1);
@@ -325,9 +325,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.AreSame(testView1, avalonDockViewHost.ActiveDocumentView);
                 Assert.IsTrue(IsActiveView(avalonDockViewHost, testView1));
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.Remove(testView1);
@@ -369,9 +369,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
                 Assert.IsTrue(IsActiveView(avalonDockViewHost, testView3));
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.Remove(testView1);
@@ -401,9 +401,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView2);
                 SetActiveView(avalonDockViewHost, testView1);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.BringToFront(testView1);
@@ -433,9 +433,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView2);
                 SetActiveView(avalonDockViewHost, testView2);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.BringToFront(testView1);
@@ -695,9 +695,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
                 SetActiveView(avalonDockViewHost, testView3);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.Remove(testView5);
@@ -727,9 +727,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Bottom);
                 SetActiveView(avalonDockViewHost, testView1);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.BringToFront(testView1);
@@ -758,9 +758,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Bottom);
                 SetActiveView(avalonDockViewHost, testView2);
 
-                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => { activeDocumentViewChangingCounter++; };
-                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => { activeDocumentViewChangedCounter++; };
-                avalonDockViewHost.ActiveViewChanged += (sender, args) => { activeViewChangedCounter++; };
+                avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
+                avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
+                avalonDockViewHost.ActiveViewChanged += (sender, args) => activeViewChangedCounter++;
 
                 // Call
                 avalonDockViewHost.BringToFront(testView1);

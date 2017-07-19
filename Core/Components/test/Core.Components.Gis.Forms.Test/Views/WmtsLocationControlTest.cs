@@ -627,7 +627,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     var buttonAddLocation = new ButtonTester("addLocationButton", form);
 
                     // When
-                    Action action = () => { buttonAddLocation.Click(); };
+                    Action action = () => buttonAddLocation.Click();
 
                     // Then
                     string exceptionMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{configFilePath}'.";

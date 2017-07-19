@@ -201,7 +201,7 @@ namespace Core.Plugins.Map.Legend
             return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
                                              toolTip,
                                              MapResources.ZoomToAllIcon,
-                                             (sender, args) => { MapControl?.ZoomToAllVisibleLayers(nodeData); })
+                                             (sender, args) => MapControl?.ZoomToAllVisibleLayers(nodeData))
             {
                 Enabled = isEnabled
             };

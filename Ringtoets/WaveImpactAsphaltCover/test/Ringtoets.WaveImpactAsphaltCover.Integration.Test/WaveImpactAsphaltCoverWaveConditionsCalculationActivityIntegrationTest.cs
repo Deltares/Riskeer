@@ -139,7 +139,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var progessTexts = new List<string>();
-                activity.ProgressChanged += (sender, args) => { progessTexts.Add(activity.ProgressText); };
+                activity.ProgressChanged += (sender, args) => progessTexts.Add(activity.ProgressText);
 
                 // Call
                 activity.Run();

@@ -182,7 +182,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             WmtsConnectionInfo[] readConnectionInfos = null;
 
             // Call
-            Action action = () => { readConnectionInfos = reader.ReadWmtsConnectionInfos(filePath).ToArray(); };
+            Action action = () => readConnectionInfos = reader.ReadWmtsConnectionInfos(filePath).ToArray();
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het is niet mogelijk om WMTS connectie 'First name' aan te maken met URL ''.";

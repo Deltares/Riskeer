@@ -413,7 +413,7 @@ namespace Core.Components.DotSpatial.Forms
                 FeatureBasedMapDataLayer = featureBasedMapDataLayer
             };
 
-            drawnMapData.Observer = new Observer(() => { drawnMapData.FeatureBasedMapDataLayer.Update(); })
+            drawnMapData.Observer = new Observer(() => drawnMapData.FeatureBasedMapDataLayer.Update())
             {
                 Observable = featureBasedMapData
             };

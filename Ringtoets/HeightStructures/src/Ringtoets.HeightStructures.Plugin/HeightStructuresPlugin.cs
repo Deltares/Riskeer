@@ -625,7 +625,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              heightStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowHeightStructuresSelectionDialog(nodeData); })
+                                             (sender, args) => ShowHeightStructuresSelectionDialog(nodeData))
             {
                 Enabled = structuresAvailable
             };

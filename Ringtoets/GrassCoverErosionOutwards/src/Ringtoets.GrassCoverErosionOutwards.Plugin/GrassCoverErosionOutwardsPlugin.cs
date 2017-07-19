@@ -724,7 +724,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
+                                             (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
                 Enabled = locationsAvailable
             };

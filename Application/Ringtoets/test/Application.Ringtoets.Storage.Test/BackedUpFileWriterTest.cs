@@ -187,7 +187,7 @@ namespace Application.Ringtoets.Storage.Test
                 var helper = new BackedUpFileWriter(filePath);
 
                 // Call
-                TestDelegate test = () => helper.Perform(() => { temporaryFileHelper.LockFiles(); });
+                TestDelegate test = () => helper.Perform(() => temporaryFileHelper.LockFiles());
 
                 // Assert
                 string expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";

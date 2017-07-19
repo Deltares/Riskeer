@@ -918,7 +918,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 calculationGroupGenerateCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
             {
                 Enabled = surfaceLineAvailable
             };

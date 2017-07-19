@@ -628,7 +628,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                     view.Model.Axes[1].ActualMinimum,
                     view.Model.Axes[1].ActualMaximum);
 
-                view.Invalidated += (sender, args) => { invalidated++; };
+                view.Invalidated += (sender, args) => invalidated++;
 
                 // Call
                 chart.ZoomToAllVisibleLayers(chartData);
@@ -667,7 +667,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Data = chartDataCollection;
                 chart.Update();
 
-                view.Invalidated += (sender, args) => { invalidated++; };
+                view.Invalidated += (sender, args) => invalidated++;
 
                 // Call
                 chart.ZoomToAllVisibleLayers(chartData);

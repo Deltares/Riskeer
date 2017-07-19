@@ -65,7 +65,7 @@ namespace Core.Plugins.Map.Test.Commands
                 viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
                 viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                        .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
+                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as MapLegendView));
 
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             }
@@ -104,7 +104,7 @@ namespace Core.Plugins.Map.Test.Commands
             // Open
             viewHost.Expect(vm => vm.AddToolView(Arg<MapLegendView>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                    .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as MapLegendView); });
+                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as MapLegendView));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             // Close

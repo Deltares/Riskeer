@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             // Call
-            TestDelegate test = () => { ringtoetsMapControl.SetAllData(null, backgroundData); };
+            TestDelegate test = () => ringtoetsMapControl.SetAllData(null, backgroundData);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var mapDataCollection = new MapDataCollection("Collection");
 
             // Call
-            TestDelegate test = () => { ringtoetsMapControl.SetAllData(mapDataCollection, null); };
+            TestDelegate test = () => ringtoetsMapControl.SetAllData(mapDataCollection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

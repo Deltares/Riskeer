@@ -622,7 +622,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              stabilityPointStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowStabilityPointStructuresSelectionDialog(nodeData); })
+                                             (sender, args) => ShowStabilityPointStructuresSelectionDialog(nodeData))
             {
                 Enabled = structuresAvailable
             };

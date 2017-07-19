@@ -129,7 +129,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Content = hostControl
             };
 
-            PerformWithoutChangingActiveContent(() => { AddLayoutDocument(layoutDocument); });
+            PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
 
             BringToFront(layoutDocument);
 
@@ -166,7 +166,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Title = view.Text
             };
 
-            PerformWithoutChangingActiveContent(() => { AddLayoutAnchorable(layoutAnchorable, toolViewLocation); });
+            PerformWithoutChangingActiveContent(() => AddLayoutAnchorable(layoutAnchorable, toolViewLocation));
 
             BringToFront(layoutAnchorable);
 

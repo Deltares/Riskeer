@@ -2241,7 +2241,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                mapView.Invalidated += (sender, args) => { invalidated++; };
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
 
@@ -2291,7 +2291,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 form.Controls.Add(map);
 
-                mapView.Invalidated += (sender, args) => { invalidated++; };
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 form.Show();
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
@@ -2374,7 +2374,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = mapDataCollection;
 
-                mapView.Invalidated += (sender, args) => { invalidated++; };
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
 
@@ -2424,7 +2424,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 form.Controls.Add(map);
 
-                mapView.Invalidated += (sender, args) => { invalidated++; };
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 form.Show();
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");

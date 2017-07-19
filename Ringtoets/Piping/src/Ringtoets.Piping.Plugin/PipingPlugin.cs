@@ -809,7 +809,7 @@ namespace Ringtoets.Piping.Plugin
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
                 RingtoetsCommonFormsResources.UpdateItemIcon,
-                (o, args) => { UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData); })
+                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
             };
@@ -980,7 +980,7 @@ namespace Ringtoets.Piping.Plugin
             return new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                 pipingCalculationGroupGeneratePipingCalculationsToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => ShowSurfaceLineSelectionDialog(nodeData))
             {
                 Enabled = surfaceLineAvailable
             };

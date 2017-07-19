@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             var reader = new SoilLayer2DReader();
 
             // Call
-            TestDelegate test = () => { reader.Read(xmlDoc); };
+            TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
             Assert.Throws<SoilLayerConversionException>(test);

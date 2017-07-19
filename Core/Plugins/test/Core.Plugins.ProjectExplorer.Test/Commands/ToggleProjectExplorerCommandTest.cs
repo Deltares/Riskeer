@@ -91,7 +91,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             {
                 viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                        .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
+                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
                 viewHost.Expect(tvc => tvc.SetImage(null, null)).IgnoreArguments();
                 viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
             }
@@ -135,7 +135,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
             viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                    .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
+                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Is.TypeOf));

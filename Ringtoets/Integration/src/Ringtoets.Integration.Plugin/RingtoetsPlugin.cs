@@ -1084,7 +1084,7 @@ namespace Ringtoets.Integration.Plugin
             var mapDataItem = new StrictContextMenuItem(
                 RingtoetsIntegrationPluginResources.BackgroundData_SelectMapData,
                 RingtoetsIntegrationPluginResources.BackgroundData_SelectMapData_Tooltip,
-                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => { SelectMapData(assessmentSection, nodeData); });
+                RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)

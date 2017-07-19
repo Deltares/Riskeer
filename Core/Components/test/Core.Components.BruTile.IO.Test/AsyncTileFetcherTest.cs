@@ -182,7 +182,7 @@ namespace Core.Components.BruTile.IO.Test
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
             {
-                fetcher.QueueEmpty += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
+                fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
                 byte[] fetchedData = fetcher.GetTile(info);
 
@@ -226,8 +226,8 @@ namespace Core.Components.BruTile.IO.Test
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
             {
-                fetcher.TileReceived += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
-                fetcher.QueueEmpty += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
+                fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
+                fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
                 byte[] fetchedData = fetcher.GetTile(info);
 
@@ -261,8 +261,8 @@ namespace Core.Components.BruTile.IO.Test
             using (var fetcherFiredAsyncEvent = new AutoResetEvent(false))
             using (var fetcher = new AsyncTileFetcher(tileProvider, 100, 200, persistentCache))
             {
-                fetcher.TileReceived += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
-                fetcher.QueueEmpty += (sender, args) => { fetcherFiredAsyncEvent.Set(); };
+                fetcher.TileReceived += (sender, args) => fetcherFiredAsyncEvent.Set();
+                fetcher.QueueEmpty += (sender, args) => fetcherFiredAsyncEvent.Set();
 
                 byte[] fetchedData = fetcher.GetTile(info);
 
@@ -450,8 +450,8 @@ namespace Core.Components.BruTile.IO.Test
                 using (var fetcherIsDoneEvent = new ManualResetEvent(false))
                 using (var fetcher = new AsyncTileFetcher(blockingTileProvider, 100, 200))
                 {
-                    fetcher.TileReceived += (sender, args) => { fetcherIsDoneEvent.Set(); };
-                    fetcher.QueueEmpty += (sender, args) => { fetcherIsDoneEvent.Set(); };
+                    fetcher.TileReceived += (sender, args) => fetcherIsDoneEvent.Set();
+                    fetcher.QueueEmpty += (sender, args) => fetcherIsDoneEvent.Set();
 
                     byte[] fetchedData = fetcher.GetTile(info);
 
