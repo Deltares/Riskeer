@@ -210,7 +210,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             string expectedProjectDescription = fullProject.Description;
 
-            // Precondition
             SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RingtoetsProjectFactory(), new GuiCoreSettings()))
@@ -504,7 +503,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertStochasticSoilModels(StochasticSoilModelCollection expectedModels,
                                                        StochasticSoilModelCollection actualModels)
         {
-            // Precondition:
             Assert.Less(0, actualModels.Count);
 
             Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
@@ -519,7 +517,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertSegmentPoints(IEnumerable<Point2D> expectedSoilModelSegmentPoints,
                                                 IEnumerable<Point2D> actualSoilModelSegmentPoints)
         {
-            // Precondition
             Assert.Greater(expectedSoilModelSegmentPoints.Count(), 0);
 
             CollectionAssert.AreEqual(expectedSoilModelSegmentPoints, actualSoilModelSegmentPoints);
@@ -528,7 +525,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> expectedStochasticSoilProfiles,
                                                          IEnumerable<StochasticSoilProfile> actualStochasticSoilProfiles)
         {
-            // Precondition
             Assert.Less(0, actualStochasticSoilProfiles.Count());
 
             AssertCollectionAndItems(expectedStochasticSoilProfiles,
@@ -567,7 +563,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertSurfaceLines(RingtoetsPipingSurfaceLineCollection expectedSurfaceLines,
                                                RingtoetsPipingSurfaceLineCollection actualSurfaceLines)
         {
-            // Precondition:
             Assert.Greater(expectedSurfaceLines.Count, 0);
 
             Assert.AreEqual(expectedSurfaceLines.SourcePath, actualSurfaceLines.SourcePath);
