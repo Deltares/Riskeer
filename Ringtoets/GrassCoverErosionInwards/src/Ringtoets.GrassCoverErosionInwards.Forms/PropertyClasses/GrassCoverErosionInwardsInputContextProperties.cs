@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(calculateDikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeightCalculationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -223,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalFlowRate))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -272,6 +272,54 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldDikeHeightIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalFlowRate))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldCriticalFlowRateIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldCriticalFlowRateIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldCriticalFlowRateIllustrationPointsBeCalculated = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

@@ -171,6 +171,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
                 nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
             Assert.IsNull(properties.WorldReferencePoint);
+            Assert.IsFalse(properties.ShouldCriticalFlowRateIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+
             mockRepository.VerifyAll();
         }
 
@@ -209,6 +213,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
+            Assert.IsFalse(properties.ShouldCriticalFlowRateIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
         }
 
@@ -600,7 +607,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeProfileProperty,
@@ -668,12 +675,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De locatie met hydraulische randvoorwaarden.");
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateDikeHeightPropertyIndex],
-                                                                            "Schematisatie",
+                                                                            "HBN",
                                                                             "HBN berekenen",
                                                                             "Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.");
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateOvertoppingRatePropertyIndex],
-                                                                            "Schematisatie",
+                                                                            "Overslagdebiet",
                                                                             "Overslagdebiet berekenen",
                                                                             "Geeft aan of ook het overslagdebiet moet worden berekend.");
 

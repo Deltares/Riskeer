@@ -240,4 +240,25 @@
   <data name="DikeProfileCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de dijkprofielen zijn geïmporteerd.</value>
   </data>
+  <data name="Categories_CriticalFlowRate" xml:space="preserve">
+    <value>Overslagdebiet</value>
+  </data>
+  <data name="Categories_DikeHeight" xml:space="preserve">
+    <value>HBN</value>
+  </data>
+  <data name="Categories_OvertoppingOutput" xml:space="preserve">
+    <value>Sterkte berekening</value>
+  </data>
+  <data name="ShouldIllustrationPointsBeCalculated_Description" xml:space="preserve">
+    <value>Neem de informatie over de illustratiepunten op in het berekeningsresultaat.</value>
+  </data>
+  <data name="ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen</value>
+  </data>
+  <data name="ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen</value>
+  </data>
+  <data name="ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten inlezen</value>
+  </data>
 </root>

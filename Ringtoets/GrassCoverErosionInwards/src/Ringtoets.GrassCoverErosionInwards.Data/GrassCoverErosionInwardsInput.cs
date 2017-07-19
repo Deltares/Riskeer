@@ -169,6 +169,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
 
         /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Dike Height.
+        /// </summary>
+        public bool ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Critical Flow Rate.
+        /// </summary>
+        public bool ShouldCriticalFlowRateIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Overtopping Output.
+        /// </summary>
+        public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
         /// Gets the value <c>true</c> if the parameters of the instance of
         /// <see cref="GrassCoverErosionInwardsInput"/> that are derived from
         /// <see cref="DikeProfile"/> match the properties of

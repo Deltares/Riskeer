@@ -82,11 +82,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet.
+        /// </summary>
+        public static string Categories_CriticalFlowRate {
+            get {
+                return ResourceManager.GetString("Categories_CriticalFlowRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetseisen.
         /// </summary>
         public static string Categories_CriticalValues {
             get {
                 return ResourceManager.GetString("Categories_CriticalValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBN.
+        /// </summary>
+        public static string Categories_DikeHeight {
+            get {
+                return ResourceManager.GetString("Categories_DikeHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening.
+        /// </summary>
+        public static string Categories_OvertoppingOutput {
+            get {
+                return ResourceManager.GetString("Categories_OvertoppingOutput", resourceCulture);
             }
         }
         
@@ -438,6 +465,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string OvertoppingRateOutput_Convergence_Description {
             get {
                 return ResourceManager.GetString("OvertoppingRateOutput_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neem de informatie over de illustratiepunten op in het berekeningsresultaat..
+        /// </summary>
+        public static string ShouldIllustrationPointsBeCalculated_Description {
+            get {
+                return ResourceManager.GetString("ShouldIllustrationPointsBeCalculated_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName", resourceCulture);
             }
         }
         
