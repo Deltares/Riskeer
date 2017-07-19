@@ -541,7 +541,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(45.3, 1.0)]
         [TestCase(1.0, 122.9)]
-        [TestCase(double.MaxValue * 0.55, double.MaxValue * 0.55)]
+        [TestCase(1.0e12 * 0.55, 1.0e12 * 0.55)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
             // Setup
