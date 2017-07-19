@@ -82,6 +82,11 @@ namespace Core.Components.OxyPlot.Forms.Test
                 0.1,
                 0.1
             }, axes.Select(a => a.MinimumRange));
+            CollectionAssert.AreEqual(new[]
+            {
+                1.0e12,
+                1.0e12
+            }, axes.Select(a => a.MaximumRange));
         }
 
         [Test]

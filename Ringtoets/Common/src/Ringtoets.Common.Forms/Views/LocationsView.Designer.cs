@@ -161,8 +161,6 @@ namespace Ringtoets.Common.Forms.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(526, 85);
             this.Controls.Add(this.splitContainer);
             this.Name = "LocationsView";
             this.Size = new System.Drawing.Size(822, 543);

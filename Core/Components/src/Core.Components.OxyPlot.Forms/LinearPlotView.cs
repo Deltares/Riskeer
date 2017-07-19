@@ -177,7 +177,8 @@ namespace Core.Components.OxyPlot.Forms
                 Layer = AxisLayer.AboveSeries,
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
-                MinimumRange = 0.1
+                MinimumRange = 0.1,
+                MaximumRange = 1.0e12
             };
         }
 
