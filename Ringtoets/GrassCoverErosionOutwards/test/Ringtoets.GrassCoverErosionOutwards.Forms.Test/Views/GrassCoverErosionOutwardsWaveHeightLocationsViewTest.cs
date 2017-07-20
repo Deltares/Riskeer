@@ -112,6 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var selection = view.Selection as GrassCoverErosionOutwardsWaveHeightLocationContext;
 
             // Then
+            Assert.IsNotNull(selection);
             Assert.AreSame(location, selection.HydraulicBoundaryLocation);
         }
 

@@ -94,6 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var selection = view.Selection as WaveHeightLocationContext;
 
             // Then
+            Assert.IsNotNull(selection);
             Assert.AreSame(location, selection.HydraulicBoundaryLocation);
         }
 

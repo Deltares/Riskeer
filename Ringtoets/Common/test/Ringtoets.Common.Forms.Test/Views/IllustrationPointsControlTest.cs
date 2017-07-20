@@ -146,8 +146,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 selectedLocationRow.Cells[0].Value = true;
 
                 // Assert
-                object selection = tableControl.Selection;
-                var expectedSelection = selection as SelectableTopLevelIllustrationPoint;
+                var expectedSelection = tableControl.Selection as SelectableTopLevelIllustrationPoint;
                 var controlSelection = control.Selection as SelectableTopLevelIllustrationPoint;
                 Assert.IsNotNull(expectedSelection);
                 Assert.IsNotNull(controlSelection);

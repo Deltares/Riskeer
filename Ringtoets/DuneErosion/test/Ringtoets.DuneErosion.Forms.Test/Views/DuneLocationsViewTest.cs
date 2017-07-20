@@ -236,13 +236,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-            
+
             // Call
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
-            var selection = (DuneLocationContext)view.Selection;
-            var dataBoundItem = (DuneLocationRow) selectedLocationRow.DataBoundItem;
+            var selection = view.Selection as DuneLocationContext;
+            var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);

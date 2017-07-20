@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
-                  GetGeneralResultSubMechanismIllustrationPoints().TopLevelIllustrationPoints.ToArray();
+                    GetGeneralResultSubMechanismIllustrationPoints().TopLevelIllustrationPoints.ToArray();
 
                 IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation);
 
