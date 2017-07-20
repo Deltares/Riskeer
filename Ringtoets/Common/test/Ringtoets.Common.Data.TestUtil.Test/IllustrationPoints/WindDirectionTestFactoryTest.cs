@@ -37,13 +37,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 
             // Assert
             Assert.IsInstanceOf<WindDirection>(windDirection);
-
             Assert.AreEqual("SSE", windDirection.Name);
             Assert.AreEqual(5.0, windDirection.Angle, windDirection.Angle.GetAccuracy());
         }
 
         [Test]
-        public void CreatesTestWindDirection_WindDirectionNull_ThrowsArgumentNullException()
+        public void CreateTestWindDirection_WindDirectionNameNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => WindDirectionTestFactory.CreateTestWindDirection(null);
@@ -56,7 +55,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         [Test]
         [TestCase("")]
         [TestCase("WindDirection")]
-        public void CreateTestWindDirection_WithWindDirection_ReturnsExpectedProperties(string windDirectionName)
+        public void CreateTestWindDirection_WithWindDirectionName_ReturnsExpectedProperties(string windDirectionName)
         {
             // Call
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection(windDirectionName);

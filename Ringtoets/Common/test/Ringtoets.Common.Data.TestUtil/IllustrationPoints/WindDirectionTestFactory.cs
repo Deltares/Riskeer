@@ -40,9 +40,9 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         }
 
         /// <summary>
-        /// /Creates a new instance of <see cref="WindDirection"/> with a specified name.
+        /// Creates a new instance of <see cref="WindDirection"/> with a specified name.
         /// </summary>
-        /// <param name="name">The name of the wind direction</param>
+        /// <param name="name">The name of the wind direction.</param>
         /// <returns>A <see cref="WindDirection"/> which can be readily used for testing.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>

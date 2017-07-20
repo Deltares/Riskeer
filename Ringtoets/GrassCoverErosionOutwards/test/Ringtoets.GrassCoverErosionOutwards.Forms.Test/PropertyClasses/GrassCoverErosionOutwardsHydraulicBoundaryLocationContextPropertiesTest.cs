@@ -351,19 +351,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(nameof(GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties.Location), dynamicProperties[2].Name);
         }
 
-        private static void AssertStochast(Stochast stochast, Stochast actualStochast)
-        {
-            Assert.AreEqual(stochast.Name, actualStochast.Name);
-            Assert.AreEqual(stochast.Alpha, actualStochast.Alpha);
-            Assert.AreEqual(stochast.Duration, actualStochast.Duration);
-        }
-
         private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
         {
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
             public TestGrassCoverErosionOutwardsLocationProperties() : base(new ConstructionProperties()) {}
 
             public TestGrassCoverErosionOutwardsLocationProperties(ConstructionProperties propertyIndexes) : base(propertyIndexes) {}
+
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
             {

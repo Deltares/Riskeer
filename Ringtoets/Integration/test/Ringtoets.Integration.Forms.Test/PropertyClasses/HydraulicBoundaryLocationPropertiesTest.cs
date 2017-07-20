@@ -310,19 +310,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[2].Name);
         }
 
-        private static void AssertStochast(Stochast stochast, Stochast actualStochast)
-        {
-            Assert.AreEqual(stochast.Name, actualStochast.Name);
-            Assert.AreEqual(stochast.Alpha, actualStochast.Alpha);
-            Assert.AreEqual(stochast.Duration, actualStochast.Duration);
-        }
-
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties
         {
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
             public TestHydraulicBoundaryLocationProperties() : base(new ConstructionProperties()) {}
 
             public TestHydraulicBoundaryLocationProperties(ConstructionProperties propertyIndexes) : base(propertyIndexes) {}
+
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
             {

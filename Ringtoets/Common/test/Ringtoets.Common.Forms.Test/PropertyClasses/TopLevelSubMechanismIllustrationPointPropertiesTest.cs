@@ -266,7 +266,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedAttributeValues()
+        public void GetProperties_SameClosingSituations_ReturnsExpectedAttributeValues()
         {
             // Setup
             var context = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),

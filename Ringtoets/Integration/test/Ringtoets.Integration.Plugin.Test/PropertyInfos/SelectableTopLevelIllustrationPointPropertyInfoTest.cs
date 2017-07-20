@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class SelectableTopLevelIllustrationPointViewPropertyInfoTest
+    public class SelectableTopLevelIllustrationPointPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;

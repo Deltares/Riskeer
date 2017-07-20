@@ -36,7 +36,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class FailureMechanismContributionPropertyInfoTest
+    public class FailureMechanismContributionContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
