@@ -124,7 +124,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                            configuration.ThresholdHeightOpenWeir);
         }
 
-        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(XmlWriter writer, ConfigurationStabilityPointStructuresLoadSchematizationType? configuration)
+        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(XmlWriter writer,
+                                                                                  ConfigurationStabilityPointStructuresLoadSchematizationType? configuration)
         {
             if (!configuration.HasValue)
             {
@@ -136,7 +137,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                       converter.ConvertToInvariantString(configuration.Value));
         }
 
-        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer, ConfigurationStabilityPointStructuresInflowModelType? configuration)
+        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer,
+                                                                           ConfigurationStabilityPointStructuresInflowModelType? configuration)
         {
             if (!configuration.HasValue)
             {

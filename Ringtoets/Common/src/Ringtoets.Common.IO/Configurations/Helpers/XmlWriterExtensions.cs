@@ -36,9 +36,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="writer">The writer to use to write the distribution.</param>
         /// <param name="name">The name of the distribution to write.</param>
         /// <param name="distribution">The distribution to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         public static void WriteDistribution(this XmlWriter writer, string name, StochastConfiguration distribution)
         {
             if (writer == null)
@@ -59,15 +59,18 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
             if (distribution.Mean.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement, XmlConvert.ToString(distribution.Mean.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
+                                          XmlConvert.ToString(distribution.Mean.Value));
             }
             if (distribution.StandardDeviation.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement, XmlConvert.ToString(distribution.StandardDeviation.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
+                                          XmlConvert.ToString(distribution.StandardDeviation.Value));
             }
             if (distribution.VariationCoefficient.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement, XmlConvert.ToString(distribution.VariationCoefficient.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement,
+                                          XmlConvert.ToString(distribution.VariationCoefficient.Value));
             }
 
             writer.WriteEndElement();
@@ -78,9 +81,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// </summary>
         /// <param name="writer">The writer to use to write the wave reduction.</param>
         /// <param name="waveReduction">The wave reduction to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         public static void WriteWaveReduction(this XmlWriter writer, WaveReductionConfiguration waveReduction)
         {
             if (writer == null)
@@ -96,19 +99,23 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
             if (waveReduction.UseBreakWater.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseBreakWater, XmlConvert.ToString(waveReduction.UseBreakWater.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseBreakWater,
+                                          XmlConvert.ToString(waveReduction.UseBreakWater.Value));
             }
             if (waveReduction.BreakWaterType.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType, new ConfigurationBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType,
+                                          new ConfigurationBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
             }
             if (waveReduction.BreakWaterHeight.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterHeight, XmlConvert.ToString(waveReduction.BreakWaterHeight.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterHeight,
+                                          XmlConvert.ToString(waveReduction.BreakWaterHeight.Value));
             }
             if (waveReduction.UseForeshoreProfile.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseForeshore, XmlConvert.ToString(waveReduction.UseForeshoreProfile.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.UseForeshore,
+                                          XmlConvert.ToString(waveReduction.UseForeshoreProfile.Value));
             }
 
             writer.WriteEndElement();
@@ -119,9 +126,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// </summary>
         /// <param name="writer">The writer to use to write the scenario.</param>
         /// <param name="scenarioConfiguration">The scenario to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         public static void WriteScenario(this XmlWriter writer, ScenarioConfiguration scenarioConfiguration)
         {
             if (writer == null)
@@ -137,11 +144,13 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
             if (scenarioConfiguration.IsRelevant.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantScenarioName, XmlConvert.ToString(scenarioConfiguration.IsRelevant.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantScenarioName,
+                                          XmlConvert.ToString(scenarioConfiguration.IsRelevant.Value));
             }
             if (scenarioConfiguration.Contribution.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.ContributionScenarioName, XmlConvert.ToString(scenarioConfiguration.Contribution.Value));
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.ContributionScenarioName,
+                                          XmlConvert.ToString(scenarioConfiguration.Contribution.Value));
             }
 
             writer.WriteEndElement();
@@ -152,9 +161,9 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// </summary>
         /// <param name="writer">The writer to use to write the folder.</param>
         /// <param name="name">The name of the folder.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         public static void WriteStartFolder(this XmlWriter writer, string name)
         {
             if (writer == null)

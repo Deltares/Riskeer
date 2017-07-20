@@ -97,7 +97,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="configuration">The calculation configuration to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected abstract void WriteCalculation(T configuration, XmlWriter writer);
 
         /// <summary>
@@ -106,10 +107,10 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="distributionName">The name of the distribution.</param>
         /// <param name="configuration">The configuration for the distribution that can be <c>null</c>.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="distributionName"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected static void WriteDistributionWhenAvailable(XmlWriter writer, string distributionName, StochastConfiguration configuration)
         {
             if (writer == null)
@@ -135,6 +136,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, string elementContent)
         {
             if (writer == null)
@@ -162,6 +165,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
         {
             if (writer == null)
@@ -186,9 +191,9 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the wave reduction that can be <c>null</c>.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected static void WriteWaveReductionWhenAvailable(XmlWriter writer, WaveReductionConfiguration configuration)
         {
             if (writer == null)
@@ -207,9 +212,9 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration for the scenario that can be <c>null</c>.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is 
-        /// closed.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected static void WriteScenarioWhenAvailable(XmlWriter writer, ScenarioConfiguration configuration)
         {
             if (writer == null)
@@ -228,8 +233,10 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// </summary>
         /// <param name="configuration">The calculation group(s) and/or calculation(s) to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="configuration"/> 
         /// contains a value that is neither <see cref="CalculationGroupConfiguration"/> nor <see cref="T"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private void WriteConfiguration(IEnumerable<IConfigurationItem> configuration, XmlWriter writer)
         {
             foreach (IConfigurationItem child in configuration)

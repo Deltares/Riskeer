@@ -91,6 +91,18 @@
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.shx" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\WBI2017_IJsselmeer_12-2_v02.config.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\WBI2017_IJsselmeer_12-2_v02.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\Configuraties voor profielschematisatie 12_2_00100.xml" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\hlcd.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\Ondergrond traject 12_2.soil" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\Readme.rtf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\surfacelines traject 12-2.csv" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\surfacelines traject 12-2.krp.csv" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STPH traject 12-2.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STPH traject 12-2.prj" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STPH traject 12-2.shp" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\vakindeling STPH traject 12-2.shx" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\WBI2017_IJsselmeer_12-2_v02.config.sqlite" />
+    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\WBI2017_IJsselmeer_12-2_v02.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Configuraties voor profielschematisatie 12_2_00100.xml" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\hlcd.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Ondergrond traject 12_2.soil" />
@@ -215,6 +227,7 @@
     <Folder Include="CalculationConfigurations\" />
     <Folder Include="Examples\" />
     <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\" />
+    <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Macrostabiliteit binnenwaarts\" />
     <Folder Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\" />
     <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\" />
     <Folder Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Betrouwbaarheid sluiting kunstwerk\" />

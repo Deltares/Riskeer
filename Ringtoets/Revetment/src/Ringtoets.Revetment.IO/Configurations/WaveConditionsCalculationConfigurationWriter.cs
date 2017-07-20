@@ -49,11 +49,6 @@ namespace Ringtoets.Revetment.IO.Configurations
         public WaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
-        /// <summary>
-        /// Writes a single calculation with its <paramref name="configuration"/> in XML format to file.
-        /// </summary>
-        /// <param name="configuration">The input of the calculation to write.</param>
-        /// <param name="writer">The writer to use for writing.</param>
         protected override void WriteCalculation(WaveConditionsCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);

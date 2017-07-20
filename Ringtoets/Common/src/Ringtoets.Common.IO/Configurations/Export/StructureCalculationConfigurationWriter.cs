@@ -64,14 +64,18 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
         /// to write the input.</param>
         /// <param name="writer">The writer that should be used to write the parameters.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected virtual void WriteSpecificStructureParameters(T configuration, XmlWriter writer) {}
 
-        /// <summary>        
+        /// <summary>
         /// Writes stochasts definitions specific for a structure of type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="configuration">The instance of type <typeparamref name="T"/> for which
         /// to write the stochasts.</param>
         /// <param name="writer">The writer that should be used to write the parameters.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         protected abstract void WriteSpecificStochasts(T configuration, XmlWriter writer);
 
         private void WriteParameters(T configuration, XmlWriter writer)
