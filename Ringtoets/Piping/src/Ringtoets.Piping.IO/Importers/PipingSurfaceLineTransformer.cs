@@ -67,10 +67,7 @@ namespace Ringtoets.Piping.IO.Importers
             };
             pipingSurfaceLine.SetGeometry(surfaceLine.Points);
 
-            if (!pipingSurfaceLine.SetCharacteristicPoints(characteristicPoints))
-            {
-                return null;
-            }
+            pipingSurfaceLine.SetCharacteristicPoints(characteristicPoints);
 
             pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
 

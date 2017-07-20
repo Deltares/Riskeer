@@ -153,10 +153,45 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
+        public void Transform_WithoutCharacteristicPoints_ReturnsSurfaceLineWithoutCharacteristicPointsSet()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            var transformer = new PipingSurfaceLineTransformer(referenceLine);
+
+            const string surfaceLineName = "somewhere";
+            var surfaceLine = new SurfaceLine
+            {
+                Name = surfaceLineName
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1.0, 5.0, 2.1),
+                new Point3D(1.0, 3.0, 2.1)
+            });
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 4.0),
+                new Point2D(2.0, 4.0)
+            });
+
+            // Call
+            RingtoetsPipingSurfaceLine result = transformer.Transform(surfaceLine, null);
+
+            // Assert
+            Assert.IsNull(result.DitchDikeSide);
+            Assert.IsNull(result.BottomDitchDikeSide);
+            Assert.IsNull(result.BottomDitchPolderSide);
+            Assert.IsNull(result.DitchPolderSide);
+            Assert.IsNull(result.DikeToeAtPolder);
+            Assert.IsNull(result.DikeToeAtRiver);
+        }
+
+        [Test]
         [TestCase(2.0)]
         [TestCase(3.0)]
         [TestCase(3.5)]
-        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_LogErrorAndReturnNull(double xDikeToePolder)
+        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_ThrowsException(double xDikeToePolder)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -187,20 +222,18 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 new Point2D(3.2, randomY + 1)
             });
 
-            IMechanismSurfaceLine result = null;
-
             // Call
-            Action call = () => result = transformer.Transform(surfaceLine, characteristicPoints);
+            TestDelegate test = () => transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
-            string message = $"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {locationName}.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Warn));
-            Assert.IsNull(result);
+            string message = $"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{locationName}'.";
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
         [TestCaseSource(nameof(MoveCharacteristicPoint))]
-        public void Transform_CharacteristicPointNotOnSurfaceLine_LogErrorAndReturnNull(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsPipingSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        public void Transform_CharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsPipingSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
         {
             // Setup
             var referenceLine = new ReferenceLine();

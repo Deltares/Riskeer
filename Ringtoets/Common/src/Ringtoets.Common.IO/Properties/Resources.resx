@@ -789,6 +789,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
   <data name="SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
-    <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}.</value>
+    <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{0}'.</value>
   </data>
 </root>

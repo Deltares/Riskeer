@@ -1091,6 +1091,38 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
+        public void Import_TransformerThrowsTransformerException_LogErrorAndReturnFalse()
+        {
+            // Setup
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var exceptionMessage = "This is exceptional";
+            transformer.Expect(t => t.Transform(Arg<SurfaceLine>.Is.Anything, Arg<CharacteristicPoints>.Is.Anything)).Throw(new SurfaceLineTransformException(exceptionMessage));
+            mocks.ReplayAll();
+            
+            const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
+            string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
+            string validSurfaceLinesFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
+
+            var surfaceLines = new TestSurfaceLineCollection();
+            var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
+            var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, surfaceLineUpdateStrategy);
+            var importer = new SurfaceLinesCsvImporter<IMechanismSurfaceLine>(surfaceLines, validSurfaceLinesFilePath, messageProvider, configuration);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{exceptionMessage} \r\nHet bestand wordt overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 5);
+
+            Assert.IsFalse(importResult);
+            Assert.IsFalse(surfaceLineUpdateStrategy.Updated);
+            Assert.IsNull(surfaceLineUpdateStrategy.FilePath);
+        }
+
+        [Test]
         public void Import_FileWithTwoValidLinesAndOneInvalidCharacteristicPointsDefinitionDueToUnparsableNumber_SkipInvalidRowAndLog()
         {
             // Setup

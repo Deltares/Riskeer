@@ -251,6 +251,9 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_Stochastic_soil_profile_0_does_not_exist_within_soil_model_1" xml:space="preserve">
     <value>De ondergrondschematisatie '{0}' bestaat niet binnen het stochastische ondergrondmodel '{1}'.</value>
   </data>
+  <data name="SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandatory" xml:space="preserve">
+    <value>Profielschematisatie '{0}' kan niet gebruikt worden. {1} Dit karakteristieke punt is verplicht.</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -260,5 +263,8 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   </data>
   <data name="MacroStabiliteitBinnenwaartsConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is undefined" xml:space="preserve">
+    <value>Karakteristiek punt '{0}' is niet gedefiniëerd.</value>
   </data>
 </root>

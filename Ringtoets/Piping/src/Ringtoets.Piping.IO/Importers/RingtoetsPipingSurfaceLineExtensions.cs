@@ -203,18 +203,21 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="surfaceLine">The surface line to set characteristic points for.</param>
         /// <param name="characteristicPoints">The characteristic points to set, if the collection is valid.</param>
-        /// <returns><c>true</c> if the characteristic points could be set; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static bool SetCharacteristicPoints(this RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="characteristicPoints"/> were
+        /// invalid to use for piping.</exception>
+        public static void SetCharacteristicPoints(this RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
-            if (characteristicPoints == null || !surfaceLine.ValidateDikeToesInOrder(characteristicPoints))
+            if (characteristicPoints == null)
             {
-                return false;
+                return;
             }
+
+            surfaceLine.ValidateDikeToesInOrder(characteristicPoints);
 
             surfaceLine.TrySetDikeToeAtRiver(characteristicPoints.DikeToeAtRiver);
             surfaceLine.TrySetDitchDikeSide(characteristicPoints.DitchDikeSide);
@@ -222,8 +225,6 @@ namespace Ringtoets.Piping.IO.Importers
             surfaceLine.TrySetBottomDitchPolderSide(characteristicPoints.BottomDitchPolderSide);
             surfaceLine.TrySetDitchPolderSide(characteristicPoints.DitchPolderSide);
             surfaceLine.TrySetDikeToeAtPolder(characteristicPoints.DikeToeAtPolder);
-
-            return true;
         }
 
         private static void LogError(RingtoetsPipingSurfaceLine surfaceLine, ArgumentException e)
@@ -233,7 +234,7 @@ namespace Ringtoets.Piping.IO.Importers
                             e.Message);
         }
 
-        private static bool ValidateDikeToesInOrder(this RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPoints)
+        private static void ValidateDikeToesInOrder(this RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (characteristicPoints != null && characteristicPoints.DikeToeAtRiver != null && characteristicPoints.DikeToeAtPolder != null)
             {
@@ -242,11 +243,10 @@ namespace Ringtoets.Piping.IO.Importers
 
                 if (localDikeToeAtPolder.X <= localDikeToeAtRiver.X)
                 {
-                    log.WarnFormat(Resources.SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_, characteristicPoints.Name);
-                    return false;
+                    string message = string.Format(Resources.SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_, characteristicPoints.Name);
+                    throw new SurfaceLineTransformException(message);
                 }
             }
-            return true;
         }
     }
 }

@@ -300,6 +300,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karakteristiek punt &apos;{0}&apos; is niet gedefiniëerd..
+        /// </summary>
+        public static string MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is undefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen ondergrondmodellen lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
         /// </summary>
         public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing {
@@ -529,6 +538,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
             get {
                 return ResourceManager.GetString("StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie &apos;{0}&apos; kan niet gebruikt worden. {1} Dit karakteristieke punt is verplicht..
+        /// </summary>
+        public static string SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandatory {
+            get {
+                return ResourceManager.GetString("SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandato" +
+                        "ry", resourceCulture);
             }
         }
         

@@ -66,10 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             };
             macroStabilityInwardsSurfaceLine.SetGeometry(surfaceLine.Points);
 
-            if (!macroStabilityInwardsSurfaceLine.SetCharacteristicPoints(characteristicPoints))
-            {
-                return null;
-            }
+            macroStabilityInwardsSurfaceLine.SetCharacteristicPoints(characteristicPoints);
 
             macroStabilityInwardsSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
 

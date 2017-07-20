@@ -94,7 +94,18 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 return false;
             }
 
-            T[] transformedSurfaceLines = GetTransformedSurfaceLines(importSurfaceLinesResult.Items, importCharacteristicPointsResult.Items).ToArray();
+            T[] transformedSurfaceLines;
+
+            try
+            {
+                transformedSurfaceLines = GetTransformedSurfaceLines(importSurfaceLinesResult.Items, importCharacteristicPointsResult.Items).ToArray();
+            }
+            catch (SurfaceLineTransformException e)
+            {
+                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                               e.Message);
+                return false;
+            }
 
             if (Canceled)
             {
@@ -132,6 +143,16 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
         }
 
+        /// <summary>
+        /// Transforms the surface lines into mechanism specific surface lines with characteristic
+        /// points set.
+        /// </summary>
+        /// <param name="surfaceLines">The surface lines to transform.</param>
+        /// <param name="characteristicPointsCollection">The characteristic points to use in the 
+        /// transformation.</param>
+        /// <returns>Returns a collection of mechanism specific surface lines.</returns>
+        /// <exception cref="SurfaceLineTransformException">Thrown when transforming a surface
+        /// line with characteristic points failed.</exception>
         private IEnumerable<T> GetTransformedSurfaceLines(ICollection<SurfaceLine> surfaceLines, ICollection<CharacteristicPoints> characteristicPointsCollection)
         {
             LogMissingSurfaceLinesOrCharacteristicPoints(surfaceLines, characteristicPointsCollection);
@@ -154,12 +175,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 SurfaceLine surfaceLine = surfaceLineWithCharacteristicPoints.Item1;
                 CharacteristicPoints characteristicPoints = surfaceLineWithCharacteristicPoints.Item2;
 
-                T transformedSurfaceLine = surfaceLineTransformer.Transform(surfaceLine, characteristicPoints);
-                if (transformedSurfaceLine == null)
-                {
-                    continue;
-                }
-                yield return transformedSurfaceLine;
+                yield return surfaceLineTransformer.Transform(surfaceLine, characteristicPoints);
             }
         }
 

@@ -137,6 +137,7 @@
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporter.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfiguration.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvReader.cs" />
+    <Compile Include="SurfaceLines\SurfaceLineTransformException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

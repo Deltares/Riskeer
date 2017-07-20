@@ -2099,7 +2099,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie {0}..
+        ///   Looks up a localized string similar to Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_ {
             get {
