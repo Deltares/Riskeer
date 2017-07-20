@@ -112,8 +112,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <summary>
         /// Gets a <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>
-        /// .</returns>
+        /// <returns>A <see cref="PipingCalculationScenario"/> with relevance set to <c>false</c>.</returns>
         public static PipingCalculationScenario GetIrrelevantPipingCalculationScenario()
         {
             PipingCalculationScenario calculation = GetPipingCalculationScenario();

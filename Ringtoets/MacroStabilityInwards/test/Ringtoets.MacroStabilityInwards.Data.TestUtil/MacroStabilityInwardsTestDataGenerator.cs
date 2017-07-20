@@ -111,8 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <summary>
         /// Gets a <see cref="MacroStabilityInwardsCalculationScenario"/> with relevance set to <c>false</c>.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with relevance set to <c>false</c>
-        /// .</returns>
+        /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/> with relevance set to <c>false</c>.</returns>
         public static MacroStabilityInwardsCalculationScenario GetIrrelevantMacroStabilityInwardsCalculationScenario()
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();

@@ -24,12 +24,10 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
@@ -71,59 +69,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 yield return new TestCaseData("calculationWithInfinities",
                                               MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenarioWithInfinities())
                     .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "folderWithSubfolderAndCalculation",
+                        new CalculationGroup("PK001_0001", false)
+                        {
+                            Children =
+                            {
+                                MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario(),
+                                new CalculationGroup("PK001_0002", false)
+                                {
+                                    Children =
+                                    {
+                                        MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario()
+                                    }
+                                }
+                            }
+                        }
+                    )
+                    .SetName(testNameFormat);
             }
         }
 
         [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
-        {
-            // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
-
-            MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
-            calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
-            calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
-            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel("PK001_0002_Macrostabiliteit");
-            calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new MacroStabilityInwardsSoilProfile("W1-6_4_1D1", 0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var calculationGroup = new CalculationGroup("PK001_0001", false)
-            {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
-
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
-                                                                    Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationExporter),
-                                                                                 "folderWithSubfolderAndCalculation.xml"));
-
-            // Call and Assert
-            WriteAndValidate(new[]
-            {
-                calculationGroup
-            }, expectedXmlFilePath);
-        }
-
-        [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculation_ValidFile(string expectedFileName, MacroStabilityInwardsCalculation calculation)
+        public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
         {
             // Setup
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
@@ -142,7 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             return MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsCalculationScenario();
         }
 
-        protected override MacroStabilityInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        protected override MacroStabilityInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(
+            IEnumerable<ICalculationBase> calculations, string filePath)
         {
             return new MacroStabilityInwardsCalculationConfigurationExporter(calculations, filePath);
         }

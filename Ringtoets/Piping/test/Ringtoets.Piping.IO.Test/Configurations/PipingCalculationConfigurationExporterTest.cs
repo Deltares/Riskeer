@@ -21,16 +21,13 @@
 
 using System.Collections.Generic;
 using System.IO;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Configurations
 {
@@ -72,63 +69,30 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("calculationWithInfinities",
                                               PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities())
                     .SetName(testNameFormat);
+                yield return new TestCaseData(
+                        "folderWithSubfolderAndCalculation",
+                        new CalculationGroup("PK001_0001", false)
+                        {
+                            Children =
+                            {
+                                PipingTestDataGenerator.GetPipingCalculationScenario(),
+                                new CalculationGroup("PK001_0002", false)
+                                {
+                                    Children =
+                                    {
+                                        PipingTestDataGenerator.GetPipingCalculationScenario()
+                                    }
+                                }
+                            }
+                        }
+                    )
+                    .SetName(testNameFormat);
             }
         }
 
         [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
-        {
-            // Setup
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenario();
-            calculation.InputParameters.EntryPointL = (RoundedDouble) 0.1;
-            calculation.InputParameters.ExitPointL = (RoundedDouble) 0.2;
-
-            PipingCalculationScenario calculation2 = PipingTestDataGenerator.GetPipingCalculationScenario();
-            calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_SCH_17", 0, 0);
-            calculation2.InputParameters.SurfaceLine.Name = "PK001_0002";
-            calculation2.InputParameters.EntryPointL = (RoundedDouble) 0.3;
-            calculation2.InputParameters.ExitPointL = (RoundedDouble) 0.4;
-            calculation2.InputParameters.StochasticSoilModel = new StochasticSoilModel("PK001_0002_Piping");
-            calculation2.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile("W1-6_4_1D1", 0, new[]
-                {
-                    new PipingSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            var calculationGroup2 = new CalculationGroup("PK001_0002", false)
-            {
-                Children =
-                {
-                    calculation2
-                }
-            };
-
-            var calculationGroup = new CalculationGroup("PK001_0001", false)
-            {
-                Children =
-                {
-                    calculation,
-                    calculationGroup2
-                }
-            };
-
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                    Path.Combine(nameof(PipingCalculationConfigurationExporter),
-                                                                                 "folderWithSubfolderAndCalculation.xml"));
-
-            // Call and Assert
-            WriteAndValidate(new[]
-            {
-                calculationGroup
-            }, expectedXmlFilePath);
-        }
-
-        [Test]
         [TestCaseSource(nameof(Calculations))]
-        public void Write_ValidCalculation_ValidFile(string expectedFileName, PipingCalculation calculation)
+        public void Write_ValidCalculation_ValidFile(string expectedFileName, ICalculationBase calculation)
         {
             // Setup
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
