@@ -42,8 +42,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal abstract class HydraRingCalculatorBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingCalculatorBase));
-
         private readonly LastErrorFileParser lastErrorFileParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
 
@@ -86,7 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Gets the error message of the illustration points parser.
         /// </summary>
-        public string IllustrationPointsParserError { get; private set; }
+        public string IllustrationPointsParserErrorMessage { get; private set; }
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
@@ -181,7 +179,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             }
             catch (HydraRingFileParserException e)
             {
-                IllustrationPointsParserError = e.Message;
+                IllustrationPointsParserErrorMessage = e.Message;
                 IllustrationPointsResult = null;
             }
         }

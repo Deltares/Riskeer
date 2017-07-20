@@ -38,6 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
         public bool? Converged { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
     }
 
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
@@ -77,6 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
         public bool? Converged { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
     }
 
     public class TestStructuresCalculator<TInput> : TestHydraRingCalculator<TInput>, IStructuresCalculator<TInput>

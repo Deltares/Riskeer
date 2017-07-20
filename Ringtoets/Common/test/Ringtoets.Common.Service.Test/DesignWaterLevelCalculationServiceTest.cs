@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Calculate_ValidDesignWaterLevelCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool readIllustrationPoints)
+        public void Calculate_ValidDesignWaterLevelCalculationAndConverges_StartsCalculationWithRightParametersAndLogs(bool calculateIllustrationPoints)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Service.Test
             var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
             calculation.Stub(c => c.Name).Return(locationName);
             calculation.Expect(c => c.Id).Return(id);
-            calculation.Expect(c => c.CalculateIllustrationPoints).Return(readIllustrationPoints);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(calculateIllustrationPoints);
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
@@ -180,7 +180,7 @@ namespace Ringtoets.Common.Service.Test
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
 
-                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
+                Assert.AreEqual(calculateIllustrationPoints, calculation.Output.HasIllustrationPoints);
             }
             mockRepository.VerifyAll();
         }
@@ -348,15 +348,20 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationWithIllustrationPointsButIsNull_IllustrationPointsNotSet()
+        public void Calculate_ValidDesignWaterLevelCalculationAndOutputButIllustrationPointsAreNull_IllustrationPointsNotSetAndLogs()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
 
+            const string parserErrorMessage = "Some Error Message";
             var mockRepository = new MockRepository();
-            var calculator = new TestDesignWaterLevelCalculator();
+            var calculator = new TestDesignWaterLevelCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserErrorMessage,
+                Converged = true
+            };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
@@ -367,23 +372,79 @@ namespace Ringtoets.Common.Service.Test
             calculation.Expect(c => c.CalculateIllustrationPoints).Return(true);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(mp => mp.GetCalculationFailedMessage(
-                                                locationName))
-                                      .Return(string.Empty);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new DesignWaterLevelCalculationService()
+                Action call = () => new DesignWaterLevelCalculationService()
                     .Calculate(calculation,
                                validFilePath,
                                1.0 / 30,
                                calculationMessageProvider);
 
                 // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual(parserErrorMessage, msgs[1]);
+                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
                 Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidDesignWaterLevelCalculationCalculateIllustrationPointsFalseAndIllustrationPointsErrorNotNull_DoesNotLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, validFile);
+
+            const string locationName = "punt_flw_ 1";
+
+            const string parserErrorMessage = "Some Error Message";
+            var mockRepository = new MockRepository();
+            var calculator = new TestDesignWaterLevelCalculator
+            {
+                IllustrationPointsParserErrorMessage = parserErrorMessage,
+                Converged = true
+            };
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(calculator);
+
+            var calculation = mockRepository.Stub<IHydraulicBoundaryWrapperCalculation>();
+            calculation.Stub(c => c.Name).Return(locationName);
+            calculation.Expect(c => c.Id).Return(100);
+            calculation.Expect(c => c.CalculateIllustrationPoints).Return(false);
+
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                Action call = () => new DesignWaterLevelCalculationService()
+                    .Calculate(calculation,
+                               validFilePath,
+                               1.0 / 30,
+                               calculationMessageProvider);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                                    "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+                });
             }
             mockRepository.VerifyAll();
         }

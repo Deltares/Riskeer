@@ -208,21 +208,24 @@ namespace Ringtoets.Common.Service
         /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private static void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
-                                                        HydraRingGeneralResult hydraRingGeneralResult)
+        private void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
+                                                 HydraRingGeneralResult hydraRingGeneralResult)
         {
-            if (hydraRingGeneralResult != null)
+            if (hydraRingGeneralResult == null)
             {
-                try
-                {
-                    GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
-                        GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
-                    hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
-                }
-                catch (IllustrationPointConversionException e)
-                {
-                    log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
-                }
+                log.Warn(calculator.IllustrationPointsParserErrorMessage);
+                return;
+            }
+
+            try
+            {
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                    GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+                hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
+            }
+            catch (IllustrationPointConversionException e)
+            {
+                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
             }
         }
 

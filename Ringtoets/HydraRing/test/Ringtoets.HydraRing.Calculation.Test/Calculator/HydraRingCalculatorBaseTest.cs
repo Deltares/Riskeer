@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Security;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -47,22 +46,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hlcdDirectory", paramName);
-        }
-
-        [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedProperties()
-        {
-            // Setup
-            const string hlcdDirectory = "hlcdDirectory";
-
-            // Call
-            var calculator = new TestHydraRingCalculator(hlcdDirectory);
-
-            // Assert
-            Assert.IsNull(calculator.IllustrationPointsResult);
-            Assert.IsNull(calculator.OutputDirectory);
-            Assert.IsNull(calculator.LastErrorFileContent);
-            Assert.IsNull(calculator.IllustrationPointsParserError);
         }
 
         [Test]
@@ -149,9 +132,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
             // Assert
             const string expectedMessage = "Er konden geen illustratiepunten worden uitgelezen.";
-            Assert.AreEqual(expectedMessage, calculator.IllustrationPointsParserError);
+            Assert.AreEqual(expectedMessage, calculator.IllustrationPointsParserErrorMessage);
             Assert.IsNull(calculator.IllustrationPointsResult);
-//            TestHelper.AssertLogMessageWithLevelIsGenerated(test, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
         }
     }
 

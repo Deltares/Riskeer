@@ -62,6 +62,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         string LastErrorFileContent { get; }
 
         /// <summary>
+        /// Gets the error message when parsing the illustration points.
+        /// </summary>
+        string IllustrationPointsParserErrorMessage { get; }
+
+        /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
         /// <param name="input">The <see cref="WaveHeightCalculationInput"/> which contains all the necessary input
