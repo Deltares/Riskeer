@@ -400,18 +400,17 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationCalculateIllustrationPointsFalseAndIllustrationPointsErrorNotNull_DoesNotLog()
+        public void Calculate_ValidDesignWaterLevelCalculationCalculateIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
 
-            const string parserErrorMessage = "Some Error Message";
             var mockRepository = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
             {
-                IllustrationPointsParserErrorMessage = parserErrorMessage,
+                IllustrationPointsParserErrorMessage = "Some Error Message",
                 Converged = true
             };
 

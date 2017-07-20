@@ -226,21 +226,24 @@ namespace Ringtoets.Common.Service.Structures
         /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private static void SetIllustrationPointsResult(StructuresOutput structuresOutput,
+        private void SetIllustrationPointsResult(StructuresOutput structuresOutput,
                                                         HydraRingGeneralResult hydraRingGeneralResult)
         {
-            if (hydraRingGeneralResult != null)
+            if (hydraRingGeneralResult == null)
             {
-                try
-                {
-                    GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                        GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
-                    structuresOutput.SetIllustrationPoints(generalResult);
-                }
-                catch (IllustrationPointConversionException e)
-                {
-                    log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
-                }
+                log.Warn(calculator.IllustrationPointsParserErrorMessage);
+                return;
+            }
+
+            try
+            {
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                structuresOutput.SetIllustrationPoints(generalResult);
+            }
+            catch (IllustrationPointConversionException e)
+            {
+                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
             }
         }
 

@@ -87,6 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
     }
 
     public class TestDunesBoundaryConditionsCalculator : TestHydraRingCalculator<DunesBoundaryConditionsCalculationInput>, IDunesBoundaryConditionsCalculator

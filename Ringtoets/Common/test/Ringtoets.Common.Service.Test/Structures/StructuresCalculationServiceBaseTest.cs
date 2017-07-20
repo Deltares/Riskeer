@@ -434,13 +434,15 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_ValidInputButIllustrationPointsNull_IllustrationPointsNotSet()
+        public void Calculate_ValidInputButIllustrationPointsNull_IllustrationPointsNotSetAndLogs()
         {
             // Setup
+            const string parserMessage = "Parser error";
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
-                OutputDirectory = validFilePath
+                OutputDirectory = validFilePath,
+                IllustrationPointsParserErrorMessage = parserMessage
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -458,6 +460,59 @@ namespace Ringtoets.Common.Service.Test.Structures
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ShouldIllustrationPointsBeCalculated = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual(parserMessage, msgs[1]);
+                    Assert.AreEqual(performedCalculationMessage, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputCalculateIllustrationPointsFalseAndIllustrationPointsParserErrorMessageNotNull_DoesNotLog()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validFilePath,
+                IllustrationPointsParserErrorMessage = "Parser error"
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation succesful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ShouldIllustrationPointsBeCalculated = false
                 }
             };
 
