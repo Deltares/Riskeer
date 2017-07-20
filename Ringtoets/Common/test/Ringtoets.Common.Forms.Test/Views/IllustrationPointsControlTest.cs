@@ -28,7 +28,7 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 control.Data = new[]
                 {
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                      "SSE",
                                                      "Regular",
                                                      Enumerable.Empty<Stochast>(),

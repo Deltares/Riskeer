@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Ringtoets.Common.Data.TestUtil
+namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// A simple implementation of <see cref="TopLevelIllustrationPointBase"/>
