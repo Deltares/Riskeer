@@ -19,16 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
@@ -71,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_ValidData_ReturnsExpectedValues()
+        public void GetProperties_ValidDataWithoutGeneralResult_ReturnsExpectedValues()
         {
             // Setup
             const long id = 1;
@@ -96,6 +100,73 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(name, locationProperties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, locationProperties.Location);
+        }
+
+        [Test]
+        public void GetProperties_ValidDataWithGeneralResult_ReturnsExpectedValues()
+        {
+            // Setup
+            const long id = 1;
+            const double x = 567.0;
+            const double y = 890.0;
+            const string name = "name";
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var locations = new ObservableList<HydraulicBoundaryLocation>
+            {
+                hydraulicBoundaryLocation
+            };
+            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+
+            var random = new Random(21);
+            var windDirection = new WindDirection("WindDirection name", random.NextDouble());
+            var topLevelIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(windDirection,
+                                                                                      "closing situation",
+                                                                                      new TestSubMechanismIllustrationPoint());
+
+            var stochast = new Stochast("stochastName",
+                                        random.NextDouble(),
+                                        random.NextDouble());
+            var governingWindDirection = new WindDirection("Governing WindDirectionName", random.NextDouble());
+            var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection, new[]
+            {
+                stochast
+            }, new[]
+            {
+                topLevelIllustrationPoint
+            });
+
+            // Call
+            var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
+            {
+                Data = context,
+                GeneralResult = generalResult
+            };
+
+            // Assert
+            Assert.AreEqual(id, locationProperties.Id);
+            Assert.AreEqual(name, locationProperties.Name);
+            var coordinates = new Point2D(x, y);
+            Assert.AreEqual(coordinates, locationProperties.Location);
+            Assert.AreEqual(governingWindDirection.Name, locationProperties.GoverningWindDirection);
+
+            Stochast actualAlphaValue = locationProperties.AlphaValues.Single();
+            AssertStochast(stochast, actualAlphaValue);
+
+            Stochast actualDuration = locationProperties.Durations.Single();
+            AssertStochast(stochast, actualDuration);
+
+            TopLevelSubMechanismIllustrationPointProperties topLevelProperties =
+                locationProperties.IllustrationPoints.Single();
+            Assert.AreEqual(topLevelIllustrationPoint.SubMechanismIllustrationPoint.Name, topLevelProperties.Name);
+            Assert.AreEqual(topLevelIllustrationPoint.WindDirection.Name, topLevelProperties.WindDirection);
+            Assert.AreEqual(topLevelIllustrationPoint.ClosingSituation, topLevelProperties.ClosingSituation);
+            Assert.AreEqual(topLevelIllustrationPoint.SubMechanismIllustrationPoint.Beta, topLevelProperties.CalculatedReliability);
+            double expectedProbability = StatisticsConverter.ReliabilityToProbability(
+                topLevelIllustrationPoint.SubMechanismIllustrationPoint.Beta);
+            Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
+            CollectionAssert.IsEmpty(topLevelProperties.AlphaValues);
+            CollectionAssert.IsEmpty(topLevelProperties.Durations);
+            CollectionAssert.IsEmpty(topLevelProperties.IllustrationPointResults);
         }
 
         [Test]
@@ -143,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context,
-                WithGeneralResult = true
+                GeneralResult = new TestGeneralResultSubMechanismIllustrationPoint()
             };
 
             // Assert
@@ -189,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, 
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                 KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[5];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
@@ -199,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, 
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
                 ExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[6],
                                                                             illustrationPointsCategory,
@@ -236,7 +307,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     DurationsIndex = 7
                 })
             {
-                WithGeneralResult = true,
+                GeneralResult = new TestGeneralResultSubMechanismIllustrationPoint(),
                 Data = context
             };
 
@@ -271,12 +342,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var hydraulicBoundaryLocationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
-                WithGeneralResult = false,
                 Data = context
             };
 
             // Assert
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
@@ -285,17 +354,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(nameof(GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties.Location), dynamicProperties[2].Name);
         }
 
+        private static void AssertStochast(Stochast stochast, Stochast actualStochast)
+        {
+            Assert.AreEqual(stochast.Name, actualStochast.Name);
+            Assert.AreEqual(stochast.Alpha, actualStochast.Alpha);
+            Assert.AreEqual(stochast.Duration, actualStochast.Duration);
+        }
+
         private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
         {
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
             public TestGrassCoverErosionOutwardsLocationProperties() : base(new ConstructionProperties()) {}
 
             public TestGrassCoverErosionOutwardsLocationProperties(ConstructionProperties propertyIndexes) : base(propertyIndexes) {}
 
-            public bool WithGeneralResult;
-
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
             {
-                return WithGeneralResult ? new TestGeneralResultSubMechanismIllustrationPoint() : null;
+                return GeneralResult;
             }
         }
 
