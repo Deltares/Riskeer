@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Factories
         }
 
         /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for a surface line.
+        /// Create a <see cref="ChartDataCollection"/> for a soil profile.
         /// </summary>
         /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
         public static ChartDataCollection CreateSoilProfileChartData()

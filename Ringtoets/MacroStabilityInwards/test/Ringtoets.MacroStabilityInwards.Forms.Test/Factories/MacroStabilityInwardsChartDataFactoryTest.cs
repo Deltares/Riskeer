@@ -35,6 +35,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsChartDataFactoryTest
     {
         [Test]
+        public void CreateShoulderBaseInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Insteek binnenberm", data.Name);
+            AssertEqualStyle(data.Style, Color.BlueViolet, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
         public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
@@ -162,11 +174,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Assert.AreEqual("soilLayerIndex", paramName);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
+        private static void AssertEqualStyle(ChartPointStyle pointStyle, Color fillColor, int size,
+                                             Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
         {
-            Assert.AreEqual(color, lineStyle.Color);
-            Assert.AreEqual(width, lineStyle.Width);
-            Assert.AreEqual(style, lineStyle.DashStyle);
+            Assert.AreEqual(fillColor, pointStyle.Color);
+            Assert.AreEqual(size, pointStyle.Size);
+            Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
+            Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
+            Assert.AreEqual(symbol, pointStyle.Symbol);
         }
 
         private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width)

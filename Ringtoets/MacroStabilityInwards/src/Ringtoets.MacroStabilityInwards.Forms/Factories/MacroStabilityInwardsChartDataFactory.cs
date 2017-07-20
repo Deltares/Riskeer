@@ -26,6 +26,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
@@ -34,6 +35,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
     /// </summary>
     internal static class MacroStabilityInwardsChartDataFactory
     {
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type shoulder base inside.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateShoulderBaseInsideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside,
+                                      GetCharacteristicPointStyle(Color.BlueViolet, Color.SeaGreen, ChartPointSymbol.Triangle));
+        }
+
         /// <summary>
         /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer"/> based on its color.
         /// </summary>
@@ -90,6 +102,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name
                                  : Resources.StochasticSoilProfileProperties_DisplayName;
+        }
+
+        private static ChartPointStyle GetCharacteristicPointStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
+        {
+            return new ChartPointStyle
+            {
+                Color = fillColor,
+                StrokeColor = strokeColor,
+                Size = 8,
+                StrokeThickness = 1,
+                Symbol = symbol
+            };
         }
     }
 }
