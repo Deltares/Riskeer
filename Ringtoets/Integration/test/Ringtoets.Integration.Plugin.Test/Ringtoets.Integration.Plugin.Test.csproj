@@ -85,6 +85,7 @@
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismContributionPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\SelectableTopLevelIllustrationPointViewPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightLocationsContextPropertyInfoTest.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />

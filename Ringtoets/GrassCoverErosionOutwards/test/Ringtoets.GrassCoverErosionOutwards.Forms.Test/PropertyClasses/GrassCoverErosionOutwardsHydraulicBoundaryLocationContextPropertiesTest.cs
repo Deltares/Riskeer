@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -141,48 +142,70 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
-                Data = context
+                Data = context,
+                WithGeneralResult = true
             };
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(locationProperties, true);
-            var dynamicPropertyBag = new DynamicPropertyBag(locationProperties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
-            PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
-            PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
-            const string expectedCategory = "Algemeen";
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(locationProperties);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
-            const string expectedIdDisplayName = "ID";
-            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
-            const string expectedNameDisplayName = "Naam";
-            const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
-            const string expectedLocationDisplayName = "Coördinaten [m]";
-            const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
+            const string generalCategory = "Algemeen";
+            const string illustrationPointsCategory = "Illustratiepunten";
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[0],
+                                                                            generalCategory,
+                                                                            "ID",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            true);
 
-            Assert.IsNotNull(idProperty);
-            Assert.IsTrue(idProperty.IsReadOnly);
-            Assert.IsTrue(idProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, idProperty.Category);
-            Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
-            Assert.AreEqual(expectedIdDescription, idProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[1],
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
-            Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.IsTrue(nameProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, nameProperty.Category);
-            Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
-            Assert.AreEqual(expectedNameDescription, nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[2],
+                                                                            generalCategory,
+                                                                            "Coördinaten [m]",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
 
-            Assert.IsNotNull(locationProperty);
-            Assert.IsTrue(locationProperty.IsReadOnly);
-            Assert.IsTrue(locationProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, locationProperty.Category);
-            Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
-            Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[3],
+                                                                            illustrationPointsCategory,
+                                                                            "Maatgevende windrichting",
+                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties,
+                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.AlphaValues));
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
+            Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, 
+                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.Durations));
+            PropertyDescriptor durationsProperty = dynamicProperties[5];
+            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties, 
+                ExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties.IllustrationPoints));
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[6],
+                                                                            illustrationPointsCategory,
+                                                                            "Illustratiepunten",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
+                                                                            true);
         }
 
         [Test]
