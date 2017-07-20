@@ -100,14 +100,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 Name = calculationConfiguration.Name
             };
-            ReadDikeHeightCalculationType(calculationConfiguration, calculation);
-            ReadOvertoppingRateCalculationType(calculationConfiguration, calculation);
+            SetDikeHeightCalculationType(calculationConfiguration, calculation);
+            SetOvertoppingRateCalculationType(calculationConfiguration, calculation);
 
-            if (TryReadCriticalFlowRate(calculationConfiguration, calculation)
-                && TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
-                && TryReadDikeProfile(calculationConfiguration.DikeProfileId, calculation)
-                && TryReadOrientation(calculationConfiguration, calculation)
-                && TryReadDikeHeight(calculationConfiguration, calculation)
+            if (TrySetCriticalFlowRate(calculationConfiguration, calculation)
+                && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
+                && TrySetDikeProfile(calculationConfiguration.DikeProfileId, calculation)
+                && TrySetOrientation(calculationConfiguration, calculation)
+                && TrySetDikeHeight(calculationConfiguration, calculation)
                 && ValidateWaveReduction(calculationConfiguration, calculation))
             {
                 SetWaveReductionParameters(calculationConfiguration.WaveReduction, calculation.InputParameters);
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             return null;
         }
 
-        private bool TryReadHydraulicBoundaryLocation(string locationName, GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetHydraulicBoundaryLocation(string locationName, GrassCoverErosionInwardsCalculation calculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             return false;
         }
 
-        private bool TryReadDikeProfile(string dikeProfileId, GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetDikeProfile(string dikeProfileId, GrassCoverErosionInwardsCalculation calculation)
         {
             if (dikeProfileId != null)
             {
@@ -152,13 +152,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the orientation.
+        /// Assigns the orientation.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid or when there is an orientation but
         /// no dike profile defined, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetOrientation(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                       GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.Orientation.HasValue)
             {
@@ -190,12 +191,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the dike height.
+        /// Assigns the dike height.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is a dike height but no dike profile defined, <c>true</c> otherwise.</returns>
-        private bool TryReadDikeHeight(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetDikeHeight(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                      GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.DikeHeight.HasValue)
             {
@@ -212,11 +214,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the dike height calculation type.
+        /// Assigns the dike height calculation type.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private static void ReadDikeHeightCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private static void SetDikeHeightCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                         GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.DikeHeightCalculationType.HasValue)
             {
@@ -225,11 +228,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the overtopping rate calculation type.
+        /// Assigns the overtopping rate calculation type.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private static void ReadOvertoppingRateCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private static void SetOvertoppingRateCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                              GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.OvertoppingRateCalculationType.HasValue)
             {
@@ -238,13 +242,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the critical flow rate.
+        /// Assigns the critical flow rate.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>true</c> if reading all required critical flow rate parameters was successful,
         /// <c>false</c> otherwise.</returns>
-        private bool TryReadCriticalFlowRate(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetCriticalFlowRate(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                            GrassCoverErosionInwardsCalculation calculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName,
@@ -262,7 +267,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when there is an invalid wave reduction parameter defined, <c>true</c> otherwise.</returns>
-        private bool ValidateWaveReduction(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration, GrassCoverErosionInwardsCalculation calculation)
+        private bool ValidateWaveReduction(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                           GrassCoverErosionInwardsCalculation calculation)
         {
             WaveReductionConfiguration waveReductionConfiguration = calculationConfiguration.WaveReduction;
 

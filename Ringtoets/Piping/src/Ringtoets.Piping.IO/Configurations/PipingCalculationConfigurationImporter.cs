@@ -85,12 +85,12 @@ namespace Ringtoets.Piping.IO.Configurations
                 Name = calculationConfiguration.Name
             };
 
-            if (TryReadHydraulicBoundaryData(calculationConfiguration, pipingCalculation)
-                && TryReadSurfaceLine(calculationConfiguration, pipingCalculation)
-                && TryReadEntryExitPoint(calculationConfiguration, pipingCalculation)
-                && TryReadStochasticSoilModel(calculationConfiguration, pipingCalculation)
-                && TryReadStochasticSoilProfile(calculationConfiguration, pipingCalculation)
-                && TryReadStochasts(calculationConfiguration, pipingCalculation)
+            if (TrySetHydraulicBoundaryData(calculationConfiguration, pipingCalculation)
+                && TrySetSurfaceLine(calculationConfiguration, pipingCalculation)
+                && TrySetEntryExitPoint(calculationConfiguration, pipingCalculation)
+                && TrySetStochasticSoilModel(calculationConfiguration, pipingCalculation)
+                && TrySetStochasticSoilProfile(calculationConfiguration, pipingCalculation)
+                && TrySetStochasts(calculationConfiguration, pipingCalculation)
                 && TrySetScenarioParameters(calculationConfiguration.Scenario, pipingCalculation))
             {
                 return pipingCalculation;
@@ -99,14 +99,14 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the hydraulic boundary location or the assessment level that is manually set.
+        /// Assigns the hydraulic boundary location or the assessment level that is set manually.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryData(PipingCalculationConfiguration calculationConfiguration,
-                                                  PipingCalculationScenario pipingCalculation)
+        private bool TrySetHydraulicBoundaryData(PipingCalculationConfiguration calculationConfiguration,
+                                                 PipingCalculationScenario pipingCalculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -134,13 +134,14 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the surface line.
+        /// Assigns the surface line.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="RingtoetsPipingSurfaceLine"/>
         /// set which is not available in <see cref="PipingFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadSurfaceLine(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetSurfaceLine(PipingCalculationConfiguration calculationConfiguration,
+                                       PipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.SurfaceLineName != null)
             {
@@ -162,13 +163,14 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the entry point and exit point.
+        /// Assigns the entry point and exit point.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when entry or exit point is set without <see cref="RingtoetsPipingSurfaceLine"/>,
         /// or when entry or exit point is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadEntryExitPoint(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetEntryExitPoint(PipingCalculationConfiguration calculationConfiguration,
+                                          PipingCalculationScenario pipingCalculation)
         {
             bool hasEntryPoint = calculationConfiguration.EntryPointL.HasValue;
             bool hasExitPoint = calculationConfiguration.ExitPointL.HasValue;
@@ -218,7 +220,7 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the stochastic soil model.
+        /// Assigns the stochastic soil model.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
@@ -230,7 +232,8 @@ namespace Ringtoets.Piping.IO.Configurations
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilModel(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetStochasticSoilModel(PipingCalculationConfiguration calculationConfiguration,
+                                               PipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
@@ -263,7 +266,7 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the stochastic soil profile.
+        /// Assigns the stochastic soil profile.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
@@ -273,7 +276,8 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilProfile(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetStochasticSoilProfile(PipingCalculationConfiguration calculationConfiguration,
+                                                 PipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.StochasticSoilProfileName != null)
             {
@@ -308,18 +312,19 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the stochasts.
+        /// Assigns the stochasts.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when a stochast value (mean or standard deviation) is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadStochasts(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetStochasts(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
         {
-            return TryReadPhreaticLevelExit(calculationConfiguration, pipingCalculation)
-                   && TryReadDampingFactorExit(calculationConfiguration, pipingCalculation);
+            return TrySetPhreaticLevelExit(calculationConfiguration, pipingCalculation)
+                   && TrySetDampingFactorExit(calculationConfiguration, pipingCalculation);
         }
 
-        private bool TryReadDampingFactorExit(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetDampingFactorExit(PipingCalculationConfiguration calculationConfiguration,
+                                             PipingCalculationScenario pipingCalculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
@@ -331,7 +336,8 @@ namespace Ringtoets.Piping.IO.Configurations
                 Log);
         }
 
-        private bool TryReadPhreaticLevelExit(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetPhreaticLevelExit(PipingCalculationConfiguration calculationConfiguration,
+                                             PipingCalculationScenario pipingCalculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,

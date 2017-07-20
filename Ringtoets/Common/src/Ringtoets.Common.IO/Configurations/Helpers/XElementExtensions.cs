@@ -283,8 +283,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return new ScenarioConfiguration
                 {
-                    IsRelevant = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.IsRelevantScenarioName),
-                    Contribution = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.ContributionScenarioName)
+                    IsRelevant = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.IsRelevantForScenario),
+                    Contribution = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.ScenarioContribution)
                 };
             }
             return null;

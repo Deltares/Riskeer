@@ -300,7 +300,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Er is voor scenario geen contributie of relevantie opgegeven. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "Er moet voor een scenario een contributie of relevantie worden opgegeven. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -87,12 +86,12 @@ namespace Ringtoets.Revetment.IO.Configurations
                 Name = calculationConfiguration.Name
             };
 
-            ReadStepSize(calculationConfiguration, waveConditionsCalculation);
+            SetStepSize(calculationConfiguration, waveConditionsCalculation);
 
-            if (TryReadHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, waveConditionsCalculation)
-                && TryReadBoundaries(calculationConfiguration, waveConditionsCalculation)
-                && TryReadForeshoreProfile(calculationConfiguration.ForeshoreProfileId, waveConditionsCalculation)
-                && TryReadOrientation(calculationConfiguration, waveConditionsCalculation)
+            if (TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, waveConditionsCalculation)
+                && TrySetBoundaries(calculationConfiguration, waveConditionsCalculation)
+                && TrySetForeshoreProfile(calculationConfiguration.ForeshoreProfileId, waveConditionsCalculation)
+                && TrySetOrientation(calculationConfiguration, waveConditionsCalculation)
                 && calculationConfiguration.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
                                                                                 waveConditionsCalculation.Name, Log))
             {
@@ -103,12 +102,13 @@ namespace Ringtoets.Revetment.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the boundaries of the calculation.
+        /// Assigns the boundaries of the calculation.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when one of the boundaries is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadBoundaries(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
+        private bool TrySetBoundaries(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                      ICalculation<WaveConditionsInput> calculation)
         {
             WaveConditionsInput input = calculation.InputParameters;
             return TryReadParameter(calculationConfiguration.UpperBoundaryRevetment,
@@ -129,7 +129,9 @@ namespace Ringtoets.Revetment.IO.Configurations
                                        calculation.Name);
         }
 
-        private bool TryReadParameter(double? readValue, Action<RoundedDouble> setAsRoundedDouble, string parameterName, string calculationName)
+        private bool TryReadParameter(double? readValue, Action<RoundedDouble> setAsRoundedDouble,
+                                      string parameterName,
+                                      string calculationName)
         {
             if (readValue.HasValue)
             {
@@ -149,7 +151,8 @@ namespace Ringtoets.Revetment.IO.Configurations
             return true;
         }
 
-        private static void ReadStepSize(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
+        private static void SetStepSize(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                        ICalculation<WaveConditionsInput> calculation)
         {
             if (calculationConfiguration.StepSize.HasValue)
             {
@@ -157,7 +160,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             }
         }
 
-        private bool TryReadHydraulicBoundaryLocation(string locationName, ICalculation<WaveConditionsInput> calculation)
+        private bool TrySetHydraulicBoundaryLocation(string locationName, ICalculation<WaveConditionsInput> calculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -170,7 +173,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             return false;
         }
 
-        private bool TryReadForeshoreProfile(string foreshoreProfileName, ICalculation<WaveConditionsInput> calculation)
+        private bool TrySetForeshoreProfile(string foreshoreProfileName, ICalculation<WaveConditionsInput> calculation)
         {
             ForeshoreProfile foreshoreProfile;
 
@@ -184,12 +187,13 @@ namespace Ringtoets.Revetment.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the orientation.
+        /// Assigns the orientation.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the orientation is invalid, <c>true</c> otherwise.</returns>
-        private bool TryReadOrientation(WaveConditionsCalculationConfiguration calculationConfiguration, ICalculation<WaveConditionsInput> calculation)
+        private bool TrySetOrientation(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                       ICalculation<WaveConditionsInput> calculation)
         {
             if (calculationConfiguration.Orientation.HasValue)
             {

@@ -194,14 +194,15 @@ namespace Ringtoets.Common.IO.Configurations
         public const string ScenarioElement = "scenario";
 
         /// <summary>
-        /// The identifier for the scenario contribution name.
+        /// The tag of the element containing the value indicating the contribution to the scenario.
         /// </summary>
-        public const string ContributionScenarioName = "bijdrage";
+        public const string ScenarioContribution = "bijdrage";
 
         /// <summary>
-        /// The identifier for the scenario relevance name.
+        /// The tag of the element containing the value whether the scenario calculation 
+        /// is relevant for the scenario.
         /// </summary>
-        public const string IsRelevantScenarioName = "gebruik";
+        public const string IsRelevantForScenario = "gebruik";
 
         #endregion
     }

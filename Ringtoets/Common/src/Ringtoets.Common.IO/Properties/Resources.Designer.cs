@@ -235,7 +235,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is voor scenario geen contributie of relevantie opgegeven..
+        ///   Looks up a localized string similar to Er moet voor een scenario een contributie of relevantie worden opgegeven..
         /// </summary>
         public static string CalculationConfigurationImporter_TrySetScenarioParameters_Scenario_empty {
             get {

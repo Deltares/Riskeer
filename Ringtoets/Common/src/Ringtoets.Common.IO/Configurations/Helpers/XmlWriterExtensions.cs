@@ -144,12 +144,12 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
             if (scenarioConfiguration.IsRelevant.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantScenarioName,
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantForScenario,
                                           XmlConvert.ToString(scenarioConfiguration.IsRelevant.Value));
             }
             if (scenarioConfiguration.Contribution.HasValue)
             {
-                writer.WriteElementString(ConfigurationSchemaIdentifiers.ContributionScenarioName,
+                writer.WriteElementString(ConfigurationSchemaIdentifiers.ScenarioContribution,
                                           XmlConvert.ToString(scenarioConfiguration.Contribution.Value));
             }
 

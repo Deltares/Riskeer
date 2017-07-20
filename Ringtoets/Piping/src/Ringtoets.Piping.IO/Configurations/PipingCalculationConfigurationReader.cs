@@ -35,7 +35,8 @@ namespace Ringtoets.Piping.IO.Configurations
     /// This class reads a piping calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="PipingCalculationConfiguration"/>.
     /// </summary>
-    public class PipingCalculationConfigurationReader : CalculationConfigurationReader<PipingCalculationConfiguration>
+    public class PipingCalculationConfigurationReader
+        : CalculationConfigurationReader<PipingCalculationConfiguration>
     {
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
@@ -72,7 +73,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var configuration = new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
+            return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
@@ -85,8 +86,6 @@ namespace Ringtoets.Piping.IO.Configurations
                 DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
-
-            return configuration;
         }
     }
 }

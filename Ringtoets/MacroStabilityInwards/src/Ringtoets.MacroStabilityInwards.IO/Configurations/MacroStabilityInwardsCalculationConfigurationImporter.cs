@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -87,10 +86,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 Name = calculationConfiguration.Name
             };
 
-            if (TryReadHydraulicBoundaryData(calculationConfiguration, calculation)
-                && TryReadSurfaceLine(calculationConfiguration, calculation)
-                && TryReadStochasticSoilModel(calculationConfiguration, calculation)
-                && TryReadStochasticSoilProfile(calculationConfiguration, calculation)
+            if (TrySetHydraulicBoundaryData(calculationConfiguration, calculation)
+                && TrySetSurfaceLine(calculationConfiguration, calculation)
+                && TrySetStochasticSoilModel(calculationConfiguration, calculation)
+                && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
                 && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation))
             {
                 return calculation;
@@ -99,14 +98,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the hydraulic boundary location or the assessment level that is manually set.
+        /// Assigns the hydraulic boundary location or the assessment level that is set manually.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                                  MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TrySetHydraulicBoundaryData(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                 MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -134,14 +133,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the surface line.
+        /// Assigns the surface line.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
         /// set which is not available in <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
-        private bool TryReadSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                        MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TrySetSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                       MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             if (calculationConfiguration.SurfaceLineName != null)
             {
@@ -163,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the stochastic soil model.
+        /// Assigns the stochastic soil model.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
@@ -175,8 +174,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilModel(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                                MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TrySetStochasticSoilModel(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                               MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
@@ -209,7 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Reads the stochastic soil profile.
+        /// Assigns the stochastic soil profile.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
@@ -219,8 +218,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
-        private bool TryReadStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
-                                                  MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
+        private bool TrySetStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
+                                                 MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             if (calculationConfiguration.StochasticSoilProfileName != null)
             {

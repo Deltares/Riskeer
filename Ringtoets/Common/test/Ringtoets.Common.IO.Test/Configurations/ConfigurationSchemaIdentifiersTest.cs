@@ -64,8 +64,8 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual("voorlandprofiel", ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement);
 
             Assert.AreEqual("scenario", ConfigurationSchemaIdentifiers.ScenarioElement);
-            Assert.AreEqual("bijdrage", ConfigurationSchemaIdentifiers.ContributionScenarioName);
-            Assert.AreEqual("gebruik", ConfigurationSchemaIdentifiers.IsRelevantScenarioName);
+            Assert.AreEqual("bijdrage", ConfigurationSchemaIdentifiers.ScenarioContribution);
+            Assert.AreEqual("gebruik", ConfigurationSchemaIdentifiers.IsRelevantForScenario);
         }
     }
 }

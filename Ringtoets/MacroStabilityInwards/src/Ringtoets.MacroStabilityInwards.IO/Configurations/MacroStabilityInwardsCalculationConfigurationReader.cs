@@ -35,7 +35,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// This class reads a macro stability inwards calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationReader : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
+    public class MacroStabilityInwardsCalculationConfigurationReader 
+        : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
         private const string scenarioSchemaName = "ScenarioSchema.xsd";
 
@@ -64,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
-            var configuration = new MacroStabilityInwardsCalculationConfiguration(
+            return new MacroStabilityInwardsCalculationConfiguration(
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
@@ -74,8 +75,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 StochasticSoilProfileName = calculationElement.GetStringValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement),
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
-
-            return configuration;
         }
     }
 }
