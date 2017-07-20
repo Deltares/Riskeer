@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -27,12 +30,85 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 {
     [TestFixture]
     public class MacrostabilityInwardsSurfaceLineTransformerTest
     {
+        private static IEnumerable<TestCaseData> MoveCharacteristicPoint
+        {
+            get
+            {
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.SurfaceLevelOutside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.SurfaceLevelOutside),
+                        "Maaiveld buitenwaarts")
+                    .SetName("Move SurfaceLevelOutside");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeToeAtRiver = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DikeToeAtRiver),
+                        "Teen dijk buitenwaarts")
+                    .SetName("Move DikeToeAtRiver");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.TrafficLoadOutside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.TrafficLoadOutside),
+                        "Verkeersbelasting kant buitenwaarts")
+                    .SetName("Move TrafficLoadOutside");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.TrafficLoadInside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.TrafficLoadInside),
+                        "Verkeersbelasting kant binnenwaarts")
+                    .SetName("Move TrafficLoadInside");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeTopAtPolder = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DikeTopAtPolder),
+                        "Kruin binnentalud")
+                    .SetName("Move DikeTopAtPolder");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.ShoulderBaseInside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.ShoulderBaseInside),
+                        "Insteek binnenberm")
+                    .SetName("Move ShoulderBaseInside");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.ShoulderTopInside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.ShoulderTopInside),
+                        "Kruin binnenberm")
+                    .SetName("Move ShoulderTopInside");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DitchDikeSide = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DitchDikeSide),
+                        "Insteek sloot dijkzijde")
+                    .SetName("Move DitchDikeSide");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.BottomDitchDikeSide = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.BottomDitchDikeSide),
+                        "Slootbodem dijkzijde")
+                    .SetName("Move BottomDitchDikeSide");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.BottomDitchPolderSide = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.BottomDitchPolderSide),
+                        "Slootbodem polderzijde")
+                    .SetName("Move BottomDitchPolderSide");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DitchPolderSide = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DitchPolderSide),
+                        "Insteek sloot polderzijde")
+                    .SetName("Move DitchPolderSide");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeToeAtPolder = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DikeToeAtPolder),
+                        "Teen dijk binnenwaarts")
+                    .SetName("Move DikeToeAtPolder");
+                yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.SurfaceLevelInside = p),
+                        new Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.SurfaceLevelInside),
+                        "Maaiveld binnenwaarts")
+                    .SetName("Move SurfaceLevelInside");
+            }
+        }
+
         [Test]
         public void Constructor_WithoutReferenceLine_ThrowsArgumentNullException()
         {
@@ -109,6 +185,93 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
             Assert.IsNull(result);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(MoveCharacteristicPoint))]
+        public void Transform_CharacteristicPointNotOnSurfaceLine_LogErrorAndReturnNull(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            var transformer = new MacroStabilityInwardsSurfaceLineTransformer(referenceLine);
+            const string locationName = "a location";
+
+            var random = new Random(21);
+            double randomZ = random.NextDouble();
+
+            var surfaceLine = new SurfaceLine
+            {
+                Name = locationName
+            };
+
+            var point1 = new Point3D(3.5, 4.8, randomZ);
+            var point2 = new Point3D(7.2, 9.3, randomZ);
+            var point3 = new Point3D(12.0, 5.6, randomZ);
+            var notOnSurfaceLinePoint = new Point3D(7.3, 9.3, randomZ);
+
+            surfaceLine.SetGeometry(new[]
+            {
+                point1,
+                point2,
+                point3
+            });
+
+            var characteristicPoints = new CharacteristicPoints(locationName)
+            {
+                SurfaceLevelOutside = point2,
+                DikeToeAtRiver = point2,
+                TrafficLoadOutside = point2,
+                TrafficLoadInside = point2,
+                DikeTopAtPolder = point2,
+                ShoulderBaseInside = point3,
+                ShoulderTopInside = point3,
+                BottomDitchDikeSide = point3,
+                BottomDitchPolderSide = point3,
+                DitchPolderSide = point3,
+                DitchDikeSide = point3,
+                DikeToeAtPolder = point3,
+                SurfaceLevelInside = point3
+            };
+
+            pointChange(characteristicPoints, notOnSurfaceLinePoint);
+
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(5.6, 2.5),
+                new Point2D(6.8, 15)
+            });
+
+            RingtoetsMacroStabilityInwardsSurfaceLine result = null;
+
+            // Call
+            Action call = () => result = transformer.Transform(surfaceLine, characteristicPoints);
+
+            // Assert
+            string message = $"Karakteristiek punt van profielschematisatie '{locationName}' is overgeslagen. De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als '{changedCharacteristicPointName}' in te stellen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
+            Assert.AreEqual(new[]
+            {
+                point1,
+                point2,
+                point3
+            }, result.Points);
+            Assert.IsNull(pointWhichIsNull(result));
+            Assert.AreEqual(1, new Collection<Point3D>
+            {
+                result.SurfaceLevelOutside,
+                result.DikeToeAtRiver,
+                result.TrafficLoadOutside,
+                result.TrafficLoadInside,
+                result.DikeTopAtPolder,
+                result.ShoulderBaseInside,
+                result.ShoulderTopInside,
+                result.BottomDitchDikeSide,
+                result.BottomDitchPolderSide,
+                result.DitchPolderSide,
+                result.DitchDikeSide,
+                result.DikeToeAtPolder,
+                result.SurfaceLevelInside
+            }.Count(p => p == null));
         }
     }
 }

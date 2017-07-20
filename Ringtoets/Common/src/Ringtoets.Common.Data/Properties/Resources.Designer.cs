@@ -272,6 +272,123 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slootbodem dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slootbodem polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teen dijk binnenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtPolder {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtPolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teen dijk buitenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtRiver {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtRiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruin binnentalud.
+        /// </summary>
+        public static string CharacteristicPoint_DikeTopAtPolder {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeTopAtPolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek binnenberm.
+        /// </summary>
+        public static string CharacteristicPoint_ShoulderBaseInside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_ShoulderBaseInside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruin binnenberm.
+        /// </summary>
+        public static string CharacteristicPoint_ShoulderTopInside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_ShoulderTopInside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maaiveld binnenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_SurfaceLevelInside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_SurfaceLevelInside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maaiveld buitenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_SurfaceLevelOutside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_SurfaceLevelOutside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verkeersbelasting kant binnenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_TrafficLoadInside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadInside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verkeersbelasting kant buitenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_TrafficLoadOutside {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadOutside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string CoefficientOfVariation_Should_be_greater_or_equal_to_zero {

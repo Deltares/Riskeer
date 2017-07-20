@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetDitchPolderSide_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetDitchPolderSide_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetBottomDitchDikeSide_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetBottomDitchDikeSide_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetBottomDitchPolderSide_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetBottomDitchPolderSide_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetDitchDikeSide_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetDitchDikeSide_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);
@@ -310,7 +310,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetDikeToeAtPolder_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetDikeToeAtPolder_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void TrySetDikeToeAtRiver_NoPointInGeometry_PointSetAndReturnFalse()
+        public void TrySetDikeToeAtRiver_PointInGeometry_PointSetAndReturnTrue()
         {
             // Setup
             var random = new Random(21);

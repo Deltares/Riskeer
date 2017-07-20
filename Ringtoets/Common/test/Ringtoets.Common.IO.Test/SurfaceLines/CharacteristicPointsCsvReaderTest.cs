@@ -673,9 +673,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(55.37, 0, -0.31), location1.DikeToeAtPolder);
 
-                Assert.IsNull(location1.TopShoulderInside);
+                Assert.IsNull(location1.ShoulderTopInside);
 
-                Assert.IsNull(location1.ShoulderInside);
+                Assert.IsNull(location1.ShoulderBaseInside);
 
                 Assert.AreEqual(new Point3D(40.17, 0, 2.63), location1.DikeTopAtPolder);
 
@@ -685,9 +685,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(35.95, 0, 2.61), location1.DikeTopAtRiver);
 
-                Assert.IsNull(location1.ShoulderOutisde);
+                Assert.IsNull(location1.ShoulderBaseOutside);
 
-                Assert.IsNull(location1.TopShoulderOutside);
+                Assert.IsNull(location1.ShoulderTopOutside);
 
                 Assert.AreEqual(new Point3D(29.1, 0, -0.2), location1.DikeToeAtRiver);
 
@@ -716,9 +716,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.DikeToeAtPolder);
 
-                Assert.IsNull(location2.TopShoulderInside);
+                Assert.IsNull(location2.ShoulderTopInside);
 
-                Assert.IsNull(location2.ShoulderInside);
+                Assert.IsNull(location2.ShoulderBaseInside);
 
                 Assert.AreEqual(new Point3D(38.17, 0, 3.04), location2.DikeTopAtPolder);
 
@@ -728,9 +728,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(32.77, 0, 3.11), location2.DikeTopAtRiver);
 
-                Assert.IsNull(location2.ShoulderOutisde);
+                Assert.IsNull(location2.ShoulderBaseOutside);
 
-                Assert.IsNull(location2.TopShoulderOutside);
+                Assert.IsNull(location2.ShoulderTopOutside);
 
                 Assert.AreEqual(new Point3D(19.61, 0, -0.05), location2.DikeToeAtRiver);
 

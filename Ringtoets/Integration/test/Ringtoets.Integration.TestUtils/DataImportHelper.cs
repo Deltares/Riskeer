@@ -243,7 +243,8 @@ namespace Ringtoets.Integration.TestUtils
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
-                                                                                   "DR6_surfacelines.csv"))
+                                                                                   "DR6_surfacelines.csv",
+                                                                                   "DR6_surfacelines.krp.csv"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
                 var activity = new FileImportActivity(new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(

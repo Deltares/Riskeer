@@ -216,12 +216,12 @@ namespace Ringtoets.Piping.IO.Importers
                 return false;
             }
 
-            surfaceLine.TrySetDitchPolderSide(characteristicPoints.DitchPolderSide);
-            surfaceLine.TrySetBottomDitchPolderSide(characteristicPoints.BottomDitchPolderSide);
-            surfaceLine.TrySetBottomDitchDikeSide(characteristicPoints.BottomDitchDikeSide);
-            surfaceLine.TrySetDitchDikeSide(characteristicPoints.DitchDikeSide);
-            surfaceLine.TrySetDikeToeAtPolder(characteristicPoints.DikeToeAtPolder);
             surfaceLine.TrySetDikeToeAtRiver(characteristicPoints.DikeToeAtRiver);
+            surfaceLine.TrySetDitchDikeSide(characteristicPoints.DitchDikeSide);
+            surfaceLine.TrySetBottomDitchDikeSide(characteristicPoints.BottomDitchDikeSide);
+            surfaceLine.TrySetBottomDitchPolderSide(characteristicPoints.BottomDitchPolderSide);
+            surfaceLine.TrySetDitchPolderSide(characteristicPoints.DitchPolderSide);
+            surfaceLine.TrySetDikeToeAtPolder(characteristicPoints.DikeToeAtPolder);
 
             return true;
         }

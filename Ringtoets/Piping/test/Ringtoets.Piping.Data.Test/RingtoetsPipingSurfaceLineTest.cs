@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
 
@@ -263,300 +262,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(niceName, text);
-        }
-
-        [Test]
-        public void SetDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetDitchPolderSideAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.DitchPolderSide);
-            Assert.AreNotSame(testPoint, surfaceLine.DitchPolderSide);
-        }
-
-        [Test]
-        public void SetDitchPolderSideAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(testPoint);
-
-            // Assert
-            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot polderzijde' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDitchPolderSideAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetBottomDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetBottomDitchPolderSideAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.BottomDitchPolderSide);
-            Assert.AreNotSame(testPoint, surfaceLine.BottomDitchPolderSide);
-        }
-
-        [Test]
-        public void SetBottomDitchPolderSideAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(testPoint);
-
-            // Assert
-            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem polderzijde' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetBottomDitchPolderSideAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetBottomDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetBottomDitchDikeSideAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.BottomDitchDikeSide);
-            Assert.AreNotSame(testPoint, surfaceLine.BottomDitchDikeSide);
-        }
-
-        [Test]
-        public void SetBottomDitchDikeSideAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(testPoint);
-
-            // Assert
-            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Slootbodem dijkzijde' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetBottomDitchDikeSideAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetDitchDikeSideAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.DitchDikeSide);
-            Assert.AreNotSame(testPoint, surfaceLine.DitchDikeSide);
-        }
-
-        [Test]
-        public void SetDitchDikeSideAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(testPoint);
-
-            // Assert
-            string message = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Insteek sloot dijkzijde' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
-        }
-
-        [Test]
-        public void SetDitchDikeSideAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDikeToeAtRiverAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetDikeToeAtRiverAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.DikeToeAtRiver);
-            Assert.AreNotSame(testPoint, surfaceLine.DikeToeAtRiver);
-        }
-
-        [Test]
-        public void SetDikeToeAtRiverAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(testPoint);
-
-            // Assert
-            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk buitenwaarts' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDikeToeAtRiverAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDikeToeAtPolderAt_PointInGeometry_PointSetFromGeometry()
-        {
-            // Setup
-            const double testX = 1.0;
-            const double testY = 2.2;
-            const double testZ = 4.4;
-            var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            CreateTestGeometry(testPoint, surfaceLine);
-
-            // Call
-            surfaceLine.SetDikeToeAtPolderAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.DikeToeAtPolder);
-            Assert.AreNotSame(testPoint, surfaceLine.DikeToeAtPolder);
-        }
-
-        [Test]
-        public void SetDikeToeAtPolderAt_GeometryEmpty_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var random = new Random(21);
-            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(testPoint);
-
-            // Assert
-            string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als 'Teen dijk binnenwaarts' in te stellen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void SetDikeToeAtPolderAt_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(null);
-
-            // Assert
-            const string expectedMessage = "Cannot find a point in geometry using a null point.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -1031,6 +736,176 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        public abstract class SetCharacteristicPointTest
+        {
+            [Test]
+            public void PointInGeometry_PointSetFromGeometry()
+            {
+                // Setup
+                const double testX = 1.0;
+                const double testY = 2.2;
+                const double testZ = 4.4;
+                var testPoint = new Point3D(testX, testY, testZ);
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                CreateTestGeometry(testPoint, surfaceLine);
+
+                // Call
+                SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                Assert.AreEqual(testPoint, GetCharacteristicPoint(surfaceLine));
+                Assert.AreNotSame(testPoint, GetCharacteristicPoint(surfaceLine));
+            }
+
+            [Test]
+            public void GeometryEmpty_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var random = new Random(21);
+                var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            }
+
+            [Test]
+            public void Null_ThrowsArgumentNullException()
+            {
+                // Setup
+                var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
+
+                // Assert
+                const string expectedMessage = "Cannot find a point in geometry using a null point.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            }
+
+            protected abstract void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point);
+            protected abstract Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine);
+            protected abstract string CharacteristicPointDescription();
+        }
+
+        [TestFixture]
+        public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDitchPolderSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DitchPolderSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Insteek sloot polderzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetBottomDitchPolderSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetBottomDitchPolderSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.BottomDitchPolderSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Slootbodem polderzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetBottomDitchDikeSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetBottomDitchDikeSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.BottomDitchDikeSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Slootbodem dijkzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetDitchDikeSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDitchDikeSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DitchDikeSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Insteek sloot dijkzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeToeAtRiverAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeToeAtRiver;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Teen dijk buitenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetDikeToeAtPolderAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeToeAtPolderAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeToeAtPolder;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Teen dijk binnenwaarts";
+            }
         }
 
         private static RingtoetsPipingSurfaceLine CreateSurfaceLineWithCharacteristicPoints()

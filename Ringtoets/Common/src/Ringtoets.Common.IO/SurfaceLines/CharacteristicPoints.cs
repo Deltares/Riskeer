@@ -91,13 +91,13 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// declines towards the location of the dike toe when approaching from inside 
         /// the polder.
         /// </summary>
-        public Point3D TopShoulderInside { get; set; }
+        public Point3D ShoulderTopInside { get; set; }
 
         /// <summary>
         /// Gets or sets the location where the shoulder on the side of the polder
         /// connects with the dike.
         /// </summary>
-        public Point3D ShoulderInside { get; set; }
+        public Point3D ShoulderBaseInside { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the top of the dike when approaching from 
@@ -127,14 +127,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// Gets or sets the location where the shoulder on the outside of the polder
         /// connects with the dike.
         /// </summary>
-        public Point3D ShoulderOutisde { get; set; }
+        public Point3D ShoulderBaseOutside { get; set; }
 
         /// <summary>
         /// Gets or sets the location where the shoulder on the outside of the polder
         /// declines towards the location of the dike toe when approaching from outside 
         /// the polder.
         /// </summary>
-        public Point3D TopShoulderOutside { get; set; }
+        public Point3D ShoulderTopOutside { get; set; }
 
         /// <summary>
         /// Gets or sets the location of dike toe when approaching from outside 

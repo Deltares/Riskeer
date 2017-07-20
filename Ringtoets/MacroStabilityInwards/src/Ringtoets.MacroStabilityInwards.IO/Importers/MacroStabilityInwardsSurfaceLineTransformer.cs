@@ -23,27 +23,26 @@ using System;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 using ReferenceLineIntersectionsResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionsResult;
 using ReferenceLineIntersectionResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionResult;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
     /// <summary>
-    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="RingtoetsPipingSurfaceLine"/>.
+    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
     /// </summary>
-    public class PipingSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsPipingSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsMacroStabilityInwardsSurfaceLine>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLineTransformer));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSurfaceLineTransformer"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineTransformer"/>.
         /// </summary>
         /// <param name="referenceLine">The reference line to determine locations for the surface
         /// lines for.</param>
-        public PipingSurfaceLineTransformer(ReferenceLine referenceLine)
+        public MacroStabilityInwardsSurfaceLineTransformer(ReferenceLine referenceLine)
         {
             if (referenceLine == null)
             {
@@ -52,7 +51,7 @@ namespace Ringtoets.Piping.IO.Importers
             this.referenceLine = referenceLine;
         }
 
-        public RingtoetsPipingSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        public RingtoetsMacroStabilityInwardsSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             ReferenceLineIntersectionResult result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
 
@@ -61,20 +60,20 @@ namespace Ringtoets.Piping.IO.Importers
                 return null;
             }
 
-            var pipingSurfaceLine = new RingtoetsPipingSurfaceLine
+            var macroStabilityInwardsSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
             {
                 Name = surfaceLine.Name
             };
-            pipingSurfaceLine.SetGeometry(surfaceLine.Points);
+            macroStabilityInwardsSurfaceLine.SetGeometry(surfaceLine.Points);
 
-            if (!pipingSurfaceLine.SetCharacteristicPoints(characteristicPoints))
+            if (!macroStabilityInwardsSurfaceLine.SetCharacteristicPoints(characteristicPoints))
             {
                 return null;
             }
 
-            pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
+            macroStabilityInwardsSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
 
-            return pipingSurfaceLine;
+            return macroStabilityInwardsSurfaceLine;
         }
     }
 }

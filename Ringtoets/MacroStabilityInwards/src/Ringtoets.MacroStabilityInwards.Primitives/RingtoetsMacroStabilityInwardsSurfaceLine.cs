@@ -31,6 +31,8 @@ using Ringtoets.Common.Data;
 using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
@@ -62,14 +64,93 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public Point3D[] Points { get; private set; }
 
         /// <summary>
-        /// Gets or sets the first 3D geometry point defining the surfaceline in world coordinates.
+        /// Gets the first 3D geometry point defining the surfaceline in world coordinates.
         /// </summary>
         public Point3D StartingWorldPoint { get; private set; }
 
         /// <summary>
-        /// Gets or sets the last 3D geometry point defining the surfaceline in world coordinates.
+        /// Gets the last 3D geometry point defining the surfaceline in world coordinates.
         /// </summary>
         public Point3D EndingWorldPoint { get; private set; }
+
+        /// <summary>
+        /// Gets the location which generalizes the height of the surface
+        /// on the oustide of the polder.
+        /// </summary>
+        public Point3D SurfaceLevelOutside { get; private set; }
+
+        /// <summary>
+        /// Gets the location of dike toe when approaching from outside 
+        /// the polder.
+        /// </summary>
+        public Point3D DikeToeAtRiver { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of traffic load when approaching 
+        /// from outside the polder.
+        /// </summary>
+        public Point3D TrafficLoadOutside { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of traffic load when approaching 
+        /// from inside the polder.
+        /// </summary>
+        public Point3D TrafficLoadInside { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the top of the dike when approaching from 
+        /// inside the polder.
+        /// </summary>
+        public Point3D DikeTopAtPolder { get; private set; }
+
+        /// <summary>
+        /// Gets the location where the shoulder on the side of the polder
+        /// connects with the dike.
+        /// </summary>
+        public Point3D ShoulderBaseInside { get; private set; }
+
+        /// <summary>
+        /// Gets the location where the shoulder on the side of the polder
+        /// declines towards the location of the dike toe when approaching from inside 
+        /// the polder.
+        /// </summary>
+        public Point3D ShoulderTopInside { get; private set; }
+
+        /// <summary>
+        /// Gets the location of dike toe when approaching from inside
+        /// the polder.
+        /// </summary>
+        public Point3D DikeToeAtPolder { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of the ditch when approaching
+        /// from the dike.
+        /// </summary>
+        public Point3D DitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the bottom of the ditch when approaching
+        /// from the dike.
+        /// </summary>
+        public Point3D BottomDitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the bottom of the ditch when approaching 
+        /// from inside the polder.
+        /// </summary>
+        public Point3D BottomDitchPolderSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of the ditch when approaching from
+        /// inside the polder.
+        /// </summary>
+        public Point3D DitchPolderSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location which generalizes the surface level on the
+        /// inside of the polder
+        /// </summary>
+        public Point3D SurfaceLevelInside { get; private set; }
 
         /// <summary>
         /// Gets or sets the reference line intersection point in world coordinates.
@@ -112,6 +193,227 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
 
             localGeometry = ProjectGeometryToLZ().ToArray();
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DitchPolderSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDitchPolderSideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide);
+            }
+            DitchPolderSide = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetBottomDitchPolderSideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
+            }
+            BottomDitchPolderSide = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetBottomDitchDikeSideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
+            }
+            BottomDitchDikeSide = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDitchDikeSideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide);
+            }
+            DitchDikeSide = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DikeTopAtPolder"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeTopAtPolder"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDikeTopAtPolderAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder);
+            }
+            DikeTopAtPolder = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ShoulderBaseInside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ShoulderBaseInside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetShoulderBaseInsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside);
+            }
+            ShoulderBaseInside = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ShoulderTopInside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ShoulderTopInside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetShoulderTopInsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside);
+            }
+            ShoulderTopInside = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="TrafficLoadInside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadInside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetTrafficLoadInsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside);
+            }
+            TrafficLoadInside = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="TrafficLoadOutside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadOutside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetTrafficLoadOutsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside);
+            }
+            TrafficLoadOutside = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDikeToeAtRiverAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
+            }
+            DikeToeAtRiver = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DikeToeAtPolder"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDikeToeAtPolderAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
+            }
+            DikeToeAtPolder = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="SurfaceLevelInside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="SurfaceLevelInside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetSurfaceLevelInsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside);
+            }
+            SurfaceLevelInside = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="SurfaceLevelOutside"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="SurfaceLevelOutside"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetSurfaceLevelOutsideAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside);
+            }
+            SurfaceLevelOutside = geometryPoint;
         }
 
         /// <summary>
@@ -277,6 +579,29 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
+        /// </summary>
+        /// <param name="point">The location of a point from <see cref="Points"/>.</param>
+        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        private Point3D GetPointFromGeometry(Point3D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point), @"Cannot find a point in geometry using a null point.");
+            }
+            return Points.FirstOrDefault(p => p.Equals(point));
+        }
+
+        private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
+        {
+            string message = string.Format(Resources.MacroStabilityInwardsSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                           point,
+                                           characteristicPointDescription);
+            return new ArgumentException(message);
         }
 
         private bool Equals(RingtoetsMacroStabilityInwardsSurfaceLine other)

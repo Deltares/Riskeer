@@ -79,6 +79,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Importers\MacrostabilityInwardsSurfaceLineTransformerTest.cs" />
+    <Compile Include="Importers\RingtoetsMacroStabilityInwardsSurfaceLineExtensionsTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />

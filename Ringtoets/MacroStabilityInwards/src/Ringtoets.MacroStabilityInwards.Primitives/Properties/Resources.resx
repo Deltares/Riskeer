@@ -141,4 +141,7 @@
   <data name="MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
     <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
   </data>
+  <data name="MacroStabilityInwardsSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_" xml:space="preserve">
+    <value>De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.</value>
+  </data>
 </root>

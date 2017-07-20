@@ -31,6 +31,8 @@ using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.Piping.Primitives
 {
     /// <summary>
@@ -72,34 +74,40 @@ namespace Ringtoets.Piping.Primitives
         public Point3D EndingWorldPoint { get; private set; }
 
         /// <summary>
-        /// Gets the point which characterizes the ditch at polder side.
-        /// </summary>
-        public Point3D DitchPolderSide { get; private set; }
-
-        /// <summary>
-        /// Gets the point which characterizes the bottom of the ditch at polder side.
-        /// </summary>
-        public Point3D BottomDitchPolderSide { get; private set; }
-
-        /// <summary>
-        /// Gets the point which characterizes the bottom of the ditch at dike side.
-        /// </summary>
-        public Point3D BottomDitchDikeSide { get; private set; }
-
-        /// <summary>
-        /// Gets the point which characterizes the ditch at dike side.
-        /// </summary>
-        public Point3D DitchDikeSide { get; private set; }
-
-        /// <summary>
-        /// Gets the point which characterizes the dike toe at river side.
+        /// Gets the location of dike toe when approaching from outside 
+        /// the polder.
         /// </summary>
         public Point3D DikeToeAtRiver { get; private set; }
 
         /// <summary>
-        /// Gets the point which characterizes the dike toe at polder side.
+        /// Gets the location of dike toe when approaching from inside
+        /// the polder.
         /// </summary>
         public Point3D DikeToeAtPolder { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of the ditch when approaching
+        /// from the dike.
+        /// </summary>
+        public Point3D DitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the bottom of the ditch when approaching
+        /// from the dike.
+        /// </summary>
+        public Point3D BottomDitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the bottom of the ditch when approaching 
+        /// from inside the polder.
+        /// </summary>
+        public Point3D BottomDitchPolderSide { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the start of the ditch when approaching from
+        /// inside the polder.
+        /// </summary>
+        public Point3D DitchPolderSide { get; private set; }
 
         /// <summary>
         /// Gets or sets the reference line intersection point in world coordinates.
@@ -156,7 +164,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchPolderSide);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide);
             }
             DitchPolderSide = geometryPoint;
         }
@@ -173,7 +181,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchPolderSide);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
             BottomDitchPolderSide = geometryPoint;
         }
@@ -190,7 +198,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchDikeSide);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
             BottomDitchDikeSide = geometryPoint;
         }
@@ -207,7 +215,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchDikeSide);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide);
             }
             DitchDikeSide = geometryPoint;
         }
@@ -224,7 +232,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtRiver);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
             DikeToeAtRiver = geometryPoint;
         }
@@ -241,7 +249,7 @@ namespace Ringtoets.Piping.Primitives
             Point3D geometryPoint = GetPointFromGeometry(point);
             if (geometryPoint == null)
             {
-                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtPolder);
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
             DikeToeAtPolder = geometryPoint;
         }

@@ -309,4 +309,43 @@
   <data name="SurfaceLineCollection_TypeDescriptor" xml:space="preserve">
     <value>Profielschematisaties</value>
   </data>
+  <data name="CharacteristicPoint_DitchDikeSide" xml:space="preserve">
+    <value>Insteek sloot dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
+    <value>Insteek sloot polderzijde</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchDikeSide" xml:space="preserve">
+    <value>Slootbodem dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchPolderSide" xml:space="preserve">
+    <value>Slootbodem polderzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtPolder" xml:space="preserve">
+    <value>Teen dijk binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtRiver" xml:space="preserve">
+    <value>Teen dijk buitenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_DikeTopAtPolder" xml:space="preserve">
+    <value>Kruin binnentalud</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderBaseInside" xml:space="preserve">
+    <value>Insteek binnenberm</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderTopInside" xml:space="preserve">
+    <value>Kruin binnenberm</value>
+  </data>
+  <data name="CharacteristicPoint_TrafficLoadInside" xml:space="preserve">
+    <value>Verkeersbelasting kant binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_TrafficLoadOutside" xml:space="preserve">
+    <value>Verkeersbelasting kant buitenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelInside" xml:space="preserve">
+    <value>Maaiveld binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelOutside" xml:space="preserve">
+    <value>Maaiveld buitenwaarts</value>
+  </data>
 </root>
