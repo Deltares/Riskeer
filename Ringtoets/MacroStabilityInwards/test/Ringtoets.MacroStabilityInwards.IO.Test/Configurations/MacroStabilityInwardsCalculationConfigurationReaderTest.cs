@@ -78,6 +78,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySoilProfile.xml",
                                               "The 'ondergrondschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySoilProfile");
+                yield return new TestCaseData("invalidCalculationMultipleScenario.xml",
+                                              "Element 'scenario' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleScenario");
                 yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
                                               "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidScenarioMultipleContribution");

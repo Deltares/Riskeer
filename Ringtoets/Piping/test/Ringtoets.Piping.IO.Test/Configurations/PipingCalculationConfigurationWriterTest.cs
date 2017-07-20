@@ -34,8 +34,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             PipingCalculationConfigurationWriter,
             PipingCalculationConfiguration>
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, 
-            nameof(PipingCalculationConfigurationWriter));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                                          nameof(PipingCalculationConfigurationWriter));
 
         [Test]
         public void Write_CalculationGroupsAndCalculation_ValidFile()
@@ -78,6 +78,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         {
             return new PipingCalculationConfiguration("PK001_0001 W1-6_0_1D1")
             {
+                AssessmentLevel = 10,
                 HydraulicBoundaryLocationName = "PUNT_KAT_18",
                 SurfaceLineName = "PK001_0001",
                 StochasticSoilModelName = "PK001_0001_Piping",
