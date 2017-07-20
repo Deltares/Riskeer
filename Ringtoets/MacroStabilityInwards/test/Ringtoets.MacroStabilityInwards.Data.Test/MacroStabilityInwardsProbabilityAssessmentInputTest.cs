@@ -34,8 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
 
             // Assert
-            Assert.AreEqual(0.4, probabilityAssessmentInput.A);
-            Assert.AreEqual(300, probabilityAssessmentInput.B);
+            Assert.AreEqual(0.033, probabilityAssessmentInput.A);
+            Assert.AreEqual(50, probabilityAssessmentInput.B);
 
             Assert.IsNaN(probabilityAssessmentInput.SectionLength);
         }

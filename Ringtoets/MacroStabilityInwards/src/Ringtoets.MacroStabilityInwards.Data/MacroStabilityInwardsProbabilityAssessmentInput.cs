@@ -40,8 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsProbabilityAssessmentInput()
         {
-            A = 0.4;
-            B = 300.0;
+            A = 0.033;
+            B = 50.0;
             SectionLength = double.NaN;
         }
 

@@ -31,12 +31,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
     public class MacroStabilityInwardsSemiProbabilisticCalculationServiceTest
     {
         [Test]
-        [TestCase(30000, 4.914770, 6000, 12)]
-        [TestCase(30000, 4.777170, 6000, 24)]
-        [TestCase(30000, 4.965370, 8000, 12)]
-        [TestCase(20000, 4.747730, 8000, 24)]
-        [TestCase(20000, 4.764340, 4000, 12)]
-        [TestCase(20000, 4.622610, 4000, 24)]
+        [TestCase(30000, 4.796710, 6000, 12)]
+        [TestCase(30000, 4.655890, 6000, 24)]
+        [TestCase(30000, 4.843790, 8000, 12)]
+        [TestCase(20000, 4.620849, 8000, 24)]
+        [TestCase(20000, 4.651410, 4000, 12)]
+        [TestCase(20000, 4.506409, 4000, 24)]
         public void MacroStabilityInwardsReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double expectedResult, double assessmentSectionLength, double contribution)
         {
             // Setup
@@ -59,9 +59,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 6000, 24, 4.777171914)]
-        [TestCase(20000, 6000, 12, 4.834719763)]
-        [TestCase(20000, 8000, 24, 4.747728143)]
+        [TestCase(30000, 6000, 24, 4.655890000)]
+        [TestCase(20000, 6000, 12, 4.714809999)]
+        [TestCase(20000, 8000, 24, 4.620849999)]
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
