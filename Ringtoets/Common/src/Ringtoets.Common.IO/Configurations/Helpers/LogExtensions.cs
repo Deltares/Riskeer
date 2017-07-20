@@ -26,9 +26,10 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Extension methods for <see cref="ILog"/> for logging problems occuring during import or export of configurations.
+    /// Extension methods for <see cref="ILog"/> for logging problems occurring during import 
+    /// or export of configurations.
     /// </summary>
-    public static class ILogExtensions
+    public static class LogExtensions
     {
         /// <summary>
         /// Logs an out of range exception that was thrown when converting configuration to actual data model instances.
@@ -43,11 +44,11 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         }
 
         /// <summary>
-        /// Logs a message for an error which occured when converting configuration to actual data model instances.
+        /// Logs a message for an error which occurred when converting configuration to actual data model instances.
         /// </summary>
         /// <param name="log">The <see cref="ILog"/> to use for logging.</param>
         /// <param name="errorMessage">The error message to log.</param>
-        /// <param name="calculationName">The name of the calculation for which the error occured.</param>
+        /// <param name="calculationName">The name of the calculation for which the error occurred.</param>
         public static void LogCalculationConversionError(this ILog log, string errorMessage, string calculationName)
         {
             log.ErrorFormat(Resources.ILogExtensions_LogCalculationConversionError_ErrorMessage_0_Calculation_1_skipped,

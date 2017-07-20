@@ -27,7 +27,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
     /// <summary>
     /// Extension methods for converting <see cref="ICalculationScenario"/> to <see cref="ScenarioConfiguration"/>.
     /// </summary>
-    public static class ICalculationScenarioConversionExtensions
+    public static class CalculationScenarioConversionExtensions
     {
         /// <summary>
         /// Configure a new <see cref="ScenarioConfiguration"/> with 

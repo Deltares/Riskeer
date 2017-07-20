@@ -20,51 +20,55 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
+using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 
 namespace Ringtoets.Common.IO.Test.Configurations.Helpers
 {
     [TestFixture]
-    public class ICalculationScenarioConversionExtensionsTest
+    public class LogExtensionsTest
     {
         [Test]
-        public void ToScenarioConfiguration_CalculationScenarioNull_ThrowsArgumentNullException()
+        public void LogOutOfRangeException_Always_LogMessage()
         {
+            // Setup
+            const string message = "an error";
+            const string calculationName = "calculationA";
+            const string innerMessage = "Inner message";
+
+            var mocks = new MockRepository();
+            var log = mocks.StrictMock<ILog>();
+            log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", $"{message} {innerMessage}", calculationName));
+            mocks.ReplayAll();
+
+            var exception = new ArgumentOutOfRangeException(null, innerMessage);
+
             // Call
-            TestDelegate test = () => ((ICalculationScenario) null).ToScenarioConfiguration();
+            log.LogOutOfRangeException(message, calculationName, exception);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculationScenario", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void ToScenarioConfiguration_ValidCalculationScenario_InstanceWithExpectedParametersSet()
+        public void LogCalculationConversionError_Always_LogMessage()
         {
             // Setup
+            const string message = "an error";
+            const string calculationName = "calculationA";
+
             var mocks = new MockRepository();
-            var scenario = mocks.Stub<ICalculationScenario>();
+            var log = mocks.StrictMock<ILog>();
+            log.Expect(l => l.ErrorFormat("{0} Berekening '{1}' is overgeslagen.", message, calculationName));
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            RoundedDouble contribution = random.NextRoundedDouble();
-            bool relevant = random.NextBoolean();
-
-            scenario.Contribution = contribution;
-            scenario.IsRelevant = relevant;
-
             // Call
-            ScenarioConfiguration configuration = scenario.ToScenarioConfiguration();
+            log.LogCalculationConversionError(message, calculationName);
 
             // Assert
-            Assert.AreEqual(contribution * 100, configuration.Contribution);
-            Assert.AreEqual(relevant, configuration.IsRelevant);
+            mocks.VerifyAll();
         }
     }
 }
