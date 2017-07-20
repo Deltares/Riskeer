@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System.IO;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Configurations
 {
@@ -36,49 +34,30 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             PipingCalculationConfigurationWriter,
             PipingCalculationConfiguration>
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, 
+            nameof(PipingCalculationConfigurationWriter));
+
         [Test]
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Write_CalculationGroupsAndCalculation_ValidFile));
 
-            var surfaceline = new RingtoetsPipingSurfaceLine
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "PK001_0001"
-            };
-            surfaceline.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 0),
-                new Point3D(0, 10, 0)
-            });
-
-            PipingCalculationConfiguration calculation = CreateFullCalculationConfiguration();
-
-            PipingCalculationConfiguration calculation2 = CreateFullCalculationConfiguration();
-            calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.HydraulicBoundaryLocationName = "PUNT_SCH_17";
-            calculation2.SurfaceLineName = "PK001_0002";
-            calculation2.StochasticSoilModelName = "PK001_0002_Piping";
-            calculation2.StochasticSoilProfileName = "W1-6_4_1D1";
-            calculation2.EntryPointL = 0.3;
-            calculation2.ExitPointL = 0.4;
-
-            var calculationGroup2 = new CalculationGroupConfiguration("PK001_0002", new IConfigurationItem[]
-            {
-                calculation2
-            });
-
             var calculationGroup = new CalculationGroupConfiguration("PK001_0001", new IConfigurationItem[]
             {
-                calculation,
-                calculationGroup2
+                CreateFullCalculationConfiguration(),
+                new CalculationGroupConfiguration("PK001_0002", new[]
+                {
+                    CreateSparseCalculationConfiguration()
+                })
             });
+
+            var writer = new PipingCalculationConfigurationWriter(filePath);
 
             try
             {
                 // Call
-                new PipingCalculationConfigurationWriter(filePath).Write(new[]
+                writer.Write(new[]
                 {
                     calculationGroup
                 });
@@ -86,13 +65,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
 
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
-                                                                        Path.Combine(nameof(PipingCalculationConfigurationWriter),
-                                                                                     "folderWithSubfolderAndCalculation.xml"));
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
+                string pathToExpectedFile = Path.Combine(testDataPath, "folderWithSubfolderAndCalculation.xml");
+                FileAssert.AreEqual(pathToExpectedFile, filePath);
             }
             finally
             {
@@ -126,6 +100,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                     Contribution = 0.3
                 }
             };
+        }
+
+        private static PipingCalculationConfiguration CreateSparseCalculationConfiguration()
+        {
+            return new PipingCalculationConfiguration("Sparse");
         }
 
         protected override PipingCalculationConfigurationWriter CreateWriterInstance(string filePath)

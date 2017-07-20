@@ -69,8 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string surfaceLine = "Name of the surface line";
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
-            const double contribution = 2.2;
-            const bool isRelevant = false;
+
+            var scenarioConfiguration = new ScenarioConfiguration();
 
             // Call
             var readCalculation = new MacroStabilityInwardsCalculationConfiguration(calculationName)
@@ -80,11 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SurfaceLineName = surfaceLine,
                 StochasticSoilModelName = stochasticSoilModel,
                 StochasticSoilProfileName = stochasticSoilProfile,
-                Scenario = new ScenarioConfiguration
-                {
-                    Contribution = contribution,
-                    IsRelevant = isRelevant
-                }
+                Scenario = scenarioConfiguration
             };
 
             // Assert
@@ -94,8 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(surfaceLine, readCalculation.SurfaceLineName);
             Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModelName);
             Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfileName);
-            Assert.AreEqual(contribution, readCalculation.Scenario.Contribution);
-            Assert.AreEqual(isRelevant, readCalculation.Scenario.IsRelevant);
+            Assert.AreSame(scenarioConfiguration, readCalculation.Scenario);
         }
 
         [Test]

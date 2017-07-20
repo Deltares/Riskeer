@@ -489,8 +489,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                                                                       Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                       pipingFailureMechanism);
 
-            // Call
             var successful = false;
+
+            // Call
             Action call = () => successful = importer.Import();
 
             // Assert

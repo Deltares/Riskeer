@@ -2,6 +2,7 @@
 <configuratie>
   <map naam="PK001_0001">
     <berekening naam="PK001_0001 W1-6_0_1D1">
+      <toetspeil>10</toetspeil>
       <hrlocatie>PUNT_KAT_18</hrlocatie>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
@@ -12,16 +13,7 @@
       </scenario>
     </berekening>
     <map naam="PK001_0002">
-      <berekening naam="PK001_0002 W1-6_4_1D1">
-        <hrlocatie>PUNT_SCH_17</hrlocatie>
-        <profielschematisatie>PK001_0002</profielschematisatie>
-        <ondergrondmodel>PK001_0002_Macrostabiliteit</ondergrondmodel>
-        <ondergrondschematisatie>W1-6_4_1D1</ondergrondschematisatie>
-        <scenario>
-          <gebruik>true</gebruik>
-          <bijdrage>0.3</bijdrage>
-        </scenario>
-      </berekening>
+      <berekening naam="Sparse" />
     </map>
   </map>
 </configuratie>

@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the stochats elements of the <paramref name="configuration"/> in XML format to file.
+        /// Writes the stochasts elements of the <paramref name="configuration"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The calculation configuration to write.</param>

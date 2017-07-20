@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System.IO;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 {
@@ -36,47 +34,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             MacroStabilityInwardsCalculationConfigurationWriter,
             MacroStabilityInwardsCalculationConfiguration>
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
+                                                                          nameof(MacroStabilityInwardsCalculationConfigurationWriter));
+
         [Test]
         public void Write_CalculationGroupsAndCalculation_ValidFile()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Write_CalculationGroupsAndCalculation_ValidFile));
 
-            var surfaceline = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "PK001_0001"
-            };
-            surfaceline.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 0),
-                new Point3D(0, 10, 0)
-            });
-
-            MacroStabilityInwardsCalculationConfiguration calculation = CreateFullCalculationConfiguration();
-
-            MacroStabilityInwardsCalculationConfiguration calculation2 = CreateFullCalculationConfiguration();
-            calculation2.Name = "PK001_0002 W1-6_4_1D1";
-            calculation2.HydraulicBoundaryLocationName = "PUNT_SCH_17";
-            calculation2.SurfaceLineName = "PK001_0002";
-            calculation2.StochasticSoilModelName = "PK001_0002_Macrostabiliteit";
-            calculation2.StochasticSoilProfileName = "W1-6_4_1D1";
-
-            var calculationGroup2 = new CalculationGroupConfiguration("PK001_0002", new IConfigurationItem[]
-            {
-                calculation2
-            });
-
             var calculationGroup = new CalculationGroupConfiguration("PK001_0001", new IConfigurationItem[]
             {
-                calculation,
-                calculationGroup2
+                CreateFullCalculationConfiguration(),
+                new CalculationGroupConfiguration("PK001_0002", new[]
+                {
+                    CreateSparseCalculationConfiguration()
+                })
             });
+
+            var writer = new MacroStabilityInwardsCalculationConfigurationWriter(filePath);
 
             try
             {
                 // Call
-                new MacroStabilityInwardsCalculationConfigurationWriter(filePath).Write(new[]
+                writer.Write(new[]
                 {
                     calculationGroup
                 });
@@ -84,13 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
 
-                string actualXml = File.ReadAllText(filePath);
-                string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
-                                                                        Path.Combine(nameof(MacroStabilityInwardsCalculationConfigurationWriter),
-                                                                                     "folderWithSubfolderAndCalculation.xml"));
-                string expectedXml = File.ReadAllText(expectedXmlFilePath);
-
-                Assert.AreEqual(expectedXml, actualXml);
+                string pathToExpectedFile = Path.Combine(testDataPath, "folderWithSubfolderAndCalculation.xml");
+                FileAssert.AreEqual(pathToExpectedFile, filePath);
             }
             finally
             {
@@ -102,6 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         {
             return new MacroStabilityInwardsCalculationConfiguration("PK001_0001 W1-6_0_1D1")
             {
+                AssessmentLevel = 10,
                 HydraulicBoundaryLocationName = "PUNT_KAT_18",
                 SurfaceLineName = "PK001_0001",
                 StochasticSoilModelName = "PK001_0001_Macrostabiliteit",
@@ -112,6 +89,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     Contribution = 0.3
                 }
             };
+        }
+
+        private static MacroStabilityInwardsCalculationConfiguration CreateSparseCalculationConfiguration()
+        {
+            return new MacroStabilityInwardsCalculationConfiguration("Sparse");
         }
 
         protected override MacroStabilityInwardsCalculationConfigurationWriter CreateWriterInstance(string filePath)

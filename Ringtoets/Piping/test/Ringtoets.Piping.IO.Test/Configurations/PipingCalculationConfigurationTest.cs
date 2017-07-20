@@ -75,12 +75,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             const double exitPointL = 3.3;
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
-            const double phreaticLevelExitMean = 4.4;
-            const double phreaticLevelExitStandardDeviation = 5.5;
-            const double dampingFactorExitMean = 6.6;
-            const double dampingFactorExitStandardDeviation = 7.7;
-            const double contribution = 8.8;
-            const bool isRelevant = false;
+
+            var phreaticLevelExit = new StochastConfiguration();
+            var dampingFactorExit = new StochastConfiguration();
+            var scenarioConfiguration = new ScenarioConfiguration();
 
             // Call
             var readPipingCalculation = new PipingCalculationConfiguration(calculationName)
@@ -92,21 +90,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 ExitPointL = exitPointL,
                 StochasticSoilModelName = stochasticSoilModel,
                 StochasticSoilProfileName = stochasticSoilProfile,
-                PhreaticLevelExit = new StochastConfiguration
-                {
-                    Mean = phreaticLevelExitMean,
-                    StandardDeviation = phreaticLevelExitStandardDeviation
-                },
-                DampingFactorExit = new StochastConfiguration
-                {
-                    Mean = dampingFactorExitMean,
-                    StandardDeviation = dampingFactorExitStandardDeviation
-                },
-                Scenario = new ScenarioConfiguration
-                {
-                    Contribution = contribution,
-                    IsRelevant = isRelevant
-                }
+                PhreaticLevelExit = phreaticLevelExit,
+                DampingFactorExit = dampingFactorExit,
+                Scenario = scenarioConfiguration
             };
 
             // Assert
@@ -118,12 +104,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Assert.AreEqual(exitPointL, readPipingCalculation.ExitPointL);
             Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModelName);
             Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfileName);
-            Assert.AreEqual(phreaticLevelExitMean, readPipingCalculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(phreaticLevelExitStandardDeviation, readPipingCalculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(dampingFactorExitMean, readPipingCalculation.DampingFactorExit.Mean);
-            Assert.AreEqual(dampingFactorExitStandardDeviation, readPipingCalculation.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(contribution, readPipingCalculation.Scenario.Contribution);
-            Assert.AreEqual(isRelevant, readPipingCalculation.Scenario.IsRelevant);
+            Assert.AreSame(phreaticLevelExit, readPipingCalculation.PhreaticLevelExit);
+            Assert.AreSame(dampingFactorExit, readPipingCalculation.DampingFactorExit);
+            Assert.AreSame(scenarioConfiguration, readPipingCalculation.Scenario);
         }
 
         [Test]
