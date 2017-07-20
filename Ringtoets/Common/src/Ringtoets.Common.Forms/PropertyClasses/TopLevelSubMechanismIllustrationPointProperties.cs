@@ -44,9 +44,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly IEnumerable<string> closingSituations;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPointProperties"/>
+        /// Creates a new instance of <see cref="TopLevelSubMechanismIllustrationPointProperties"/>.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The <see cref="TopLevelSubMechanismIllustrationPoint"/>
+        /// to create the properties for.</param>
         /// <param name="closingSituations">The calculated closing situations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is 
         /// <c>null</c>.</exception>
@@ -181,18 +182,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             return false;
         }
 
-        private bool AreClosingSituationsSame()
-        {
-            return closingSituations.All(cs => cs == closingSituations.First());
-        }
-
         public override string ToString()
         {
             return AreClosingSituationsSame()
-                ? data.WindDirection.Name
-                : string.Format(Resources.TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1,
-                                 data.WindDirection.Name,
-                                 data.ClosingSituation);
+                       ? data.WindDirection.Name
+                       : string.Format(Resources.TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1,
+                                       data.WindDirection.Name,
+                                       data.ClosingSituation);
+        }
+
+        private bool AreClosingSituationsSame()
+        {
+            return closingSituations.Distinct().Count() < 2;
         }
     }
 }

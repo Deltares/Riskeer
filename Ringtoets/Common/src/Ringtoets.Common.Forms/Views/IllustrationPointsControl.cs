@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
 {

@@ -235,12 +235,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void Selection_WithIllustrationPoints_ReturnsSelectedWindDirection()
         {
-            // Call
+            // Setup
             IllustrationPointsTableControl control = ShowControl();
             control.Data = GetControlItems();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+
+            // Call
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
@@ -251,7 +253,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.NotNull(dataBoundItem);
             Assert.AreSame(dataBoundItem.IllustrationPointControlItem.Source, selection.TopLevelIllustrationPoint);
 
-            string[] expectedClosingSituations = control.Data.Select(ipc => ipc.ClosingSituation).ToArray();
+            IEnumerable<string> expectedClosingSituations = control.Data.Select(ipc => ipc.ClosingSituation);
             CollectionAssert.AreEqual(expectedClosingSituations, selection.ClosingSituations);
         }
 

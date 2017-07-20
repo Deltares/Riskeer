@@ -75,8 +75,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                DataGridViewRow currentRow = illustrationPointsDataGridViewControl.CurrentRow;
-                return CreateSelectedItemFromCurrentRow(currentRow);
+                return CreateSelectedItemFromCurrentRow();
             }
         }
 
@@ -86,8 +85,9 @@ namespace Ringtoets.Common.Forms.Views
             InitializeDataGridView();
         }
 
-        private object CreateSelectedItemFromCurrentRow(DataGridViewRow currentRow)
+        private object CreateSelectedItemFromCurrentRow()
         {
+            DataGridViewRow currentRow = illustrationPointsDataGridViewControl.CurrentRow;
             var illustrationPointRow = (IllustrationPointRow) currentRow?.DataBoundItem;
 
             SelectableTopLevelIllustrationPoint selection = null;

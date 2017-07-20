@@ -141,12 +141,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
                 DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
-                selectedLocationRow.Cells[0].Value = true;
 
                 // Call
-                object selection = tableControl.Selection;
+                selectedLocationRow.Cells[0].Value = true;
 
                 // Assert
+                object selection = tableControl.Selection;
                 var expectedSelection = selection as SelectableTopLevelIllustrationPoint;
                 var controlSelection = control.Selection as SelectableTopLevelIllustrationPoint;
                 Assert.IsNotNull(expectedSelection);
