@@ -84,6 +84,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public GeneralResult IllustrationPointsResult { get; private set; }
 
         /// <summary>
+        /// Gets the error message of the illustration points parser.
+        /// </summary>
+        public string IllustrationPointsParserError { get; private set; }
+
+        /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
         public void Cancel()
@@ -176,7 +181,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             }
             catch (HydraRingFileParserException e)
             {
-                log.Warn(e.Message, e);
+                IllustrationPointsParserError = e.Message;
                 IllustrationPointsResult = null;
             }
         }

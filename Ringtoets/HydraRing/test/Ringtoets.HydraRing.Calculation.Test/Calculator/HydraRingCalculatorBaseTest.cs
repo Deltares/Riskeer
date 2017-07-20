@@ -50,6 +50,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
+        public void Constructor_ValidArguments_ReturnsExpectedProperties()
+        {
+            // Setup
+            const string hlcdDirectory = "hlcdDirectory";
+
+            // Call
+            var calculator = new TestHydraRingCalculator(hlcdDirectory);
+
+            // Assert
+            Assert.IsNull(calculator.IllustrationPointsResult);
+            Assert.IsNull(calculator.OutputDirectory);
+            Assert.IsNull(calculator.LastErrorFileContent);
+            Assert.IsNull(calculator.IllustrationPointsParserError);
+        }
+
+        [Test]
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
@@ -123,17 +139,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
-        public void Calculate_IllustrationPointsParserThrowsException_LogExceptionMessageAsWarning()
+        public void Calculate_IllustrationPointsParserThrowsException_SetsIllustrationPointsParserError()
         {
             // Setup
             var calculator = new TestHydraRingCalculator("", new TestParser());
 
             // Call
-            Action test = () => calculator.PublicCalculate();
+            calculator.PublicCalculate();
 
             // Assert
             const string expectedMessage = "Er konden geen illustratiepunten worden uitgelezen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(test, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+            Assert.AreEqual(expectedMessage, calculator.IllustrationPointsParserError);
+            Assert.IsNull(calculator.IllustrationPointsResult);
+//            TestHelper.AssertLogMessageWithLevelIsGenerated(test, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
         }
     }
 
