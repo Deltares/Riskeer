@@ -35,18 +35,6 @@ namespace Ringtoets.Piping.Forms.Test.Factories
     public class PipingChartDataFactoryTest
     {
         [Test]
-        public void CreateSurfaceLineChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
-        {
-            // Call
-            ChartLineData data = PipingChartDataFactory.CreateSurfaceLineChartData();
-
-            // Assert
-            Assert.IsEmpty(data.Points);
-            Assert.AreEqual("Profielschematisatie", data.Name);
-            AssertEqualStyle(data.Style, Color.Sienna, 2, ChartLineDashStyle.Solid);
-        }
-
-        [Test]
         public void CreateEntryPointChartData_ReturnsEmptyChartPointDataWithDefaultStyling()
         {
             // Call
@@ -140,17 +128,6 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             Assert.IsEmpty(data.Points);
             Assert.AreEqual("Teen dijk binnenwaarts", data.Name);
             AssertEqualStyle(data.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
-        }
-
-        [Test]
-        public void CreateSoilLayerChartData_ReturnsEmptyChartDataCollectionWithDefaultStyling()
-        {
-            // Call
-            ChartDataCollection data = PipingChartDataFactory.CreateSoilProfileChartData();
-
-            // Assert
-            Assert.IsEmpty(data.Collection);
-            Assert.AreEqual("Ondergrondschematisatie", data.Name);
         }
 
         [Test]

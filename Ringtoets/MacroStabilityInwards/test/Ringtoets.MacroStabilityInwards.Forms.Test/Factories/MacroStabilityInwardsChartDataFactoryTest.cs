@@ -35,29 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsChartDataFactoryTest
     {
         [Test]
-        public void CreateSurfaceLineChartData_ReturnsEmptyChartLineDataWithDefaultStyling()
-        {
-            // Call
-            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreateSurfaceLineChartData();
-
-            // Assert
-            Assert.IsEmpty(data.Points);
-            Assert.AreEqual("Profielschematisatie", data.Name);
-            AssertEqualStyle(data.Style, Color.Sienna, 2, ChartLineDashStyle.Solid);
-        }
-
-        [Test]
-        public void CreateSoilLayerChartData_ReturnsEmptyChartDataCollectionWithDefaultStyling()
-        {
-            // Call
-            ChartDataCollection data = MacroStabilityInwardsChartDataFactory.CreateSoilProfileChartData();
-
-            // Assert
-            Assert.IsEmpty(data.Collection);
-            Assert.AreEqual("Ondergrondschematisatie", data.Name);
-        }
-
-        [Test]
         public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call

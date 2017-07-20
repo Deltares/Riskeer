@@ -36,21 +36,6 @@ namespace Ringtoets.Piping.Forms.Factories
     internal static class PipingChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for a <see cref="RingtoetsPipingSurfaceLine"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateSurfaceLineChartData()
-        {
-            return new ChartLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName,
-                                     new ChartLineStyle
-                                     {
-                                         Color = Color.Sienna,
-                                         Width = 2,
-                                         DashStyle = ChartLineDashStyle.Solid
-                                     });
-        }
-
-        /// <summary>
         /// Create <see cref="ChartPointData"/> with default styling for an entry point.
         /// </summary>
         /// <returns>The created <see cref="ChartPointData"/>.</returns>
@@ -128,15 +113,6 @@ namespace Ringtoets.Piping.Forms.Factories
         {
             return new ChartPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder,
                                       GetCharacteristicPointStyle(Color.SlateGray));
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for a <see cref="PipingSoilProfile"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
-        public static ChartDataCollection CreateSoilProfileChartData()
-        {
-            return new ChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
         }
 
         /// <summary>

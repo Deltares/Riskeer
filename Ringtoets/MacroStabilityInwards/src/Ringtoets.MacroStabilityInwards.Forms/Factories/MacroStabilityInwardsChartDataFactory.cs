@@ -35,30 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
     internal static class MacroStabilityInwardsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for a <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        public static ChartLineData CreateSurfaceLineChartData()
-        {
-            return new ChartLineData(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName,
-                                     new ChartLineStyle
-                                     {
-                                         Color = Color.Sienna,
-                                         Width = 2,
-                                         DashStyle = ChartLineDashStyle.Solid
-                                     });
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartDataCollection"/> for a <see cref="MacroStabilityInwardsSoilProfile"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
-        public static ChartDataCollection CreateSoilProfileChartData()
-        {
-            return new ChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
-        }
-
-        /// <summary>
         /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer"/> based on its color.
         /// </summary>
         /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>

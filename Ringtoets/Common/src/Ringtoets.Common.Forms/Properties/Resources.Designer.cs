@@ -2350,6 +2350,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ondergrondschematisatie.
+        /// </summary>
+        public static string StochasticSoilProfileProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfileProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toegestane peilverhoging komberging..
         /// </summary>
         public static string Structure_AllowedLevelIncreaseStorage_Description {
@@ -2861,6 +2870,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
                 return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielschematisatie.
+        /// </summary>
+        public static string SurfaceLine_DisplayName {
+            get {
+                return ResourceManager.GetString("SurfaceLine_DisplayName", resourceCulture);
             }
         }
         

@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -62,8 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
-            soilProfileChartData = MacroStabilityInwardsChartDataFactory.CreateSoilProfileChartData();
-            surfaceLineChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLineChartData();
+            soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
+            surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);

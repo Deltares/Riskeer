@@ -37,8 +37,32 @@ namespace Ringtoets.Common.Forms.Test.Factories
             ChartLineData data = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
 
             // Assert
+            Assert.IsEmpty(data.Points);
             Assert.AreEqual("Voorlandprofiel", data.Name);
             AssertEqualStyle(data.Style, Color.DarkOrange, 2, ChartLineDashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateSurfaceLineChartData_ReturnsChartLineDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Points);
+            Assert.AreEqual("Profielschematisatie", data.Name);
+            AssertEqualStyle(data.Style, Color.Sienna, 2, ChartLineDashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateSoilProfileChartData_ReturnsChartDataCollectionWithDefaultStyling()
+        {
+            // Call
+            ChartDataCollection data = RingtoetsChartDataFactory.CreateSoilProfileChartData();
+
+            // Assert
+            Assert.IsEmpty(data.Collection);
+            Assert.AreEqual("Ondergrondschematisatie", data.Name);
         }
 
         private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)

@@ -1119,4 +1119,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Categories_Characteristic_points" xml:space="preserve">
     <value>Karakteristieke punten</value>
   </data>
+  <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisatie</value>
+  </data>
+  <data name="SurfaceLine_DisplayName" xml:space="preserve">
+    <value>Profielschematisatie</value>
+  </data>
 </root>

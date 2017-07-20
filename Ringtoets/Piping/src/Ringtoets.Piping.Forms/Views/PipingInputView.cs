@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
@@ -70,8 +71,8 @@ namespace Ringtoets.Piping.Forms.Views
             calculationInputObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
-            soilProfileChartData = PipingChartDataFactory.CreateSoilProfileChartData();
-            surfaceLineChartData = PipingChartDataFactory.CreateSurfaceLineChartData();
+            soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
+            surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
             ditchPolderSideChartData = PipingChartDataFactory.CreateDitchPolderSideChartData();
             bottomDitchPolderSideChartData = PipingChartDataFactory.CreateBottomDitchPolderSideChartData();
             bottomDitchDikeSideChartData = PipingChartDataFactory.CreateBottomDitchDikeSideChartData();

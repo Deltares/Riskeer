@@ -45,5 +45,29 @@ namespace Ringtoets.Common.Forms.Factories
                                          DashStyle = ChartLineDashStyle.Solid
                                      });
         }
+
+        /// <summary>
+        /// Create <see cref="ChartLineData"/> with default styling for a surface line.
+        /// </summary>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateSurfaceLineChartData()
+        {
+            return new ChartLineData(Resources.SurfaceLine_DisplayName,
+                                     new ChartLineStyle
+                                     {
+                                         Color = Color.Sienna,
+                                         Width = 2,
+                                         DashStyle = ChartLineDashStyle.Solid
+                                     });
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartDataCollection"/> for a surface line.
+        /// </summary>
+        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
+        public static ChartDataCollection CreateSoilProfileChartData()
+        {
+            return new ChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
+        }
     }
 }
