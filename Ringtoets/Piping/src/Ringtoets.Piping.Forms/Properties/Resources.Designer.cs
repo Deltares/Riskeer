@@ -82,15 +82,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karakteristieke punten.
-        /// </summary>
-        public static string Categories_Characteristic_points {
-            get {
-                return ResourceManager.GetString("Categories_Characteristic_points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Heave.
         /// </summary>
         public static string Categories_Heave {
@@ -1285,101 +1276,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profielschematisatie.
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_DisplayName {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_DitchDikeSide_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DitchDikeSide_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_DitchPolderSide_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DitchPolderSide_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de profielschematisatie..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Name_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De punten die de geometrie van de profielschematisatie definiëren..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Points_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Points_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geometriepunten.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_Points_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Points_DisplayName", resourceCulture);
             }
         }
         

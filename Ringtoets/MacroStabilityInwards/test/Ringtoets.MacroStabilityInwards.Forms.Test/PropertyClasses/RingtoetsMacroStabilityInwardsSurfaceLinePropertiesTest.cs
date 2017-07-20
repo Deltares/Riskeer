@@ -85,21 +85,115 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(15, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
+            const string charactersticPointsCategory = "Karakteristieke punten";
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("Naam van de profielschematisatie.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[0],
+                generalCategory,
+                "Naam",
+                "Naam van de profielschematisatie.",
+                true);
 
-            PropertyDescriptor pointsProperty = dynamicProperties[1];
-            Assert.IsTrue(pointsProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, pointsProperty.Category);
-            Assert.AreEqual("Geometriepunten", pointsProperty.DisplayName);
-            Assert.AreEqual("De punten die de geometrie van de profielschematisatie definiëren.", pointsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[1],
+                generalCategory,
+                "Geometriepunten",
+                "De punten die de geometrie van de profielschematisatie definiëren.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[2],
+                charactersticPointsCategory,
+                "Maaiveld buitenwaarts",
+                "De locatie van het maaiveld buiten de polder.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[3],
+                charactersticPointsCategory,
+                "Teen dijk buitenwaarts",
+                "De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[4],
+                charactersticPointsCategory,
+                "Verkeersbelasting kant buitenwaarts",
+                "De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[5],
+                charactersticPointsCategory,
+                "Verkeersbelasting kant binnenwaarts",
+                "De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[6],
+                charactersticPointsCategory,
+                "Kruin binnentalud",
+                "De kruin van het talud wanneer de dijk van binnen de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[7],
+                charactersticPointsCategory,
+                "Insteek binnenberm",
+                "De locatie van de insteek van de binnenberm.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[8],
+                charactersticPointsCategory,
+                "Kruin binnenberm",
+                "De locatie van de kruin van de binnenberm.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[9],
+                charactersticPointsCategory,
+                "Teen dijk binnenwaarts",
+                "De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[10],
+                charactersticPointsCategory,
+                "Insteek sloot dijkzijde",
+                "De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[11],
+                charactersticPointsCategory,
+                "Slootbodem dijkzijde",
+                "De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[12],
+                charactersticPointsCategory,
+                "Slootbodem polderzijde",
+                "De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[13],
+                charactersticPointsCategory,
+                "Insteek sloot polderzijde",
+                "De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.",
+                true);
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dynamicProperties[14],
+                charactersticPointsCategory,
+                "Maaiveld binnenwaarts",
+                "De locatie van het maaiveld binnen de polder.",
+                true);
         }
     }
 }

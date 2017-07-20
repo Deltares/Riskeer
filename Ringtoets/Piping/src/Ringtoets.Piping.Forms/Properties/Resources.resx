@@ -250,18 +250,6 @@
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_Name_Description" xml:space="preserve">
-    <value>Naam van de profielschematisatie.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_Points_Description" xml:space="preserve">
-    <value>De punten die de geometrie van de profielschematisatie definiëren.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_Points_DisplayName" xml:space="preserve">
-    <value>Geometriepunten</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielschematisatie</value>
   </data>
@@ -324,27 +312,6 @@
   </data>
   <data name="DesignVariableProperties_DesignValue_DisplayName" xml:space="preserve">
     <value>Rekenwaarde</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
-    <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description" xml:space="preserve">
-    <value>De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_Description" xml:space="preserve">
-    <value>De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_Description" xml:space="preserve">
-    <value>De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description" xml:space="preserve">
-    <value>De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description" xml:space="preserve">
-    <value>De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.</value>
-  </data>
-  <data name="Categories_Characteristic_points" xml:space="preserve">
-    <value>Karakteristieke punten</value>
   </data>
   <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
     <value>De positie in het dwarsprofiel van het intredepunt.</value>

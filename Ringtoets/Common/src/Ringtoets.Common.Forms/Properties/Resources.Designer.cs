@@ -599,6 +599,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karakteristieke punten.
+        /// </summary>
+        public static string Categories_Characteristic_points {
+            get {
+                return ResourceManager.GetString("Categories_Characteristic_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -667,6 +676,123 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Categories_Schematization {
             get {
                 return ResourceManager.GetString("Categories_Schematization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchDikeSide_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchDikeSide_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchPolderSide_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchPolderSide_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtPolder_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtRiver_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtRiver_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kruin van het talud wanneer de dijk van binnen de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DikeTopAtPolder_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeTopAtPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DitchDikeSide_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchDikeSide_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DitchPolderSide_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchPolderSide_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de insteek van de binnenberm..
+        /// </summary>
+        public static string CharacteristicPoint_ShoulderBaseInside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_ShoulderBaseInside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de kruin van de binnenberm..
+        /// </summary>
+        public static string CharacteristicPoint_ShoulderTopInside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_ShoulderTopInside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het maaiveld binnen de polder..
+        /// </summary>
+        public static string CharacteristicPoint_SurfaceLevelInside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_SurfaceLevelInside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van het maaiveld buiten de polder..
+        /// </summary>
+        public static string CharacteristicPoint_SurfaceLevelOutside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_SurfaceLevelOutside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_TrafficLoadInside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadInside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_TrafficLoadOutside_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadOutside_Description", resourceCulture);
             }
         }
         
@@ -2735,6 +2861,42 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures {
             get {
                 return ResourceManager.GetString("StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de profielschematisatie..
+        /// </summary>
+        public static string SurfaceLine_Name_Description {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string SurfaceLine_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De punten die de geometrie van de profielschematisatie definiëren..
+        /// </summary>
+        public static string SurfaceLine_Points_Description {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Points_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geometriepunten.
+        /// </summary>
+        public static string SurfaceLine_Points_DisplayName {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Points_DisplayName", resourceCulture);
             }
         }
         

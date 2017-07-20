@@ -1065,4 +1065,58 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
+  <data name="SurfaceLine_Name_Description" xml:space="preserve">
+    <value>Naam van de profielschematisatie.</value>
+  </data>
+  <data name="SurfaceLine_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="SurfaceLine_Points_Description" xml:space="preserve">
+    <value>De punten die de geometrie van de profielschematisatie definiëren.</value>
+  </data>
+  <data name="SurfaceLine_Points_DisplayName" xml:space="preserve">
+    <value>Geometriepunten</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchDikeSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchPolderSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_DitchDikeSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_DitchPolderSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtRiver_Description" xml:space="preserve">
+    <value>De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtPolder_Description" xml:space="preserve">
+    <value>De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_DikeTopAtPolder_Description" xml:space="preserve">
+    <value>De kruin van het talud wanneer de dijk van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderBaseInside_Description" xml:space="preserve">
+    <value>De locatie van de insteek van de binnenberm.</value>
+  </data>
+  <data name="CharacteristicPoint_ShoulderTopInside_Description" xml:space="preserve">
+    <value>De locatie van de kruin van de binnenberm.</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelInside_Description" xml:space="preserve">
+    <value>De locatie van het maaiveld binnen de polder.</value>
+  </data>
+  <data name="CharacteristicPoint_SurfaceLevelOutside_Description" xml:space="preserve">
+    <value>De locatie van het maaiveld buiten de polder.</value>
+  </data>
+  <data name="CharacteristicPoint_TrafficLoadInside_Description" xml:space="preserve">
+    <value>De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="CharacteristicPoint_TrafficLoadOutside_Description" xml:space="preserve">
+    <value>De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd.</value>
+  </data>
+  <data name="Categories_Characteristic_points" xml:space="preserve">
+    <value>Karakteristieke punten</value>
+  </data>
 </root>
