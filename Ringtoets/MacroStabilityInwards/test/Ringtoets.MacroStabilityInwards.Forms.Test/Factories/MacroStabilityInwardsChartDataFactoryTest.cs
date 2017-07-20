@@ -47,6 +47,90 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateDitchDikeSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Insteek sloot dijkzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.MediumPurple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDitchPolderSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Insteek sloot polderzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.IndianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDikeTopAtPolderChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Kruin binnentalud", data.Name);
+            AssertEqualStyle(data.Style, Color.LightSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
+        public void CreateShoulderTopInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Kruin binnenberm", data.Name);
+            AssertEqualStyle(data.Style, Color.DeepSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
+        public void CreateSurfaceLevelInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Maaiveld binnenwaarts", data.Name);
+            AssertEqualStyle(data.Style, Color.ForestGreen, 8, Color.Black, 1, ChartPointSymbol.Square);
+        }
+
+        [Test]
+        public void CreateSurfaceLevelOutsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Maaiveld buitenwaarts", data.Name);
+            AssertEqualStyle(data.Style, Color.LightSeaGreen, 8, Color.Black, 1, ChartPointSymbol.Square);
+        }
+
+        [Test]
+        public void CreateTrafficLoadInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Verkeersbelasting kant binnenwaarts", data.Name);
+            AssertEqualStyle(data.Style, Color.BurlyWood, 8, Color.Transparent, 0, ChartPointSymbol.Diamond);
+        }
+
+        [Test]
         public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call

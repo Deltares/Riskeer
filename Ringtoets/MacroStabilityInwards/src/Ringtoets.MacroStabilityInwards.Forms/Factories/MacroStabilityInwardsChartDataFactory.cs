@@ -104,6 +104,97 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                  : Resources.StochasticSoilProfileProperties_DisplayName;
         }
 
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type ditch dike side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchDikeSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide,
+                                      GetCharacteristicPointStyle(Color.MediumPurple,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type ditch polder side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchPolderSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide,
+                                      GetCharacteristicPointStyle(Color.IndianRed,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type dike top at polder.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeTopAtPolderChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder,
+                                      GetCharacteristicPointStyle(Color.LightSkyBlue,
+                                                                  Color.SeaGreen,
+                                                                  ChartPointSymbol.Triangle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type shoulder top inside.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateShoulderTopInsideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside,
+                                      GetCharacteristicPointStyle(Color.DeepSkyBlue,
+                                                                  Color.SeaGreen,
+                                                                  ChartPointSymbol.Triangle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type surface level inside.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateSurfaceLevelInsideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside,
+                                      GetCharacteristicPointStyle(Color.ForestGreen,
+                                                                  Color.Black,
+                                                                  ChartPointSymbol.Square));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type surface level outside.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateSurfaceLevelOutsideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside,
+                                      GetCharacteristicPointStyle(Color.LightSeaGreen,
+                                                                  Color.Black,
+                                                                  ChartPointSymbol.Square));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type traffic load inside.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateTrafficLoadInsideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside,
+                                      GetCharacteristicPointStyle(Color.BurlyWood,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Diamond));
+        }
+
         private static ChartPointStyle GetCharacteristicPointStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
         {
             return new ChartPointStyle
@@ -111,7 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 Color = fillColor,
                 StrokeColor = strokeColor,
                 Size = 8,
-                StrokeThickness = 1,
+                StrokeThickness = strokeColor == Color.Transparent ? 0 : 1,
                 Symbol = symbol
             };
         }
