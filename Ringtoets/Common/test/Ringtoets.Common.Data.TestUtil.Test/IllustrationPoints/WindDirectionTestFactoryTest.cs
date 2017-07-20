@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -38,6 +39,30 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             Assert.IsInstanceOf<WindDirection>(windDirection);
 
             Assert.AreEqual("SSE", windDirection.Name);
+            Assert.AreEqual(5.0, windDirection.Angle, windDirection.Angle.GetAccuracy());
+        }
+
+        [Test]
+        public void CreatesTestWindDirection_WindDirectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => WindDirectionTestFactory.CreateTestWindDirection(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("WindDirection")]
+        public void CreateTestWindDirection_WithWindDirection_ReturnsExpectedProperties(string windDirectionName)
+        {
+            // Call
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection(windDirectionName);
+
+            // Assert
+            Assert.AreEqual(windDirectionName, windDirection.Name);
             Assert.AreEqual(5.0, windDirection.Angle, windDirection.Angle.GetAccuracy());
         }
     }

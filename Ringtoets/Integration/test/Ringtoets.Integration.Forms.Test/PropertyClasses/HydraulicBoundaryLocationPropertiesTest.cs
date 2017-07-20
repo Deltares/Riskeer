@@ -100,22 +100,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             var random = new Random(21);
-            var windDirection = new WindDirection("WindDirection name", random.NextDouble());
-            var topLevelIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(windDirection,
-                                                                                      "closing situation",
-                                                                                      new TestSubMechanismIllustrationPoint());
+            var topLevelIllustrationPoint =
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection("Wind direction name"),
+                                                          "closing situation",
+                                                          new TestSubMechanismIllustrationPoint());
 
             var stochast = new Stochast("stochastName",
                                         random.NextDouble(),
                                         random.NextDouble());
-            var governingWindDirection = new WindDirection("Governing WindDirectionName", random.NextDouble());
-            var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection, new[]
-            {
-                stochast
-            }, new[]
-            {
-                topLevelIllustrationPoint
-            });
+            var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
+                WindDirectionTestFactory.CreateTestWindDirection("Governing Wind Direction Name"), new[]
+                {
+                    stochast
+                }, new[]
+                {
+                    topLevelIllustrationPoint
+                });
 
             // Call
             var locationProperties = new TestHydraulicBoundaryLocationProperties
@@ -129,13 +129,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, locationProperties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, locationProperties.Location);
-            Assert.AreEqual(governingWindDirection.Name, locationProperties.GoverningWindDirection);
 
-            Stochast actualAlphaValue = locationProperties.AlphaValues.Single();
-            AssertStochast(stochast, actualAlphaValue);
-
-            Stochast actualDuration = locationProperties.Durations.Single();
-            AssertStochast(stochast, actualDuration);
+            Assert.AreEqual(generalResult.GoverningWindDirection.Name, locationProperties.GoverningWindDirection);
+            CollectionAssert.AreEqual(generalResult.Stochasts, locationProperties.AlphaValues);
+            CollectionAssert.AreEqual(generalResult.Stochasts, locationProperties.Durations);
 
             TopLevelSubMechanismIllustrationPointProperties topLevelProperties =
                 locationProperties.IllustrationPoints.Single();

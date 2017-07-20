@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
@@ -32,9 +33,22 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// Creates a new instance of <see cref="WindDirection"/> with arbitrary values for 
         /// wind direction name and angle.
         /// </summary>
+        /// <returns>A <see cref="WindDirection"/> which can be readily used for testing.</returns>
         public static WindDirection CreateTestWindDirection()
         {
             return new WindDirection("SSE", 5.0);
+        }
+
+        /// <summary>
+        /// /Creates a new instance of <see cref="WindDirection"/> with a specified name.
+        /// </summary>
+        /// <param name="name">The name of the wind direction</param>
+        /// <returns>A <see cref="WindDirection"/> which can be readily used for testing.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public static WindDirection CreateTestWindDirection(string name)
+        {
+            return new WindDirection(name, 5.0);
         }
     }
 }
