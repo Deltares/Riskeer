@@ -304,8 +304,8 @@ namespace Ringtoets.Common.IO.Configurations.Import
         /// </summary>
         /// <param name="scenarioConfiguration">The scenario configuration containing values for the parameters.</param>
         /// <param name="scenario">The input to assign the values to.</param>
-        /// <returns><c>true</c> if no <paramref name="scenarioConfiguration"/> was giver, or when 
-        /// the <paramref name="scenarioConfiguration"/> is not empty. <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if no <paramref name="scenarioConfiguration"/> was given, or when 
+        /// the <paramref name="scenarioConfiguration"/> is not empty, <c>false</c> otherwise.</returns>
         protected bool TrySetScenarioParameters(ScenarioConfiguration scenarioConfiguration, ICalculationScenario scenario)
         {
             if (scenarioConfiguration == null)
