@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class IStructureCalculationEntityReadExtensionsTest
+    public class StructureCalculationEntityReadExtensionsTest
     {
         [Test]
         public void Read_InputToUpdateNull_ThrowArgumentNullException()

@@ -128,7 +128,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IHydraulicLocationOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HydraulicLocationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\FaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\GeneralResultFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\GeneralResultSubMechanismIllustrationPointEntityReadExtensionsTest.cs" />
@@ -138,9 +138,9 @@
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
-    <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\IStructureCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StructureCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensionsTest.cs" />
@@ -203,7 +203,7 @@
     <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
-    <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\FailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />

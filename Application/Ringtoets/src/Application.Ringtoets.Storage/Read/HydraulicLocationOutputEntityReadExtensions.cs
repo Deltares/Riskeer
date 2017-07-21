@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Read
     /// Extension methods for <see cref="IHydraulicLocationOutputEntity"/> related to creating 
     /// a <see cref="HydraulicBoundaryLocationOutput"/>.
     /// </summary>
-    internal static class IHydraulicLocationOutputEntityReadExtensions
+    internal static class HydraulicLocationOutputEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="IHydraulicLocationOutputEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocationOutput"/>.

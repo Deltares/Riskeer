@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class IProbabilityAssessmentOutputEntityReadExtensionsTest
+    public class ProbabilityAssessmentOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_ValidEntity_ReturnProbabilityAssessmentOutput()

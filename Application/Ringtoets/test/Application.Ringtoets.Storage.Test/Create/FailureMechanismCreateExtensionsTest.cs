@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class IFailureMechanismCreateExtensionsTest
+    public class FailureMechanismCreateExtensionsTest
     {
         [Test]
         public void AddEntitiesForFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()

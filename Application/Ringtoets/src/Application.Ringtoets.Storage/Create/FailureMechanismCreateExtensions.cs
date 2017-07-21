@@ -29,7 +29,7 @@ namespace Application.Ringtoets.Storage.Create
     /// <summary>
     /// Extension methods for <see cref="FailureMechanismBase"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    internal static class IFailureMechanismCreateExtensions
+    internal static class FailureMechanismCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismBase"/>.

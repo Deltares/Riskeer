@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Read
     /// This class defines extension methods for read operations for the common code
     /// among all <see cref="StructuresCalculation{T}"/> instances based on the <see cref="IStructuresCalculationEntity"/>.
     /// </summary>
-    internal static class IStructureCalculationEntityReadExtensions
+    internal static class StructureCalculationEntityReadExtensions
     {
         /// <summary>
         /// Reads all the information from the entity and updated the given input object,

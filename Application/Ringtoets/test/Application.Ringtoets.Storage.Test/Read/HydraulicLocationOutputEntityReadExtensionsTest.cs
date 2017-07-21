@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class IHydraulicLocationOutputEntityReadExtensionsTest
+    public class HydraulicLocationOutputEntityReadExtensionsTest
     {
         [Test]
         [Combinatorial]

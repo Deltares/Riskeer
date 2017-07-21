@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Read
     /// Extension methods for <see cref="IProbabilityAssessmentOutputEntity"/> related to creating a 
     /// <see cref="ProbabilityAssessmentOutput"/>.
     /// </summary>
-    internal static class IProbabilityAssessmentOutputEntityReadExtensions
+    internal static class ProbabilityAssessmentOutputEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="IProbabilityAssessmentOutputEntity"/>
