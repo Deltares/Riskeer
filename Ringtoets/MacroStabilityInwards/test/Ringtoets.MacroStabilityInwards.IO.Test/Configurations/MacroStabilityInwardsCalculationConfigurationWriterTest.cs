@@ -65,8 +65,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
 
-                string pathToExpectedFile = Path.Combine(testDataPath, "folderWithSubfolderAndCalculation.xml");
-                FileAssert.AreEqual(pathToExpectedFile, filePath);
+                string expectedXmlFilePath = Path.Combine(testDataPath, "folderWithSubfolderAndCalculation.xml");
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+                string actualXml = File.ReadAllText(filePath);
+                Assert.AreEqual(expectedXml, actualXml);
             }
             finally
             {

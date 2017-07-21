@@ -260,6 +260,16 @@ namespace Ringtoets.Common.IO.Configurations.Export
             }
         }
 
+        /// <summary>
+        /// Writes the <paramref name="group"/> in XML format to file.
+        /// </summary>
+        /// <param name="group">The calculation group to write.</param>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="group"/> 
+        /// contains a child that is neither <see cref="CalculationGroupConfiguration"/> nor 
+        /// <see cref="T"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private void WriteCalculationGroup(CalculationGroupConfiguration group, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);

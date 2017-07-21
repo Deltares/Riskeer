@@ -26,8 +26,8 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.Configurations.Helpers
 {
     /// <summary>
-    /// Extension methods for <see cref="ILog"/> for logging problems occurring during import 
-    /// or export of configurations.
+    /// Extension methods for <see cref="ILog"/> for logging problems occurring during conversion
+    /// of configurations.
     /// </summary>
     public static class LogExtensions
     {

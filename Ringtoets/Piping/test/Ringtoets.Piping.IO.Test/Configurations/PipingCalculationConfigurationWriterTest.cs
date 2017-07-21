@@ -66,7 +66,9 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 Assert.IsTrue(File.Exists(filePath));
 
                 string pathToExpectedFile = Path.Combine(testDataPath, "folderWithSubfolderAndCalculation.xml");
-                FileAssert.AreEqual(pathToExpectedFile, filePath);
+                string expectedXml = File.ReadAllText(pathToExpectedFile);
+                string actualXml = File.ReadAllText(filePath);
+                Assert.AreEqual(expectedXml, actualXml);
             }
             finally
             {

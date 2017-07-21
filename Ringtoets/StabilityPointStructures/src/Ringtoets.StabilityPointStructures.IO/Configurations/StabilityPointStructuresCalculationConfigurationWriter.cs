@@ -124,6 +124,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                            configuration.ThresholdHeightOpenWeir);
         }
 
+        /// <summary>
+        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(XmlWriter writer,
                                                                                   ConfigurationStabilityPointStructuresLoadSchematizationType? configuration)
         {
@@ -137,6 +144,13 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                       converter.ConvertToInvariantString(configuration.Value));
         }
 
+        /// <summary>
+        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer,
                                                                            ConfigurationStabilityPointStructuresInflowModelType? configuration)
         {

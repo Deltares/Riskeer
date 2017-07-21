@@ -78,6 +78,13 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// is closed.</exception>
         protected abstract void WriteSpecificStochasts(T configuration, XmlWriter writer);
 
+        /// <summary>
+        /// Writes properties that are applicable for all structure configurations.
+        /// </summary>
+        /// <param name="configuration">The structure configuration for which to write the input.</param>
+        /// <param name="writer">The writer that should be used to write the parameters.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private void WriteParameters(T configuration, XmlWriter writer)
         {
             WriteElementWhenContentAvailable(writer,
@@ -99,6 +106,13 @@ namespace Ringtoets.Common.IO.Configurations.Export
             WriteSpecificStructureParameters(configuration, writer);
         }
 
+        /// <summary>
+        /// Writes stochasts definitions that are applicable for all structure configurations.
+        /// </summary>
+        /// <param name="configuration">The structure configuration for which to write the input.</param>
+        /// <param name="writer">The writer that should be used to write the stochasts.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private void WriteStochasts(T configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.StochastsElement);

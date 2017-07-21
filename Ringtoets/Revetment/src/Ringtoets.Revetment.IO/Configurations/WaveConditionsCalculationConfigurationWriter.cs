@@ -94,6 +94,13 @@ namespace Ringtoets.Revetment.IO.Configurations
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
         private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
             XmlWriter writer,
             ConfigurationWaveConditionsInputStepSize? configuration)
