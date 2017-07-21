@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -59,24 +57,6 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("stochasts", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_InvalidCombinationType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            var invalidEnum = (CombinationType) 9001;
-
-            // Call
-            TestDelegate call = () => new FaultTreeIllustrationPoint("Test", 12.3,
-                                                                     Enumerable.Empty<Stochast>(),
-                                                                     invalidEnum);
-
-            // Assert
-            const string expectedMessage = "The value of argument 'value' (9001) is invalid for Enum type 'CombinationType'.";
-            var exception = 
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
-            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]

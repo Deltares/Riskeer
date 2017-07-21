@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Probability
 {

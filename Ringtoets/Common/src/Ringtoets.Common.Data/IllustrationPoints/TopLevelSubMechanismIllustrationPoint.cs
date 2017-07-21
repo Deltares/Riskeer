@@ -41,14 +41,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                                                      SubMechanismIllustrationPoint subMechanismIllustrationPoint) 
             : base(windDirection, closingSituation)
         {
-            if (windDirection == null)
-            {
-                throw new ArgumentNullException(nameof(windDirection));
-            }
-            if (closingSituation == null)
-            {
-                throw new ArgumentNullException(nameof(closingSituation));
-            }
             if (subMechanismIllustrationPoint == null)
             {
                 throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));

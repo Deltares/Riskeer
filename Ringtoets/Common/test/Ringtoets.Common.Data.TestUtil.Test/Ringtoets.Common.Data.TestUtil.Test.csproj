@@ -76,6 +76,7 @@
     <Compile Include="TestHydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointTest.cs" />
+    <Compile Include="TestProbabilityAssessmentOutputTest.cs" />
     <Compile Include="TestStructuresCalculationTest.cs" />
     <Compile Include="TestStructuresInputTest.cs" />
     <Compile Include="TestStructuresOutputTest.cs" />

@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -42,15 +43,10 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "Name of the wind";
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName, windDirectionAngle);
-
             // Call
-            TestDelegate call = () => new TestTopLevelIllustrationPointBase(windDirection, null);
+            TestDelegate call = () => new TestTopLevelIllustrationPointBase(
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,12 +57,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_ValidArguments_ReturnExpectedValues()
         {
             // Setup
-            var random = new Random(21);
-
-            const string windDirectionName = "Name of the wind";
-            double windDirectionAngle = random.NextDouble();
-            var windDirection = new WindDirection(windDirectionName, windDirectionAngle);
-
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             const string closingSituation = "closing situation";
 
             // Call

@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     public abstract class TopLevelIllustrationPointBase
     {
         /// <summary>
-        /// Creates a <see cref="TopLevelIllustrationPointBase"/>.
+        /// Creates a new instance of <see cref="TopLevelIllustrationPointBase"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>

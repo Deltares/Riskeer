@@ -30,11 +30,11 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     public class TopLevelFaultTreeIllustrationPoint : TopLevelIllustrationPointBase
     {
         /// <summary>
-        /// Creates an instance of <see cref="TopLevelFaultTreeIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="TopLevelFaultTreeIllustrationPoint"/>.
         /// </summary>
         /// <param name="windDirection">The wind direction.</param>
         /// <param name="closingSituation">The closing situation.</param>
-        /// <param name="faultTreeNodeRoot">The illustration point.</param>
+        /// <param name="faultTreeNodeRoot">The illustration point root node.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter
         /// is <c>null</c>.</exception>
         public TopLevelFaultTreeIllustrationPoint(WindDirection windDirection,
@@ -42,14 +42,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                                                   IllustrationPointNode faultTreeNodeRoot)
             : base(windDirection, closingSituation)
         {
-            if (windDirection == null)
-            {
-                throw new ArgumentNullException(nameof(windDirection));
-            }
-            if (closingSituation == null)
-            {
-                throw new ArgumentNullException(nameof(closingSituation));
-            }
             if (faultTreeNodeRoot == null)
             {
                 throw new ArgumentNullException(nameof(faultTreeNodeRoot));

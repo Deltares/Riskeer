@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -30,8 +29,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// </summary>
     public class FaultTreeIllustrationPoint : IllustrationPointBase
     {
-        private CombinationType combinationType;
-
         /// <summary>
         /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/>.
         /// </summary>
@@ -43,8 +40,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// tree node element in the fault tree.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
         /// <paramref name="stochasts"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when attempting 
-        /// to set invalid enum value of type <see cref="CombinationType"/>.</exception>
         public FaultTreeIllustrationPoint(string name,
                                           double beta,
                                           IEnumerable<Stochast> stochasts,
@@ -68,28 +63,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the combination type corresponding to this illustration point.
         /// </summary>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when attempting 
-        /// to set invalid enum value of type <see cref="CombinationType"/>.</exception>
-        public CombinationType CombinationType
-        {
-            get
-            {
-                return combinationType;
-            }
-            private set
-            {
-                switch (value)
-                {
-                    case CombinationType.And:
-                        combinationType = value;
-                        break;
-                    case CombinationType.Or:
-                        combinationType = value;
-                        break;
-                    default:
-                        throw new InvalidEnumArgumentException("value", (int) value, typeof(CombinationType));
-                }
-            }
-        }
+        public CombinationType CombinationType { get; }
     }
 }

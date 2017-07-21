@@ -164,6 +164,6 @@
     <value>Er is geen maatgevende windrichting gevonden in de uitvoer database.</value>
   </data>
   <data name="IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes" xml:space="preserve">
-    <value>Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.</value>
+    <value>Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.</value>
   </data>
 </root>

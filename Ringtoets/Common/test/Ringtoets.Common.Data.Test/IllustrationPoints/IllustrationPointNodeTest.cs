@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -77,52 +78,34 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Setup
             var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
-
-            var childrenToBeAttached = new List<IllustrationPointNode>();
-            for (var i = 0; i < nrOfChildren; i++)
-            {
-                childrenToBeAttached.Add(new IllustrationPointNode(new TestIllustrationPoint()));
-            }
+            var childrenToBeAttached = new IllustrationPointNode[nrOfChildren];
 
             // Call
-            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached.ToArray());
+            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached);
 
             // Assert
-            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.";
+            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             Assert.AreEqual("children", exception.ParamName);
-        }
-
-        [Test]
-        public void SetChildren_NoChildren_ReturnsExpectedProperties()
-        {
-            // Setup
-            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
-
-            // Call
-            treeNode.SetChildren(new IllustrationPointNode[0]);
-
-            // Assert
             CollectionAssert.IsEmpty(treeNode.Children);
         }
 
         [Test]
-        public void SetChildren_TwoChildren_ReturnsExpectedProperties()
+        [TestCase(0)]
+        [TestCase(2)]
+        public void SetChildren_ValidNrOfChildren_ReturnsExpectedProperties(int nrOfChildren)
         {
             // Setup
             var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
-
-            var childrenToBeAttached = new[]
-            {
-                new IllustrationPointNode(new TestIllustrationPoint()),
-                new IllustrationPointNode(new TestIllustrationPoint())
-            };
+            var childrenToBeAdded = new IllustrationPointNode[nrOfChildren];
 
             // Call
-            treeNode.SetChildren(childrenToBeAttached);
+            treeNode.SetChildren(childrenToBeAdded);
 
             // Assert
-            CollectionAssert.AreEqual(childrenToBeAttached, treeNode.Children);
+            IEnumerable<IllustrationPointNode> addedChildren = treeNode.Children;
+            Assert.AreSame(childrenToBeAdded, addedChildren);
+            Assert.AreEqual(nrOfChildren, addedChildren.Count());
         }
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -75,6 +76,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("children", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -88,60 +91,40 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             mocks.ReplayAll();
 
             var treeNode = new IllustrationPointTreeNode(data);
-
-            var childrenToBeAttached = new List<IllustrationPointTreeNode>();
-            for (var i = 0; i < nrOfChildren; i++)
-            {
-                childrenToBeAttached.Add(new IllustrationPointTreeNode(data));
-            }
-
+            var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
+            
             // Call
-            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached.ToArray());
+            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached);
 
             // Assert
-            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben.";
+            const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             Assert.AreEqual("children", exception.ParamName);
-        }
-
-        [Test]
-        public void SetChildren_NoChildren_ReturnsExpectedProperties()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var data = mocks.Stub<IIllustrationPoint>();
-            mocks.ReplayAll();
-
-            var treeNode = new IllustrationPointTreeNode(data);
-
-            // Call
-            treeNode.SetChildren(new IllustrationPointTreeNode[0]);
-
-            // Assert
             CollectionAssert.IsEmpty(treeNode.Children);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetChildren_TwoChildren_ReturnsExpectedProperties()
+        [TestCase(0)]
+        [TestCase(2)]
+        public void SetChildren_ValidNrOfChildren_ReturnsExpectedProperties(int nrOfChildren)
         {
             // Setup
             var mocks = new MockRepository();
             var data = mocks.Stub<IIllustrationPoint>();
             mocks.ReplayAll();
-
+            
             var treeNode = new IllustrationPointTreeNode(data);
-
-            var childrenToBeAttached = new[]
-            {
-                new IllustrationPointTreeNode(data),
-                new IllustrationPointTreeNode(data)
-            };
+            var childrenToBeAttached = new IllustrationPointTreeNode[nrOfChildren];
 
             // Call
             treeNode.SetChildren(childrenToBeAttached);
 
             // Assert
-            CollectionAssert.AreEqual(childrenToBeAttached, treeNode.Children);
+            IEnumerable<IllustrationPointTreeNode> addedChildren = treeNode.Children;
+            Assert.AreSame(childrenToBeAttached, addedChildren);
+            Assert.AreEqual(nrOfChildren, addedChildren.Count());
+            mocks.VerifyAll();
         }
     }
 }

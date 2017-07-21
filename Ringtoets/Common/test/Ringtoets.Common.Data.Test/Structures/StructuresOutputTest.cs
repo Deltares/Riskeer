@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Structures
@@ -45,18 +45,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Constructor_ValidProbabilityAssessmentOutput_ReturnsExpectedProperties()
         {
             // Setup
-            var random = new Random(21);
-
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble(); 
-            var output = new ProbabilityAssessmentOutput(requiredProbability,
-                                                         requiredReliability,
-                                                         probability,
-                                                         reliability,
-                                                         factorOfSafety);
+            var output = new TestProbabilityAssessmentOutput();
 
             // Call
             var structuresOutput = new StructuresOutput(output);
@@ -71,13 +60,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble());
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
 
             // Call
             TestDelegate call = () => structuresOutput.SetIllustrationPoints(null) ;
@@ -92,13 +75,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         {
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-
-            var random = new Random(21);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextDouble());
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
 
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
 

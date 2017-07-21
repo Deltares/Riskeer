@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.Structures
     public class StructuresOutput
     {
         /// <summary>
-        /// Creates an instance of <see cref="StructuresOutput"/>.
+        /// Creates a new instance of <see cref="StructuresOutput"/>.
         /// </summary>
         /// <param name="probabilityAssessmentOutput">The results of the probabilistic
         /// assessment calculation.</param>

@@ -25,12 +25,12 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Base class for illustration point elements in the tree node.
+    /// Base class for illustration point elements.
     /// </summary>
     public abstract class IllustrationPointBase
     {
         /// <summary>
-        /// Creates a <see cref="IllustrationPointBase"/>.
+        /// Creates a new instance of <see cref="IllustrationPointBase"/>.
         /// </summary>
         /// <param name="name">The name of the illustration point.</param>
         /// <param name="beta">The beta value of the illustration point.</param>

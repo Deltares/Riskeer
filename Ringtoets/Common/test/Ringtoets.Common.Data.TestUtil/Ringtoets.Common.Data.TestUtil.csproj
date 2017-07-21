@@ -77,6 +77,7 @@
     <Compile Include="TestForeshoreProfile.cs" />
     <Compile Include="TestHydraulicBoundaryLocation.cs" />
     <Compile Include="TestHydraulicBoundaryLocationOutput.cs" />
+    <Compile Include="TestProbabilityAssessmentOutput.cs" />
     <Compile Include="TestStructure.cs" />
     <Compile Include="TestStructuresCalculation.cs" />
     <Compile Include="TestStructuresInput.cs" />

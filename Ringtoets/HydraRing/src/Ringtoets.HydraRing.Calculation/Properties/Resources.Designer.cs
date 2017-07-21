@@ -176,7 +176,7 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 kind nodes hebben..
+        ///   Looks up a localized string similar to Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben..
         /// </summary>
         internal static string IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes {
             get {
