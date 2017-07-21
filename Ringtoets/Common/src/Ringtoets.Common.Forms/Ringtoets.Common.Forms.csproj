@@ -199,6 +199,12 @@
     </Compile>
     <Compile Include="Factories\RingtoetsMapDataFactory.cs" />
     <Compile Include="Views\SelectableRow.cs" />
+    <Compile Include="Views\GeneralResultFaultTreeIllustrationPointView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\GeneralResultFaultTreeIllustrationPointView.Designer.cs">
+      <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
