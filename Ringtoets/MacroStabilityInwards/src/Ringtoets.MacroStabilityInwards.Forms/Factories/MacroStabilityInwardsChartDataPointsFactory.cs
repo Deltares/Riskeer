@@ -98,12 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateSurfaceLevelOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.SurfaceLevelOutside != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.SurfaceLevelOutside)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelOutside);
         }
 
         /// <summary>
@@ -118,12 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateDikeToeAtRiverPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.DikeToeAtRiver != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeToeAtRiver)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtRiver);
         }
 
         /// <summary>
@@ -138,12 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateTrafficLoadOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.TrafficLoadOutside != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.TrafficLoadOutside)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadOutside);
         }
 
         /// <summary>
@@ -158,12 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateTrafficLoadInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.TrafficLoadInside != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.TrafficLoadInside)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadInside);
         }
 
         /// <summary>
@@ -178,12 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateDikeTopAtPolderPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.DikeTopAtPolder != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeTopAtPolder)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeTopAtPolder);
         }
 
         /// <summary>
@@ -198,12 +173,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateShoulderBaseInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.ShoulderBaseInside != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.ShoulderBaseInside)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderBaseInside);
+        }
+
+        /// <summary>
+        /// Create a shoulder top inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the shoulder top inside point for.</param>
+        /// <returns>An array with a shoulder top inside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the shoulder top inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateShoulderTopInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderTopInside);
         }
 
         /// <summary>
@@ -218,12 +203,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static Point2D[] CreateDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.DitchPolderSide != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DitchPolderSide)
-                       }
-                       : new Point2D[0];
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchPolderSide);
+        }
+
+        private static Point2D[] GetLocalPointsFromGeometry(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine,
+                                                            Point3D worldCoordinate)
+        {
+            if (surfaceLine == null || worldCoordinate == null)
+            {
+                return new Point2D[0];
+            }
+
+            return new[]
+            {
+                surfaceLine.GetLocalPointFromGeometry(worldCoordinate)
+            };
         }
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)

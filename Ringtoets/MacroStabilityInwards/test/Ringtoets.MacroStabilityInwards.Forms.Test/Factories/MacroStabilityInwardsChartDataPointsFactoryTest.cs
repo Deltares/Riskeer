@@ -290,6 +290,45 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateShoulderTopInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateShoulderTopInsidePoint_ShoulderTopInsideNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateShoulderTopInsidePoint_GivenSurfaceLineWithShoulderTopInside_ReturnsShoulderTopInsidePointsArray()
+        {
+            // Setup
+            var shoulderTopInside = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetShoulderTopInsideAt(shoulderTopInside);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(shoulderTopInside, surfaceLine, points);
+        }
+
+        [Test]
         public void CreateDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Call

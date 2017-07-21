@@ -46,14 +46,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int trafficLoadInsideIndex = 5;
         private const int dikeTopAtPolderIndex = 6;
         private const int shoulderBaseInsideIndex = 7;
-        private const int shoulderTopInsideIndex = 2;
+        private const int shoulderTopInsideIndex = 8;
         private const int dikeToeAtPolderIndex = 2;
         private const int ditchDikeSideIndex = 2;
         private const int bottomDitchDikeSideIndex = 2;
         private const int bottomDitchPolderSideIndex = 2;
-        private const int ditchPolderSideIndex = 8;
+        private const int ditchPolderSideIndex = 9;
         private const int surfaceLevelInsideIndex = 2;
-        private const int nrOfChartData = 9;
+        private const int nrOfChartData = 10;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -516,6 +516,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedTrafficLoadInsideIndex = trafficLoadInsideIndex - 1;
             const int updatedDikeTopAtPolderIndex = dikeTopAtPolderIndex - 1;
             const int updatedShoulderBaseInsideIndex = shoulderBaseInsideIndex - 1;
+            const int updatedShoulderTopInsideIndex = shoulderTopInsideIndex - 1;
             const int updatedDitchPolderSideIndex = ditchPolderSideIndex - 1;
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -541,6 +542,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var trafficLoadInsideData = (ChartPointData) chartDataList[updatedTrafficLoadInsideIndex];
                 var dikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
                 var shoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
+                var shoulderTopInsideData = (ChartPointData) chartDataList[updatedShoulderTopInsideIndex];
                 var ditchPolderSideData = (ChartPointData) chartDataList[updatedDitchPolderSideIndex];
 
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -551,6 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Verkeersbelasting kant binnenwaarts", trafficLoadInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
                 Assert.AreEqual("Insteek binnenberm", shoulderBaseInsideData.Name);
+                Assert.AreEqual("Kruin binnenberm", shoulderTopInsideData.Name);
                 Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideData.Name);
 
                 RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -570,6 +573,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualTrafficLoadInsideData = (ChartPointData) chartDataList[updatedTrafficLoadInsideIndex];
                 var actualDikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
                 var actualShoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
+                var actualShoulderTopInsideData = (ChartPointData) chartDataList[updatedShoulderTopInsideIndex];
                 var actualDitchPolderSideData = (ChartPointData) chartDataList[updatedDitchPolderSideIndex];
 
                 Assert.AreEqual("Ondergrondschematisatie", actualSoilProfileData.Name);
@@ -580,6 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Verkeersbelasting kant binnenwaarts", actualTrafficLoadInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", actualDikeTopAtPolderData.Name);
                 Assert.AreEqual("Insteek binnenberm", actualShoulderBaseInsideData.Name);
+                Assert.AreEqual("Kruin binnenberm", actualShoulderTopInsideData.Name);
                 Assert.AreEqual("Insteek sloot polderzijde", actualDitchPolderSideData.Name);
             }
         }
@@ -740,6 +745,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var trafficLoadInsideData = (ChartPointData) chartDatasList[trafficLoadInsideIndex];
             var dikeTopAtPolderData = (ChartPointData) chartDatasList[dikeTopAtPolderIndex];
             var shoulderBaseInsideData = (ChartPointData) chartDatasList[shoulderBaseInsideIndex];
+            var shoulderTopInsideData = (ChartPointData) chartDatasList[shoulderTopInsideIndex];
             var ditchPolderSideData = (ChartPointData) chartDatasList[ditchPolderSideIndex];
 
             CollectionAssert.IsEmpty(soilProfileData.Collection);
@@ -750,6 +756,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(trafficLoadInsideData.Points);
             CollectionAssert.IsEmpty(dikeTopAtPolderData.Points);
             CollectionAssert.IsEmpty(shoulderBaseInsideData.Points);
+            CollectionAssert.IsEmpty(shoulderTopInsideData.Points);
             CollectionAssert.IsEmpty(ditchPolderSideData.Points);
 
             Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -760,6 +767,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Verkeersbelasting kant binnenwaarts", trafficLoadInsideData.Name);
             Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
             Assert.AreEqual("Insteek binnenberm", shoulderBaseInsideData.Name);
+            Assert.AreEqual("Kruin binnenberm", shoulderTopInsideData.Name);
             Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideData.Name);
         }
 
