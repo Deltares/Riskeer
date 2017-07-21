@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 
@@ -56,29 +56,6 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void AreClosingSituationsSame_CollectionContainsNull_ThrowsArgumentException()
-        {
-            // Setup
-            var baseLineItem = new IllustrationPointControlItem(new object(),
-                                                            "name of the wind",
-                                                            "ClosingSituation",
-                                                            Enumerable.Empty<Stochast>(),
-                                                            RoundedDouble.NaN);
-
-            // Call
-            TestDelegate call = () => IllustrationPointControlItemHelper.AreClosingSituationsSame(new[]
-            {
-                baseLineItem,
-                null
-            });
-
-            // Assert
-            const string expectedMessage = "Collection cannot contain null items";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-            Assert.AreEqual("illustrationPointControlItems", exception.ParamName);
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetDifferentIllustrationPointControlItemsWithSameClosingSituation))]
         public void AreClosingSituationsSame_CollectionContainsItemsWithTheSameClosingSituation_ReturnsTrue(IllustrationPointControlItem baselineItem,
                                                                                                             IllustrationPointControlItem itemToCompare)
@@ -101,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         public void AreClosingSituationsSame_CollectionContainsItemsWithDifferentClosingSituation_ReturnsFalse()
         {
             // Setup
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
             const string windDirectionName = "name of the wind";
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             RoundedDouble beta = RoundedDouble.NaN;
@@ -123,13 +100,13 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         private static IEnumerable<TestCaseData> GetDifferentIllustrationPointControlItemsWithSameClosingSituation()
         {
             const string closingSituation = "ClosingSituation";
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
             const string windDirectionName = "name of the wind";
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             RoundedDouble beta = RoundedDouble.NaN;
             var baseline = new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta);
 
-            yield return new TestCaseData(baseline, new IllustrationPointControlItem(new object(),
+            yield return new TestCaseData(baseline, new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                                                      windDirectionName,
                                                                                      closingSituation,
                                                                                      stochasts,

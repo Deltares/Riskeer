@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -51,9 +50,9 @@ namespace Ringtoets.Common.Forms.Views
             InitializeEventHandlers();
         }
 
-        public abstract object Data { get; set; }
-
         public object Selection { get; private set; }
+
+        public abstract object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {

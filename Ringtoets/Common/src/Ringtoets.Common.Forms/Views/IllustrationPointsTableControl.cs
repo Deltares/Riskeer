@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Views
             if (illustrationPointRow != null)
             {
                 selection = new SelectableTopLevelIllustrationPoint(
-                    (TopLevelIllustrationPointBase) illustrationPointRow.IllustrationPointControlItem.Source,
+                    illustrationPointRow.IllustrationPointControlItem.Source,
                     data.Select(ipc => ipc.ClosingSituation));
             }
             return selection;

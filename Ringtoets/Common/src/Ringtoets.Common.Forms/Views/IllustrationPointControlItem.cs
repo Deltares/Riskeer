@@ -35,17 +35,17 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointControlItem"/>.
         /// </summary>
-        /// <param name="source">The wrapped source object.</param>
+        /// <param name="source">The wrapped source <see cref="TopLevelIllustrationPointBase"/>.</param>
         /// <param name="windDirectionName">The name of the wind direction.</param>
         /// <param name="closingSituation">The closing situation of the illustration
-        /// point.</param>
+        ///     point.</param>
         /// <param name="stochasts">The associated stochasts.</param>
         /// <param name="beta">The beta of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when parameter 
         /// <paramref name="source"/>, <paramref name="windDirectionName"/>,
         /// <paramref name="closingSituation"/> or <paramref name="stochasts"/> is 
         /// <c>null</c>.</exception>
-        public IllustrationPointControlItem(object source,
+        public IllustrationPointControlItem(TopLevelIllustrationPointBase source,
                                             string windDirectionName,
                                             string closingSituation,
                                             IEnumerable<Stochast> stochasts,
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the wrapped source object.
         /// </summary>
-        public object Source { get; }
+        public TopLevelIllustrationPointBase Source { get; }
 
         /// <summary>
         /// Gets the wind direction name.

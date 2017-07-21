@@ -74,15 +74,12 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
 
             int nrOfChildren = children.Length;
-            if (nrOfChildren == 0 || nrOfChildren == 2)
-            {
-                Children = children;
-            }
-            else
+            if (nrOfChildren != 0 && nrOfChildren != 2)
             {
                 throw new ArgumentException(Resources.IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
                                             nameof(children));
             }
+            Children = children;
         }
     }
 }

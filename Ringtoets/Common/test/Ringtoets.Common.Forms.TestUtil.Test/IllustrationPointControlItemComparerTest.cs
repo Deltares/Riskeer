@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.TestUtil.Test
@@ -49,7 +50,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void Compare_EqualControlItems_Returns0()
         {
             // Setup
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
 
             const string windDirectionName = "Name of the wind";
             const string closingSituation = "Situation of closing";
@@ -112,9 +113,9 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         private static IEnumerable<TestCaseData> GetUnsupportedCases()
         {
             yield return new TestCaseData(new object(),
-                                          new IllustrationPointControlItem(new object(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN))
+                                          new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN))
                 .SetName("x unsupported");
-            yield return new TestCaseData(new IllustrationPointControlItem(new object(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN),
+            yield return new TestCaseData(new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), "SSE", "Regular", Enumerable.Empty<Stochast>(), RoundedDouble.NaN),
                                           new object())
                 .SetName("y unsupported");
             yield return new TestCaseData(new object(),
@@ -124,14 +125,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
         private static IEnumerable<TestCaseData> GetUnequalItems()
         {
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
             const string windDirectionName = "Name of the wind";
             const string closingSituation = "Situation of closing";
             IEnumerable<Stochast> stochasts = new Stochast[0];
             var beta = (RoundedDouble) 3.14;
 
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
-                                          new IllustrationPointControlItem(new object(), windDirectionName, closingSituation, stochasts, beta))
+                                          new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), windDirectionName, closingSituation, stochasts, beta))
                 .SetName("Different source reference");
             yield return new TestCaseData(new IllustrationPointControlItem(source, windDirectionName, closingSituation, stochasts, beta),
                                           new IllustrationPointControlItem(source, "A different name", closingSituation, stochasts, beta))

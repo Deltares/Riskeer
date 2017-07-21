@@ -53,7 +53,8 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="illustrationPointControlItems">The data to create the columns from.</param>
         /// <param name="stackChartData">The stack chart data to create the columns for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void CreateColumns(IEnumerable<IllustrationPointControlItem> illustrationPointControlItems, StackChartData stackChartData)
+        public static void CreateColumns(IEnumerable<IllustrationPointControlItem> illustrationPointControlItems,
+                                         StackChartData stackChartData)
         {
             if (illustrationPointControlItems == null)
             {
@@ -64,10 +65,9 @@ namespace Ringtoets.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(stackChartData));
             }
 
-            Tuple<string, string>[] labels = illustrationPointControlItems.Select(controlItem =>
-                                                                                      new Tuple<string, string>(controlItem.WindDirectionName,
-                                                                                                                controlItem.ClosingSituation))
-                                                                          .ToArray();
+            IEnumerable<Tuple<string, string>> labels =
+                illustrationPointControlItems.Select(controlItem => Tuple.Create(controlItem.WindDirectionName,
+                                                                                 controlItem.ClosingSituation));
 
             bool showClosingSituation = !IllustrationPointControlItemHelper.AreClosingSituationsSame(illustrationPointControlItems);
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.Factories
         private static IEnumerable<Tuple<string, RoundedDouble>> GetStochastValues(IllustrationPointControlItem illustrationPointControlItem)
         {
             return illustrationPointControlItem.Stochasts
-                                               .Select(stochast => new Tuple<string, RoundedDouble>(
+                                               .Select(stochast => Tuple.Create(
                                                            stochast.Name,
                                                            new RoundedDouble(5, Math.Pow(stochast.Alpha, 2))));
         }

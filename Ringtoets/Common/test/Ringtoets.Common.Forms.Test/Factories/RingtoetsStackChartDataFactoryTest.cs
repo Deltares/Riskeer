@@ -75,23 +75,22 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Setup
             var stackChartData = new StackChartData();
 
-            const string windDirectionName = "SSE";
             const string closingSituation = "Regular";
             var beta = (RoundedDouble) 3.14;
             var controlItems = new[]
             {
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
+                                                 "WindDirectionName1",
                                                  closingSituation,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirectionName2",
                                                  closingSituation,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirectionName3",
                                                  closingSituation,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta)
@@ -103,9 +102,9 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual(windDirectionName, columns[0]);
-            Assert.AreEqual(windDirectionName, columns[1]);
-            Assert.AreEqual(windDirectionName, columns[2]);
+            Assert.AreEqual(controlItems[0].WindDirectionName, columns[0]);
+            Assert.AreEqual(controlItems[1].WindDirectionName, columns[1]);
+            Assert.AreEqual(controlItems[2].WindDirectionName, columns[2]);
         }
 
         [Test]
@@ -115,24 +114,23 @@ namespace Ringtoets.Common.Forms.Test.Factories
             const string closingSituationRegular = "Regular";
             const string closingSituationClosed = "Closed";
             const string closingSituationOpen = "Open";
-            const string windDirectionName = "SSE";
             var beta = (RoundedDouble) 3.14;
 
             var stackChartData = new StackChartData();
             var controlItems = new[]
             {
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirection 1",
                                                  closingSituationRegular,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirection 2",
                                                  closingSituationClosed,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirection 3",
                                                  closingSituationOpen,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta)
@@ -144,9 +142,9 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             string[] columns = stackChartData.Columns.ToArray();
             Assert.AreEqual(3, columns.Length);
-            Assert.AreEqual($"{windDirectionName} ({closingSituationRegular})", columns[0]);
-            Assert.AreEqual($"{windDirectionName} ({closingSituationClosed})", columns[1]);
-            Assert.AreEqual($"{windDirectionName} ({closingSituationOpen})", columns[2]);
+            Assert.AreEqual($"{controlItems[0].WindDirectionName} ({closingSituationRegular})", columns[0]);
+            Assert.AreEqual($"{controlItems[1].WindDirectionName} ({closingSituationClosed})", columns[1]);
+            Assert.AreEqual($"{controlItems[2].WindDirectionName} ({closingSituationOpen})", columns[2]);
         }
 
         [Test]
@@ -182,7 +180,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             var controlItems = new[]
             {
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  windDirectionName,
                                                  closingSituation,
                                                  new[]
@@ -193,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.099)
                                                  }, beta),
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  windDirectionName,
                                                  closingSituation,
                                                  new[]
@@ -204,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 5", -0.9)
                                                  }, beta),
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  windDirectionName,
                                                  closingSituation,
                                                  new[]

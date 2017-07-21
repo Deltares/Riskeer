@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,6 +29,7 @@ using Core.Common.TestUtil;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
@@ -57,9 +59,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var chartControl = new IllustrationPointsChartControl();
-
+            IllustrationPointControlItem[] illustrationPointControlItems = GetControlItems().ToArray();
+            
             // When
-            chartControl.Data = GetControlItems();
+            chartControl.Data = illustrationPointControlItems;
 
             // Then
             IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
@@ -69,9 +72,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(3, columns.Length);
             Assert.AreEqual(3, rows.Length);
 
-            Assert.AreEqual("SSE", columns[0]);
-            Assert.AreEqual("SSE", columns[1]);
-            Assert.AreEqual("SSE", columns[2]);
+            Assert.AreEqual(illustrationPointControlItems[0].WindDirectionName, columns[0]);
+            Assert.AreEqual(illustrationPointControlItems[1].WindDirectionName, columns[1]);
+            Assert.AreEqual(illustrationPointControlItems[2].WindDirectionName, columns[2]);
 
             Assert.AreEqual("Stochast 1", rows[0].Name);
             CollectionAssert.AreEqual(new[]
@@ -97,6 +100,45 @@ namespace Ringtoets.Common.Forms.Test.Views
                 0.0018
             }, rows[2].Values, new DoubleWithToleranceComparer(1e-6));
             Assert.AreEqual(Color.Gray, rows[2].Color);
+        }
+
+        [Test]
+        public void GivenStackChartControlWithData_WhenClosingSituationsAreDifferent_StackChartControlDisplaysClosingSituation()
+        {
+            // Given
+            var chartControl = new IllustrationPointsChartControl();
+            var random = new Random(21);
+
+            const string closingSituationRegular = "Regular";
+            const string closingSituationOpen = "Open";
+
+            var controlItems =new []
+            {
+                 new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "SE",
+                                                 closingSituationOpen,
+                                                 Enumerable.Empty<Stochast>(), 
+                                                 random.NextRoundedDouble()),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "NE",
+                                                 closingSituationRegular,
+                                                 Enumerable.Empty<Stochast>(), 
+                                                 random.NextRoundedDouble())
+            };
+
+            // When
+            chartControl.Data = controlItems;
+
+            // Then
+            IStackChartControl chart = chartControl.Controls.OfType<IStackChartControl>().Single();
+            string[] columns = chart.Data.Columns.ToArray();
+            RowChartData[] rows = chart.Data.Rows.ToArray();
+
+            Assert.AreEqual(2, columns.Length);
+            Assert.AreEqual(0, rows.Length);
+
+            Assert.AreEqual($"{controlItems[0].WindDirectionName} ({closingSituationOpen})", columns[0]);
+            Assert.AreEqual($"{controlItems[1].WindDirectionName} ({closingSituationRegular})", columns[1]);
         }
 
         [Test]
@@ -133,27 +175,24 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(3, chart.Data.Rows.Count());
 
             // When
-            const string windDirectionName = "SSE";
-            const string closingSituation = "Regular";
-            var beta = (RoundedDouble) 1.0;
             chartControl.Data = new[]
             {
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
-                                                 closingSituation,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "SSE",
+                                                 "Regular",
                                                  new[]
                                                  {
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.9),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.43589)
-                                                 }, beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
-                                                 closingSituation,
+                                                 }, (RoundedDouble) 1.0),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "NE",
+                                                 "Closing",
                                                  new[]
                                                  {
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.43589),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.9)
-                                                 }, beta)
+                                                 }, (RoundedDouble) 3.0)
             };
 
             // Then
@@ -168,42 +207,38 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private static IEnumerable<IllustrationPointControlItem> GetControlItems()
         {
-            const string windDirectionName = "SSE";
-            const string closingSituation = "Regular";
-            var beta = (RoundedDouble) 1.0;
-
             return new[]
             {
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
-                                                 closingSituation,
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "SSE",
+                                                 "Regular",
                                                  new[]
                                                  {
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.9),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.43589),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.01),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.01)
-                                                 }, beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
-                                                 closingSituation,
+                                                 }, (RoundedDouble) 1.0),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "NE",
+                                                 "Regular",
                                                  new[]
                                                  {
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.02),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.02)
-                                                 }, beta),
-                new IllustrationPointControlItem(new object(),
-                                                 windDirectionName,
-                                                 closingSituation,
+                                                 }, (RoundedDouble) 2.0),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "SE",
+                                                 "Regular",
                                                  new[]
                                                  {
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 1", -0.43589),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 2", -0.9),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 3", -0.03),
                                                      new TestSubMechanismIllustrationPointStochast("Stochast 4", -0.03)
-                                                 }, beta)
+                                                 }, (RoundedDouble) 3.0)
             };
         }
     }

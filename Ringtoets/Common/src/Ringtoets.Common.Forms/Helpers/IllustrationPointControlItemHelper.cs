@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="illustrationPointControlItems">The collection of <see cref="IllustrationPointControlItem"/>
         /// to determine the closing situations for.</param>
         /// <returns><c>true</c> if all items in the collection have the same closing situation; 
-        /// <c>false</c> if otherwise.</returns>
+        /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointControlItems"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointControlItems"/>
@@ -50,14 +50,8 @@ namespace Ringtoets.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(illustrationPointControlItems));
             }
 
-            IllustrationPointControlItem[] illustrationPointControlItemArray = illustrationPointControlItems.ToArray();
-            if (illustrationPointControlItemArray.Contains(null))
-            {
-                throw new ArgumentException(@"Collection cannot contain null items", nameof(illustrationPointControlItems));
-            }
-
-            return illustrationPointControlItemArray.All(item => item.ClosingSituation ==
-                                                                 illustrationPointControlItemArray[0].ClosingSituation);
+            IEnumerable<string> closingSituations = illustrationPointControlItems.Select(it => it.ClosingSituation);
+            return closingSituations.Distinct().Count() < 2;
         }
     }
 }

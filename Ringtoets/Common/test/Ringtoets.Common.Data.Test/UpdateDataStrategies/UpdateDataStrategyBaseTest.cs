@@ -614,7 +614,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             protected override IEnumerable<IObservable> UpdateObjectAndDependentData(TestItem objectToUpdate, TestItem objectToUpdateFrom)
             {
                 IsUpdateDataCalled = true;
-                UpdateDataCallArguments.Add(new Tuple<TestItem, TestItem>(objectToUpdate, objectToUpdateFrom));
+                UpdateDataCallArguments.Add(Tuple.Create(objectToUpdate, objectToUpdateFrom));
 
                 return AddObjectToUpdateToAffectedItems
                            ? ItemsToUpdate.Concat(ItemsToUpdateFrom).Concat(new[]
@@ -628,7 +628,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             {
                 IsRemoveObjectAndDependentDataCalled = true;
 
-                RemoveDataCallArguments.Add(new Tuple<TestItem>(removedObject));
+                RemoveDataCallArguments.Add(Tuple.Create(removedObject));
 
                 return ItemsToRemove;
             }

@@ -139,12 +139,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var data = new[]
             {
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "SSE",
                                                  "Regular",
                                                  Enumerable.Empty<Stochast>(),
                                                  new RoundedDouble(5, 0.9)),
-                new IllustrationPointControlItem(new object(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "SSE",
                                                  "Regular",
                                                  Enumerable.Empty<Stochast>(),

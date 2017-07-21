@@ -77,7 +77,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new TopLevelSubMechanismIllustrationPointProperties(
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                           string.Empty,
-                                                          new TestSubMechanismIllustrationPoint()), Enumerable.Empty<string>());
+                                                          new TestSubMechanismIllustrationPoint()),
+                Enumerable.Empty<string>());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<TopLevelSubMechanismIllustrationPoint>>(properties);

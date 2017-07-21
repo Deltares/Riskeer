@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int nrOfDecimals = 10;
             var beta = new RoundedDouble(nrOfDecimals, 13.37);
 
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
 
             // Call

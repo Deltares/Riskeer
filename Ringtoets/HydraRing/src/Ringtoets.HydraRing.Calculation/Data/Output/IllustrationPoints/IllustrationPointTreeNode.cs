@@ -73,15 +73,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             }
 
             int nrOfChildren = children.Length;
-            if (nrOfChildren == 0 || nrOfChildren == 2)
-            {
-                Children = children;
-            }
-            else
+            if (nrOfChildren != 0 && nrOfChildren != 2)
             {
                 throw new ArgumentException(Resources.IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
-                                            nameof(children));
+                                           nameof(children));
+                
             }
+            Children = children;
         }
     }
 }

@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             const string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
-            var expectedLogMessage = new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(expectedMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
         }
@@ -418,8 +418,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            var expectedLogMessage = new Tuple<string, LogLevelConstant>(cancelledLogMessage,
-                                                                         LogLevelConstant.Info);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage,
+                                                                              LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             Assert.IsFalse(updateDataStrategy.Updated);
@@ -455,8 +455,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            var expectedLogMessage = new Tuple<string, LogLevelConstant>(cancelledLogMessage,
-                                                                         LogLevelConstant.Info);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage,
+                                                                              LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             Assert.IsFalse(updateDataStrategy.Updated);

@@ -595,7 +595,7 @@ namespace Core.Common.TestUtil
         {
             IEnumerable<Tuple<string, Level, Exception>> renderedMessages = GetAllRenderedMessagesWithExceptions(action);
 
-            return renderedMessages.Select(t => new Tuple<string, Level>(t.Item1, t.Item2));
+            return renderedMessages.Select(t => Tuple.Create(t.Item1, t.Item2));
         }
 
         private static IEnumerable<Tuple<string, Level, Exception>> GetAllRenderedMessagesWithExceptions(Action action)

@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 control.Data = new[]
                 {
-                    new IllustrationPointControlItem(new object(),
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                      "SSE",
                                                      "Regular",
                                                      Enumerable.Empty<Stochast>(),

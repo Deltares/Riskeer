@@ -279,7 +279,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("Stormduur.", stormDurationProperty.Description);
 
-            PropertyDescriptor shouldIllustrationPointsBeCalculatedProperty = dynamicProperties[dynamicProperties.Count - 1];
+            int illustrationPointPropertyIndex = dynamicProperties.Count - 1;
+            PropertyDescriptor shouldIllustrationPointsBeCalculatedProperty = dynamicProperties[illustrationPointPropertyIndex];
             Assert.AreEqual(outputSettingsCategory, shouldIllustrationPointsBeCalculatedProperty.Category);
             Assert.AreEqual("Illustratiepunten inlezen", shouldIllustrationPointsBeCalculatedProperty.DisplayName);
             Assert.AreEqual("Neem de informatie over de illustratiepunten op in het berekeningsresultaat.", shouldIllustrationPointsBeCalculatedProperty.Description);

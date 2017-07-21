@@ -51,12 +51,8 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 return x.ClosingSituation.CompareTo(y.ClosingSituation);
             }
-            if (x.Beta.CompareTo(y.Beta) != 0)
-            {
-                return x.Beta.CompareTo(y.Beta);
-            }
 
-            return 0;
+            return x.Beta.CompareTo(y.Beta);
         }
 
         public int Compare(object x, object y)

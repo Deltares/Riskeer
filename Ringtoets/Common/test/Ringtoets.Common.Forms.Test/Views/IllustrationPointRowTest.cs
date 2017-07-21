@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 
@@ -46,10 +47,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
-            var source = new object();
+            var source = new TestTopLevelIllustrationPoint();
             const string windDirectionName = "Name";
             const string closingSituation = "Closing situation";
 
