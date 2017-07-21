@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Structures
@@ -29,7 +28,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
-    public class StructuresCalculation<T> : Observable, ICalculation<T> where T : ICalculationInput, new()
+    public class StructuresCalculation<T> : Observable, IStructuresCalculation, ICalculation<T> where T : ICalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.

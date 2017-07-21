@@ -38,6 +38,8 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<IStructuresCalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<TestStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);

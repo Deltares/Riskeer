@@ -87,6 +87,7 @@
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
     <Compile Include="PresentationObjects\SelectableTopLevelIllustrationPointTest.cs" />
+    <Compile Include="PresentationObjects\StructuresOutputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionPropertiesTest.cs" />
