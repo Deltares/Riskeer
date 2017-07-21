@@ -49,7 +49,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             const string expectedName = "<some nice name>";
             var point1 = new Point3D(1.1, 2.2, 3.3);
-            var point2 = new Point3D(2.1, 2.2, 3.3);
+            var point2 = new Point3D(2.1, 2.3, 3.3);
+            var point3 = new Point3D(3.8, 2.4, 5.5);
+            var point4 = new Point3D(4.4, 2.5, 4.4);
+            var point5 = new Point3D(5.1, 2.6, 3.3);
+            var point6 = new Point3D(6.1, 2.7, 3.3);
+            var point7 = new Point3D(7.4, 2.8, 1.2);
+            var point8 = new Point3D(8.2, 2.9, 1.2);
+            var point9 = new Point3D(9.3, 3.2, 1.0);
+            var point10 = new Point3D(10.1, 3.5, 0.5);
+            var point11 = new Point3D(12.2, 3.8, 0.5);
+            var point12 = new Point3D(13.1, 4.2, 1.0);
+            var point13 = new Point3D(15.1, 5.6, 1.1);
 
             var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
             {
@@ -58,8 +69,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             surfaceLine.SetGeometry(new[]
             {
                 point1,
-                point2
+                point2,
+                point3,
+                point4,
+                point5,
+                point6,
+                point7,
+                point8,
+                point9,
+                point10,
+                point11,
+                point12,
+                point13
             });
+
+            surfaceLine.SetSurfaceLevelOutsideAt(point1);
+            surfaceLine.SetDikeToeAtRiverAt(point2);
+            surfaceLine.SetDikeTopAtPolderAt(point3);
+            surfaceLine.SetShoulderBaseInsideAt(point4);
+            surfaceLine.SetTrafficLoadOutsideAt(point5);
+            surfaceLine.SetTrafficLoadInsideAt(point6);
+            surfaceLine.SetShoulderTopInsideAt(point7);
+            surfaceLine.SetDikeTopAtPolderAt(point8);
+            surfaceLine.SetDitchDikeSideAt(point9);
+            surfaceLine.SetBottomDitchDikeSideAt(point10);
+            surfaceLine.SetBottomDitchPolderSideAt(point11);
+            surfaceLine.SetDitchPolderSideAt(point12);
+            surfaceLine.SetSurfaceLevelInsideAt(point13);
 
             var properties = new RingtoetsMacroStabilityInwardsSurfaceLineProperties
             {
@@ -69,6 +105,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(expectedName, properties.Name);
             CollectionAssert.AreEqual(surfaceLine.Points, properties.Points);
+            Assert.AreEqual(surfaceLine.SurfaceLevelOutside, properties.SurfaceLevelOutside);
+            Assert.AreEqual(surfaceLine.DikeToeAtRiver, properties.DikeToeAtRiver);
+            Assert.AreEqual(surfaceLine.DikeTopAtPolder, properties.DikeTopAtPolder);
+            Assert.AreEqual(surfaceLine.ShoulderBaseInside, properties.ShoulderBaseInside);
+            Assert.AreEqual(surfaceLine.TrafficLoadOutside, properties.TrafficLoadOutside);
+            Assert.AreEqual(surfaceLine.TrafficLoadInside, properties.TrafficLoadInside);
+            Assert.AreEqual(surfaceLine.ShoulderTopInside, properties.ShoulderTopInside);
+            Assert.AreEqual(surfaceLine.DikeTopAtPolder, properties.DikeTopAtPolder);
+            Assert.AreEqual(surfaceLine.DitchDikeSide, properties.DitchDikeSide);
+            Assert.AreEqual(surfaceLine.BottomDitchDikeSide, properties.BottomDitchDikeSide);
+            Assert.AreEqual(surfaceLine.BottomDitchPolderSide, properties.BottomDitchPolderSide);
+            Assert.AreEqual(surfaceLine.DitchPolderSide, properties.DitchPolderSide);
+            Assert.AreEqual(surfaceLine.SurfaceLevelInside, properties.SurfaceLevelInside);
         }
 
         [Test]

@@ -30,7 +30,6 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
-
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -543,6 +542,29 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                                                       ? new Point2D(fromSurfaceLine.ReferenceLineIntersectionWorldPoint)
                                                       : null;
             SetGeometry(fromSurfaceLine.Points);
+            SetCharacteristicPoints(fromSurfaceLine);
+        }
+
+        private void SetCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine fromSurfaceLine)
+        {
+            SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
+            TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
+            TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
+            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
+            ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
+            ShoulderTopInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderTopInside);
+            BottomDitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchDikeSide);
+            BottomDitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchPolderSide);
+            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
+            DikeToeAtRiver = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtRiver);
+            DitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.DitchDikeSide);
+            DitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.DitchPolderSide);
+            SurfaceLevelInside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelInside);
+        }
+
+        private Point3D PointFromGeometryOrNull(Point3D point3D)
+        {
+            return point3D != null ? GetPointFromGeometry(point3D) : null;
         }
 
         public override bool Equals(object obj)
@@ -571,6 +593,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 {
                     hashCode = (hashCode * 397) ^ point.GetHashCode();
                 }
+
+                hashCode = (hashCode * 397) ^ (SurfaceLevelInside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (SurfaceLevelOutside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (TrafficLoadInside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (TrafficLoadOutside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DikeTopAtPolder?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (ShoulderBaseInside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (ShoulderTopInside?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DikeToeAtPolder?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DikeToeAtRiver?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DitchDikeSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DitchPolderSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (BottomDitchDikeSide?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (BottomDitchPolderSide?.GetHashCode() ?? 0);
 
                 return hashCode;
             }
@@ -608,7 +644,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             return string.Equals(Name, other.Name)
                    && Equals(ReferenceLineIntersectionWorldPoint, other.ReferenceLineIntersectionWorldPoint)
-                   && EqualGeometricPoints(other.Points);
+                   && EqualGeometricPoints(other.Points)
+                   && EqualCharacteristicPoints(other);
+        }
+
+        private bool EqualCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine other)
+        {
+            return Equals(SurfaceLevelInside, other.SurfaceLevelInside)
+                   && Equals(SurfaceLevelOutside, other.SurfaceLevelOutside)
+                   && Equals(TrafficLoadInside, other.TrafficLoadInside)
+                   && Equals(TrafficLoadOutside, other.TrafficLoadOutside)
+                   && Equals(DikeTopAtPolder, other.DikeTopAtPolder)
+                   && Equals(ShoulderBaseInside, other.ShoulderBaseInside)
+                   && Equals(ShoulderTopInside, other.ShoulderTopInside)
+                   && Equals(DikeToeAtPolder, other.DikeToeAtPolder)
+                   && Equals(DikeToeAtRiver, other.DikeToeAtRiver)
+                   && Equals(DitchDikeSide, other.DitchDikeSide)
+                   && Equals(DitchPolderSide, other.DitchPolderSide)
+                   && Equals(BottomDitchDikeSide, other.BottomDitchDikeSide)
+                   && Equals(BottomDitchPolderSide, other.BottomDitchPolderSide);
         }
 
         private bool EqualGeometricPoints(Point3D[] otherPoints)

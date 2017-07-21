@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
@@ -949,6 +950,240 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void Equals_DifferentSurfaceLevelInside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetSurfaceLevelInsideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentTrafficLoadInside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetTrafficLoadInsideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentTrafficLoadOutside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetTrafficLoadOutsideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDikeTopAtPolder_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeTopAtPolderAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentShoulderBaseInside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetShoulderBaseInsideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentShoulderTopInside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetShoulderTopInsideAt(points[7]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentSurfaceLevelOutside_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetSurfaceLevelOutsideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDitchDikeSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDitchDikeSideAt(points[1]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
+        public void Equals_DifferentDitchPolderSide_ReturnsFalse()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDitchPolderSideAt(points[1]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
         public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
         {
             // Setup
@@ -1006,6 +1241,30 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                 actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
             TestHelper.AssertCollectionAreNotSame(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+
+            Point3D[] actualSurfaceLinePoints = actualSurfaceLine.Points;
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.SurfaceLevelOutside, actualSurfaceLine.SurfaceLevelOutside);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.TrafficLoadOutside, actualSurfaceLine.TrafficLoadOutside);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.TrafficLoadInside, actualSurfaceLine.TrafficLoadInside);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeTopAtPolder, actualSurfaceLine.DikeTopAtPolder);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.ShoulderBaseInside, actualSurfaceLine.ShoulderBaseInside);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.ShoulderTopInside, actualSurfaceLine.ShoulderTopInside);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.SurfaceLevelInside, actualSurfaceLine.SurfaceLevelInside);
+        }
+
+        private static void AssertAreEqualAndFromSurfaceLine(Point3D[] actualSurfaceLinePoints, Point3D expectedPoint, Point3D actualPoint)
+        {
+            Assert.AreEqual(expectedPoint, actualPoint);
+            if (actualPoint != null)
+            {
+                Assert.IsTrue(actualSurfaceLinePoints.Contains(actualPoint, new ReferenceEqualityComparer<Point3D>()));
+            }
         }
 
         private static RingtoetsMacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
@@ -1022,9 +1281,30 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point3D(2, 0, 3),
                 new Point3D(3, 0, 0),
                 new Point3D(4, 0, 2),
-                new Point3D(5, 0, 3)
+                new Point3D(5, 0, 3),
+                new Point3D(6, 0, 4),
+                new Point3D(7, 0, 5),
+                new Point3D(8, 0, 5),
+                new Point3D(9, 0, 4),
+                new Point3D(10, 0, 3),
+                new Point3D(11, 0, 2),
+                new Point3D(12, 0, 1)
             };
             surfaceLine.SetGeometry(geometry);
+
+            surfaceLine.SetSurfaceLevelOutsideAt(geometry[0]);
+            surfaceLine.SetTrafficLoadOutsideAt(geometry[1]);
+            surfaceLine.SetTrafficLoadInsideAt(geometry[2]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[3]);
+            surfaceLine.SetShoulderBaseInsideAt(geometry[4]);
+            surfaceLine.SetShoulderTopInsideAt(geometry[5]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[6]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[7]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[8]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[9]);
+            surfaceLine.SetDitchDikeSideAt(geometry[10]);
+            surfaceLine.SetDitchPolderSideAt(geometry[11]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometry[12]);
 
             return surfaceLine;
         }

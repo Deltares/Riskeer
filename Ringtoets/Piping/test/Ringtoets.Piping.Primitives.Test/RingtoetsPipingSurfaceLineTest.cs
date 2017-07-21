@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives.Exceptions;
 
@@ -953,12 +954,23 @@ namespace Ringtoets.Piping.Primitives.Test
                                                 actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
             TestHelper.AssertCollectionAreNotSame(expectedSurfaceLine.Points, actualSurfaceLine.Points);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
-            TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+
+            Point3D[] actualSurfaceLinePoints = actualSurfaceLine.Points;
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+        }
+
+        private static void AssertAreEqualAndFromSurfaceLine(Point3D[] actualSurfaceLinePoints, Point3D expectedPoint, Point3D actualPoint)
+        {
+            Assert.AreEqual(expectedPoint, actualPoint);
+            if (actualPoint != null)
+            {
+                Assert.IsTrue(actualSurfaceLinePoints.Contains(actualPoint, new ReferenceEqualityComparer<Point3D>()));
+            }
         }
     }
 }
