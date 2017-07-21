@@ -329,20 +329,20 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     Output = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
                                                                  double.NaN, double.NaN,
-                                                                 double.NaN, CalculationConvergence.NotCalculated)
+                                                                 double.NaN, CalculationConvergence.CalculatedConverged)
                 },
                 WaveHeightCalculation =
                 {
-                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated)
+                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged)
                 }
             };
 
             var designWaterLevelOutput = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
                                                                              double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.NotCalculated);
-            designWaterLevelOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
-            var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.NotCalculated);
-            waveHeightOutput.SetIllustrationPoints(GetConfiguredGeneralResultSubMechanismIllustrationPoint());
+                                                                             double.NaN, CalculationConvergence.CalculatedConverged);
+            designWaterLevelOutput.SetIllustrationPoints(GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
+            var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged);
+            waveHeightOutput.SetIllustrationPoints(GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
             var hydraulicBoundaryLocationWithIllustrationPoints = new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
             {
                 DesignWaterLevelCalculation =
@@ -377,7 +377,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             return hydraulicBoundaryDatabase;
         }
 
-        private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultSubMechanismIllustrationPoint()
+        private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
         {
             var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
             var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a submechanism stochast", 10, 9, 8);

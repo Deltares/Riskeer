@@ -38,6 +38,9 @@ using NUnit.Framework.Internal;
 
 namespace Core.Common.TestUtil
 {
+    /// <summary>
+    /// Class containing helper functions which can be used for unit tests.
+    /// </summary>
     public static class TestHelper
     {
         private static string solutionRoot;
@@ -228,16 +231,18 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Method use to perform any type of assertion on the generated log while performing
+        /// Method used to perform any type of assertion on the generated log while performing
         /// a particular action.
         /// </summary>
         /// <param name="action">Action to be performed while recording the log.</param>
-        /// <param name="assertLogMessagesAndExceptions">The assertion logic performed on the generated log-messages.</param>
-        public static void AssertLogMessagesAndLoggedExceptions(Action action,
-                                                                Action<IEnumerable<Tuple<string, Level, Exception>>> assertLogMessagesAndExceptions)
+        /// <param name="assertLogMessagesWithLevelAndExceptions">The assertion logic 
+        /// performed on the generated log-messages and logged exceptions.</param>
+        public static void AssertLogMessagesWithLevelAndLoggedExceptions(
+            Action action,
+            Action<IEnumerable<Tuple<string, Level, Exception>>> assertLogMessagesWithLevelAndExceptions)
         {
             IEnumerable<Tuple<string, Level, Exception>> renderedMessages = GetAllRenderedMessagesWithExceptions(action);
-            assertLogMessagesAndExceptions(renderedMessages);
+            assertLogMessagesWithLevelAndExceptions(renderedMessages);
         }
 
         /// <summary>
@@ -588,18 +593,9 @@ namespace Core.Common.TestUtil
 
         private static IEnumerable<Tuple<string, Level>> GetAllRenderedMessages(Action action)
         {
-            var memoryAppender = new MemoryAppender();
-            BasicConfigurator.Configure(memoryAppender);
-            LogHelper.SetLoggingLevel(Level.All);
+            IEnumerable<Tuple<string, Level, Exception>> renderedMessages = GetAllRenderedMessagesWithExceptions(action);
 
-            action();
-
-            List<Tuple<string, Level>> renderedMessages = memoryAppender.GetEvents().Select(le => Tuple.Create(le.RenderedMessage, le.Level)).ToList();
-
-            memoryAppender.Close();
-            LogHelper.ResetLogging();
-
-            return renderedMessages;
+            return renderedMessages.Select(t => new Tuple<string, Level>(t.Item1, t.Item2));
         }
 
         private static IEnumerable<Tuple<string, Level, Exception>> GetAllRenderedMessagesWithExceptions(Action action)

@@ -278,7 +278,7 @@ namespace Ringtoets.Common.Service.Test
                                                                                  calculationMessageProvider);
 
                 // Assert
-                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
 

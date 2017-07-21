@@ -576,7 +576,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
 
                 // Assert
-                TestHelper.AssertLogMessagesAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
 

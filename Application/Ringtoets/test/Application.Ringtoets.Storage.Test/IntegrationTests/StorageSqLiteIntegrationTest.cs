@@ -942,6 +942,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
+            Assert.IsNotNull(actualOutput);
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
                                               actualOutput.ProbabilityAssessmentOutput);
 
@@ -1077,6 +1078,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
+            Assert.IsNotNull(actualOutput);
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
                                               actualOutput.ProbabilityAssessmentOutput);
 
@@ -1259,6 +1261,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
+            Assert.IsNotNull(actualOutput);
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
                                               actualOutput.ProbabilityAssessmentOutput);
 
@@ -1732,7 +1735,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, actualOutput.CalculationConvergence);
+            Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
 
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(expectedOutput.GeneralResultSubMechanismIllustrationPoint,
                                                                      actualOutput.GeneralResultSubMechanismIllustrationPoint);

@@ -347,13 +347,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForHeightStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var random = new Random(159);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble());
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new StructuresOutput(probabilityAssessmentOutput)
+                Output = new TestStructuresOutput()
             };
 
             var registry = new PersistenceRegistry();
@@ -732,13 +728,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForClosingStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var random = new Random(160);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble());
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Output = new StructuresOutput(probabilityAssessmentOutput)
+                Output = new TestStructuresOutput()
             };
 
             var registry = new PersistenceRegistry();
@@ -1266,13 +1258,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var random = new Random(161);
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble(), random.NextDouble(),
-                                                                              random.NextDouble());
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = new StructuresOutput(probabilityAssessmentOutput)
+                Output = new TestStructuresOutput()
             };
 
             var registry = new PersistenceRegistry();
