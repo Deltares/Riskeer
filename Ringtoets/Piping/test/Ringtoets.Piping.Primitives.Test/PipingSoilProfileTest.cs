@@ -26,9 +26,8 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Piping.Primitives.Test
 {
     [TestFixture]
     public class PipingSoilProfileTest

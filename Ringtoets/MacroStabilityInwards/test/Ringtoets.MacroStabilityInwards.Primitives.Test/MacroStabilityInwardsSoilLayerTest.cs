@@ -24,12 +24,11 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
-    public class PipingSoilLayerTest
+    public class MacroStabilityInwardsSoilLayerTest
     {
         [Test]
         public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
@@ -38,7 +37,7 @@ namespace Ringtoets.Piping.Data.Test
             double top = new Random(22).NextDouble();
 
             // Call
-            var layer = new PipingSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer(top);
 
             // Assert
             Assert.NotNull(layer);
@@ -47,15 +46,34 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
 
+            Assert.IsFalse(layer.UsePop);
+            Assert.AreEqual(ShearStrengthModel.None, layer.ShearStrengthModel);
+
+            Assert.IsNaN(layer.AbovePhreaticLevelMean);
+            Assert.IsNaN(layer.AbovePhreaticLevelDeviation);
+
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
             Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-            Assert.IsNaN(layer.BelowPhreaticLevelShift);
 
-            Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
+            Assert.IsNaN(layer.CohesionMean);
+            Assert.IsNaN(layer.CohesionDeviation);
+            Assert.IsNaN(layer.CohesionShift);
 
-            Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
+            Assert.IsNaN(layer.FrictionAngleMean);
+            Assert.IsNaN(layer.FrictionAngleDeviation);
+            Assert.IsNaN(layer.FrictionAngleShift);
+
+            Assert.IsNaN(layer.ShearStrengthRatioMean);
+            Assert.IsNaN(layer.ShearStrengthRatioDeviation);
+            Assert.IsNaN(layer.ShearStrengthRatioShift);
+
+            Assert.IsNaN(layer.StrengthIncreaseExponentMean);
+            Assert.IsNaN(layer.StrengthIncreaseExponentDeviation);
+            Assert.IsNaN(layer.StrengthIncreaseExponentShift);
+
+            Assert.IsNaN(layer.PopMean);
+            Assert.IsNaN(layer.PopDeviation);
+            Assert.IsNaN(layer.PopShift);
         }
 
         [Test]
@@ -63,7 +81,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             double top = new Random(22).NextDouble();
-            var layer = new PipingSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer(top);
 
             // Call
             TestDelegate test = () => layer.MaterialName = null;
@@ -80,7 +98,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             double top = new Random(22).NextDouble();
-            var layer = new PipingSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer(top);
 
             // Call
             layer.MaterialName = materialName;
@@ -93,7 +111,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            PipingSoilLayer layer = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer layer = CreateRandomLayer(21);
 
             // Call
             bool areEqual = layer.Equals(null);
@@ -104,7 +122,7 @@ namespace Ringtoets.Piping.Data.Test
 
         [Test]
         [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(PipingSoilLayer layer, PipingSoilLayer otherLayer, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer layer, MacroStabilityInwardsSoilLayer otherLayer, bool expectedEqual)
         {
             // Call
             bool areEqualOne = layer.Equals(otherLayer);
@@ -117,14 +135,9 @@ namespace Ringtoets.Piping.Data.Test
 
         private static TestCaseData[] LayerCombinations()
         {
-            PipingSoilLayer layerA = CreateRandomLayer(21);
-            PipingSoilLayer layerB = CreateRandomLayer(21);
-            PipingSoilLayer layerC = CreateRandomLayer(73);
-
-            PipingSoilLayer layerD = CreateNaNLayer("C", Color.Aqua, true);
-            PipingSoilLayer layerE = CreateNaNLayer("C", Color.Aqua, false);
-            PipingSoilLayer layerF = CreateNaNLayer("C", Color.AliceBlue, false);
-            PipingSoilLayer layerG = CreateNaNLayer("A", Color.Aqua, false);
+            MacroStabilityInwardsSoilLayer layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer layerB = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer layerC = CreateRandomLayer(73);
 
             return new[]
             {
@@ -143,54 +156,18 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(layerC, layerC, true)
                 {
                     TestName = "Equals_LayerCLayerC_True"
-                },
-                new TestCaseData(layerD, layerE, false)
-                {
-                    TestName = "Equals_LayerDLayerE_False"
-                },
-                new TestCaseData(layerD, layerF, false)
-                {
-                    TestName = "Equals_LayerDLayerF_False"
-                },
-                new TestCaseData(layerD, layerG, false)
-                {
-                    TestName = "Equals_LayerDLayerG_False"
                 }
             };
         }
 
-        private static PipingSoilLayer CreateRandomLayer(int randomSeed)
+        private static MacroStabilityInwardsSoilLayer CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new PipingSoilLayer(random.NextDouble())
+            return new MacroStabilityInwardsSoilLayer(random.NextDouble())
             {
                 MaterialName = string.Join("", Enumerable.Repeat('x', random.Next(0, 40))),
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                IsAquifer = random.NextBoolean(),
-                BelowPhreaticLevelDeviation = random.NextDouble(),
-                BelowPhreaticLevelMean = random.NextDouble(),
-                BelowPhreaticLevelShift = random.NextDouble(),
-                DiameterD70CoefficientOfVariation = random.NextDouble(),
-                DiameterD70Mean = random.NextDouble(),
-                PermeabilityCoefficientOfVariation = random.NextDouble(),
-                PermeabilityMean = random.NextDouble()
-            };
-        }
-
-        private static PipingSoilLayer CreateNaNLayer(string name, Color color, bool isAquifer)
-        {
-            return new PipingSoilLayer(double.NaN)
-            {
-                MaterialName = name,
-                Color = color,
-                IsAquifer = isAquifer,
-                BelowPhreaticLevelDeviation = double.NaN,
-                BelowPhreaticLevelMean = double.NaN,
-                BelowPhreaticLevelShift = double.NaN,
-                DiameterD70CoefficientOfVariation = double.NaN,
-                DiameterD70Mean = double.NaN,
-                PermeabilityCoefficientOfVariation = double.NaN,
-                PermeabilityMean = double.NaN
+                IsAquifer = random.NextBoolean()
             };
         }
     }

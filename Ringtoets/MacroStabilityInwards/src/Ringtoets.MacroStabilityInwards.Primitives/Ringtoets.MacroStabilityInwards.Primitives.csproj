@@ -52,6 +52,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RingtoetsMacroStabilityInwardsSurfaceLine.cs" />
+    <Compile Include="ShearStrengthModel.cs" />
+    <Compile Include="SoilLayerProperties.cs" />
     <Compile Include="SoilProfileType.cs" />
   </ItemGroup>
   <ItemGroup>

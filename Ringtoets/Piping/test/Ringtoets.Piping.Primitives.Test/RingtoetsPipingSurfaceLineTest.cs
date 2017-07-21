@@ -27,10 +27,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.Exceptions;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Piping.Primitives.Test
 {
     [TestFixture]
     public class RingtoetsPipingSurfaceLineTest

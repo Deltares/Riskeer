@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives.Exceptions;
+using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 
-namespace Ringtoets.Piping.Data.Test.Exceptions
+namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Exceptions
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<RingtoetsPipingSurfaceLineException, Exception> {}
+    public class RingtoetsMacroStabilityInwardsSurfaceLineExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<RingtoetsMacroStabilityInwardsSurfaceLineException, Exception> {}
 }
