@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
@@ -52,6 +53,45 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             AssertEqualPointCollections(surfaceLine.ProjectGeometryToLZ(), points);
+        }
+
+        [Test]
+        public void CreateDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDitchPolderSidePoint_DitchPolderSideNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDitchPolderSidePoint_GivenSurfaceLineWithDitchPolderSide_ReturnsDitchPolderSidePointsArray()
+        {
+            // Setup
+            var ditchPolderSide = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetDitchPolderSideAt(ditchPolderSide);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(ditchPolderSide, surfaceLine, points);
         }
 
         [Test]
@@ -343,6 +383,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
             CollectionAssert.AreEqual(points, chartPoints);
+        }
+
+        private static void AssertEqualLocalPointCollection(Point3D point, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<Point2D> chartPoints)
+        {
+            Point3D first = surfaceLine.Points.First();
+            Point3D last = surfaceLine.Points.Last();
+            var firstPoint = new Point2D(first.X, first.Y);
+            var lastPoint = new Point2D(last.X, last.Y);
+
+            Point2D localCoordinate = point.ProjectIntoLocalCoordinates(firstPoint, lastPoint);
+            AssertEqualPointCollections(new[]
+            {
+                new Point2D(new RoundedDouble(2, localCoordinate.X), new RoundedDouble(2, localCoordinate.Y))
+            }, chartPoints);
         }
 
         private static RingtoetsMacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()

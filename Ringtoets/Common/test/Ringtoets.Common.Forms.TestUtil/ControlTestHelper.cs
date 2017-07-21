@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="controlName">The name of the controls.</param>
         /// <returns>The found controls.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
-        public static IEnumerable<TView> GetControls<TView>(Control control, string controlName) where TView : Control
+        public static IEnumerable<TView> GetControls<TView>(Control control, string controlName)
         {
             return control.Controls.Find(controlName, true).OfType<TView>();
         }

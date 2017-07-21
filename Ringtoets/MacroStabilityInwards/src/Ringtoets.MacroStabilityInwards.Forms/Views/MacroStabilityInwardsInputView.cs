@@ -44,6 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartLineData surfaceLineChartData;
+        private readonly ChartPointData ditchPolderSideChartData;
         private readonly ChartDataCollection chartDataCollection;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
@@ -65,9 +66,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
+            ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
+            chartDataCollection.Add(ditchPolderSideChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
@@ -137,8 +140,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             SetChartData();
 
             surfaceLineChartData.NotifyObservers();
+            ditchPolderSideChartData.NotifyObservers();
             soilProfileChartData.NotifyObservers();
-            soilProfileChartData.Collection.ForEachElementDo(md => md.NotifyObservers());
+            soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void UpdateTableData()
@@ -153,6 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             MacroStabilityInwardsChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
             surfaceLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
+            ditchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
 
             SetSoilProfileChartData();
         }
