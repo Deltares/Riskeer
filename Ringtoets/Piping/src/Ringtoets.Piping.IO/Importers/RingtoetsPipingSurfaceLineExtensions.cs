@@ -42,24 +42,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
         /// <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.</param>
-        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> was set, <c>false</c> if
-        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
-        /// of <paramref name="point"/>.</returns>
-        public static bool TrySetDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetDitchPolderSideAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -69,24 +64,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
         /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.</param>
-        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> was set, <c>false</c> if
-        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
-        /// of <paramref name="point"/>.</returns>
-        public static bool TrySetBottomDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetBottomDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetBottomDitchPolderSideAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -96,24 +86,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
         /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.</param>
-        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> was set, <c>false</c> if
-        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
-        /// of <paramref name="point"/>.</returns>
-        public static bool TrySetBottomDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetBottomDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetBottomDitchDikeSideAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -123,24 +108,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
         /// <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.</param>
-        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> was set, <c>false</c> if
-        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
-        /// of <paramref name="point"/>.</returns>
-        public static bool TrySetDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetDitchDikeSideAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -153,21 +133,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> was set, <c>false</c> if
         /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
         /// of <paramref name="point"/>.</returns>
-        public static bool TrySetDikeToeAtRiver(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDikeToeAtRiver(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetDikeToeAtRiverAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -177,24 +155,19 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
         /// <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.</param>
-        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> was set, <c>false</c> if
-        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
-        /// of <paramref name="point"/>.</returns>
-        public static bool TrySetDikeToeAtPolder(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDikeToeAtPolder(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
                 try
                 {
                     surfaceLine.SetDikeToeAtPolderAt(point);
-                    return true;
                 }
                 catch (ArgumentException e)
                 {
                     LogError(surfaceLine, e);
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -204,8 +177,8 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The surface line to set characteristic points for.</param>
         /// <param name="characteristicPoints">The characteristic points to set, if the collection is valid.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="characteristicPoints"/> were
-        /// invalid to use for piping.</exception>
+        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="characteristicPoints"/> defines
+        /// a dike toe at polder side in front of the dike toe at river side.</exception>
         public static void SetCharacteristicPoints(this RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (surfaceLine == null)
