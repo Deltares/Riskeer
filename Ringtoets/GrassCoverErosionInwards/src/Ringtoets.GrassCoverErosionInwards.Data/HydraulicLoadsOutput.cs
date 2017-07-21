@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -84,5 +85,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// [-]
         /// </summary>
         public CalculationConvergence CalculationConvergence { get; }
+
+        /// <summary>
+        /// Gets the general result with the fault tree illustration points.
+        /// </summary>
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralFaultTreeIllustrationPoint { get; set; }
     }
 }

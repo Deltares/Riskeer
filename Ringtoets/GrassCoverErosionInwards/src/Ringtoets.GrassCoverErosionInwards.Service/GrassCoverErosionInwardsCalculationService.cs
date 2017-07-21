@@ -21,26 +21,27 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
@@ -176,6 +177,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                         hydraulicBoundaryDatabaseFilePath,
                                                                         numberOfCalculators);
 
+                if (dikeHeightOutput != null && calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated)
+                {
+                    dikeHeightOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(dikeHeightCalculator.IllustrationPointsResult, dikeHeightCalculator.IllustrationPointsParserErrorMessage);
+                }
+
                 if (canceled)
                 {
                     return;
@@ -187,20 +193,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                        failureMechanismContribution,
                                                                                        hydraulicBoundaryDatabaseFilePath,
                                                                                        numberOfCalculators);
+                if (overtoppingRateOutput != null && calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated)
+                {
+                    overtoppingRateOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(overtoppingRateCalculator.IllustrationPointsResult, overtoppingRateCalculator.IllustrationPointsParserErrorMessage);
+                }
 
                 if (canceled)
                 {
                     return;
                 }
 
+                var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(overtoppingCalculator.WaveHeight,
+                                                                                      overtoppingCalculator.IsOvertoppingDominant,
+                                                                                      ProbabilityAssessmentService.Calculate(
+                                                                                          assessmentSection.FailureMechanismContribution.Norm,
+                                                                                          failureMechanismContribution,
+                                                                                          generalInput.N,
+                                                                                          overtoppingCalculator.ExceedanceProbabilityBeta));
+
+                if (calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
+                {
+                    overtoppingOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult, overtoppingCalculator.IllustrationPointsParserErrorMessage);
+                }
+
                 calculation.Output = new GrassCoverErosionInwardsOutput(
-                    new GrassCoverErosionInwardsOvertoppingOutput(overtoppingCalculator.WaveHeight,
-                                                             overtoppingCalculator.IsOvertoppingDominant,
-                                                             ProbabilityAssessmentService.Calculate(
-                                                                 assessmentSection.FailureMechanismContribution.Norm,
-                                                                 failureMechanismContribution,
-                                                                 generalInput.N,
-                                                                 overtoppingCalculator.ExceedanceProbabilityBeta)),
+                    overtoppingOutput,
                     dikeHeightOutput,
                     overtoppingRateOutput);
             }
@@ -702,6 +719,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             validationResult.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
             return validationResult.ToArray();
+        }
+
+        /// <summary>
+        /// Converts a <see cref="GeneralResult"/> based on the information 
+        /// of <paramref name="result"/> to a <see cref="GeneralResult{TopLevelFaultTreeInllustrationPoint}"/> .
+        /// </summary>
+        /// <param name="result">The <see cref="GeneralResult"/> to base the 
+        /// <see cref="GeneralResult{T}"/> to create on.</param>
+        /// <param name="errorMessage"></param>
+        private GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(GeneralResult result, string errorMessage)
+        {
+            if (result == null)
+            {
+                log.Warn(errorMessage);
+                return null;
+            }
+
+            try
+            {
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(result);
+                return generalResult;
+            }
+            catch (IllustrationPointConversionException e)
+            {
+                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+            }
+
+            return null;
         }
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)

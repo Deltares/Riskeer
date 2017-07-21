@@ -117,8 +117,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DikeProfile == null ? null :
-                           new Point2D(
+                return data.WrappedData.DikeProfile == null
+                           ? null
+                           : new Point2D(
                                new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.X),
                                new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.Y));
             }
@@ -150,9 +151,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.DikeProfile == null ?
-                           new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(
+                return data.WrappedData.DikeProfile == null
+                           ? new UseBreakWaterProperties()
+                           : new UseBreakWaterProperties(
                                data.WrappedData, propertyChangeHandler);
             }
         }
@@ -223,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalFlowRate))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -255,26 +256,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description))]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
-        {
-            get
-            {
-                Point2D referencePoint = data.WrappedData.DikeProfile?.WorldReferencePoint;
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referencePoint)
-                           : null;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
-            }
-        }
-
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
@@ -291,18 +272,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalFlowRate))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldCriticalFlowRateIllustrationPointsBeCalculated
+        public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
         {
             get
             {
-                return data.WrappedData.ShouldCriticalFlowRateIllustrationPointsBeCalculated;
+                return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
             }
             set
             {
-                data.WrappedData.ShouldCriticalFlowRateIllustrationPointsBeCalculated = value;
+                data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -320,6 +301,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value;
                 data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description))]
+        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        {
+            get
+            {
+                Point2D referencePoint = data.WrappedData.DikeProfile?.WorldReferencePoint;
+                return data.WrappedData.HydraulicBoundaryLocation != null
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation, referencePoint)
+                           : null;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
             }
         }
 

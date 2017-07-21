@@ -171,7 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
                 nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
             Assert.IsNull(properties.WorldReferencePoint);
-            Assert.IsFalse(properties.ShouldCriticalFlowRateIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
 
@@ -213,7 +213,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
             Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
-            Assert.IsFalse(properties.ShouldCriticalFlowRateIllustrationPointsBeCalculated);
+            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();

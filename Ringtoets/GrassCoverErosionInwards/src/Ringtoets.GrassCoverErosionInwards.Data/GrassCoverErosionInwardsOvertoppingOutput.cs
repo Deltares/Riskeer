@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -67,5 +68,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 return !double.IsNaN(WaveHeight);
             }
         }
+
+        /// <summary>
+        /// Gets the general result with the fault tree illustration points.
+        /// </summary>
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralFaultTreeIllustrationPoint { get; set; }
     }
 }

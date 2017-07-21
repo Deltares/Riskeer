@@ -38,6 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 {
@@ -507,16 +508,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                 DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType,
                                                             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                                                                 OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                OvertoppingRateCalculationType.NoCalculation)] OvertoppingRateCalculationType overtoppingRateCalculationType)
+                                                                OvertoppingRateCalculationType.NoCalculation)] OvertoppingRateCalculationType overtoppingRateCalculationType,
+                                                            [Values(true, false)] bool calculateIllustrationPoints)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
-            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator());
-            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            });
+            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            });
+            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
+            {
+                IllustrationPointsResult = new TestGeneralResult()
+            });
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
                                                                                                            validFile);
@@ -532,7 +543,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType,
-                    UseForeshore = useForeland
+                    UseForeshore = useForeland,
+                    ShouldDikeHeightIllustrationPointsBeCalculated = calculateIllustrationPoints,
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculateIllustrationPoints,
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = calculateIllustrationPoints
                 }
             };
 
@@ -557,6 +571,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredProbability));
             Assert.IsFalse(double.IsNaN(probabilityAssessmentOutput.RequiredReliability));
             Assert.IsFalse(overtoppingOutput.IsOvertoppingDominant);
+            if (calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
+            {
+                Assert.IsNotNull(overtoppingOutput.GeneralFaultTreeIllustrationPoint);
+            }
+            else
+            {
+                Assert.IsNull(overtoppingOutput.GeneralFaultTreeIllustrationPoint);
+            }
 
             if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
             {
@@ -568,6 +590,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.TargetReliability));
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.CalculatedProbability));
                 Assert.IsFalse(double.IsNaN(dikeHeightOutput.CalculatedReliability));
+
+                if (calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated)
+                {
+                    Assert.IsNotNull(dikeHeightOutput.GeneralFaultTreeIllustrationPoint);
+                }
+                else
+                {
+                    Assert.IsNull(dikeHeightOutput.GeneralFaultTreeIllustrationPoint);
+                }
             }
             else
             {
@@ -584,6 +615,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.TargetReliability));
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.CalculatedProbability));
                 Assert.IsFalse(double.IsNaN(overtoppingRateOutput.CalculatedReliability));
+
+                if (calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated)
+                {
+                    Assert.IsNotNull(overtoppingRateOutput.GeneralFaultTreeIllustrationPoint);
+                }
+                else
+                {
+                    Assert.IsNull(overtoppingRateOutput.GeneralFaultTreeIllustrationPoint);
+                }
             }
             else
             {

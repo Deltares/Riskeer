@@ -174,9 +174,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public bool ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Critical Flow Rate.
+        /// Gets or sets if the illustration points should be calculated for Overtopping Flow.
         /// </summary>
-        public bool ShouldCriticalFlowRateIllustrationPointsBeCalculated { get; set; }
+        public bool ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
         /// Gets or sets if the illustration points should be calculated for Overtopping Output.

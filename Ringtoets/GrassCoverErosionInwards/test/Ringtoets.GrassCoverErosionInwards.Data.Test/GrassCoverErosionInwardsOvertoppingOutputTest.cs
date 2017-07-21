@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -58,9 +60,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
+        public void GeneralFaultTreeIllustrationPoint_SetGet()
+        {
+            // Setup
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0))
+            {
+                GeneralFaultTreeIllustrationPoint = new TestGeneralResultFaultTreeIllustrationPoint()
+            };
+
+            // Call
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> faultTreeIllustrationPoint = output.GeneralFaultTreeIllustrationPoint;
+
+            // Assert
+            Assert.IsNotNull(faultTreeIllustrationPoint);
+        }
+
+        [Test]
         public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
         {
-            // Setupn
+            // Setup
             var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
 
             // Call

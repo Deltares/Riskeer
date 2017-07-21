@@ -158,5 +158,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het uitlezen van illustratiepunten is mislukt..
+        /// </summary>
+        internal static string SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed {
+            get {
+                return ResourceManager.GetString("SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed", resourceCulture);
+            }
+        }
     }
 }

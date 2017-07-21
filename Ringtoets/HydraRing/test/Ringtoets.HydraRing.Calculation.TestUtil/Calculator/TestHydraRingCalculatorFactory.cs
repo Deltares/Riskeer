@@ -60,6 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public bool IsOvertoppingDominant { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
     }
 
     public class TestHydraulicLoadsCalculator : TestHydraRingCalculator<HydraulicLoadsCalculationInput>, IHydraulicLoadsCalculator
@@ -68,6 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double ReliabilityIndex { get; set; }
         public string OutputDirectory { get; set; }
         public string LastErrorFileContent { get; set; }
+        public string IllustrationPointsParserErrorMessage { get; set; }
         public bool? Converged { get; set; }
     }
 
@@ -104,12 +106,12 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestHydraRingCalculator<T>
     {
         public readonly List<T> ReceivedInputs = new List<T>();
+        public readonly HydraRingCalculationException HydraRingCalculationException = new HydraRingCalculationException();
         public event EventHandler CalculationFinishedHandler;
         public bool EndInFailure { get; set; }
         public bool IsCanceled { get; private set; }
 
         public GeneralResult IllustrationPointsResult { get; set; }
-        public readonly HydraRingCalculationException HydraRingCalculationException = new HydraRingCalculationException();
 
         public void Calculate(T input)
         {

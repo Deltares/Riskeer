@@ -82,15 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet.
-        /// </summary>
-        public static string Categories_CriticalFlowRate {
-            get {
-                return ResourceManager.GetString("Categories_CriticalFlowRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetseisen.
         /// </summary>
         public static string Categories_CriticalValues {
@@ -114,6 +105,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Categories_OvertoppingOutput {
             get {
                 return ResourceManager.GetString("Categories_OvertoppingOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet.
+        /// </summary>
+        public static string Categories_OvertoppingRate {
+            get {
+                return ResourceManager.GetString("Categories_OvertoppingRate", resourceCulture);
             }
         }
         
@@ -471,15 +471,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Illustratiepunten inlezen.
         /// </summary>
-        public static string ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName {
-            get {
-                return ResourceManager.GetString("ShouldCriticalFlowRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Illustratiepunten inlezen.
-        /// </summary>
         public static string ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName", resourceCulture);
@@ -501,6 +492,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        /// </summary>
+        public static string ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
             }
         }
         
