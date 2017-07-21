@@ -86,6 +86,66 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return GetSoilLayerWithSurfaceLineIntersection(surfaceLineLocalGeometry, soilLayer, soilProfile);
         }
 
+        /// <summary>
+        /// Create a surface level outside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the surface level outside point for.</param>
+        /// <returns>An array with a surface level outside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the surface level outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateSurfaceLevelOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.SurfaceLevelOutside != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.SurfaceLevelOutside)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create a shoulder base inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the shoulder base inside point for.</param>
+        /// <returns>An array with a shoulder base inside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the shoulder base inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateShoulderBaseInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.ShoulderBaseInside != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.ShoulderBaseInside)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>
+        /// <returns>An array with a ditch polder side point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.DitchPolderSide != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DitchPolderSide)
+                       }
+                       : new Point2D[0];
+        }
+
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)
         {
             Point2D[] surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
@@ -142,26 +202,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 new Point2D(endX, bottomLevel),
                 new Point2D(startX, bottomLevel)
             };
-        }
-
-        /// <summary>
-        /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>
-        /// <returns>An array with a ditch polder side point in 2D space or an empty array when:
-        /// <list type="bullet">
-        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
-        /// <item>the ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
-        /// </list>
-        /// </returns>
-        public static Point2D[] CreateDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            return surfaceLine?.DitchPolderSide != null
-                       ? new[]
-                       {
-                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DitchPolderSide)
-                       }
-                       : new Point2D[0];
         }
     }
 }
