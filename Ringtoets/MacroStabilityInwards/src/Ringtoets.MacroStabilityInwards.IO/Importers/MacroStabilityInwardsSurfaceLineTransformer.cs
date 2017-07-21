@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using log4net;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
-
-using ReferenceLineIntersectionsResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionsResult;
-using ReferenceLineIntersectionResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionResult;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
@@ -53,12 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
         public RingtoetsMacroStabilityInwardsSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
-            ReferenceLineIntersectionResult result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
-
-            if (result.TypeOfIntersection != ReferenceLineIntersectionsResult.OneIntersection)
-            {
-                return null;
-            }
+            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
             var macroStabilityInwardsSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
             {
@@ -68,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
             macroStabilityInwardsSurfaceLine.SetCharacteristicPoints(characteristicPoints);
 
-            macroStabilityInwardsSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
+            macroStabilityInwardsSurfaceLine.ReferenceLineIntersectionWorldPoint = intersectionPoint;
 
             return macroStabilityInwardsSurfaceLine;
         }

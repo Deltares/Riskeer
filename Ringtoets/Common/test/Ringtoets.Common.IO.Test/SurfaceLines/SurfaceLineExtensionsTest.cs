@@ -35,7 +35,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void CheckReferenceLineInterSections_WithoutSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((SurfaceLine)null).CheckReferenceLineInterSections(new ReferenceLine());
+            TestDelegate test = () => ((SurfaceLine) null).GetSingleReferenceLineInterSection(new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void CheckReferenceLineInterSections_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SurfaceLine().CheckReferenceLineInterSections(null);
+            TestDelegate test = () => new SurfaceLine().GetSingleReferenceLineInterSection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,18 +75,15 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 new Point2D(4.0, 4.5)
             });
 
-            SurfaceLineExtensions.ReferenceLineIntersectionResult result = null;
-
             // Call
-            result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
+            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
             // Assert
-            Assert.AreEqual(SurfaceLineExtensions.ReferenceLineIntersectionsResult.OneIntersection, result.TypeOfIntersection);
-            Assert.AreEqual(new Point2D(3.0, 4.5), result.IntersectionPoint);
+            Assert.AreEqual(new Point2D(3.0, 4.5), result);
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineNotOnReferenceLine_LogErrorAndReturnResultWithIntersectionPointNull()
+        public void CheckReferenceLineInterSections_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformerException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -106,20 +103,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 new Point2D(2.0, 4.0)
             });
 
-            SurfaceLineExtensions.ReferenceLineIntersectionResult result = null;
-
             // Call
-            Action call = () => result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
+            TestDelegate test = () => surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
-            Assert.AreEqual(SurfaceLineExtensions.ReferenceLineIntersectionsResult.NoIntersections, result.TypeOfIntersection);
-            Assert.IsNull(result.IntersectionPoint);
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimes_LogErrorAndReturnResultWithIntersectionPointNull()
+        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowSurfaceLineTransformerException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -141,16 +135,13 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 new Point2D(0.0, 4.0)
             });
 
-            SurfaceLineExtensions.ReferenceLineIntersectionResult result = null;
-
             // Call
-            Action call = () => result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
+            TestDelegate test = () => surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
-            Assert.AreEqual(SurfaceLineExtensions.ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap, result.TypeOfIntersection);
-            Assert.IsNull(result.IntersectionPoint);
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
         }
     }
 }

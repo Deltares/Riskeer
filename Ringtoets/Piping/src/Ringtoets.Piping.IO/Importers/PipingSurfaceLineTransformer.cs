@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
-
-using ReferenceLineIntersectionsResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionsResult;
-using ReferenceLineIntersectionResult = Ringtoets.Common.IO.SurfaceLines.SurfaceLineExtensions.ReferenceLineIntersectionResult;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -54,12 +52,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         public RingtoetsPipingSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
-            ReferenceLineIntersectionResult result = surfaceLine.CheckReferenceLineInterSections(referenceLine);
-
-            if (result.TypeOfIntersection != ReferenceLineIntersectionsResult.OneIntersection)
-            {
-                return null;
-            }
+            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
             var pipingSurfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -69,7 +62,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             pipingSurfaceLine.SetCharacteristicPoints(characteristicPoints);
 
-            pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
+            pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = intersectionPoint;
 
             return pipingSurfaceLine;
         }

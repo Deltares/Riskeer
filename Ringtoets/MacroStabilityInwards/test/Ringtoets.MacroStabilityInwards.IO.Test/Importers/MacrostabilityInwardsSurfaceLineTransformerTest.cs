@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
@@ -148,15 +147,13 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
                 new Point2D(2.0, 4.0)
             });
 
-            IMechanismSurfaceLine result = null;
-
             // Call
-            Action call = () => result = transformer.Transform(surfaceLine, null);
+            TestDelegate test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
-            Assert.IsNull(result);
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
@@ -183,15 +180,13 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
                 new Point2D(0.0, 4.0)
             });
 
-            IMechanismSurfaceLine result = null;
-
             // Call
-            Action call = () => result = transformer.Transform(surfaceLine, null);
+            TestDelegate test = () => transformer.Transform(surfaceLine, null);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
-            Assert.IsNull(result);
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
