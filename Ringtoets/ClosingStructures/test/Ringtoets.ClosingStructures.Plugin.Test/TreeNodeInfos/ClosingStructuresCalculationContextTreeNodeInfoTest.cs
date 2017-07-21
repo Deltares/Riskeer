@@ -962,9 +962,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var initialProbabilityAssessmentOutput =
-                new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var initialOutput = new StructuresOutput(initialProbabilityAssessmentOutput);
+            var initialOutput = new TestStructuresOutput();
             var calculation = new TestClosingStructuresCalculation
             {
                 Output = initialOutput,

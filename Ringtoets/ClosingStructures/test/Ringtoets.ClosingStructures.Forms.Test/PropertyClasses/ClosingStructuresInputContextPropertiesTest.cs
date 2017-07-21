@@ -244,7 +244,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[verticalWallHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[verticalWallStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[verticalWallCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -357,7 +357,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[floodedCulvertUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[floodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[floodedCulvertStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[floodedCulvertCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -463,7 +463,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[lowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[lowSillStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[lowSillCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -1185,6 +1185,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int verticalWallUseForeshorePropertyIndex = 19;
         private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 20;
         private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 21;
+        private const int verticalWallCalculateIllustrationPointsPropertyIndex = 22;
 
         #endregion
 
@@ -1212,6 +1213,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int lowSillUseForeshorePropertyIndex = 19;
         private const int lowSillModelFactorSuperCriticalFlowPropertyIndex = 20;
         private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 21;
+        private const int lowSillCalculateIllustrationPointsPropertyIndex = 22;
 
         #endregion
 
@@ -1238,6 +1240,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int floodedCulvertUseForeshorePropertyIndex = 18;
         private const int floodedCulvertDrainCoefficientPropertyIndex = 19;
         private const int floodedCulvertFactorStormDurationOpenStructurePropertyIndex = 20;
+        private const int floodedCulvertCalculateIllustrationPointsPropertyIndex = 21;
 
         #endregion
 

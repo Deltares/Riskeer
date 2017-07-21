@@ -69,21 +69,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -966,8 +951,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var initialStructuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            var initialStructuresOutput = new TestStructuresOutput();
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 Output = initialStructuresOutput,
@@ -1155,6 +1139,21 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new StabilityPointStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeStructure(StabilityPointStructure structure)

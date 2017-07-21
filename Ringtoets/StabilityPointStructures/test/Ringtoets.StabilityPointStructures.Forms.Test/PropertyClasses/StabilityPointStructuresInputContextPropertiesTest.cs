@@ -382,7 +382,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearLowSillUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[linearLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearLowSillStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[linearLowSillCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -611,7 +611,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticLowSillUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[quadraticLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticLowSillStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[quadraticLowSillCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -858,7 +858,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearFloodedCulvertUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearFloodedCulvertStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count-1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[linearFloodedCulvertCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -1105,7 +1105,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticFloodedCulvertUseForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticFloodedCulvertStormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[quadraticFloodedCulvertCalculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -1868,6 +1868,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearLowSillForeshoreProfilePropertyIndex = 32;
         private const int linearLowSillUseBreakWaterPropertyIndex = 33;
         private const int linearLowSillUseForeshorePropertyIndex = 34;
+        private const int linearLowSillCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 
@@ -1908,6 +1909,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearFloodedCulvertForeshoreProfilePropertyIndex = 32;
         private const int linearFloodedCulvertUseBreakWaterPropertyIndex = 33;
         private const int linearFloodedCulvertUseForeshorePropertyIndex = 34;
+        private const int linearFloodedCulvertCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 
@@ -1948,6 +1950,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticLowSillForeshoreProfilePropertyIndex = 32;
         private const int quadraticLowSillUseBreakWaterPropertyIndex = 33;
         private const int quadraticLowSillUseForeshorePropertyIndex = 34;
+        private const int quadraticLowSillCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 
@@ -1988,6 +1991,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticFloodedCulvertForeshoreProfilePropertyIndex = 32;
         private const int quadraticFloodedCulvertUseBreakWaterPropertyIndex = 33;
         private const int quadraticFloodedCulvertUseForeshorePropertyIndex = 34;
+        private const int quadraticFloodedCulvertCalculateIllustrationPointsPropertyIndex = 35;
 
         #endregion
 

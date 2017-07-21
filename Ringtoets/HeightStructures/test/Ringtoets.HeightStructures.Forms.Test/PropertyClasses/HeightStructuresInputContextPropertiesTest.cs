@@ -62,6 +62,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int modelFactorSuperCriticalFlowPropertyIndex = 13;
         private const int hydraulicBoundaryLocationPropertyIndex = 14;
         private const int stormDurationPropertyIndex = 15;
+        private const int calculateIllustrationPointsPropertyIndex = 16;
 
         private MockRepository mockRepository;
         private IAssessmentSection assessmentSection;
@@ -186,7 +187,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
-            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[dynamicProperties.Count - 1].DisplayName);
+            Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[calculateIllustrationPointsPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
