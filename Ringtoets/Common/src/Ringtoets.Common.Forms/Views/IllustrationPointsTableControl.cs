@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Forms.Views
         public IllustrationPointsTableControl()
         {
             InitializeComponent();
+            InitializeDataGridView();
             InitializeEventHandlers();
         }
 
@@ -77,12 +78,6 @@ namespace Ringtoets.Common.Forms.Views
             {
                 return CreateSelectedItemFromCurrentRow();
             }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            InitializeDataGridView();
         }
 
         private object CreateSelectedItemFromCurrentRow()
