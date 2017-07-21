@@ -107,6 +107,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a dike toe at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the dike toe at river point for.</param>
+        /// <returns>An array with a dike toe at river point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the dike toe at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDikeToeAtRiverPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.DikeToeAtRiver != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeToeAtRiver)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create a traffic load outside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the traffic load outside point for.</param>
+        /// <returns>An array with a traffic load outside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the traffic load outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateTrafficLoadOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.TrafficLoadOutside != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.TrafficLoadOutside)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
         /// Create a shoulder base inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the shoulder base inside point for.</param>
