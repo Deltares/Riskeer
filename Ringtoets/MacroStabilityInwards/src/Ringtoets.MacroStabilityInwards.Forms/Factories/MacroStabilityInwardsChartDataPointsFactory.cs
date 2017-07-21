@@ -147,6 +147,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a traffic load inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the traffic load inside point for.</param>
+        /// <returns>An array with a traffic load inside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the traffic load inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateTrafficLoadInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.TrafficLoadInside != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.TrafficLoadInside)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
+        /// Create a dike top at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the dike top at polder point for.</param>
+        /// <returns>An array with a dike top at polder point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the dike top at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDikeTopAtPolderPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine?.DikeTopAtPolder != null
+                       ? new[]
+                       {
+                           surfaceLine.GetLocalPointFromGeometry(surfaceLine.DikeTopAtPolder)
+                       }
+                       : new Point2D[0];
+        }
+
+        /// <summary>
         /// Create a shoulder base inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the shoulder base inside point for.</param>

@@ -173,6 +173,84 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateTrafficLoadInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateTrafficLoadInsidePoint_TrafficLoadInsideNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateTrafficLoadInsidePoint_GivenSurfaceLineWithTrafficLoadInside_ReturnsTrafficLoadInsidePointsArray()
+        {
+            // Setup
+            var trafficLoadInside = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetTrafficLoadInsideAt(trafficLoadInside);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(trafficLoadInside, surfaceLine, points);
+        }
+
+        [Test]
+        public void CreateDikeTopAtPolderPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDikeTopAtPolderPoint_DikeTopAtPolderNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDikeTopAtPolderPoint_GivenSurfaceLineWithDikeTopAtPolder_ReturnsDikeTopAtPolderPointsArray()
+        {
+            // Setup
+            var dikeTopAtPolder = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetDikeTopAtPolderAt(dikeTopAtPolder);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(dikeTopAtPolder, surfaceLine, points);
+        }
+
+        [Test]
         public void CreateShoulderBaseInsidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Call
