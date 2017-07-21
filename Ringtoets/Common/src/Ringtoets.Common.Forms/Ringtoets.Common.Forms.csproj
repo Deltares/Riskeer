@@ -215,6 +215,9 @@
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\GeneralResultFaultTreeIllustrationPointView.resx">
+      <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\IllustrationPointsChartControl.resx">
       <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>
     </EmbeddedResource>

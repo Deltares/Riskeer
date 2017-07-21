@@ -40,6 +40,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
+
+                Assert.AreEqual(1, view.Controls.Count);
+
+                var splitContainer = view.Controls[0] as SplitContainer;
+                Assert.IsNotNull(splitContainer);
+                Control.ControlCollection splitContainerPanel1Controls = splitContainer.Panel1.Controls;
+                Assert.AreEqual(1, splitContainerPanel1Controls.Count);
+                Assert.IsInstanceOf<IllustrationPointsControl>(splitContainerPanel1Controls[0]);
             }
         }
 
