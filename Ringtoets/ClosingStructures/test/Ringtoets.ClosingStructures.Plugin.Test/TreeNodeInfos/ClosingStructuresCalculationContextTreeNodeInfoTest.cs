@@ -47,6 +47,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -163,7 +164,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(closingStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, closingStructuresInputContext.WrappedData);
 
-            Assert.IsInstanceOf<StructuresOutput>(children[2]);
+            var structuresOutputContext = children[2] as StructuresOutputContext;
+            Assert.IsNotNull(structuresOutputContext);
+            Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
         }
 
         [Test]

@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -178,7 +179,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            Assert.IsInstanceOf<StructuresOutput>(children[2]);
+            var structuresOutputContext = children[2] as StructuresOutputContext;
+            Assert.IsNotNull(structuresOutputContext);
+            Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
         }
 
         [Test]

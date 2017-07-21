@@ -110,7 +110,7 @@
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StructuresOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StructuresOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveHeightLocationsContextTreeNodeInfoTest.cs" />

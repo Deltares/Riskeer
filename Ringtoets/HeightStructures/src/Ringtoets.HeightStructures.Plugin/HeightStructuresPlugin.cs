@@ -722,7 +722,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             if (context.WrappedData.HasOutput)
             {
-                childNodes.Add(context.WrappedData.Output);
+                childNodes.Add(new StructuresOutputContext(context.WrappedData));
             }
             else
             {

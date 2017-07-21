@@ -285,7 +285,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(StructuresOutput),
+                    typeof(StructuresOutputContext),
                     typeof(StructuresOutputProperties));
             }
         }
@@ -443,7 +443,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsProject)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveConditionsInputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
             }
         }
 

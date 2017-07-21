@@ -303,7 +303,13 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
-            yield return new PropertyInfo<StructuresOutput, StructuresOutputProperties>();
+            yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
+            {
+                CreateInstance = context => new StructuresOutputProperties
+                {
+                    Data = context.WrappedData.Output
+                }
+            };
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsContextProperties(
@@ -745,7 +751,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StructuresOutput>
+            yield return new TreeNodeInfo<StructuresOutputContext>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,

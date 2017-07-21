@@ -27,13 +27,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StructuresOutputTreeNodeInfoTest
+    public class StructuresOutputContextTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
         private RingtoetsPlugin plugin;
@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StructuresOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StructuresOutputContext));
         }
 
         [TearDown]
