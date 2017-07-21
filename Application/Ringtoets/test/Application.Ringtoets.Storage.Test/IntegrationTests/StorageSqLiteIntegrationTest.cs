@@ -947,8 +947,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                               actualOutput.ProbabilityAssessmentOutput);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
-                expectedOutput.GeneralFaultTreeIllustrationPoint,
-                actualOutput.GeneralFaultTreeIllustrationPoint);
+                expectedOutput.GeneralResult,
+                actualOutput.GeneralResult);
         }
 
         private static void AssertStabilityPointStructuresInput(StabilityPointStructuresInput expectedInput,
@@ -1083,8 +1083,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                               actualOutput.ProbabilityAssessmentOutput);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
-                expectedOutput.GeneralFaultTreeIllustrationPoint,
-                actualOutput.GeneralFaultTreeIllustrationPoint);
+                expectedOutput.GeneralResult,
+                actualOutput.GeneralResult);
         }
 
         private static void AssertClosingStructuresInput(ClosingStructuresInput expectedInput,
@@ -1266,8 +1266,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                               actualOutput.ProbabilityAssessmentOutput);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
-                expectedOutput.GeneralFaultTreeIllustrationPoint,
-                actualOutput.GeneralFaultTreeIllustrationPoint);
+                expectedOutput.GeneralResult,
+                actualOutput.GeneralResult);
         }
 
         private static void AssertHeightStructuresInput(HeightStructuresInput expectedInput,
@@ -1737,8 +1737,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
             Assert.AreEqual(expectedOutput.CalculationConvergence, actualOutput.CalculationConvergence);
 
-            AssertGeneralResultTopLevelSubMechanismIllustrationPoint(expectedOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                                     actualOutput.GeneralResultSubMechanismIllustrationPoint);
+            AssertGeneralResultTopLevelSubMechanismIllustrationPoint(expectedOutput.GeneralResult,
+                                                                     actualOutput.GeneralResult);
         }
 
         #endregion

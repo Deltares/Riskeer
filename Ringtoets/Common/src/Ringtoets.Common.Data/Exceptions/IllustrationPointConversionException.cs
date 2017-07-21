@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 namespace Ringtoets.Common.Data.Exceptions
 {
     /// <summary>
-    /// Exception that is thrown when converting illustration points from the HydraRing data was unsuccesful.
+    /// Exception that is thrown when converting illustration points from the HydraRing data was unsuccessful.
     /// </summary>
     [Serializable]
     public class IllustrationPointConversionException : Exception

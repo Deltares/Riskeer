@@ -287,7 +287,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
 
             AssertGeneralResultSubMechanismIllustrationPoint(expected.GeneralResultSubMechanismIllustrationPointEntity,
-                                                             actual.GeneralResultSubMechanismIllustrationPoint);
+                                                             actual.GeneralResult);
         }
 
         private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity expected,

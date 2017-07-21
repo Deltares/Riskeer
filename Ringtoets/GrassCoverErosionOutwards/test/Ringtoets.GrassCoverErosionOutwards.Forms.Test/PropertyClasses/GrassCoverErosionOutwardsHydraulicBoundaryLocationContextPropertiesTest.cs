@@ -359,7 +359,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
-            protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
+            protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
             {
                 return GeneralResult;
             }

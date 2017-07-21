@@ -82,8 +82,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             if (waveHeightOutputEntity != null)
             {
                 waveHeightCalculation.Output = waveHeightOutputEntity.Read();
-                SetGeneralResultSubMechanismIllustrationPoint(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                                              waveHeightCalculation.Output);
+                SetGeneralResult(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                 waveHeightCalculation.Output);
             }
         }
 
@@ -91,20 +91,20 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                                                            HydraulicBoundaryLocationCalculation designWaterLevelCalculation)
         {
             designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
-               Convert.ToBoolean(entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
+                Convert.ToBoolean(entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
 
             IHydraulicLocationOutputEntity designWaterLevelOutputEntity =
                 GetGrassCoverErosionOutwardsHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             if (designWaterLevelOutputEntity != null)
             {
                 designWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
-                SetGeneralResultSubMechanismIllustrationPoint(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                                              designWaterLevelCalculation.Output);
+                SetGeneralResult(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                 designWaterLevelCalculation.Output);
             }
         }
 
-        private static void SetGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity entity,
-                                                                          HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
+        private static void SetGeneralResult(GeneralResultSubMechanismIllustrationPointEntity entity,
+                                             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
         {
             if (entity != null)
             {

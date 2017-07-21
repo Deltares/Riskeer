@@ -58,30 +58,30 @@ namespace Ringtoets.Common.Data.Structures
         {
             get
             {
-                return GeneralFaultTreeIllustrationPoint != null;
+                return GeneralResult != null;
             }
         }
 
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralFaultTreeIllustrationPoint { get; private set; }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
 
         /// <summary>
         /// Sets the general result of this output with the fault tree illustration points.
         /// </summary>
-        /// <param name="generalResultFaultTreeIllustrationPoint">The general result which belongs
+        /// <param name="generalResult">The general result which belongs
         /// to this output.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResultFaultTreeIllustrationPoint"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
         /// is <c>null</c>.</exception>
-        public void SetIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFaultTreeIllustrationPoint)
+        public void SetIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
-            if (generalResultFaultTreeIllustrationPoint == null)
+            if (generalResult == null)
             {
-                throw new ArgumentNullException(nameof(generalResultFaultTreeIllustrationPoint));
+                throw new ArgumentNullException(nameof(generalResult));
             }
 
-            GeneralFaultTreeIllustrationPoint = generalResultFaultTreeIllustrationPoint;
+            GeneralResult = generalResult;
         }
     }
 }

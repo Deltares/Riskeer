@@ -205,15 +205,15 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
             Assert.IsNotNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationDesignWaterLevelOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                             designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(hydraulicBoundaryLocationDesignWaterLevelOutput.GeneralResult,
+                                designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
             IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
             Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                             waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
+                                waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -402,15 +402,15 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(designWaterLevelOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
             Assert.IsNotNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                             designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
+                                designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
 
             IHydraulicLocationOutputEntity waveheightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
             Assert.IsNotNull(waveheightOutputEntity);
             AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveheightOutputEntity);
             Assert.IsNotNull(waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResultSubMechanismIllustrationPoint(hydraulicBoundaryLocationWaveHeightOutput.GeneralResultSubMechanismIllustrationPoint,
-                                                             waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
+                                waveheightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -455,8 +455,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
         }
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
-                                                                             GeneralResultSubMechanismIllustrationPointEntity entity)
+        private static void AssertGeneralResult(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
+                                                GeneralResultSubMechanismIllustrationPointEntity entity)
         {
             WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
             TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);

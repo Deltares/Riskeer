@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Create
             if (calculationOutput.HasIllustrationPoints)
             {
                 outputEntity.GeneralResultFaultTreeIllustrationPointEntity =
-                    calculationOutput.GeneralFaultTreeIllustrationPoint
+                    calculationOutput.GeneralResult
                                      .CreateGeneralResultFaultTreeIllustrationPointEntity();
             }
         }

@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 var hydraulicLocationOutputEntity = output.Create<HydraulicLocationOutputEntity>(outputType);
                 CreateGeneralResultSubMechanismIllustrationPoint(hydraulicLocationOutputEntity,
-                                                                 output.GeneralResultSubMechanismIllustrationPoint);
+                                                                 output.GeneralResult);
 
                 entity.HydraulicLocationOutputEntities.Add(hydraulicLocationOutputEntity);
             }
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Create
                 var grassCoverErosionOutwardsHydraulicLocationOutputEntity =
                     output.Create<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>(outputType);
                 CreateGeneralResultSubMechanismIllustrationPoint(grassCoverErosionOutwardsHydraulicLocationOutputEntity,
-                                                                 output.GeneralResultSubMechanismIllustrationPoint);
+                                                                 output.GeneralResult);
 
                 entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
             }

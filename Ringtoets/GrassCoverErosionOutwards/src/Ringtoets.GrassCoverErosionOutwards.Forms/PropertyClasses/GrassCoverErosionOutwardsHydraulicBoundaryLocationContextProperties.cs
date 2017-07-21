@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResultSubMechanismIllustrationPoints().GoverningWindDirection.Name;
+                return GetGeneralResult().GoverningWindDirection.Name;
             }
         }
 
@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResultSubMechanismIllustrationPoints().Stochasts.ToArray();
+                return GetGeneralResult().Stochasts.ToArray();
             }
         }
 
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return GetGeneralResultSubMechanismIllustrationPoints().Stochasts.ToArray();
+                return GetGeneralResult().Stochasts.ToArray();
             }
         }
 
@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
-                    GetGeneralResultSubMechanismIllustrationPoints().TopLevelIllustrationPoints.ToArray();
+                    GetGeneralResult().TopLevelIllustrationPoints.ToArray();
 
                 IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation);
 
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            bool hasGeneralIllustrationPointsResult = GetGeneralResultSubMechanismIllustrationPoints() != null;
+            bool hasGeneralIllustrationPointsResult = GetGeneralResult() != null;
             if (propertyName == nameof(GoverningWindDirection)
                 || propertyName == nameof(AlphaValues)
                 || propertyName == nameof(Durations)
@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// </summary>
         /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
         /// otherwise.</returns>
-        protected abstract GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints();
+        protected abstract GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult();
 
         public class ConstructionProperties
         {

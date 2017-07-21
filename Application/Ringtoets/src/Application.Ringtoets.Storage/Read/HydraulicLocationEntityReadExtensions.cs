@@ -68,24 +68,24 @@ namespace Application.Ringtoets.Storage.Read
             return hydraulicBoundaryLocation;
         }
 
-        private static void SetWaveHeightCalculation(HydraulicLocationEntity entity, 
-            HydraulicBoundaryLocationCalculation waveHeightCalculation)
+        private static void SetWaveHeightCalculation(HydraulicLocationEntity entity,
+                                                     HydraulicBoundaryLocationCalculation waveHeightCalculation)
         {
             waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
                 Convert.ToBoolean(entity.ShouldWaveHeightIllustrationPointsBeCalculated);
 
-            IHydraulicLocationOutputEntity waveHeightOutputEntity = 
+            IHydraulicLocationOutputEntity waveHeightOutputEntity =
                 GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.WaveHeight);
             if (waveHeightOutputEntity != null)
             {
                 waveHeightCalculation.Output = waveHeightOutputEntity.Read();
-                SetGeneralResultSubMechanismIllustrationPoint(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                                              waveHeightCalculation.Output);
+                SetGeneralResult(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                 waveHeightCalculation.Output);
             }
         }
 
-        private static void SetDesignWaterLevelCalculation(HydraulicLocationEntity entity, 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation)
+        private static void SetDesignWaterLevelCalculation(HydraulicLocationEntity entity,
+                                                           HydraulicBoundaryLocationCalculation designWaterLevelCalculation)
         {
             designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated =
                 Convert.ToBoolean(entity.ShouldDesignWaterLevelIllustrationPointsBeCalculated);
@@ -95,13 +95,13 @@ namespace Application.Ringtoets.Storage.Read
             if (designWaterLevelOutputEntity != null)
             {
                 designWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
-                SetGeneralResultSubMechanismIllustrationPoint(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                                              designWaterLevelCalculation.Output);
+                SetGeneralResult(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
+                                 designWaterLevelCalculation.Output);
             }
         }
 
-        private static void SetGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity entity,
-                                                                          HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
+        private static void SetGeneralResult(GeneralResultSubMechanismIllustrationPointEntity entity,
+                                             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
         {
             if (entity != null)
             {

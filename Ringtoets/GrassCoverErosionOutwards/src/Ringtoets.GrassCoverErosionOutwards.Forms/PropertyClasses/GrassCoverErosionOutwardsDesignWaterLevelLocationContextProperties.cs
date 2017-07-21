@@ -136,12 +136,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResultSubMechanismIllustrationPoints()
+        protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
             if (data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput
                 && data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.HasIllustrationPoints)
             {
-                return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResultSubMechanismIllustrationPoint;
+                return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResult;
             }
             return null;
         }

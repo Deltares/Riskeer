@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual((RoundedDouble) calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsNull(output.GeneralResultSubMechanismIllustrationPoint);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsNull(output.GeneralResultSubMechanismIllustrationPoint);
+            Assert.IsNull(output.GeneralResult);
         }
 
         private class TestHydraulicLocationOutputEntity : IHydraulicLocationOutputEntity

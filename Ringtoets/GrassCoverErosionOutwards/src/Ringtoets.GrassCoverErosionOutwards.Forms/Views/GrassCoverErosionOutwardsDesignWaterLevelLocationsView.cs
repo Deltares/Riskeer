@@ -200,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             if (designWaterLevelCalculation.HasOutput
                 && designWaterLevelOutput.HasIllustrationPoints)
             {
-                return designWaterLevelOutput.GeneralResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints.Select(
+                return designWaterLevelOutput.GeneralResult.TopLevelIllustrationPoints.Select(
                     topLevelSubMechanismIllustrationPoint =>
                     {
                         SubMechanismIllustrationPoint subMechanismIllustrationPoint =
