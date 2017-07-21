@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
             if (characteristicPoints == null)
             {
-                return;
+                throw new SurfaceLineTransformException($"Karakteristieke punten definitie voor profielschematisatie '{surfaceLine.Name}' is verplicht.");
             }
 
             surfaceLine.TrySetSurfaceLevelOutside(characteristicPoints.SurfaceLevelOutside);

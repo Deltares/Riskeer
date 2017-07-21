@@ -195,6 +195,51 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
+        public void Transform_WithoutCharacteristicPoints_ThrowsSurfaceLineTransformException()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            var transformer = new MacroStabilityInwardsSurfaceLineTransformer(referenceLine);
+            const string locationName = "a location";
+
+            var random = new Random(21);
+            double randomZ = random.NextDouble();
+
+            var surfaceLine = new SurfaceLine
+            {
+                Name = locationName
+            };
+
+            var point1 = new Point3D(3.5, 4.8, randomZ);
+            var point2 = new Point3D(7.2, 9.3, randomZ);
+            var point3 = new Point3D(12.0, 5.6, randomZ);
+
+            surfaceLine.SetGeometry(new[]
+            {
+                point1,
+                point2,
+                point3
+            });
+
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(5.6, 2.5),
+                new Point2D(6.8, 15)
+            });
+
+            RingtoetsMacroStabilityInwardsSurfaceLine result = null;
+
+            // Call
+            TestDelegate test = () => result = transformer.Transform(surfaceLine, null);
+
+            // Assert
+            string message = $"Karakteristieke punten definitie voor profielschematisatie '{locationName}' is verplicht.";
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual(message, exception.Message);
+            Assert.IsNull(result);
+        }
+
+        [Test]
         [TestCaseSource(nameof(MoveOptionalCharacteristicPoint))]
         public void Transform_OptionalCharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
         {

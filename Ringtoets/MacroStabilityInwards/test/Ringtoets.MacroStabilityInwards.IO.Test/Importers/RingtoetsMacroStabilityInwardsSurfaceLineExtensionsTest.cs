@@ -57,10 +57,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void SetCharacteristicPoints_CharacteristicPointsNull_NoCharacteristicPointsSet()
+        public void SetCharacteristicPoints_CharacteristicPointsNull_ThrowsSurfaceLineTransformException()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            const string name = "some line name";
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine()
+            {
+                Name = name
+            };
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3, 2, 5),
@@ -72,15 +76,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             });
 
             // Call
-            surfaceLine.SetCharacteristicPoints(null);
+            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(null);
 
             // Assert
-            Assert.IsNull(surfaceLine.DikeToeAtRiver);
-            Assert.IsNull(surfaceLine.DikeToeAtPolder);
-            Assert.IsNull(surfaceLine.DitchDikeSide);
-            Assert.IsNull(surfaceLine.BottomDitchDikeSide);
-            Assert.IsNull(surfaceLine.BottomDitchPolderSide);
-            Assert.IsNull(surfaceLine.DitchPolderSide);
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual($"Karakteristieke punten definitie voor profielschematisatie '{name}' is verplicht.", exception.Message);
         }
 
         [Test]
