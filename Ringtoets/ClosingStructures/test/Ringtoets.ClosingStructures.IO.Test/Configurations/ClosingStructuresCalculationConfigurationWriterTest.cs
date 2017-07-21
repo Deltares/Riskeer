@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.IO.Configurations;
@@ -96,6 +98,28 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void Write_InvalidInflowModelType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new ClosingStructuresCalculationConfiguration("fail")
+            {
+                InflowModelType = (ConfigurationClosingStructureInflowModelType?) 9000
+            };
+
+            var writer = new ClosingStructuresCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         protected override void AssertDefaultConstructedInstance(ClosingStructuresCalculationConfigurationWriter writer)

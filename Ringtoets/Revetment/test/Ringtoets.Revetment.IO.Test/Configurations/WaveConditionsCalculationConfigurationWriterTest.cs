@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.Base.Data;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
@@ -120,6 +122,28 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void Write_InvalidStepSize_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new WaveConditionsCalculationConfiguration("fail")
+            {
+                StepSize = (ConfigurationWaveConditionsInputStepSize?)9000
+            };
+
+            var writer = new WaveConditionsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         protected override WaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)

@@ -356,6 +356,33 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void WriteWaveReduction_InvalidBreakWaterType_ThrowsNotSupportedException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(WriteWaveReduction_WithoutWaveReduction_ThrowsArgumentNullException));
+            var configuration = new WaveReductionConfiguration
+            {
+                BreakWaterType = (ConfigurationBreakWaterType?) 9000
+            };
+
+            try
+            {
+                using (XmlWriter xmlWriter = CreateXmlWriter(filePath))
+                {
+                    // Call
+                    TestDelegate testDelegate = () => xmlWriter.WriteWaveReduction(configuration);
+
+                    // Assert
+                    Assert.Throws<NotSupportedException>(testDelegate);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
         public void WriteWaveReduction_WriterClosed_ThrowsInvalidOperationException()
         {
             // Setup

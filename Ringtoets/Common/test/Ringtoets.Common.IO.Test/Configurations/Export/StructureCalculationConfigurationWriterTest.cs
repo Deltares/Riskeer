@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             nameof(StructureCalculationConfigurationWriter<StructuresCalculationConfiguration>));
 
         [Test]
-        public void Write_WithoutConfiguration_ThrowsArgumentNullException()
+        public void Write_WithoutConfigurations_ThrowsArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.xml");
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("configuration", exception.ParamName);
+                Assert.AreEqual("configurations", exception.ParamName);
             }
         }
 

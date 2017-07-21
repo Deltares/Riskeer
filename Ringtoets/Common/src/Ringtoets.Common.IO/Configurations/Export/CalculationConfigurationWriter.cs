@@ -56,16 +56,16 @@ namespace Ringtoets.Common.IO.Configurations.Export
         }
 
         /// <summary>
-        /// Writes a calculation configuration to an XML file.
+        /// Writes calculation configurations to an XML file.
         /// </summary>
-        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <param name="configurations">The calculation configuration to write.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write the file to the provided file path.</exception>
-        public void Write(IEnumerable<IConfigurationItem> configuration)
+        public void Write(IEnumerable<IConfigurationItem> configurations)
         {
-            if (configuration == null)
+            if (configurations == null)
             {
-                throw new ArgumentNullException(nameof(configuration));
+                throw new ArgumentNullException(nameof(configurations));
             }
 
             try
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
                     writer.WriteStartDocument();
                     writer.WriteStartElement(ConfigurationSchemaIdentifiers.ConfigurationElement);
 
-                    WriteConfiguration(configuration, writer);
+                    WriteConfiguration(configurations, writer);
 
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -99,6 +99,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="writer">The writer to use for writing.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of 
+        /// <paramref name="configuration"/> cannot be performed.</exception>
         protected abstract void WriteCalculation(T configuration, XmlWriter writer);
 
         /// <summary>
@@ -229,17 +231,19 @@ namespace Ringtoets.Common.IO.Configurations.Export
         }
 
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Writes the <paramref name="configurations"/> in XML format to file.
         /// </summary>
-        /// <param name="configuration">The calculation group(s) and/or calculation(s) to write.</param>
+        /// <param name="configurations">The calculation group(s) and/or calculation(s) to write.</param>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="configuration"/> 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="configurations"/> 
         /// contains a value that is neither <see cref="CalculationGroupConfiguration"/> nor <see cref="T"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private void WriteConfiguration(IEnumerable<IConfigurationItem> configuration, XmlWriter writer)
+        /// <exception cref="NotSupportedException">Thrown when the conversion of an element in 
+        /// <paramref name="configurations"/> cannot be performed.</exception>
+        private void WriteConfiguration(IEnumerable<IConfigurationItem> configurations, XmlWriter writer)
         {
-            foreach (IConfigurationItem child in configuration)
+            foreach (IConfigurationItem child in configurations)
             {
                 var innerGroup = child as CalculationGroupConfiguration;
                 if (innerGroup != null)
@@ -270,6 +274,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <see cref="T"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of an element in 
+        /// <paramref name="group"/> cannot be performed.</exception>
         private void WriteCalculationGroup(CalculationGroupConfiguration group, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.FolderElement);

@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
@@ -97,6 +100,50 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void Write_InvalidInflowModelType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new StabilityPointStructuresCalculationConfiguration("fail")
+            {
+                InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?) 9000
+            };
+
+            var writer = new StabilityPointStructuresCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Write_LoadSchematizationType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new StabilityPointStructuresCalculationConfiguration("fail")
+            {
+                LoadSchematizationType = (ConfigurationStabilityPointStructuresLoadSchematizationType?) 9000
+            };
+
+            var writer = new StabilityPointStructuresCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         private static StabilityPointStructuresCalculationConfiguration CreateFullCalculation()

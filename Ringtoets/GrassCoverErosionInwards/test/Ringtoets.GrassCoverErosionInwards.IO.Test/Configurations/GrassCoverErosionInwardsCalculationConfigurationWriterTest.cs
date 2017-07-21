@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
@@ -148,6 +150,50 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
+        }
+
+        [Test]
+        public void Write_InvalidDikeHeightCalculationType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new GrassCoverErosionInwardsCalculationConfiguration("fail")
+            {
+                DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?) 9000
+            };
+
+            var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Write_InvalidOvertoppingRateCalculationType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new GrassCoverErosionInwardsCalculationConfiguration("fail")
+            {
+                OvertoppingRateCalculationType= (ConfigurationHydraulicLoadsCalculationType?) 9000
+            };
+
+            var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
         private static GrassCoverErosionInwardsCalculationConfiguration CreateCompleteCalculation()

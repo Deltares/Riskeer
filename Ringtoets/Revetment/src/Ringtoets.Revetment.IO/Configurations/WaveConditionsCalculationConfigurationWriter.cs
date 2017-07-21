@@ -95,24 +95,26 @@ namespace Ringtoets.Revetment.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Writes the <paramref name="stepSize"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <param name="stepSize">The stepsize to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion
+        /// of <paramref name="stepSize"/> cannot be performed.</exception>
         private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
             XmlWriter writer,
-            ConfigurationWaveConditionsInputStepSize? configuration)
+            ConfigurationWaveConditionsInputStepSize? stepSize)
         {
-            if (!configuration.HasValue)
+            if (!stepSize.HasValue)
             {
                 return;
             }
 
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
             writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize,
-                                      converter.ConvertToInvariantString(configuration.Value));
+                                      converter.ConvertToInvariantString(stepSize.Value));
         }
     }
 }

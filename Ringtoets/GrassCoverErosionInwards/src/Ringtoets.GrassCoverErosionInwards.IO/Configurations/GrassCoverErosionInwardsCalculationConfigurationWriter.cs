@@ -94,26 +94,28 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Writes the <paramref name="calculationType"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="elementName">The XML element name.</param>
-        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <param name="calculationType">The calculation type to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="calculationType"/> cannot be performed.</exception>
         private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
             XmlWriter writer,
             string elementName,
-            ConfigurationHydraulicLoadsCalculationType? configuration)
+            ConfigurationHydraulicLoadsCalculationType? calculationType)
         {
-            if (!configuration.HasValue)
+            if (!calculationType.HasValue)
             {
                 return;
             }
 
             var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
             writer.WriteElementString(elementName,
-                                      converter.ConvertToInvariantString(configuration.Value));
+                                      converter.ConvertToInvariantString(calculationType.Value));
         }
     }
 }

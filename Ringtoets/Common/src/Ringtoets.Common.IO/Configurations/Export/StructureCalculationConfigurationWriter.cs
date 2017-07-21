@@ -66,6 +66,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="writer">The writer that should be used to write the parameters.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of 
+        /// <paramref name="configuration"/> cannot be performed.</exception>
         protected virtual void WriteSpecificStructureParameters(T configuration, XmlWriter writer) {}
 
         /// <summary>
@@ -85,6 +87,8 @@ namespace Ringtoets.Common.IO.Configurations.Export
         /// <param name="writer">The writer that should be used to write the parameters.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of 
+        /// <paramref name="configuration"/> cannot be performed.</exception>
         private void WriteParameters(T configuration, XmlWriter writer)
         {
             WriteElementWhenContentAvailable(writer,

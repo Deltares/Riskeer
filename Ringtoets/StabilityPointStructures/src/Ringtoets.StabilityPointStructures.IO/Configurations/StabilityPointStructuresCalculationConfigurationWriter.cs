@@ -125,43 +125,47 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Writes the <paramref name="loadSchematizationType"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <param name="loadSchematizationType">The calculation configuration to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of 
+        /// <paramref name="loadSchematizationType"/> cannot be performed.</exception>
         private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(XmlWriter writer,
-                                                                                  ConfigurationStabilityPointStructuresLoadSchematizationType? configuration)
+                                                                                  ConfigurationStabilityPointStructuresLoadSchematizationType? loadSchematizationType)
         {
-            if (!configuration.HasValue)
+            if (!loadSchematizationType.HasValue)
             {
                 return;
             }
 
             var converter = new ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter();
             writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationTypeElement,
-                                      converter.ConvertToInvariantString(configuration.Value));
+                                      converter.ConvertToInvariantString(loadSchematizationType.Value));
         }
 
         /// <summary>
-        /// Writes the <paramref name="configuration"/> in XML format to file.
+        /// Writes the <paramref name="inflowModelType"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <param name="inflowModelType">The inflow model type to write.</param>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of 
+        /// <paramref name="inflowModelType"/> cannot be performed.</exception>
         private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer,
-                                                                           ConfigurationStabilityPointStructuresInflowModelType? configuration)
+                                                                           ConfigurationStabilityPointStructuresInflowModelType? inflowModelType)
         {
-            if (!configuration.HasValue)
+            if (!inflowModelType.HasValue)
             {
                 return;
             }
 
             var converter = new ConfigurationStabilityPointStructuresInflowModelTypeConverter();
             writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement,
-                                      converter.ConvertToInvariantString(configuration.Value));
+                                      converter.ConvertToInvariantString(inflowModelType.Value));
         }
     }
 }

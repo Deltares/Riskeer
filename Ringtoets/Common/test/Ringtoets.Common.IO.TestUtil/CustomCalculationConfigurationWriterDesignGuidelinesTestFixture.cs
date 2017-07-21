@@ -180,7 +180,7 @@ namespace Ringtoets.Common.IO.TestUtil
         protected virtual void AssertNullConfiguration(ArgumentNullException exception)
         {
             Assert.IsNotNull(exception);
-            Assert.AreEqual("configuration", exception.ParamName);
+            Assert.AreEqual("configurations", exception.ParamName);
         }
 
         protected virtual void AssertNullFilePath(ArgumentException exception)

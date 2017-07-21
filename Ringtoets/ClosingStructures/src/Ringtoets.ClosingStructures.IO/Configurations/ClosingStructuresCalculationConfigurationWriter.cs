@@ -48,12 +48,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         protected override void WriteSpecificStructureParameters(ClosingStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
-            if (configuration.InflowModelType != null)
-            {
-                writer.WriteElementString(
-                    ClosingStructuresConfigurationSchemaIdentifiers.InflowModelType,
-                    new ConfigurationClosingStructureInflowModelTypeConverter().ConvertToInvariantString(configuration.InflowModelType));
-            }
+            WriteConfigurationInflowModelTypeWhenAvailable(writer, configuration.InflowModelType);
 
             WriteElementWhenContentAvailable(writer,
                                              ClosingStructuresConfigurationSchemaIdentifiers.FactorStormDurationOpenStructure,
@@ -89,6 +84,26 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             WriteDistributionWhenAvailable(writer,
                                            ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName,
                                            configuration.LevelCrestStructureNotClosing);
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="inflowModelType"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="inflowModelType">The inflow model type to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion
+        /// of <paramref name="inflowModelType"/> cannot be performed.</exception>
+        private static void WriteConfigurationInflowModelTypeWhenAvailable(XmlWriter writer,
+                                                                           ConfigurationClosingStructureInflowModelType? inflowModelType)
+        {
+            if (inflowModelType.HasValue)
+            {
+                writer.WriteElementString(
+                    ClosingStructuresConfigurationSchemaIdentifiers.InflowModelType,
+                    new ConfigurationClosingStructureInflowModelTypeConverter().ConvertToInvariantString(inflowModelType));
+            }
         }
     }
 }
