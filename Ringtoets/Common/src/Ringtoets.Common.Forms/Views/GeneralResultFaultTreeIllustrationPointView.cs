@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,25 +32,34 @@ namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// This class is a view for presenting <see cref="TopLevelFaultTreeIllustrationPoint"/> objects
-    /// (as part of a <see cref="GeneralResult{T}"/>).
+    /// (as part of the <see cref="GeneralResult{T}"/> of a <see cref="ICalculation"/>).
     /// </summary>
     public partial class GeneralResultFaultTreeIllustrationPointView : UserControl, IView
     {
         private readonly Observer calculationObserver;
-        private GeneralResult<TopLevelFaultTreeIllustrationPoint> data;
+        private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
+
+        private ICalculation data;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResultFaultTreeIllustrationPointView"/>.
         /// </summary>
-        /// <param name="calculation">The calculation that owns the data of the view.</param>
-        public GeneralResultFaultTreeIllustrationPointView(ICalculation calculation)
+        /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
+        /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
+        /// that must be presented.</param>
+        /// <exception cref="NullReferenceException">Thrown when <paramref name="getGeneralResultFunc"/> is <c>null</c>.</exception>
+        public GeneralResultFaultTreeIllustrationPointView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
         {
-            InitializeComponent();
-
-            calculationObserver = new Observer(UpdateIllustrationPointsControl)
+            if (getGeneralResultFunc == null)
             {
-                Observable = calculation
-            };
+                throw new ArgumentNullException(nameof(getGeneralResultFunc));
+            }
+
+            this.getGeneralResultFunc = getGeneralResultFunc;
+
+            calculationObserver = new Observer(UpdateIllustrationPointsControl);
+
+            InitializeComponent();
         }
 
         public object Data
@@ -60,7 +70,9 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value as GeneralResult<TopLevelFaultTreeIllustrationPoint>;
+                data = value as ICalculation;
+
+                calculationObserver.Observable = data;
 
                 UpdateIllustrationPointsControl();
             }
@@ -85,7 +97,12 @@ namespace Ringtoets.Common.Forms.Views
 
         private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
         {
-            return data?.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+            if (data == null)
+            {
+                return null;
+            }
+
+            return getGeneralResultFunc()?.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
             {
                 IllustrationPointBase illustrationPoint = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.Data;
 

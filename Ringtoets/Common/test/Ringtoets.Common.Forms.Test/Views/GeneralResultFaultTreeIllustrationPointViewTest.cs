@@ -22,7 +22,8 @@
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
@@ -35,7 +36,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -53,31 +54,36 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_GeneralResultFaultTreeIllustrationPoint_DataSet()
+        public void Data_ICalculation_DataSet()
         {
             // Setup
-            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
-            {
-                var generalResultFaultTreeIllustrationPoint = new TestGeneralResultFaultTreeIllustrationPoint();
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
 
+            mocks.ReplayAll();
+
+            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            {
                 // Call
-                view.Data = generalResultFaultTreeIllustrationPoint;
+                view.Data = data;
 
                 // Assert
-                Assert.AreSame(generalResultFaultTreeIllustrationPoint, view.Data);
+                Assert.AreSame(data, view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_OtherThanGeneralResultFaultTreeIllustrationPoint_NullSet()
+        public void Data_OtherThanICalculation_NullSet()
         {
             // Setup
-            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
-            {
-                var generalResultSubMechanismIllustrationPoint = new TestGeneralResultSubMechanismIllustrationPoint();
+            var data = new object();
 
+            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            {
                 // Call
-                view.Data = generalResultSubMechanismIllustrationPoint;
+                view.Data = data;
 
                 // Assert
                 Assert.IsNull(view.Data);
@@ -88,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_Null_NullSet()
         {
             // Setup
-            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
             {
                 // Call
                 view.Data = null;
@@ -98,9 +104,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private static GeneralResultFaultTreeIllustrationPointView CreateViewWithTestCalculation()
+        private static GeneralResultFaultTreeIllustrationPointView GetTestView()
         {
-            return new GeneralResultFaultTreeIllustrationPointView(new TestCalculation("Calculation"));
+            return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
         }
     }
 }
