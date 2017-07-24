@@ -61,7 +61,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the <paramref name="surfaceLine"/> is below the <paramref name="soilLayer"/>.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(MacroStabilityInwardsSoilLayer soilLayer,
+                                                                  MacroStabilityInwardsSoilProfile soilProfile,
+                                                                  RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilLayer == null || soilProfile == null || surfaceLine == null)
             {
@@ -192,6 +194,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a dike toe at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the dike toe at polder point for.</param>
+        /// <returns>An array with a dike toe at polder point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the dike toe at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDikeToeAtPolderPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtPolder);
+        }
+
+        /// <summary>
+        /// Create a ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the ditch dike side point for.</param>
+        /// <returns>An array with a ditch dike side point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDitchDikeSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchDikeSide);
+        }
+
+        /// <summary>
         /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>
@@ -220,7 +252,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             };
         }
 
-        private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)
+        private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry,
+                                                                                      MacroStabilityInwardsSoilLayer soilLayer,
+                                                                                      MacroStabilityInwardsSoilProfile soilProfile)
         {
             Point2D[] surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
             Point2D[] soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
@@ -228,7 +262,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineAsPolygon, soilLayerAsPolygon);
         }
 
-        private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer)
+        private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry,
+                                                        MacroStabilityInwardsSoilLayer soilLayer)
         {
             double surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
             double topLevel = soilLayer.Top;
@@ -236,13 +271,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return surfaceLineLowestPointY >= topLevel;
         }
 
-        private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)
+        private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry,
+                                                        MacroStabilityInwardsSoilLayer soilLayer,
+                                                        MacroStabilityInwardsSoilProfile soilProfile)
         {
             double topLevel = soilLayer.Top;
             return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
         }
 
-        private static Point2D[] CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)
+        private static Point2D[] CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry,
+                                                                         MacroStabilityInwardsSoilLayer soilLayer,
+                                                                         MacroStabilityInwardsSoilProfile soilProfile)
         {
             List<Point2D> surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
 
@@ -258,7 +297,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return surfaceLineAsPolygon.ToArray();
         }
 
-        private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, MacroStabilityInwardsSoilLayer soilLayer, MacroStabilityInwardsSoilProfile soilProfile)
+        private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry,
+                                                                MacroStabilityInwardsSoilLayer soilLayer,
+                                                                MacroStabilityInwardsSoilProfile soilProfile)
         {
             Point2D firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
             Point2D lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();

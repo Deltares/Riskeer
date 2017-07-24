@@ -51,6 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData dikeTopAtPolderChartData;
         private readonly ChartPointData shoulderBaseInsideChartData;
         private readonly ChartPointData shoulderTopInsideChartData;
+        private readonly ChartPointData dikeToeAtPolderData;
+        private readonly ChartPointData ditchDikeSideData;
         private readonly ChartPointData ditchPolderSideChartData;
         private readonly ChartDataCollection chartDataCollection;
 
@@ -80,6 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeTopAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
             shoulderBaseInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
             shoulderTopInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
+            dikeToeAtPolderData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtPolderChartData();
+            ditchDikeSideData = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
             ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
 
             chartDataCollection.Add(soilProfileChartData);
@@ -91,6 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(dikeTopAtPolderChartData);
             chartDataCollection.Add(shoulderBaseInsideChartData);
             chartDataCollection.Add(shoulderTopInsideChartData);
+            chartDataCollection.Add(dikeToeAtPolderData);
+            chartDataCollection.Add(ditchDikeSideData);
             chartDataCollection.Add(ditchPolderSideChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
@@ -168,7 +174,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeTopAtPolderChartData.NotifyObservers();
             shoulderBaseInsideChartData.NotifyObservers();
             shoulderTopInsideChartData.NotifyObservers();
+            dikeToeAtPolderData.NotifyObservers();
+            ditchDikeSideData.NotifyObservers();
             ditchPolderSideChartData.NotifyObservers();
+
             soilProfileChartData.NotifyObservers();
             soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
@@ -192,6 +201,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeTopAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
             shoulderBaseInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
             shoulderTopInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+            dikeToeAtPolderData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
+            ditchDikeSideData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
             ditchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
 
             SetSoilProfileChartData();
