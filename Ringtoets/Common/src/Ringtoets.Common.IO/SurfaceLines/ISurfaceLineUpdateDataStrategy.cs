@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// Updates the surface lines on the data model using the <paramref name="surfaceLines"/>.
         /// </summary>
         /// <param name="surfaceLines">The surface lines that need to be set on the data model.</param>
-        /// <param name="sourceFilePath">The source path from where the surface lines were imported from.</param>
+        /// <param name="sourceFilePath">The source path from where the surface lines were imported.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed. The 

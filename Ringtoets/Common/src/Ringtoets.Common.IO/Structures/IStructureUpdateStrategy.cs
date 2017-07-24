@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Structures
         /// Updates the structures and its dependent data with data from <paramref name="readStructures"/>.
         /// </summary>
         /// <param name="readStructures">The imported structures.</param>
-        /// <param name="sourceFilePath">The source path from where the structures were imported from.</param>
+        /// <param name="sourceFilePath">The source path from where the structures were imported.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed.</exception>
