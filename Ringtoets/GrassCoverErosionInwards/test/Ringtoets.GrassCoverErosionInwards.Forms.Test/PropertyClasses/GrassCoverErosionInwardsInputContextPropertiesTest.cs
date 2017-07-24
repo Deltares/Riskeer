@@ -258,6 +258,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void ShouldOvertoppingOutputIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated = true);
+        }
+
+        [Test]
+        public void ShouldDikeHeightIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldDikeHeightIllustrationPointsBeCalculated = true);
+        }
+
+        [Test]
+        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldOvertoppingRateIllustrationPointsBeCalculated = true);
+        }
+
+        [Test]
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));

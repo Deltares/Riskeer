@@ -267,8 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value, propertyChangeHandler);
             }
         }
 
@@ -283,8 +282,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value, propertyChangeHandler);
             }
         }
 
@@ -299,8 +297,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value;
-                data.WrappedData.NotifyObservers();
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value, propertyChangeHandler);
             }
         }
 

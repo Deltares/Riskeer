@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,6 +37,8 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -1684,6 +1687,108 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }
         }
 
+
+        [Test]
+        public void ConvertIllustrationPointsResult_ResultNull_WarnErrorMessage()
+        {
+            // Setup 
+            GeneralResult generalResult = null;
+            
+            var errorMessage = "Error Message, input null";
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            // Call
+            var exceptionThrown = false;
+
+            // Call
+            Action call = () =>
+            {
+                try
+                {
+                    service.ConvertIllustrationPointsResult(generalResult, errorMessage);
+                }
+                catch (IllustrationPointConversionException)
+                {
+                    exceptionThrown = true;
+                }
+            };
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(errorMessage, msgs[0]);
+                Assert.IsFalse(exceptionThrown);
+            });
+        }
+
+        [Test]
+        public void Calculate_ValidInputButIllustrationPointResultsInvalid_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+            });
+            calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+            });
+            calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
+            {
+                IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
+            });
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           validFile);
+            mockRepository.ReplayAll();
+
+            DikeProfile dikeProfile = GetDikeProfile();
+
+            var hydraulicBoundary = new TestHydraulicBoundaryLocation();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundary,
+                    DikeProfile = dikeProfile,
+                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                    UseForeshore = true,
+                    ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = false,
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = false
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           validFile);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+
+                    Assert.AreEqual(8, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[4]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsNull(calculation.Output.DikeHeightOutput.GeneralFaultTreeIllustrationPoint);
+            }
+
+        }
         private static GrassCoverErosionInwardsFailureMechanism CreateGrassCoverErosionInwardsFailureMechanism()
         {
             return new GrassCoverErosionInwardsFailureMechanism

@@ -728,7 +728,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="result">The <see cref="GeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
         /// <param name="errorMessage"></param>
-        private GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(GeneralResult result, string errorMessage)
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(GeneralResult result, string errorMessage)
         {
             if (result == null)
             {
