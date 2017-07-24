@@ -49,14 +49,14 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// does not contain 0 or 2 children.</exception>
         /// <exception cref="IllustrationPointConversionException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
         /// cannot be converted to a <see cref="IllustrationPointNode"/></exception>
-        public static IllustrationPointNode Create(HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
+        public static IllustrationPointNode Convert(HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
         {
             if (hydraRingIllustrationPointTreeNode == null)
             {
                 throw new ArgumentNullException(nameof(hydraRingIllustrationPointTreeNode));
             }
 
-            IllustrationPointBase data = CreateIllustrationPointTreeNodeData(hydraRingIllustrationPointTreeNode.Data);
+            IllustrationPointBase data = ConvertIllustrationPointTreeNodeData(hydraRingIllustrationPointTreeNode.Data);
 
             if (data == null)
             {
@@ -66,19 +66,19 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             }
 
             var illustrationPointNode = new IllustrationPointNode(data);
-            illustrationPointNode.SetChildren(hydraRingIllustrationPointTreeNode.Children.Select(Create).ToArray());
+            illustrationPointNode.SetChildren(hydraRingIllustrationPointTreeNode.Children.Select(Convert).ToArray());
 
             return illustrationPointNode;
         }
 
-        private static IllustrationPointBase CreateIllustrationPointTreeNodeData(IIllustrationPoint data)
+        private static IllustrationPointBase ConvertIllustrationPointTreeNodeData(IIllustrationPoint data)
         {
             var faultTreeIllustrationPoint = data as HydraRingFaultTreeIllustrationPoint;
             var subMechanismIllustrationPoint = data as HydraRingSubMechanismIllustrationPoint;
             return faultTreeIllustrationPoint != null
-                       ? (IllustrationPointBase) FaultTreeIllustrationPointConverter.Create(faultTreeIllustrationPoint)
+                       ? (IllustrationPointBase) FaultTreeIllustrationPointConverter.Convert(faultTreeIllustrationPoint)
                        : (subMechanismIllustrationPoint != null
-                              ? SubMechanismIllustrationPointConverter.Create(subMechanismIllustrationPoint)
+                              ? SubMechanismIllustrationPointConverter.Convert(subMechanismIllustrationPoint)
                               : null);
         }
     }

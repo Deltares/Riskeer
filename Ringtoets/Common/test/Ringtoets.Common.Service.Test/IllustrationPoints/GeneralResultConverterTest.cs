@@ -45,10 +45,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class GeneralResultConverterTest
     {
         [Test]
-        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
+        public void ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(null);
+            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
+        public void ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
-                GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+                GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ExpectedProperties()
+        public void ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ExpectedProperties()
         {
             // Setup
             const string closingSituation = "Closing situation";
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
-                GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraGeneralResult);
+                GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraGeneralResult);
 
             // Assert
             WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
+        public void ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
         {
             // Setup
             var random = new Random(21);
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
+            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
@@ -173,10 +173,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
+        public void ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(null);
+            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
+        public void ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithoutIllustrationPoints_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
+        public void ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint_HydraGeneralResultWithSubMechanismIllustrationPointsOnly_ThrowsIllustrationPointConversionException()
         {
             // Setup
             const string closingSituation = "Closing situation";
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            TestDelegate call = () => GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraGeneralResult);
+            TestDelegate call = () => GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraGeneralResult);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
@@ -249,7 +249,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ExpectedProperties()
+        public void ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint_HydraRingGeneralResultWithFaultTreeIllustrationPointsOnly_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             WindDirection generalResultGoverningWindDirection =

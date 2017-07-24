@@ -32,10 +32,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class WindDirectionConverterTest
     {
         [Test]
-        public void Create_HydraRingWindDirectionNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingWindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WindDirectionConverter.Create(null);
+            TestDelegate call = () => WindDirectionConverter.Convert(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -43,14 +43,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidArguments_ExpectedProperties()
+        public void Convert_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
             var hydraRingWindDirection = new HydraRingWindDirection("name", random.NextDouble());
 
             // Call
-            WindDirection windDirection = WindDirectionConverter.Create(hydraRingWindDirection);
+            WindDirection windDirection = WindDirectionConverter.Convert(hydraRingWindDirection);
 
             // Assert
             Assert.AreEqual(hydraRingWindDirection.Angle, windDirection.Angle, windDirection.Angle.GetAccuracy());

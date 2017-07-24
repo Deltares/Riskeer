@@ -32,10 +32,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class CombinationTypeConverterTest
     {
         [Test]
-        public void Create_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
+        public void Convert_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => CombinationTypeConverter.Create((HydraRingCombinationType) 99);
+            TestDelegate test = () => CombinationTypeConverter.Convert((HydraRingCombinationType) 99);
 
             // Assert
             const string message = "The value of argument 'hydraRingCombinationType' (99) is invalid for Enum type 'CombinationType'.";
@@ -45,11 +45,11 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         [Test]
         [TestCase(HydraRingCombinationType.And, CombinationType.And)]
         [TestCase(HydraRingCombinationType.Or, CombinationType.Or)]
-        public void Create_HydraRingCombinationType_ReturnCombinationType(HydraRingCombinationType hydraRingCombinationType,
+        public void Convert_HydraRingCombinationType_ReturnCombinationType(HydraRingCombinationType hydraRingCombinationType,
                                                                           CombinationType expectedCombinationType)
         {
             // Call
-            CombinationType combinationType = CombinationTypeConverter.Create(hydraRingCombinationType);
+            CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingCombinationType);
 
             // Assert
             Assert.AreEqual(expectedCombinationType, combinationType);

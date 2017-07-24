@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class TopLevelFaultTreeIllustrationPointConverterTest
     {
         [Test]
-        public void Create_HydraRingWindDirectionClosingSituationNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingWindDirectionClosingSituationNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("fault tree",
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var treeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
 
             // Call
-            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Create(null, treeNode);
+            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(null, treeNode);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,14 +61,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_HydraRingIllustrationPointTreeNodeNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingIllustrationPointTreeNodeNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraRingWindDirectionClosingSituation = new HydraRingWindDirectionClosingSituation(new HydraRingTestWindDirection(),
                                                                                                     "random closing situation");
 
             // Call
-            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Create(hydraRingWindDirectionClosingSituation, null);
+            TestDelegate call = () => TopLevelFaultTreeIllustrationPointConverter.Convert(hydraRingWindDirectionClosingSituation, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidHydraRingFaultTreeIllustrationPointWithoutChildren_ExpectedProperties()
+        public void Convert_ValidHydraRingFaultTreeIllustrationPointWithoutChildren_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TopLevelFaultTreeIllustrationPoint topLevelIllustrationPoint =
-                TopLevelFaultTreeIllustrationPointConverter.Create(hydraRingWindDirectionClosingSituation, treeNode);
+                TopLevelFaultTreeIllustrationPointConverter.Convert(hydraRingWindDirectionClosingSituation, treeNode);
 
             // Assert
             WindDirection windDirection = topLevelIllustrationPoint.WindDirection;
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidHydraRingFaultTreeIllustrationPointWithChildren_ExpectedProperties()
+        public void Convert_ValidHydraRingFaultTreeIllustrationPointWithChildren_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TopLevelFaultTreeIllustrationPoint topLevelIllustrationPoint =
-                TopLevelFaultTreeIllustrationPointConverter.Create(hydraRingWindDirectionClosingSituation, treeNodeRoot);
+                TopLevelFaultTreeIllustrationPointConverter.Convert(hydraRingWindDirectionClosingSituation, treeNodeRoot);
 
             // Assert
             WindDirection windDirection = topLevelIllustrationPoint.WindDirection;

@@ -37,10 +37,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class FaultTreeIllustrationPointConverterTest
     {
         [Test]
-        public void CreateIllustrationPoint_HydraRingFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FaultTreeIllustrationPointConverter.Create(null);
+            TestDelegate call = () => FaultTreeIllustrationPointConverter.Convert(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidArguments_ExpectedProperties()
+        public void Convert_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             FaultTreeIllustrationPoint faultTreeIllustrationPoint =
-                FaultTreeIllustrationPointConverter.Create(hydraRingFaultTreeIllustrationPoint);
+                FaultTreeIllustrationPointConverter.Convert(hydraRingFaultTreeIllustrationPoint);
 
             // Assert
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta,
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_InvalidHydraRingCombinationType_ThrowsIllustrationPointConversionException()
+        public void Convert_InvalidHydraRingCombinationType_ThrowsIllustrationPointConversionException()
         {
             // Setup
             var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint(
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 (HydraRingCombinationType) 999999);
 
             // Call
-            TestDelegate call = () => FaultTreeIllustrationPointConverter.Create(hydraRingFaultTreeIllustrationPoint);
+            TestDelegate call = () => FaultTreeIllustrationPointConverter.Convert(hydraRingFaultTreeIllustrationPoint);
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class TopLevelSubMechanismIllustrationPointConverterTest
     {
         [Test]
-        public void Create_HydraWindDirectionNull_ThrowsArgumentNullException()
+        public void Convert_HydraWindDirectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraRingSubMechanismIllustrationPoint =
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TestDelegate call = () =>
-                TopLevelSubMechanismIllustrationPointConverter.Create(
+                TopLevelSubMechanismIllustrationPointConverter.Convert(
                     null, hydraRingSubMechanismIllustrationPoint);
 
             // Assert
@@ -58,14 +58,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
+        public void Convert_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraRingWindDirection = new HydraRingTestWindDirection();
 
             // Call
             TestDelegate call = () =>
-                TopLevelSubMechanismIllustrationPointConverter.Create(
+                TopLevelSubMechanismIllustrationPointConverter.Convert(
                     new HydraRingWindDirectionClosingSituation(hydraRingWindDirection, string.Empty),
                     null);
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void Create_ValidArguments_ExpectedProperties()
+        public void Convert_ValidArguments_ExpectedProperties()
         {
             // Setup
             var random = new Random(21);
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Call
             TopLevelSubMechanismIllustrationPoint combination =
-                TopLevelSubMechanismIllustrationPointConverter.Create(
+                TopLevelSubMechanismIllustrationPointConverter.Convert(
                     hydraRingWindDirectionClosingSituation, hydraRingSubMechanismIllustrationPoint);
 
             // Assert

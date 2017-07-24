@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The newly created <see cref="SubMechanismIllustrationPoint"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingSubMechanismIllustrationPoint"/> 
         /// is <c>null</c>.</exception>
-        public static SubMechanismIllustrationPoint Create(HydraRingSubMechanismIllustrationPoint hydraRingSubMechanismIllustrationPoint)
+        public static SubMechanismIllustrationPoint Convert(HydraRingSubMechanismIllustrationPoint hydraRingSubMechanismIllustrationPoint)
         {
             if (hydraRingSubMechanismIllustrationPoint == null)
             {
@@ -50,9 +50,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             }
 
             IEnumerable<SubMechanismIllustrationPointStochast> stochasts = hydraRingSubMechanismIllustrationPoint
-                .Stochasts.Select(StochastConverter.CreateSubMechanismIllustrationStochast);
+                .Stochasts.Select(StochastConverter.Convert);
             IEnumerable<IllustrationPointResult> illustrationPointResults = hydraRingSubMechanismIllustrationPoint
-                .Results.Select(IllustrationPointResultConverter.Create);
+                .Results.Select(IllustrationPointResultConverter.Convert);
 
             return new SubMechanismIllustrationPoint(hydraRingSubMechanismIllustrationPoint.Name,
                                                      hydraRingSubMechanismIllustrationPoint.Beta,

@@ -302,7 +302,7 @@ namespace Ringtoets.Common.Service.Structures
             try
             {
                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                    GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
                 structuresOutput.SetIllustrationPoints(generalResult);
             }
             catch (IllustrationPointConversionException e)

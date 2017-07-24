@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The newly created <see cref="WindDirection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingWindDirection"/> 
         /// is <c>null</c>.</exception>
-        public static WindDirection Create(HydraRingWindDirection hydraRingWindDirection)
+        public static WindDirection Convert(HydraRingWindDirection hydraRingWindDirection)
         {
             if (hydraRingWindDirection == null)
             {

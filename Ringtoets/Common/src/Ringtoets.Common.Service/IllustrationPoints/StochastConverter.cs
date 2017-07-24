@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingStochast"/> 
         /// is <c>null</c>.</exception>
-        public static Stochast CreateStochast(HydraRingStochast hydraRingStochast)
+        public static Stochast Convert(HydraRingStochast hydraRingStochast)
         {
             if (hydraRingStochast == null)
             {
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The newly created <see cref="Stochast"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingSubMechanismIllustrationPointStochast"/> 
         /// is <c>null</c>.</exception>
-        public static SubMechanismIllustrationPointStochast CreateSubMechanismIllustrationStochast(
+        public static SubMechanismIllustrationPointStochast Convert(
             HydraRingSubMechanismIllustrationPointStochast hydraRingSubMechanismIllustrationPointStochast)
         {
             if (hydraRingSubMechanismIllustrationPointStochast == null)

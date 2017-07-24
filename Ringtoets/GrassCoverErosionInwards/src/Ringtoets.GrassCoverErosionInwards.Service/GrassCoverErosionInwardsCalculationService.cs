@@ -739,7 +739,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             try
             {
                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(result);
+                    GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(result);
                 return generalResult;
             }
             catch (IllustrationPointConversionException e)

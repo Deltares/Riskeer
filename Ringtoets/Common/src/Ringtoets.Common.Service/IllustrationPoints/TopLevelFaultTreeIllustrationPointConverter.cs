@@ -47,8 +47,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
         /// has tree node elements which do not contain exactly 0 or 2 children.</exception>
-        public static TopLevelFaultTreeIllustrationPoint Create(HydraRingWindDirectionClosingSituation hydraRingWindDirectionClosingSituation,
-                                                                HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
+        public static TopLevelFaultTreeIllustrationPoint Convert(HydraRingWindDirectionClosingSituation hydraRingWindDirectionClosingSituation,
+                                                                 HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
         {
             if (hydraRingWindDirectionClosingSituation == null)
             {
@@ -59,11 +59,11 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingIllustrationPointTreeNode));
             }
 
-            WindDirection windDirection = WindDirectionConverter.Create(hydraRingWindDirectionClosingSituation.WindDirection);
-            
-            return new TopLevelFaultTreeIllustrationPoint(windDirection, 
-                hydraRingWindDirectionClosingSituation.ClosingSituation,
-                IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode));
+            WindDirection windDirection = WindDirectionConverter.Convert(hydraRingWindDirectionClosingSituation.WindDirection);
+
+            return new TopLevelFaultTreeIllustrationPoint(windDirection,
+                                                          hydraRingWindDirectionClosingSituation.ClosingSituation,
+                                                          IllustrationPointNodeConverter.Convert(hydraRingIllustrationPointTreeNode));
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The <see cref="CombinationType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when
         /// <paramref name="hydraRingCombinationType"/> has an invalid value.</exception>
-        public static CombinationType Create(HydraRingCombinationType hydraRingCombinationType)
+        public static CombinationType Convert(HydraRingCombinationType hydraRingCombinationType)
         {
             switch (hydraRingCombinationType)
             {

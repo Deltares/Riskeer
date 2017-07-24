@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// is <c>null</c>.</exception>
         /// <exception cref="IllustrationPointConversionException">Thrown when the <paramref name="hydraRingFaultTreeIllustrationPoint"/>
         /// cannot be converted to a <see cref="FaultTreeIllustrationPoint"/>.</exception>
-        public static FaultTreeIllustrationPoint Create(HydraRingFaultTreeIllustrationPoint hydraRingFaultTreeIllustrationPoint)
+        public static FaultTreeIllustrationPoint Convert(HydraRingFaultTreeIllustrationPoint hydraRingFaultTreeIllustrationPoint)
         {
             if (hydraRingFaultTreeIllustrationPoint == null)
             {
@@ -57,9 +57,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             FaultTreeIllustrationPoint illustrationPoint;
             try
             {
-                CombinationType combinationType = CombinationTypeConverter.Create(hydraRingFaultTreeIllustrationPoint.CombinationType);
+                CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingFaultTreeIllustrationPoint.CombinationType);
                 IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint
-                    .Stochasts.Select(StochastConverter.CreateStochast);
+                    .Stochasts.Select(StochastConverter.Convert);
 
                 illustrationPoint = new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
                                                                    hydraRingFaultTreeIllustrationPoint.Beta,

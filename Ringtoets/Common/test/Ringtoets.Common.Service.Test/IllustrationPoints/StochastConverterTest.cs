@@ -33,10 +33,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class StochastConverterTest
     {
         [Test]
-        public void CreateStochast_HydraRingStochastNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingStochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochastConverter.CreateStochast(null);
+            TestDelegate call = () => StochastConverter.Convert((HydraRingStochast) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateStochast_ValidArguments_ExpectedProperties()
+        public void Convert_ValidHydraRingStochastArgument_ExpectedProperties()
         {
             // Setup
             const string name = "name";
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraRingStochast = new HydraRingStochast(name, duration, alpha);
 
             // Call
-            Stochast stochast = StochastConverter.CreateStochast(hydraRingStochast);
+            Stochast stochast = StochastConverter.Convert(hydraRingStochast);
 
             // Assert
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
@@ -64,10 +64,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationStochast_HydraRingSubMechanismIllustrationPointStochastNull_ThrowsArgumentNullException()
+        public void Convert_HydraRingSubMechanismIllustrationPointStochastNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochastConverter.CreateSubMechanismIllustrationStochast(null);
+            TestDelegate call = () => StochastConverter.Convert(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateSubMechanismIllustrationStochast_ValidArguments_ExpectedProperties()
+        public void Convert_ValidHydraRingSubMechanismIllustrationPointStochast_ExpectedProperties()
         {
             // Setup
             const string name = "name";
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast(name, duration, alpha, realization);
 
             // Call
-            SubMechanismIllustrationPointStochast stochast = StochastConverter.CreateSubMechanismIllustrationStochast(hydraRingStochast);
+            SubMechanismIllustrationPointStochast stochast = StochastConverter.Convert(hydraRingStochast);
 
             // Assert
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());

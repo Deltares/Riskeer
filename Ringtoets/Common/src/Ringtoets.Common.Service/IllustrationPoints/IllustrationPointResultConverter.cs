@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <returns>The newly created <see cref="IllustrationPointResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingIllustrationPointResult"/> 
         /// is <c>null</c>.</exception>
-        public static IllustrationPointResult Create(HydraRingIllustrationPointResult hydraRingIllustrationPointResult)
+        public static IllustrationPointResult Convert(HydraRingIllustrationPointResult hydraRingIllustrationPointResult)
         {
             if (hydraRingIllustrationPointResult == null)
             {

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
     {
         private static IEnumerable<Stochast> GetStochasts(HydraRingGeneralResult hydraGeneralResult)
         {
-            return hydraGeneralResult.Stochasts.Select(StochastConverter.CreateStochast);
+            return hydraGeneralResult.Stochasts.Select(StochastConverter.Convert);
         }
 
         #region SubMechanismIllustrationPoint
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraRingGeneralResult"/> is <c>null</c>.</exception>
         /// <exception cref="IllustrationPointConversionException">Thrown when the <paramref name="hydraRingGeneralResult"/>
         /// cannot be converted to a <see cref="GeneralResult{T}"/> with top level sub mechanism illustration points.</exception>
-        public static GeneralResult<TopLevelSubMechanismIllustrationPoint> CreateGeneralResultTopLevelSubMechanismIllustrationPoint(
+        public static GeneralResult<TopLevelSubMechanismIllustrationPoint> ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(
             HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingGeneralResult));
             }
 
-            WindDirection governingWindDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
+            WindDirection governingWindDirection = WindDirectionConverter.Convert(hydraRingGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraRingGeneralResult);
             IEnumerable<TopLevelSubMechanismIllustrationPoint> windDirectionClosingScenarioIllustrationPoints =
                 GetTopLevelSubMechanismIllustrationPoints(hydraRingGeneralResult.IllustrationPoints);
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 var subMechanismIllustrationPoint = hydraIllustrationPointData as HydraRingSubMechanismIllustrationPoint;
                 if (subMechanismIllustrationPoint != null)
                 {
-                    topLevelIlustrationPoints.Add(TopLevelSubMechanismIllustrationPointConverter.Create(
+                    topLevelIlustrationPoints.Add(TopLevelSubMechanismIllustrationPointConverter.Convert(
                                                       hydraWindDirectionClosingSituation, subMechanismIllustrationPoint));
                 }
                 else
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// is <c>null</c>.</exception>
         /// <exception cref="IllustrationPointConversionException">Thrown when the <paramref name="hydraRingGeneralResult"/>
         /// cannot be converted to a <see cref="GeneralResult{T}"/> with top level fault tree illustration points.</exception>
-        public static GeneralResult<TopLevelFaultTreeIllustrationPoint> CreateGeneralResultTopLevelFaultTreeIllustrationPoint(
+        public static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(
             HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingGeneralResult));
             }
 
-            WindDirection governingWindDirection = WindDirectionConverter.Create(hydraRingGeneralResult.GoverningWindDirection);
+            WindDirection governingWindDirection = WindDirectionConverter.Convert(hydraRingGeneralResult.GoverningWindDirection);
             IEnumerable<Stochast> stochasts = GetStochasts(hydraRingGeneralResult);
             IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelIllustrationPoints =
                 GetTopLevelFaultTreeIllustrationPoints(hydraRingGeneralResult.IllustrationPoints);
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 var faultTreeIllustrationPoint = hydraIllustrationPointData as HydraRingFaultTreeIllustrationPoint;
                 if (faultTreeIllustrationPoint != null)
                 {
-                    topLevelIllustrationPoints.Add(TopLevelFaultTreeIllustrationPointConverter.Create(
+                    topLevelIllustrationPoints.Add(TopLevelFaultTreeIllustrationPointConverter.Convert(
                                                        hydraWindDirectionClosingSituation, hydraRingIllustrationPointTreeNode));
                 }
                 else
