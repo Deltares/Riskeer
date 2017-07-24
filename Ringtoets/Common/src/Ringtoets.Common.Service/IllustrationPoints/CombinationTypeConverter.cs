@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 
@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <param name="hydraRingCombinationType">The <see cref="HydraRingCombinationType"/>
         /// to convert.</param>
         /// <returns>The <see cref="CombinationType"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when
+        /// <exception cref="IllustrationPointConversionException">Thrown when
         /// <paramref name="hydraRingCombinationType"/> has an invalid value.</exception>
         public static CombinationType Convert(HydraRingCombinationType hydraRingCombinationType)
         {
@@ -47,9 +47,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 case HydraRingCombinationType.And:
                     return CombinationType.And;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(hydraRingCombinationType),
-                                                           (int) hydraRingCombinationType,
-                                                           typeof(HydraRingCombinationType));
+                    string errorMessage = $"The value of {(int) hydraRingCombinationType} for {nameof(hydraRingCombinationType)} " +
+                                          $"could not be converted into a {typeof(CombinationType)}.";
+                    throw new IllustrationPointConversionException(errorMessage);
             }
         }
     }
