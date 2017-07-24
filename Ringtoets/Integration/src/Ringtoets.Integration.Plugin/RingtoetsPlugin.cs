@@ -49,6 +49,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -427,6 +428,14 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseWaveConditionsInputViewForData,
                 CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context))
+            };
+
+            yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
+            {
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
             };
         }
 
