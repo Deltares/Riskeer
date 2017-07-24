@@ -100,12 +100,13 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
                     if (result.IntersectionType == Intersection2DType.Intersects)
                     {
-                        if (intersectionPoint != null)
+                        Point2D resultIntersectionPoint = result.IntersectionPoints[0];
+                        if (intersectionPoint != null && !intersectionPoint.Equals(resultIntersectionPoint))
                         {
                             // Early exit as multiple intersections is a return result:
                             return ReferenceLineIntersectionResult.CreateMultipleIntersectionsOrOverlapResult();
                         }
-                        intersectionPoint = result.IntersectionPoints[0];
+                        intersectionPoint = resultIntersectionPoint;
                     }
 
                     if (result.IntersectionType == Intersection2DType.Overlaps)

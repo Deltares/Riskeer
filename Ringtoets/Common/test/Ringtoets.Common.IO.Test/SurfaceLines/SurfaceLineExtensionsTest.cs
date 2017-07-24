@@ -83,6 +83,36 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
+        public void CheckReferenceLineInterSections_SurfaceLineThroughReferenceLinePoint_ReturnIntersectionPoint()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+
+            const string surfaceLineName = "somewhere";
+            var surfaceLine = new SurfaceLine
+            {
+                Name = surfaceLineName
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3.0, 4.0, 2.1),
+                new Point3D(3.0, 5.0, 2.1)
+            });
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(2.0, 4.5),
+                new Point2D(3.0, 4.5),
+                new Point2D(4.0, 4.5)
+            });
+
+            // Call
+            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+
+            // Assert
+            Assert.AreEqual(new Point2D(3.0, 4.5), result);
+        }
+
+        [Test]
         public void CheckReferenceLineInterSections_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformerException()
         {
             // Setup
@@ -113,7 +143,38 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowSurfaceLineTransformerException()
+        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimesInSamePoint_ReturnsIntersectionPoint()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+
+            const string surfaceLineName = "somewhere";
+            var surfaceLine = new SurfaceLine
+            {
+                Name = surfaceLineName
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(1.0, 5.0, 2.1),
+                new Point3D(1.0, 3.0, 2.1),
+                new Point3D(1.0, 5.0, 2.1) 
+            });
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 4.0),
+                new Point2D(2.0, 4.0),
+                new Point2D(0.0, 4.0)
+            });
+
+            // Call
+            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+
+            // Assert
+            Assert.AreEqual(new Point2D(1.0, 4.0), result);
+        }
+
+        [Test]
+        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformerException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -130,9 +191,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
             referenceLine.SetGeometry(new[]
             {
-                new Point2D(0.0, 4.0),
+                new Point2D(0.0, 5.0),
                 new Point2D(2.0, 4.0),
-                new Point2D(0.0, 4.0)
+                new Point2D(0.0, 3.0)
             });
 
             // Call

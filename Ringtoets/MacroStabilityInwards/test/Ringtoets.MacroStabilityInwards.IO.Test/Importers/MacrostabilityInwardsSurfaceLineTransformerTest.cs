@@ -175,9 +175,9 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             });
             referenceLine.SetGeometry(new[]
             {
-                new Point2D(0.0, 4.0),
+                new Point2D(0.0, 5.0),
                 new Point2D(2.0, 4.0),
-                new Point2D(0.0, 4.0)
+                new Point2D(0.0, 3.0)
             });
 
             // Call
