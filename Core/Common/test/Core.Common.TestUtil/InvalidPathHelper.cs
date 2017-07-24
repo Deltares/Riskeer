@@ -36,7 +36,8 @@ namespace Core.Common.TestUtil
         {
             "",
             "   ",
-            $@"C:{Path.DirectorySeparatorChar}>"
+            $@"C:{Path.DirectorySeparatorChar}>",
+            $@"C:{Path.DirectorySeparatorChar}"
         };
     }
 }

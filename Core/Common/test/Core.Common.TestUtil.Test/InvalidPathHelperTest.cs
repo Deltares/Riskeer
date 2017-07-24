@@ -38,7 +38,8 @@ namespace Core.Common.TestUtil.Test
             {
                 "",
                 "   ",
-                @"C:\>"
+                @"C:\>",
+                @"C:\"
             }, paths);
             foreach (string path in paths)
             {
