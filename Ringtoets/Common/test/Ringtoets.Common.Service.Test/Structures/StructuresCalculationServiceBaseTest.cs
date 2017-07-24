@@ -388,7 +388,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
 
-            const string performedCalculationMessage = "Calculation succesful";
+            const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
             messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
@@ -448,7 +448,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
 
-            const string performedCalculationMessage = "Calculation succesful";
+            const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
             messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
@@ -501,7 +501,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
 
-            const string performedCalculationMessage = "Calculation succesful";
+            const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
             messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();
@@ -553,7 +553,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
                              .Return(calculator);
 
-            const string performedCalculationMessage = "Calculation succesful";
+            const string performedCalculationMessage = "Calculation successful";
             var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
             messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
             mocks.ReplayAll();

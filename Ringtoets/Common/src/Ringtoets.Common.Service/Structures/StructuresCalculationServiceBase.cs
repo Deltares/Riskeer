@@ -64,6 +64,7 @@ namespace Ringtoets.Common.Service.Structures
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput,
                                                                     TStructure, TGeneralInput, TCalculationInput>));
+
         private readonly IStructuresCalculationMessageProvider messageProvider;
 
         private IStructuresCalculator<TCalculationInput> calculator;
@@ -165,22 +166,7 @@ namespace Ringtoets.Common.Service.Structures
             var exceptionThrown = false;
             try
             {
-                calculator.Calculate(input);
-
-                if (!canceled && string.IsNullOrEmpty(calculator.LastErrorFileContent))
-                {
-                    ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                        ProbabilityAssessmentService.Calculate(norm,
-                                                               contribution,
-                                                               lengthEffectN,
-                                                               calculator.ExceedanceProbabilityBeta);
-                    calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
-
-                    if (calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
-                    {
-                        SetIllustrationPointsResult(calculation.Output, calculator.IllustrationPointsResult);
-                    }
-                }
+                PerformCalculation(calculation, lengthEffectN, norm, contribution, input);
             }
             catch (HydraRingCalculationException)
             {
@@ -219,35 +205,6 @@ namespace Ringtoets.Common.Service.Structures
         }
 
         /// <summary>
-        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
-        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="structuresOutput"/>.
-        /// </summary>
-        /// <param name="structuresOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
-        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
-        /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
-        /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private void SetIllustrationPointsResult(StructuresOutput structuresOutput,
-                                                        HydraRingGeneralResult hydraRingGeneralResult)
-        {
-            if (hydraRingGeneralResult == null)
-            {
-                log.Warn(calculator.IllustrationPointsParserErrorMessage);
-                return;
-            }
-
-            try
-            {
-                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
-                structuresOutput.SetIllustrationPoints(generalResult);
-            }
-            catch (IllustrationPointConversionException e)
-            {
-                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
-            }
-        }
-
-        /// <summary>
         /// Cancels any currently running structures calculation.
         /// </summary>
         public void Cancel()
@@ -278,6 +235,81 @@ namespace Ringtoets.Common.Service.Structures
         protected abstract TCalculationInput CreateInput(TStructureInput structureInput,
                                                          TGeneralInput generalInput,
                                                          string hydraulicBoundaryDatabaseFilePath);
+
+        /// <summary>
+        /// Performs a structures calculation.
+        /// </summary>
+        /// <param name="calculation">The structures calculation to use.</param>
+        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="norm">The norm used in the calculation.</param>
+        /// <param name="contribution">The contribution used in the calculation.</param>
+        /// <param name="calculationInput">The HydraRing calculation input used for the calculation.</param>
+        /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
+        private void PerformCalculation(StructuresCalculation<TStructureInput> calculation,
+                                        double lengthEffectN,
+                                        double norm,
+                                        double contribution,
+                                        TCalculationInput calculationInput)
+        {
+            calculator.Calculate(calculationInput);
+
+            if (canceled || !string.IsNullOrEmpty(calculator.LastErrorFileContent))
+            {
+                return;
+            }
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                ProbabilityAssessmentService.Calculate(norm,
+                                                       contribution,
+                                                       lengthEffectN,
+                                                       calculator.ExceedanceProbabilityBeta);
+            SetOutput(calculation, probabilityAssessmentOutput);
+        }
+
+        /// <summary>
+        /// Sets the calculated output to the calculation object.
+        /// </summary>
+        /// <param name="calculation">The calculation to set the output for.</param>
+        /// <param name="probabilityAssessmentOutput">The calculated output.</param>
+        private void SetOutput(StructuresCalculation<TStructureInput> calculation,
+                               ProbabilityAssessmentOutput probabilityAssessmentOutput)
+        {
+            calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
+
+            if (calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
+            {
+                SetIllustrationPointsResult(calculation.Output, calculator.IllustrationPointsResult);
+            }
+        }
+
+        /// <summary>
+        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
+        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="structuresOutput"/>.
+        /// </summary>
+        /// <param name="structuresOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
+        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
+        /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
+        /// <see cref="GeneralResult{T}"/> to create on.</param>
+        private void SetIllustrationPointsResult(StructuresOutput structuresOutput,
+                                                 HydraRingGeneralResult hydraRingGeneralResult)
+        {
+            if (hydraRingGeneralResult == null)
+            {
+                log.Warn(calculator.IllustrationPointsParserErrorMessage);
+                return;
+            }
+
+            try
+            {
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                    GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
+                structuresOutput.SetIllustrationPoints(generalResult);
+            }
+            catch (IllustrationPointConversionException e)
+            {
+                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+            }
+        }
 
         /// <summary>
         /// Validates the input.
