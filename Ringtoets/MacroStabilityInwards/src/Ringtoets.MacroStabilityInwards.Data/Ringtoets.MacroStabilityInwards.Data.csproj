@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInput.cs" />
     <Compile Include="RingtoetsMacroStabilityInwardsSurfaceLineCollection.cs" />
+    <Compile Include="SoilProfileUnderSurfaceLineFactory.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilModelCollection.cs" />
     <Compile Include="StochasticSoilModelExtensions.cs" />
@@ -68,6 +69,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj">
+      <Project>{88665510-CE20-4EF5-BE4A-39800720AA2C}</Project>
+      <Name>Core.Common.Geometry</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
