@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.illustrationPointsControl1 = new Ringtoets.Common.Forms.Views.IllustrationPointsControl();
+            this.illustrationPointsControl = new Ringtoets.Common.Forms.Views.IllustrationPointsControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -64,19 +64,19 @@ namespace Ringtoets.Common.Forms.Views
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.illustrationPointsControl1);
+            this.splitContainer.Panel1.Controls.Add(this.illustrationPointsControl);
             this.splitContainer.Size = new System.Drawing.Size(487, 357);
             this.splitContainer.SplitterDistance = 261;
             this.splitContainer.TabIndex = 0;
             // 
             // illustrationPointsControl1
             // 
-            this.illustrationPointsControl1.Data = null;
-            this.illustrationPointsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.illustrationPointsControl1.Location = new System.Drawing.Point(0, 0);
-            this.illustrationPointsControl1.Name = "illustrationPointsControl1";
-            this.illustrationPointsControl1.Size = new System.Drawing.Size(261, 357);
-            this.illustrationPointsControl1.TabIndex = 0;
+            this.illustrationPointsControl.Data = null;
+            this.illustrationPointsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsControl.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsControl.Name = "illustrationPointsControl";
+            this.illustrationPointsControl.Size = new System.Drawing.Size(261, 357);
+            this.illustrationPointsControl.TabIndex = 0;
             // 
             // GeneralResultFaultTreeIllustrationPointView
             // 
@@ -95,6 +95,6 @@ namespace Ringtoets.Common.Forms.Views
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer;
-        private IllustrationPointsControl illustrationPointsControl1;
+        private IllustrationPointsControl illustrationPointsControl;
     }
 }

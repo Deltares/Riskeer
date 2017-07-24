@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -50,7 +52,40 @@ namespace Ringtoets.Common.Forms.Views
             set
             {
                 data = value as GeneralResult<TopLevelFaultTreeIllustrationPoint>;
+
+                illustrationPointsControl.Data = GetIllustrationPointControlItems();
             }
+        }
+
+        private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
+        {
+            return data?.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+            {
+                IllustrationPointBase illustrationPoint = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.Data;
+
+                return new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint,
+                                                        topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                        topLevelFaultTreeIllustrationPoint.ClosingSituation,
+                                                        GetStochasts(illustrationPoint),
+                                                        illustrationPoint.Beta);
+            });
+        }
+
+        private static IEnumerable<Stochast> GetStochasts(IllustrationPointBase illustrationPoint)
+        {
+            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
+            if (faultTreeIllustrationPoint != null)
+            {
+                return faultTreeIllustrationPoint.Stochasts;
+            }
+
+            var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
+            if (subMechanismIllustrationPoint != null)
+            {
+                return subMechanismIllustrationPoint.Stochasts;
+            }
+
+            return null;
         }
     }
 }
