@@ -79,17 +79,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
             surfaceLevelInsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
-            ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
-            bottomDitchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchPolderSideChartData();
-            bottomDitchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchDikeSideChartData();
-            ditchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
-            dikeToeAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtPolderChartData();
+            ditchPolderSideChartData = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
+            bottomDitchPolderSideChartData = RingtoetsChartDataFactory.CreateBottomDitchPolderSideChartData();
+            bottomDitchDikeSideChartData = RingtoetsChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ditchDikeSideChartData = RingtoetsChartDataFactory.CreateDitchDikeSideChartData();
+            dikeToeAtPolderChartData = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
             shoulderTopInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
             shoulderBaseInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
             trafficLoadInsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
             dikeTopAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
             trafficLoadOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
-            dikeToeAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtRiverChartData();
+            dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
 
             chartDataCollection.Add(soilProfileChartData);

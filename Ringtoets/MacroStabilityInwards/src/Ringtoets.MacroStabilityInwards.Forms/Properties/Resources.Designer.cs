@@ -450,15 +450,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie.
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam van de profielschematisatie..
         /// </summary>
         public static string RingtoetsMacroStabilityInwardsSurfaceLine_Name_Description {
@@ -673,15 +664,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string StochasticSoilProfile_Type_DisplayName {
             get {
                 return ResourceManager.GetString("StochasticSoilProfile_Type_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisatie.
-        /// </summary>
-        public static string StochasticSoilProfileProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfileProperties_DisplayName", resourceCulture);
             }
         }
         

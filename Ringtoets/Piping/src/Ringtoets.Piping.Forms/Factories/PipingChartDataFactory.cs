@@ -26,7 +26,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Factories
 {
@@ -53,66 +53,6 @@ namespace Ringtoets.Piping.Forms.Factories
         {
             return new ChartPointData(Resources.PipingInput_ExitPointL_DisplayName,
                                       GetGeneralPointStyle(Color.Tomato));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type ditch polder side.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateDitchPolderSideChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide,
-                                      GetCharacteristicPointStyle(Color.IndianRed));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type bottom ditch polder side.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateBottomDitchPolderSideChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide,
-                                      GetCharacteristicPointStyle(Color.Teal));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type bottom ditch dike side.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateBottomDitchDikeSideChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide,
-                                      GetCharacteristicPointStyle(Color.DarkSeaGreen));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type ditch dike side.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateDitchDikeSideChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide,
-                                      GetCharacteristicPointStyle(Color.MediumPurple));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type dike toe at river.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateDikeToeAtRiverChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver,
-                                      GetCharacteristicPointStyle(Color.DarkBlue));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type dike toe at polder.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateDikeToeAtPolderChartData()
-        {
-            return new ChartPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder,
-                                      GetCharacteristicPointStyle(Color.SlateGray));
         }
 
         /// <summary>
@@ -156,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Factories
         {
             chartData.Name = surfaceLine != null
                                  ? surfaceLine.Name
-                                 : Resources.RingtoetsPipingSurfaceLine_DisplayName;
+                                 : RingtoetsCommonFormsResources.SurfaceLine_DisplayName;
         }
 
         /// <summary>
@@ -170,7 +110,7 @@ namespace Ringtoets.Piping.Forms.Factories
         {
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name
-                                 : Resources.StochasticSoilProfileProperties_DisplayName;
+                                 : RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName;
         }
 
         private static ChartPointStyle GetGeneralPointStyle(Color color)
@@ -182,18 +122,6 @@ namespace Ringtoets.Piping.Forms.Factories
                 Size = 8,
                 StrokeThickness = 0,
                 Symbol = ChartPointSymbol.Triangle
-            };
-        }
-
-        private static ChartPointStyle GetCharacteristicPointStyle(Color indianRed)
-        {
-            return new ChartPointStyle
-            {
-                Color = indianRed,
-                StrokeColor = Color.Transparent,
-                Size = 8,
-                StrokeThickness = 0,
-                Symbol = ChartPointSymbol.Circle
             };
         }
     }

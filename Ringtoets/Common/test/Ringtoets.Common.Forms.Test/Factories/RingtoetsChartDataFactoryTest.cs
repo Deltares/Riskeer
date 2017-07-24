@@ -65,6 +65,88 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual("Ondergrondschematisatie", data.Name);
         }
 
+        [Test]
+        public void CreateDitchPolderSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Insteek sloot polderzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.IndianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateBottomDitchPolderSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Slootbodem polderzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.Teal, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateBottomDitchDikeSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateBottomDitchDikeSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Slootbodem dijkzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDitchDikeSideChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateDitchDikeSideChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Insteek sloot dijkzijde", data.Name);
+            AssertEqualStyle(data.Style, Color.MediumPurple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
+        }
+
+        [Test]
+        public void CreateDikeToeAtPolderChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Teen dijk binnenwaarts", data.Name);
+            AssertEqualStyle(data.Style, Color.LightGray, 8, Color.Black, 1, ChartPointSymbol.Square);
+        }
+
+        [Test]
+        public void CreateDikeToeAtRiverChartData_ReturnsChartPointDataWithDefaultStyling()
+        {
+            // Call
+            ChartPointData data = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Teen dijk buitenwaarts", data.Name);
+            AssertEqualStyle(data.Style, Color.DarkGray, 8, Color.Black, 1, ChartPointSymbol.Square);
+        }
+
+        private static void AssertEqualStyle(ChartPointStyle pointStyle, Color fillColor, int size,
+                                             Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
+        {
+            Assert.AreEqual(fillColor, pointStyle.Color);
+            Assert.AreEqual(size, pointStyle.Size);
+            Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
+            Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
+            Assert.AreEqual(symbol, pointStyle.Symbol);
+        }
+
         private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);

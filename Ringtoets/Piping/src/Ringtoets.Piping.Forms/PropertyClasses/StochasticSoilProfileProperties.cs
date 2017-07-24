@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StochasticSoilProfile"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfileProperties_DisplayName))]
+    [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilProfileProperties : ObjectProperties<StochasticSoilProfile>
     {

@@ -47,30 +47,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDitchDikeSideChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Insteek sloot dijkzijde", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumPurple, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
-        }
-
-        [Test]
-        public void CreateDitchPolderSideChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Insteek sloot polderzijde", data.Name);
-            AssertEqualStyle(data.Style, Color.IndianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
-        }
-
-        [Test]
         public void CreateDikeTopAtPolderChartData_ReturnsChartPointDataWithDefaultStyling()
         {
             // Call
@@ -140,54 +116,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Verkeersbelasting kant buitenwaarts", data.Name);
             AssertEqualStyle(data.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Diamond);
-        }
-
-        [Test]
-        public void CreateBottomDitchDikeSideChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateBottomDitchDikeSideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Slootbodem dijkzijde", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
-        }
-
-        [Test]
-        public void CreateBottomDitchPolderSideChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateBottomDitchPolderSideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Slootbodem polderzijde", data.Name);
-            AssertEqualStyle(data.Style, Color.Teal, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
-        }
-
-        [Test]
-        public void CreateDikeToeAtPolderChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtPolderChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Teen dijk binnenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.LightGray, 8, Color.Black, 1, ChartPointSymbol.Square);
-        }
-
-        [Test]
-        public void CreateDikeToeAtRiverChartData_ReturnsChartPointDataWithDefaultStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtRiverChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Teen dijk buitenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkGray, 8, Color.Black, 1, ChartPointSymbol.Square);
         }
 
         [Test]

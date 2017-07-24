@@ -27,6 +27,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.Forms
             }
 
             Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
-            InitializeDataGridView(Resources.RingtoetsPipingSurfaceLine_DisplayName);
+            InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
 
             SetDataSource(surfaceLines.Select(sl => new SelectableRow<RingtoetsPipingSurfaceLine>(sl, sl.Name)).ToArray());
         }

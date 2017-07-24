@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CharacteristicPoint_BottomDitchDikeSide" xml:space="preserve">
-    <value>Slootbodem dijkzijde</value>
-  </data>
-  <data name="CharacteristicPoint_BottomDitchPolderSide" xml:space="preserve">
-    <value>Slootbodem polderzijde</value>
-  </data>
-  <data name="CharacteristicPoint_DikeToeAtPolder" xml:space="preserve">
-    <value>Teen dijk binnenwaarts</value>
-  </data>
-  <data name="CharacteristicPoint_DikeToeAtRiver" xml:space="preserve">
-    <value>Teen dijk buitenwaarts</value>
-  </data>
-  <data name="CharacteristicPoint_DitchDikeSide" xml:space="preserve">
-    <value>Insteek sloot dijkzijde</value>
-  </data>
-  <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
-    <value>Insteek sloot polderzijde</value>
-  </data>
   <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Piping</value>
   </data>

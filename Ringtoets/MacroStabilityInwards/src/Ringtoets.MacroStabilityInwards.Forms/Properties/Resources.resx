@@ -136,9 +136,6 @@
   <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Points_DisplayName" xml:space="preserve">
     <value>Geometriepunten</value>
   </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName" xml:space="preserve">
-    <value>Profielschematisatie</value>
-  </data>
   <data name="MacroStabilityInwardsInput_SurfaceLine_Description" xml:space="preserve">
     <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
   </data>
@@ -159,9 +156,6 @@
   </data>
   <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
-  </data>
-  <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisatie</value>
   </data>
   <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
     <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>

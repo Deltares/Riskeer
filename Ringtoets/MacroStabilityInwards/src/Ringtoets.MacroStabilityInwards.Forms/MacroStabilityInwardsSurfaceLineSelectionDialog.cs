@@ -27,6 +27,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
             }
 
             Text = Resources.MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines;
-            InitializeDataGridView(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_DisplayName);
+            InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
 
             SetDataSource(surfaceLines.Select(sl => new SelectableRow<RingtoetsMacroStabilityInwardsSurfaceLine>(sl, sl.Name)).ToArray());
         }

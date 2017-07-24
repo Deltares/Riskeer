@@ -23,6 +23,7 @@ using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.Common.Forms.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -68,6 +69,96 @@ namespace Ringtoets.Common.Forms.Factories
         public static ChartDataCollection CreateSoilProfileChartData()
         {
             return new ChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type ditch polder side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchPolderSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide,
+                                      GetCharacteristicPointStyle(Color.IndianRed,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type bottom ditch polder side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateBottomDitchPolderSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide,
+                                      GetCharacteristicPointStyle(Color.Teal,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type bottom ditch dike side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateBottomDitchDikeSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide,
+                                      GetCharacteristicPointStyle(Color.DarkSeaGreen,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type ditch dike side.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchDikeSideChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide,
+                                      GetCharacteristicPointStyle(Color.MediumPurple,
+                                                                  Color.Transparent,
+                                                                  ChartPointSymbol.Circle));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type dike toe at polder.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeToeAtPolderChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder,
+                                      GetCharacteristicPointStyle(Color.LightGray,
+                                                                  Color.Black,
+                                                                  ChartPointSymbol.Square));
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type dike toe at river.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeToeAtRiverChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver,
+                                      GetCharacteristicPointStyle(Color.DarkGray,
+                                                                  Color.Black,
+                                                                  ChartPointSymbol.Square));
+        }
+
+        private static ChartPointStyle GetCharacteristicPointStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
+        {
+            return new ChartPointStyle
+            {
+                Color = fillColor,
+                StrokeColor = strokeColor,
+                Size = 8,
+                StrokeThickness = strokeColor == Color.Transparent ? 0 : 1,
+                Symbol = symbol
+            };
         }
     }
 }

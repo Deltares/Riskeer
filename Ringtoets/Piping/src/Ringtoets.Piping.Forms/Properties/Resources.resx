@@ -250,9 +250,6 @@
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_DisplayName" xml:space="preserve">
-    <value>Profielschematisatie</value>
-  </data>
   <data name="PipingInput_SurfaceLine_Description" xml:space="preserve">
     <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
   </data>
@@ -273,9 +270,6 @@
   </data>
   <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
-  </data>
-  <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisatie</value>
   </data>
   <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
     <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>

@@ -73,12 +73,12 @@ namespace Ringtoets.Piping.Forms.Views
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
-            ditchPolderSideChartData = PipingChartDataFactory.CreateDitchPolderSideChartData();
-            bottomDitchPolderSideChartData = PipingChartDataFactory.CreateBottomDitchPolderSideChartData();
-            bottomDitchDikeSideChartData = PipingChartDataFactory.CreateBottomDitchDikeSideChartData();
-            ditchDikeSideChartData = PipingChartDataFactory.CreateDitchDikeSideChartData();
-            dikeToeAtPolderChartData = PipingChartDataFactory.CreateDikeToeAtPolderChartData();
-            dikeToeAtRiverChartData = PipingChartDataFactory.CreateDikeToeAtRiverChartData();
+            ditchPolderSideChartData = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
+            bottomDitchPolderSideChartData = RingtoetsChartDataFactory.CreateBottomDitchPolderSideChartData();
+            bottomDitchDikeSideChartData = RingtoetsChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ditchDikeSideChartData = RingtoetsChartDataFactory.CreateDitchDikeSideChartData();
+            dikeToeAtPolderChartData = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
+            dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             exitPointChartData = PipingChartDataFactory.CreateExitPointChartData();
             entryPointChartData = PipingChartDataFactory.CreateEntryPointChartData();
 

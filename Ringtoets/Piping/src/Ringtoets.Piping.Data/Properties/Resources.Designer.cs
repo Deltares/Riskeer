@@ -82,60 +82,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slootbodem dijkzijde.
-        /// </summary>
-        public static string CharacteristicPoint_BottomDitchDikeSide {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_BottomDitchDikeSide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Slootbodem polderzijde.
-        /// </summary>
-        public static string CharacteristicPoint_BottomDitchPolderSide {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_BottomDitchPolderSide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teen dijk binnenwaarts.
-        /// </summary>
-        public static string CharacteristicPoint_DikeToeAtPolder {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtPolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teen dijk buitenwaarts.
-        /// </summary>
-        public static string CharacteristicPoint_DikeToeAtRiver {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtRiver", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insteek sloot dijkzijde.
-        /// </summary>
-        public static string CharacteristicPoint_DitchDikeSide {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_DitchDikeSide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insteek sloot polderzijde.
-        /// </summary>
-        public static string CharacteristicPoint_DitchPolderSide {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_DitchPolderSide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde moet binnen het bereik {0} liggen..
         /// </summary>
         public static string GeneralPipingInput_WaterVolumetricWeight_must_be_in_Range_0_ {
