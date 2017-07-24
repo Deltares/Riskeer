@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.Common.Data.Calculation;
@@ -155,15 +156,7 @@ namespace Ringtoets.Revetment.Forms.Views
         {
             SetChartData();
 
-            foreshoreChartData.NotifyObservers();
-            lowerBoundaryRevetmentChartData.NotifyObservers();
-            upperBoundaryRevetmentChartData.NotifyObservers();
-            lowerBoundaryWaterLevelsChartData.NotifyObservers();
-            upperBoundaryWaterLevelsChartData.NotifyObservers();
-            designWaterLevelChartData.NotifyObservers();
-            waterLevelsChartData.NotifyObservers();
-            revetmentBaseChartData.NotifyObservers();
-            revetmentChartData.NotifyObservers();
+            chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void UpdateChartTitle()

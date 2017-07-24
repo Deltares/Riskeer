@@ -21,6 +21,7 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -123,9 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             SetChartData();
 
-            foreshoreChartData.NotifyObservers();
-            dikeGeometryChartData.NotifyObservers();
-            dikeHeightChartData.NotifyObservers();
+            chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void SetChartData()

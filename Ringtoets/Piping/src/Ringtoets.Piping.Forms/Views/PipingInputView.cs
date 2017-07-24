@@ -160,16 +160,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             SetChartData();
 
-            surfaceLineChartData.NotifyObservers();
-            ditchPolderSideChartData.NotifyObservers();
-            bottomDitchPolderSideChartData.NotifyObservers();
-            bottomDitchDikeSideChartData.NotifyObservers();
-            ditchDikeSideChartData.NotifyObservers();
-            dikeToeAtPolderChartData.NotifyObservers();
-            dikeToeAtRiverChartData.NotifyObservers();
-            exitPointChartData.NotifyObservers();
-            entryPointChartData.NotifyObservers();
-            soilProfileChartData.NotifyObservers();
+            chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
             soilProfileChartData.Collection.ForEachElementDo(md => md.NotifyObservers());
         }
 
