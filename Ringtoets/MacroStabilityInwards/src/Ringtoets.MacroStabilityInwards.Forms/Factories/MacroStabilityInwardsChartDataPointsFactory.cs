@@ -254,6 +254,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a surface level inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the surface level inside point for.</param>
+        /// <returns>An array with a surface level inside point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the surface level inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateSurfaceLevelInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelInside);
+        }
+
+        /// <summary>
         /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>

@@ -42,6 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
 
+        private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartLineData surfaceLineChartData;
         private readonly ChartPointData surfaceLevelOutsideChartData;
@@ -56,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData bottomDitchDikeSideChartData;
         private readonly ChartPointData bottomDitchPolderSideChartData;
         private readonly ChartPointData ditchPolderSideChartData;
-        private readonly ChartDataCollection chartDataCollection;
+        private readonly ChartPointData surfaceLevelInsideChartData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
@@ -89,6 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             bottomDitchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchDikeSideChartData();
             bottomDitchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchPolderSideChartData();
             ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
+            surfaceLevelInsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -104,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(bottomDitchDikeSideChartData);
             chartDataCollection.Add(bottomDitchPolderSideChartData);
             chartDataCollection.Add(ditchPolderSideChartData);
+            chartDataCollection.Add(surfaceLevelInsideChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
@@ -185,6 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             bottomDitchDikeSideChartData.NotifyObservers();
             bottomDitchPolderSideChartData.NotifyObservers();
             ditchPolderSideChartData.NotifyObservers();
+            surfaceLevelInsideChartData.NotifyObservers();
 
             soilProfileChartData.NotifyObservers();
             soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
@@ -214,6 +218,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             bottomDitchDikeSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
             bottomDitchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
             ditchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+            surfaceLevelInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
 
             SetSoilProfileChartData();
         }

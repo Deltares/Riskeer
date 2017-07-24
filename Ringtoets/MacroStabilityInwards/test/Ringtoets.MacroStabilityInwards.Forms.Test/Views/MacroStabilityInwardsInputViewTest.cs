@@ -52,8 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int bottomDitchDikeSideIndex = 11;
         private const int bottomDitchPolderSideIndex = 12;
         private const int ditchPolderSideIndex = 13;
-        private const int surfaceLevelInsideIndex = 2;
-        private const int nrOfChartData = 14;
+        private const int surfaceLevelInsideIndex = 14;
+        private const int nrOfChartData = 15;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -522,6 +522,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedBottomDitchDikeSideIndex = bottomDitchDikeSideIndex - 1;
             const int updatedBottomDitchPolderSideIndex = bottomDitchPolderSideIndex - 1;
             const int updatedDitchPolderSideIndex = ditchPolderSideIndex - 1;
+            const int updatedSurfaceLevelInsideIndex = surfaceLevelInsideIndex - 1;
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
@@ -552,6 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var bottomDitchDikeSideData = (ChartPointData) chartDataList[updatedBottomDitchDikeSideIndex];
                 var bottomDitchPolderSideData = (ChartPointData) chartDataList[updatedBottomDitchPolderSideIndex];
                 var ditchPolderSideData = (ChartPointData) chartDataList[updatedDitchPolderSideIndex];
+                var surfaceLevelInsideData = (ChartPointData) chartDataList[updatedSurfaceLevelInsideIndex];
 
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
@@ -567,6 +569,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Slootbodem dijkzijde", bottomDitchDikeSideData.Name);
                 Assert.AreEqual("Slootbodem polderzijde", bottomDitchPolderSideData.Name);
                 Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideData.Name);
+                Assert.AreEqual("Maaiveld binnenwaarts", surfaceLevelInsideData.Name);
 
                 RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
@@ -591,6 +594,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualBottomDitchDikeSideData = (ChartPointData) chartDataList[updatedBottomDitchDikeSideIndex];
                 var actualBottomDitchPolderSideData = (ChartPointData) chartDataList[updatedBottomDitchPolderSideIndex];
                 var actualDitchPolderSideData = (ChartPointData) chartDataList[updatedDitchPolderSideIndex];
+                var actualSurfaceLevelInsideData = (ChartPointData) chartDataList[updatedSurfaceLevelInsideIndex];
 
                 Assert.AreEqual("Ondergrondschematisatie", actualSoilProfileData.Name);
                 Assert.AreEqual(surfaceLine.Name, actualSurfaceLineData.Name);
@@ -606,6 +610,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Slootbodem dijkzijde", actualBottomDitchDikeSideData.Name);
                 Assert.AreEqual("Slootbodem polderzijde", actualBottomDitchPolderSideData.Name);
                 Assert.AreEqual("Insteek sloot polderzijde", actualDitchPolderSideData.Name);
+                Assert.AreEqual("Maaiveld binnenwaarts", actualSurfaceLevelInsideData.Name);
             }
         }
 
@@ -771,6 +776,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var bottomDitchDikeSideData = (ChartPointData) chartDatasList[bottomDitchDikeSideIndex];
             var bottomDitchPolderSideData = (ChartPointData) chartDatasList[bottomDitchPolderSideIndex];
             var ditchPolderSideData = (ChartPointData) chartDatasList[ditchPolderSideIndex];
+            var surfaceLevelInsideData = (ChartPointData) chartDatasList[surfaceLevelInsideIndex];
 
             CollectionAssert.IsEmpty(soilProfileData.Collection);
             CollectionAssert.IsEmpty(surfaceLineData.Points);
@@ -786,6 +792,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(bottomDitchDikeSideData.Points);
             CollectionAssert.IsEmpty(bottomDitchPolderSideData.Points);
             CollectionAssert.IsEmpty(ditchPolderSideData.Points);
+            CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
 
             Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
             Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
@@ -801,6 +808,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Slootbodem dijkzijde", bottomDitchDikeSideData.Name);
             Assert.AreEqual("Slootbodem polderzijde", bottomDitchPolderSideData.Name);
             Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideData.Name);
+            Assert.AreEqual("Maaiveld binnenwaarts", surfaceLevelInsideData.Name);
         }
 
         private static void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
