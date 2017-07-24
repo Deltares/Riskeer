@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
@@ -35,7 +34,7 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
     /// updating height structures based on imported data.
     /// </summary>
     public class HeightStructureUpdateDataStrategy : UpdateDataStrategyBase<HeightStructure, HeightStructuresFailureMechanism>,

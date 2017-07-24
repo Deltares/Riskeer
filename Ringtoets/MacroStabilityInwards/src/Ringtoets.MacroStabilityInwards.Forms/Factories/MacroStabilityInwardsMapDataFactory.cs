@@ -26,6 +26,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using DataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
@@ -40,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()
         {
-            return new MapLineData(DataResources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor,
+            return new MapLineData(RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.DarkSeaGreen,

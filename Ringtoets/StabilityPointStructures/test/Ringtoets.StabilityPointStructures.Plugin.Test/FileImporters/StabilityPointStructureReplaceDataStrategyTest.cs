@@ -77,7 +77,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(null,
-                sourcePath);
+                                                                                sourcePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                null);
+                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -113,7 +113,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                newSourcePath);
+                                                                                                 newSourcePath);
 
             // Assert
             Assert.AreEqual(newSourcePath, targetCollection.SourcePath);
@@ -134,7 +134,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             CollectionAssert.IsEmpty(targetCollection);
@@ -156,12 +156,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 new TestStabilityPointStructure(duplicateId, "Other name")
             };
 
-            var targetCollection = new StructureCollection<StabilityPointStructure>();
             var strategy = new StabilityPointStructureReplaceStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
-                sourcePath);
+                                                                                sourcePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
@@ -186,7 +185,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(importedCollection,
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             Assert.AreEqual(sourcePath, targetCollection.SourcePath);
@@ -212,7 +211,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             Assert.AreEqual(sourcePath, targetCollection.SourcePath);
@@ -243,7 +242,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                                                                                                  {
                                                                                                      importedStructure
                                                                                                  },
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -283,7 +282,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             Assert.IsNull(calculation.InputParameters.Structure);
@@ -324,7 +323,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             Assert.IsNull(calculation.InputParameters.Structure);
@@ -373,7 +372,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                sourcePath);
+                                                                                                 sourcePath);
 
             // Assert
             Assert.IsNull(calculation.InputParameters.Structure);

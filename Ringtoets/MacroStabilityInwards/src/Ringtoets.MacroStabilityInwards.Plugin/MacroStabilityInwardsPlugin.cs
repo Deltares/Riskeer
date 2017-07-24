@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             yield return new ImportInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
             {
-                Name = MacroStabilityInwardsDataResources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             yield return new UpdateInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
             {
-                Name = MacroStabilityInwardsDataResources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
@@ -267,7 +267,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
             {
-                Text = context => MacroStabilityInwardsDataResources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor,
+                Text = context => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
@@ -288,8 +288,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 Text = stochasticSoilModelContext => MacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
-                                                              Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
+                                                              ? Color.FromKnownColor(KnownColor.ControlText)
+                                                              : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip
             };
@@ -966,7 +967,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 return new FileFilterGenerator(
                     RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{MacroStabilityInwardsDataResources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                    $"{RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
             }
         }
 

@@ -71,8 +71,10 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             // Setup
             IEnumerable<IObservable> updatedInstances = Enumerable.Empty<IObservable>();
 
-            var strategy = new TestDikeProfileUpdateStrategy();
-            strategy.UpdatedInstances = updatedInstances;
+            var strategy = new TestDikeProfileUpdateStrategy
+            {
+                UpdatedInstances = updatedInstances
+            };
 
             // Call
             strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(), string.Empty);

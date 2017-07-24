@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public class RingtoetsMacroStabilityInwardsSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsMacroStabilityInwardsSurfaceLine>
     {
         public RingtoetsMacroStabilityInwardsSurfaceLineCollection() : base(line => line.Name,
-                                                                            Resources.MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor,
+                                                                            RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                                                             Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

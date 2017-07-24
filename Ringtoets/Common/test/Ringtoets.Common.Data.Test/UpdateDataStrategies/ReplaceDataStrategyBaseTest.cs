@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
     public class ReplaceDataStrategyBaseTest
     {
         [Test]
-        public void DefaultConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ConcreteStrategyClass(null, null);
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void DefaultConstructor_FailureMechanisNotNull_DoesNotThrowException()
+        public void Constructor_FailureMechanisNotNull_DoesNotThrowException()
         {
             // Call
             TestDelegate call = () => new ConcreteStrategyClass(new TestFailureMechanism(), null);

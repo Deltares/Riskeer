@@ -39,17 +39,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// </list>
     /// </summary>
     /// <typeparam name="TTargetData">The target data type.</typeparam>
-    /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class UpdateDataStrategyBase<TTargetData, TFailureMechanism>
         where TTargetData : Observable
         where TFailureMechanism : IFailureMechanism
     {
-        protected readonly TFailureMechanism FailureMechanism;
         private readonly IEqualityComparer<TTargetData> equalityComparer;
         private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> object.
+        /// Creates a new instance of <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which needs to be updated.</param>
         /// <param name="targetCollection">The collection to add the updated objects to.</param>
@@ -79,9 +78,14 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        protected TFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
         /// Updates the unequal object and its dependent data with data from the imported data.
         /// </summary>
-        /// <param name="objectToUpdate">Object that needs to be updated.</param>
+        /// <param name="objectToUpdate">The object that needs to be updated.</param>
         /// <param name="objectToUpdateFrom">The object to update from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> with affected objects.</returns>
         /// <exception cref="InvalidOperationException">Thrown when duplicate items are found.</exception>
@@ -89,9 +93,9 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                                                                                  TTargetData objectToUpdateFrom);
 
         /// <summary>
-        /// Removes the objects and their dependent data.
+        /// Removes the object and its dependent data.
         /// </summary>
-        /// <param name="removedObject">The object that is removed.</param>
+        /// <param name="removedObject">The object to remove.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with affected objects.</returns>
         protected abstract IEnumerable<IObservable> RemoveObjectAndDependentData(TTargetData removedObject);
 
@@ -102,8 +106,9 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <param name="importedDataCollection">The imported data collection that is used to update
         /// the <see cref="targetCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of affected objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when an error occurred while updating the data.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="importedDataCollection"/> contains 
         /// <c>null</c> elements.</exception>
         protected IEnumerable<IObservable> UpdateTargetCollectionData(IEnumerable<TTargetData> importedDataCollection,
@@ -123,15 +128,15 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <summary>
         /// Identifies which items were changed, removed and added to the target collection 
         /// when compared with the imported data and performs the necessary operations for 
-        /// the dependent data of the affected elements. 
+        /// the dependent data of the affected elements.
         /// </summary>
         /// <param name="importedDataCollection">The imported data collection which is used to update 
         /// the <see cref="targetCollection"/>.</param>
         /// <param name="sourceFilePath">The source file path.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> with affected objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> with affected objects.</returns>
         /// <exception cref="UpdateDataException">Thrown when:
         /// <list type="bullet">
-        /// <item>duplicate items are being added to the <see cref="targetCollection"/>.</item>
+        /// <item>duplicate items are being added to the <see cref="targetCollection"/>;</item>
         /// <item>duplicate items are found in the <paramref name="importedDataCollection"/>.</item>
         /// </list>
         /// </exception>
@@ -165,7 +170,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// </summary>
         /// <param name="objectsToUpdate">The objects that need to be updated.</param>
         /// <param name="importedDataCollection">The data to update from.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of affected items.</returns>
         /// <exception cref="UpdateDataException">Thrown when the imported 
         /// <paramref name="importedDataCollection"/> contains duplicate items.</exception>
         private IEnumerable<IObservable> UpdateData(IEnumerable<TTargetData> objectsToUpdate,
@@ -201,7 +206,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// Removes all the objects and their dependent data.
         /// </summary>
         /// <param name="objectsToRemove">The objects that need to be removed.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of affected items.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of affected items.</returns>
         private IEnumerable<IObservable> RemoveData(IEnumerable<TTargetData> objectsToRemove)
         {
             var affectedObjects = new List<IObservable>();
@@ -231,8 +236,8 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             /// <exception cref="ArgumentException">Thrown when <paramref name="existingObjects"/>
             /// or <paramref name="updatedObjects"/> contains a <c>null</c> element.</exception>
             public CollectionModification(IEnumerable<TTargetData> existingObjects,
-                                IEnumerable<TTargetData> updatedObjects,
-                                IEqualityComparer<TTargetData> equalityComparer)
+                                          IEnumerable<TTargetData> updatedObjects,
+                                          IEqualityComparer<TTargetData> equalityComparer)
             {
                 if (existingObjects == null)
                 {

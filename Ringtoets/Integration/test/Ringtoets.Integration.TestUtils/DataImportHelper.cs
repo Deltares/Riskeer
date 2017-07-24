@@ -36,14 +36,12 @@ using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-using StochasticSoilModelReplaceDataStrategy = Ringtoets.Piping.Plugin.FileImporter.StochasticSoilModelReplaceDataStrategy;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 using MacroStabilityInwardsSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.MacroStabilityInwards.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
 

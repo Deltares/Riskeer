@@ -109,15 +109,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisaties.
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineCollection_TypeDescriptor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stochastische ondergrondmodellen.
         /// </summary>
         public static string StochasticSoilModelCollection_TypeDescriptor {

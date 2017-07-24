@@ -521,7 +521,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new Point2D(1, 2),
                 new Point2D(3, 4)
             };
-            
+
             var affectedProfile = new TestForeshoreProfile(id, geometry);
             TestCalculationWithForeshoreProfile affectedCalculation =
                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(affectedProfile);

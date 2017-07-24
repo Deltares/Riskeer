@@ -82,10 +82,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void UpdateTargetCollectionData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), null, string.Empty);
+            TestDelegate call = () => strategy.ConcreteUpdateData(null, string.Empty);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -96,10 +96,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         public void UpdateTargetCollectionData_ImportedDataCollectionContainsNullElement_ThrowsArgumentException()
         {
             // Setup
-            var strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(new TestUniqueItemCollection());
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(new TestUniqueItemCollection(), new TestItem[]
+            TestDelegate call = () => strategy.ConcreteUpdateData(new TestItem[]
             {
                 null
             }, string.Empty);
@@ -114,10 +114,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         {
             // Setup
             var collection = new TestUniqueItemCollection();
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), null);
+            TestDelegate call = () => strategy.ConcreteUpdateData(Enumerable.Empty<TestItem>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -131,10 +131,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var collection = new TestUniqueItemCollection();
 
             const string filePath = "path";
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
             Assert.IsFalse(strategy.IsUpdateDataCalled);
@@ -158,11 +158,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
             collection.AddRange(itemsRemoved, filePath);
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToRemove = itemsRemoved;
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, Enumerable.Empty<TestItem>(), filePath);
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(Enumerable.Empty<TestItem>(), filePath);
 
             // Assert
             Assert.IsFalse(strategy.IsUpdateDataCalled);
@@ -197,10 +197,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Name B")
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection, importedItems, sourceFilePath);
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems, sourceFilePath);
 
             // Assert
             Assert.IsFalse(strategy.IsUpdateDataCalled);
@@ -234,10 +234,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem(duplicateName)
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(collection, importedCollection, sourceFilePath);
+            TestDelegate call = () => strategy.ConcreteUpdateData(importedCollection, sourceFilePath);
 
             // Assert
             var exception = Assert.Throws<UpdateDataException>(call);
@@ -271,12 +271,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 currentCollection[1].DeepClone()
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToUpdate = currentCollection;
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
-                                                                                   importedItems,
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    sourceFilePath);
 
             // Assert
@@ -316,14 +315,13 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 currentCollection[1].DeepClone()
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToUpdate = currentCollection;
 
             const string newSourceFilePath = "Something/Different/From/Onbekend";
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
-                                                                                   importedItems,
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    newSourceFilePath);
 
             // Assert
@@ -358,7 +356,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 itemToAdd
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToUpdate = new[]
             {
                 itemToUpdate
@@ -369,8 +367,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
-                                                                                   importedItems,
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    sourceFilePath);
 
             // Assert
@@ -416,12 +413,11 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item four")
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToRemove = currentCollection;
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
-                                                                                   importedItems,
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    sourceFilePath);
 
             // Assert
@@ -466,11 +462,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item one")
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            strategy.ConcreteUpdateData(collection,
-                                        importedItems,
+            strategy.ConcreteUpdateData(importedItems,
                                         sourceFilePath);
 
             // Assert
@@ -496,11 +491,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem("Item one")
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            strategy.ConcreteUpdateData(collection,
-                                        importedItems,
+            strategy.ConcreteUpdateData(importedItems,
                                         sourceFilePath);
 
             // Assert
@@ -525,11 +519,10 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 new TestItem(name)
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
 
             // Call
-            TestDelegate call = () => strategy.ConcreteUpdateData(collection,
-                                                                  importedItems,
+            TestDelegate call = () => strategy.ConcreteUpdateData(importedItems,
                                                                   sourceFilePath);
 
             // Assert
@@ -555,14 +548,13 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 itemTwo
             };
 
-            var strategy = CreateDefaultTestStrategy(collection);
+            TestUpdateDataStrategy strategy = CreateDefaultTestStrategy(collection);
             strategy.ItemsToUpdate = currentCollection;
             strategy.ItemsToUpdateFrom = importedItems;
             strategy.AddObjectToUpdateToAffectedItems = true;
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(collection,
-                                                                                   importedItems,
+            IEnumerable<IObservable> affectedObjects = strategy.ConcreteUpdateData(importedItems,
                                                                                    "path");
 
             IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
@@ -575,7 +567,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
         }
 
-        private TestUpdateDataStrategy CreateDefaultTestStrategy(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection)
+        private static TestUpdateDataStrategy CreateDefaultTestStrategy(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection)
         {
             return new TestUpdateDataStrategy(new TestFailureMechanism(), new NameComparer(), targetCollection);
         }
@@ -604,8 +596,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             /// </summary>
             public List<Tuple<TestItem>> RemoveDataCallArguments { get; } = new List<Tuple<TestItem>>();
 
-            public IEnumerable<IObservable> ConcreteUpdateData(ObservableUniqueItemCollectionWithSourcePath<TestItem> targetCollection,
-                                                               IEnumerable<TestItem> importedDataCollection,
+            public IEnumerable<IObservable> ConcreteUpdateData(IEnumerable<TestItem> importedDataCollection,
                                                                string sourceFilePath)
             {
                 return UpdateTargetCollectionData(importedDataCollection, sourceFilePath);

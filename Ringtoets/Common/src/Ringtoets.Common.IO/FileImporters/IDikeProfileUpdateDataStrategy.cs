@@ -34,16 +34,13 @@ namespace Ringtoets.Common.IO.FileImporters
     public interface IDikeProfileUpdateDataStrategy
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="targetDataCollection"/>.
+        /// Updates the dike profiles and its dependent data with data from <paramref name="importedDataCollection"/>.
         /// </summary>
         /// <param name="importedDataCollection">The imported dike profiles.</param>
-        /// <param name="sourceFilePath">The source path from where the dike profiles
-        ///     were imported from.</param>
+        /// <param name="sourceFilePath">The source path from where the dike profiles were imported from.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input
-        /// argument is <c>null</c>.</exception>
-        /// <exception cref="UpdateDataException">Thrown 
-        /// when applying the strategy has failed.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when applying the strategy has failed.</exception>
         IEnumerable<IObservable> UpdateDikeProfilesWithImportedData(IEnumerable<DikeProfile> importedDataCollection, string sourceFilePath);
     }
 }

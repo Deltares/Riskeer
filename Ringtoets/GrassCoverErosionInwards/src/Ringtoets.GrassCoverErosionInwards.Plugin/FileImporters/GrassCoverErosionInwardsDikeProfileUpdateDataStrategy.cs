@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Utils;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating 
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating 
     /// dike profiles based on imported data.
     /// </summary>
     public class GrassCoverErosionInwardsDikeProfileUpdateDataStrategy

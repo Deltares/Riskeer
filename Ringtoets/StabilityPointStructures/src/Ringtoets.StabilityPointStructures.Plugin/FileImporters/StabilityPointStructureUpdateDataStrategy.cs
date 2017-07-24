@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
@@ -35,7 +34,7 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> 
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> 
     /// implementation for updating stability point structures based on imported
     /// data.
     /// </summary>

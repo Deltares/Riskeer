@@ -180,8 +180,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_ImportedDataContainsDuplicateIDs_ThrowsUpdateException()
         {
             // Setup
-            var targetCollection = new DikeProfileCollection();
-
             const string duplicateId = "Duplicate ID it is";
             DikeProfile[] importedSurfaceLines =
             {

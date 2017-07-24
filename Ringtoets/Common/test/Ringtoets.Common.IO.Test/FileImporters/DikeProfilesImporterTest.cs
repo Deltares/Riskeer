@@ -392,7 +392,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
 
-            var mocks = new MockRepository();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Dijkprofielen")).Return(cancelledLogMessage);
             mocks.ReplayAll();

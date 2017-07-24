@@ -33,7 +33,7 @@ using Ringtoets.Common.Service;
 namespace Ringtoets.Integration.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for 
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for 
     /// updating surface lines based on imported data.
     /// </summary>
     public class ForeshoreProfileUpdateDataStrategy : UpdateDataStrategyBase<ForeshoreProfile, IFailureMechanism>,
@@ -43,10 +43,9 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// Creates a new instance of <see cref="ForeshoreProfileUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the <see cref="ForeshoreProfile"/>
-        ///     are updated.</param>
+        /// are updated.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles which will be updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ForeshoreProfileUpdateDataStrategy(IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
             : base(failureMechanism, foreshoreProfiles, new ForeshoreProfileEqualityComparer()) {}
 

@@ -478,7 +478,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
-                sourceFilePath);
+                                                                                                 sourceFilePath);
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -675,7 +675,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                                                                                                  {
                                                                                                      readStructure
                                                                                                  },
-                sourceFilePath);
+                                                                                                 sourceFilePath);
 
             // Assert
             AssertClosingStructures(readStructure, structure);
@@ -744,7 +744,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
-                sourceFilePath);
+                                                                                                 sourceFilePath);
 
             // Assert
             CollectionAssert.AreEqual(new IObservable[]

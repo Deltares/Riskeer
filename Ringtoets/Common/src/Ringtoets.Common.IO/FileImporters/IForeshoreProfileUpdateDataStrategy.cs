@@ -34,16 +34,13 @@ namespace Ringtoets.Common.IO.FileImporters
     public interface IForeshoreProfileUpdateDataStrategy
     {
         /// <summary>
-        /// Adds the imported data to the <paramref name="importedDataCollection"/>.
+        /// Updates the foreshore profiles and its dependent data with data from <paramref name="importedDataCollection"/>.
         /// </summary>
         /// <param name="importedDataCollection">The imported foreshore profiles.</param>
-        /// <param name="sourceFilePath">The source path from where the foreshore 
-        ///     profiles were imported.</param>
+        /// <param name="sourceFilePath">The source path from where the foreshore profiles were imported.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument
-        /// is <c>null</c>.</exception>
-        /// <exception cref="UpdateDataException">Thrown when updating the data
-        /// model has failed.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when updating the data model has failed.</exception>
         IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(IEnumerable<ForeshoreProfile> importedDataCollection, string sourceFilePath);
     }
 }

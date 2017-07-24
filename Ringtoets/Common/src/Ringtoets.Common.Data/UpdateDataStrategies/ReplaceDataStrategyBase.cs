@@ -32,20 +32,19 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
     /// target collection with the data that was imported.
     /// </summary>
     /// <typeparam name="TTargetData">The target data type.</typeparam>
-    /// <typeparam name="TFailureMechanism">The failure mechanism in which the target collection should be updated.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class ReplaceDataStrategyBase<TTargetData, TFailureMechanism>
         where TTargetData : class
         where TFailureMechanism : IFailureMechanism
     {
-        protected readonly TFailureMechanism FailureMechanism;
         private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 
         /// <summary>
-        /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>
+        /// Initializes a <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the target collection should be updated.</param>
         /// <param name="targetCollection">The collection that needs to be updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         protected ReplaceDataStrategyBase(TFailureMechanism failureMechanism, ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection)
         {
             if (failureMechanism == null)
@@ -58,10 +57,15 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        protected TFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
         /// Clears all the dependent data of the target items that are within the failure mechanism.
         /// </summary>
-        /// <returns>A <see cref="IEnumerable{IObservable}"/> with all the items that are affected within the failure mechanism
-        /// after clearing all the within the target collection.</returns>
+        /// <returns>An <see cref="IEnumerable{IObservable}"/> with all the items that are affected within the failure mechanism
+        /// after clearing all the data within the target collection.</returns>
         protected abstract IEnumerable<IObservable> ClearData();
 
         /// <summary>
@@ -70,10 +74,10 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// <param name="importedDataCollection">The data that was imported.</param>
         /// <param name="sourceFilePath">The source file path where the imported data comes from.</param>
         /// <returns>An <see cref="IEnumerable{IObservable}"/> with affected objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when replacing the data has failed.</exception>
         protected IEnumerable<IObservable> ReplaceTargetCollectionWithImportedData(IEnumerable<TTargetData> importedDataCollection,
-            string sourceFilePath)
+                                                                                   string sourceFilePath)
         {
             if (importedDataCollection == null)
             {
@@ -92,7 +96,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         }
 
         /// <summary>
-        /// Adds read data from the <paramref name="sourceFilePath"/> to the <see cref="targetCollection"/>.
+        /// Adds imported data from the <paramref name="sourceFilePath"/> to the <see cref="targetCollection"/>.
         /// </summary>
         /// <param name="importedDataCollection">The data that was imported.</param>
         /// <param name="sourceFilePath">The source file path where the imported data comes from.</param>

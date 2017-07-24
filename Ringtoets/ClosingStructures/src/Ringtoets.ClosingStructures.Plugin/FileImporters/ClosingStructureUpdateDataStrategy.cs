@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
@@ -35,7 +34,7 @@ using Ringtoets.Common.Utils;
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An <see cref="Ringtoets.Common.Data.UpdateDataStrategies.UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
+    /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> implementation for 
     /// updating closing structures based on imported data.
     /// </summary>
     public class ClosingStructureUpdateDataStrategy : UpdateDataStrategyBase<ClosingStructure, ClosingStructuresFailureMechanism>,

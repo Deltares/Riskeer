@@ -25,11 +25,9 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
