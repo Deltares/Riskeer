@@ -49,7 +49,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -305,10 +304,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
             {
-                CreateInstance = context => new StructuresOutputProperties
-                {
-                    Data = context.WrappedData.Output
-                }
+                CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
             };
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {

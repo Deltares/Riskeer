@@ -22,6 +22,7 @@
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
@@ -34,7 +35,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new GeneralResultFaultTreeIllustrationPointView())
+            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -55,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_GeneralResultFaultTreeIllustrationPoint_DataSet()
         {
             // Setup
-            using (var view = new GeneralResultFaultTreeIllustrationPointView())
+            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
             {
                 var generalResultFaultTreeIllustrationPoint = new TestGeneralResultFaultTreeIllustrationPoint();
 
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_OtherThanGeneralResultFaultTreeIllustrationPoint_NullSet()
         {
             // Setup
-            using (var view = new GeneralResultFaultTreeIllustrationPointView())
+            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
             {
                 var generalResultSubMechanismIllustrationPoint = new TestGeneralResultSubMechanismIllustrationPoint();
 
@@ -87,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_Null_NullSet()
         {
             // Setup
-            using (var view = new GeneralResultFaultTreeIllustrationPointView())
+            using (GeneralResultFaultTreeIllustrationPointView view = CreateViewWithTestCalculation())
             {
                 // Call
                 view.Data = null;
@@ -95,6 +96,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
             }
+        }
+
+        private static GeneralResultFaultTreeIllustrationPointView CreateViewWithTestCalculation()
+        {
+            return new GeneralResultFaultTreeIllustrationPointView(new TestCalculation("Calculation"));
         }
     }
 }

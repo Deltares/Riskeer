@@ -44,12 +44,26 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
+
             // Call
-            var properties = new StructuresOutputProperties();
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StructuresOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(structuresOutput, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new StructuresOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structuresOutput", exception.ParamName);
         }
 
         [Test]
@@ -71,10 +85,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
 
             // Call
-            var properties = new StructuresOutputProperties
-            {
-                Data = structuresOutput
-            };
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
@@ -92,10 +103,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
 
             // Call
-            var properties = new StructuresOutputProperties
-            {
-                Data = structuresOutput
-            };
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

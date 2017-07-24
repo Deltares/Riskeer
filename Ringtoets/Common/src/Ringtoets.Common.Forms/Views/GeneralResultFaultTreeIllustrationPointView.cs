@@ -22,7 +22,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Forms.Views
@@ -33,14 +35,21 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class GeneralResultFaultTreeIllustrationPointView : UserControl, IView
     {
+        private readonly Observer calculationObserver;
         private GeneralResult<TopLevelFaultTreeIllustrationPoint> data;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResultFaultTreeIllustrationPointView"/>.
         /// </summary>
-        public GeneralResultFaultTreeIllustrationPointView()
+        /// <param name="calculation">The calculation that owns the data of the view.</param>
+        public GeneralResultFaultTreeIllustrationPointView(ICalculation calculation)
         {
             InitializeComponent();
+
+            calculationObserver = new Observer(UpdateIllustrationPointsControl)
+            {
+                Observable = calculation
+            };
         }
 
         public object Data
@@ -53,8 +62,25 @@ namespace Ringtoets.Common.Forms.Views
             {
                 data = value as GeneralResult<TopLevelFaultTreeIllustrationPoint>;
 
-                illustrationPointsControl.Data = GetIllustrationPointControlItems();
+                UpdateIllustrationPointsControl();
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            calculationObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void UpdateIllustrationPointsControl()
+        {
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
         }
 
         private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()

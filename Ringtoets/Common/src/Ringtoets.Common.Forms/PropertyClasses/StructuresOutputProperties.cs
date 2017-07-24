@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -34,6 +35,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public class StructuresOutputProperties : ObjectProperties<StructuresOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StructuresOutputProperties"/>.
+        /// </summary>
+        /// <param name="structuresOutput">The structures output to create the object properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/> is <c>null</c>.</exception>
+        public StructuresOutputProperties(StructuresOutput structuresOutput)
+        {
+            if (structuresOutput == null)
+            {
+                throw new ArgumentNullException(nameof(structuresOutput));
+            }
+
+            Data = structuresOutput;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
