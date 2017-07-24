@@ -91,10 +91,10 @@ namespace Core.Common.IO.Readers
         protected SQLiteConnection Connection { get; private set; }
 
         /// <summary>
-        /// Moves to and reads the next resultset in multiple row-returning SQL command. 
+        /// Moves to and reads the next result set in multiple row-returning SQL command. 
         /// </summary>
         /// <param name="sqliteDataReader">The <see cref="IDataReader"/> to process.</param>
-        /// <returns><c>True</c> if the command was successful and a new resultset is available, <c>false</c> otherwise.</returns>
+        /// <returns><c>True</c> if the command was successful and a new result set is available, <c>false</c> otherwise.</returns>
         protected static bool MoveNext(IDataReader sqliteDataReader)
         {
             return sqliteDataReader.Read() || sqliteDataReader.NextResult() && sqliteDataReader.Read();
@@ -104,7 +104,7 @@ namespace Core.Common.IO.Readers
         /// Creates a new <see cref="SQLiteDataReader"/>, based upon <paramref name="queryString"/> and <paramref name="parameters"/>.
         /// </summary>
         /// <param name="queryString">The query to execute.</param>
-        /// <param name="parameters">Parameters the <paramref name="queryString"/> is dependend on.</param>
+        /// <param name="parameters">Parameters the <paramref name="queryString"/> is depended on.</param>
         /// <returns>A new instance of <see cref="IDataReader"/>.</returns>
         /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> failed.</exception>
         protected IDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)

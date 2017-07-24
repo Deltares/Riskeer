@@ -109,6 +109,8 @@
     <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\StructureCalculationConfigurationTest.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
     <Compile Include="Structures\StructureLocationReaderTest.cs" />
     <Compile Include="Structures\StructureLocationTest.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReaderTest.cs" />

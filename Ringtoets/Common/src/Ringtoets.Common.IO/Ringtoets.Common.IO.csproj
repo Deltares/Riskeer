@@ -116,6 +116,8 @@
     <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
