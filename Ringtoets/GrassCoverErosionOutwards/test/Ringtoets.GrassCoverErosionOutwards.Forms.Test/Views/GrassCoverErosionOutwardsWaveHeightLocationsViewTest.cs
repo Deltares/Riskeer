@@ -546,7 +546,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             locations.NotifyObservers();
 
             // Assert
-            var expectedControlItems = CreateControlItems(generalResult);
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
             CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }
 

@@ -22,8 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -91,13 +93,6 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Creates a new row that is added to the data table.
-        /// </summary>
-        /// <param name="location">The location for which to create a new row.</param>
-        /// <returns>The newly created row.</returns>
-        protected abstract HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location);
-
-        /// <summary>
         /// Handles the calculation of the <paramref name="locations"/>.
         /// </summary>
         /// <param name="locations">The enumeration of <see cref="HydraulicBoundaryLocation"/> to use in the calculation.</param>
@@ -117,6 +112,58 @@ namespace Ringtoets.Common.Forms.Views
         protected override void SetDataSource()
         {
             dataGridViewControl.SetDataSource(locations?.Select(CreateNewRow).ToArray());
+        }
+
+        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+            if (currentRow == null)
+            {
+                return null;
+            }
+
+            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetCalculation(location);
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
+            if (hydraulicBoundaryLocationCalculation.HasOutput
+                && hydraulicBoundaryLocationOutput.HasIllustrationPoints)
+            {
+                return hydraulicBoundaryLocationOutput.GeneralResult.TopLevelIllustrationPoints.Select(
+                    topLevelSubMechanismIllustrationPoint =>
+                    {
+                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
+                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                                subMechanismIllustrationPoint.Stochasts,
+                                                                subMechanismIllustrationPoint.Beta);
+                    });
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="HydraulicBoundaryLocationCalculation"/> based on 
+        /// the <see cref="HydraulicBoundaryLocation"/> data.
+        /// </summary>
+        /// <param name="location">The <see cref="HydraulicBoundaryLocation"/>
+        /// to retrieve the calculation from.</param>
+        /// <returns>A <see cref="HydraulicBoundaryLocationCalculation"/>.</returns>
+        protected abstract HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location);
+
+        /// <summary>
+        /// Creates a new row that is added to the data table.
+        /// </summary>
+        /// <param name="location">The location for which to create a new row.</param>
+        /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> or 
+        /// <see cref="GetCalculation"/> is <c>null</c>.</exception>
+        private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        {
+            return new HydraulicBoundaryLocationRow(location, GetCalculation(location));
         }
     }
 }

@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -100,11 +98,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
-        {
-            return new HydraulicBoundaryLocationRow(location, location.DesignWaterLevelCalculation);
-        }
-
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
@@ -154,6 +147,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return base.ValidateCalculatableObjects();
         }
 
+        protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
+        {
+            return location.DesignWaterLevelCalculation;
+        }
+
         private void UpdateHydraulicBoundaryLocations()
         {
             if (IsDataGridDataSourceChanged())
@@ -183,37 +181,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 }
             }
             return false;
-        }
-
-        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
-        {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            if (currentRow == null)
-            {
-                return null;
-            }
-
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = location.DesignWaterLevelCalculation;
-            HydraulicBoundaryLocationOutput designWaterLevelOutput = designWaterLevelCalculation.Output;
-            if (designWaterLevelCalculation.HasOutput
-                && designWaterLevelOutput.HasIllustrationPoints)
-            {
-                return designWaterLevelOutput.GeneralResult.TopLevelIllustrationPoints.Select(
-                    topLevelSubMechanismIllustrationPoint =>
-                    {
-                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
-                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
-                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                subMechanismIllustrationPoint.Stochasts,
-                                                                subMechanismIllustrationPoint.Beta);
-                    });
-            }
-
-            return null;
         }
     }
 }

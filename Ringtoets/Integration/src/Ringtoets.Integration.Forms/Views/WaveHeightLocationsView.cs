@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
@@ -88,42 +86,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
-        {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            if (currentRow == null)
-            {
-                return null;
-            }
-
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
-            HydraulicBoundaryLocationOutput waveHeightOutput = waveHeightCalculation.Output;
-            if (waveHeightCalculation.HasOutput
-                && waveHeightOutput.HasIllustrationPoints)
-            {
-                return waveHeightOutput.GeneralResult.TopLevelIllustrationPoints.Select(
-                    topLevelSubMechanismIllustrationPoint =>
-                    {
-                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
-                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
-                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                subMechanismIllustrationPoint.Stochasts,
-                                                                subMechanismIllustrationPoint.Beta);
-                    });
-            }
-
-            return null;
-        }
-
-        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
-        {
-            return new HydraulicBoundaryLocationRow(location, location.WaveHeightCalculation);
-        }
-
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
@@ -137,6 +99,11 @@ namespace Ringtoets.Integration.Forms.Views
             hydraulicBoundaryDatabaseObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
+        {
+            return location.WaveHeightCalculation;
         }
 
         private void UpdateHydraulicBoundaryDatabase()

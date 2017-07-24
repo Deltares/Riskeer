@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -93,11 +91,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
-        protected override HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
-        {
-            return new HydraulicBoundaryLocationRow(location, location.WaveHeightCalculation);
-        }
-
         protected override object CreateSelectedItemFromCurrentRow()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
@@ -155,35 +148,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return base.ValidateCalculatableObjects();
         }
 
-        protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
+        protected override HydraulicBoundaryLocationCalculation GetCalculation(HydraulicBoundaryLocation location)
         {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            if (currentRow == null)
-            {
-                return null;
-            }
-
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = location.WaveHeightCalculation;
-            HydraulicBoundaryLocationOutput waveHeightOutput = waveHeightCalculation.Output;
-            if (waveHeightCalculation.HasOutput
-                && waveHeightOutput.HasIllustrationPoints)
-            {
-                return waveHeightOutput.GeneralResult.TopLevelIllustrationPoints.Select(
-                    topLevelSubMechanismIllustrationPoint =>
-                    {
-                        SubMechanismIllustrationPoint subMechanismIllustrationPoint =
-                            topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
-                        return new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                subMechanismIllustrationPoint.Stochasts,
-                                                                subMechanismIllustrationPoint.Beta);
-                    });
-            }
-
-            return null;
+            return location.WaveHeightCalculation;
         }
 
         private void UpdateHydraulicBoundaryLocations()
