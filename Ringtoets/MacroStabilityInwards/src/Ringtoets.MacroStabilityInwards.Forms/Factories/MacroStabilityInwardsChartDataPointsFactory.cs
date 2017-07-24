@@ -224,6 +224,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a bottom ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the bottom ditch dike side point for.</param>
+        /// <returns>An array with a bottom ditch dike side point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the bottom ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateBottomDitchDikeSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchDikeSide);
+        }
+
+        /// <summary>
+        /// Create a bottom ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the bottom ditch polder side point for.</param>
+        /// <returns>An array with a bottom ditch polder side point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the bottom ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateBottomDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchPolderSide);
+        }
+
+        /// <summary>
         /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the ditch polder side point for.</param>

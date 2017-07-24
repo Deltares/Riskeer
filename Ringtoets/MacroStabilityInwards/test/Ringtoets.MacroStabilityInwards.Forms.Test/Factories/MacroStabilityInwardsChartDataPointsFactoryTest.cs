@@ -407,6 +407,84 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateBottomDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateBottomDitchDikeSidePoint_BottomDitchDikeSideNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateBottomDitchDikeSidePoint_GivenSurfaceLineWithBottomDitchDikeSide_ReturnsBottomDitchDikeSidePointsArray()
+        {
+            // Setup
+            var bottomDitchDikeSide = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetBottomDitchDikeSideAt(bottomDitchDikeSide);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(bottomDitchDikeSide, surfaceLine, points);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSidePoint_BottomDitchPolderSideNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateBottomDitchPolderSidePoint_GivenSurfaceLineWithBottomDitchPolderSide_ReturnsBottomDitchPolderSidePointsArray()
+        {
+            // Setup
+            var bottomDitchPolderSide = new Point3D(1.2, 2.3, 4.0);
+            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetBottomDitchPolderSideAt(bottomDitchPolderSide);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(bottomDitchPolderSide, surfaceLine, points);
+        }
+
+        [Test]
         public void CreateDitchPolderSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Call
