@@ -22,8 +22,12 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
+using CombinationType = Ringtoets.Common.Data.IllustrationPoints.CombinationType;
+using FaultTreeIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
@@ -33,6 +37,11 @@ using HydraRingIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Ou
 using TestHydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestSubMechanismIllustrationPoint;
 using TestHydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestFaultTreeIllustrationPoint;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
+using HydraRingIIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
+using IllustrationPointResult = Ringtoets.Common.Data.IllustrationPoints.IllustrationPointResult;
+using Stochast = Ringtoets.Common.Data.IllustrationPoints.Stochast;
+using SubMechanismIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPoint;
+using SubMechanismIllustrationPointStochast = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -75,13 +84,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Stochast stochast = faultTreeIllustrationPointTreeNodeData.Stochasts.First();
 
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
-            Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration);
-            Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha);
+            Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
         }
 
         [Test]
         public void Create_TreeNodeWithoutChildrenAndSubMechanismIllustrationPointData_ReturnIllustrationPointNode()
         {
+            // Setup
             var hydraRingStochast = new HydraRingSubMechanismIllustrationPointStochast("stochast", 1, 2, 3);
             var hydraRingIllustrationPointResult = new HydraRingIllustrationPointResult("description", 4);
             var hydraRingSubMechanismIllustrationPoint = new HydraRingSubMechanismIllustrationPoint(
@@ -111,37 +121,34 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             IllustrationPointResult result = subMechanismIllustrationPointTreeNodeData.IllustrationPointResults.First();
 
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
-            Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration);
-            Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha);
-            Assert.AreEqual(hydraRingStochast.Realization, stochast.Realization);
+            Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(hydraRingStochast.Realization, stochast.Realization, stochast.Realization.GetAccuracy());
 
             Assert.AreEqual(hydraRingIllustrationPointResult.Description, result.Description);
-            Assert.AreEqual(hydraRingIllustrationPointResult.Value, result.Value);
+            Assert.AreEqual(hydraRingIllustrationPointResult.Value, result.Value, result.Value.GetAccuracy());
         }
 
         [Test]
         public void Create_TreeNodeWithChildren_ReturnIllustrationPointNode()
         {
             // Setup
-            var hydraRingFaultTreeIllustrationPoint = new TestHydraRingFaultTreeIllustrationPoint();
-            var hydraRingIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
-
-            var nestedHydraRingSubMechanismIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint());
-            var nestedHydraRingFaultTreeIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
-            nestedHydraRingFaultTreeIllustrationPointTreeNode.SetChildren(new[]
+            var nestedHydraRingIllustrationPointTreeNodes = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
+            nestedHydraRingIllustrationPointTreeNodes.SetChildren(new[]
             {
                 new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()),
                 new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint())
             });
 
-            hydraRingIllustrationPointTreeNode.SetChildren(new[]
+            var hydraRingIllustrationPointRootTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
+            hydraRingIllustrationPointRootTreeNode.SetChildren(new[]
             {
-                nestedHydraRingSubMechanismIllustrationPointTreeNode,
-                nestedHydraRingFaultTreeIllustrationPointTreeNode
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()),
+                nestedHydraRingIllustrationPointTreeNodes
             });
 
             // Call
-            IllustrationPointNode illustrationPointNode = IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode);
+            IllustrationPointNode illustrationPointNode = IllustrationPointNodeConverter.Create(hydraRingIllustrationPointRootTreeNode);
 
             // Assert
             IllustrationPointNode[] children = illustrationPointNode.Children.ToArray();
@@ -151,5 +158,51 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             CollectionAssert.IsEmpty(children[0].Children);
             Assert.AreEqual(2, children[1].Children.Count());
         }
+
+        [Test]
+        public void Create_UnsupportedTreeNodeDataWithoutChildren_ThrowsIllustrationPointConversionException()
+        {
+            // Setup
+            var hydraRingIllustrationPointData = new TestHydraRingIllustrationPointData();
+            var hydraRingIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPointData);
+
+            // Call
+            TestDelegate call = () => IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode);
+
+            // Assert
+            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            string expectedMessage = $"An illustration point containing a Hydra ring data type of {hydraRingIllustrationPointData.GetType()} is not supported.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Create_ValidTreeNodeRootWithUnsupportedTreeNodeDataChildren_ThrowsIllustrationPointConversionException()
+        {
+            // Setup
+            var hydraRingFaultTreeIllustrationPoint = new TestHydraRingFaultTreeIllustrationPoint();
+            var hydraRingIllustrationPointTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
+
+            var nestedUnsupportedIllustrationPointData = new HydraRingIllustrationPointTreeNode(new TestHydraRingIllustrationPointData());
+            var nestedUnsupportedIllustrationPointData2 = new HydraRingIllustrationPointTreeNode(new TestHydraRingIllustrationPointData());
+            hydraRingIllustrationPointTreeNode.SetChildren(new[]
+            {
+                nestedUnsupportedIllustrationPointData,
+                nestedUnsupportedIllustrationPointData2
+            });
+
+            IllustrationPointNode illustrationPointNode = null;
+
+            // Call
+            TestDelegate call = () => illustrationPointNode = IllustrationPointNodeConverter.Create(hydraRingIllustrationPointTreeNode);
+
+            // Assert
+            Assert.IsNull(illustrationPointNode);
+
+            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            string expectedMessage = $"An illustration point containing a Hydra ring data type of {typeof(TestHydraRingIllustrationPointData)} is not supported.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        private class TestHydraRingIllustrationPointData : HydraRingIIllustrationPoint {}
     }
 }

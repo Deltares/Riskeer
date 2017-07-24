@@ -27,8 +27,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraRingIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingTestWindDirection = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
-using CombinationType = Ringtoets.Common.Data.IllustrationPoints.CombinationType;
-using FaultTreeIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraRingWindDirection = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 using HydraRingWindDirectionClosingSituation = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
@@ -37,8 +35,6 @@ using HydraRingSubMechanismIllustrationPointStochast = Ringtoets.HydraRing.Calcu
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingIllustrationPointResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
-using Stochast = Ringtoets.Common.Data.IllustrationPoints.Stochast;
-using WindDirection = Ringtoets.Common.Data.IllustrationPoints.WindDirection;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -49,16 +45,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         public void Create_HydraRingWindDirectionClosingSituationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-            var hydraRingStochast = new HydraRingStochast("random stochast",
-                                                          random.NextDouble(),
-                                                          random.NextDouble());
-
-            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("fault tree", random.NextDouble(),
-                                                                                              new[]
-                                                                                              {
-                                                                                                  hydraRingStochast
-                                                                                              }, HydraRingCombinationType.And);
+            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("fault tree",
+                                                                                              double.NaN,
+                                                                                              Enumerable.Empty<HydraRingStochast>(),
+                                                                                              HydraRingCombinationType.And);
 
             var treeNode = new HydraRingIllustrationPointTreeNode(hydraRingFaultTreeIllustrationPoint);
 
@@ -117,10 +107,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingWindDirection.Name, windDirection.Name);
 
             Assert.AreEqual(hydraRingWindDirectionClosingSituation.ClosingSituation, topLevelIllustrationPoint.ClosingSituation);
-            IllustrationPointNode illustrationPoint = topLevelIllustrationPoint.FaultTreeNodeRoot;
-            CollectionAssert.IsEmpty(illustrationPoint.Children);
+            IllustrationPointNode illustrationPointNode = topLevelIllustrationPoint.FaultTreeNodeRoot;
+            CollectionAssert.IsEmpty(illustrationPointNode.Children);
 
-            var illustrationPointData = (FaultTreeIllustrationPoint) illustrationPoint.Data;
+            var illustrationPointData = (FaultTreeIllustrationPoint) illustrationPointNode.Data;
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Name, illustrationPointData.Name);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, illustrationPointData.Beta, illustrationPointData.Beta.GetAccuracy());
             Assert.AreEqual(CombinationType.And, illustrationPointData.CombinationType);
@@ -156,7 +146,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                                                                                                       Enumerable.Empty<HydraRingStochast>(),
                                                                                                       HydraRingCombinationType.Or);
 
-            var hydraRingFaultTreeIllustrationPointChildTwo = new HydraRingSubMechanismIllustrationPoint("fault tree child two", 
+            var hydraRingFaultTreeIllustrationPointChildTwo = new HydraRingSubMechanismIllustrationPoint("fault tree child two",
                                                                                                          Enumerable.Empty<HydraRingSubMechanismIllustrationPointStochast>(),
                                                                                                          Enumerable.Empty<HydraRingIllustrationPointResult>(),
                                                                                                          random.NextDouble());
@@ -195,13 +185,13 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             CollectionAssert.IsEmpty(children[0].Children);
             CollectionAssert.IsEmpty(children[1].Children);
 
-            var childOne = (FaultTreeIllustrationPoint)children[0].Data;
+            var childOne = (FaultTreeIllustrationPoint) children[0].Data;
             CollectionAssert.IsEmpty(childOne.Stochasts);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPointChildOne.Name, childOne.Name);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPointChildOne.Beta, childOne.Beta, childOne.Beta.GetAccuracy());
             Assert.AreEqual(CombinationType.Or, childOne.CombinationType);
 
-            var childTwo = (SubMechanismIllustrationPoint)children[1].Data;
+            var childTwo = (SubMechanismIllustrationPoint) children[1].Data;
             CollectionAssert.IsEmpty(childTwo.Stochasts);
             CollectionAssert.IsEmpty(childTwo.IllustrationPointResults);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPointChildTwo.Name, childTwo.Name);

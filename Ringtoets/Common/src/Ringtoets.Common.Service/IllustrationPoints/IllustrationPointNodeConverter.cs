@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
@@ -46,6 +47,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <paramref name="hydraRingIllustrationPointTreeNode"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
         /// does not contain 0 or 2 children.</exception>
+        /// <exception cref="IllustrationPointConversionException">Thrown when <paramref name="hydraRingIllustrationPointTreeNode"/>
+        /// cannot be converted to a <see cref="IllustrationPointNode"/></exception>
         public static IllustrationPointNode Create(HydraRingIllustrationPointTreeNode hydraRingIllustrationPointTreeNode)
         {
             if (hydraRingIllustrationPointTreeNode == null)
@@ -54,6 +57,13 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             }
 
             IllustrationPointBase data = CreateIllustrationPointTreeNodeData(hydraRingIllustrationPointTreeNode.Data);
+
+            if (data == null)
+            {
+                string errorMessage = "An illustration point containing a Hydra ring data type of " +
+                                      $"{hydraRingIllustrationPointTreeNode.Data.GetType()} is not supported.";
+                throw new IllustrationPointConversionException(errorMessage);
+            }
 
             var illustrationPointNode = new IllustrationPointNode(data);
             illustrationPointNode.SetChildren(hydraRingIllustrationPointTreeNode.Children.Select(Create).ToArray());

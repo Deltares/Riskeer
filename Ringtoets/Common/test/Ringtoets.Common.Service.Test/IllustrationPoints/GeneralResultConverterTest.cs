@@ -71,13 +71,13 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                     HydraRingIllustrationPointTreeNode>());
 
             // Call
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint =
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
                 GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
-            AssertWindDirection(hydraGoverningWindDirection, generalResultSubMechanismIllustrationPoint.GoverningWindDirection);
-            CollectionAssert.IsEmpty(generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints);
-            CollectionAssert.IsEmpty(generalResultSubMechanismIllustrationPoint.Stochasts);
+            AssertWindDirection(hydraGoverningWindDirection, generalResult.GoverningWindDirection);
+            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
         }
 
         [Test]
@@ -98,8 +98,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 random.NextDouble());
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 
-            double governingWindDirectionAngle = random.NextDouble();
-            var governingHydraWindDirection = new HydraRingWindDirection("Name", governingWindDirectionAngle);
+            var governingHydraWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
             var hydraGeneralResult = new HydraRingGeneralResult(
                 random.NextDouble(),
                 governingHydraWindDirection,
@@ -112,16 +111,16 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResultSubMechanismIllustrationPoint =
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
                 GeneralResultConverter.CreateGeneralResultTopLevelSubMechanismIllustrationPoint(hydraGeneralResult);
 
             // Assert
-            WindDirection generalResultGoverningWindDirection = generalResultSubMechanismIllustrationPoint.GoverningWindDirection;
+            WindDirection generalResultGoverningWindDirection = generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraWindDirection, generalResultGoverningWindDirection);
 
-            CollectionAssert.IsEmpty(generalResultSubMechanismIllustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(generalResult.Stochasts);
 
-            TopLevelSubMechanismIllustrationPoint combination = generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints.Single();
+            TopLevelSubMechanismIllustrationPoint combination = generalResult.TopLevelIllustrationPoints.Single();
             AssertWindDirection(hydraRingWindDirection, combination.WindDirection);
             Assert.AreEqual(closingSituation, combination.ClosingSituation);
 
@@ -151,10 +150,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 random.NextEnumValue<HydraRingCombinationType>());
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 
-            double governingWindDirectionAngle = random.NextDouble();
-            var governingHydraRingWindDirection = new HydraRingWindDirection(
-                "Name",
-                governingWindDirectionAngle);
+            var governingHydraRingWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
             var hydraRingGeneralResult = new HydraRingGeneralResult(
                 random.NextDouble(),
                 governingHydraRingWindDirection,
@@ -271,10 +267,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 HydraRingCombinationType.Or);
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 
-            double governingWindDirectionAngle = random.NextDouble();
-            var governingHydraRingWindDirection = new HydraRingWindDirection(
-                "Name",
-                governingWindDirectionAngle);
+            var governingHydraRingWindDirection = new HydraRingWindDirection("Name",  random.NextDouble());
             var hydraRingGeneralResult = new HydraRingGeneralResult(
                 random.NextDouble(),
                 governingHydraRingWindDirection,
@@ -287,16 +280,16 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 });
 
             // Call
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultSubMechanismIllustrationPoint =
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
                 GeneralResultConverter.CreateGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
 
             // Assert
             WindDirection generalResultGoverningWindDirection =
-                generalResultSubMechanismIllustrationPoint.GoverningWindDirection;
+                generalResult.GoverningWindDirection;
             AssertWindDirection(governingHydraRingWindDirection, generalResultGoverningWindDirection);
 
             TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint =
-                generalResultSubMechanismIllustrationPoint.TopLevelIllustrationPoints.Single();
+                generalResult.TopLevelIllustrationPoints.Single();
             AssertWindDirection(hydraRingWindDirection, topLevelFaultTreeIllustrationPoint.WindDirection);
             Assert.AreEqual(closingSituation, topLevelFaultTreeIllustrationPoint.ClosingSituation);
 

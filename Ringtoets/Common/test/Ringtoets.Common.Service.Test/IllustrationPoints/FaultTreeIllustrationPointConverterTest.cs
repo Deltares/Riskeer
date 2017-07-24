@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
@@ -50,24 +52,23 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         {
             // Setup
             var random = new Random(21);
+            var hydraRingStochast = new HydraRingStochast("hydraRingStochast",
+                                                          random.NextDouble(),
+                                                          random.NextDouble());
 
-            const string name = "hydraRingStochast";
-            double alpha = random.NextDouble();
-            double duration = random.NextDouble();
-            var hydraRingStochast = new HydraRingStochast(name, duration, alpha);
-
-            double beta = random.NextDouble();
-            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint("name", beta, new[]
-            {
-                hydraRingStochast
-            }, HydraRingCombinationType.And);
+            var hydraRingFaultTreeIllustrationPoint =
+                new HydraRingFaultTreeIllustrationPoint("name", random.NextDouble(), new[]
+                {
+                    hydraRingStochast
+                }, HydraRingCombinationType.And);
 
             // Call
             FaultTreeIllustrationPoint faultTreeIllustrationPoint =
                 FaultTreeIllustrationPointConverter.Create(hydraRingFaultTreeIllustrationPoint);
 
             // Assert
-            Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta,
+                            faultTreeIllustrationPoint.Beta.GetAccuracy());
             Assert.AreEqual(hydraRingFaultTreeIllustrationPoint.Name, faultTreeIllustrationPoint.Name);
             Assert.AreEqual(CombinationType.And, faultTreeIllustrationPoint.CombinationType);
 
@@ -75,6 +76,26 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             Assert.AreEqual(hydraRingStochast.Alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(hydraRingStochast.Name, stochast.Name);
+        }
+
+        [Test]
+        public void Create_InvalidHydraRingCombinationType_ThrowsIllustrationPointConversionException()
+        {
+            // Setup
+            var hydraRingFaultTreeIllustrationPoint = new HydraRingFaultTreeIllustrationPoint(
+                "name",
+                new Random(210).NextDouble(),
+                Enumerable.Empty<HydraRingStochast>(),
+                (HydraRingCombinationType) 999999);
+
+            // Call
+            TestDelegate call = () => FaultTreeIllustrationPointConverter.Create(hydraRingFaultTreeIllustrationPoint);
+
+            // Assert
+            var exception = Assert.Throws<IllustrationPointConversionException>(call);
+            string expectedMessage = $"Could not convert the {typeof(HydraRingCombinationType)} into a {typeof(CombinationType)}.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
     }
 }
