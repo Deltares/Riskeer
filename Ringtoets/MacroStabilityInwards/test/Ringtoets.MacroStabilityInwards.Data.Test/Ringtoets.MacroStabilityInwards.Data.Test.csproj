@@ -67,7 +67,6 @@
     <Compile Include="MacroStabilityInwardsInputTest.cs" />
     <Compile Include="MacroStabilityInwardsOutputTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticOutputTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilProfileExtensionsTest.cs" />
     <Compile Include="RingtoetsMacroStabilityInwardsSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInputTest.cs" />
