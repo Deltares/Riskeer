@@ -45,19 +45,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartLineData surfaceLineChartData;
-        private readonly ChartPointData surfaceLevelOutsideChartData;
-        private readonly ChartPointData dikeToeAtRiverChartData;
-        private readonly ChartPointData trafficLoadOutsideChartData;
+        private readonly ChartPointData surfaceLevelInsideChartData;
+        private readonly ChartPointData ditchPolderSideChartData;
+        private readonly ChartPointData bottomDitchPolderSideChartData;
+        private readonly ChartPointData bottomDitchDikeSideChartData;
+        private readonly ChartPointData ditchDikeSideChartData;
+        private readonly ChartPointData dikeToeAtPolderChartData;
+        private readonly ChartPointData shoulderTopInsideChartData;
+        private readonly ChartPointData shoulderBaseInsideChartData;
         private readonly ChartPointData trafficLoadInsideChartData;
         private readonly ChartPointData dikeTopAtPolderChartData;
-        private readonly ChartPointData shoulderBaseInsideChartData;
-        private readonly ChartPointData shoulderTopInsideChartData;
-        private readonly ChartPointData dikeToeAtPolderChartData;
-        private readonly ChartPointData ditchDikeSideChartData;
-        private readonly ChartPointData bottomDitchDikeSideChartData;
-        private readonly ChartPointData bottomDitchPolderSideChartData;
-        private readonly ChartPointData ditchPolderSideChartData;
-        private readonly ChartPointData surfaceLevelInsideChartData;
+        private readonly ChartPointData trafficLoadOutsideChartData;
+        private readonly ChartPointData dikeToeAtRiverChartData;
+        private readonly ChartPointData surfaceLevelOutsideChartData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
@@ -78,35 +78,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
-            surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
-            dikeToeAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtRiverChartData();
-            trafficLoadOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
+            surfaceLevelInsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
+            ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
+            bottomDitchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchPolderSideChartData();
+            bottomDitchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ditchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
+            dikeToeAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtPolderChartData();
+            shoulderTopInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
+            shoulderBaseInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
             trafficLoadInsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
             dikeTopAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
-            shoulderBaseInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
-            shoulderTopInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
-            dikeToeAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtPolderChartData();
-            ditchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchDikeSideChartData();
-            bottomDitchDikeSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchDikeSideChartData();
-            bottomDitchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateBottomDitchPolderSideChartData();
-            ditchPolderSideChartData = MacroStabilityInwardsChartDataFactory.CreateDitchPolderSideChartData();
-            surfaceLevelInsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
+            trafficLoadOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
+            dikeToeAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeToeAtRiverChartData();
+            surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
-            chartDataCollection.Add(surfaceLevelOutsideChartData);
-            chartDataCollection.Add(dikeToeAtRiverChartData);
-            chartDataCollection.Add(trafficLoadOutsideChartData);
+            chartDataCollection.Add(surfaceLevelInsideChartData);
+            chartDataCollection.Add(ditchPolderSideChartData);
+            chartDataCollection.Add(bottomDitchPolderSideChartData);
+            chartDataCollection.Add(bottomDitchDikeSideChartData);
+            chartDataCollection.Add(ditchDikeSideChartData);
+            chartDataCollection.Add(dikeToeAtPolderChartData);
+            chartDataCollection.Add(shoulderTopInsideChartData);
+            chartDataCollection.Add(shoulderBaseInsideChartData);
             chartDataCollection.Add(trafficLoadInsideChartData);
             chartDataCollection.Add(dikeTopAtPolderChartData);
-            chartDataCollection.Add(shoulderBaseInsideChartData);
-            chartDataCollection.Add(shoulderTopInsideChartData);
-            chartDataCollection.Add(dikeToeAtPolderChartData);
-            chartDataCollection.Add(ditchDikeSideChartData);
-            chartDataCollection.Add(bottomDitchDikeSideChartData);
-            chartDataCollection.Add(bottomDitchPolderSideChartData);
-            chartDataCollection.Add(ditchPolderSideChartData);
-            chartDataCollection.Add(surfaceLevelInsideChartData);
+            chartDataCollection.Add(trafficLoadOutsideChartData);
+            chartDataCollection.Add(dikeToeAtRiverChartData);
+            chartDataCollection.Add(surfaceLevelOutsideChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
@@ -175,22 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             SetChartData();
 
-            surfaceLineChartData.NotifyObservers();
-            surfaceLevelOutsideChartData.NotifyObservers();
-            dikeToeAtRiverChartData.NotifyObservers();
-            trafficLoadOutsideChartData.NotifyObservers();
-            trafficLoadInsideChartData.NotifyObservers();
-            dikeTopAtPolderChartData.NotifyObservers();
-            shoulderBaseInsideChartData.NotifyObservers();
-            shoulderTopInsideChartData.NotifyObservers();
-            dikeToeAtPolderChartData.NotifyObservers();
-            ditchDikeSideChartData.NotifyObservers();
-            bottomDitchDikeSideChartData.NotifyObservers();
-            bottomDitchPolderSideChartData.NotifyObservers();
-            ditchPolderSideChartData.NotifyObservers();
-            surfaceLevelInsideChartData.NotifyObservers();
-
-            soilProfileChartData.NotifyObservers();
+            chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
             soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
@@ -206,19 +191,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             MacroStabilityInwardsChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
             surfaceLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
-            surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
-            dikeToeAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
-            trafficLoadOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadOutsidePoint(surfaceLine);
+            surfaceLevelInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
+            ditchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
+            bottomDitchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
+            bottomDitchDikeSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
+            ditchDikeSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
+            dikeToeAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
+            shoulderTopInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
+            shoulderBaseInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
             trafficLoadInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(surfaceLine);
             dikeTopAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
-            shoulderBaseInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
-            shoulderTopInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
-            dikeToeAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
-            ditchDikeSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
-            bottomDitchDikeSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
-            bottomDitchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
-            ditchPolderSideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
-            surfaceLevelInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
+            trafficLoadOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadOutsidePoint(surfaceLine);
+            dikeToeAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
+            surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
 
             SetSoilProfileChartData();
         }

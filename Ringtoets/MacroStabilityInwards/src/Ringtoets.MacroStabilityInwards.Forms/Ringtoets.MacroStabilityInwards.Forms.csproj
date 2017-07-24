@@ -204,6 +204,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityInwardsInputView.resx">
       <DependentUpon>MacroStabilityInwardsInputView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityInwardsCalculationsView.resx">
       <DependentUpon>MacroStabilityInwardsCalculationsView.cs</DependentUpon>
