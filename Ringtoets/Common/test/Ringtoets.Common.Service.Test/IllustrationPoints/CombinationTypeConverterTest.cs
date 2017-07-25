@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
         [TestCase(HydraRingCombinationType.And, CombinationType.And)]
         [TestCase(HydraRingCombinationType.Or, CombinationType.Or)]
         public void Convert_HydraRingCombinationType_ReturnCombinationType(HydraRingCombinationType hydraRingCombinationType,
-                                                                          CombinationType expectedCombinationType)
+                                                                           CombinationType expectedCombinationType)
         {
             // Call
             CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingCombinationType);

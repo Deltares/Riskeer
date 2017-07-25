@@ -46,8 +46,8 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             if (!Enum.IsDefined(typeof(HydraRingCombinationType), hydraRingCombinationType))
             {
                 throw new InvalidEnumArgumentException(nameof(hydraRingCombinationType),
-                                                           (int)hydraRingCombinationType,
-                                                           typeof(HydraRingCombinationType));
+                                                       (int) hydraRingCombinationType,
+                                                       typeof(HydraRingCombinationType));
             }
 
             switch (hydraRingCombinationType)

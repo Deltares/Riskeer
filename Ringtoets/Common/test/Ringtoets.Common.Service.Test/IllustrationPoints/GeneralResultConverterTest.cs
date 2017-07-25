@@ -267,7 +267,7 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
                 HydraRingCombinationType.Or);
             var hydraRingIllustrationTreeNode = new HydraRingIllustrationPointTreeNode(hydraRingIllustrationPoint);
 
-            var governingHydraRingWindDirection = new HydraRingWindDirection("Name",  random.NextDouble());
+            var governingHydraRingWindDirection = new HydraRingWindDirection("Name", random.NextDouble());
             var hydraRingGeneralResult = new HydraRingGeneralResult(
                 random.NextDouble(),
                 governingHydraRingWindDirection,
