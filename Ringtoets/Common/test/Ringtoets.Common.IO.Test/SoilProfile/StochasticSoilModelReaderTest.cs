@@ -86,14 +86,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         [TestCase("text.txt")]
         [TestCase("empty.soil")]
-        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
+        public void Initialize_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
 
-            // Call
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
+                // Call
                 TestDelegate test = () => reader.Initialize();
 
                 // Assert
@@ -108,14 +108,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
+        public void Initialize_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "incorrectVersion.soil");
 
-            // Call
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
+                // Call
                 TestDelegate test = () => reader.Initialize();
 
                 // Assert
@@ -127,6 +127,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     $"Vereiste versie is '{version}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
+
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
     }

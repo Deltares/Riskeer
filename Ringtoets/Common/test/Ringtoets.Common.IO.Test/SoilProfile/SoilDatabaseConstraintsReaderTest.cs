@@ -82,5 +82,94 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilModelTable_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilModelTable.soil");
+
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilProfileTable_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilProfileTable.soil");
+
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de 'StochasticSoilProfile' tabel niet.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "nonUniqueSoilModelNames.soil");
+
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Namen van ondergrondmodellen zijn niet uniek.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void VerifyConstraints_MissingStochasticSoilProfileProbability_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilProfileProbability.soil");
+
+            // Call
+            using (var versionReader = new SoilDatabaseConstraintsReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyConstraints();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
     }
 }

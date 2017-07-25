@@ -1571,6 +1571,66 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen ondergrondmodellen lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_" +
+                        "Perhaps_table_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfil" +
+                        "e_Perhaps_table_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_pro" +
+                        "bability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namen van ondergrondmodellen zijn niet uniek..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_na" +
+                        "mes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_" +
+                        "unique_StochasticSoilModel_names", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen..
+        /// </summary>
+        public static string SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability {
+            get {
+                return ResourceManager.GetString("SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_" +
+                        "valid_StochasticSoilProfile_probability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string SoilProfileReader_Critical_Unexpected_value_on_column {

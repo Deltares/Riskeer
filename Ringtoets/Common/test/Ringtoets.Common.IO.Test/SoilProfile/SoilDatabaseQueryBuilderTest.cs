@@ -40,5 +40,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                          "AND Value = @Value;";
             Assert.AreEqual(expectedQuery, query);
         }
+        
+        [Test]
+        public void GetSoilModelNamesUniqueQuery_Always_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetSoilModelNamesUniqueQuery();
+
+            // Assert
+            const string expectedQuery =
+                "SELECT [All].nameCount == [Distinct].nameCount AS AreSegmentsUnique " +
+                "FROM (SELECT COUNT(SSM_Name) nameCount FROM StochasticSoilModel) AS [All] " +
+                "JOIN (SELECT COUNT(DISTINCT SSM_Name) nameCount FROM StochasticSoilModel) AS [Distinct];";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetStochasticSoilProfileProbabilitiesDefinedQuery_Always_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
+
+            // Assert
+            const string expectedQuery = "SELECT COUNT(Probability) == 0 AS HasNoInvalidProbabilities " +
+                                         "FROM StochasticSoilProfile " +
+                                         "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
+            Assert.AreEqual(expectedQuery, query);
+        }
     }
 }

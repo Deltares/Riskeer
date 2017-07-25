@@ -797,4 +797,22 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilProfileReader_Database_incorrect_version_requires_Version_0" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
   </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondmodellen lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Non_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Namen van ondergrondmodellen zijn niet uniek.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van unieke ondergrondmodelnamen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Invalid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Er zijn stochastische ondergrondschematisaties zonder geldige kans van voorkomen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability" xml:space="preserve">
+    <value>Onverwachte fout tijdens het verifiëren van kansen van voorkomen voor profielen.</value>
+  </data>
+  <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing" xml:space="preserve">
+    <value>Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
+  </data>
 </root>

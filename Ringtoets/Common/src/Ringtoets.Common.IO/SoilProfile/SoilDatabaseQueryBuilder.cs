@@ -41,5 +41,37 @@ namespace Ringtoets.Common.IO.SoilProfile
                    $"WHERE {MetaTableDefinitions.Key} = 'VERSION' " +
                    $"AND {MetaTableDefinitions.Value} = @{MetaTableDefinitions.Value};";
         }
+
+        /// <summary>
+        /// Returns the SQL query to execute to check if segment names in the DSoil-Model database 
+        /// are unique.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetSoilModelNamesUniqueQuery()
+        {
+            return string.Format(
+                "SELECT [All].nameCount == [Distinct].nameCount AS {0} " +
+                "FROM (SELECT COUNT({1}) nameCount FROM {2}) AS [All] " +
+                "JOIN (SELECT COUNT(DISTINCT {1}) nameCount FROM {2}) AS [Distinct];",
+                StochasticSoilModelTableDefinitions.AreSegmentsUnique,
+                StochasticSoilModelTableDefinitions.StochasticSoilModelName,
+                StochasticSoilModelTableDefinitions.TableName);
+        }
+
+        /// <summary>
+        /// Returns the SQL query to execute to check if the probabilities of the stochastic
+        /// soil profiles are valid.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetStochasticSoilProfileProbabilitiesValidQuery()
+        {
+            return string.Format(
+                "SELECT COUNT({1}) == 0 AS {0} " +
+                "FROM {2} " +
+                "WHERE {1} NOT BETWEEN 0 AND 1 OR {1} ISNULL;",
+                StochasticSoilProfileTableDefinitions.AllProbabilitiesValid,
+                StochasticSoilProfileTableDefinitions.Probability,
+                StochasticSoilProfileTableDefinitions.TableName);
+        }
     }
 }
