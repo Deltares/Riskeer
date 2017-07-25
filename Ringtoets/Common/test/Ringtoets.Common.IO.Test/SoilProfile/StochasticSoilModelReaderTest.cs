@@ -70,8 +70,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_PathToExistingFile_ExpectedValues()
         {
             // Setup
-            const string dbName = "emptyschema.soil";
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
 
             // Call
             using (var reader = new StochasticSoilModelReader(dbFile))
@@ -79,6 +78,54 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 Assert.AreEqual(dbFile, reader.Path);
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        [TestCase("text.txt")]
+        [TestCase("empty.soil")]
+        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            // Call
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                TestDelegate test = () => reader.Initialize();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "incorrectVersion.soil");
+
+            // Call
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                TestDelegate test = () => reader.Initialize();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                const string version = "15.0.6.0";
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "De database heeft niet de vereiste versie informatie. " +
+                    $"Vereiste versie is '{version}'.");
+                Assert.AreEqual(expectedMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

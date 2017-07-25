@@ -35,6 +35,8 @@ namespace Core.Common.IO.Readers
     /// </summary>
     public abstract class SqLiteDatabaseReaderBase : IDisposable
     {
+        private bool disposed;
+
         /// <summary>
         /// Creates a new instance of <see cref="SqLiteDatabaseReaderBase"/> which will use the <paramref name="databaseFilePath"/>
         /// as its source.
@@ -79,10 +81,25 @@ namespace Core.Common.IO.Readers
 
         /// <summary>
         /// Closes and disposes the existing <see cref="Connection"/>.
+        /// When <paramref name="disposing"/> is <c>true</c>, the managed resources are freed as well.
         /// </summary>
-        public virtual void Dispose()
+        /// <param name="disposing">Indicates whether the method call comes from the <see cref="Dispose"/> method.</param>
+        protected virtual void Dispose(bool disposing)
         {
+            if (disposed)
+            {
+                return;
+            }
+
             CloseConnection();
+
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

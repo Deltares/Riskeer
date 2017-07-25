@@ -182,10 +182,10 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             }
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
             CloseDataReader();
-            base.Dispose();
+            base.Dispose(disposing);
         }
 
         /// <summary>

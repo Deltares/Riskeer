@@ -34,20 +34,46 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>The database version could not be read.</item>
         /// <item>The database version is incorrect.</item>
-        /// </list></exception>
-        public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath)
+        /// </list>
+        /// </exception>
+        public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// Prepares a new data reader with a query for version validation.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
+        /// <item>The database version could not be read.</item>
+        /// <item>The database version is incorrect.</item>
+        /// </list>
+        /// </exception>
+        public void Initialize()
         {
-            VerifyVersion(databaseFilePath);
+            VerifyVersion(Path);
         }
 
-        private void VerifyVersion(string databaseFilePath)
+        /// <summary>
+        /// Verifies that the <paramref name="databaseFilePath"/> has the required version.
+        /// </summary>
+        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
+        /// <item>The database version could not be read.</item>
+        /// <item>The database version is incorrect.</item>
+        /// </list>
+        /// </exception>
+        private static void VerifyVersion(string databaseFilePath)
         {
-            using (new SoilDatabaseVersionReader(databaseFilePath)) {}
+            using (var reader = new SoilDatabaseVersionReader(databaseFilePath))
+            {
+                reader.VerifyVersion();
+            }
         }
     }
 }

@@ -98,10 +98,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             }
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
             dataReader?.Dispose();
-            base.Dispose();
+            base.Dispose(disposing);
         }
 
         /// <summary>
