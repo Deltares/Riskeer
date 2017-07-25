@@ -287,8 +287,9 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = stochasticSoilModelContext => PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
-                                                              Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
+                                                              ? Color.FromKnownColor(KnownColor.ControlText)
+                                                              : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip
             };

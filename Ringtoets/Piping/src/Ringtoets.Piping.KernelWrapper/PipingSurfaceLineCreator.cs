@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using Ringtoets.Piping.Primitives;
@@ -29,12 +28,12 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
-    /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.
+    /// Creates <see cref="PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.
     /// </summary>
     internal static class PipingSurfaceLineCreator
     {
         /// <summary>
-        /// Creates a <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> for the kernel
+        /// Creates a <see cref="PipingSurfaceLine"/> for the kernel
         /// given different surface line.
         /// </summary>
         /// <param name="line">The surface line configured in the Ringtoets application.</param>
