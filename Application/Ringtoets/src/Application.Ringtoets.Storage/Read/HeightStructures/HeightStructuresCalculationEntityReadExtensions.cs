@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
 
             if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
             {
-                output.SetIllustrationPoints(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
+                output.SetGeneralResult(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
             }
 
             calculation.Output = output;

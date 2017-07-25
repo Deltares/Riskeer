@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Create
         private static void SetIllustrationPoints(IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity,
                                                   StructuresOutput calculationOutput)
         {
-            if (calculationOutput.HasIllustrationPoints)
+            if (calculationOutput.HasGeneralResult)
             {
                 outputEntity.GeneralResultFaultTreeIllustrationPointEntity =
                     calculationOutput.GeneralResult

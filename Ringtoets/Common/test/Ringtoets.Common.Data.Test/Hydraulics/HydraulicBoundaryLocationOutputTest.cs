@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsNull(output.GeneralResult);
-            Assert.IsFalse(output.HasIllustrationPoints);
+            Assert.IsFalse(output.HasGeneralResult);
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var output = new TestHydraulicBoundaryLocationOutput(result);
 
             // Call
-            TestDelegate call = () => output.SetIllustrationPoints(null);
+            TestDelegate call = () => output.SetGeneralResult(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -135,11 +135,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
 
             // Call
-            output.SetIllustrationPoints(generalResult);
+            output.SetGeneralResult(generalResult);
 
             // Assert
             Assert.AreSame(generalResult, output.GeneralResult);
-            Assert.IsTrue(output.HasIllustrationPoints);
+            Assert.IsTrue(output.HasGeneralResult);
         }
     }
 }

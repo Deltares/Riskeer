@@ -478,15 +478,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Neem de informatie over de illustratiepunten op in het berekeningsresultaat..
-        /// </summary>
-        public static string ShouldIllustrationPointsBeCalculated_Description {
-            get {
-                return ResourceManager.GetString("ShouldIllustrationPointsBeCalculated_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Illustratiepunten inlezen.
         /// </summary>
         public static string ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName {

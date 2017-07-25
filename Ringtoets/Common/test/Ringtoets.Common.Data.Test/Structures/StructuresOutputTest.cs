@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
-            Assert.IsFalse(structuresOutput.HasIllustrationPoints);
+            Assert.IsFalse(structuresOutput.HasGeneralResult);
             Assert.IsNull(structuresOutput.GeneralResult);
         }
 
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
 
             // Call
-            TestDelegate call = () => structuresOutput.SetIllustrationPoints(null) ;
+            TestDelegate call = () => structuresOutput.SetGeneralResult(null) ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,11 +80,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
 
             // Call
-            structuresOutput.SetIllustrationPoints(generalResult);
+            structuresOutput.SetGeneralResult(generalResult);
 
             // Assert
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);
-            Assert.IsTrue(structuresOutput.HasIllustrationPoints);
+            Assert.IsTrue(structuresOutput.HasGeneralResult);
         }
     }
 }

@@ -311,11 +311,11 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
-            Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+            Assert.IsFalse(calculation.Output.HasGeneralResult);
         }
 
         [Test]
-        public void Read_ValidEntityWithOutputAndIllustrationPoints_ReturnCalculationWithOutputAndIllustrationPoints()
+        public void Read_ValidEntityWithOutputAndIllustrationPoints_ReturnCalculationWithOutputAndGeneralResult()
         {
             // Setup
             var random = new Random(678);
@@ -341,7 +341,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
-            Assert.IsTrue(calculation.Output.HasIllustrationPoints);
+            Assert.IsTrue(calculation.Output.HasGeneralResult);
         }
 
         [Test]

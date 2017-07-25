@@ -45,6 +45,7 @@ using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
+using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -179,7 +180,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                 if (dikeHeightOutput != null && calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated)
                 {
-                    dikeHeightOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(dikeHeightCalculator.IllustrationPointsResult, dikeHeightCalculator.IllustrationPointsParserErrorMessage);
+                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(dikeHeightCalculator.IllustrationPointsResult, dikeHeightCalculator.IllustrationPointsParserErrorMessage);
+                    if (illustrationPoints != null)
+                    {
+                        dikeHeightOutput.SetGeneralResult(illustrationPoints);
+                    }
                 }
 
                 if (canceled)
@@ -195,7 +200,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                        numberOfCalculators);
                 if (overtoppingRateOutput != null && calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated)
                 {
-                    overtoppingRateOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(overtoppingRateCalculator.IllustrationPointsResult, overtoppingRateCalculator.IllustrationPointsParserErrorMessage);
+                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(overtoppingRateCalculator.IllustrationPointsResult, overtoppingRateCalculator.IllustrationPointsParserErrorMessage);
+                    if (illustrationPoints != null)
+                    {
+                        overtoppingRateOutput.SetGeneralResult(illustrationPoints);
+                    }
                 }
 
                 if (canceled)
@@ -213,7 +222,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                 if (calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
                 {
-                    overtoppingOutput.GeneralFaultTreeIllustrationPoint = ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult, overtoppingCalculator.IllustrationPointsParserErrorMessage);
+                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult, overtoppingCalculator.IllustrationPointsParserErrorMessage);
+                    if (illustrationPoints != null)
+                    {
+                        overtoppingOutput.SetGeneralResult(illustrationPoints);
+                    }
                 }
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
@@ -727,12 +740,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="result">The <see cref="GeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        /// <param name="errorMessage"></param>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(GeneralResult result, string errorMessage)
+        /// <param name="errorMessage">Error message to display when the general result is null</param>
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
         {
             if (result == null)
             {
-                log.Warn(errorMessage);
+                if (errorMessage != null)
+                {
+                    log.Warn(errorMessage);
+                }
                 return null;
             }
 
@@ -744,7 +760,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(RingtoetsCommonServiceResources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
             }
 
             return null;

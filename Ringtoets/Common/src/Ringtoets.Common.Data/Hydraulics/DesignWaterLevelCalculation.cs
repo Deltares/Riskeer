@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         {
             HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation;
             return calculation.HasOutput
-                   && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasIllustrationPoints;
+                   && calculation.InputParameters.ShouldIllustrationPointsBeCalculated == calculation.Output.HasGeneralResult;
         }
     }
 }

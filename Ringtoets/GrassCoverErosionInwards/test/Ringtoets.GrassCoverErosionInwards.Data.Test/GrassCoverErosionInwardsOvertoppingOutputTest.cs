@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
@@ -57,22 +58,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
             Assert.IsTrue(output.HasWaveHeight);
+
+            Assert.IsFalse(output.HasGeneralResult);
+            Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ProbabilityAssessmentNull()
+        {
+            // Setup
+            const double waveHeight = 3.2934;
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = null;
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("probabilityAssessmentOutput", exception.ParamName);
         }
 
         [Test]
         public void GeneralFaultTreeIllustrationPoint_SetGet()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0))
-            {
-                GeneralFaultTreeIllustrationPoint = new TestGeneralResultFaultTreeIllustrationPoint()
-            };
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
+            var faultTree = new TestGeneralResultFaultTreeIllustrationPoint();
+            output.SetGeneralResult(faultTree);
 
             // Call
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> faultTreeIllustrationPoint = output.GeneralFaultTreeIllustrationPoint;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = output.GeneralResult;
 
             // Assert
-            Assert.IsNotNull(faultTreeIllustrationPoint);
+            Assert.IsNotNull(generalResult);
+            Assert.AreEqual(faultTree, generalResult);
         }
 
         [Test]
@@ -86,6 +106,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsFalse(hasWaveHeight);
+        }
+
+        [Test]
+        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+
+            // Call
+            TestDelegate call = () => output.SetGeneralResult(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("generalResult", exception.ParamName);
+        }
+
+        [Test]
+        public void SetGeneralResult_ValidGeneralResult_SetExpectedProperties()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+
+            // Call
+            output.SetGeneralResult(generalResult);
+
+            // Assert
+            Assert.AreSame(generalResult, output.GeneralResult);
         }
     }
 }

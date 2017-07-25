@@ -59,6 +59,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
         private const int calculateDikeHeightPropertyIndex = 9;
         private const int calculateOvertoppingRatePropertyIndex = 10;
+        private const int dikeHeightOutputIllustrationPointsPropertyIndex = 11;
+        private const int overtoppingOutputIllustrationPointsPropertyIndex = 12;
+        private const int overtoppingRateIllustrationPointsPropertyIndex = 13;
         private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
@@ -258,24 +261,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ShouldOvertoppingOutputIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated = true);
-        }
-
-        [Test]
-        public void ShouldDikeHeightIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldDikeHeightIllustrationPointsBeCalculated = true);
-        }
-
-        [Test]
-        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_Always_InputChangedAndObservablesNotified()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.ShouldOvertoppingRateIllustrationPointsBeCalculated = true);
-        }
-
-        [Test]
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
@@ -302,6 +287,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             RoundedDouble criticalFlowMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.CriticalFlowRate.Mean = criticalFlowMean);
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            const int numberOfChangedProperties = 3;
+            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
+            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
+
+            var observerMock = mockRepository.StrictMock<IObserver>();
+
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+
+            mockRepository.ReplayAll();
+
+             var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new TestDikeProfile(new Point2D(12.34, 56.78)),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            };
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
+            inputContext.Attach(observerMock);
+
+            
+
+            // Call
+            properties.ShouldDikeHeightIllustrationPointsBeCalculated = true;
+            properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated = true;
+            properties.ShouldOvertoppingRateIllustrationPointsBeCalculated = true;
+
+            // Assert
+            Assert.AreEqual(true, properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(true, properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(true, properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -702,6 +727,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Overslagdebiet berekenen",
                                                                             "Geeft aan of ook het overslagdebiet moet worden berekend.");
 
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightOutputIllustrationPointsPropertyIndex],
+                                                                            "HBN",
+                                                                            "Illustratiepunten inlezen",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingOutputIllustrationPointsPropertyIndex],
+                                                                            "Overslagdebiet",
+                                                                            "Illustratiepunten inlezen",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateIllustrationPointsPropertyIndex],
+                                                                            "Sterkte berekening",
+                                                                            "Illustratiepunten inlezen",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
             mockRepository.VerifyAll();
         }
 

@@ -249,9 +249,6 @@
   <data name="Categories_OvertoppingOutput" xml:space="preserve">
     <value>Sterkte berekening</value>
   </data>
-  <data name="ShouldIllustrationPointsBeCalculated_Description" xml:space="preserve">
-    <value>Neem de informatie over de illustratiepunten op in het berekeningsresultaat.</value>
-  </data>
   <data name="ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen</value>
   </data>

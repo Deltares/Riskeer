@@ -102,9 +102,9 @@ namespace Ringtoets.Common.Data.Hydraulics
         public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; private set; }
 
         /// <summary>
-        /// Gets the value indicating whether the output contains illustration points.
+        /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
-        public bool HasIllustrationPoints
+        public bool HasGeneralResult
         {
             get
             {
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// belongs to this output.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/> 
         /// is <c>null</c>.</exception>
-        public void SetIllustrationPoints(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        public void SetGeneralResult(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
             if (generalResult == null)
             {

@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                           new TestSubMechanismIllustrationPoint())
             };
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            output.SetIllustrationPoints(generalResult);
+            output.SetGeneralResult(generalResult);
 
             // Call
             view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].DesignWaterLevelCalculation.Output = output;
@@ -492,7 +492,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     }
                 });
                 var output = new TestHydraulicBoundaryLocationOutput(1.01);
-                output.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+                output.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
                     DesignWaterLevelCalculation =

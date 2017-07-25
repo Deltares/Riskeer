@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -55,8 +56,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public double ReliabilityIndex { get; private set; }
 
         public bool? Converged { get; private set; }
-
-        public new string IllustrationPointsParserErrorMessage { get; set; }
 
         public void Calculate(HydraulicLoadsCalculationInput input)
         {

@@ -428,7 +428,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculator.IsCanceled);
-                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
+                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasGeneralResult);
             }
             mocks.VerifyAll();
         }
@@ -482,7 +482,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
             mocks.VerifyAll();
         }
@@ -534,7 +534,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
             mocks.VerifyAll();
         }
@@ -591,7 +591,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                     Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[1].Item3);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
             mocks.VerifyAll();
         }

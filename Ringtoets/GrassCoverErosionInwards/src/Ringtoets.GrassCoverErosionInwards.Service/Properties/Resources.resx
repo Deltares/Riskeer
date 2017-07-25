@@ -142,7 +142,4 @@
   <data name="GrassCoverErosionInwardsCalculationService_OvertoppingRate" xml:space="preserve">
     <value>overslagdebiet</value>
   </data>
-  <data name="SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
-    <value>Het uitlezen van illustratiepunten is mislukt.</value>
-  </data>
 </root>

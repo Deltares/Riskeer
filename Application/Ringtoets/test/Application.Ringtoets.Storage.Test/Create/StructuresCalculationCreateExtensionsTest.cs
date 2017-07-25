@@ -45,13 +45,13 @@ namespace Application.Ringtoets.Storage.Test.Create
     [TestFixture]
     public class StructuresCalculationCreateExtensionsTest
     {
-        private static StructuresOutput GetStructuresOutputWithIllustrationPoints()
+        private static StructuresOutput GetStructuresOutputWithGeneralResult()
         {
             var structuresOutput = new StructuresOutput(
                 new ProbabilityAssessmentOutput(double.NaN, double.NaN,
                                                 double.NaN, double.NaN,
                                                 double.NaN));
-            structuresOutput.SetIllustrationPoints(new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+            structuresOutput.SetGeneralResult(new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
                                                        WindDirectionTestFactory.CreateTestWindDirection(),
                                                        Enumerable.Empty<Stochast>(),
                                                        Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()));
@@ -362,12 +362,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForHeightStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForHeightStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
         {
             // Setup
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = GetStructuresOutputWithIllustrationPoints()
+                Output = GetStructuresOutputWithGeneralResult()
             };
 
             var registry = new PersistenceRegistry();
@@ -743,12 +743,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForClosingStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForClosingStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
         {
             // Setup
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Output = GetStructuresOutputWithIllustrationPoints()
+                Output = GetStructuresOutputWithGeneralResult()
             };
 
             var registry = new PersistenceRegistry();
@@ -1273,12 +1273,12 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForStabilityPointStructures_CalculationWithOutputAndIllustrationPoints_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForStabilityPointStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = GetStructuresOutputWithIllustrationPoints()
+                Output = GetStructuresOutputWithGeneralResult()
             };
 
             var registry = new PersistenceRegistry();

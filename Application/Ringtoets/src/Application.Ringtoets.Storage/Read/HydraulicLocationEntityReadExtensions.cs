@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity != null)
             {
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(entity.Read());
+                hydraulicBoundaryLocationOutput.SetGeneralResult(entity.Read());
             }
         }
 

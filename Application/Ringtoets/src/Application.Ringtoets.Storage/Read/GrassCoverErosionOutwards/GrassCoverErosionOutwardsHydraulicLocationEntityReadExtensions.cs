@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         {
             if (entity != null)
             {
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(entity.Read());
+                hydraulicBoundaryLocationOutput.SetGeneralResult(entity.Read());
             }
         }
 

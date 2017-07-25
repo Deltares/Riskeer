@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
 
             if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
             {
-                output.SetIllustrationPoints(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
+                output.SetGeneralResult(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
             }
 
             calculation.Output = output;

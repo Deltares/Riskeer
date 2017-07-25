@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                           new TestSubMechanismIllustrationPoint())
             };
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            output.SetIllustrationPoints(generalResult);
+            output.SetGeneralResult(generalResult);
 
             var calculation = new HydraulicBoundaryLocationCalculation
             {

@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldDikeHeightIllustrationPointsBeCalculated
         {
             get
@@ -267,13 +267,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
         {
             get
@@ -282,13 +283,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated
         {
             get
@@ -297,7 +299,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 

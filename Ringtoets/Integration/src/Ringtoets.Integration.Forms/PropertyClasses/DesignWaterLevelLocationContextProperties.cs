@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
             if (data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput
-                && data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.HasIllustrationPoints)
+                && data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.HasGeneralResult)
             {
                 return data.HydraulicBoundaryLocation.DesignWaterLevelCalculation.Output.GeneralResult;
             }

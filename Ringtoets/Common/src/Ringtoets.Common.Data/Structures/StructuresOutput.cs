@@ -52,9 +52,9 @@ namespace Ringtoets.Common.Data.Structures
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
 
         /// <summary>
-        /// Gets the value indicating whether the output contains illustration points.
+        /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
-        public bool HasIllustrationPoints
+        public bool HasGeneralResult
         {
             get
             {
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Data.Structures
         /// to this output.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
         /// is <c>null</c>.</exception>
-        public void SetIllustrationPoints(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        public void SetGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             if (generalResult == null)
             {

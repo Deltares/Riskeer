@@ -221,7 +221,7 @@ namespace Ringtoets.Common.Service
             {
                 GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
                     GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(generalResult);
+                hydraulicBoundaryLocationOutput.SetGeneralResult(generalResult);
             }
             catch (IllustrationPointConversionException e)
             {

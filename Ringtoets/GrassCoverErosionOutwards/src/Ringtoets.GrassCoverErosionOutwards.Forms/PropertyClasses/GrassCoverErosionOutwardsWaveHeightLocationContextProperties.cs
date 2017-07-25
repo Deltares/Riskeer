@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
             if (data.HydraulicBoundaryLocation.WaveHeightCalculation.HasOutput
-                && data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.HasIllustrationPoints)
+                && data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.HasGeneralResult)
             {
                 return data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.GeneralResult;
             }

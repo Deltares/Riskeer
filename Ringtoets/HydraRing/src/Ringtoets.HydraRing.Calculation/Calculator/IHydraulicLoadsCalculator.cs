@@ -21,6 +21,7 @@
 
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Ringtoets.HydraRing.Calculation.Exceptions;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
@@ -63,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Gets the error message when parsing the illustration points.
         /// </summary>
-        string IllustrationPointsParserErrorMessage { get; set; }
+        string IllustrationPointsParserErrorMessage { get; }
 
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.

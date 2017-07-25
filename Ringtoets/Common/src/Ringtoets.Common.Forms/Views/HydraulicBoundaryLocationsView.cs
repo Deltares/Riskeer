@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Views
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetCalculation(location);
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
             if (hydraulicBoundaryLocationCalculation.HasOutput
-                && hydraulicBoundaryLocationOutput.HasIllustrationPoints)
+                && hydraulicBoundaryLocationOutput.HasGeneralResult)
             {
                 return hydraulicBoundaryLocationOutput.GeneralResult.TopLevelIllustrationPoints.Select(
                     topLevelSubMechanismIllustrationPoint =>

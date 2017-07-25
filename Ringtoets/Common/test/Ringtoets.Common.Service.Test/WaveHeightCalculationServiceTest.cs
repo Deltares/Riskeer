@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Service.Test
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasIllustrationPoints);
+                Assert.AreEqual(readIllustrationPoints, calculation.Output.HasGeneralResult);
             }
             mockRepository.VerifyAll();
         }
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Service.Test
                 });
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(calculation.Output);
-                Assert.AreEqual(calculateIllustrationPoints, calculation.Output.HasIllustrationPoints);
+                Assert.AreEqual(calculateIllustrationPoints, calculation.Output.HasGeneralResult);
             }
             mockRepository.VerifyAll();
         }
@@ -284,7 +284,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[1].Item3);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
             mockRepository.VerifyAll();
         }
@@ -376,7 +376,7 @@ namespace Ringtoets.Common.Service.Test
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
-                Assert.IsFalse(calculation.Output.HasIllustrationPoints);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
             mockRepository.VerifyAll();
         }

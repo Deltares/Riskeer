@@ -159,19 +159,19 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndIllustrationPoints_ReturnsHydraulicLocationEntityWithOutputAndIllustrationPointsSet()
+        public void Create_WithPersistenceRegistryAndGeneralResult_ReturnsHydraulicLocationEntityWithOutputAndGeneralResultSet()
         {
             // Setup
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationDesignWaterLevelOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationDesignWaterLevelOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationWaveHeightOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationWaveHeightOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
 
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
@@ -356,19 +356,19 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndIllustrationPoints_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputAndIllustrationPointsSet()
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndGeneralResult_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputAndGeneralResultSet()
         {
             // Setup
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationDesignWaterLevelOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationDesignWaterLevelOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationWaveHeightOutput.SetIllustrationPoints(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationWaveHeightOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
 
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())

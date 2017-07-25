@@ -87,8 +87,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public CalculationConvergence CalculationConvergence { get; }
 
         /// <summary>
+        /// Gets the value indicating whether the output contains illustration points.
+        /// </summary>
+        public bool HasGeneralResult
+        {
+            get
+            {
+                return GeneralResult != null;
+            }
+        }
+
+        /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralFaultTreeIllustrationPoint { get; set; }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
+
+        /// <summary>
+        /// Sets the general result of this output with the fault tree illustration points.
+        /// </summary>
+        /// <param name="generalResult">The general result which belongs
+        /// to this output.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
+        /// is <c>null</c>.</exception>
+        public void SetGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            if (generalResult == null)
+            {
+                throw new ArgumentNullException(nameof(generalResult));
+            }
+
+            GeneralResult = generalResult;
+        }
     }
 }

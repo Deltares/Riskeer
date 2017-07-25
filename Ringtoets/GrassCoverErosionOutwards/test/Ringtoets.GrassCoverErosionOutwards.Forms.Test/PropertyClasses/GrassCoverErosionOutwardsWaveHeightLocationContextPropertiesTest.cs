@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             if (withIllustrationPoints)
             {
-                hydraulicBoundaryLocationOutput.SetIllustrationPoints(new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2), stochasts, illustrationPoints));
+                hydraulicBoundaryLocationOutput.SetGeneralResult(new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2), stochasts, illustrationPoints));
             }
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
