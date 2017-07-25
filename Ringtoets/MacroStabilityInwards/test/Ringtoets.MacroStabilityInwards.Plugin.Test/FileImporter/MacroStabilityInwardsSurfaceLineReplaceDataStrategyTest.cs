@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
-                sourceFilePath).ToArray();
+                                                                                                   sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -226,8 +226,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
-            var targetCollection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-
             const string duplicateName = "Duplicate name it is";
             RingtoetsMacroStabilityInwardsSurfaceLine[] importedSurfaceLines =
             {

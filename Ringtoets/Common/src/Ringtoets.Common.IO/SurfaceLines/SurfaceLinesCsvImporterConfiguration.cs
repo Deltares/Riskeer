@@ -34,8 +34,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="transformer">The transformer to use in this configuration.</param>
         /// <param name="updateStrategy">The strategy to use in this configuration.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="updateStrategy"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="transformer"/>
+        /// or <paramref name="updateStrategy"/> is <c>null</c>.</exception>
         public SurfaceLinesCsvImporterConfiguration(ISurfaceLineTransformer<T> transformer, ISurfaceLineUpdateDataStrategy<T> updateStrategy)
         {
             if (updateStrategy == null)
@@ -51,12 +51,12 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// The strategy for updating the data model with the mechanism specific surface lines.
+        /// Gets the strategy for updating the data model with the mechanism specific surface lines.
         /// </summary>
         public ISurfaceLineUpdateDataStrategy<T> UpdateUpdateStrategy { get; }
 
         /// <summary>
-        /// The transformer used for tranforming generic surface lines into mechanism specific
+        /// Gets the transformer used for transforming generic surface lines into mechanism specific
         /// surface lines.
         /// </summary>
         public ISurfaceLineTransformer<T> Transformer { get; }

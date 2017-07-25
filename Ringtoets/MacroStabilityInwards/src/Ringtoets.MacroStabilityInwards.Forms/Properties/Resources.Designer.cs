@@ -248,15 +248,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De schematisatie van de hoogte van het dwarsprofiel..
-        /// </summary>
-        public static string MacroStabilityInwardsInput_SurfaceLine_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_SurfaceLine_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profielschematisatie.
         /// </summary>
         public static string MacroStabilityInwardsInput_SurfaceLine_DisplayName {
@@ -446,42 +437,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de profielschematisatie..
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLine_Name_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLine_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLine_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLine_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De punten die de geometrie van de profielschematisatie definiëren..
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLine_Points_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLine_Points_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geometriepunten.
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLine_Points_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLine_Points_DisplayName", resourceCulture);
             }
         }
         

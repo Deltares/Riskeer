@@ -110,24 +110,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
-        /// </summary>
-        public static string Error_SurfaceLine_has_not_double {
-            get {
-                return ResourceManager.GetString("Error_SurfaceLine_has_not_double", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
-        /// </summary>
-        public static string Error_SurfaceLine_parsing_causes_overflow {
-            get {
-                return ResourceManager.GetString("Error_SurfaceLine_parsing_causes_overflow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
@@ -235,76 +217,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1)..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_File_invalid_header {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_File_invalid_header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regel heeft geen ID..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_ID {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geo" +
-                        "metry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_" +
-                        "coordinate_triplet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to profielschematisatie &apos;{0}&apos;.
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvReader_SurfaceLineName_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Karakteristiek punt &apos;{0}&apos; is niet gedefiniëerd..
         /// </summary>
         public static string MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is undefined", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined", resourceCulture);
             }
         }
         

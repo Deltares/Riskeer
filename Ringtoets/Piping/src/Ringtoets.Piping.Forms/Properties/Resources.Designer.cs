@@ -643,24 +643,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De schematisatie van de hoogte van het dwarsprofiel..
-        /// </summary>
-        public static string PipingInput_SurfaceLine_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_SurfaceLine_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie.
-        /// </summary>
-        public static string PipingInput_SurfaceLine_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_SurfaceLine_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen..
         /// </summary>
         public static string PipingInput_ThicknessAquiferLayer_Description {

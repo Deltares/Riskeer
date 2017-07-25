@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Piping.Data;
@@ -985,7 +984,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             var strategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy>();
             strategy.Expect(s => s.UpdateModelWithImportedData(Arg<StochasticSoilModel[]>.Is.NotNull,
-                                Arg<string>.Is.Same(filePath)
+                                                               Arg<string>.Is.Same(filePath)
                             )).Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
 

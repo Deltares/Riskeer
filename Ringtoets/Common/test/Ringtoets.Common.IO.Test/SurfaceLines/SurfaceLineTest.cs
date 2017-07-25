@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(12)]
-        public void SetGeometry_GeometryIsZeroLength_ThrowArgumentException(int pointCount)
+        public void SetGeometry_GeometryIsZeroLength_ThrowsArgumentException(int pointCount)
         {
             // Setup
             var surfaceLine = new SurfaceLine();
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         [TestCase(0.99, true)]
         [TestCase(0, true)]
         [TestCase(-5, true)]
-        public void SetGeometry_GeometryIsReclining_ThrowArgumentException(double thirdPointL, bool expectedThrowsException)
+        public void SetGeometry_GeometryIsReclining_ThrowsArgumentException(double thirdPointL, bool expectedThrowsException)
         {
             // Setup
             var random = new Random(21);

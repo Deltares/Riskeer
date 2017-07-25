@@ -211,7 +211,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("B")
             };
             var strategy = new StochasticSoilModelReplaceDataStrategy(new MacroStabilityInwardsFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
 
             // Call
             TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");

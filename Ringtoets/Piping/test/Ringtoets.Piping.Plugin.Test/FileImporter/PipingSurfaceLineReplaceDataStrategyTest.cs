@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.SurfaceLines;
+            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
 
             var strategy = new PipingSurfaceLineReplaceDataStrategy(failureMechanism);
             const string newSourcePath = "some/other/path";
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                sourceFilePath).ToArray();
+                                                                                                   sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -227,8 +227,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_ImportedDataContainsDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
-
             const string duplicateName = "Duplicate name it is";
             RingtoetsPipingSurfaceLine[] importedSurfaceLines =
             {

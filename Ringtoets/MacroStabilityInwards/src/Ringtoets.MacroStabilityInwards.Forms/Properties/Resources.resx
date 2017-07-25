@@ -124,21 +124,6 @@
   <data name="SoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Name_Description" xml:space="preserve">
-    <value>Naam van de profielschematisatie.</value>
-  </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Points_Description" xml:space="preserve">
-    <value>De punten die de geometrie van de profielschematisatie definiëren.</value>
-  </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLine_Points_DisplayName" xml:space="preserve">
-    <value>Geometriepunten</value>
-  </data>
-  <data name="MacroStabilityInwardsInput_SurfaceLine_Description" xml:space="preserve">
-    <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
-  </data>
   <data name="MacroStabilityInwardsInput_SurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielschematisatie</value>
   </data>

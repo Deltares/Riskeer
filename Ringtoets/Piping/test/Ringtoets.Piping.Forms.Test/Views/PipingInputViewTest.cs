@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -157,22 +156,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
+                {
+                    StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
                     {
-                        StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
-                        {
-                            SoilProfile = new PipingSoilProfile(
-                                "profile",
-                                -1,
-                                new[]
-                                {
-                                    new PipingSoilLayer(3.0),
-                                    new PipingSoilLayer(2.0),
-                                    new PipingSoilLayer(0)
-                                },
-                                SoilProfileType.SoilProfile1D,
-                                1)
-                        }
+                        SoilProfile = new PipingSoilProfile(
+                            "profile",
+                            -1,
+                            new[]
+                            {
+                                new PipingSoilLayer(3.0),
+                                new PipingSoilLayer(2.0),
+                                new PipingSoilLayer(0)
+                            },
+                            SoilProfileType.SoilProfile1D,
+                            1)
                     }
+                }
             };
 
             using (var view = new PipingInputView

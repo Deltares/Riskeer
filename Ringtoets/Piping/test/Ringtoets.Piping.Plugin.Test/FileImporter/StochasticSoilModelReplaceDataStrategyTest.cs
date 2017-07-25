@@ -211,7 +211,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new TestStochasticSoilModel("B")
             };
             var strategy = new StochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
 
             // Call
             TestDelegate test = () => strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");

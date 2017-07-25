@@ -44,27 +44,28 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Gets or sets the name of the surfaceline.
+        /// Gets or sets the name of the surface line.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the 3D points describing its geometry.
+        /// Gets the 3D points describing the geometry of the surface line.
         /// </summary>
         public Point3D[] Points { get; private set; }
 
         /// <summary>
-        /// Sets the geometry of the surfaceline.
+        /// Sets the geometry of the surface line.
         /// </summary>
-        /// <param name="points">The collection of points defining the surfaceline geometry.</param>
+        /// <param name="points">The collection of points defining the surface line geometry.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
-        /// <item>Any element of <paramref name="points"/> is <c>null</c></item>
-        /// <item>The given points are too close to eachother</item>
-        /// <item>The given points form a reclining line: one in which the local L-coordinates of the points
+        /// <item>any element of <paramref name="points"/> is <c>null</c>;</item>
+        /// <item>the given points are too close to each other;</item>
+        /// <item>the given points form a reclining line, one in which the local L-coordinates of the points
         /// are not in ascending order.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public void SetGeometry(IEnumerable<Point3D> points)
         {
             if (points == null)

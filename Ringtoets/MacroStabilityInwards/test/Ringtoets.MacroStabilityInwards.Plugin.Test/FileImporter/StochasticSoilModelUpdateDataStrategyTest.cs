@@ -487,7 +487,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             return model;
         }
 
-        private StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
+        private static StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
         {
             return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
             {

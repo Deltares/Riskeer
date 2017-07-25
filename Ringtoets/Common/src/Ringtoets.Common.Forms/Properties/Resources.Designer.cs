@@ -2874,6 +2874,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De schematisatie van de hoogte van het dwarsprofiel..
+        /// </summary>
+        public static string SurfaceLine_Description {
+            get {
+                return ResourceManager.GetString("SurfaceLine_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profielschematisatie.
         /// </summary>
         public static string SurfaceLine_DisplayName {

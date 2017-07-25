@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         /// <summary>
         /// Gets the location which generalizes the height of the surface
-        /// on the oustide of the polder.
+        /// on the outside of the polder.
         /// </summary>
         public Point3D SurfaceLevelOutside { get; private set; }
 

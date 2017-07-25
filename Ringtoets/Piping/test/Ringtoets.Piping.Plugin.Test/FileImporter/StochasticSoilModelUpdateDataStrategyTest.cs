@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.StochasticSoilModels;
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.StochasticSoilModels;
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.StochasticSoilModels;
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.StochasticSoilModels;
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -414,7 +414,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new PipingFailureMechanism();
-            var targetCollection = failureMechanism.StochasticSoilModels;
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = unaffectedProfile;
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
-            
+
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
             failureMechanism.CalculationsGroup.Children.Add(calculationWithRemovedProfile);
 
@@ -487,7 +487,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             return model;
         }
 
-        private StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
+        private static StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
         {
             return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
             {

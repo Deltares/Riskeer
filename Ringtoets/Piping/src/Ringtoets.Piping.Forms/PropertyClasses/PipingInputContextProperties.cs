@@ -263,8 +263,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SurfaceLine_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SurfaceLine_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
         public RingtoetsPipingSurfaceLine SurfaceLine
         {
             get

@@ -36,7 +36,6 @@ using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 

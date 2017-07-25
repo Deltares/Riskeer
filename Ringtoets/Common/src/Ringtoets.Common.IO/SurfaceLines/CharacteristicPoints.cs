@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// Gets the name of the location for which the <see cref="CharacteristicPoints"/> defines
         /// characteristic points.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets or sets the location which generalizes the surface level on the
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         /// <summary>
         /// Gets or sets the location which generalizes the height of the surface
-        /// on the oustide of the polder.
+        /// on the outside of the polder.
         /// </summary>
         public Point3D SurfaceLevelOutside { get; set; }
 

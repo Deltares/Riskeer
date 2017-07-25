@@ -1125,4 +1125,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielschematisatie</value>
   </data>
+  <data name="SurfaceLine_Description" xml:space="preserve">
+    <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
+  </data>
 </root>

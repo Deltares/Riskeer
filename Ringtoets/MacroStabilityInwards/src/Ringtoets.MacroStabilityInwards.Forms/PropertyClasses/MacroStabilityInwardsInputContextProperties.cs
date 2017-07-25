@@ -205,8 +205,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_SurfaceLine_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_SurfaceLine_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
         public RingtoetsMacroStabilityInwardsSurfaceLine SurfaceLine
         {
             get

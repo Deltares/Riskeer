@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         [Test]
         [TestCase("")]
         [TestCase("Name")]
-        public void Constructor_WithName_ThrowsArgumentNullException(string name)
+        public void Constructor_WithName_ValuesAsExpected(string name)
         {
             // Call
             var location = new CharacteristicPoints(name);
