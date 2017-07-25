@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
 
             // Assert
-            const string expectedQuery = "SELECT COUNT(Probability) == 0 AS HasNoInvalidProbabilities " +
+            const string expectedQuery = "SELECT COUNT(Probability) == 0 AS AllProbabilitiesValid " +
                                          "FROM StochasticSoilProfile " +
                                          "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
             Assert.AreEqual(expectedQuery, query);
