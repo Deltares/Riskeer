@@ -117,6 +117,7 @@
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />

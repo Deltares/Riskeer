@@ -38,8 +38,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
-        /// <item>The database version could not be read.</item>
-        /// <item>The database version is incorrect.</item>
         /// </list>
         /// </exception>
         public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath) {}
