@@ -1571,6 +1571,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
+        /// </summary>
+        public static string SoilProfileReader_Critical_Unexpected_value_on_column {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_Critical_Unexpected_value_on_column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De database heeft niet de vereiste versie informatie. Vereiste versie is &apos;{0}&apos;..
+        /// </summary>
+        public static string SoilProfileReader_Database_incorrect_version_requires_Version_0 {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_Database_incorrect_version_requires_Version_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

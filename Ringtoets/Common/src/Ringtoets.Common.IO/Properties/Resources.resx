@@ -791,4 +791,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_" xml:space="preserve">
     <value>Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{0}'.</value>
   </data>
+  <data name="SoilProfileReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
+  </data>
+  <data name="SoilProfileReader_Database_incorrect_version_requires_Version_0" xml:space="preserve">
+    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
+  </data>
 </root>

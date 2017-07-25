@@ -106,7 +106,7 @@ namespace Core.Common.IO.Readers
         /// <param name="queryString">The query to execute.</param>
         /// <param name="parameters">Parameters the <paramref name="queryString"/> is depended on.</param>
         /// <returns>A new instance of <see cref="IDataReader"/>.</returns>
-        /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> failed.</exception>
+        /// <exception cref="SQLiteException">Thrown when the execution of <paramref name="queryString"/> failed.</exception>
         protected IDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
             using (var query = new SQLiteCommand(Connection)

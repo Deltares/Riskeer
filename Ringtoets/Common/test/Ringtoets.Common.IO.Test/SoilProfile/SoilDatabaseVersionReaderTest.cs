@@ -70,8 +70,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_PathToExistingFile_ExpectedValues()
         {
             // Setup
-            const string dbName = "emptyschema.soil";
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
 
             // Call
             using (var reader = new SoilDatabaseVersionReader(dbFile))
@@ -80,7 +79,69 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(dbFile, reader.Path);
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
             }
+
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Constructor_IncorrectSchema_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "incorrectSchema.soil");
+            using (var versionReader = new SoilDatabaseVersionReader(filePath))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyVersion();
+
+                // Assert
+                string message = $"Fout bij het lezen van bestand '{filePath}':" +
+                                 " kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(message, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
+        }
+
+        [Test]
+        public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "incorrectVersion.soil");
+            using (var versionReader = new SoilDatabaseVersionReader(filePath))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyVersion();
+
+                // Assert
+                const string requiredVersion = "15.0.6.0";
+                string expectedVersionMessage = $"Fout bij het lezen van bestand '{filePath}': " +
+                                                "de database heeft niet de vereiste versie informatie. " +
+                                                $"Vereiste versie is '{requiredVersion}'.";
+
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedVersionMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
+        }
+
+        [Test]
+        public void Constructor_CorrectVersion_DoesNotThrowException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "correctVersion.soil");
+            using (var versionReader = new SoilDatabaseVersionReader(filePath))
+            {
+                // Call
+                TestDelegate test = () => versionReader.VerifyVersion();
+
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
         }
     }
 }

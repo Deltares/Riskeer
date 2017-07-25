@@ -19,8 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Data;
+using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Properties;
+using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -29,17 +34,72 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class SoilDatabaseVersionReader : SqLiteDatabaseReaderBase
     {
+        private const string databaseRequiredVersion = "15.0.6.0";
+
         /// <summary>
         /// Creates a new instance of <see cref="SoilDatabaseVersionReader"/>, 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// </list>
+        /// </exception>
+        public SoilDatabaseVersionReader(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// Verifies if the database has the required version.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
         /// <item>The database version could not be read.</item>
         /// <item>The database version is incorrect.</item>
-        /// </list></exception>
-        public SoilDatabaseVersionReader(string databaseFilePath) : base(databaseFilePath) {}
+        /// </list>
+        /// </exception>
+        public void VerifyVersion()
+        {
+            string checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
+            var sqliteParameter = new SQLiteParameter
+            {
+                DbType = DbType.String,
+                ParameterName = $"@{MetaTableDefinitions.Value}",
+                Value = databaseRequiredVersion
+            };
+
+            try
+            {
+                ReadVersion(checkVersionQuery, sqliteParameter);
+            }
+            catch (SQLiteException exception)
+            {
+                string exceptionMessage = new FileReaderErrorMessageBuilder(Path).Build(
+                    Resources.SoilProfileReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(exceptionMessage, exception);
+            }
+        }
+
+        /// <summary>
+        /// Reads if the required version was found in the database.
+        /// </summary>
+        /// <param name="checkVersionQuery">The query to execute.</param>
+        /// <param name="sqliteParameter">The parameter containing the required version.</param>
+        /// <exception cref="SQLiteException">Thrown when the execution of <paramref name="checkVersionQuery"/> 
+        /// failed.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the database version is incorrect.</exception>
+        private void ReadVersion(string checkVersionQuery, SQLiteParameter sqliteParameter)
+        {
+            using (IDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
+            {
+                if (!dataReader.Read())
+                {
+                    string exceptionMessage = new FileReaderErrorMessageBuilder(Path).Build(
+                        string.Format(Resources.SoilProfileReader_Database_incorrect_version_requires_Version_0,
+                                      databaseRequiredVersion));
+                    throw new CriticalFileReadException(exceptionMessage);
+                }
+            }
+        }
     }
 }
