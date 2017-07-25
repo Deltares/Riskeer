@@ -54,10 +54,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         public void Initialize()
         {
             VerifyVersion(Path);
+            VerifyConstraints(Path);
         }
 
         /// <summary>
-        /// Verifies that the <paramref name="databaseFilePath"/> has the required version.
+        /// Verifies that the database at <paramref name="databaseFilePath"/> has the required version.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 
@@ -71,6 +72,24 @@ namespace Ringtoets.Common.IO.SoilProfile
             using (var reader = new SoilDatabaseVersionReader(databaseFilePath))
             {
                 reader.VerifyVersion();
+            }
+        }
+
+        /// <summary>
+        /// Verifies that the database at <paramref name="databaseFilePath"/> meets required constraints.
+        /// </summary>
+        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
+        /// <item>Required information for constraint evaluation could not be read;</item>
+        /// <item>The database segment names are not unique.</item>
+        /// </list>
+        /// </exception>
+        private static void VerifyConstraints(string databaseFilePath)
+        {
+            using (var reader = new SoilDatabaseConstraintsReader(databaseFilePath))
+            {
+                reader.VerifyConstraints();
             }
         }
     }

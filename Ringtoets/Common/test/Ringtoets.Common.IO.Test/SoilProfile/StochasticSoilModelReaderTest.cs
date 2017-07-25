@@ -33,6 +33,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class StochasticSoilModelReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(StochasticSoilModelReader));
+        private readonly string constraintsReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseConstraintsReader));
+        private readonly string versionReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseVersionReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
@@ -111,7 +113,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Initialize_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "incorrectVersion.soil");
+            string dbFile = Path.Combine(versionReaderTestDataPath, "incorrectVersion.soil");
 
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
@@ -125,6 +127,49 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "De database heeft niet de vereiste versie informatie. " +
                     $"Vereiste versie is '{version}'.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Initialize_InvalidSchemaThatPassesVersionValidation_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(constraintsReaderTestDataPath, "missingStochasticSoilModelTable.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => reader.Initialize();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
+                    "Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Initialize_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(constraintsReaderTestDataPath, "nonUniqueSoilModelNames.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => reader.Initialize();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Namen van ondergrondmodellen zijn niet uniek.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 
