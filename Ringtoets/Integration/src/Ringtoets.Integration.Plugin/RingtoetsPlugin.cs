@@ -359,7 +359,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseDesignWaterLevelLocationsViewForData,
+                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
@@ -369,7 +369,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase?.Locations,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseWaveHeightLocationsViewForData,
+                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new WaveHeightLocationsView(context.WrappedData),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
@@ -426,7 +426,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
-                CloseForData = CloseWaveConditionsInputViewForData,
+                CloseForData = CloseCalculationViewForData<ICalculation<WaveConditionsInput>>,
                 CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context))
             };
 
@@ -435,6 +435,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
+                CloseForData = CloseCalculationViewForData<IStructuresCalculation>,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
             };
         }
@@ -914,21 +915,9 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region DesignWaterLevelLocationsView ViewInfo
+        #region HydraulicBoundaryLocationsView ViewInfo
 
-        private static bool CloseDesignWaterLevelLocationsViewForData(DesignWaterLevelLocationsView view, object dataToCloseFor)
-        {
-            IAssessmentSection viewData = view.AssessmentSection;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-
-            return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
-        }
-
-        #endregion
-
-        #region WaveHeightLocationsView ViewInfo
-
-        private static bool CloseWaveHeightLocationsViewForData(WaveHeightLocationsView view, object dataToCloseFor)
+        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryLocationsView view, object dataToCloseFor)
         {
             IAssessmentSection viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
@@ -1029,32 +1018,34 @@ namespace Ringtoets.Integration.Plugin
             return null;
         }
 
-        private static bool CloseWaveConditionsInputViewForData(WaveConditionsInputView view, object o)
+        #endregion
+
+        private static bool CloseCalculationViewForData<T>(IView view, object o) where T : ICalculation
         {
-            var context = o as ICalculationContext<ICalculation<WaveConditionsInput>, IFailureMechanism>;
+            var context = o as ICalculationContext<T, IFailureMechanism>;
             if (context != null)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
-            IEnumerable<ICalculation<WaveConditionsInput>> calculations;
+            IEnumerable<T> calculations;
 
             var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
             {
                 calculations = calculationGroupContext.WrappedData
                                                       .GetCalculations()
-                                                      .OfType<ICalculation<WaveConditionsInput>>();
+                                                      .OfType<T>();
             }
             else
             {
-                calculations = GetCalculationsFromFailureMechanisms(o);
+                calculations = GetCalculationsFromFailureMechanisms<T>(o);
             }
 
             return calculations.Any(c => ReferenceEquals(view.Data, c));
         }
 
-        private static IEnumerable<ICalculation<WaveConditionsInput>> GetCalculationsFromFailureMechanisms(object o)
+        private static IEnumerable<T> GetCalculationsFromFailureMechanisms<T>(object o)
         {
             var failureMechanism = o as IFailureMechanism;
 
@@ -1066,8 +1057,7 @@ namespace Ringtoets.Integration.Plugin
 
             if (failureMechanism != null)
             {
-                return failureMechanism.Calculations
-                                       .OfType<ICalculation<WaveConditionsInput>>();
+                return failureMechanism.Calculations.OfType<T>();
             }
 
             var assessmentSection = o as IAssessmentSection;
@@ -1075,13 +1065,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 return assessmentSection.GetFailureMechanisms()
                                         .SelectMany(fm => fm.Calculations)
-                                        .OfType<ICalculation<WaveConditionsInput>>();
+                                        .OfType<T>();
             }
 
-            return Enumerable.Empty<ICalculation<WaveConditionsInput>>();
+            return Enumerable.Empty<T>();
         }
-
-        #endregion
 
         #endregion
 
