@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
+using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 
 namespace Ringtoets.Common.Service.IllustrationPoints
 {
@@ -52,14 +54,25 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingFaultTreeIllustrationPoint));
             }
 
-            CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingFaultTreeIllustrationPoint.CombinationType);
-            IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint
-                .Stochasts.Select(StochastConverter.Convert);
+            FaultTreeIllustrationPoint illustrationPoint;
+            try
+            {
+                CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingFaultTreeIllustrationPoint.CombinationType);
+                IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint
+                    .Stochasts.Select(StochastConverter.Convert);
 
-            return new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
-                                                  hydraRingFaultTreeIllustrationPoint.Beta,
-                                                  stochasts,
-                                                  combinationType);
+                illustrationPoint = new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
+                                                                   hydraRingFaultTreeIllustrationPoint.Beta,
+                                                                   stochasts,
+                                                                   combinationType);
+            }
+            catch (Exception e) when (e is NotSupportedException || e is InvalidEnumArgumentException)
+            {
+                string errorMessage = $"Could not convert the {typeof(HydraRingCombinationType)} into a {typeof(CombinationType)}.";
+                throw new IllustrationPointConversionException(errorMessage, e);
+            }
+
+            return illustrationPoint;
         }
     }
 }

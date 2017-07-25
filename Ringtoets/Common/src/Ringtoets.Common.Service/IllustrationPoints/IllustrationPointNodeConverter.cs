@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using HydraRingIIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
@@ -56,13 +56,17 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingIllustrationPointTreeNode));
             }
 
-            IllustrationPointBase data = ConvertIllustrationPointTreeNodeData(hydraRingIllustrationPointTreeNode.Data);
+            IllustrationPointBase data;
 
-            if (data == null)
+            try
+            {
+                data = ConvertIllustrationPointTreeNodeData(hydraRingIllustrationPointTreeNode.Data);
+            }
+            catch (NotSupportedException e)
             {
                 string errorMessage = "An illustration point containing a Hydra ring data type of " +
                                       $"{hydraRingIllustrationPointTreeNode.Data.GetType()} is not supported.";
-                throw new IllustrationPointConversionException(errorMessage);
+                throw new IllustrationPointConversionException(errorMessage, e);
             }
 
             var illustrationPointNode = new IllustrationPointNode(data);
@@ -71,15 +75,33 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             return illustrationPointNode;
         }
 
-        private static IllustrationPointBase ConvertIllustrationPointTreeNodeData(IIllustrationPoint data)
+        /// <summary>
+        /// Creates a new instance of a <see cref="IllustrationPointBase"/> based on the
+        /// <paramref name="data"/>. 
+        /// </summary>
+        /// <param name="data">The <see cref="HydraRingIIllustrationPoint"/> to base the 
+        /// <see cref="IllustrationPointBase"/> to create on.</param>
+        /// <returns>A <see cref="IllustrationPointBase"/>, <c>null</c> when no appropriate
+        /// conversion was found.</returns>
+        /// <exception cref="IllustrationPointConversionException">Thrown when <paramref name="data"/>
+        /// could not be converted.</exception>
+        /// <exception cref="NotSupportedException">Thrown when no suitable conversion for <paramref name="data"/>
+        /// was found.</exception>
+        private static IllustrationPointBase ConvertIllustrationPointTreeNodeData(HydraRingIIllustrationPoint data)
         {
             var faultTreeIllustrationPoint = data as HydraRingFaultTreeIllustrationPoint;
+            if (faultTreeIllustrationPoint != null)
+            {
+                return FaultTreeIllustrationPointConverter.Convert(faultTreeIllustrationPoint);
+            }
+
             var subMechanismIllustrationPoint = data as HydraRingSubMechanismIllustrationPoint;
-            return faultTreeIllustrationPoint != null
-                       ? (IllustrationPointBase) FaultTreeIllustrationPointConverter.Convert(faultTreeIllustrationPoint)
-                       : (subMechanismIllustrationPoint != null
-                              ? SubMechanismIllustrationPointConverter.Convert(subMechanismIllustrationPoint)
-                              : null);
+            if (subMechanismIllustrationPoint != null)
+            {
+                return SubMechanismIllustrationPointConverter.Convert(subMechanismIllustrationPoint);
+            }
+
+            throw new NotSupportedException($"Cannot convert {data.GetType()}.");
         }
     }
 }

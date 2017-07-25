@@ -93,8 +93,9 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
-            string expectedMessage = $"The value of 999999 for hydraRingCombinationType could not be converted into a {typeof(CombinationType)}.";
+            string expectedMessage = $"Could not convert the {typeof(HydraRingCombinationType)} into a {typeof(CombinationType)}.";
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
     }
 }

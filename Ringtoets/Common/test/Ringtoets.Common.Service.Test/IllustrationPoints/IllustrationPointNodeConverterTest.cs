@@ -26,8 +26,6 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.IllustrationPoints;
-using CombinationType = Ringtoets.Common.Data.IllustrationPoints.CombinationType;
-using FaultTreeIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.FaultTreeIllustrationPoint;
 using HydraRingIllustrationPointTreeNode = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointTreeNode;
 using HydraRingStochast = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.Stochast;
 using HydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.FaultTreeIllustrationPoint;
@@ -38,10 +36,6 @@ using TestHydraRingSubMechanismIllustrationPoint = Ringtoets.HydraRing.Calculati
 using TestHydraRingFaultTreeIllustrationPoint = Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints.TestFaultTreeIllustrationPoint;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 using HydraRingIIllustrationPoint = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.IIllustrationPoint;
-using IllustrationPointResult = Ringtoets.Common.Data.IllustrationPoints.IllustrationPointResult;
-using Stochast = Ringtoets.Common.Data.IllustrationPoints.Stochast;
-using SubMechanismIllustrationPoint = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPoint;
-using SubMechanismIllustrationPointStochast = Ringtoets.Common.Data.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
 namespace Ringtoets.Common.Service.Test.IllustrationPoints
 {
@@ -173,6 +167,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
             string expectedMessage = $"An illustration point containing a Hydra ring data type of {hydraRingIllustrationPointData.GetType()} is not supported.";
             Assert.AreEqual(expectedMessage, exception.Message);
+
+            string expectedMessageInnerException = $"Cannot convert {hydraRingIllustrationPointData.GetType()}.";
+            Exception innerException = exception.InnerException;
+            Assert.IsNotNull(innerException);
+            Assert.IsInstanceOf<NotSupportedException>(innerException);
+            Assert.AreEqual(expectedMessageInnerException, innerException.Message);
         }
 
         [Test]
@@ -201,6 +201,12 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var exception = Assert.Throws<IllustrationPointConversionException>(call);
             string expectedMessage = $"An illustration point containing a Hydra ring data type of {typeof(TestHydraRingIllustrationPointData)} is not supported.";
             Assert.AreEqual(expectedMessage, exception.Message);
+
+            string expectedMessageInnerException = $"Cannot convert {typeof(TestHydraRingIllustrationPointData)}.";
+            Exception innerException = exception.InnerException;
+            Assert.IsNotNull(innerException);
+            Assert.IsInstanceOf<NotSupportedException>(innerException);
+            Assert.AreEqual(expectedMessageInnerException, innerException.Message);
         }
 
         private class TestHydraRingIllustrationPointData : HydraRingIIllustrationPoint {}

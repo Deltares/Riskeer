@@ -19,7 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Data.Exceptions;
+using System;
+using System.ComponentModel;
 using Ringtoets.Common.Data.IllustrationPoints;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
 
@@ -36,10 +37,19 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// <param name="hydraRingCombinationType">The <see cref="HydraRingCombinationType"/>
         /// to convert.</param>
         /// <returns>The <see cref="CombinationType"/>.</returns>
-        /// <exception cref="IllustrationPointConversionException">Thrown when
+        /// <exception cref="InvalidEnumArgumentException">Thrown when
         /// <paramref name="hydraRingCombinationType"/> has an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when a valid value of 
+        /// <paramref name="hydraRingCombinationType"/> cannot be converted.</exception>
         public static CombinationType Convert(HydraRingCombinationType hydraRingCombinationType)
         {
+            if (!Enum.IsDefined(typeof(HydraRingCombinationType), hydraRingCombinationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(hydraRingCombinationType),
+                                                           (int)hydraRingCombinationType,
+                                                           typeof(HydraRingCombinationType));
+            }
+
             switch (hydraRingCombinationType)
             {
                 case HydraRingCombinationType.Or:
@@ -47,9 +57,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 case HydraRingCombinationType.And:
                     return CombinationType.And;
                 default:
-                    string errorMessage = $"The value of {(int) hydraRingCombinationType} for {nameof(hydraRingCombinationType)} " +
-                                          $"could not be converted into a {typeof(CombinationType)}.";
-                    throw new IllustrationPointConversionException(errorMessage);
+                    throw new NotSupportedException($"A value of {hydraRingCombinationType} is not supported.");
             }
         }
     }

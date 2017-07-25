@@ -19,8 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Service.IllustrationPoints;
 using HydraRingCombinationType = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.CombinationType;
@@ -31,22 +32,21 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
     public class CombinationTypeConverterTest
     {
         [Test]
-        public void Convert_InvalidEnumValue_ThrowsIllustrationPointConversionException()
+        public void Convert_InvalidEnumValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate test = () => CombinationTypeConverter.Convert((HydraRingCombinationType) 99);
 
             // Assert
-            var exception = Assert.Throws<IllustrationPointConversionException>(test);
-            string message = $"The value of 99 for hydraRingCombinationType could not be converted into a {typeof(CombinationType)}.";
-            Assert.AreEqual(message, exception.Message);
+            const string message = "The value of argument 'hydraRingCombinationType' (99) is invalid for Enum type 'CombinationType'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
         [TestCase(HydraRingCombinationType.And, CombinationType.And)]
         [TestCase(HydraRingCombinationType.Or, CombinationType.Or)]
         public void Convert_HydraRingCombinationType_ReturnCombinationType(HydraRingCombinationType hydraRingCombinationType,
-                                                                           CombinationType expectedCombinationType)
+                                                                          CombinationType expectedCombinationType)
         {
             // Call
             CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingCombinationType);
