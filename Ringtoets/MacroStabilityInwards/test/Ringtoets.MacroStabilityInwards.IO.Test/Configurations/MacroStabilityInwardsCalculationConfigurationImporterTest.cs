@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Er moet voor een scenario een contributie of relevantie worden opgegeven. " +
+            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
                                            "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);

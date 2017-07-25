@@ -747,7 +747,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                                                                                      calculationScenario);
 
             // Assert
-            string expectedMessage = "Er moet voor een scenario een contributie of relevantie worden opgegeven. " +
+            string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
                                      $"Berekening '{calculationScenarioName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(successful);
