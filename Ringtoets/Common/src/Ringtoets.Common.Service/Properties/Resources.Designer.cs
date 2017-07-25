@@ -141,9 +141,9 @@ namespace Ringtoets.Common.Service.Properties {
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1 {
+        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
                         "_0_click_details_for_last_error_report_1", resourceCulture);
             }
         }
@@ -151,9 +151,9 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
+        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
                         "_0_no_error_report", resourceCulture);
             }
         }

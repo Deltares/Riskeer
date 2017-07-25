@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Service.MessageProviders
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report, calculationSubject);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report, calculationSubject);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Service.MessageProviders
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1, calculationSubject, errorReport);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1, calculationSubject, errorReport);
         }
     }
 }
