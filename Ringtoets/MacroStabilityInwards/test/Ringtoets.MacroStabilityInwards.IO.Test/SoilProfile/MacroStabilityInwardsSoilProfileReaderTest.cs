@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
-                var result = new Collection<MacroStabilityInwardsSoilProfile>();
+                var result = new Collection<MacroStabilityInwardsSoilProfile1D>();
 
                 // Call
                 while (soilProfilesReader.HasNext)
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
-                var result = new Collection<MacroStabilityInwardsSoilProfile>();
+                var result = new Collection<MacroStabilityInwardsSoilProfile1D>();
 
                 // Call
                 while (soilProfilesReader.HasNext)
@@ -245,7 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // Call
-                MacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile = soilProfilesReader.ReadProfile();
+                MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile = soilProfilesReader.ReadProfile();
 
                 // Assert
                 Assert.AreEqual("Profile2", macroStabilityInwardsSoilProfile.Name);
@@ -274,7 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 Assert.AreEqual(message, exception.Message);
 
                 // Call
-                MacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile = soilProfilesReader.ReadProfile();
+                MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile = soilProfilesReader.ReadProfile();
 
                 // Assert
                 Assert.AreEqual("Profile2", macroStabilityInwardsSoilProfile.Name);
@@ -292,7 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
                 // Call
-                MacroStabilityInwardsSoilProfile profile = soilProfilesReader.ReadProfile();
+                MacroStabilityInwardsSoilProfile1D profile = soilProfilesReader.ReadProfile();
 
                 // Assert
                 Assert.AreEqual("Profile", profile.Name);
@@ -335,7 +335,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var reader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
                 // Call
-                MacroStabilityInwardsSoilProfile profile = reader.ReadProfile();
+                MacroStabilityInwardsSoilProfile1D profile = reader.ReadProfile();
 
                 // Assert
                 CollectionAssert.AreEqual(new[]
@@ -362,7 +362,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var reader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
                 // Call
-                MacroStabilityInwardsSoilProfile profile = reader.ReadProfile();
+                MacroStabilityInwardsSoilProfile1D profile = reader.ReadProfile();
 
                 // Assert
                 CollectionAssert.AreEqual(new[]
@@ -389,7 +389,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
-                var result = new Collection<MacroStabilityInwardsSoilProfile>();
+                var result = new Collection<MacroStabilityInwardsSoilProfile1D>();
 
                 // Call
                 while (soilProfilesReader.HasNext)
@@ -400,7 +400,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 // Assert
                 Assert.AreEqual(1, soilProfilesReader.Count);
                 Assert.AreEqual(1, result.Count);
-                MacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile = result[0];
+                MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile = result[0];
                 Assert.AreEqual("SoilProfile1D", macroStabilityInwardsSoilProfile.Name);
                 Assert.AreEqual(SoilProfileType.SoilProfile1D, macroStabilityInwardsSoilProfile.SoilProfileType);
             }
@@ -415,7 +415,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(dbFile))
             {
-                var result = new Collection<MacroStabilityInwardsSoilProfile>();
+                var result = new Collection<MacroStabilityInwardsSoilProfile1D>();
 
                 // Call
                 while (soilProfilesReader.HasNext)
@@ -426,7 +426,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 // Assert
                 Assert.AreEqual(1, soilProfilesReader.Count);
                 Assert.AreEqual(1, result.Count);
-                MacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile = result[0];
+                MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile = result[0];
                 Assert.AreEqual("SoilProfile2D", macroStabilityInwardsSoilProfile.Name);
                 Assert.AreEqual(SoilProfileType.SoilProfile2D, macroStabilityInwardsSoilProfile.SoilProfileType);
             }
@@ -479,7 +479,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             MacroStabilityInwardsSoilProfileReader soilProfilesReader = null;
-            MacroStabilityInwardsSoilProfile profile;
+            MacroStabilityInwardsSoilProfile1D profile;
             try
             {
                 soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(dbFile);
@@ -531,7 +531,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
                 // When
-                var result = new Collection<MacroStabilityInwardsSoilProfile>();
+                var result = new Collection<MacroStabilityInwardsSoilProfile1D>();
                 var skipped = 0;
 
                 while (soilProfilesReader.HasNext)
@@ -567,7 +567,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var soilProfilesReader = new MacroStabilityInwardsSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
                 // When
-                ICollection<MacroStabilityInwardsSoilProfile> result = new List<MacroStabilityInwardsSoilProfile>();
+                ICollection<MacroStabilityInwardsSoilProfile1D> result = new List<MacroStabilityInwardsSoilProfile1D>();
                 var skipped = 0;
 
                 while (soilProfilesReader.HasNext)
@@ -676,7 +676,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                     3
                 }, result.Select(p => p.Layers.Count()).ToArray());
 
-                MacroStabilityInwardsSoilProfile firstProfile = result.FirstOrDefault(l => l.Name == "Segment_36005_1D1");
+                MacroStabilityInwardsSoilProfile1D firstProfile = result.FirstOrDefault(l => l.Name == "Segment_36005_1D1");
                 Assert.NotNull(firstProfile);
                 var expectedFirstProfileLayersTops = new[]
                 {
@@ -693,7 +693,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 CollectionAssert.AllItemsAreUnique(layerTops);
                 CollectionAssert.AreEqual(expectedFirstProfileLayersTops, layerTops, new DoubleWithToleranceComparer(1e-6));
 
-                MacroStabilityInwardsSoilProfile secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");
+                MacroStabilityInwardsSoilProfile1D secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");
                 Assert.NotNull(secondProfile);
                 var expectedSecondProfileLayersTops = new[]
                 {

@@ -148,9 +148,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilModel = new StochasticSoilModel("PK001_0001_Macrostabiliteit"),
                     StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
                     {
-                        SoilProfile = new MacroStabilityInwardsSoilProfile("W1-6_0_1D1", 0, new[]
+                        SoilProfile = new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
                         {
-                            new MacroStabilityInwardsSoilLayer(0)
+                            new MacroStabilityInwardsSoilLayer1D(0)
                         }, SoilProfileType.SoilProfile1D, 0)
                     }
                 }

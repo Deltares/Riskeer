@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel modelToUpdate, StochasticSoilModel modelToUpdateFrom)
         {
-            Dictionary<StochasticSoilProfile, MacroStabilityInwardsSoilProfile> oldProfiles = modelToUpdate
+            Dictionary<StochasticSoilProfile, ISoilProfile> oldProfiles = modelToUpdate
                 .StochasticSoilProfiles
                 .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<StochasticSoilProfile>());
 

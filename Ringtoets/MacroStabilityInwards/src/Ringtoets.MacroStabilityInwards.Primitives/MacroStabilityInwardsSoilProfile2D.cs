@@ -29,53 +29,46 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsSoilProfile
+    public class MacroStabilityInwardsSoilProfile2D
     {
-        private MacroStabilityInwardsSoilLayer[] layers;
+        private MacroStabilityInwardsSoilLayer2D[] layers;
 
         /// <summary>
-        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
-        /// A new collection is created for <paramref name="layers"/> and used in the <see cref="MacroStabilityInwardsSoilProfile"/>.
+        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile2D"/>, with the given <paramref name="name"/> and <paramref name="layers"/>.
+        /// A new collection is created for <paramref name="layers"/> and used in the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
-        /// <param name="bottom">The bottom level of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         /// <param name="sourceProfileType">The type of soil profile used as data source
         /// to build this instance.</param>
         /// <param name="soilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfile(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer> layers, SoilProfileType sourceProfileType, long soilProfileId)
+        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, SoilProfileType sourceProfileType, long soilProfileId)
         {
             Name = name;
-            Bottom = bottom;
             Layers = layers;
             SoilProfileType = sourceProfileType;
             MacroStabilityInwardsSoilProfileId = soilProfileId;
         }
 
         /// <summary>
-        /// Gets the database identifier of the <see cref="MacroStabilityInwardsSoilProfile"/>.
+        /// Gets the database identifier of the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         public long MacroStabilityInwardsSoilProfileId { get; }
 
         /// <summary>
-        /// Gets the bottom level of the <see cref="MacroStabilityInwardsSoilProfile"/>.
-        /// </summary>
-        public double Bottom { get; }
-
-        /// <summary>
-        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile"/>.
+        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// Gets an ordered (by <see cref="MacroStabilityInwardsSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
-        /// <see cref="MacroStabilityInwardsSoilLayer"/> for the <see cref="MacroStabilityInwardsSoilProfile"/>.
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer2D"/> for 
+        /// the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
-        public IEnumerable<MacroStabilityInwardsSoilLayer> Layers
+        public IEnumerable<MacroStabilityInwardsSoilLayer2D> Layers
         {
             get
             {
@@ -84,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             private set
             {
                 ValidateLayersCollection(value);
-                layers = value.OrderByDescending(l => l.Top).ToArray();
+                layers = value.ToArray();
             }
         }
 
@@ -92,28 +85,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the type of soil profile used as data source to build this instance.
         /// </summary>
         public SoilProfileType SoilProfileType { get; }
-
-        /// <summary>
-        /// Gets the thickness of the given layer in the <see cref="MacroStabilityInwardsSoilProfile"/>.
-        /// Thickness of a layer is determined by its top and the top of the layer below it.
-        /// </summary>
-        /// <param name="layer">The <see cref="MacroStabilityInwardsSoilLayer"/> to determine the thickness of.</param>
-        /// <returns>The thickness of the <paramref name="layer"/>.</returns>
-        /// <exception cref="ArgumentException"><see cref="Layers"/> does not contain <paramref name="layer"/>.</exception>
-        public double GetLayerThickness(MacroStabilityInwardsSoilLayer layer)
-        {
-            IEnumerable<MacroStabilityInwardsSoilLayer> layersOrderedByTopAscending = layers.Reverse();
-            double previousLevel = Bottom;
-            foreach (MacroStabilityInwardsSoilLayer oLayer in layersOrderedByTopAscending)
-            {
-                if (ReferenceEquals(layer, oLayer))
-                {
-                    return layer.Top - previousLevel;
-                }
-                previousLevel = oLayer.Top;
-            }
-            throw new ArgumentException("Layer not found in profile.");
-        }
 
         public override string ToString()
         {
@@ -134,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
-            return Equals((MacroStabilityInwardsSoilProfile) obj);
+            return Equals((MacroStabilityInwardsSoilProfile2D) obj);
         }
 
         public override int GetHashCode()
@@ -142,22 +113,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             unchecked
             {
                 int hashCode = layers?.GetHashCode() ?? 0;
-                hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (int) SoilProfileType;
                 return hashCode;
             }
         }
 
-        private bool Equals(MacroStabilityInwardsSoilProfile other)
+        private bool Equals(MacroStabilityInwardsSoilProfile2D other)
         {
             return AreLayersEqual(other.layers)
-                   && Bottom.Equals(other.Bottom)
                    && string.Equals(Name, other.Name)
                    && SoilProfileType == other.SoilProfileType;
         }
 
-        private bool AreLayersEqual(MacroStabilityInwardsSoilLayer[] otherLayers)
+        private bool AreLayersEqual(MacroStabilityInwardsSoilLayer2D[] otherLayers)
         {
             int layerCount = layers.Length;
             if (layerCount != otherLayers.Length)
@@ -176,18 +145,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers which 
-        /// all have values for <see cref="MacroStabilityInwardsSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
+        /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers.
         /// </summary>
-        /// <param name="collection">The collection of <see cref="MacroStabilityInwardsSoilLayer"/> to validate.</param>
+        /// <param name="collection">The collection of <see cref="MacroStabilityInwardsSoilLayer2D"/> to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="collection"/> contains no layers</item>
-        /// <item><paramref name="collection"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer.Top"/> less than
-        /// <see cref="Bottom"/></item>
-        /// </list></exception>
-        private void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer> collection)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="collection"/> contains no layers.</exception>
+        private void ValidateLayersCollection(IEnumerable<MacroStabilityInwardsSoilLayer2D> collection)
         {
             if (collection == null)
             {
@@ -196,10 +159,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             if (!collection.Any())
             {
                 throw new ArgumentException(Resources.Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers);
-            }
-            if (collection.Any(l => l.Top < Bottom))
-            {
-                throw new ArgumentException(Resources.MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom);
             }
         }
     }

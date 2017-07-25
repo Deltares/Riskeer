@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
-            SoilProfile = properties.SoilProfile;
+            SoilProfile = properties.SoilProfile as MacroStabilityInwardsSoilProfile1D;
         }
 
         public class ConstructionProperties
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             /// <summary>
             /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
             /// </summary>
-            public MacroStabilityInwardsSoilProfile SoilProfile { internal get; set; }
+            public ISoilProfile SoilProfile { internal get; set; }
 
             #endregion
         }
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <summary>
         /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
-        public MacroStabilityInwardsSoilProfile SoilProfile { get; private set; }
+        public MacroStabilityInwardsSoilProfile1D SoilProfile { get; private set; }
 
         #endregion
     }

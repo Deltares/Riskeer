@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 Geometry.Add(point);
             }
 
-            var newSoilProfiles = new List<MacroStabilityInwardsSoilProfile>();
+            var newSoilProfiles = new List<ISoilProfile>();
             var updatedProfiles = new List<StochasticSoilProfile>();
             var addedProfiles = new List<StochasticSoilProfile>();
             var removedProfiles = new List<StochasticSoilProfile>();
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             foreach (StochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp as MacroStabilityInwardsSoilProfile1D, sp.SoilProfile as MacroStabilityInwardsSoilProfile1D))).ToArray())
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             return Name;
         }
 
-        private static bool IsSame(MacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile, MacroStabilityInwardsSoilProfile otherMacroStabilityInwardsSoilProfile)
+        private static bool IsSame(MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile, MacroStabilityInwardsSoilProfile1D otherMacroStabilityInwardsSoilProfile)
         {
             return macroStabilityInwardsSoilProfile.Name.Equals(otherMacroStabilityInwardsSoilProfile.Name)
                    && macroStabilityInwardsSoilProfile.SoilProfileType.Equals(otherMacroStabilityInwardsSoilProfile.SoilProfileType);
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         private static bool IsSame(StochasticSoilProfile stochasticSoilProfile, StochasticSoilProfile otherStochasticSoilProfile)
         {
-            return IsSame(stochasticSoilProfile.SoilProfile, otherStochasticSoilProfile.SoilProfile);
+            return IsSame(stochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D, otherStochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D);
         }
     }
 }

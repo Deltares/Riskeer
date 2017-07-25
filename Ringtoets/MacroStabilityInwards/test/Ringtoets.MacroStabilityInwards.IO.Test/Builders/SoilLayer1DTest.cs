@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             };
 
             // Call
-            MacroStabilityInwardsSoilLayer result = layer.AsMacroStabilityInwardsSoilLayer();
+            MacroStabilityInwardsSoilLayer1D result = layer.AsMacroStabilityInwardsSoilLayer();
 
             // Assert
             Assert.AreEqual(top, result.Top);
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             var layer = new SoilLayer1D(top);
 
             // Call
-            MacroStabilityInwardsSoilLayer result = layer.AsMacroStabilityInwardsSoilLayer();
+            MacroStabilityInwardsSoilLayer1D result = layer.AsMacroStabilityInwardsSoilLayer();
 
             // Assert
             Assert.IsEmpty(result.MaterialName);

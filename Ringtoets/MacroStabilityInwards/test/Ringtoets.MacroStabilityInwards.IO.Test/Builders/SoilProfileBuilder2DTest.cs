@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile soilProfile = builder.Build();
+            MacroStabilityInwardsSoilProfile1D soilProfile = builder.Build();
 
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
@@ -192,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile soilProfile = builder.Build();
+            MacroStabilityInwardsSoilProfile1D soilProfile = builder.Build();
 
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
@@ -239,7 +239,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile soilProfile = builder.Build();
+            MacroStabilityInwardsSoilProfile1D soilProfile = builder.Build();
 
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);

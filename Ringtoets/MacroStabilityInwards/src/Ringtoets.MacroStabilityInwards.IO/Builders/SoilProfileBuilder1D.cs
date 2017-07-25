@@ -27,11 +27,11 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.Builders
 {
     /// <summary>
-    /// Helps in the creation of a <see cref="MacroStabilityInwardsSoilProfile"/>.
+    /// Helps in the creation of a <see cref="MacroStabilityInwardsSoilProfile1D"/>.
     /// </summary>
     internal class SoilProfileBuilder1D
     {
-        private readonly Collection<MacroStabilityInwardsSoilLayer> layers;
+        private readonly Collection<MacroStabilityInwardsSoilLayer1D> layers;
         private readonly string name;
         private readonly double bottom;
         private readonly long soilProfileId;
@@ -47,19 +47,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
             this.name = name;
             this.bottom = bottom;
             this.soilProfileId = soilProfileId;
-            layers = new Collection<MacroStabilityInwardsSoilLayer>();
+            layers = new Collection<MacroStabilityInwardsSoilLayer1D>();
         }
 
         /// <summary>
-        /// Creates a new instances of the <see cref="MacroStabilityInwardsSoilProfile"/> based on the layer definitions.
+        /// Creates a new instances of the <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the layer definitions.
         /// </summary>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when no layers have been added through <see cref="Add"/>.</exception>
-        internal MacroStabilityInwardsSoilProfile Build()
+        internal MacroStabilityInwardsSoilProfile1D Build()
         {
             try
             {
-                return new MacroStabilityInwardsSoilProfile(name, bottom, layers, SoilProfileType.SoilProfile1D, soilProfileId);
+                return new MacroStabilityInwardsSoilProfile1D(name, bottom, layers, SoilProfileType.SoilProfile1D, soilProfileId);
             }
             catch (ArgumentException e)
             {
@@ -68,10 +68,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Adds a new <see cref="MacroStabilityInwardsSoilLayer"/>, which will be added to the <see cref="MacroStabilityInwardsSoilProfile"/>.
+        /// Adds a new <see cref="MacroStabilityInwardsSoilLayer1D"/>, which will be added to the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
-        /// <param name="soilLayer">The <see cref="MacroStabilityInwardsSoilLayer"/> to add.</param>
-        internal void Add(MacroStabilityInwardsSoilLayer soilLayer)
+        /// <param name="soilLayer">The <see cref="MacroStabilityInwardsSoilLayer1D"/> to add.</param>
+        internal void Add(MacroStabilityInwardsSoilLayer1D soilLayer)
         {
             layers.Add(soilLayer);
         }

@@ -95,17 +95,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             };
         }
 
-        private static MacroStabilityInwardsSoilProfile CreateValidSoilProfile()
+        private static MacroStabilityInwardsSoilProfile1D CreateValidSoilProfile()
         {
-            return new MacroStabilityInwardsSoilProfile(string.Empty, -2, new[]
+            return new MacroStabilityInwardsSoilProfile1D(string.Empty, -2, new[]
             {
-                new MacroStabilityInwardsSoilLayer(9),
-                new MacroStabilityInwardsSoilLayer(4)
+                new MacroStabilityInwardsSoilLayer1D(9),
+                new MacroStabilityInwardsSoilLayer1D(4)
                 {
                     IsAquifer = true
                 },
-                new MacroStabilityInwardsSoilLayer(2),
-                new MacroStabilityInwardsSoilLayer(-1)
+                new MacroStabilityInwardsSoilLayer1D(2),
+                new MacroStabilityInwardsSoilLayer1D(-1)
             }, SoilProfileType.SoilProfile1D, 1234L);
         }
 

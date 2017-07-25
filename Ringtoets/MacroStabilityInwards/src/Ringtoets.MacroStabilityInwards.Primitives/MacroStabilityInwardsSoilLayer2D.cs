@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
@@ -28,30 +29,30 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
     /// necessary input for executing a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer
+    public class MacroStabilityInwardsSoilLayer2D
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer"/>, where the top is set to <paramref name="top"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="top">The top level of the layer.</param>
-        public MacroStabilityInwardsSoilLayer(double top)
+        public MacroStabilityInwardsSoilLayer2D()
         {
-            Top = top;
             Properties = new SoilLayerProperties();
         }
 
         /// <summary>
-        /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public SoilLayerProperties Properties { get; }
 
         /// <summary>
-        /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        public double Top { get; }
+        public Point2D[] OuterRing { get; }
+
+        public Point2D[][] InnerRings { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the <see cref="MacroStabilityInwardsSoilLayer"/> is an aquifer.
+        /// Gets or sets a value indicating whether or not the <see cref="MacroStabilityInwardsSoilLayer2D"/> is an aquifer.
         /// </summary>
         public bool IsAquifer
         {
@@ -66,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not to use POP for the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets a value indicating whether or not to use POP for the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public bool UsePop
         {
@@ -81,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shear strength model used for the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shear strength model used for the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public ShearStrengthModel ShearStrengthModel
         {
@@ -96,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer"/> above the phreatic level.
+        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer2D"/> above the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double AbovePhreaticLevelMean
@@ -112,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer"/> above the phreatic level.
+        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer2D"/> above the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double AbovePhreaticLevelDeviation
@@ -128,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer"/> below the phreatic level.
+        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer2D"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelMean
@@ -144,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer"/> below the phreatic level.
+        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="MacroStabilityInwardsSoilLayer2D"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelDeviation
@@ -160,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// Gets or sets the mean of the distribution for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer2D"/>
         /// [°]
         /// </summary>
         public double FrictionAngleMean
@@ -176,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the deviation of the distribution for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [°]
         /// </summary>
         public double FrictionAngleDeviation
@@ -192,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shift of the distrubtion for the friction angle of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [°]
         /// </summary>
         public double FrictionAngleShift
@@ -208,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// Gets or sets the mean of the distribution for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer2D"/>
         /// [-]
         /// </summary>
         public double ShearStrengthRatioMean
@@ -224,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the deviation of the distribution for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [-]
         /// </summary>
         public double ShearStrengthRatioDeviation
@@ -240,7 +241,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shift of the distrubtion for the ratio of shear strength S of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [-]
         /// </summary>
         public double ShearStrengthRatioShift
@@ -256,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// Gets or sets the mean of the distribution for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer2D"/>
         /// [-]
         /// </summary>
         public double StrengthIncreaseExponentMean
@@ -272,7 +273,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the deviation of the distribution for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [-]
         /// </summary>
         public double StrengthIncreaseExponentDeviation
@@ -288,7 +289,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shift of the distrubtion for the strength increase exponent (m) of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [-]
         /// </summary>
         public double StrengthIncreaseExponentShift
@@ -304,7 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// Gets or sets the mean of the distribution for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer2D"/>
         /// [kN/m³]
         /// </summary>
         public double CohesionMean
@@ -320,7 +321,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the deviation of the distribution for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [kN/m³]
         /// </summary>
         public double CohesionDeviation
@@ -336,7 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shift of the distrubtion for the cohesion of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [kN/m³]
         /// </summary>
         public double CohesionShift
@@ -352,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the POP of the <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// Gets or sets the mean of the distribution for the POP of the <see cref="MacroStabilityInwardsSoilLayer2D"/>
         /// [kN/m²]
         /// </summary>
         public double PopMean
@@ -368,7 +369,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the POP of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the deviation of the distribution for the POP of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [kN/m²]
         /// </summary>
         public double PopDeviation
@@ -384,7 +385,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the POP of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the shift of the distrubtion for the POP of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// [kN/m²]
         /// </summary>
         public double PopShift
@@ -400,7 +401,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the name of the material that was assigned to the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the name of the material that was assigned to the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         public string MaterialName
@@ -416,7 +417,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public Color Color { get; set; }
 
@@ -434,7 +435,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
-            return Equals((MacroStabilityInwardsSoilLayer) obj);
+            return Equals((MacroStabilityInwardsSoilLayer2D) obj);
         }
 
         public override int GetHashCode()
@@ -442,19 +443,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             unchecked
             {
                 int hashCode = MaterialName?.GetHashCode() ?? 0;
-                hashCode = (hashCode * 397) ^ Top.GetHashCode();
-                hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
-                hashCode = (hashCode * 397) ^ Color.GetHashCode();
+                hashCode = (hashCode * 397) ^ Properties.GetHashCode();
                 return hashCode;
             }
         }
 
-        private bool Equals(MacroStabilityInwardsSoilLayer other)
+        private bool Equals(MacroStabilityInwardsSoilLayer2D other)
         {
             return string.Equals(MaterialName, other.MaterialName)
-                   && Top.Equals(other.Top)
-                   && IsAquifer == other.IsAquifer
-                   && Color.Equals(other.Color);
+                   && Properties.Equals(other.Properties);
         }
     }
 }

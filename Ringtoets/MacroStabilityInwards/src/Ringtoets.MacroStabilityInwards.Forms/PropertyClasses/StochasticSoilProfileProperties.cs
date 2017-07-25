@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
+                return ((MacroStabilityInwardsSoilProfile1D)data.SoilProfile)?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
             }
         }
 
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile?.Bottom ?? double.NaN;
+                return ((MacroStabilityInwardsSoilProfile1D)data.SoilProfile)?.Bottom ?? double.NaN;
             }
         }
 

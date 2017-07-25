@@ -94,18 +94,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Constructs a (1D) <see cref="MacroStabilityInwardsSoilLayer"/> based on the <see cref="InnerLoops"/> and 
+        /// Constructs a (1D) <see cref="MacroStabilityInwardsSoilLayer1D"/> based on the <see cref="InnerLoops"/> and 
         /// <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
         /// </summary>
         /// <param name="atX">The point from which to take a 1D profile.</param>
-        /// <param name="bottom">The bottom level of the <see cref="MacroStabilityInwardsSoilLayer"/>.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer"/>.</returns>
+        /// <param name="bottom">The bottom level of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer1D"/>.</returns>
         /// <exception cref="SoilLayerConversionException">Thrown when any of the <see cref="InnerLoops"/> or <see cref="OuterLoop"/> contain a vertical 
         /// line at <paramref name="atX"/>.</exception>
-        internal IEnumerable<MacroStabilityInwardsSoilLayer> AsMacroStabilityInwardsSoilLayers(double atX, out double bottom)
+        internal IEnumerable<MacroStabilityInwardsSoilLayer1D> AsMacroStabilityInwardsSoilLayers(double atX, out double bottom)
         {
             bottom = double.MaxValue;
-            var result = new Collection<MacroStabilityInwardsSoilLayer>();
+            var result = new Collection<MacroStabilityInwardsSoilLayer1D>();
             if (OuterLoop != null)
             {
                 double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX).ToArray();
@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
 
                     foreach (double height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        var soilLayer = new MacroStabilityInwardsSoilLayer(height)
+                        var soilLayer = new MacroStabilityInwardsSoilLayer1D(height)
                         {
                             IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
                             MaterialName = MaterialName ?? string.Empty,

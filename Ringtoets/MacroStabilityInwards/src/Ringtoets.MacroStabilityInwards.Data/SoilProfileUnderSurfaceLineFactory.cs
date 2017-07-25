@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 {
     public class SoilProfileUnderSurfaceLineFactory
     {
-        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile soilProfile, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)
             {
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             return new SoilProfileUnderSurfaceLine(collection);
         }
 
-        private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer layer, MacroStabilityInwardsSoilProfile soilProfile, double minX, double maxX)
+        private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)
         {
             double top = layer.Top;
             double bottom = layer.Top - soilProfile.GetLayerThickness(layer);

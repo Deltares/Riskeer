@@ -69,9 +69,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 var layers = new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(2.5),
-                    new MacroStabilityInwardsSoilLayer(2.3),
-                    new MacroStabilityInwardsSoilLayer(1.1)
+                    new MacroStabilityInwardsSoilLayer1D(2.5),
+                    new MacroStabilityInwardsSoilLayer1D(2.3),
+                    new MacroStabilityInwardsSoilLayer1D(1.1)
                 };
 
                 // Call
@@ -90,9 +90,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 var layers = new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(2.5),
-                    new MacroStabilityInwardsSoilLayer(2.3),
-                    new MacroStabilityInwardsSoilLayer(1.1)
+                    new MacroStabilityInwardsSoilLayer1D(2.5),
+                    new MacroStabilityInwardsSoilLayer1D(2.3),
+                    new MacroStabilityInwardsSoilLayer1D(1.1)
                 };
                 table.SetData(layers);
 
@@ -112,13 +112,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 var layers = new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(2.5),
-                    new MacroStabilityInwardsSoilLayer(2.3),
-                    new MacroStabilityInwardsSoilLayer(1.1)
+                    new MacroStabilityInwardsSoilLayer1D(2.5),
+                    new MacroStabilityInwardsSoilLayer1D(2.3),
+                    new MacroStabilityInwardsSoilLayer1D(1.1)
                 };
                 table.SetData(new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(1.0)
+                    new MacroStabilityInwardsSoilLayer1D(1.0)
                 });
 
                 // Call
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 };
                 table.SetData(new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(1.0)
+                    new MacroStabilityInwardsSoilLayer1D(1.0)
                 });
 
                 // Call
@@ -153,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(3, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    MacroStabilityInwardsSoilLayer soilLayer = layers[i];
+                    MacroStabilityInwardsSoilLayer1D soilLayer = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
                     AssertColumnValueEqual(soilLayer.MaterialName, rowCells[nameColumnIndex].Value);
                     AssertColumnValueEqual(soilLayer.Color, rowCells[colorColumnIndex].Value);
@@ -177,11 +177,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private static MacroStabilityInwardsSoilLayer CreateMacroStabilityInwardsSoilLayer()
+        private static MacroStabilityInwardsSoilLayer1D CreateMacroStabilityInwardsSoilLayer()
         {
             var random = new Random();
 
-            return new MacroStabilityInwardsSoilLayer(random.NextDouble())
+            return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
                 MaterialName = $"{random.NextDouble()}",
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),

@@ -34,15 +34,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading 2d profile definitions from the Soil database using a constructed reader
-    /// and transform the definitions to a <see cref="MacroStabilityInwardsSoilProfile"/>.
+    /// and transform the definitions to a <see cref="MacroStabilityInwardsSoilProfile1D"/>.
     /// </summary>
     internal static class SoilProfile2DReader
     {
         /// <summary>
-        /// Reads information for a profile from the database and creates a <see cref="MacroStabilityInwardsSoilProfile"/> based on the information.
+        /// Reads information for a profile from the database and creates a <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the information.
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile"/>, which is based on the information from the database.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile1D"/>, which is based on the information from the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when encountering an unrecoverable error while reading the profile.</exception>
         /// <exception cref="MacroStabilityInwardsSoilProfileReadException">Thrown when
         /// <list type="bullet">
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
         /// or is shifted when it should not be</item>
         /// </list> 
         /// </exception>
-        internal static MacroStabilityInwardsSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
+        internal static MacroStabilityInwardsSoilProfile1D ReadFrom(IRowBasedDatabaseReader reader)
         {
             var criticalProperties = new CriticalProfileProperties(reader);
             var requiredProperties = new RequiredProfileProperties(reader, criticalProperties.ProfileName);
@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="MacroStabilityInwardsSoilProfile"/>. If these properties
+            /// that are required to create a complete <see cref="MacroStabilityInwardsSoilProfile1D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
             /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required profile property values from.</param>

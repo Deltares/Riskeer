@@ -55,9 +55,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
-            var soilProfile = new MacroStabilityInwardsSoilProfile("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer>
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
-                new MacroStabilityInwardsSoilLayer(10)
+                new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
@@ -85,9 +85,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var stochasticSoilModel = new StochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
-            var soilProfile = new MacroStabilityInwardsSoilProfile("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer>
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
-                new MacroStabilityInwardsSoilLayer(10)
+                new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {

@@ -861,7 +861,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
-            MacroStabilityInwardsSoilProfile profile = stochasticProfile.SoilProfile;
+            var profile = stochasticProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual("AD647M30_Segment_36005_1D1", profile.Name);
             Assert.AreEqual(-45.0, profile.Bottom);
             Assert.AreEqual(9, profile.Layers.Count());
@@ -917,7 +918,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
-            MacroStabilityInwardsSoilProfile profile = stochasticProfile.SoilProfile;
+            var profile = stochasticProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual("Test 2d profile", profile.Name);
             Assert.AreEqual(-45.0, profile.Bottom);
             const int expectedNumberOfLayers = 9;

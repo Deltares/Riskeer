@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class defines a table in which properties of <see cref="MacroStabilityInwardsSoilLayer"/> instances
+    /// This class defines a table in which properties of <see cref="MacroStabilityInwardsSoilLayer1D"/> instances
     /// are shown as rows.
     /// </summary>
     public class MacroStabilityInwardsSoilLayerTable : DataGridViewControl
@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// are shown in the table.
         /// </summary>
         /// <param name="layers">The collection of layers to show.</param>
-        public void SetData(IEnumerable<MacroStabilityInwardsSoilLayer> layers)
+        public void SetData(IEnumerable<MacroStabilityInwardsSoilLayer1D> layers)
         {
             SetDataSource(layers?.Select(l => new FormattedMacroStabilityInwardsSoilLayerRow(l)).ToArray());
         }
@@ -63,31 +63,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private class FormattedMacroStabilityInwardsSoilLayerRow
         {
-            public FormattedMacroStabilityInwardsSoilLayerRow(MacroStabilityInwardsSoilLayer layer)
+            public FormattedMacroStabilityInwardsSoilLayerRow(MacroStabilityInwardsSoilLayer1D layer)
             {
+                Top = new RoundedDouble(2, layer.Top);
                 MaterialName = layer.MaterialName;
                 Color = layer.Color;
-                Top = new RoundedDouble(2, layer.Top);
                 IsAquifer = layer.IsAquifer;
             }
 
             /// <summary>
-            /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer"/>.
+            /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
             /// </summary>
             public RoundedDouble Top { get; }
 
             /// <summary>
-            /// Gets a value indicating whether or not the <see cref="MacroStabilityInwardsSoilLayer"/> is an aquifer.
+            /// Gets a value indicating whether or not the <see cref="MacroStabilityInwardsSoilLayer1D"/> is an aquifer.
             /// </summary>
             public bool IsAquifer { get; }
 
             /// <summary>
-            /// Gets the name of the material that was assigned to the <see cref="MacroStabilityInwardsSoilLayer"/>.
+            /// Gets the name of the material that was assigned to the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
             /// </summary>
             public string MaterialName { get; }
 
             /// <summary>
-            /// Gets the <see cref="Color"/> that was used to represent the <see cref="MacroStabilityInwardsSoilLayer"/>.
+            /// Gets the <see cref="Color"/> that was used to represent the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
             /// </summary>
             public Color Color { get; }
         }

@@ -489,14 +489,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
         private static StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
         {
+            var soilProfile = (MacroStabilityInwardsSoilProfile1D) profile.SoilProfile;
             return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(
-                    profile.SoilProfile.Name,
-                    profile.SoilProfile.Bottom - 0.2,
-                    profile.SoilProfile.Layers,
-                    profile.SoilProfile.SoilProfileType,
-                    profile.SoilProfile.MacroStabilityInwardsSoilProfileId)
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(
+                    soilProfile.Name,
+                    soilProfile.Bottom - 0.2,
+                    soilProfile.Layers,
+                    soilProfile.SoilProfileType,
+                    soilProfile.MacroStabilityInwardsSoilProfileId)
             };
         }
     }

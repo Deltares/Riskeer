@@ -48,13 +48,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, -thicknessAquiferLayer, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, -thicknessAquiferLayer, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(thicknessCoverageLayer)
+                    new MacroStabilityInwardsSoilLayer1D(thicknessCoverageLayer)
                     {
                         IsAquifer = false
                     },
-                    new MacroStabilityInwardsSoilLayer(0.0)
+                    new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
                         IsAquifer = true
                     }
@@ -83,9 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, -thicknessAquiferLayer, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, -thicknessAquiferLayer, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(0.0)
+                    new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
                         IsAquifer = true
                     }
@@ -115,17 +115,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, 0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
+                    new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
                     {
                         IsAquifer = false
                     },
-                    new MacroStabilityInwardsSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
+                    new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
                     {
                         IsAquifer = true
                     },
-                    new MacroStabilityInwardsSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine)
+                    new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine)
                     {
                         IsAquifer = false
                     }
@@ -154,17 +154,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, 0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(4.3)
+                    new MacroStabilityInwardsSoilLayer1D(4.3)
                     {
                         IsAquifer = false
                     },
-                    new MacroStabilityInwardsSoilLayer(3.3)
+                    new MacroStabilityInwardsSoilLayer1D(3.3)
                     {
                         IsAquifer = true
                     },
-                    new MacroStabilityInwardsSoilLayer(1.1)
+                    new MacroStabilityInwardsSoilLayer1D(1.1)
                     {
                         IsAquifer = true
                     }

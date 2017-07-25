@@ -67,16 +67,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const string expectedName = "<some name>";
-            IEnumerable<MacroStabilityInwardsSoilLayer> layers = new[]
+            IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
             {
-                new MacroStabilityInwardsSoilLayer(-2),
-                new MacroStabilityInwardsSoilLayer(-4)
+                new MacroStabilityInwardsSoilLayer1D(-2),
+                new MacroStabilityInwardsSoilLayer1D(-4)
                 {
                     IsAquifer = true
                 }
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 1234L)
             {
                 SoilProfile = soilProfile

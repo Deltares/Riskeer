@@ -208,9 +208,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(null, 0.0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(null, 0.0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(0.0)
+                    new MacroStabilityInwardsSoilLayer1D(0.0)
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
@@ -229,9 +229,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(name, 0.0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(0.0)
+                    new MacroStabilityInwardsSoilLayer1D(0.0)
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
@@ -305,11 +305,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
         }
 
-        private static MacroStabilityInwardsSoilProfile CreateRandomProfile(Random random)
+        private static MacroStabilityInwardsSoilProfile1D CreateRandomProfile(Random random)
         {
-            return new MacroStabilityInwardsSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), new[]
+            return new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -1.0 - random.NextDouble(), new[]
             {
-                new MacroStabilityInwardsSoilLayer(random.NextDouble())
+                new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
                     MaterialName = GetRandomName(random),
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),

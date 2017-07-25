@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.Exceptions
 {
     /// <summary>
-    /// Exception thrown when something went wrong while converting soil layers for a <see cref="MacroStabilityInwardsSoilProfile"/>.
+    /// Exception thrown when something went wrong while converting soil layers for a <see cref="MacroStabilityInwardsSoilProfile1D"/>.
     /// </summary>
     [Serializable]
     public class SoilLayerConversionException : Exception

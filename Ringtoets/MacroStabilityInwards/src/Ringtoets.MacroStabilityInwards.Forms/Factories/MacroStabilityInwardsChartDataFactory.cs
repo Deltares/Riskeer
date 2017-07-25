@@ -125,14 +125,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer"/> based on its color.
+        /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer1D"/> based on its color.
         /// </summary>
-        /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile"/> which contains the <see cref="MacroStabilityInwardsSoilLayer"/>.</param>
+        /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer1D"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
+        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> which contains the <see cref="MacroStabilityInwardsSoilLayer1D"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, MacroStabilityInwardsSoilProfile soilProfile)
+        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             if (soilProfile == null)
             {
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
             }
 
-            MacroStabilityInwardsSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
+            MacroStabilityInwardsSoilLayer1D soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
             return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
                                              new ChartAreaStyle
@@ -172,10 +172,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile"/> used for obtaining the name.</param>
+        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> used for obtaining the name.</param>
         /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when
         /// <paramref name="soilProfile"/> is <c>null</c>.</remarks>
-        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, MacroStabilityInwardsSoilProfile soilProfile)
+        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name

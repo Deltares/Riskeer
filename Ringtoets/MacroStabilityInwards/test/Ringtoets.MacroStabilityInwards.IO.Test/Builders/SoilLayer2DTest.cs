@@ -243,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             double bottom;
 
             // Call
-            IEnumerable<MacroStabilityInwardsSoilLayer> result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom);
+            IEnumerable<MacroStabilityInwardsSoilLayer1D> result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -283,12 +283,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             };
 
             // Call
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(x2, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(x2, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(y1, bottom, 1e-6);
-            MacroStabilityInwardsSoilLayer resultLayer = result.First();
+            MacroStabilityInwardsSoilLayer1D resultLayer = result.First();
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
             Assert.IsTrue(resultLayer.IsAquifer);
             Assert.AreEqual(materialName, resultLayer.MaterialName);
@@ -312,7 +312,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             double bottom;
 
             // Call
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(0, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(0, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -340,7 +340,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             double bottom;
 
             // Call
-            IEnumerable<MacroStabilityInwardsSoilLayer> result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom);
+            IEnumerable<MacroStabilityInwardsSoilLayer1D> result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -365,7 +365,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             double bottom;
 
             // Call
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(0.0, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -393,7 +393,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -435,7 +435,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -477,7 +477,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -530,7 +530,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -573,7 +573,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -624,7 +624,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -665,7 +665,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -707,7 +707,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -748,7 +748,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Call
             double bottom;
-            MacroStabilityInwardsSoilLayer[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
+            MacroStabilityInwardsSoilLayer1D[] result = layer.AsMacroStabilityInwardsSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);

@@ -181,13 +181,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var soilProfile1 = new MacroStabilityInwardsSoilProfile("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer>
+            var soilProfile1 = new MacroStabilityInwardsSoilProfile1D("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
-                new MacroStabilityInwardsSoilLayer(10)
+                new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
-            var soilProfile2 = new MacroStabilityInwardsSoilProfile("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer>
+            var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
-                new MacroStabilityInwardsSoilLayer(10)
+                new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {

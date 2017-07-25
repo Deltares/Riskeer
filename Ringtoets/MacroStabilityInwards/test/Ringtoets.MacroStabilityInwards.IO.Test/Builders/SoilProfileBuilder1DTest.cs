@@ -55,13 +55,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             double top = random.NextDouble();
             const long soilProfileId = 1234L;
             var builder = new SoilProfileBuilder1D(profileName, bottom, soilProfileId);
-            builder.Add(new MacroStabilityInwardsSoilLayer(top)
+            builder.Add(new MacroStabilityInwardsSoilLayer1D(top)
             {
                 IsAquifer = true
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile soilProfile = builder.Build();
+            MacroStabilityInwardsSoilProfile1D soilProfile = builder.Build();
 
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
@@ -84,14 +84,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             const long soilProfileId = 1234L;
 
             var builder = new SoilProfileBuilder1D(profileName, bottom, soilProfileId);
-            builder.Add(new MacroStabilityInwardsSoilLayer(top)
+            builder.Add(new MacroStabilityInwardsSoilLayer1D(top)
             {
                 IsAquifer = true
             });
-            builder.Add(new MacroStabilityInwardsSoilLayer(top2));
+            builder.Add(new MacroStabilityInwardsSoilLayer1D(top2));
 
             // Call
-            MacroStabilityInwardsSoilProfile soilProfile = builder.Build();
+            MacroStabilityInwardsSoilProfile1D soilProfile = builder.Build();
 
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);

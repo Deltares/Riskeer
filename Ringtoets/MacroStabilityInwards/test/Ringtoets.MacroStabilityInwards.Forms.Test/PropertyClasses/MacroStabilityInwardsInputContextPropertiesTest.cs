@@ -295,9 +295,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, random.NextDouble(), new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, random.NextDouble(), new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(random.NextDouble())
+                    new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                     {
                         IsAquifer = true
                     }

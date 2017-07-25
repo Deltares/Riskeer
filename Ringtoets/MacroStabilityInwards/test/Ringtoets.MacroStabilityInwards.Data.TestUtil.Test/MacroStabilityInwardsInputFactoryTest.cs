@@ -41,10 +41,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, 2.0),
                 new Point2D(1.0, 2.0)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(-1.0, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(2, soilLayers.Length);
             AssertLayer(false, 2.0, soilLayers[0]);
             AssertLayer(true, 0.0, soilLayers[1]);
@@ -64,10 +65,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, thicknessCoverageLayer),
                 new Point2D(1.0, thicknessCoverageLayer)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(-thicknessAquiferLayer, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(2, soilLayers.Length);
             AssertLayer(false, thicknessCoverageLayer, soilLayers[0]);
             AssertLayer(true, 0.0, soilLayers[1]);
@@ -85,10 +87,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, 0.0),
                 new Point2D(1.0, 0.0)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(-1.0, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(1, soilLayers.Length);
             AssertLayer(true, 0.0, soilLayers[0]);
         }
@@ -107,10 +110,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, 0.0),
                 new Point2D(1.0, 0.0)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(-thicknessAquiferLayer, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(1, soilLayers.Length);
             AssertLayer(true, 0.0, soilLayers[0]);
         }
@@ -129,10 +133,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, 2.0),
                 new Point2D(1.0, 2.0)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(0.0, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(3, soilLayers.Length);
             AssertLayer(false, 4.0 + deltaAboveSurfaceLine, soilLayers[0]);
             AssertLayer(true, 3.0 + deltaAboveSurfaceLine, soilLayers[1]);
@@ -154,10 +159,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 new Point2D(0, 3.3),
                 new Point2D(1.0, 3.3)
             }, input.SurfaceLine.LocalGeometry);
-            MacroStabilityInwardsSoilProfile profile = input.StochasticSoilProfile.SoilProfile;
+            var profile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(profile);
             Assert.AreEqual(0.0, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer[] soilLayers = profile.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer1D[] soilLayers = profile.Layers.ToArray();
             Assert.AreEqual(3, soilLayers.Length);
             AssertLayer(false, 4.3, soilLayers[0]);
             AssertLayer(true, 3.3, soilLayers[1]);
@@ -166,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(3.3, expectedAquiferThickness);
         }
 
-        private static void AssertLayer(bool aquifer, double top, MacroStabilityInwardsSoilLayer soilLayer)
+        private static void AssertLayer(bool aquifer, double top, MacroStabilityInwardsSoilLayer1D soilLayer)
         {
             Assert.AreEqual(aquifer, soilLayer.IsAquifer);
             Assert.AreEqual(top, soilLayer.Top);

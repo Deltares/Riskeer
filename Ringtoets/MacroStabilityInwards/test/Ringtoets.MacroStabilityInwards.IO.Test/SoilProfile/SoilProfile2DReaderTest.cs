@@ -235,13 +235,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             mocks.ReplayAll();
 
             // Call
-            MacroStabilityInwardsSoilProfile profile = SoilProfile2DReader.ReadFrom(reader);
+            MacroStabilityInwardsSoilProfile1D profile = SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
             Assert.AreEqual(1, profile.Layers.Count());
             Assert.AreEqual(1.1, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer macroStabilityInwardsSoilLayer = profile.Layers.First();
+            MacroStabilityInwardsSoilLayer1D macroStabilityInwardsSoilLayer = profile.Layers.First();
 
             Assert.AreEqual(1.1, macroStabilityInwardsSoilLayer.Top);
             Assert.IsFalse(macroStabilityInwardsSoilLayer.IsAquifer);
@@ -288,14 +288,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             mocks.ReplayAll();
 
             // Call
-            MacroStabilityInwardsSoilProfile profile = SoilProfile2DReader.ReadFrom(reader);
+            MacroStabilityInwardsSoilProfile1D profile = SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
             Assert.AreEqual(layerCount, profile.Layers.Count());
 
             Assert.AreEqual(1.1, profile.Bottom);
 
-            MacroStabilityInwardsSoilLayer macroStabilityInwardsSoilLayer = profile.Layers.First();
+            MacroStabilityInwardsSoilLayer1D macroStabilityInwardsSoilLayer = profile.Layers.First();
             Assert.AreEqual(1.1, macroStabilityInwardsSoilLayer.Top);
             Assert.IsTrue(macroStabilityInwardsSoilLayer.IsAquifer);
             Assert.AreEqual(materialName, macroStabilityInwardsSoilLayer.MaterialName);

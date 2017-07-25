@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.Exceptions
 {
     /// <summary>
-    /// Exception thrown when something went wrong while reading <see cref="MacroStabilityInwardsSoilProfile"/> in <see cref="MacroStabilityInwardsSoilProfileReader"/>.
+    /// Exception thrown when something went wrong while reading <see cref="MacroStabilityInwardsSoilProfile1D"/> in <see cref="MacroStabilityInwardsSoilProfileReader"/>.
     /// </summary>
     [Serializable]
     public sealed class MacroStabilityInwardsSoilProfileReadException : Exception

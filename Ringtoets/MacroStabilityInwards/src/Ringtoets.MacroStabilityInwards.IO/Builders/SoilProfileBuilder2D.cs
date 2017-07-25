@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
     /// </summary>
     internal class SoilProfileBuilder2D
     {
-        private readonly ICollection<MacroStabilityInwardsSoilLayer> layers = new Collection<MacroStabilityInwardsSoilLayer>();
+        private readonly ICollection<MacroStabilityInwardsSoilLayer1D> layers = new Collection<MacroStabilityInwardsSoilLayer1D>();
         private readonly double atX;
         private readonly string profileName;
         private readonly long soilProfileId;
@@ -41,10 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         private double bottom;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="MacroStabilityInwardsSoilProfile"/>
+        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// and the point at which a 1D profile should be obtained from the 2D profile.
         /// </summary>
-        /// <param name="profileName">The name for the <see cref="MacroStabilityInwardsSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
+        /// <param name="profileName">The name for the <see cref="MacroStabilityInwardsSoilProfile1D"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
         /// <param name="soilProfileId">The identifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
@@ -63,17 +63,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Creates a new instances of the <see cref="MacroStabilityInwardsSoilProfile"/> based on the layer definitions.
+        /// Creates a new instances of the <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the layer definitions.
         /// </summary>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when trying to build a 
-        /// <see cref="MacroStabilityInwardsSoilProfile"/> and not having added any layers using <see cref="Add"/>.
+        /// <see cref="MacroStabilityInwardsSoilProfile1D"/> and not having added any layers using <see cref="Add"/>.
         /// </exception>
-        internal MacroStabilityInwardsSoilProfile Build()
+        internal MacroStabilityInwardsSoilProfile1D Build()
         {
             try
             {
-                return new MacroStabilityInwardsSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D, soilProfileId);
+                return new MacroStabilityInwardsSoilProfile1D(profileName, bottom, layers, SoilProfileType.SoilProfile2D, soilProfileId);
             }
             catch (ArgumentException e)
             {
@@ -99,8 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
 
             try
             {
-                IEnumerable<MacroStabilityInwardsSoilLayer> soilLayers = soilLayer.AsMacroStabilityInwardsSoilLayers(atX, out newBottom);
-                foreach (MacroStabilityInwardsSoilLayer layer in soilLayers)
+                IEnumerable<MacroStabilityInwardsSoilLayer1D> soilLayers = soilLayer.AsMacroStabilityInwardsSoilLayers(atX, out newBottom);
+                foreach (MacroStabilityInwardsSoilLayer1D layer in soilLayers)
                 {
                     layers.Add(layer);
                 }

@@ -1437,11 +1437,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var stochasticSoilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile("Profile 1", -10.0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D("Profile 1", -10.0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(-5.0),
-                    new MacroStabilityInwardsSoilLayer(-2.0),
-                    new MacroStabilityInwardsSoilLayer(1.0)
+                    new MacroStabilityInwardsSoilLayer1D(-5.0),
+                    new MacroStabilityInwardsSoilLayer1D(-2.0),
+                    new MacroStabilityInwardsSoilLayer1D(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
@@ -1456,11 +1456,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     stochasticSoilProfile1,
                     new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
                     {
-                        SoilProfile = new MacroStabilityInwardsSoilProfile("Profile 2", -8.0, new[]
+                        SoilProfile = new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
                         {
-                            new MacroStabilityInwardsSoilLayer(-4.0),
-                            new MacroStabilityInwardsSoilLayer(0.0),
-                            new MacroStabilityInwardsSoilLayer(4.0)
+                            new MacroStabilityInwardsSoilLayer1D(-4.0),
+                            new MacroStabilityInwardsSoilLayer1D(0.0),
+                            new MacroStabilityInwardsSoilLayer1D(4.0)
                         }, SoilProfileType.SoilProfile1D, 2)
                     }
                 }
@@ -1468,11 +1468,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var stochasticSoilProfile5 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile("Profile 5", -10.0, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D("Profile 5", -10.0, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(-5.0),
-                    new MacroStabilityInwardsSoilLayer(-2.0),
-                    new MacroStabilityInwardsSoilLayer(1.0)
+                    new MacroStabilityInwardsSoilLayer1D(-5.0),
+                    new MacroStabilityInwardsSoilLayer1D(-2.0),
+                    new MacroStabilityInwardsSoilLayer1D(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
@@ -1501,20 +1501,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     {
                         new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
                         {
-                            SoilProfile = new MacroStabilityInwardsSoilProfile("Profile 3", -10.0, new[]
+                            SoilProfile = new MacroStabilityInwardsSoilProfile1D("Profile 3", -10.0, new[]
                             {
-                                new MacroStabilityInwardsSoilLayer(-5.0),
-                                new MacroStabilityInwardsSoilLayer(-2.0),
-                                new MacroStabilityInwardsSoilLayer(1.0)
+                                new MacroStabilityInwardsSoilLayer1D(-5.0),
+                                new MacroStabilityInwardsSoilLayer1D(-2.0),
+                                new MacroStabilityInwardsSoilLayer1D(1.0)
                             }, SoilProfileType.SoilProfile1D, 1)
                         },
                         new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
                         {
-                            SoilProfile = new MacroStabilityInwardsSoilProfile("Profile 4", -8.0, new[]
+                            SoilProfile = new MacroStabilityInwardsSoilProfile1D("Profile 4", -8.0, new[]
                             {
-                                new MacroStabilityInwardsSoilLayer(-4.0),
-                                new MacroStabilityInwardsSoilLayer(0.0),
-                                new MacroStabilityInwardsSoilLayer(4.0)
+                                new MacroStabilityInwardsSoilLayer1D(-4.0),
+                                new MacroStabilityInwardsSoilLayer1D(0.0),
+                                new MacroStabilityInwardsSoilLayer1D(4.0)
                             }, SoilProfileType.SoilProfile1D, 2)
                         }
                     }

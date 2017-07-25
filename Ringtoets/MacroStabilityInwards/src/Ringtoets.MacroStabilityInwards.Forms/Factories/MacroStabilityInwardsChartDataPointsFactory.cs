@@ -48,8 +48,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create a collection of soil layer points (areas) in 2D space based on the provided <paramref name="soilLayer"/> and <paramref name="soilProfile"/>.
         /// </summary>
-        /// <param name="soilLayer">The <see cref="MacroStabilityInwardsSoilLayer"/> to create the soil layer points for.</param>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile"/> that contains <paramref name="soilLayer"/>.</param>
+        /// <param name="soilLayer">The <see cref="MacroStabilityInwardsSoilLayer1D"/> to create the soil layer points for.</param>
+        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> that contains <paramref name="soilLayer"/>.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> that may intersect with 
         /// the <paramref name="soilLayer"/> and by doing that restricts the drawn height of it.</param>
         /// <returns>A collection which contains one or more (in the case of <paramref name="surfaceLine"/>
@@ -61,8 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the <paramref name="surfaceLine"/> is below the <paramref name="soilLayer"/>.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(MacroStabilityInwardsSoilLayer soilLayer,
-                                                                  MacroStabilityInwardsSoilProfile soilProfile,
+        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(MacroStabilityInwardsSoilLayer1D soilLayer,
+                                                                  MacroStabilityInwardsSoilProfile1D soilProfile,
                                                                   RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilLayer == null || soilProfile == null || surfaceLine == null)
@@ -298,8 +298,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry,
-                                                                                      MacroStabilityInwardsSoilLayer soilLayer,
-                                                                                      MacroStabilityInwardsSoilProfile soilProfile)
+                                                                                      MacroStabilityInwardsSoilLayer1D soilLayer,
+                                                                                      MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             Point2D[] surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
             Point2D[] soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
@@ -308,7 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry,
-                                                        MacroStabilityInwardsSoilLayer soilLayer)
+                                                        MacroStabilityInwardsSoilLayer1D soilLayer)
         {
             double surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
             double topLevel = soilLayer.Top;
@@ -317,16 +317,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry,
-                                                        MacroStabilityInwardsSoilLayer soilLayer,
-                                                        MacroStabilityInwardsSoilProfile soilProfile)
+                                                        MacroStabilityInwardsSoilLayer1D soilLayer,
+                                                        MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             double topLevel = soilLayer.Top;
             return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
         }
 
         private static Point2D[] CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry,
-                                                                         MacroStabilityInwardsSoilLayer soilLayer,
-                                                                         MacroStabilityInwardsSoilProfile soilProfile)
+                                                                         MacroStabilityInwardsSoilLayer1D soilLayer,
+                                                                         MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             List<Point2D> surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
 
@@ -343,8 +343,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry,
-                                                                MacroStabilityInwardsSoilLayer soilLayer,
-                                                                MacroStabilityInwardsSoilProfile soilProfile)
+                                                                MacroStabilityInwardsSoilLayer1D soilLayer,
+                                                                MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             Point2D firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
             Point2D lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();

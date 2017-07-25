@@ -87,8 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string testName = "ttt";
-            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer>(10);
-            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile>(testName, 0, new[]
+            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer1D>(10);
+            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile1D>(testName, 0, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile2D, 0);
@@ -107,8 +107,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer>(10);
-            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile>("", 0, new[]
+            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer1D>(10);
+            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile1D>("", 0, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);

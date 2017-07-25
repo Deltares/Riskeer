@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as an XML document, which contains information about
-    /// the geometry of a <see cref="MacroStabilityInwardsSoilLayer"/>.
+    /// the geometry of a <see cref="MacroStabilityInwardsSoilLayer1D"/>.
     /// </summary>
     internal class SoilLayer2DReader
     {
@@ -64,10 +64,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
         /// <summary>
         /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/> as the source of the 
-        /// geometry for a <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// geometry for a <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
         /// <param name="geometry">An <see cref="Array"/> of <see cref="byte"/> which contains the information
-        /// of a <see cref="MacroStabilityInwardsSoilLayer"/> in an XML document.</param>
+        /// of a <see cref="MacroStabilityInwardsSoilLayer1D"/> in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
@@ -95,9 +95,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
         /// <summary>
         /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/> as the source of the 
-        /// geometry for a <see cref="MacroStabilityInwardsSoilLayer"/>.
+        /// geometry for a <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
-        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information of a <see cref="MacroStabilityInwardsSoilLayer"/>
+        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information of a <see cref="MacroStabilityInwardsSoilLayer1D"/>
         /// in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>

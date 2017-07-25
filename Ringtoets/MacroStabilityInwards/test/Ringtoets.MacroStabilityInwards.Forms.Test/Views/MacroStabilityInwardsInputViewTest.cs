@@ -166,14 +166,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
                     {
-                        SoilProfile = new MacroStabilityInwardsSoilProfile(
+                        SoilProfile = new MacroStabilityInwardsSoilProfile1D(
                             "profile",
                             -1,
                             new[]
                             {
-                                new MacroStabilityInwardsSoilLayer(3.0),
-                                new MacroStabilityInwardsSoilLayer(2.0),
-                                new MacroStabilityInwardsSoilLayer(0)
+                                new MacroStabilityInwardsSoilLayer1D(3.0),
+                                new MacroStabilityInwardsSoilLayer1D(2.0),
+                                new MacroStabilityInwardsSoilLayer1D(0)
                             },
                             SoilProfileType.SoilProfile1D,
                             1)
@@ -470,11 +470,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 StochasticSoilProfile soilProfile = GetStochasticSoilProfile();
                 var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
                 {
-                    SoilProfile = new MacroStabilityInwardsSoilProfile("profile", -2, new[]
+                    SoilProfile = new MacroStabilityInwardsSoilProfile1D("profile", -2, new[]
                     {
-                        new MacroStabilityInwardsSoilLayer(0),
-                        new MacroStabilityInwardsSoilLayer(2),
-                        new MacroStabilityInwardsSoilLayer(3)
+                        new MacroStabilityInwardsSoilLayer1D(0),
+                        new MacroStabilityInwardsSoilLayer1D(2),
+                        new MacroStabilityInwardsSoilLayer1D(3)
                     }, SoilProfileType.SoilProfile1D, 1)
                 };
 
@@ -704,11 +704,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             return new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile("profile", -1, new[]
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D("profile", -1, new[]
                 {
-                    new MacroStabilityInwardsSoilLayer(1),
-                    new MacroStabilityInwardsSoilLayer(3),
-                    new MacroStabilityInwardsSoilLayer(5)
+                    new MacroStabilityInwardsSoilLayer1D(1),
+                    new MacroStabilityInwardsSoilLayer1D(3),
+                    new MacroStabilityInwardsSoilLayer1D(5)
                 }, SoilProfileType.SoilProfile1D, 1)
             };
         }
@@ -811,16 +811,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
         }
 
-        private static void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
+        private static void AssertSoilProfileChartData(StochasticSoilProfile stochasticSoilProfile, ChartData chartData, bool mapDataShouldContainAreas)
         {
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;
 
-            int expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
+            MacroStabilityInwardsSoilProfile1D soilProfile = stochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            Assert.NotNull(soilProfile);
+            int expectedLayerCount = soilProfile.Layers.Count();
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
-            Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
+            Assert.AreEqual(soilProfile.Name, soilProfileChartData.Name);
 
-            string[] soilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
+            string[] soilLayers = soilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
 
             for (var i = 0; i < expectedLayerCount; i++)
             {

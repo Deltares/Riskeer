@@ -25,54 +25,54 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// A <see cref="MacroStabilityInwardsSoilProfile"/> configured to be usable immediately for testing
+    /// A <see cref="MacroStabilityInwardsSoilProfile1D"/> configured to be usable immediately for testing
     /// purposes.
     /// </summary>
-    public class TestMacroStabilityInwardsSoilProfile : MacroStabilityInwardsSoilProfile
+    public class TestMacroStabilityInwardsSoilProfile : MacroStabilityInwardsSoilProfile1D
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Name"/> set to <see cref="string.Empty"/></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Bottom"/> set to <c>0.0</c></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer"/>
-        /// with <see cref="MacroStabilityInwardsSoilLayer.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <see cref="string.Empty"/></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
+        /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         public TestMacroStabilityInwardsSoilProfile() : this("") {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Name"/> set to <paramref name="name"/></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Bottom"/> set to <c>0.0</c></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer"/>
-        /// with <see cref="MacroStabilityInwardsSoilLayer.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
+        /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
         public TestMacroStabilityInwardsSoilProfile(string name) : this(name, SoilProfileType.SoilProfile1D) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Name"/> set to <paramref name="name"/></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Bottom"/> set to <c>0.0</c></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer"/>
-        /// with <see cref="MacroStabilityInwardsSoilLayer.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile.SoilProfileType"/> set to <paramref name="soilProfileType"/>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
+        /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
         /// <param name="soilProfileType">The type of the profile.</param>
-        public TestMacroStabilityInwardsSoilProfile(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer>
+        public TestMacroStabilityInwardsSoilProfile(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
         {
-            new MacroStabilityInwardsSoilLayer(0.0)
+            new MacroStabilityInwardsSoilLayer1D(0.0)
             {
                 IsAquifer = true
             }

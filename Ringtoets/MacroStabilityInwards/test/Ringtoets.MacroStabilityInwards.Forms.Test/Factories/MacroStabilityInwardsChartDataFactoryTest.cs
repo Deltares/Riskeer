@@ -142,18 +142,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point3D(0, 0, 3.2),
                 new Point3D(2, 0, 4)
             });
-            var layers = new List<MacroStabilityInwardsSoilLayer>();
+            var layers = new List<MacroStabilityInwardsSoilLayer1D>();
             for (var i = 0; i < soilLayerIndex; i++)
             {
-                layers.Add(new MacroStabilityInwardsSoilLayer((double) i / 10));
+                layers.Add(new MacroStabilityInwardsSoilLayer1D((double) i / 10));
             }
-            layers.Add(new MacroStabilityInwardsSoilLayer(-1.0)
+            layers.Add(new MacroStabilityInwardsSoilLayer1D(-1.0)
             {
                 MaterialName = name,
                 Color = Color.Aquamarine
             });
 
-            var profile = new MacroStabilityInwardsSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
@@ -212,10 +212,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartDataCollection("test name");
-            var soilProfile = new MacroStabilityInwardsSoilProfile("soil profile name", 2.0,
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("soil profile name", 2.0,
                                                                    new[]
                                                                    {
-                                                                       new MacroStabilityInwardsSoilLayer(3.2)
+                                                                       new MacroStabilityInwardsSoilLayer1D(3.2)
                                                                    }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -233,10 +233,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Setup
             var layers = new[]
             {
-                new MacroStabilityInwardsSoilLayer(0),
-                new MacroStabilityInwardsSoilLayer(1)
+                new MacroStabilityInwardsSoilLayer1D(0),
+                new MacroStabilityInwardsSoilLayer1D(1)
             };
-            var profile = new MacroStabilityInwardsSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);

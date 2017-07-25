@@ -47,9 +47,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             double hRiverValue = random.NextDouble();
             var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            var soilProfile = new MacroStabilityInwardsSoilProfile(string.Empty, random.NextDouble(), new[]
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, random.NextDouble(), new[]
             {
-                new MacroStabilityInwardsSoilLayer(random.NextDouble())
+                new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
                     IsAquifer = true
                 }

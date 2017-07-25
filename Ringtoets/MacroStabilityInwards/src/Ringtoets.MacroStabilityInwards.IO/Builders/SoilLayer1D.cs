@@ -43,12 +43,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         public double Top { get; }
 
         /// <summary>
-        /// Constructs a (1D) <see cref="MacroStabilityInwardsSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
+        /// Constructs a (1D) <see cref="MacroStabilityInwardsSoilLayer1D"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
-        /// <returns>The <see cref="MacroStabilityInwardsSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
-        internal MacroStabilityInwardsSoilLayer AsMacroStabilityInwardsSoilLayer()
+        /// <returns>The <see cref="MacroStabilityInwardsSoilLayer1D"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
+        internal MacroStabilityInwardsSoilLayer1D AsMacroStabilityInwardsSoilLayer()
         {
-            return new MacroStabilityInwardsSoilLayer(Top)
+            return new MacroStabilityInwardsSoilLayer1D(Top)
             {
                 IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
                 MaterialName = MaterialName ?? string.Empty,

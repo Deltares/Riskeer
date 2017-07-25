@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
         /// </summary>
         public MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor()
         {
-            DisplayMember = nameof(MacroStabilityInwardsSoilProfile.Name);
+            DisplayMember = nameof(MacroStabilityInwardsSoilProfile1D.Name);
         }
 
         protected override IEnumerable<StochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)

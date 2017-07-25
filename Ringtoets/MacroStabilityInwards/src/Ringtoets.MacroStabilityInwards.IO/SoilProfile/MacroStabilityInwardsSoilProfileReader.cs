@@ -34,7 +34,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="MacroStabilityInwardsSoilProfile"/> instances from this database.
+    /// This class reads a SqLite database file and constructs <see cref="MacroStabilityInwardsSoilProfile1D"/> instances from this database.
     /// </summary>
     public class MacroStabilityInwardsSoilProfileReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
@@ -75,12 +75,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next profile from the database and creates a 
-        /// <see cref="MacroStabilityInwardsSoilProfile"/> instance of the information.
+        /// <see cref="MacroStabilityInwardsSoilProfile1D"/> instance of the information.
         /// </summary>
-        /// <returns>The next <see cref="MacroStabilityInwardsSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
+        /// <returns>The next <see cref="MacroStabilityInwardsSoilProfile1D"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="MacroStabilityInwardsSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
-        public MacroStabilityInwardsSoilProfile ReadProfile()
+        public MacroStabilityInwardsSoilProfile1D ReadProfile()
         {
             if (!HasNext)
             {
@@ -159,12 +159,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads a <see cref="MacroStabilityInwardsSoilProfile"/> from the database.
+        /// Reads a <see cref="MacroStabilityInwardsSoilProfile1D"/> from the database.
         /// </summary>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         /// <exception cref="MacroStabilityInwardsSoilProfileReadException">Thrown when a recoverable error occurred while reading from the database.</exception>
         /// <exception cref="InvalidCastException">Thrown when recovering from the <see cref="MacroStabilityInwardsSoilProfileReadException"/> failed.</exception>
-        private MacroStabilityInwardsSoilProfile ReadMacroStabilityInwardsSoilProfile()
+        private MacroStabilityInwardsSoilProfile1D ReadMacroStabilityInwardsSoilProfile()
         {
             try
             {

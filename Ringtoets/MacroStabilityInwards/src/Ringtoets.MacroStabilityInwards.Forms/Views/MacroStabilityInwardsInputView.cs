@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private MacroStabilityInwardsCalculationScenario data;
 
-        private MacroStabilityInwardsSoilProfile currentSoilProfile;
+        private MacroStabilityInwardsSoilProfile1D currentSoilProfile;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void UpdateTableData()
         {
-            soilLayerTable.SetData(data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers);
+            soilLayerTable.SetData(((MacroStabilityInwardsSoilProfile1D)data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers);
         }
 
         private void SetChartData()
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetSoilProfileChartData()
         {
-            MacroStabilityInwardsSoilProfile soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
+            MacroStabilityInwardsSoilProfile1D soilProfile = (MacroStabilityInwardsSoilProfile1D)data.InputParameters.StochasticSoilProfile?.SoilProfile;
 
             // If necessary, regenerate all soil layer chart data
             if (!ReferenceEquals(currentSoilProfile, soilProfile))
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
 
             // Update the areas of all soil layer chart data
-            IList<MacroStabilityInwardsSoilLayer> soilLayers = GetSoilLayers();
+            IList<MacroStabilityInwardsSoilLayer1D> soilLayers = GetSoilLayers();
 
             for (var i = 0; i < soilLayers.Count; i++)
             {
@@ -240,9 +240,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
         }
 
-        private IList<MacroStabilityInwardsSoilLayer> GetSoilLayers()
+        private IList<MacroStabilityInwardsSoilLayer1D> GetSoilLayers()
         {
-            return data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers.ToList() ?? new List<MacroStabilityInwardsSoilLayer>();
+            return ((MacroStabilityInwardsSoilProfile1D)data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers.ToList() ?? new List<MacroStabilityInwardsSoilLayer1D>();
         }
     }
 }

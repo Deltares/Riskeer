@@ -21,67 +21,30 @@
 
 using System;
 using System.Drawing;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilLayerTest
+    public class MacroStabilityInwardsSoilLayer2DTest
     {
         [Test]
-        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
+        public void DefaultConstructor_ReturnsNewInstance()
         {
-            // Setup
-            double top = new Random(22).NextDouble();
-
             // Call
-            var layer = new MacroStabilityInwardsSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer2D();
 
             // Assert
             Assert.NotNull(layer);
-            Assert.AreEqual(top, layer.Top);
-            Assert.IsFalse(layer.IsAquifer);
-            Assert.IsEmpty(layer.MaterialName);
-            Assert.AreEqual(Color.Empty, layer.Color);
-
-            Assert.IsFalse(layer.UsePop);
-            Assert.AreEqual(ShearStrengthModel.None, layer.ShearStrengthModel);
-
-            Assert.IsNaN(layer.AbovePhreaticLevelMean);
-            Assert.IsNaN(layer.AbovePhreaticLevelDeviation);
-
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-
-            Assert.IsNaN(layer.CohesionMean);
-            Assert.IsNaN(layer.CohesionDeviation);
-            Assert.IsNaN(layer.CohesionShift);
-
-            Assert.IsNaN(layer.FrictionAngleMean);
-            Assert.IsNaN(layer.FrictionAngleDeviation);
-            Assert.IsNaN(layer.FrictionAngleShift);
-
-            Assert.IsNaN(layer.ShearStrengthRatioMean);
-            Assert.IsNaN(layer.ShearStrengthRatioDeviation);
-            Assert.IsNaN(layer.ShearStrengthRatioShift);
-
-            Assert.IsNaN(layer.StrengthIncreaseExponentMean);
-            Assert.IsNaN(layer.StrengthIncreaseExponentDeviation);
-            Assert.IsNaN(layer.StrengthIncreaseExponentShift);
-
-            Assert.IsNaN(layer.PopMean);
-            Assert.IsNaN(layer.PopDeviation);
-            Assert.IsNaN(layer.PopShift);
+            Assert.NotNull(layer.Properties);
         }
 
         [Test]
         public void MaterialName_Null_ThrowsArgumentNullException()
         {
             // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer2D();
 
             // Call
             TestDelegate test = () => layer.MaterialName = null;
@@ -97,8 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void MaterialName_NotNullValue_ValueSet(string materialName)
         {
             // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer2D();
 
             // Call
             layer.MaterialName = materialName;
@@ -111,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer layer = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
 
             // Call
             bool areEqual = layer.Equals(null);
@@ -122,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer layer, MacroStabilityInwardsSoilLayer otherLayer, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsSoilLayer2D otherLayer, bool expectedEqual)
         {
             // Call
             bool areEqualOne = layer.Equals(otherLayer);
@@ -135,9 +97,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private static TestCaseData[] LayerCombinations()
         {
-            MacroStabilityInwardsSoilLayer layerA = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer layerB = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer layerC = CreateRandomLayer(73);
+            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer2D layerC = CreateRandomLayer(73);
 
             return new[]
             {
@@ -160,12 +122,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
         }
 
-        private static MacroStabilityInwardsSoilLayer CreateRandomLayer(int randomSeed)
+        private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new MacroStabilityInwardsSoilLayer(random.NextDouble())
+            return new MacroStabilityInwardsSoilLayer2D
             {
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
+                Properties =
+                {
+                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
+                }
             };
         }
     }

@@ -566,9 +566,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SoilLayerNull_ReturnsEmptyAreasCollection()
         {
             // Setup
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", 2.0, new[]
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
-                new MacroStabilityInwardsSoilLayer(3.2)
+                new MacroStabilityInwardsSoilLayer1D(3.2)
             }, SoilProfileType.SoilProfile1D, 0);
             RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
@@ -583,7 +583,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SoilProfileNull_ReturnsEmptyAreasCollection()
         {
             // Setup
-            var soilLayer = new MacroStabilityInwardsSoilLayer(3.2);
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
             RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
@@ -597,8 +597,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineNull_ReturnsEmptyAreasCollection()
         {
             // Setup
-            var soilLayer = new MacroStabilityInwardsSoilLayer(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", 2.0, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -621,8 +621,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point3D(0, 0, 3.2),
                 new Point3D(2, 0, 4)
             });
-            var soilLayer = new MacroStabilityInwardsSoilLayer(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", 2.0, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -651,8 +651,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point3D(0, 0, 2.0),
                 new Point3D(2, 0, 2.0)
             });
-            var soilLayer = new MacroStabilityInwardsSoilLayer(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", 2.0, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -677,8 +677,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
             const double bottom = 1.5;
             const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", bottom, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -715,8 +715,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
             const double bottom = 1.5;
             const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", bottom, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -751,8 +751,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
             const double bottom = 1.5;
             const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", bottom, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -786,8 +786,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
             const double bottom = 1.5;
             const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", bottom, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
@@ -821,8 +821,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
             const int bottom = 1;
             const int top = 3;
-            var soilLayer = new MacroStabilityInwardsSoilLayer(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile("name", bottom, new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);

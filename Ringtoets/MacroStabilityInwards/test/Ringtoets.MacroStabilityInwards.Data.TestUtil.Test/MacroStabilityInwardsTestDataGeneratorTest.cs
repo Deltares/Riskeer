@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
@@ -221,8 +222,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 if (hasSoilProfile)
                 {
                     Assert.IsNotNull(calculation.InputParameters.StochasticSoilProfile);
-                    Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
-                    Assert.AreEqual(1, calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers.Count());
+                    var soilProfile = calculation.InputParameters.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+                    Assert.NotNull(soilProfile);
+                    Assert.AreEqual("W1-6_0_1D1", soilProfile.Name);
+                    Assert.AreEqual(1, soilProfile.Layers.Count());
                 }
                 else
                 {

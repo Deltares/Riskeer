@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             // Setup
             double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer1D(top);
 
             // Call
             TestDelegate test = () => layer.MaterialName = null;
@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             // Setup
             double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer(top);
+            var layer = new MacroStabilityInwardsSoilLayer1D(top);
 
             // Call
             layer.MaterialName = materialName;
