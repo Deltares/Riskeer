@@ -165,9 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var random = new Random(randomSeed);
             return new MacroStabilityInwardsSoilLayer(random.NextDouble())
             {
-                MaterialName = string.Join("", Enumerable.Repeat('x', random.Next(0, 40))),
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                IsAquifer = random.NextBoolean()
+                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
             };
         }
     }

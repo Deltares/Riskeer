@@ -67,5 +67,73 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double PopMean { get; set; } = double.NaN;
         public double PopDeviation { get; set; } = double.NaN;
         public double PopShift { get; set; } = double.NaN;
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((SoilLayerProperties) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = StringComparer.InvariantCulture.GetHashCode(materialName);
+                hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
+                hashCode = (hashCode * 397) ^ Color.GetHashCode();
+                hashCode = (hashCode * 397) ^ UsePop.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int) ShearStrengthModel;
+                hashCode = (hashCode * 397) ^ AbovePhreaticLevelMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ AbovePhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ CohesionMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ CohesionDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ CohesionShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrictionAngleMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrictionAngleDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrictionAngleShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShearStrengthRatioMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShearStrengthRatioDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShearStrengthRatioShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ PopMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ PopDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PopShift.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        private bool Equals(SoilLayerProperties other)
+        {
+            return string.Equals(materialName, other.materialName, StringComparison.InvariantCulture)
+                   && IsAquifer == other.IsAquifer
+                   && Color.Equals(other.Color)
+                   && UsePop == other.UsePop
+                   && ShearStrengthModel == other.ShearStrengthModel
+                   && AbovePhreaticLevelMean.Equals(other.AbovePhreaticLevelMean)
+                   && AbovePhreaticLevelDeviation.Equals(other.AbovePhreaticLevelDeviation)
+                   && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
+                   && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
+                   && CohesionMean.Equals(other.CohesionMean)
+                   && CohesionDeviation.Equals(other.CohesionDeviation)
+                   && CohesionShift.Equals(other.CohesionShift)
+                   && FrictionAngleMean.Equals(other.FrictionAngleMean)
+                   && FrictionAngleDeviation.Equals(other.FrictionAngleDeviation)
+                   && FrictionAngleShift.Equals(other.FrictionAngleShift)
+                   && ShearStrengthRatioMean.Equals(other.ShearStrengthRatioMean)
+                   && ShearStrengthRatioDeviation.Equals(other.ShearStrengthRatioDeviation)
+                   && ShearStrengthRatioShift.Equals(other.ShearStrengthRatioShift)
+                   && StrengthIncreaseExponentMean.Equals(other.StrengthIncreaseExponentMean)
+                   && StrengthIncreaseExponentDeviation.Equals(other.StrengthIncreaseExponentDeviation)
+                   && StrengthIncreaseExponentShift.Equals(other.StrengthIncreaseExponentShift)
+                   && PopMean.Equals(other.PopMean)
+                   && PopDeviation.Equals(other.PopDeviation)
+                   && PopShift.Equals(other.PopShift);
+        }
     }
 }
