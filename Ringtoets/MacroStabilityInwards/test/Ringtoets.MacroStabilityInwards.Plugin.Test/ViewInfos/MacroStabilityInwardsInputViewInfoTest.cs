@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(calculationInputContext);
 
             // Assert
-            Assert.AreEqual(calculation, viewData);
+            Assert.AreSame(calculation, viewData);
             mocks.VerifyAll();
         }
 

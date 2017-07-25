@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(scenariosContext);
 
             // Assert
-            Assert.AreEqual(calculationsGroup, viewData);
+            Assert.AreSame(calculationsGroup, viewData);
         }
 
         [Test]

@@ -120,6 +120,7 @@
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DesignWaterLevelLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\TechnicalInnovationResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MicrostabilityResultViewInfoTest.cs" />

@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             // Call & Assert
-            Assert.AreEqual(calculationGroup, info.GetViewData(calculationGroupContext));
+            Assert.AreSame(calculationGroup, info.GetViewData(calculationGroupContext));
             mocks.VerifyAll();
         }
 

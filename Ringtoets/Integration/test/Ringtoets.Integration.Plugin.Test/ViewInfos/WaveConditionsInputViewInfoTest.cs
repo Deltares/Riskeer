@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreEqual(calculation, viewData);
+            Assert.AreSame(calculation, viewData);
         }
 
         [Test]

@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(pipingScenariosContext);
 
             // Assert
-            Assert.AreEqual(pipingCalculationsGroup, viewData);
+            Assert.AreSame(pipingCalculationsGroup, viewData);
         }
 
         [Test]
