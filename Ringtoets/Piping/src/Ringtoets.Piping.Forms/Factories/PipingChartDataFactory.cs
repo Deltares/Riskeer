@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateSurfaceLineChartData"/>) when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
+        /// <remarks>A default name is set when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
         public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, RingtoetsPipingSurfaceLine surfaceLine)
         {
             chartData.Name = surfaceLine != null
@@ -104,8 +104,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
         /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when
-        /// <paramref name="soilProfile"/> is <c>null</c>.</remarks>
+        /// <remarks>A default name is set when <paramref name="soilProfile"/> is <c>null</c>.</remarks>
         public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, PipingSoilProfile soilProfile)
         {
             chartData.Name = soilProfile != null

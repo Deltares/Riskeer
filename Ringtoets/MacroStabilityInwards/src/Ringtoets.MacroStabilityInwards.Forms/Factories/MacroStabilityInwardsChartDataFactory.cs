@@ -43,7 +43,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartPointData CreateShoulderBaseInsideChartData()
         {
             return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside,
-                                      GetCharacteristicPointStyle(Color.BlueViolet, Color.SeaGreen, ChartPointSymbol.Triangle));
+                                      GetCharacteristicPointStyle(Color.BlueViolet,
+                                                                  Color.SeaGreen,
+                                                                  ChartPointSymbol.Triangle));
         }
 
         /// <summary>
@@ -160,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateSurfaceLineChartData"/>) when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
+        /// <remarks>A default name is set when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
         public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
             chartData.Name = surfaceLine != null
@@ -173,8 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
         /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when
-        /// <paramref name="soilProfile"/> is <c>null</c>.</remarks>
+        /// <remarks>A default name is set when <paramref name="soilProfile"/> is <c>null</c>.</remarks>
         public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, MacroStabilityInwardsSoilProfile1D soilProfile)
         {
             chartData.Name = soilProfile != null
