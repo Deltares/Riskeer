@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
@@ -32,7 +31,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
     public class SurfaceLineExtensionsTest
     {
         [Test]
-        public void CheckReferenceLineInterSections_WithoutSurfaceLine_ThrowsArgumentNullException()
+        public void GetSingleReferenceLineInterSection_WithoutSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((SurfaceLine) null).GetSingleReferenceLineInterSection(new ReferenceLine());
@@ -43,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_WithoutReferenceLine_ThrowsArgumentNullException()
+        public void GetSingleReferenceLineInterSection_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new SurfaceLine().GetSingleReferenceLineInterSection(null);
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineThroughReferenceLine_ReturnIntersectionPoint()
+        public void GetSingleReferenceLineInterSection_SurfaceLineThroughReferenceLine_ReturnIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -83,7 +82,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineThroughReferenceLinePoint_ReturnIntersectionPoint()
+        public void GetSingleReferenceLineInterSection_SurfaceLineThroughReferenceLinePoint_ReturnIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -113,7 +112,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformerException()
+        public void GetSingleReferenceLineInterSection_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -143,7 +142,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimesInSamePoint_ReturnsIntersectionPoint()
+        public void GetSingleReferenceLineInterSection_SurfaceLineIntersectsReferenceLineMultipleTimesInSamePoint_ReturnsIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -157,7 +156,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             {
                 new Point3D(1.0, 5.0, 2.1),
                 new Point3D(1.0, 3.0, 2.1),
-                new Point3D(1.0, 5.0, 2.1) 
+                new Point3D(1.0, 5.0, 2.1)
             });
             referenceLine.SetGeometry(new[]
             {
@@ -174,7 +173,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void CheckReferenceLineInterSections_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformerException()
+        public void GetSingleReferenceLineInterSection_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();

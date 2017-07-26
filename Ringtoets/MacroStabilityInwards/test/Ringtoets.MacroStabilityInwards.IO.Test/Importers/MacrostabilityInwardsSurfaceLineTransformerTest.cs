@@ -126,7 +126,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineNotOnReferenceLine_LogErrorAndReturnNull()
+        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -157,7 +157,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_LogErrorAndReturnNull()
+        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -323,7 +323,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(MoveMandatoryCharacteristicPoint))]
-        public void Transform_MandatoryCharacteristicPointNotOnSurfaceLine_LogErrorAndReturnNull(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        public void Transform_MandatoryCharacteristicPointNotOnSurfaceLine_ThrowsSurfaceLineTransformException(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsMacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -375,15 +375,14 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
                 new Point2D(6.8, 15)
             });
 
-
             // Call
             TestDelegate test = () => transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
             var exception = Assert.Throws<SurfaceLineTransformException>(test);
-            var message = $"Profielschematisatie '{locationName}' kan niet gebruikt worden. " +
-                          $"De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als \'{changedCharacteristicPointName}\' in te stellen. " +
-                          "Dit karakteristieke punt is verplicht.";
+            string message = $"Profielschematisatie '{locationName}' kan niet gebruikt worden. " +
+                             $"De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als \'{changedCharacteristicPointName}\' in te stellen. " +
+                             "Dit karakteristieke punt is verplicht.";
             Assert.AreEqual(message, exception.Message);
         }
     }

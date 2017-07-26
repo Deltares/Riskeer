@@ -34,151 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
     [TestFixture]
     public class RingtoetsMacroStabilityInwardsSurfaceLineExtensionsTest
     {
-        [Test]
-        public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var points = new CharacteristicPoints("swapped dike toes")
-            {
-                DikeToeAtPolder = new Point3D(3, 2, 5),
-                DikeToeAtRiver = new Point3D(3.4, 3, 8),
-                DitchDikeSide = new Point3D(4.4, 6, 8),
-                BottomDitchDikeSide = new Point3D(5.1, 6, 6.5),
-                BottomDitchPolderSide = new Point3D(8.5, 7.2, 4.2),
-                DitchPolderSide = new Point3D(9.6, 7.5, 3.9)
-            };
-
-            // Call
-            TestDelegate test = () => ((RingtoetsMacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(points);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("surfaceLine", exception.ParamName);
-        }
-
-        [Test]
-        public void SetCharacteristicPoints_CharacteristicPointsNull_ThrowsSurfaceLineTransformException()
-        {
-            // Setup
-            const string name = "some line name";
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine()
-            {
-                Name = name
-            };
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3, 2, 5),
-                new Point3D(3.4, 3, 8),
-                new Point3D(4.4, 6, 8),
-                new Point3D(5.1, 6, 6.5),
-                new Point3D(8.5, 7.2, 4.2),
-                new Point3D(9.6, 7.5, 3.9)
-            });
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(null);
-
-            // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
-            Assert.AreEqual($"Karakteristieke punten definitie voor profielschematisatie '{name}' is verplicht.", exception.Message);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DifferentValidCharacteristicPointConfigurations))]
-        public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
-
-            // Call
-            surfaceLine.SetCharacteristicPoints(points);
-
-            // Assert
-            Assert.AreEqual(points.DikeTopAtPolder, surfaceLine.DikeTopAtPolder);
-            Assert.AreEqual(points.ShoulderBaseInside, surfaceLine.ShoulderBaseInside);
-            Assert.AreEqual(points.ShoulderTopInside, surfaceLine.ShoulderTopInside);
-            Assert.AreEqual(points.TrafficLoadOutside, surfaceLine.TrafficLoadOutside);
-            Assert.AreEqual(points.TrafficLoadInside, surfaceLine.TrafficLoadInside);
-            Assert.AreEqual(points.SurfaceLevelOutside, surfaceLine.SurfaceLevelOutside);
-            Assert.AreEqual(points.SurfaceLevelInside, surfaceLine.SurfaceLevelInside);
-            Assert.AreEqual(points.DikeToeAtRiver, surfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(points.DikeToeAtPolder, surfaceLine.DikeToeAtPolder);
-            Assert.AreEqual(points.DitchDikeSide, surfaceLine.DitchDikeSide);
-            Assert.AreEqual(points.BottomDitchDikeSide, surfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(points.BottomDitchPolderSide, surfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(points.DitchPolderSide, surfaceLine.DitchPolderSide);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DifferentCharacteristicPointWithMissingMandatoryPointConfigurations))]
-        public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsExceptionWithMessage(CharacteristicPoints points, string pointDescription)
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                Name = points.Name
-            };
-            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
-
-            // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
-            var message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. Karakteristiek punt \'{pointDescription}\' is niet gedefiniëerd. Dit karakteristieke punt is verplicht.";
-            Assert.AreEqual(message, exception.Message);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DifferentCharacteristicPointWithMandatoryPointNotOnSurfaceLineConfigurations))]
-        public void SetCharacteristicPoints_MandatoryPointNotOnSurfaceLine_ThrowsExceptionWithMessage(
-            CharacteristicPoints points,
-            Action<CharacteristicPoints, Point3D> setPoint,
-            string pointDescription)
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
-            {
-                Name = points.Name
-            };
-            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
-
-            var changedPoint = new Point3D(-1, -1, -1);
-            setPoint(points, changedPoint);
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
-
-            // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
-            var message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. " +
-                          $"De geometrie bevat geen punt op locatie {changedPoint} om als \'{pointDescription}\' in te stellen. " +
-                          "Dit karakteristieke punt is verplicht.";
-            Assert.AreEqual(message, exception.Message);
-        }
-
-        private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
-        {
-            return new[]
-            {
-                points.DikeTopAtPolder,
-                points.ShoulderBaseInside,
-                points.ShoulderTopInside,
-                points.TrafficLoadOutside,
-                points.TrafficLoadInside,
-                points.SurfaceLevelOutside,
-                points.SurfaceLevelInside,
-                points.DikeToeAtRiver,
-                points.DikeToeAtPolder,
-                points.DitchDikeSide,
-                points.BottomDitchDikeSide,
-                points.BottomDitchPolderSide,
-                points.DitchPolderSide
-            }.Where(p => p != null);
-        }
-
-        private static IEnumerable<TestCaseData> DifferentCharacteristicPointWithMissingMandatoryPointConfigurations
+        private static IEnumerable<TestCaseData> DifferentCharacteristicPointConfigurationsWithMissingMandatoryPoint
         {
             get
             {
@@ -209,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             }
         }
 
-        private static IEnumerable<TestCaseData> DifferentCharacteristicPointWithMandatoryPointNotOnSurfaceLineConfigurations
+        private static IEnumerable<TestCaseData> DifferentCharacteristicPointConfigurationsWithMandatoryPointNotOnSurfaceLine
         {
             get
             {
@@ -298,6 +154,139 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                 set.DitchPolderSide = null;
                 yield return new TestCaseData(set).SetName(name);
             }
+        }
+
+        [Test]
+        public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((RingtoetsMacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void SetCharacteristicPoints_CharacteristicPointsNull_ThrowsSurfaceLineTransformException()
+        {
+            // Setup
+            const string name = "Some line name";
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                Name = name
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3, 2, 5),
+                new Point3D(3.4, 3, 8),
+                new Point3D(4.4, 6, 8),
+                new Point3D(5.1, 6, 6.5),
+                new Point3D(8.5, 7.2, 4.2),
+                new Point3D(9.6, 7.5, 3.9)
+            });
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(null);
+
+            // Assert
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual($"Karakteristieke punten definitie voor profielschematisatie '{name}' is verplicht.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentValidCharacteristicPointConfigurations))]
+        public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
+
+            // Call
+            surfaceLine.SetCharacteristicPoints(points);
+
+            // Assert
+            Assert.AreEqual(points.DikeTopAtPolder, surfaceLine.DikeTopAtPolder);
+            Assert.AreEqual(points.ShoulderBaseInside, surfaceLine.ShoulderBaseInside);
+            Assert.AreEqual(points.ShoulderTopInside, surfaceLine.ShoulderTopInside);
+            Assert.AreEqual(points.TrafficLoadOutside, surfaceLine.TrafficLoadOutside);
+            Assert.AreEqual(points.TrafficLoadInside, surfaceLine.TrafficLoadInside);
+            Assert.AreEqual(points.SurfaceLevelOutside, surfaceLine.SurfaceLevelOutside);
+            Assert.AreEqual(points.SurfaceLevelInside, surfaceLine.SurfaceLevelInside);
+            Assert.AreEqual(points.DikeToeAtRiver, surfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(points.DikeToeAtPolder, surfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(points.DitchDikeSide, surfaceLine.DitchDikeSide);
+            Assert.AreEqual(points.BottomDitchDikeSide, surfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(points.BottomDitchPolderSide, surfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(points.DitchPolderSide, surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentCharacteristicPointConfigurationsWithMissingMandatoryPoint))]
+        public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsSurfaceLineTransformException(CharacteristicPoints points, string pointDescription)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                Name = points.Name
+            };
+            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+
+            // Assert
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. Karakteristiek punt \'{pointDescription}\' is niet gedefiniëerd. Dit karakteristieke punt is verplicht.";
+            Assert.AreEqual(message, exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentCharacteristicPointConfigurationsWithMandatoryPointNotOnSurfaceLine))]
+        public void SetCharacteristicPoints_MandatoryPointNotOnSurfaceLine_ThrowsSurfaceLineTransformException(
+            CharacteristicPoints points,
+            Action<CharacteristicPoints, Point3D> setPoint,
+            string pointDescription)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            {
+                Name = points.Name
+            };
+            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
+
+            var changedPoint = new Point3D(-1, -1, -1);
+            setPoint(points, changedPoint);
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+
+            // Assert
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. " +
+                             $"De geometrie bevat geen punt op locatie {changedPoint} om als \'{pointDescription}\' in te stellen. " +
+                             "Dit karakteristieke punt is verplicht.";
+            Assert.AreEqual(message, exception.Message);
+        }
+
+        private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
+        {
+            return new[]
+            {
+                points.DikeTopAtPolder,
+                points.ShoulderBaseInside,
+                points.ShoulderTopInside,
+                points.TrafficLoadOutside,
+                points.TrafficLoadInside,
+                points.SurfaceLevelOutside,
+                points.SurfaceLevelInside,
+                points.DikeToeAtRiver,
+                points.DikeToeAtPolder,
+                points.DitchDikeSide,
+                points.BottomDitchDikeSide,
+                points.BottomDitchPolderSide,
+                points.DitchPolderSide
+            }.Where(p => p != null);
         }
 
         private static CharacteristicPoints CreateCompleteCharacteristicPointSet(string name)

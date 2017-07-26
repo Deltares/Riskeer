@@ -410,7 +410,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Determines whether objects are copies of eachother by verifying that they are
+        /// Determines whether objects are copies of each other by verifying that they are
         /// equal, but not the same.
         /// </summary>
         /// <param name="objectA">The object which should be equal, but not same as <paramref name="objectB"/>.</param>

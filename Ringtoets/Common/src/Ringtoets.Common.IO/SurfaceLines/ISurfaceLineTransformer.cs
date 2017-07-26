@@ -26,14 +26,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
     /// <summary>
     /// Interface for transforming generic surface lines into mechanism specific surface lines.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the mechanism specific surface line.</typeparam>
     public interface ISurfaceLineTransformer<out T> where T : IMechanismSurfaceLine
     {
         /// <summary>
         /// Transforms the generic <paramref name="surfaceLine"/> into a mechanism specific surface line
         /// of type <typeparamref name="T"/>.
         /// </summary>
-        /// <param name="surfaceLine">The surface line to use in the tranformation.</param>
+        /// <param name="surfaceLine">The surface line to use in the transformation.</param>
         /// <param name="characteristicPoints">The characteristic points to use in the transformation.</param>
         /// <returns>A new <typeparamref name="T"/> based on the given data.</returns>
         /// <exception cref="SurfaceLineTransformException">Thrown when transformation would not result

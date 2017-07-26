@@ -132,6 +132,7 @@
     <Compile Include="Configurations\Helpers\XmlWriterExtensionsTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
+    <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfigurationTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLineTransformExceptionTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLineExtensionsTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterTest.cs" />

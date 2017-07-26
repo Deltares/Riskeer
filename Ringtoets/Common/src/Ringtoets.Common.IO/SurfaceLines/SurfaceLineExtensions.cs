@@ -45,13 +45,19 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         /// <summary>
         /// Finds out if there is an intersection of the <paramref name="surfaceLine"/> and
-        /// the <paramref name="referenceLine"/>
+        /// the <paramref name="referenceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="referenceLine">The reference line.</param>
         /// <returns>A new <see cref="ReferenceLineIntersectionResult"/> with a type of intersection and
         /// possibly an intersection point, if there was only one found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="SurfaceLineTransformException">Thrown when the surface line:
+        /// <list type="bullet">
+        /// <item>has no intersections with the reference line;</item>
+        /// <item>has more than one intersection with the reference line.</item>
+        /// </list>
+        /// </exception>
         public static Point2D GetSingleReferenceLineInterSection(this SurfaceLine surfaceLine, ReferenceLine referenceLine)
         {
             if (surfaceLine == null)
@@ -67,14 +73,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.NoIntersections)
             {
-                string message = string.Format(Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
-                                              surfaceLine.Name,
-                                              Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
+                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
+                                               surfaceLine.Name,
+                                               Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_This_could_be_caused_coordinates_being_local_coordinate_system);
                 throw new SurfaceLineTransformException(message);
             }
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
-                string message = string.Format(Resources.SurfaceLineExtensions_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
+                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_Surfaceline_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
                 throw new SurfaceLineTransformException(message);
             }
 

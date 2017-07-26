@@ -152,36 +152,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surf" +
-                        "aceline_0_does_not_correspond_to_current_referenceline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surf" +
-                        "aceline_0_does_not_correspond_to_current_referenceline_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This" +
-                        "_could_be_caused_coordinates_being_local_coordinate_system", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Het bestand wordt overgeslagen..
         /// </summary>

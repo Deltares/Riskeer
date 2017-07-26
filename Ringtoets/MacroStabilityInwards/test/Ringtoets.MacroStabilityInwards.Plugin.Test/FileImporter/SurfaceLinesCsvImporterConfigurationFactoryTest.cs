@@ -23,9 +23,9 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
+using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
     public class SurfaceLinesCsvImporterConfigurationFactoryTest
     {
         [Test]
-        public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdaterAndTransformerForMacroStabilityInwards()
+        public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdateStrategyAndTransformerForMacroStabilityInwards()
         {
             // Call
             SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineTransformer>(result.Transformer);
-            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineUpdateDataStrategy>(result.UpdateUpdateStrategy);
+            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineUpdateDataStrategy>(result.UpdateStrategy);
         }
 
         [Test]
@@ -66,17 +66,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CreateReplaceStrategyConfiguration_Always_ReturnsUpdaterAndTransformerForMacroStabilityInwards()
+        public void CreateReplaceStrategyConfiguration_Always_ReturnsReplaceStrategyAndTransformerForMacroStabilityInwards()
         {
-            // Setup
-
             // Call
             SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineTransformer>(result.Transformer);
-            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineReplaceDataStrategy>(result.UpdateUpdateStrategy);
+            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineReplaceDataStrategy>(result.UpdateStrategy);
         }
 
         [Test]

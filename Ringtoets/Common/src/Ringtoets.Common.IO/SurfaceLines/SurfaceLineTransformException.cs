@@ -21,7 +21,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using Core.Common.IO.Exceptions;
 
 namespace Ringtoets.Common.IO.SurfaceLines
 {
@@ -51,7 +50,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public SurfaceLineTransformException(string message, Exception inner) : base(message, inner) { }
+        public SurfaceLineTransformException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
         /// Initializes a new instance of <see cref="SurfaceLineTransformException"/> with
@@ -64,6 +63,6 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected SurfaceLineTransformException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected SurfaceLineTransformException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

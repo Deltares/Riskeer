@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 throw new ArgumentNullException(nameof(configuration));
             }
             this.messageProvider = messageProvider;
-            surfaceLineUpdateStrategy = configuration.UpdateUpdateStrategy;
+            surfaceLineUpdateStrategy = configuration.UpdateStrategy;
             updatedInstances = Enumerable.Empty<IObservable>();
             surfaceLineTransformer = configuration.Transformer;
         }

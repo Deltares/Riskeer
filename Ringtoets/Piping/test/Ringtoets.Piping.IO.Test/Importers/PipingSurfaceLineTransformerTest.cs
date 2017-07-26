@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.IO.Importers;
@@ -85,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineNotOnReferenceLine_LogErrorAndReturnNull()
+        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -116,7 +115,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_LogErrorAndReturnNull()
+        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -187,7 +186,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         [TestCase(2.0)]
         [TestCase(3.0)]
         [TestCase(3.5)]
-        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_ThrowsException(double xDikeToePolder)
+        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_ThrowsSurfaceLineTransformException(double xDikeToePolder)
         {
             // Setup
             var referenceLine = new ReferenceLine();

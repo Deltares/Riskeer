@@ -27,6 +27,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
     /// <summary>
     /// Configuration of the used components in <see cref="SurfaceLinesCsvImporter{T}"/>.
     /// </summary>
+    /// <typeparam name="T">The type of the mechanism specific surface line.</typeparam>
     public class SurfaceLinesCsvImporterConfiguration<T> where T : IMechanismSurfaceLine
     {
         /// <summary>
@@ -46,14 +47,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(transformer));
             }
-            UpdateUpdateStrategy = updateStrategy;
+            UpdateStrategy = updateStrategy;
             Transformer = transformer;
         }
 
         /// <summary>
         /// Gets the strategy for updating the data model with the mechanism specific surface lines.
         /// </summary>
-        public ISurfaceLineUpdateDataStrategy<T> UpdateUpdateStrategy { get; }
+        public ISurfaceLineUpdateDataStrategy<T> UpdateStrategy { get; }
 
         /// <summary>
         /// Gets the transformer used for transforming generic surface lines into mechanism specific

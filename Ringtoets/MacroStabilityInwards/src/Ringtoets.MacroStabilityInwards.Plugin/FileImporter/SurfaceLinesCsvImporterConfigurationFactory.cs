@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         /// <summary>
         /// Creates a configuration to replace the current surface lines on <see cref="failureMechanism"/> with imported surface lines.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanisms to replace the surface lines for.</param>
+        /// <param name="failureMechanism">The failure mechanism to replace the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the replace operation.</returns>
         public static SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> CreateReplaceStrategyConfiguration(MacroStabilityInwardsFailureMechanism failureMechanism, ReferenceLine referenceLine)
@@ -48,13 +48,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         /// <summary>
         /// Creates a configuration to update the current surface lines on <see cref="failureMechanism"/> with imported surface lines.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanisms to update the surface lines for.</param>
+        /// <param name="failureMechanism">The failure mechanism to update the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the update operation.</returns>
         public static SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> CreateUpdateStrategyConfiguration(MacroStabilityInwardsFailureMechanism failureMechanism, ReferenceLine referenceLine)
         {
             return new SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine>(
                 new MacroStabilityInwardsSurfaceLineTransformer(referenceLine),
-                new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism));}
+                new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism));
+        }
     }
 }

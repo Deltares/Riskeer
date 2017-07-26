@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
@@ -33,7 +32,6 @@ namespace Ringtoets.Piping.IO.Importers
     /// </summary>
     public class PipingSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsPipingSurfaceLine>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLineTransformer));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -41,6 +39,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="referenceLine">The reference line to determine locations for the surface
         /// lines for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
         public PipingSurfaceLineTransformer(ReferenceLine referenceLine)
         {
             if (referenceLine == null)

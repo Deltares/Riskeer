@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <summary>
         /// Creates a configuration to replace the current surface lines on <see cref="failureMechanism"/> with imported surface lines.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanisms to replace the surface lines for.</param>
+        /// <param name="failureMechanism">The failure mechanism to replace the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the replace operation.</returns>
         public static SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> CreateReplaceStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <summary>
         /// Creates a configuration to update the current surface lines on <see cref="failureMechanism"/> with imported surface lines.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanisms to update the surface lines for.</param>
+        /// <param name="failureMechanism">The failure mechanism to update the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the update operation.</returns>
         public static SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> CreateUpdateStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)

@@ -35,7 +35,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// Definition of a surfaceline for macro stability inwards.
+    /// Definition of a surface line for macro stability inwards.
     /// </summary>
     public class RingtoetsMacroStabilityInwardsSurfaceLine : Observable, IMechanismSurfaceLine
     {
@@ -53,22 +53,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the name of the surfaceline.
+        /// Gets or sets the name of the surface line.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the 3D points describing its geometry.
+        /// Gets the 3D points describing the geometry of the surface line.
         /// </summary>
         public Point3D[] Points { get; private set; }
 
         /// <summary>
-        /// Gets the first 3D geometry point defining the surfaceline in world coordinates.
+        /// Gets the first 3D geometry point defining the surface line in world coordinates.
         /// </summary>
         public Point3D StartingWorldPoint { get; private set; }
 
         /// <summary>
-        /// Gets the last 3D geometry point defining the surfaceline in world coordinates.
+        /// Gets the last 3D geometry point defining the surface line in world coordinates.
         /// </summary>
         public Point3D EndingWorldPoint { get; private set; }
 
@@ -168,9 +168,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Sets the geometry of the surfaceline.
+        /// Sets the geometry of the surface line.
         /// </summary>
-        /// <param name="points">The collection of points defining the surfaceline geometry.</param>
+        /// <param name="points">The collection of points defining the surface line geometry.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
         public void SetGeometry(IEnumerable<Point3D> points)
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -251,7 +251,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -268,7 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeTopAtPolder"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeTopAtPolderAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -285,7 +285,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ShoulderBaseInside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetShoulderBaseInsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -302,7 +302,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ShoulderTopInside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetShoulderTopInsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -319,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadInside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetTrafficLoadInsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -336,7 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadOutside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetTrafficLoadOutsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -353,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -370,7 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -387,7 +387,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="SurfaceLevelInside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetSurfaceLevelInsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -404,7 +404,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="SurfaceLevelOutside"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetSurfaceLevelOutsideAt(Point3D point)
         {
             Point3D geometryPoint = GetPointFromGeometry(point);
@@ -422,8 +422,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <returns>The height of the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> at L=<paramref name="l"/>.</returns>
         /// <exception cref="RingtoetsMacroStabilityInwardsSurfaceLineException">Thrown when the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
-        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="Points"/> is empty.</exception>
         public double GetZAtL(RoundedDouble l)
         {
             ValidateHasPoints();
@@ -545,28 +545,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             SetCharacteristicPoints(fromSurfaceLine);
         }
 
-        private void SetCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine fromSurfaceLine)
-        {
-            SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
-            TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
-            TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
-            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
-            ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
-            ShoulderTopInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderTopInside);
-            BottomDitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchDikeSide);
-            BottomDitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchPolderSide);
-            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
-            DikeToeAtRiver = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtRiver);
-            DitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.DitchDikeSide);
-            DitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.DitchPolderSide);
-            SurfaceLevelInside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelInside);
-        }
-
-        private Point3D PointFromGeometryOrNull(Point3D point3D)
-        {
-            return point3D != null ? GetPointFromGeometry(point3D) : null;
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -614,12 +592,34 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return Name;
         }
 
+        private void SetCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine fromSurfaceLine)
+        {
+            SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
+            TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
+            TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
+            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
+            ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
+            ShoulderTopInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderTopInside);
+            BottomDitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchDikeSide);
+            BottomDitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchPolderSide);
+            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
+            DikeToeAtRiver = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtRiver);
+            DitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.DitchDikeSide);
+            DitchPolderSide = PointFromGeometryOrNull(fromSurfaceLine.DitchPolderSide);
+            SurfaceLevelInside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelInside);
+        }
+
+        private Point3D PointFromGeometryOrNull(Point3D point3D)
+        {
+            return point3D != null ? GetPointFromGeometry(point3D) : null;
+        }
+
         /// <summary>
         /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The location of a point from <see cref="Points"/>.</param>
         /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         private Point3D GetPointFromGeometry(Point3D point)
         {
             if (point == null)
@@ -683,7 +683,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Checks whether the current <see cref="Points"/> collection is not empty.
         /// </summary>
-        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="Points"/> is empty.</exception>
         private void ValidateHasPoints()
         {
             if (!Points.Any())

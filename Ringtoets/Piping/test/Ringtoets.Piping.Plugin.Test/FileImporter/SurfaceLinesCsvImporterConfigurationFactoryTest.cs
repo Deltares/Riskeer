@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     public class SurfaceLinesCsvImporterConfigurationFactoryTest
     {
         [Test]
-        public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdaterAndTransformerForPiping()
+        public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdateStrategyAndTransformerForPiping()
         {
             // Call
             SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<PipingSurfaceLineTransformer>(result.Transformer);
-            Assert.IsInstanceOf<PipingSurfaceLineUpdateDataStrategy>(result.UpdateUpdateStrategy);
+            Assert.IsInstanceOf<PipingSurfaceLineUpdateDataStrategy>(result.UpdateStrategy);
         }
 
         [Test]
@@ -66,17 +66,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CreateReplaceStrategyConfiguration_Always_ReturnsUpdaterAndTransformerForPiping()
+        public void CreateReplaceStrategyConfiguration_Always_ReturnsReplaceStrategyAndTransformerForPiping()
         {
-            // Setup
-
             // Call
             SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<PipingSurfaceLineTransformer>(result.Transformer);
-            Assert.IsInstanceOf<PipingSurfaceLineReplaceDataStrategy>(result.UpdateUpdateStrategy);
+            Assert.IsInstanceOf<PipingSurfaceLineReplaceDataStrategy>(result.UpdateStrategy);
         }
 
         [Test]

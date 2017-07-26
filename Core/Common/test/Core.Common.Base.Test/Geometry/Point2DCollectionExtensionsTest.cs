@@ -33,7 +33,7 @@ namespace Core.Common.Base.Test.Geometry
         public void IsReclining_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point2D>)null).IsReclining();
+            TestDelegate test = () => ((IEnumerable<Point2D>) null).IsReclining();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

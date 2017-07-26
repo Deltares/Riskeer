@@ -41,9 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// Tries to set the relevant characteristic points from the <paramref name="characteristicPoints"/>
         /// on the <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The surface line to set characteristic points for.</param>
+        /// <param name="surfaceLine">The surface line to set the characteristic points for.</param>
         /// <param name="characteristicPoints">The characteristic points to set, if the collection is valid.</param>
-        /// <returns><c>true</c> if the characteristic points could be set; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         /// <exception cref="SurfaceLineTransformException">Thrown when a mandatory characteristic point is not
         /// present or not on the given <paramref name="surfaceLine"/>.</exception>
@@ -53,6 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
+
             if (characteristicPoints == null)
             {
                 throw new SurfaceLineTransformException($"Karakteristieke punten definitie voor profielschematisatie '{surfaceLine.Name}' is verplicht.");

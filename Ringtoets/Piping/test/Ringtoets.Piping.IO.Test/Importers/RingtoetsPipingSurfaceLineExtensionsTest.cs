@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.IO.Importers;
@@ -34,113 +33,6 @@ namespace Ringtoets.Piping.IO.Test.Importers
     [TestFixture]
     public class RingtoetsPipingSurfaceLineExtensionsTest
     {
-        [Test]
-        public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var points = new CharacteristicPoints("swapped dike toes")
-            {
-                DikeToeAtPolder = new Point3D(3, 2, 5),
-                DikeToeAtRiver = new Point3D(3.4, 3, 8),
-                DitchDikeSide = new Point3D(4.4, 6, 8),
-                BottomDitchDikeSide = new Point3D(5.1, 6, 6.5),
-                BottomDitchPolderSide = new Point3D(8.5, 7.2, 4.2),
-                DitchPolderSide = new Point3D(9.6, 7.5, 3.9)
-            };
-
-            // Call
-            TestDelegate test = () => ((RingtoetsPipingSurfaceLine) null).SetCharacteristicPoints(points);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("surfaceLine", exception.ParamName);
-        }
-
-        [Test]
-        public void SetCharacteristicPoints_CharacteristicPointsNull_NoCharacteristicPointsSet()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3, 2, 5),
-                new Point3D(3.4, 3, 8),
-                new Point3D(4.4, 6, 8),
-                new Point3D(5.1, 6, 6.5),
-                new Point3D(8.5, 7.2, 4.2),
-                new Point3D(9.6, 7.5, 3.9)
-            });
-
-            // Call
-            surfaceLine.SetCharacteristicPoints(null);
-
-            // Assert
-            Assert.IsNull(surfaceLine.DikeToeAtRiver);
-            Assert.IsNull(surfaceLine.DikeToeAtPolder);
-            Assert.IsNull(surfaceLine.DitchDikeSide);
-            Assert.IsNull(surfaceLine.BottomDitchDikeSide);
-            Assert.IsNull(surfaceLine.BottomDitchPolderSide);
-            Assert.IsNull(surfaceLine.DitchPolderSide);
-        }
-
-        [Test]
-        public void SetCharacteristicPoints_DikeToesReversed_ThrowsTransformException()
-        {
-            // Setup
-            var name = "swapped dike toes";
-            var points = new CharacteristicPoints(name)
-            {
-                DikeToeAtPolder = new Point3D(3, 2, 5),
-                DikeToeAtRiver = new Point3D(3.4, 3, 8),
-                DitchDikeSide = new Point3D(4.4, 6, 8),
-                BottomDitchDikeSide = new Point3D(5.1, 6, 6.5),
-                BottomDitchPolderSide = new Point3D(8.5, 7.2, 4.2),
-                DitchPolderSide = new Point3D(9.6, 7.5, 3.9)
-            };
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
-
-            // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
-            Assert.AreEqual($"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{name}'.", exception.Message);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DifferentValidCharacteristicPointConfigurations))]
-        public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
-
-            // Call
-            surfaceLine.SetCharacteristicPoints(points);
-
-            // Assert
-            Assert.AreEqual(points.DikeToeAtRiver, surfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(points.DikeToeAtPolder, surfaceLine.DikeToeAtPolder);
-            Assert.AreEqual(points.DitchDikeSide, surfaceLine.DitchDikeSide);
-            Assert.AreEqual(points.BottomDitchDikeSide, surfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(points.BottomDitchPolderSide, surfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(points.DitchPolderSide, surfaceLine.DitchPolderSide);
-        }
-
-        private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
-        {
-            return new[]
-            {
-                points.DikeToeAtRiver,
-                points.DikeToeAtPolder,
-                points.DitchDikeSide,
-                points.BottomDitchDikeSide,
-                points.BottomDitchPolderSide,
-                points.DitchPolderSide
-            }.Where(p => p != null);
-        }
-
         private static IEnumerable<TestCaseData> DifferentValidCharacteristicPointConfigurations
         {
             get
@@ -223,6 +115,102 @@ namespace Ringtoets.Piping.IO.Test.Importers
                     BottomDitchPolderSide = bottomDitchPolderSide
                 }).SetName(name);
             }
+        }
+
+        [Test]
+        public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((RingtoetsPipingSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void SetCharacteristicPoints_CharacteristicPointsNull_NoCharacteristicPointsSet()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(3, 2, 5),
+                new Point3D(3.4, 3, 8),
+                new Point3D(4.4, 6, 8),
+                new Point3D(5.1, 6, 6.5),
+                new Point3D(8.5, 7.2, 4.2),
+                new Point3D(9.6, 7.5, 3.9)
+            });
+
+            // Call
+            surfaceLine.SetCharacteristicPoints(null);
+
+            // Assert
+            Assert.IsNull(surfaceLine.DikeToeAtRiver);
+            Assert.IsNull(surfaceLine.DikeToeAtPolder);
+            Assert.IsNull(surfaceLine.DitchDikeSide);
+            Assert.IsNull(surfaceLine.BottomDitchDikeSide);
+            Assert.IsNull(surfaceLine.BottomDitchPolderSide);
+            Assert.IsNull(surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        public void SetCharacteristicPoints_DikeToesReversed_ThrowsSurfaceLineTransformException()
+        {
+            // Setup
+            const string name = "Reversed dike toes";
+            var points = new CharacteristicPoints(name)
+            {
+                DikeToeAtPolder = new Point3D(3, 2, 5),
+                DikeToeAtRiver = new Point3D(3.4, 3, 8),
+                DitchDikeSide = new Point3D(4.4, 6, 8),
+                BottomDitchDikeSide = new Point3D(5.1, 6, 6.5),
+                BottomDitchPolderSide = new Point3D(8.5, 7.2, 4.2),
+                DitchPolderSide = new Point3D(9.6, 7.5, 3.9)
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
+
+            // Assert
+            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            Assert.AreEqual($"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{name}'.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(DifferentValidCharacteristicPointConfigurations))]
+        public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
+
+            // Call
+            surfaceLine.SetCharacteristicPoints(points);
+
+            // Assert
+            Assert.AreEqual(points.DikeToeAtRiver, surfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(points.DikeToeAtPolder, surfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(points.DitchDikeSide, surfaceLine.DitchDikeSide);
+            Assert.AreEqual(points.BottomDitchDikeSide, surfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(points.BottomDitchPolderSide, surfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(points.DitchPolderSide, surfaceLine.DitchPolderSide);
+        }
+
+        private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
+        {
+            return new[]
+            {
+                points.DikeToeAtRiver,
+                points.DikeToeAtPolder,
+                points.DitchDikeSide,
+                points.BottomDitchDikeSide,
+                points.BottomDitchPolderSide,
+                points.DitchPolderSide
+            }.Where(p => p != null);
         }
     }
 }

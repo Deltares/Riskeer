@@ -25,13 +25,13 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.IO.SurfaceLines;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Ringtoets.Common.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class SurfaceLinesCsvImporterConfigurationTest
     {
         [Test]
-        public void Constructor_WithUpdateStrategy_UpdateStrategySet()
+        public void Constructor_ValidParameters_ValuesAsExpected()
         {
             // Setup
             var mocks = new MockRepository();
@@ -43,12 +43,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var configuration = new SurfaceLinesCsvImporterConfiguration<IMechanismSurfaceLine>(transformer, strategy);
 
             // Assert
-            Assert.AreSame(strategy, configuration.UpdateUpdateStrategy);
+            Assert.AreSame(strategy, configuration.UpdateStrategy);
             Assert.AreSame(transformer, configuration.Transformer);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutUpdateStrategy_ThrowsArgumentNullException()
+        public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
             var mocks = new MockRepository();
@@ -60,10 +61,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("updateStrategy", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutTransformer_ThrowsArgumentNullException()
+        public void Constructor_TransformerNull_ThrowsArgumentNullException()
         {
             // Call
             var mocks = new MockRepository();
@@ -75,6 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("transformer", exception.ParamName);
+            mocks.VerifyAll();
         }
     }
 }

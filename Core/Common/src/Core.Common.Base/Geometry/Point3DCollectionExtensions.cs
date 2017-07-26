@@ -102,7 +102,7 @@ namespace Core.Common.Base.Geometry
         /// L-coordinate smaller than the L-coordinate of the given point.
         /// </summary>
         /// <param name="points">The points forming a line to check.</param>
-        /// <returns><c>true</c> if the localized (in 2D) line  is reclining;
+        /// <returns><c>true</c> if the localized (in 2D) line is reclining;
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/>
         /// is <c>null</c>.</exception>

@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
     /// <summary>
-    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+    /// Transforms generic <see cref="SurfaceLine"/> into macro stability specific <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
     /// </summary>
     public class MacroStabilityInwardsSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsMacroStabilityInwardsSurfaceLine>
     {
@@ -39,6 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// </summary>
         /// <param name="referenceLine">The reference line to determine locations for the surface
         /// lines for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsSurfaceLineTransformer(ReferenceLine referenceLine)
         {
             if (referenceLine == null)

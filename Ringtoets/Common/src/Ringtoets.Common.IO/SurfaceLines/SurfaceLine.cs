@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Properties;
@@ -32,7 +31,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
     /// <summary>
     /// Definition of the surface line, which is the top level geometry of a dike.
     /// </summary>
-    public class SurfaceLine : Observable
+    public class SurfaceLine
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SurfaceLine"/> class.

@@ -37,7 +37,7 @@ namespace Core.Common.Base.Geometry
         /// than the X-coordinate of the given point.
         /// </summary>
         /// <param name="points">The points forming a line to check.</param>
-        /// <returns><c>true</c> if the line  is reclining; <c>false</c>
+        /// <returns><c>true</c> if the line is reclining; <c>false</c>
         /// otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/>
         /// is <c>null</c>.</exception>

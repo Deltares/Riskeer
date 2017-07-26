@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -36,7 +35,7 @@ namespace Core.Common.Base.Test.Geometry
         public void IsReclining_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-           TestDelegate test = () => ((IEnumerable<Point3D>)null).IsReclining();
+            TestDelegate test = () => ((IEnumerable<Point3D>) null).IsReclining();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,12 +76,13 @@ namespace Core.Common.Base.Test.Geometry
         public void IsZeroLength_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>)null).IsZeroLength();
+            TestDelegate test = () => ((IEnumerable<Point3D>) null).IsZeroLength();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("points", exception.ParamName);
         }
+
         [Test]
         [TestCase(3)]
         [TestCase(2.01)]
@@ -159,7 +159,7 @@ namespace Core.Common.Base.Test.Geometry
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(12)]
-        public void IsZeroLength_PointsEqualToEachother_ReturnsTrue(int pointCount)
+        public void IsZeroLength_PointsEqualToEachOther_ReturnsTrue(int pointCount)
         {
             // Setup
             IEnumerable<Point3D> points = Enumerable.Repeat(new Point3D(3, 4, 7), pointCount);
@@ -175,7 +175,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectToLZ_PointsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((IEnumerable<Point3D>)null).ProjectToLZ();
+            TestDelegate test = () => ((IEnumerable<Point3D>) null).ProjectToLZ();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

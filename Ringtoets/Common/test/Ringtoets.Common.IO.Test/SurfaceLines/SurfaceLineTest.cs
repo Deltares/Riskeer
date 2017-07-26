@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,7 +39,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             var surfaceLine = new SurfaceLine();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(surfaceLine);
             Assert.IsEmpty(surfaceLine.Name);
             CollectionAssert.IsEmpty(surfaceLine.Points);
         }
