@@ -103,5 +103,19 @@ namespace Ringtoets.Common.IO.SoilProfile
             );
         }
 
+        /// <summary>
+        /// Returns the SQL query to execute to fetch all stochastic soil profiles 
+        /// from the DSoil-Model database.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetAllStochasticSoilProfileQuery()
+        {
+            return string.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
+                                 StochasticSoilProfileTableDefinitions.TableName,
+                                 StochasticSoilProfileTableDefinitions.StochasticSoilModelId,
+                                 StochasticSoilProfileTableDefinitions.Probability,
+                                 StochasticSoilProfileTableDefinitions.SoilProfile1DId,
+                                 StochasticSoilProfileTableDefinitions.SoilProfile2DId);
+        }
     }
 }

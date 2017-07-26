@@ -34,6 +34,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -131,6 +132,7 @@
     <Compile Include="SoilProfile\StochasticSoilModel.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileReader.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />

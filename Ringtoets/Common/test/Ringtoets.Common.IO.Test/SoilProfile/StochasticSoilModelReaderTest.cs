@@ -184,10 +184,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
 
-            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            using (var reader = new StochasticSoilModelReader(dbFile))
             {
+                reader.Validate();
+
                 // Call
-                bool hasNext = stochasticSoilModelDatabaseReader.HasNext;
+                bool hasNext = reader.HasNext;
 
                 // Assert
                 Assert.IsFalse(hasNext);

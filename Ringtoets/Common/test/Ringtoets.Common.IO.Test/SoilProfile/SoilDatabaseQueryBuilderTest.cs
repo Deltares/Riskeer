@@ -28,7 +28,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilDatabaseQueryBuilderTest
     {
         [Test]
-        public void GetCheckVersionQuery_Always_ReturnsExpectedValues()
+        public void GetCheckVersionQuery_ReturnsExpectedValues()
         {
             // Call
             string query = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
@@ -40,9 +40,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                          "AND Value = @Value;";
             Assert.AreEqual(expectedQuery, query);
         }
-        
+
         [Test]
-        public void GetSoilModelNamesUniqueQuery_Always_ReturnsExpectedValues()
+        public void GetSoilModelNamesUniqueQuery_ReturnsExpectedValues()
         {
             // Call
             string query = SoilDatabaseQueryBuilder.GetSoilModelNamesUniqueQuery();
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GetStochasticSoilProfileProbabilitiesDefinedQuery_Always_ReturnsExpectedValues()
+        public void GetStochasticSoilProfileProbabilitiesDefinedQuery_ReturnsExpectedValues()
         {
             // Call
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GetStochasticSoilModelOfMechanismQuery_Always_ReturnsExpectedValues()
+        public void GetStochasticSoilModelOfMechanismQuery_ReturnsExpectedValues()
         {
             // Call
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
@@ -81,6 +81,19 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                          "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
                                          "INNER JOIN SegmentPoints SP USING(SE_ID) " +
                                          "ORDER BY M.ME_Name, SSM.SSM_ID;";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetAllStochasticSoilProfileQuery_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
+
+            // Assert
+            const string expectedQuery = "SELECT SSM_ID, Probability, SP1D_ID, SP2D_ID " +
+                                         "FROM StochasticSoilProfile " +
+                                         "ORDER BY SSM_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
     }

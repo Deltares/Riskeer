@@ -66,7 +66,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>The database version is incorrect;</item>
         /// <item>Required information for constraint evaluation could not be read;</item>
         /// <item>The database segment names are not unique;</item>
-        /// <item>Failed to fetch stochastic soil models from the database.</item>
+        /// <item>The query to fetch stochastic soil models from the database failed.</item>
         /// </list>
         /// </exception>
         public void Validate()
@@ -167,7 +167,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Creates a new <see cref="SQLiteDataReader"/>.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">Thrown when failed to fetch stochastic soil models from the database.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when query to fetch stochastic soil 
+        /// models from the database failed.</exception>
         private void CreateDataReader()
         {
             string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
