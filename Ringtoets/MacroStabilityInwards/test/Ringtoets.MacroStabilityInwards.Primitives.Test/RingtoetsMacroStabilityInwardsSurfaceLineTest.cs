@@ -128,309 +128,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestHelper.AssertAreEqualButNotSame(sourceData[3], surfaceLine.EndingWorldPoint);
         }
 
-        [TestFixture]
-        public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetDitchPolderSideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.DitchPolderSide;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Insteek sloot polderzijde";
-            }
-        }
-
-        [TestFixture]
-        public class SetBottomDitchPolderSideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetBottomDitchPolderSideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.BottomDitchPolderSide;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Slootbodem polderzijde";
-            }
-        }
-
-        [TestFixture]
-        public class SetBottomDitchDikeSideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetBottomDitchDikeSideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.BottomDitchDikeSide;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Slootbodem dijkzijde";
-            }
-        }
-
-        [TestFixture]
-        public class SetDitchDikeSideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetDitchDikeSideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.DitchDikeSide;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Insteek sloot dijkzijde";
-            }
-        }
-
-        [TestFixture]
-        public class SetDikeTopAtPolderAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetDikeTopAtPolderAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.DikeTopAtPolder;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Kruin binnentalud";
-            }
-        }
-
-        [TestFixture]
-        public class SetShoulderBaseInsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetShoulderBaseInsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.ShoulderBaseInside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Insteek binnenberm";
-            }
-        }
-
-        [TestFixture]
-        public class SetShoulderTopInsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetShoulderTopInsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.ShoulderTopInside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Kruin binnenberm";
-            }
-        }
-
-        [TestFixture]
-        public class SetSurfaceLevelInsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetSurfaceLevelInsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.SurfaceLevelInside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Maaiveld binnenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetSurfaceLevelOutsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetSurfaceLevelOutsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.SurfaceLevelOutside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Maaiveld buitenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetTrafficLoadInsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetTrafficLoadInsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.TrafficLoadInside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Verkeersbelasting kant binnenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetTrafficLoadOutsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetTrafficLoadOutsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.TrafficLoadOutside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Verkeersbelasting kant buitenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetDikeToeAtRiverAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.DikeToeAtRiver;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Teen dijk buitenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetDikeToeAtPolderAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetDikeToeAtPolderAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.DikeToeAtPolder;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Teen dijk binnenwaarts";
-            }
-        }
-
-        public abstract class SetCharacteristicPointTest
-        {
-            [Test]
-            public void PointInGeometry_PointSetFromGeometry()
-            {
-                // Setup
-                const double testX = 1.0;
-                const double testY = 2.2;
-                const double testZ = 4.4;
-                var testPoint = new Point3D(testX, testY, testZ);
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-                CreateTestGeometry(testPoint, surfaceLine);
-
-                // Call
-                SetCharacteristicPoint(surfaceLine, testPoint);
-
-                // Assert
-                Assert.AreEqual(testPoint, GetCharacteristicPoint(surfaceLine));
-                Assert.AreNotSame(testPoint, GetCharacteristicPoint(surfaceLine));
-            }
-
-            [Test]
-            public void GeometryEmpty_ThrowsInvalidOperationException()
-            {
-                // Setup
-                var random = new Random(21);
-                var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-
-                // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
-
-                // Assert
-                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            }
-
-            [Test]
-            public void Null_ThrowsArgumentNullException()
-            {
-                // Setup
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-
-                // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
-
-                // Assert
-                const string expectedMessage = "Cannot find a point in geometry using a null point.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-            }
-
-            protected abstract void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
-            protected abstract Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine);
-            protected abstract string CharacteristicPointDescription();
-        }
-
         [Test]
         public void ProjectGeometryToLZ_EmptyCollection_ReturnEmptyCollection()
         {
@@ -813,6 +510,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             // Assert
             AssertPropertiesUpdated(surfaceLineToUpdateFrom, surfaceLine);
+        }
+
+        [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            RingtoetsMacroStabilityInwardsSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
+            var derivedLayer = new TestSurfaceLine(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedLayer);
+
+            // Assert
+            Assert.IsTrue(areEqual);
         }
 
         [Test]
@@ -1231,6 +942,317 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        [TestFixture]
+        public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDitchPolderSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DitchPolderSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Insteek sloot polderzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetBottomDitchPolderSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetBottomDitchPolderSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.BottomDitchPolderSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Slootbodem polderzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetBottomDitchDikeSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetBottomDitchDikeSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.BottomDitchDikeSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Slootbodem dijkzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetDitchDikeSideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDitchDikeSideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DitchDikeSide;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Insteek sloot dijkzijde";
+            }
+        }
+
+        [TestFixture]
+        public class SetDikeTopAtPolderAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeTopAtPolderAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeTopAtPolder;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Kruin binnentalud";
+            }
+        }
+
+        [TestFixture]
+        public class SetShoulderBaseInsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetShoulderBaseInsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.ShoulderBaseInside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Insteek binnenberm";
+            }
+        }
+
+        [TestFixture]
+        public class SetShoulderTopInsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetShoulderTopInsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.ShoulderTopInside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Kruin binnenberm";
+            }
+        }
+
+        [TestFixture]
+        public class SetSurfaceLevelInsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetSurfaceLevelInsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.SurfaceLevelInside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Maaiveld binnenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetSurfaceLevelOutsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetSurfaceLevelOutsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.SurfaceLevelOutside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Maaiveld buitenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetTrafficLoadInsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetTrafficLoadInsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.TrafficLoadInside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Verkeersbelasting kant binnenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetTrafficLoadOutsideAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetTrafficLoadOutsideAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.TrafficLoadOutside;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Verkeersbelasting kant buitenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeToeAtRiverAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeToeAtRiver;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Teen dijk buitenwaarts";
+            }
+        }
+
+        [TestFixture]
+        public class SetDikeToeAtPolderAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeToeAtPolderAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeToeAtPolder;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Teen dijk binnenwaarts";
+            }
+        }
+
+        public abstract class SetCharacteristicPointTest
+        {
+            [Test]
+            public void PointInGeometry_PointSetFromGeometry()
+            {
+                // Setup
+                const double testX = 1.0;
+                const double testY = 2.2;
+                const double testZ = 4.4;
+                var testPoint = new Point3D(testX, testY, testZ);
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+                CreateTestGeometry(testPoint, surfaceLine);
+
+                // Call
+                SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                Assert.AreEqual(testPoint, GetCharacteristicPoint(surfaceLine));
+                Assert.AreNotSame(testPoint, GetCharacteristicPoint(surfaceLine));
+            }
+
+            [Test]
+            public void GeometryEmpty_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var random = new Random(21);
+                var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            }
+
+            [Test]
+            public void Null_ThrowsArgumentNullException()
+            {
+                // Setup
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
+
+                // Assert
+                const string expectedMessage = "Cannot find a point in geometry using a null point.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            }
+
+            protected abstract void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
+            protected abstract Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine);
+            protected abstract string CharacteristicPointDescription();
+        }
+
+        private class TestSurfaceLine : RingtoetsMacroStabilityInwardsSurfaceLine
+        {
+            public TestSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine profile)
+            {
+                CopyProperties(profile);
+            }
         }
 
         private static void AssertPropertiesUpdated(RingtoetsMacroStabilityInwardsSurfaceLine expectedSurfaceLine,

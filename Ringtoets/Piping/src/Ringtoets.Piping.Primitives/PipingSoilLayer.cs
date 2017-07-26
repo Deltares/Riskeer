@@ -138,11 +138,8 @@ namespace Ringtoets.Piping.Primitives
             {
                 return true;
             }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((PipingSoilLayer) obj);
+            var other = obj as PipingSoilLayer;
+            return other != null && Equals((PipingSoilLayer) obj);
         }
 
         public override int GetHashCode()
@@ -176,7 +173,7 @@ namespace Ringtoets.Piping.Primitives
                    && DiameterD70CoefficientOfVariation.Equals(other.DiameterD70CoefficientOfVariation)
                    && PermeabilityMean.Equals(other.PermeabilityMean)
                    && PermeabilityCoefficientOfVariation.Equals(other.PermeabilityCoefficientOfVariation)
-                   && Color.Equals(other.Color);
+                   && Color.ToArgb().Equals(other.Color.ToArgb());
         }
     }
 }

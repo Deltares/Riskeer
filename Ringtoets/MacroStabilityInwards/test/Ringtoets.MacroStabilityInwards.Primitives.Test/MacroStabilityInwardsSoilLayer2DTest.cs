@@ -77,6 +77,51 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(2);
+            var derivedProfile = new TestLayer(layer);
+
+            // Call
+            bool areEqual = layer.Equals(derivedProfile);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        private class TestLayer : MacroStabilityInwardsSoilLayer2D
+        {
+            public TestLayer(MacroStabilityInwardsSoilLayer2D layer)
+                : base(layer.OuterRing, layer.Holes)
+            {
+                Properties.IsAquifer = layer.Properties.IsAquifer;
+                Properties.Color = layer.Properties.Color;
+                Properties.MaterialName = layer.Properties.MaterialName;
+                Properties.ShearStrengthModel = layer.Properties.ShearStrengthModel;
+                Properties.AbovePhreaticLevelMean = layer.Properties.AbovePhreaticLevelMean;
+                Properties.AbovePhreaticLevelDeviation = layer.Properties.AbovePhreaticLevelDeviation;
+                Properties.BelowPhreaticLevelMean = layer.Properties.BelowPhreaticLevelMean;
+                Properties.BelowPhreaticLevelDeviation = layer.Properties.BelowPhreaticLevelDeviation;
+                Properties.CohesionMean = layer.Properties.CohesionMean;
+                Properties.CohesionDeviation = layer.Properties.CohesionDeviation;
+                Properties.CohesionShift = layer.Properties.CohesionShift;
+                Properties.FrictionAngleMean = layer.Properties.FrictionAngleMean;
+                Properties.FrictionAngleDeviation = layer.Properties.FrictionAngleDeviation;
+                Properties.FrictionAngleShift = layer.Properties.FrictionAngleShift;
+                Properties.StrengthIncreaseExponentMean = layer.Properties.StrengthIncreaseExponentMean;
+                Properties.StrengthIncreaseExponentDeviation = layer.Properties.StrengthIncreaseExponentDeviation;
+                Properties.StrengthIncreaseExponentShift = layer.Properties.StrengthIncreaseExponentShift;
+                Properties.ShearStrengthRatioMean = layer.Properties.ShearStrengthRatioMean;
+                Properties.ShearStrengthRatioDeviation = layer.Properties.ShearStrengthRatioDeviation;
+                Properties.ShearStrengthRatioShift = layer.Properties.ShearStrengthRatioShift;
+                Properties.PopMean = layer.Properties.PopMean;
+                Properties.PopDeviation = layer.Properties.PopDeviation;
+                Properties.PopShift = layer.Properties.PopShift;
+            }
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup

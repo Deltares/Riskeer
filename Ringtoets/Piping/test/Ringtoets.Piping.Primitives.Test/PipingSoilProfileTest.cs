@@ -221,6 +221,20 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            PipingSoilProfile profile = CreateRandomProfile(2);
+            var derivedProfile = new TestProfile(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedProfile);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -355,6 +369,16 @@ namespace Ringtoets.Piping.Primitives.Test
         private static string GetRandomName(Random random)
         {
             return new string('x', random.Next(0, 40));
+        }
+
+        private class TestProfile : PipingSoilProfile
+        {
+            public TestProfile(PipingSoilProfile profile)
+                : base(profile.Name,
+                       profile.Bottom,
+                       profile.Layers,
+                       profile.SoilProfileType,
+                       profile.PipingSoilProfileId) {}
         }
     }
 }

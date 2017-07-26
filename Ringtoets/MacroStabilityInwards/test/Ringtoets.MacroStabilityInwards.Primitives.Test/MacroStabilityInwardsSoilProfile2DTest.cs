@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -132,6 +130,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            MacroStabilityInwardsSoilProfile2D profile = CreateRandomProfile(2);
+            var derivedProfile = new TestProfile(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedProfile);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -158,6 +170,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
             Assert.AreEqual(expectedEqual, areEqualTwo);
+        }
+
+        private class TestProfile : MacroStabilityInwardsSoilProfile2D
+        {
+            public TestProfile(MacroStabilityInwardsSoilProfile2D profile)
+                : base(profile.Name,
+                       profile.Layers,
+                       profile.SoilProfileType,
+                       profile.MacroStabilityInwardsSoilProfileId) {}
         }
 
         private static TestCaseData[] ProfileCombinations()
@@ -226,7 +247,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             return new MacroStabilityInwardsSoilProfile2D(name, new[]
             {
-               CreateRandomLayer(2)
+                CreateRandomLayer(2)
             }, type, profileIdRandom.Next());
         }
 
@@ -248,7 +269,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(Random random)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()), new []
+            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()), new[]
             {
                 CreateRandomRing(random.Next()),
                 CreateRandomRing(random.Next())

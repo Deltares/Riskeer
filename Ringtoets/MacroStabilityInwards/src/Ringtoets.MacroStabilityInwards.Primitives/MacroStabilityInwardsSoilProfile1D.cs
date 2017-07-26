@@ -130,11 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((MacroStabilityInwardsSoilProfile1D) obj);
+            var other = obj as MacroStabilityInwardsSoilProfile1D;
+            return other != null && Equals((MacroStabilityInwardsSoilProfile1D) obj);
         }
 
         public override int GetHashCode()

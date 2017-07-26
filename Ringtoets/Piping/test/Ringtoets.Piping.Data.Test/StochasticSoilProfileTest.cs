@@ -162,6 +162,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            StochasticSoilProfile profile = CreateRandomStochasticProfile(2);
+            var derivedLayer = new TestStochasticSoilProfile(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedLayer);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -240,6 +254,15 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(name, text);
+        }
+
+        private class TestStochasticSoilProfile : StochasticSoilProfile
+        {
+            public TestStochasticSoilProfile(StochasticSoilProfile profile)
+                : base(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
+            {
+                SoilProfile = profile.SoilProfile;
+            }
         }
 
         private static TestCaseData[] StochasticProfileUnequalCombinations()

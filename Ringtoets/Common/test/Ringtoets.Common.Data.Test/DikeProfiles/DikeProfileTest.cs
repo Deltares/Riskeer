@@ -354,7 +354,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         }
 
         [Test]
-        public void Equal_ToDifferentType_ReturnsFalse()
+        public void Equals_ToDifferentType_ReturnsFalse()
         {
             // Setup
             DikeProfile dikeProfile = CreateFullyDefinedDikeProfile();
@@ -366,6 +366,20 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             Assert.IsFalse(isDikeProfileEqualToDifferentObject);
+        }
+
+        [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            DikeProfile profile = CreateFullyDefinedDikeProfile();
+            var derivedLayer = new TestDikeProfile(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedLayer);
+
+            // Assert
+            Assert.IsTrue(areEqual);
         }
 
         [Test]
@@ -841,6 +855,21 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var breakWater = new BreakWater(BreakWaterType.Caisson, 1.3);
 
             return new DikeProfile(worldCoordinate, dikeGeometry, foreshoreGeometry, breakWater, properties);
+        }
+
+        private class TestDikeProfile : DikeProfile
+        {
+            public TestDikeProfile(DikeProfile profile)
+                : base(profile.WorldReferencePoint, profile.DikeGeometry, profile.ForeshoreGeometry, profile.BreakWater,
+                       new ConstructionProperties
+                       {
+                           Name = profile.Name,
+                           DikeHeight = profile.DikeHeight,
+                           Id = profile.Id,
+                           Orientation = profile.Orientation,
+                           X0 = profile.X0
+                       })
+            { }
         }
     }
 }

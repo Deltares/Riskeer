@@ -89,6 +89,20 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            PipingSoilLayer layer = CreateRandomLayer(2);
+            var derivedLayer = new TestLayer(layer);
+
+            // Call
+            bool areEqual = layer.Equals(derivedLayer);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -191,6 +205,24 @@ namespace Ringtoets.Piping.Primitives.Test
                 PermeabilityCoefficientOfVariation = double.NaN,
                 PermeabilityMean = double.NaN
             };
+        }
+
+        private class TestLayer : PipingSoilLayer
+        {
+            public TestLayer(PipingSoilLayer layer)
+                : base(layer.Top)
+            {
+                IsAquifer = layer.IsAquifer;
+                MaterialName = layer.MaterialName;
+                Color = layer.Color;
+                BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean;
+                BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation;
+                BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift;
+                PermeabilityCoefficientOfVariation = layer.PermeabilityCoefficientOfVariation;
+                PermeabilityMean = layer.PermeabilityMean;
+                DiameterD70Mean = layer.DiameterD70Mean;
+                DiameterD70CoefficientOfVariation = layer.DiameterD70CoefficientOfVariation;
+            }
         }
     }
 }

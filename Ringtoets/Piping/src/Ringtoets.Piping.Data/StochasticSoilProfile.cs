@@ -132,10 +132,16 @@ namespace Ringtoets.Piping.Data
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((StochasticSoilProfile) obj);
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            var other = obj as StochasticSoilProfile;
+            return other != null && Equals((StochasticSoilProfile) obj);
         }
 
         public override int GetHashCode()

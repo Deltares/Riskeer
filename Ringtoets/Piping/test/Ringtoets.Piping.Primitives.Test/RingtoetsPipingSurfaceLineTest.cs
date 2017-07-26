@@ -447,6 +447,20 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
+        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
+        {
+            // Setup
+            RingtoetsPipingSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
+            var derivedLayer = new TestSurfaceLine(profile);
+
+            // Call
+            bool areEqual = profile.Equals(derivedLayer);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
@@ -736,6 +750,14 @@ namespace Ringtoets.Piping.Primitives.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private class TestSurfaceLine : RingtoetsPipingSurfaceLine
+        {
+            public TestSurfaceLine(RingtoetsPipingSurfaceLine profile)
+            {
+                CopyProperties(profile);
+            }
         }
 
         public abstract class SetCharacteristicPointTest

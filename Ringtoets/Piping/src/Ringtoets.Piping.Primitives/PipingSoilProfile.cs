@@ -130,11 +130,8 @@ namespace Ringtoets.Piping.Primitives
             {
                 return true;
             }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((PipingSoilProfile) obj);
+            var other = obj as PipingSoilProfile;
+            return other!= null && Equals((PipingSoilProfile)obj);
         }
 
         public override int GetHashCode()
@@ -148,7 +145,7 @@ namespace Ringtoets.Piping.Primitives
                 }
                 hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (int) SoilProfileType;
+                hashCode = (hashCode * 397) ^ (int)SoilProfileType;
                 return hashCode;
             }
         }
