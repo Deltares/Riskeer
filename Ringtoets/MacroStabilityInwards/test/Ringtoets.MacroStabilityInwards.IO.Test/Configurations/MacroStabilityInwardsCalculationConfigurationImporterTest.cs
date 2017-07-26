@@ -288,12 +288,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
                                                                                      calculationGroup,
                                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                     pipingFailureMechanism);
+                                                                                     macroStabilityInwardsFailureMechanism);
 
             // Call
             var successful = false;
@@ -315,12 +315,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
                                                                                      calculationGroup,
                                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                     pipingFailureMechanism);
+                                                                                     macroStabilityInwardsFailureMechanism);
 
             // Call
             bool successful = importer.Import();
@@ -346,12 +346,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
 
-            var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
                                                                                      calculationGroup,
                                                                                      Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                     pipingFailureMechanism);
+                                                                                     macroStabilityInwardsFailureMechanism);
 
             // Call
             bool successful = importer.Import();

@@ -410,10 +410,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 int surfaceLinesCount = reader.GetSurfaceLinesCount();
                 for (var i = 0; i < surfaceLinesCount; i++)
                 {
-                    SurfaceLine pipingSurfaceLine = reader.ReadSurfaceLine();
-                    Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
+                    SurfaceLine surfaceLine = reader.ReadSurfaceLine();
+                    Assert.IsNotInstanceOf<IDisposable>(surfaceLine,
                                                         "Fail Fast: Disposal logic required to be implemented in test.");
-                    Assert.IsNotNull(pipingSurfaceLine);
+                    Assert.IsNotNull(surfaceLine);
                 }
 
                 // Call

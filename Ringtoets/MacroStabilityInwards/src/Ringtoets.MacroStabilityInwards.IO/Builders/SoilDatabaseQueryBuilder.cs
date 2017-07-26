@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
     {
         /// <summary>
         /// Returns the SQL query to execute to fetch Stochastic Soil Models 
-        /// of the Piping Mechanism from the DSoil-Model database.
+        /// of the Macro Stability Inwards Mechanism from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> ME_Name needs to be 
@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         /// </summary>
         /// <returns>The query to get the amount of SoilProfile1D and SoilProfile2D
         /// that can be read from the database.</returns>
-        public static string GetPipingSoilProfileCountQuery()
+        public static string GetMacroStabilityInwardsSoilProfileCountQuery()
         {
             return string.Format(
                 "SELECT (" +

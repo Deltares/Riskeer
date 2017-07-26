@@ -57,10 +57,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
         }
 
         [Test]
-        public void GetPipingSoilProfileCountQuery_Always_ReturnsExpectedValues()
+        public void GetMacroStabilityInwardsSoilProfileCountQuery_Always_ReturnsExpectedValues()
         {
             // Call
-            string query = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
+            string query = SoilDatabaseQueryBuilder.GetMacroStabilityInwardsSoilProfileCountQuery();
 
             // Assert
             const string expectedQuery = "SELECT (" +

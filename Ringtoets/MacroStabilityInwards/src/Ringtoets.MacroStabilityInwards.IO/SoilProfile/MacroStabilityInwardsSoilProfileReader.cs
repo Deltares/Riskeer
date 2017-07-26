@@ -220,7 +220,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
         /// <exception cref="SQLiteException">A query could not be executed on the database schema.</exception>
         private void PrepareReader()
         {
-            string countQuery = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
+            string countQuery = SoilDatabaseQueryBuilder.GetMacroStabilityInwardsSoilProfileCountQuery();
 
             string subQueryGetNumberOfLayerProfile1D =
                 "SELECT " +
