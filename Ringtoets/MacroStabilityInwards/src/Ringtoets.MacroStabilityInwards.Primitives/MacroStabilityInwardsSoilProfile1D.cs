@@ -141,7 +141,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                int hashCode = layers?.GetHashCode() ?? 0;
+                var hashCode = 0;
+                foreach (MacroStabilityInwardsSoilLayer1D layer in layers)
+                {
+                    hashCode = (hashCode * 397) ^ layer.GetHashCode();
+                }
                 hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (int) SoilProfileType;

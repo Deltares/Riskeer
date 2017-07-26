@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
@@ -36,6 +40,145 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithEmptyPoints_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new Ring(Enumerable.Empty<Point2D>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithSingleUniquePoint_ThrowsArgumentException([Range(0, 4)] int times)
+        {
+            // Call
+            TestDelegate test = () => new Ring(Enumerable.Repeat(new Point2D(3, 2), times));
+
+            // Assert
+            const string expectedMessage = "Need at least two points to define a Ring.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void Equals_WithNull_ReturnsFalse()
+        {
+            // Setup
+            Ring ring = CreateRing();
+
+            // Call
+            bool equal = ring.Equals(null);
+
+            // Assert
+            Assert.IsFalse(equal);
+        }
+
+        [Test]
+        public void GetHashCode_EqualInstances_ReturnEqualHashes()
+        {
+            // Setup
+            Ring ringA = CreateRandomRing(21);
+            Ring ringB = CreateRandomRing(21);
+
+            // Precondition
+            Assert.AreEqual(ringA, ringB);
+            Assert.AreEqual(ringB, ringA);
+
+            // Call & Assert
+            Assert.AreEqual(ringA.GetHashCode(), ringB.GetHashCode());
+            Assert.AreEqual(ringB.GetHashCode(), ringA.GetHashCode());
+        }
+
+        [Test]
+        [TestCaseSource(nameof(RingCombinations))]
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(Ring ring, Ring otherRing, bool expectedEqual)
+        {
+            // Call
+            bool areEqualOne = ring.Equals(otherRing);
+            bool areEqualTwo = otherRing.Equals(ring);
+
+            // Assert
+            Assert.AreEqual(expectedEqual, areEqualOne);
+            Assert.AreEqual(expectedEqual, areEqualTwo);
+        }
+
+        private static TestCaseData[] RingCombinations()
+        {
+            Ring ringA = CreateRandomRing(21);
+            Ring ringB = CreateRandomRing(21);
+            Ring ringC = CreateRandomRing(73);
+
+            return new[]
+            {
+                new TestCaseData(ringA, ringA, true)
+                {
+                    TestName = "Equals_RingARingA_True"
+                },
+                new TestCaseData(ringA, ringB, true)
+                {
+                    TestName = "Equals_RingARingB_True"
+                },
+                new TestCaseData(ringB, ringC, false)
+                {
+                    TestName = "Equals_RingBRingC_False"
+                },
+                new TestCaseData(ringC, ringC, true)
+                {
+                    TestName = "Equals_RingCRingC_True"
+                }
+            };
+        }
+
+        private static Ring CreateRandomRing(int seed)
+        {
+            var random = new Random(seed);
+            var pointA = new Point2D(random.NextDouble(), random.NextDouble());
+            var pointB = new Point2D(random.NextDouble(), random.NextDouble());
+            var pointC = new Point2D(random.NextDouble(), random.NextDouble());
+
+            return new Ring(new[]
+            {
+                pointA,
+                pointB,
+                pointC
+            });
+        }
+
+        [Test]
+        public void Points_RingWithPointSet_PointSetCopiedToNewCollection()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(3, 2),
+                new Point2D(5, 6),
+                new Point2D(1, 1.2)
+            };
+
+            var ring = new Ring(points);
+
+            // Call
+            IEnumerable<Point2D> ringPoints = ring.Points;
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(points, ringPoints);
+        }
+
+        private Ring CreateRing()
+        {
+            var points = new[]
+            {
+                new Point2D(3, 2),
+                new Point2D(5, 6),
+                new Point2D(1, 1.2)
+            };
+
+            return new Ring(points);
         }
     }
 }

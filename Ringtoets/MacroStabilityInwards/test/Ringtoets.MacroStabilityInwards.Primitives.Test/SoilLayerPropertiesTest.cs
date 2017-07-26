@@ -104,6 +104,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void GetHashCode_EqualProperties_AreEqual()
+        {
+            // Setup
+            SoilLayerProperties propertiesA = CreateRandomProperties(21);
+            SoilLayerProperties propertiesB = CreateRandomProperties(21);
+
+            // Precondition
+            Assert.AreEqual(propertiesA, propertiesB);
+            Assert.AreEqual(propertiesB, propertiesA);
+
+            // Call & Assert
+            Assert.AreEqual(propertiesA.GetHashCode(), propertiesB.GetHashCode());
+            Assert.AreEqual(propertiesB.GetHashCode(), propertiesA.GetHashCode());
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -114,34 +130,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             // Assert
             Assert.IsFalse(areEqual);
-        }
-
-        private static IEnumerable<TestCaseData> ChangeSingleProperties()
-        {
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (ShearStrengthModel) 9));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.IsAquifer));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color == Color.Aqua ? Color.Bisque : Color.Aqua));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionShift = 1.0 - lp.CohesionShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleDeviation = 1.0 - lp.FrictionAngleDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleShift = 1.0 - lp.FrictionAngleShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioDeviation = 1.0 - lp.ShearStrengthRatioDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioShift = 1.0 - lp.ShearStrengthRatioShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentDeviation = 1.0 - lp.StrengthIncreaseExponentDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentShift = 1.0 - lp.StrengthIncreaseExponentShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopDeviation = 1.0 - lp.PopDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopShift = 1.0 - lp.PopShift));
         }
 
         [Test]
@@ -174,6 +162,34 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
             Assert.AreEqual(expectedEqual, areEqualTwo);
+        }
+
+        private static IEnumerable<TestCaseData> ChangeSingleProperties()
+        {
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (ShearStrengthModel) 9));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.IsAquifer));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color == Color.Aqua ? Color.Bisque : Color.Aqua));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionShift = 1.0 - lp.CohesionShift));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleDeviation = 1.0 - lp.FrictionAngleDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleShift = 1.0 - lp.FrictionAngleShift));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioDeviation = 1.0 - lp.ShearStrengthRatioDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioShift = 1.0 - lp.ShearStrengthRatioShift));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentDeviation = 1.0 - lp.StrengthIncreaseExponentDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentShift = 1.0 - lp.StrengthIncreaseExponentShift));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopDeviation = 1.0 - lp.PopDeviation));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopShift = 1.0 - lp.PopShift));
         }
 
         private static TestCaseData[] PropertiesCombinations()

@@ -485,6 +485,40 @@ namespace Core.Common.TestUtil
             Assert.IsFalse(actualEnumerator.MoveNext());
         }
 
+        /// <summary>
+        /// Asserts that all elements in the collections are equal by using the <paramref name="equalityComparer"/>.
+        /// </summary>
+        /// <param name="expected">The expected collection of elements.</param>
+        /// <param name="actual">The actual collection of elements.</param>
+        /// <param name="equalityComparer">The comparer to verify whether elements of <paramref name="expected"/>
+        /// and <paramref name="actual"/> are equal.</param>
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/>;</item>
+        /// <item><paramref name="expected"/> contains an element at a position that is not equal to the 
+        /// element in <paramref name="actual"/> at that position.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertCollectionAreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, IEqualityComparer<T> equalityComparer)
+        {
+            Assert.NotNull(expected, "Expect collection is not expected to be null.");
+            Assert.NotNull(actual, "Actual collection is not expected to be null.");
+            Assert.NotNull(equalityComparer, "Comparer to use for equality cannot be null.");
+
+            using (IEnumerator<T> expectedEnumerator = expected.GetEnumerator())
+            using (IEnumerator<T> actualEnumerator = actual.GetEnumerator())
+            {
+                while (expectedEnumerator.MoveNext())
+                {
+                    Assert.IsTrue(actualEnumerator.MoveNext());
+                    {
+                        Assert.IsTrue(equalityComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current));
+                    }
+                }
+                Assert.IsFalse(actualEnumerator.MoveNext());
+            }
+        }
+
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
         {
             var stopwatch = new Stopwatch();
@@ -620,7 +654,7 @@ namespace Core.Common.TestUtil
 
         private static Color[] GetImageAsColorArray(Image image)
         {
-            // Convert image to ARGB bitmap using 8bits/channel:
+// Convert image to ARGB bitmap using 8bits/channel:
             Bitmap bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
 
             var index = 0;

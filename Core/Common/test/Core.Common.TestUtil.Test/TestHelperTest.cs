@@ -29,6 +29,7 @@ using System.Windows.Forms;
 using Core.Common.TestUtil.Test.Properties;
 using log4net;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.TestUtil.Test
 {
@@ -941,6 +942,222 @@ namespace Core.Common.TestUtil.Test
                 objectC,
                 objectD
             });
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_ExpectedCollectionShorterThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.Stub<IEqualityComparer<object>>();
+            comparer.Stub(c => c.Equals(null, null)).IgnoreArguments().Return(true);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, comparer);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_ExpectedCollectionLongerThanActual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.Stub<IEqualityComparer<object>>();
+            comparer.Stub(c => c.Equals(null, null)).IgnoreArguments().Return(true);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, comparer);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_CollectionsCompletelyEqual_DoesNotThrowException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.Stub<IEqualityComparer<object>>();
+            comparer.Stub(c => c.Equals(null, null)).IgnoreArguments().Return(true);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC
+            }, comparer);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_CollectionsPartiallyEqual_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.StrictMock<IEqualityComparer<object>>();
+            comparer.Expect(c => c.Equals(objectA, objectA)).Return(true);
+            comparer.Expect(c => c.Equals(objectB, objectB)).Return(true);
+            comparer.Expect(c => c.Equals(objectC, objectC)).Return(false);
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, comparer);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_ExpectedCollectionNull_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.Stub<IEqualityComparer<object>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(null,
+                                                                          new[]
+                                                                          {
+                                                                              objectA,
+                                                                              objectB,
+                                                                              objectC,
+                                                                              objectD
+                                                                          }, comparer);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_ActualCollectionNull_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            var mocks = new MockRepository();
+            var comparer = mocks.Stub<IEqualityComparer<object>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, null, comparer);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssertCollectionAreEqual_ComparerNull_ThrowsException()
+        {
+            // Setup
+            var objectA = new object();
+            var objectB = new object();
+            var objectC = new object();
+            var objectD = new object();
+
+            // Call
+            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, new[]
+            {
+                objectA,
+                objectB,
+                objectC,
+                objectD
+            }, null);
 
             // Assert
             Assert.Throws<AssertionException>(test);

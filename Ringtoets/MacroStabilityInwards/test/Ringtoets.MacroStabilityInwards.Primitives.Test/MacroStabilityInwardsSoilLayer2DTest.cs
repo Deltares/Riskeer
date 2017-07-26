@@ -21,7 +21,9 @@
 
 using System;
 using System.Drawing;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
@@ -32,41 +34,46 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [Test]
         public void DefaultConstructor_ReturnsNewInstance()
         {
+            // Setup
+            var outerRing = new Ring(new[]
+            {
+                new Point2D(0, 2),
+                new Point2D(2, 2)
+            });
+            var holes = new[]
+            {
+                new Ring(new[]
+                {
+                    new Point2D(0, 2),
+                    new Point2D(2, 2)
+                })
+            };
+
             // Call
-            var layer = new MacroStabilityInwardsSoilLayer2D();
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
 
             // Assert
             Assert.NotNull(layer);
+            Assert.AreSame(outerRing, layer.OuterRing);
+            Assert.AreNotSame(holes, layer.Holes);
+            TestHelper.AssertCollectionAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.NotNull(layer.Properties);
         }
 
         [Test]
-        public void MaterialName_Null_ThrowsArgumentNullException()
+        public void GetHashCode_EqualLayers_AreEqual()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayer2D();
+            var layerA = CreateRandomLayer(21);
+            var layerB = CreateRandomLayer(21);
 
-            // Call
-            TestDelegate test = () => layer.MaterialName = null;
+            // Precondition
+            Assert.AreEqual(layerA, layerB);
+            Assert.AreEqual(layerB, layerA);
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("A name")]
-        public void MaterialName_NotNullValue_ValueSet(string materialName)
-        {
-            // Setup
-            var layer = new MacroStabilityInwardsSoilLayer2D();
-
-            // Call
-            layer.MaterialName = materialName;
-
-            // Assert
-            Assert.AreEqual(materialName, layer.MaterialName);
+            // Call & Assert
+            Assert.AreEqual(layerA.GetHashCode(), layerB.GetHashCode());
+            Assert.AreEqual(layerB.GetHashCode(), layerA.GetHashCode());
         }
 
         [Test]
@@ -125,7 +132,18 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new MacroStabilityInwardsSoilLayer2D
+            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            }), new[]
+            {
+                new Ring(new[]
+                {
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble())
+                })
+            })
             {
                 Properties =
                 {

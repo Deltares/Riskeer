@@ -20,17 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// A ring is a collection of points which together form a closed line.
+    /// A collection of points which together form a closed line.
     /// </summary>
     public class Ring
     {
-        public Point2D[] Points { get; }
-
         /// <summary>
         /// Creates a new instance of <see cref="Ring"/>.
         /// </summary>
@@ -38,10 +39,47 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         /// <remarks>While a ring is defined to be closed line, it's not required
         /// that the given <paramref name="points"/>' first point and last point
         /// are equal.</remarks>
-        public Ring(Point2D[] points)
+        public Ring(IEnumerable<Point2D> points)
         {
             ValidateAndTrimPoints(points);
-            Points = points;
+            Points = points.ToArray();
+        }
+
+        public IEnumerable<Point2D> Points { get; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((Ring) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = 0;
+                foreach (Point2D p in Points)
+                {
+                    hashCode = (hashCode * 397) ^ p.GetHashCode();
+                }
+                return hashCode;
+            }
+        }
+
+        private bool Equals(Ring other)
+        {
+            return Points.SequenceEqual(other.Points);
         }
 
         /// <summary>
@@ -50,15 +88,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         /// </summary>
         /// <param name="points">The points to validate and trim if required.</param>
         /// <exception cref="ArgumentNullException">Thrown when points is <c>null</c>.</exception>
-        private void ValidateAndTrimPoints(Point2D[] points)
+        /// <exception cref="ArgumentException">Thrown when points contains less than 2 unique points.</exception>
+        private void ValidateAndTrimPoints(IEnumerable<Point2D> points)
         {
             if (points == null)
             {
                 throw new ArgumentNullException(nameof(points));
             }
-            if (points.Length < 2)
+            if (points.Distinct().Count() < 2)
             {
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(points));
+                throw new ArgumentException($@"Need at least two points to define a {typeof(Ring).Name}.", nameof(points));
             }
         }
     }

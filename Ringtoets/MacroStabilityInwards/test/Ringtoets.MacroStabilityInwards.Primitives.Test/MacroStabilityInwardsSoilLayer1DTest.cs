@@ -76,6 +76,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void GetHashCode_EqualLayers_AreEqual()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer1D layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerB = CreateRandomLayer(21);
+
+            // Precondition
+            Assert.AreEqual(layerA, layerB);
+            Assert.AreEqual(layerB, layerA);
+
+            // Call & Assert
+            Assert.AreEqual(layerA.GetHashCode(), layerB.GetHashCode());
+            Assert.AreEqual(layerB.GetHashCode(), layerA.GetHashCode());
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
