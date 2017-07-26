@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         /// <summary>
         /// Gets the location which generalizes the surface level on the
-        /// inside of the polder
+        /// inside of the polder.
         /// </summary>
         public Point3D SurfaceLevelInside { get; private set; }
 
@@ -562,7 +562,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
             TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
             TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
-            DikeToeAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeToeAtPolder);
+            DikeTopAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeTopAtPolder);
             ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
             ShoulderTopInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderTopInside);
             BottomDitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchDikeSide);

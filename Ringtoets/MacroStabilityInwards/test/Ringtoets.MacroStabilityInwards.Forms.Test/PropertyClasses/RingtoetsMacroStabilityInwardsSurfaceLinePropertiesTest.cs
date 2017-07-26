@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             surfaceLine.SetTrafficLoadOutsideAt(point5);
             surfaceLine.SetTrafficLoadInsideAt(point6);
             surfaceLine.SetShoulderTopInsideAt(point7);
-            surfaceLine.SetDikeTopAtPolderAt(point8);
+            surfaceLine.SetDikeToeAtPolderAt(point8);
             surfaceLine.SetDitchDikeSideAt(point9);
             surfaceLine.SetBottomDitchDikeSideAt(point10);
             surfaceLine.SetBottomDitchPolderSideAt(point11);
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(surfaceLine.TrafficLoadOutside, properties.TrafficLoadOutside);
             Assert.AreEqual(surfaceLine.TrafficLoadInside, properties.TrafficLoadInside);
             Assert.AreEqual(surfaceLine.ShoulderTopInside, properties.ShoulderTopInside);
-            Assert.AreEqual(surfaceLine.DikeTopAtPolder, properties.DikeTopAtPolder);
+            Assert.AreEqual(surfaceLine.DikeToeAtPolder, properties.DikeToeAtPolder);
             Assert.AreEqual(surfaceLine.DitchDikeSide, properties.DitchDikeSide);
             Assert.AreEqual(surfaceLine.BottomDitchDikeSide, properties.BottomDitchDikeSide);
             Assert.AreEqual(surfaceLine.BottomDitchPolderSide, properties.BottomDitchPolderSide);

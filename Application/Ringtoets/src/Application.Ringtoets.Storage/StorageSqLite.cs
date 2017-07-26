@@ -320,7 +320,7 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="StorageException"/> when writing to the storage file failed.
+        /// Creates a configured instance of <see cref="StorageException"/> when writing to the storage file failed.
         /// </summary>
         /// <param name="databaseFilePath">The path of the file that was attempted to connect with.</param>
         /// <param name="errorMessage">The critical error message.</param>
@@ -333,7 +333,7 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="StorageException"/> when reading the storage file failed.
+        /// Creates a configured instance of <see cref="StorageException"/> when reading the storage file failed.
         /// </summary>
         /// <param name="databaseFilePath">The path of the file that was attempted to connect with.</param>
         /// <param name="errorMessage">The critical error message.</param>

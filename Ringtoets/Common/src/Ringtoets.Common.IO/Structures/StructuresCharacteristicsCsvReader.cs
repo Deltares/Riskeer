@@ -529,7 +529,7 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// Creates a configured instance of <see cref="LineParseException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
@@ -545,7 +545,7 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
+        /// Creates a configured instance of <see cref="CriticalFileReadException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>

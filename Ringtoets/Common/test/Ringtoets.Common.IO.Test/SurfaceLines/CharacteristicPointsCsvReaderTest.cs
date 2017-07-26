@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetLocationsCount_FileCannotBeFound_ThrowCriticalFileReadException()
+        public void GetLocationsCount_FileCannotBeFound_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "I_do_not_exist.csv");
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetLocationsCount_DirectoryCannotBeFound_ThrowCriticalFileReadException()
+        public void GetLocationsCount_DirectoryCannotBeFound_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "..", "this_folder_does_not_exist", "I_do_not_exist.csv");
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetLocationsCount_EmptyFile_ThrowCriticalFileReadException()
+        public void GetLocationsCount_EmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "empty.krp.csv");
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         [TestCase("start_order_number")]
         [TestCase("middle_order_number")]
         [TestCase("end_order_number")]
-        public void GetLocationsCount_FileHasColumnsMissingInHeader_ThrowCriticalFileReadException(string malformattedVariableName)
+        public void GetLocationsCount_FileHasColumnsMissingInHeader_ThrowsCriticalFileReadException(string malformattedVariableName)
         {
             // Setup
             string path = Path.Combine(testDataPath, $"1location_column_missing_{malformattedVariableName}.krp.csv");
@@ -211,7 +211,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetLocationsCount_InvalidHeader_ThrowCriticalFileReadException()
+        public void GetLocationsCount_InvalidHeader_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "1location_invalid_header.krp.csv");
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetLocationsCount_DuplicateColumnsInHeader_ThrowCriticalFileReadException()
+        public void GetLocationsCount_DuplicateColumnsInHeader_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_header_duplicate_columns.krp.csv");
@@ -302,7 +302,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileCannotBeFound_ThrowCriticalFileReadException()
+        public void ReadCharacteristicPointsLocation_FileCannotBeFound_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "I_do_not_exist.csv");
@@ -324,7 +324,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_DirectoryCannotBeFound_ThrowCriticalFileReadException()
+        public void ReadCharacteristicPointsLocation_DirectoryCannotBeFound_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "..", "this_folder_does_not_exist", "I_do_not_exist.csv");
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_EmptyFile_ThrowCriticalFileReadException()
+        public void ReadCharacteristicPointsLocation_EmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "empty.krp.csv");
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_InvalidHeader_ThrowCriticalFileReadException()
+        public void ReadCharacteristicPointsLocation_InvalidHeader_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "1location_invalid_header.krp.csv");
@@ -392,7 +392,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_DuplicateColumnsInHeader_ThrowCriticalFileReadException()
+        public void ReadCharacteristicPointsLocation_DuplicateColumnsInHeader_ThrowsCriticalFileReadException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_header_duplicate_columns.krp.csv");
@@ -415,7 +415,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileHasInvalidCoordinate_ThrowLineParseException()
+        public void ReadCharacteristicPointsLocation_FileHasInvalidCoordinate_ThrowsLineParseException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "1location_invalid_double.krp.csv");
@@ -446,7 +446,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         [TestCase("underflow_x")]
         [TestCase("underflow_y")]
         [TestCase("underflow_z")]
-        public void ReadCharacteristicPointsLocation_FileHasCoordinateCausingOverOrUnderflow_ThrowLineParseException(string malformattedVariableName)
+        public void ReadCharacteristicPointsLocation_FileHasCoordinateCausingOverOrUnderflow_ThrowsLineParseException(string malformattedVariableName)
         {
             // Setup
             string path = Path.Combine(testDataPath, string.Format("1location_{0}.krp.csv", malformattedVariableName));
@@ -471,7 +471,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileLacksIds_ThrowLineParseException()
+        public void ReadCharacteristicPointsLocation_FileLacksIds_ThrowsLineParseException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_each_missing_id.krp.csv");
@@ -502,7 +502,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileLacksIdsWithWhiteLine_ThrowLineParseExceptionOnCorrectLine()
+        public void ReadCharacteristicPointsLocation_FileLacksIdsWithWhiteLine_ThrowsLineParseExceptionOnCorrectLine()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_each_missing_id_with_white_line.krp.csv");
@@ -533,7 +533,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_IncorrectValueSeparator_ThrowLineParseException()
+        public void ReadCharacteristicPointsLocation_IncorrectValueSeparator_ThrowsLineParseException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_invalid_separator.krp.csv");
@@ -556,7 +556,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileHasIncompleteCoordinateTriplets_ThrowLineParseException()
+        public void ReadCharacteristicPointsLocation_FileHasIncompleteCoordinateTriplets_ThrowsLineParseException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_each_missing_values.krp.csv");
@@ -589,7 +589,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void ReadCharacteristicPointsLocation_FileHasTooManyValues_ThrowLineParseException()
+        public void ReadCharacteristicPointsLocation_FileHasTooManyValues_ThrowsLineParseException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "2locations_each_too_many_values.krp.csv");

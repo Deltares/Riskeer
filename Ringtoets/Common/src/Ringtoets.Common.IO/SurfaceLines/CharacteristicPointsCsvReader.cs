@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
-    /// data specifying characteristic points. 
+    /// data specifying characteristic points.
     /// Expects data to be specified in the following format:
     /// <para><c>
     /// LocationID;X_Maaiveld binnenwaarts;Y_Maaiveld binnenwaarts;Z_Maaiveld binnenwaarts;X_Insteek sloot polderzijde;Y_Insteek sloot polderzijde;Z_Insteek sloot polderzijde;X_Slootbodem polderzijde;Y_Slootbodem polderzijde;Z_Slootbodem polderzijde;X_Slootbodem dijkzijde;Y_Slootbodem dijkzijde;Z_Slootbodem dijkzijde;X_Insteek sloot dijkzijde;Y_Insteek_sloot dijkzijde;Z_Insteek sloot dijkzijde;X_Teen dijk binnenwaarts;Y_Teen dijk binnenwaarts;Z_Teen dijk binnenwaarts;X_Kruin binnenberm;Y_Kruin binnenberm;Z_Kruin binnenberm;X_Insteek binnenberm;Y_Insteek binnenberm;Z_Insteek binnenberm;X_Kruin binnentalud;Y_Kruin binnentalud;Z_Kruin binnentalud;X_Verkeersbelasting kant binnenwaarts;Y_Verkeersbelasting kant binnenwaarts;Z_Verkeersbelasting kant binnenwaarts;X_Verkeersbelasting kant buitenwaarts;Y_Verkeersbelasting kant buitenwaarts;Z_Verkeersbelasting kant buitenwaarts;X_Kruin buitentalud;Y_Kruin buitentalud;Z_Kruin buitentalud;X_Insteek buitenberm;Y_Insteek buitenberm;Z_Insteek buitenberm;X_Kruin buitenberm;Y_Kruin buitenberm;Z_Kruin buitenberm;X_Teen dijk buitenwaarts;Y_Teen dijk buitenwaarts;Z_Teen dijk buitenwaarts;X_Maaiveld buitenwaarts;Y_Maaiveld buitenwaarts;Z_Maaiveld buitenwaarts;X_Dijktafelhoogte;Y_Dijktafelhoogte;Z_Dijktafelhoogte;Volgnummer
@@ -48,10 +48,10 @@ namespace Ringtoets.Common.IO.SurfaceLines
     public class CharacteristicPointsCsvReader : IDisposable
     {
         private const char separator = ';';
-
         private const string xPrefix = "x_";
         private const string yPrefix = "y_";
         private const string zPrefix = "z_";
+
         private static readonly Point3D undefinedPoint = new Point3D(-1, -1, -1);
 
         private readonly string filePath;
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>The file incompatible for importing characteristic points locations.</item>
+        /// <item>The file is incompatible for importing characteristic points locations.</item>
         /// </list>
         /// </exception>
         public int GetLocationsCount()
@@ -105,9 +105,9 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         /// <summary>
         /// Reads and parses the next data row to create a new instance of <see cref="CharacteristicPoints"/>,
-        /// which will contain all the declared characteristic points for some surfaceline.
+        /// which will contain all the declared characteristic points for some surface line.
         /// </summary>
-        /// <returns>Return the parsed characteristic points location, or <c>null</c> when at the end of the file.</returns>
+        /// <returns>Returns the parsed characteristic points location, or <c>null</c> when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when a critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>The file incompatible for importing characteristic points.</item>
+        /// <item>The file is incompatible for importing characteristic points.</item>
         /// </list>
         /// </exception>
         /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
@@ -236,8 +236,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Checks whether the given <paramref name="header"/> is valid. A valid header has a locationid column and is followed by triplets
-        /// of x_{characteristic_point_type};y_{characteristic_point_type};z_{characteristic_point_type} triplets.
+        /// Checks whether the given <paramref name="header"/> is valid. A valid header has a locationid column and is followed by
+        /// x_{characteristic_point_type};y_{characteristic_point_type};z_{characteristic_point_type} triplets.
         /// </summary>
         /// <param name="header">The line which should represent the header of a characteristic point file.</param>
         /// <returns><c>true</c> if the <paramref name="header"/> is valid, <c>false</c> otherwise.</returns>
@@ -379,14 +379,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
             location.BottomDitchDikeSide = GetPoint3D(tokenizedString, bottomDitchDikeSideKey, location.Name);
             location.DitchDikeSide = GetPoint3D(tokenizedString, ditchDikeSideKey, location.Name);
             location.DikeToeAtPolder = GetPoint3D(tokenizedString, dikeToeAtPolderKey, location.Name);
-            location.ShoulderTopInside = GetPoint3D(tokenizedString, topShoulderInsideKey, location.Name);
-            location.ShoulderBaseInside = GetPoint3D(tokenizedString, shoulderInsideKey, location.Name);
+            location.ShoulderTopInside = GetPoint3D(tokenizedString, shoulderTopInsideKey, location.Name);
+            location.ShoulderBaseInside = GetPoint3D(tokenizedString, shoulderBaseInsideKey, location.Name);
             location.DikeTopAtPolder = GetPoint3D(tokenizedString, dikeTopAtPolderKey, location.Name);
             location.TrafficLoadInside = GetPoint3D(tokenizedString, trafficLoadInsideKey, location.Name);
             location.TrafficLoadOutside = GetPoint3D(tokenizedString, trafficLoadOutsideKey, location.Name);
             location.DikeTopAtRiver = GetPoint3D(tokenizedString, dikeTopAtRiverKey, location.Name);
-            location.ShoulderBaseOutside = GetPoint3D(tokenizedString, shoulderOutsideKey, location.Name);
-            location.ShoulderTopOutside = GetPoint3D(tokenizedString, topShoulderOutsideKey, location.Name);
+            location.ShoulderBaseOutside = GetPoint3D(tokenizedString, shoulderBaseOutsideKey, location.Name);
+            location.ShoulderTopOutside = GetPoint3D(tokenizedString, shoulderTopOutsideKey, location.Name);
             location.DikeToeAtRiver = GetPoint3D(tokenizedString, dikeToeAtRiverKey, location.Name);
             location.SurfaceLevelOutside = GetPoint3D(tokenizedString, surfaceLevelOutsideKey, location.Name);
             location.DikeTableHeight = GetPoint3D(tokenizedString, dikeTableHeightKey, location.Name);
@@ -476,7 +476,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
+        /// Creates a configured instance of <see cref="CriticalFileReadException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>
@@ -491,7 +491,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// Creates a configured instance of <see cref="LineParseException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
@@ -505,7 +505,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// Creates a configured instance of <see cref="LineParseException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="locationName">The name of the location being read.</param>
@@ -532,14 +532,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
         private const string bottomDitchDikeSideKey = "slootbodem_dijkzijde";
         private const string ditchDikeSideKey = "insteek_sloot_dijkzijde";
         private const string dikeToeAtPolderKey = "teen_dijk_binnenwaarts";
-        private const string topShoulderInsideKey = "kruin_binnenberm";
-        private const string shoulderInsideKey = "insteek_binnenberm";
+        private const string shoulderTopInsideKey = "kruin_binnenberm";
+        private const string shoulderBaseInsideKey = "insteek_binnenberm";
         private const string dikeTopAtPolderKey = "kruin_binnentalud";
         private const string trafficLoadInsideKey = "verkeersbelasting_kant_binnenwaarts";
         private const string trafficLoadOutsideKey = "verkeersbelasting_kant_buitenwaarts";
         private const string dikeTopAtRiverKey = "kruin_buitentalud";
-        private const string shoulderOutsideKey = "insteek_buitenberm";
-        private const string topShoulderOutsideKey = "kruin_buitenberm";
+        private const string shoulderBaseOutsideKey = "insteek_buitenberm";
+        private const string shoulderTopOutsideKey = "kruin_buitenberm";
         private const string dikeToeAtRiverKey = "teen_dijk_buitenwaarts";
         private const string surfaceLevelOutsideKey = "maaiveld_buitenwaarts";
         private const string dikeTableHeightKey = "dijktafelhoogte";

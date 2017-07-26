@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void GetZAtL_GeometryIsEmpty_ThrowInvalidOperationException()
+        public void GetZAtL_GeometryIsEmpty_ThrowsInvalidOperationException()
         {
             // Setup
             var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestCase(-5e-3)]
         [TestCase(3.1 + 5e-3)]
         [TestCase(4.0)]
-        public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRange(double l)
+        public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRangeException(double l)
         {
             // Setup
             double testZ = new Random(22).NextDouble();
@@ -474,7 +474,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equal_SameReference_ReturnsTrue()
+        public void Equals_SameReference_ReturnsTrue()
         {
             // Setup
             var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine();
@@ -878,6 +878,62 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
 
+        public abstract class SetCharacteristicPointTest
+        {
+            [Test]
+            public void PointInGeometry_PointSetFromGeometry()
+            {
+                // Setup
+                const double testX = 1.0;
+                const double testY = 2.2;
+                const double testZ = 4.4;
+                var testPoint = new Point3D(testX, testY, testZ);
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+                CreateTestGeometry(testPoint, surfaceLine);
+
+                // Call
+                SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                Assert.AreEqual(testPoint, GetCharacteristicPoint(surfaceLine));
+                Assert.AreNotSame(testPoint, GetCharacteristicPoint(surfaceLine));
+            }
+
+            [Test]
+            public void GeometryEmpty_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var random = new Random(21);
+                var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
+
+                // Assert
+                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            }
+
+            [Test]
+            public void Null_ThrowsArgumentNullException()
+            {
+                // Setup
+                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+
+                // Call
+                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
+
+                // Assert
+                const string expectedMessage = "Cannot find a point in geometry using a null point.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            }
+
+            protected abstract void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
+            protected abstract Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine);
+            protected abstract string CharacteristicPointDescription();
+        }
+
         [TestFixture]
         public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
         {
@@ -1125,62 +1181,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }
         }
 
-        public abstract class SetCharacteristicPointTest
-        {
-            [Test]
-            public void PointInGeometry_PointSetFromGeometry()
-            {
-                // Setup
-                const double testX = 1.0;
-                const double testY = 2.2;
-                const double testZ = 4.4;
-                var testPoint = new Point3D(testX, testY, testZ);
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-                CreateTestGeometry(testPoint, surfaceLine);
-
-                // Call
-                SetCharacteristicPoint(surfaceLine, testPoint);
-
-                // Assert
-                Assert.AreEqual(testPoint, GetCharacteristicPoint(surfaceLine));
-                Assert.AreNotSame(testPoint, GetCharacteristicPoint(surfaceLine));
-            }
-
-            [Test]
-            public void GeometryEmpty_ThrowsInvalidOperationException()
-            {
-                // Setup
-                var random = new Random(21);
-                var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-
-                // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
-
-                // Assert
-                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            }
-
-            [Test]
-            public void Null_ThrowsArgumentNullException()
-            {
-                // Setup
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-
-                // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
-
-                // Assert
-                const string expectedMessage = "Cannot find a point in geometry using a null point.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-            }
-
-            protected abstract void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
-            protected abstract Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine);
-            protected abstract string CharacteristicPointDescription();
-        }
-
         private class TestSurfaceLine : RingtoetsMacroStabilityInwardsSurfaceLine
         {
             public TestSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine profile)
@@ -1251,7 +1251,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             surfaceLine.SetSurfaceLevelOutsideAt(geometry[0]);
             surfaceLine.SetTrafficLoadOutsideAt(geometry[1]);
             surfaceLine.SetTrafficLoadInsideAt(geometry[2]);
-            surfaceLine.SetDikeToeAtPolderAt(geometry[3]);
+            surfaceLine.SetDikeTopAtPolderAt(geometry[3]);
             surfaceLine.SetShoulderBaseInsideAt(geometry[4]);
             surfaceLine.SetShoulderTopInsideAt(geometry[5]);
             surfaceLine.SetBottomDitchDikeSideAt(geometry[6]);

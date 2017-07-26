@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void Constructor_ObservableListNull_ThrowsArgumentNullException()
+        public void Constructor_ImportTargetNull_ThrowsArgumentNullException()
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();

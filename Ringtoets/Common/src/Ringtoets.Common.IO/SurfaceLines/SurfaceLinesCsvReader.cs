@@ -37,11 +37,11 @@ namespace Ringtoets.Common.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
-    /// data specifying surfacelines. 
+    /// data specifying surface lines. 
     /// Expects data to be specified in the following format:
     /// <para><c>{ID};X1;Y1;Z1...;(Xn;Yn;Zn)</c></para>
     /// Where {ID} has to be a particular accepted text, and n triplets of doubles form the
-    /// 3D coordinates defining the geometric shape of the surfaceline.
+    /// 3D coordinates defining the geometric shape of the surface line.
     /// </summary>
     public class SurfaceLinesCsvReader : IDisposable
     {
@@ -69,11 +69,10 @@ namespace Ringtoets.Common.IO.SurfaceLines
         private int startGeometryColumnIndex;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SurfaceLinesCsvReader"/> class
-        /// and opens a given file path.
+        /// Initializes a new instance of the <see cref="SurfaceLinesCsvReader"/> class.
         /// </summary>
         /// <param name="path">The path to the file to be read.</param>
-        /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         public SurfaceLinesCsvReader(string path)
         {
             IOUtils.ValidateFilePath(path);
@@ -86,14 +85,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
-        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <exception cref="CriticalFileReadException">Thrown when a critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>The file incompatible for importing surface lines.</item>
+        /// <item>The file is incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
         public int GetSurfaceLinesCount()
@@ -110,18 +109,18 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// Reads and consumes the next data row which contains a surface line, parsing the data to create an instance 
         /// of <see cref="SurfaceLine"/>.
         /// </summary>
-        /// <returns>Return the parsed surfaceline, or null when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <returns>Returns the parsed surface line, or null when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>The file incompatible for importing surface lines.</item>
+        /// <item>The file is incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item>The row doesn't use ';' as separator character.</item>
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
@@ -216,7 +215,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="readText">The text.</param>
         /// <returns>The tokenized parts.</returns>
-        /// <exception cref="LineParseException"><paramref name="readText"/> lacks separator character.</exception>
+        /// <exception cref="LineParseException">Thrown when <paramref name="readText"/> lacks a separator character.</exception>
         private string[] TokenizeString(string readText)
         {
             if (!readText.Contains(separator))
@@ -235,7 +234,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="tokenizedString">The tokenized string.</param>
         /// <param name="surfaceLineName">The name of the surface line for which geometry points are retrieved.</param>
         /// <returns>Set of all 3D world coordinate points.</returns>
-        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item><paramref name="tokenizedString"/> contains a coordinate value that cannot be parsed as a double.</item>
         /// <item><paramref name="tokenizedString"/> contains a number that is too big or too small to be represented with a double.</item>
@@ -269,7 +268,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the surface line.</returns>
-        /// <exception cref="LineParseException">Id value is null or empty.</exception>
+        /// <exception cref="LineParseException">Thrown when id value is null or empty.</exception>
         private string GetSurfaceLineName(IList<string> tokenizedString)
         {
             string name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
@@ -286,7 +285,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="tokenizedString">The tokenized string.</param>
         /// <param name="surfaceLineName">The name of the surface line whose coordinate values are being parsed.</param>
         /// <returns></returns>
-        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
         /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
@@ -315,7 +314,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
         /// <param name="currentLine">Row index used in error messaging.</param>
-        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the header is not in the required format.</exception>
         private void ValidateHeader(TextReader reader, int currentLine)
         {
             string header = ReadLineAndHandleIOExceptions(reader, currentLine);
@@ -333,7 +332,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
+        /// Creates a configured instance of <see cref="CriticalFileReadException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>
@@ -348,7 +347,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// Creates a configured instance of <see cref="LineParseException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
@@ -362,10 +361,10 @@ namespace Ringtoets.Common.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// Creates a configured instance of <see cref="LineParseException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
-        /// <param name="surfaceLineName">The name of the surfaceline being read.</param>
+        /// <param name="surfaceLineName">The name of the surface line being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
         /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
         /// <returns>New <see cref="LineParseException"/> with message and inner exceptions set.</returns>
@@ -384,8 +383,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="reader">The reader at the row from which counting should start.</param>
         /// <param name="currentLine">The current line, used for error messaging.</param>
-        /// <returns>An integer greater than or equal to 0, being the number of surfaceline rows.</returns>
-        /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
+        /// <returns>An integer greater than or equal to 0, being the number of surface line rows.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
             var count = 0;
@@ -408,7 +407,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="reader">The opened text file reader.</param>
         /// <param name="currentLine">Row number for error messaging.</param>
         /// <returns>The read line, or null when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when an critical I/O exception occurred.</exception>
         private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
             try

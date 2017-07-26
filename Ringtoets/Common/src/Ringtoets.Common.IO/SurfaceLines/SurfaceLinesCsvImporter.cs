@@ -41,6 +41,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
+    /// <typeparam name="T">The type of surface lines to import.</typeparam>
     public class SurfaceLinesCsvImporter<T> : FileImporterBase<ObservableUniqueItemCollectionWithSourcePath<T>> where T : class, IMechanismSurfaceLine
     {
         private const string characteristicPointsFileSubExtension = ".krp";
@@ -57,7 +58,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="importTarget">The import target.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="messageProvider">The message provider to provide messages during importer actions.</param>
-        /// <param name="configuration"></param>
+        /// <param name="configuration">The mechanism specific configuration containing all necessary surface lines components.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public SurfaceLinesCsvImporter(
             ObservableUniqueItemCollectionWithSourcePath<T> importTarget,
@@ -74,6 +75,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
             this.messageProvider = messageProvider;
             surfaceLineUpdateStrategy = configuration.UpdateStrategy;
             updatedInstances = Enumerable.Empty<IObservable>();
@@ -103,7 +105,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             catch (SurfaceLineTransformException e)
             {
                 Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                               e.Message);
+                                e.Message);
                 return false;
             }
 
@@ -264,7 +266,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="list">The list to add the valid <see cref="SurfaceLine"/> to.</param>
         /// <param name="reader">The reader to read the <see cref="SurfaceLine"/> from.</param>
-        /// <exception cref="CriticalFileReadException"><paramref name="list"/> already contains a <see cref="SurfaceLine"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="list"/> already contains a <see cref="SurfaceLine"/>
         /// with the same name as the new <see cref="SurfaceLine"/>.</exception>
         private void AddValidSurfaceLineToCollection(List<SurfaceLine> list, SurfaceLinesCsvReader reader)
         {
@@ -418,7 +420,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// </summary>
         /// <param name="list">The list to add the valid <see cref="CharacteristicPoints"/> to.</param>
         /// <param name="reader">The reader to read the <see cref="CharacteristicPoints"/> from.</param>
-        /// <exception cref="CriticalFileReadException"><paramref name="list"/> already contains a <see cref="CharacteristicPoints"/>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="list"/> already contains a <see cref="CharacteristicPoints"/>
         /// with the same name as the new <see cref="CharacteristicPoints"/>.</exception>
         private void AddValidCharacteristicPointsLocationToCollection(ICollection<CharacteristicPoints> list, CharacteristicPointsCsvReader reader)
         {

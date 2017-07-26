@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
-        public void GetZAtL_GeometryIsEmpty_ThrowInvalidOperationException()
+        public void GetZAtL_GeometryIsEmpty_ThrowsInvalidOperationException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestCase(-5e-3)]
         [TestCase(3.1 + 5e-3)]
         [TestCase(4.0)]
-        public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRange(double l)
+        public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRangeException(double l)
         {
             // Setup
             double testZ = new Random(22).NextDouble();
@@ -474,7 +474,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
-        public void Equal_SameReference_ReturnsTrue()
+        public void Equals_SameReference_ReturnsTrue()
         {
             // Setup
             var surfaceLineOne = new RingtoetsPipingSurfaceLine();
@@ -752,14 +752,6 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
         }
 
-        private class TestSurfaceLine : RingtoetsPipingSurfaceLine
-        {
-            public TestSurfaceLine(RingtoetsPipingSurfaceLine profile)
-            {
-                CopyProperties(profile);
-            }
-        }
-
         public abstract class SetCharacteristicPointTest
         {
             [Test]
@@ -927,6 +919,14 @@ namespace Ringtoets.Piping.Primitives.Test
             protected override string CharacteristicPointDescription()
             {
                 return "Teen dijk binnenwaarts";
+            }
+        }
+
+        private class TestSurfaceLine : RingtoetsPipingSurfaceLine
+        {
+            public TestSurfaceLine(RingtoetsPipingSurfaceLine profile)
+            {
+                CopyProperties(profile);
             }
         }
 
