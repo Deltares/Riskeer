@@ -177,16 +177,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                         failureMechanismContribution,
                                                                         hydraulicBoundaryDatabaseFilePath,
                                                                         numberOfCalculators);
-
-                if (dikeHeightOutput != null && calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated)
-                {
-                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(dikeHeightCalculator.IllustrationPointsResult, dikeHeightCalculator.IllustrationPointsParserErrorMessage);
-                    if (illustrationPoints != null)
-                    {
-                        dikeHeightOutput.SetGeneralResult(illustrationPoints);
-                    }
-                }
-
                 if (canceled)
                 {
                     return;
@@ -198,14 +188,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                        failureMechanismContribution,
                                                                                        hydraulicBoundaryDatabaseFilePath,
                                                                                        numberOfCalculators);
-                if (overtoppingRateOutput != null && calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated)
-                {
-                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(overtoppingRateCalculator.IllustrationPointsResult, overtoppingRateCalculator.IllustrationPointsParserErrorMessage);
-                    if (illustrationPoints != null)
-                    {
-                        overtoppingRateOutput.SetGeneralResult(illustrationPoints);
-                    }
-                }
 
                 if (canceled)
                 {
@@ -219,15 +201,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                           failureMechanismContribution,
                                                                                           generalInput.N,
                                                                                           overtoppingCalculator.ExceedanceProbabilityBeta));
-
-                if (calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
-                {
-                    GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoints = ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult, overtoppingCalculator.IllustrationPointsParserErrorMessage);
-                    if (illustrationPoints != null)
-                    {
-                        overtoppingOutput.SetGeneralResult(illustrationPoints);
-                    }
-                }
+                SetGeneralResult(overtoppingOutput.SetGeneralResult,
+                                 overtoppingCalculator.IllustrationPointsResult,
+                                 overtoppingCalculator.IllustrationPointsParserErrorMessage,
+                                 calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
                     overtoppingOutput,
@@ -241,6 +218,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 overtoppingCalculator = null;
                 dikeHeightCalculator = null;
                 overtoppingRateCalculator = null;
+            }
+        }
+
+        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> action, HydraRingGeneralResult generalResult, string parserError, bool shouldCalculate)
+        {
+            if (action == null || !shouldCalculate)
+            {
+                return;
+            }
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> converted = ConvertIllustrationPointsResult(generalResult, parserError);
+            if (converted != null)
+            {
+                action(converted);
             }
         }
 
@@ -338,10 +329,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 return null;
             }
 
-            return CreateDikeHeightOutput(dikeHeightCalculator,
+            DikeHeightOutput output = CreateDikeHeightOutput(dikeHeightCalculator,
                                           calculation.Name,
                                           dikeHeightCalculationInput.Beta,
                                           norm);
+            SetGeneralResult(output.SetGeneralResult,
+                             dikeHeightCalculator.IllustrationPointsResult,
+                             dikeHeightCalculator.IllustrationPointsParserErrorMessage,
+                             calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+            return output;
         }
 
         private OvertoppingRateOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
@@ -391,10 +387,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 return null;
             }
 
-            return CreateOvertoppingRateOutput(overtoppingRateCalculator,
+            OvertoppingRateOutput output = CreateOvertoppingRateOutput(overtoppingRateCalculator,
                                                calculation.Name,
                                                overtoppingRateCalculationInput.Beta,
                                                norm);
+            SetGeneralResult(output.SetGeneralResult,
+                             overtoppingRateCalculator.IllustrationPointsResult,
+                             overtoppingRateCalculator.IllustrationPointsParserErrorMessage,
+                             calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            return output;
         }
 
         /// <summary>

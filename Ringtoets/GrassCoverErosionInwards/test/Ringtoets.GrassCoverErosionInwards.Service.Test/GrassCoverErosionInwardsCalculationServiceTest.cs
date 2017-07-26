@@ -1693,7 +1693,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ConvertIllustrationPointsResult_OvertoppingGeneralResultNull_WarnErrorMessage()
+        public void CalculateAndConvertIllustrationPointsResult_OvertoppingGeneralResultNull_WarnErrorMessage()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1783,17 +1783,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ConvertIllustrationPointsResult_OvertoppingGeneralResultNullNoErrorMessage_NoWarning()
+        public void DontCalculateAndConvertIllustrationPointsResult_OvertoppingGeneralResultNull_WarnErrorMessage()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
+            const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = null,
-                IllustrationPointsParserErrorMessage = null
+                IllustrationPointsParserErrorMessage = parserError
             });
             calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
             {
@@ -1821,7 +1822,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                     UseForeshore = true,
                     ShouldDikeHeightIllustrationPointsBeCalculated = true,
-                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = false,
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                 }
             };
@@ -1961,11 +1962,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ConvertIllustrationPointsResult_OvertoppingRateGeneralResultNullNoErrorMessage_NoWarning()
+        public void DontCalculateAndConvertIllustrationPointsResult_OvertoppingRateGeneralResultNull_WarnErrorMessage()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
+            const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator
@@ -1979,7 +1981,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
             {
                 IllustrationPointsResult = null,
-                IllustrationPointsParserErrorMessage = null
+                IllustrationPointsParserErrorMessage = parserError
             });
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
@@ -2000,7 +2002,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     UseForeshore = true,
                     ShouldDikeHeightIllustrationPointsBeCalculated = true,
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
-                    ShouldOvertoppingRateIllustrationPointsBeCalculated = true
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = false
                 }
             };
 
@@ -2139,11 +2141,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ConvertIllustrationPointsResult_DikeHeightGeneralResultNullNoErrorMessage_NoWarning()
+        public void DontCalculateAndConvertIllustrationPointsResult_DikeHeightGeneralResultNull_WarnErrorMessage()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
+            const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator
@@ -2153,11 +2156,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             calculatorFactory.Stub(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
             {
                 IllustrationPointsResult = null,
-                IllustrationPointsParserErrorMessage = null
+                IllustrationPointsParserErrorMessage = parserError
             });
             calculatorFactory.Stub(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(new TestHydraulicLoadsCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
+
             });
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
@@ -2176,7 +2180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                     OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                     UseForeshore = true,
-                    ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                    ShouldDikeHeightIllustrationPointsBeCalculated = false,
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                 }
@@ -2459,7 +2463,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
                     }
-                    catch (ArgumentException)
+                    catch (ArgumentException e)
                     {
                         exceptionThrown = true;
                     }

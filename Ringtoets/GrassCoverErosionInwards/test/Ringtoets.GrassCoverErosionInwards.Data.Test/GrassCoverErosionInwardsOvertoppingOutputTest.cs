@@ -80,26 +80,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GeneralFaultTreeIllustrationPoint_SetGet()
-        {
-            // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
-            var faultTree = new TestGeneralResultFaultTreeIllustrationPoint();
-            output.SetGeneralResult(faultTree);
-
-            // Call
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = output.GeneralResult;
-
-            // Assert
-            Assert.IsNotNull(generalResult);
-            Assert.AreEqual(faultTree, generalResult);
-        }
-
-        [Test]
         public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             bool hasWaveHeight = output.HasWaveHeight;
@@ -112,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             TestDelegate call = () => output.SetGeneralResult(null);
@@ -128,12 +112,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             output.SetGeneralResult(generalResult);
 
             // Assert
+            Assert.IsNotNull(output.GeneralResult);
             Assert.AreSame(generalResult, output.GeneralResult);
         }
     }

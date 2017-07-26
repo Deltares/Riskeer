@@ -58,6 +58,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsFalse(output.HasGeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
     }
 }
