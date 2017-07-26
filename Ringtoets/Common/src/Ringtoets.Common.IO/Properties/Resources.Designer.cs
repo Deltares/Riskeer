@@ -1649,6 +1649,33 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon geen ondergrondschematisaties verkrijgen uit de database..
+        /// </summary>
+        public static string SoilProfileReader_Error_reading_soil_profile_from_database {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_Error_reading_soil_profile_from_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrondschematisatie bevat geen geldige waarde in kolom &apos;{0}&apos;..
+        /// </summary>
+        public static string SoilProfileReader_Profile_has_invalid_value_on_Column_0_ {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_Profile_has_invalid_value_on_Column_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ondergrondschematisatie &apos;{0}&apos;.
+        /// </summary>
+        public static string SoilProfileReader_SoilProfileName_0_ {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_SoilProfileName_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
         /// </summary>
         public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {

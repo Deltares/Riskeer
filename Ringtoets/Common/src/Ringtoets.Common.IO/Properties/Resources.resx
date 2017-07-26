@@ -824,4 +824,13 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
     <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
   </data>
+  <data name="SoilProfileReader_Error_reading_soil_profile_from_database" xml:space="preserve">
+    <value>Kon geen ondergrondschematisaties verkrijgen uit de database.</value>
+  </data>
+  <data name="SoilProfileReader_SoilProfileName_0_" xml:space="preserve">
+    <value>ondergrondschematisatie '{0}'</value>
+  </data>
+  <data name="SoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
+    <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
+  </data>
 </root>

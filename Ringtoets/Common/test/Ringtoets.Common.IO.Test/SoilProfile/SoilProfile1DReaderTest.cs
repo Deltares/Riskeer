@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.ObjectModel;
 using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -30,9 +31,9 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class StochasticSoilProfileReaderTest
+    public class SoilProfile1DReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(StochasticSoilProfileReader));
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile1DReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
@@ -43,7 +44,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Call
             TestDelegate test = () =>
             {
-                using (new StochasticSoilProfileReader(testFile)) {}
+                using (new SoilProfile1DReader(testFile)) {}
             };
 
             // Assert
@@ -59,7 +60,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Call
             TestDelegate test = () =>
             {
-                using (new StochasticSoilProfileReader(fileName)) {}
+                using (new SoilProfile1DReader(fileName)) {}
             };
 
             // Assert
@@ -73,7 +74,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
 
             // Call
-            using (var reader = new StochasticSoilProfileReader(dbFile))
+            using (var reader = new SoilProfile1DReader(dbFile))
             {
                 // Assert
                 Assert.AreEqual(dbFile, reader.Path);
@@ -89,7 +90,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "text.txt");
 
-            using (var reader = new StochasticSoilProfileReader(dbFile))
+            using (var reader = new SoilProfile1DReader(dbFile))
             {
                 // Call
                 TestDelegate test = () => reader.Initialize();
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 var exception = Assert.Throws<CriticalFileReadException>(test);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
-                    "Kon geen stochastische ondergrondmodellen verkrijgen uit de database.");
+                    "Kon geen ondergrondschematisaties verkrijgen uit de database.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 
@@ -106,43 +107,26 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void HasNext_EmptyDatabase_ReturnsFalse()
+        public void ReadSoilProfile_DatabaseWith1DAnd1DSoilProfileWithoutSoilLayers_ReturnOneProfile()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithEmpty1d.soil");
 
-            using (var reader = new StochasticSoilProfileReader(dbFile))
+            var result = new Collection<SoilProfile1D>();
+            using (var reader = new SoilProfile1DReader(dbFile))
             {
                 reader.Initialize();
 
                 // Call
-                bool hasNext = reader.HasNext;
-
-                // Assert
-                Assert.IsFalse(hasNext);
+                while (reader.HasNext)
+                {
+                    result.Add(reader.ReadSoilProfile());
+                }
             }
 
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
-        }
-
-        [Test]
-        public void HasNext_ValidDatabase_ReturnsTrue()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "complete.soil");
-
-            using (var reader = new StochasticSoilProfileReader(dbFile))
-            {
-                reader.Initialize();
-
-                // Call
-                bool hasNext = reader.HasNext;
-
-                // Assert
-                Assert.IsTrue(hasNext);
-            }
-
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("Profile", result[0].Name);
         }
     }
 }
