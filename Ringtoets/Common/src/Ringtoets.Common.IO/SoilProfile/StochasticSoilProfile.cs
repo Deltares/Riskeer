@@ -40,18 +40,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="soilProfileId">Database identifier of the stochastic soil profile.</param>
         /// <param name="probability">Probability of the stochastic soil profile.</param>
-        /// <param name="soilProfileType">Type of the stochastic soil profile.</param>
-        public StochasticSoilProfile(long soilProfileId, double probability, SoilProfileType soilProfileType)
+        /// <param name="soilProfile">The soil profile.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probability"/>
+        /// is outside the range [0, 1].</exception>
+        public StochasticSoilProfile(long soilProfileId, double probability, ISoilProfile soilProfile)
         {
             Probability = probability;
-            SoilProfileType = soilProfileType;
+            SoilProfile = soilProfile;
             SoilProfileId = soilProfileId;
         }
 
         /// <summary>
-        /// Gets the type of the stochastic soil profile.
+        /// Gets the soil profile.
         /// </summary>
-        public SoilProfileType SoilProfileType { get; private set; }
+        public ISoilProfile SoilProfile { get; }
 
         /// <summary>
         /// Gets the database identifier of the stochastic soil profile.

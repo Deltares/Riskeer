@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
@@ -39,34 +40,44 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_WithInvalidProbabilities_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var soilProfile = mockRepository.Stub<ISoilProfile>();
+            mockRepository.ReplayAll();
+
             var random = new Random(9);
-            var soilProfileType = random.NextEnumValue<SoilProfileType>();
             int soilProfileId = random.Next();
 
             // Call
-            TestDelegate test = () => new StochasticSoilProfile(soilProfileId, probability, soilProfileType);
+            TestDelegate test = () => new StochasticSoilProfile(soilProfileId, probability, soilProfile);
 
             // Assert
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+
+            mockRepository.VerifyAll();
         }
 
         [TestCase]
-        public void Constructor_WithValidProperties_ExpectedValues()
+        public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var soilProfile = mockRepository.Stub<ISoilProfile>();
+            mockRepository.ReplayAll();
+
             var random = new Random(9);
             double probability = random.NextDouble();
-            var soilProfileType = random.NextEnumValue<SoilProfileType>();
             int soilProfileId = random.Next();
 
             // Call
-            var profile = new StochasticSoilProfile(soilProfileId, probability, soilProfileType);
+            var profile = new StochasticSoilProfile(soilProfileId, probability, soilProfile);
 
             // Assert
             Assert.AreEqual(probability, profile.Probability);
-            Assert.AreEqual(soilProfileType, profile.SoilProfileType);
+            Assert.AreSame(soilProfile, profile.SoilProfile);
             Assert.AreEqual(soilProfileId, profile.SoilProfileId);
+
+            mockRepository.VerifyAll();
         }
     }
 }

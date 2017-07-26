@@ -22,18 +22,19 @@
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Defines the various types of soil profiles.
+    /// This class represents a two dimensional soil profile.
     /// </summary>
-    public enum SoilProfileType
+    public class SoilProfile2D : ISoilProfile
     {
         /// <summary>
-        /// One dimensional soil profile.
+        /// Creates a new instance of <see cref="SoilProfile2D"/>.
         /// </summary>
-        SoilProfile1D = 1,
+        /// <param name="name">The name of the profile.</param>
+        public SoilProfile2D(string name)
+        {
+            Name = name;
+        }
 
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
+        public string Name { get; }
     }
 }

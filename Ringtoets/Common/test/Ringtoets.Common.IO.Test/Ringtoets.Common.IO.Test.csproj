@@ -112,6 +112,8 @@
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile1DTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile2DTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileTest.cs" />
