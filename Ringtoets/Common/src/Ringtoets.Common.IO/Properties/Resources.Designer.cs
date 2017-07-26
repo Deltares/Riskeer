@@ -1658,6 +1658,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
+        /// </summary>
+        public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfile_Probability_Should_be_in_range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

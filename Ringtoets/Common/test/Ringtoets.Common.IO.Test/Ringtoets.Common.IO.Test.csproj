@@ -113,6 +113,8 @@
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelTest.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileTest.cs" />
     <Compile Include="Structures\StructureLocationReaderTest.cs" />
     <Compile Include="Structures\StructureLocationTest.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReaderTest.cs" />
