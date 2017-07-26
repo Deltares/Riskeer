@@ -821,4 +821,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="StochasticSoilProfile_Probability_Should_be_in_range_0_" xml:space="preserve">
     <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen.</value>
   </data>
+  <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
+    <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
+  </data>
 </root>

@@ -1667,6 +1667,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ondergrondschematisatie verwijst naar een ongeldige waarde..
+        /// </summary>
+        public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

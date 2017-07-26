@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Data;
 using System.Data.SQLite;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Properties;
+using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -49,6 +52,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
+        /// Gets a value indicating whether or not more stochastic soil models can be read using 
+        /// the <see cref="StochasticSoilModelReader"/>.
+        /// </summary>
+        public bool HasNext { get; private set; }
+
+        /// <summary>
         /// Validates the database.
         /// </summary>
         /// <exception cref="CriticalFileReadException">Thrown when: 
@@ -67,6 +76,29 @@ namespace Ringtoets.Common.IO.SoilProfile
             InitializeReader();
         }
 
+        /// <summary>
+        /// Reads the information for the next stochastic soil model from the database and creates a 
+        /// <see cref="StochasticSoilModel"/> instance of the information.
+        /// </summary>
+        /// <returns>The next <see cref="StochasticSoilModel"/> from the database, or <c>null</c> 
+        /// if no more soil models can be read.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
+        public StochasticSoilModel ReadStochasticSoilModel()
+        {
+            try
+            {
+                return TryReadStochasticSoilModel();
+            }
+            catch (SystemException exception) when (exception is FormatException ||
+                                                    exception is OverflowException ||
+                                                    exception is InvalidCastException)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (dataReader != null)
@@ -78,11 +110,44 @@ namespace Ringtoets.Common.IO.SoilProfile
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Gets a value indicating whether or not more stochastic soil models can be read using 
-        /// the <see cref="StochasticSoilModelReader"/>.
-        /// </summary>
-        public bool HasNext { get; private set; }
+        private StochasticSoilModel TryReadStochasticSoilModel()
+        {
+            if (!HasNext)
+            {
+                return null;
+            }
+
+            StochasticSoilModel stochasticSoilModel = CreateStochasticSoilModel();
+            long currentSegmentSoilModelId = ReadStochasticSoilModelSegmentId();
+            do
+            {
+                stochasticSoilModel.Geometry.Add(ReadSegmentPoint());
+                MoveNext();
+            } while (HasNext && ReadStochasticSoilModelSegmentId() == currentSegmentSoilModelId);
+
+            return stochasticSoilModel;
+        }
+
+        private Point2D ReadSegmentPoint()
+        {
+            double coordinateX = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateX]);
+            double coordinateY = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateY]);
+            return new Point2D(coordinateX, coordinateY);
+        }
+
+        private long ReadStochasticSoilModelSegmentId()
+        {
+            return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
+        }
+
+        private StochasticSoilModel CreateStochasticSoilModel()
+        {
+            string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelName]);
+            return new StochasticSoilModel
+            {
+                Name = stochasticSoilModelName
+            };
+        }
 
         /// <summary>
         /// Initializes a new <see cref="SQLiteDataReader"/>.

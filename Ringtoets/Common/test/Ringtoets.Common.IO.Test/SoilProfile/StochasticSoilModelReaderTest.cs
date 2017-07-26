@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -177,19 +179,104 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Validate_ValidDatabase_InitializesConnection()
+        public void HasNext_EmptyDatabase_ReturnsFalse()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                bool hasNext = stochasticSoilModelDatabaseReader.HasNext;
+
+                // Assert
+                Assert.IsFalse(hasNext);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void HasNext_ValidDatabase_ReturnsTrue()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.soil");
 
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
-                // Call
                 reader.Validate();
 
+                // Call
+                bool hasNext = reader.HasNext;
+
                 // Assert
-                Assert.IsTrue(reader.HasNext);
+                Assert.IsTrue(hasNext);
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsFalse()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                StochasticSoilModel model = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.IsNull(model);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_CompleteDatabase_ThreeModelsWithProfiles()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.soil");
+
+            var readModels = new List<StochasticSoilModel>();
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    readModels.Add(reader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+            }
+
+            var expectedSegmentAndModelNames = new[]
+            {
+                "36005_Piping",
+                "36006_Piping",
+                "36007_Piping",
+                "36005_Stability",
+                "36006_Stability",
+                "36007_Stability"
+            };
+            var expectedSegmentPointCount = new[]
+            {
+                1797,
+                144,
+                606,
+                1797,
+                144,
+                606
+            };
+
+            Assert.AreEqual(expectedSegmentAndModelNames.Length, readModels.Count);
+            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
+            CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

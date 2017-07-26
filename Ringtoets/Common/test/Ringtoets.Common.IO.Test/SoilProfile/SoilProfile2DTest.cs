@@ -32,7 +32,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             const string name = "some name";
-            ;
 
             // Call
             var soilProfile2D = new SoilProfile2D(name);
