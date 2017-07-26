@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var surfacelines = new[]
+            var surfaceLines = new[]
             {
                 new RingtoetsMacroStabilityInwardsSurfaceLine()
             };
@@ -54,14 +54,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var presentationObject = new MacroStabilityInwardsCalculationScenarioContext(calculation, surfacelines, soilModels, failureMechanism, assessmentSection);
+            var presentationObject = new MacroStabilityInwardsCalculationScenarioContext(calculation, surfaceLines, soilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
             Assert.IsInstanceOf<MacroStabilityInwardsContext<MacroStabilityInwardsCalculationScenario>>(presentationObject);
             Assert.IsInstanceOf<ICalculationContext<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsFailureMechanism>>(presentationObject);
             Assert.AreSame(calculation, presentationObject.WrappedData);
-            Assert.AreSame(surfacelines, presentationObject.AvailableMacroStabilityInwardsSurfaceLines);
+            Assert.AreSame(surfaceLines, presentationObject.AvailableMacroStabilityInwardsSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);

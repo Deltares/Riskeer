@@ -342,7 +342,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             RingtoetsPipingSurfaceLine readSurfaceLine = DeepCloneAndModifyPoints(targetSurfaceLine);
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLine
             };
@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = readSurfaceLineName
             };
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLine
             };
@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -439,7 +439,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 Name = addedSurfaceLineName
             };
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLineOne,
                 readSurfaceLineTwo
@@ -448,7 +448,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert

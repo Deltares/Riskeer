@@ -326,7 +326,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(8, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                AssertSurfacelinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
+                AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
@@ -587,7 +587,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 failureMechanism.SurfaceLines.NotifyObservers();
 
                 // Then
-                AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
+                AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
                 mocks.VerifyAll();
             }
         }
@@ -624,7 +624,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Then
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
-                AssertSurfacelinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
+                AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, surfaceLineMapData);
                 mocks.VerifyAll();
             }
         }
@@ -995,19 +995,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private static void AssertSurfacelinesMapData(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, MapData mapData)
+        private static void AssertSurfaceLinesMapData(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
-            var surfacelinesMapData = (MapLineData) mapData;
-            MapFeature[] surfacelineFeatures = surfacelinesMapData.Features.ToArray();
+            var surfaceLinesMapData = (MapLineData) mapData;
+            MapFeature[] surfaceLineFeatures = surfaceLinesMapData.Features.ToArray();
             RingtoetsMacroStabilityInwardsSurfaceLine[] surfaceLinesArray = surfaceLines.ToArray();
-            Assert.AreEqual(surfaceLinesArray.Length, surfacelineFeatures.Length);
+            Assert.AreEqual(surfaceLinesArray.Length, surfaceLineFeatures.Length);
 
             for (var index = 0; index < surfaceLinesArray.Length; index++)
             {
-                Assert.AreEqual(1, surfacelineFeatures[index].MapGeometries.Count());
+                Assert.AreEqual(1, surfaceLineFeatures[index].MapGeometries.Count());
                 RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = surfaceLinesArray[index];
-                CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfacelineFeatures[index].MapGeometries.First().PointCollections.First());
+                CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfaceLineFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }

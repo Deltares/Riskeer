@@ -764,10 +764,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
     <value>Meerdere definities gevonden voor profielschematisatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
   </data>
-  <data name="SurfaceLineExtensions_GetSingleReferenceLineInterSection_Surfaceline_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
+  <data name="SurfaceLineExtensions_GetSingleReferenceLineInterSection_SurfaceLine_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
     <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.</value>
   </data>
-  <data name="SurfaceLineExtensions_GetSingleReferenceLineInterSection_Surfaceline_0_does_not_correspond_to_current_referenceline_1_" xml:space="preserve">
+  <data name="SurfaceLineExtensions_GetSingleReferenceLineInterSection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_" xml:space="preserve">
     <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}</value>
   </data>
   <data name="SurfaceLineExtensions_GetSingleReferenceLineInterSection_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">

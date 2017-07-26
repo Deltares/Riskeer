@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void IntersectsWithSurfaceLineGeometry_SurfacelineIntersectingSoilModel_ReturnTrue()
+        public void IntersectsWithSurfaceLineGeometry_SurfaceLineIntersectingSoilModel_ReturnTrue()
         {
             // Setup
             var soilModel = new StochasticSoilModel("A");
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void IntersectsWithSurfaceLineGeometry_SurfacelineNotIntersectingSoilModel_ReturnFalse()
+        public void IntersectsWithSurfaceLineGeometry_SurfaceLineNotIntersectingSoilModel_ReturnFalse()
         {
             // Setup
             var soilModel = new StochasticSoilModel("A");

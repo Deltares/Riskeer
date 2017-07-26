@@ -942,7 +942,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
-                Name = "Surfaceline",
+                Name = "Surface line",
                 ReferenceLineIntersectionWorldPoint = new Point2D(4.0, 6.0)
             };
 

@@ -756,7 +756,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                                 .AppendLine("1  : Start reading characteristic points file.")
                                 .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
-                                .AppendLine("2  : 1 call for each valid surfaceline checked against reference line.")
+                                .AppendLine("2  : 1 call for each valid surface line checked against reference line.")
                                 .AppendLine("-- +")
                                 .AppendLine("10")
                                 .ToString());
@@ -1189,7 +1189,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                                 .AppendLine("3  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
                                 .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
-                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("2  : 1 call for each surface line checked against reference line.")
                                 .AppendLine("-- +")
                                 .AppendLine("12")
                                 .ToString());
@@ -1257,7 +1257,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                                 .AppendLine("2  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
                                 .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
-                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("2  : 1 call for each surface line checked against reference line.")
                                 .AppendLine("-- +")
                                 .AppendLine("11")
                                 .ToString());
@@ -1326,7 +1326,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                                 .AppendLine("4  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
                                 .AppendLine("1  : 1 call to process the imported surface lines.")
                                 .AppendLine("1  : Start adding data to failure mechanism.")
-                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("2  : 1 call for each surface line checked against reference line.")
                                 .AppendLine("-- +")
                                 .AppendLine("13")
                                 .ToString());

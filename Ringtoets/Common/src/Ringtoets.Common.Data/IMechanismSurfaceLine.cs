@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Interface for a mechanism specific surfaceline.
+    /// Interface for a mechanism specific surface line.
     /// </summary>
     public interface IMechanismSurfaceLine {}
 }

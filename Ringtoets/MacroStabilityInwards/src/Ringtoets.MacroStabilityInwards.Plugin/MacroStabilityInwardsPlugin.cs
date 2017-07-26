@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                     filePath,
                     new ImportMessageProvider(),
                     SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
-                VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surfacelines_calculation_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surface_lines_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
@@ -153,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                     filePath,
                     new UpdateMessageProvider(),
                     SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
-                VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>

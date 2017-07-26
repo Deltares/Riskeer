@@ -914,7 +914,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         [Test]
         [SetCulture("nl-NL")]
-        public void EntryPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -959,7 +959,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         [Test]
         [SetCulture("nl-NL")]
-        public void ExitPointL_NotOnSurfaceline_ThrowsArgumentOutOfRangeException()
+        public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var mocks = new MockRepository();

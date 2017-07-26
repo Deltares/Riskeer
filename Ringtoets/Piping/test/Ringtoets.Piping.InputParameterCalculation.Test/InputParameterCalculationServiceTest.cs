@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             // Setup
             PipingCalculation invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
 
-            // Make invalid by having surfaceline partially above soil profile:
+            // Make invalid by having surface line partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
             double soilProfileTop = highestLevelSurfaceLine - 0.5;
             double soilProfileBottom = soilProfileTop - 0.5;

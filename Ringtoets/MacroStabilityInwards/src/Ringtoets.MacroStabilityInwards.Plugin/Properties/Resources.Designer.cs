@@ -121,10 +121,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surfacelines_calculation_output_will_be_cleared_confirm {
+        public static string MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surface_lines_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surfacelines_" +
-                        "calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surface_lines" +
+                        "_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         
@@ -133,10 +133,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+        public static string MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surfacelines_d" +
-                        "efinitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surface_lines_" +
+                        "definitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         

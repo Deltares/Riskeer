@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);
             RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines.First();
-            Assert.AreEqual("Surfaceline", surfaceLine.Name);
+            Assert.AreEqual("Surface line", surfaceLine.Name);
             Assert.AreEqual(new Point2D(4.0, 6.0), surfaceLine.ReferenceLineIntersectionWorldPoint);
             var geometryPoints = new[]
             {

@@ -74,11 +74,11 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             {
                 new RingtoetsPipingSurfaceLine
                 {
-                    Name = "Surfaceline 1"
+                    Name = "Surface line 1"
                 },
                 new RingtoetsPipingSurfaceLine
                 {
-                    Name = "Surfaceline 2"
+                    Name = "Surface line 2"
                 }
             };
             surfaceLines[0].SetGeometry(pointsOne);

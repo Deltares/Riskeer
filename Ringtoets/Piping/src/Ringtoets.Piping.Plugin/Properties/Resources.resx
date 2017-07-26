@@ -128,7 +128,7 @@
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surfacelines_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als profielschematisaties wijzigen door het bijwerken, dan worden de resultaten van berekeningen die deze profielschematisaties gebruiken verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
@@ -148,7 +148,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points" xml:space="preserve">
     <value>&amp;Bijwerken intrede- en uittredepunten...</value>
   </data>
-  <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surfacelines_calculation_output_will_be_cleared_confirm" xml:space="preserve">
+  <data name="PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u profielschematisaties importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>

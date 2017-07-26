@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
     /// A presentation layer object wrapping an instance of <see cref="MacroStabilityInwardsInput"/>
-    /// and allowing for selecting a surfaceline or soil profile based on data available
+    /// and allowing for selecting a surface line or soil profile based on data available
     /// in a macro stability inwards failure mechanism.
     /// </summary>
     public class MacroStabilityInwardsInputContext : MacroStabilityInwardsContext<MacroStabilityInwardsInput>

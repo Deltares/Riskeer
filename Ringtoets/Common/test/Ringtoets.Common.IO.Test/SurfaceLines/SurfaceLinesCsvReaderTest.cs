@@ -290,7 +290,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 // Assert
 
-                #region 1st surfaceline
+                #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 #endregion
 
-                #region 2nd surfaceline
+                #region 2nd surface line
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);
@@ -339,7 +339,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 // Assert
 
-                #region 1st surfaceline
+                #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
@@ -354,7 +354,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 #endregion
 
-                #region 2nd surfaceline
+                #region 2nd surface line
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);
@@ -827,7 +827,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 // Assert
 
-                #region 1st surfaceline
+                #region 1st surface line
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 Assert.AreEqual(8, surfaceLine1.Points.Length);
@@ -842,7 +842,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 #endregion
 
-                #region 2nd surfaceline
+                #region 2nd surface line
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Length);

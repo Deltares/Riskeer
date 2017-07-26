@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_NormalizedLocalSurfaceLine_ReturnsSurfaceLineWithIdenticalPoints()
         {
             // Setup
-            const string name = "Local coordinate surfaceline";
+            const string name = "Local coordinate surface line";
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_LocalSurfaceLineNotNormalized_TranslateAllPointsToMakeFirstCoordinateZeroX()
         {
             // Setup
-            const string name = "Local coordinate surfaceline";
+            const string name = "Local coordinate surface line";
             const double firstX = 4.6;
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_GlobalSurfaceLine_ProjectSurfaceLineIntoLZPlaneSpannedByFirstAndLastPoint()
         {
             // Setup
-            const string name = "Global coordinate surfaceline";
+            const string name = "Global coordinate surface line";
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithOnlyOnePoint_CreatePipingSurfaceLineWithOnePoint()
         {
             // Setup
-            const string name = "Global coordinate surfaceline";
+            const string name = "Global coordinate surface line";
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithoutPoints_CreateSurfaceLineWithoutPoints()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithDikeToePolderSide_CreateSurfaceLineWithDikeToePolderSideSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithDitchDikeSide_CreateSurfaceLineWithDitchDikeSideSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithDitchDikeSideAndDikeToeAtPolder_CreateSurfaceLineWithDitchDikeSideAndDikeToeAtPolderSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithBottomDitchDikeSide_CreateSurfaceLineWithBottomDitchDikeSideSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithBottomPolderDikeSide_CreateSurfaceLineWithBottomDitchPolderSideSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -299,7 +299,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithPolderDikeSide_CreateSurfaceLineWithDitchPolderSideSet()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Create_SurfaceLineWithMultipleCharacteristicTypesForOnePoint_CreateSurfaceLineWithPointsForEachType()
         {
             // Setup
-            const string name = "Surfaceline without points";
+            const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {

@@ -74,11 +74,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             {
                 new RingtoetsMacroStabilityInwardsSurfaceLine
                 {
-                    Name = "Surfaceline 1"
+                    Name = "Surface line 1"
                 },
                 new RingtoetsMacroStabilityInwardsSurfaceLine
                 {
-                    Name = "Surfaceline 2"
+                    Name = "Surface line 2"
                 }
             };
             surfaceLines[0].SetGeometry(pointsOne);

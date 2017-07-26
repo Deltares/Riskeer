@@ -244,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             RingtoetsMacroStabilityInwardsSurfaceLine readSurfaceLine = DeepCloneAndModifyPoints(targetSurfaceLine);
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLine
             };
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             {
                 Name = readSurfaceLineName
             };
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLine
             };
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert
@@ -341,7 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             {
                 Name = addedSurfaceLineName
             };
-            var readSurfacelines = new[]
+            var readSurfaceLines = new[]
             {
                 readSurfaceLineOne,
                 readSurfaceLineTwo
@@ -350,7 +350,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfacelines,
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(readSurfaceLines,
                                                                                                    sourceFilePath);
 
             // Assert

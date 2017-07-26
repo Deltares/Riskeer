@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="surfaceLine"/>.</param>
-        /// <param name="surfaceLine">The surfaceline residing in <paramref name="failureMechanism"/>
+        /// <param name="surfaceLine">The surface line residing in <paramref name="failureMechanism"/>
         /// that should be removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
