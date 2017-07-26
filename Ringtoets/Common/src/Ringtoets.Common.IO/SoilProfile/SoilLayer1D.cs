@@ -45,8 +45,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             BelowPhreaticLevelShift = double.NaN;
             DiameterD70Mean = double.NaN;
             DiameterD70CoefficientOfVariation = double.NaN;
+            DiameterD70Shift = double.NaN;
             PermeabilityMean = double.NaN;
             PermeabilityCoefficientOfVariation = double.NaN;
+            PermeabilityShift = double.NaN;
         }
 
         /// <summary>
@@ -78,6 +80,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double BelowPhreaticLevelShift { get; set; }
 
         /// <summary>
+        /// Gets or sets the distribution for the volumic weight of the layer below the 
+        /// phreatic level.
+        /// </summary>
+        public long? BelowPhreaticLevelDistribution { get; set; }
+
+        /// <summary>
         /// Gets or sets the mean of the distribution for the mean diameter of small scale tests 
         /// applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
         /// </summary>
@@ -91,6 +99,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double DiameterD70CoefficientOfVariation { get; set; }
 
         /// <summary>
+        /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
+        /// on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double DiameterD70Shift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
+        /// formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public long? DiameterD70Distribution { get; set; }
+
+        /// <summary>
         /// Gets or sets the mean of the distribution for the the Darcy-speed with which water 
         /// flows through the aquifer layer.
         /// </summary>
@@ -101,6 +123,18 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// with which water flows through the aquifer layer.
         /// </summary>
         public double PermeabilityCoefficientOfVariation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public long? PermeabilityDistribution { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
+        /// </summary>
+        public double PermeabilityShift { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the <see cref="SoilLayer1D"/>.

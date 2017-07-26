@@ -119,6 +119,7 @@
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="SoilProfile\ISoilProfile.cs" />
+    <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\SegmentPointsTableDefinitions.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
     <Compile Include="SoilProfile\SoilLayer1D.cs" />
+    <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
     <Compile Include="SoilProfile\SoilProfile1D.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile2D.cs" />

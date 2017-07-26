@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -127,6 +129,76 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("Profile", result[0].Name);
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofile.soil");
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile1D profile = reader.ReadSoilProfile();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    false,
+                    false,
+                    true
+                }, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(new[]
+                {
+                    Color.FromArgb(128, 255, 128),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(70, 130, 180)
+                }, profile.Layers.Select(l => l.Color));
+                CollectionAssert.AreEqual(new[]
+                {
+                    3.88,
+                    0.71,
+                    0.21
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.08,
+                    0.02,
+                    0.001
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.4,
+                    0.32,
+                    0.3
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelShift));
+                CollectionAssert.AreEqual(new[]
+                {
+                    11.3,
+                    0.01,
+                    0.51
+                }, profile.Layers.Select(l => l.DiameterD70Mean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.017699,
+                    0.1,
+                    0.029412
+                }, profile.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    5.21,
+                    9.99,
+                    1.01
+                }, profile.Layers.Select(l => l.PermeabilityMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.057582,
+                    0.01001,
+                    0.024752
+                }, profile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
+            }
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
@@ -121,17 +122,23 @@ namespace Ringtoets.Common.IO.SoilProfile
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Tries to read and create a <see cref="SoilProfile1D"/>.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile1D TryReadSoilProfile()
         {
-            var criticalProperties = new RequiredProfileProperties(this);
-            var soilProfile = new SoilProfile1D(criticalProperties.ProfileName, criticalProperties.Bottom, new []{new SoilLayer1D(1000) });
+            var properties = new RequiredProfileProperties(this);
 
-            for (var i = 1; i <= criticalProperties.LayerCount; i++)
+            var soilLayers = new List<SoilLayer1D>();
+            for (var i = 1; i <= properties.LayerCount; i++)
             {
+                soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
                 MoveNext();
             }
 
-            return soilProfile;
+            return new SoilProfile1D(properties.ProfileName, properties.Bottom, soilLayers);
         }
 
         private void PrepareReader()
@@ -218,6 +225,68 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Reads a <see cref="SoilLayer1D"/> from the given <paramref name="reader"/>.
+        /// </summary>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
+        private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
+        {
+            var properties = new Layer1DProperties(reader, profileName);
+
+            return new SoilLayer1D(properties.Top)
+            {
+                IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0),
+                MaterialName = properties.MaterialName,
+                Color = SoilLayerColorConverter.Convert(properties.Color),
+                BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution,
+                BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN,
+                BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean ?? double.NaN,
+                BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation ?? double.NaN,
+                DiameterD70Distribution = properties.DiameterD70Distribution,
+                DiameterD70Shift = properties.DiameterD70Shift ?? double.NaN,
+                DiameterD70Mean = properties.DiameterD70Mean ?? double.NaN,
+                DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation ?? double.NaN,
+                PermeabilityDistribution = properties.PermeabilityDistribution,
+                PermeabilityShift = properties.PermeabilityShift ?? double.NaN,
+                PermeabilityMean = properties.PermeabilityMean ?? double.NaN,
+                PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation ?? double.NaN
+            };
+        }
+
+        private class Layer1DProperties : LayerProperties
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties
+            /// that are required to create a complete <see cref="SoilLayer1D"/>. If these properties
+            /// cannot be read, then the reader can proceed to the next profile.
+            /// </summary>
+            /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to read the required layer property values from.</param>
+            /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
+            /// <exception cref="SoilProfileReadException">Thrown when the values in the database could not be 
+            /// casted to the expected column types.</exception>
+            internal Layer1DProperties(IRowBasedDatabaseReader reader, string profileName)
+                : base(reader, profileName)
+            {
+                const string readColumn = SoilProfileTableDefinitions.Top;
+                try
+                {
+                    Top = reader.Read<double>(readColumn);
+                }
+                catch (InvalidCastException e)
+                {
+                    string message = new FileReaderErrorMessageBuilder(reader.Path)
+                        .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
+                        .Build(string.Format(Resources.SoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
+                    throw new SoilProfileReadException(message, profileName, e);
+                }
+            }
+
+            /// <summary>
+            /// Gets the top level of the 1D soil layer.
+            /// </summary>
+            public double Top { get; }
+        }
+
         private class RequiredProfileProperties
         {
             /// <summary>
@@ -230,13 +299,19 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// casted to the expected column types.</exception>
             internal RequiredProfileProperties(IRowBasedDatabaseReader reader)
             {
-                const string readColumn = SoilProfileTableDefinitions.Bottom;
+                string readColumn = SoilProfileTableDefinitions.ProfileName;
                 try
                 {
                     ProfileName = reader.Read<string>(SoilProfileTableDefinitions.ProfileName);
+
+                    readColumn = SoilProfileTableDefinitions.Bottom;
                     Bottom = reader.Read<double>(readColumn);
-                    LayerCount = reader.Read<long>(SoilProfileTableDefinitions.LayerCount);
-                    ProfileId = reader.Read<long>(SoilProfileTableDefinitions.SoilProfileId);
+
+                    readColumn = SoilProfileTableDefinitions.LayerCount;
+                    LayerCount = reader.Read<long>(readColumn);
+
+                    readColumn = SoilProfileTableDefinitions.SoilProfileId;
+                    ProfileId = reader.Read<long>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {
