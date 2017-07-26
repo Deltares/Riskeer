@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
@@ -83,10 +82,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Validates the points collection and trims the last point from the collection
-        /// if it is equal to the first.
+        /// Validates the points collection.
         /// </summary>
-        /// <param name="points">The points to validate and trim if required.</param>
+        /// <param name="points">The points to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when points is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when points contains less than 2 unique points.</exception>
         private void ValidateAndTrimPoints(IEnumerable<Point2D> points)

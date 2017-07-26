@@ -32,9 +32,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     public class MacroStabilityInwardsSoilProfile1D : ISoilProfile
     {
         private MacroStabilityInwardsSoilLayer1D[] layers;
+        private string name;
 
         /// <summary>
-        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile1D"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
+        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile1D"/>, with the given <paramref name="name"/>, 
+        /// <paramref name="bottom"/> and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
@@ -44,7 +46,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// to build this instance.</param>
         /// <param name="soilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
+        /// is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilProfile1D(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer1D> layers, SoilProfileType sourceProfileType, long soilProfileId)
         {
             Name = name;
@@ -67,7 +70,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
-        public string Name { get; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                name = value;
+            }
+        }
 
         /// <summary>
         /// Gets an ordered (by <see cref="MacroStabilityInwardsSoilLayer1D.Top"/>, descending) <see cref="IEnumerable{T}"/> of 

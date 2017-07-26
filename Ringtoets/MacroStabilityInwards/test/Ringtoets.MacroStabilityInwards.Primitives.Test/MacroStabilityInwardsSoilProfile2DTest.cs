@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [Test]
         [TestCase(SoilProfileType.SoilProfile1D)]
         [TestCase(SoilProfileType.SoilProfile2D)]
-        public void Constructor_WithNameLayersAndAquifer_ReturnsInstanceWithPropsAndEquivalentLayerCollection(SoilProfileType type)
+        public void Constructor_WithNameAndLayers_ReturnsInstanceWithPropsAndEquivalentLayerCollection(SoilProfileType type)
         {
             // Setup
             const string name = "Profile";
@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
+        public void Constructor_LayersEmpty_ThrowsArgumentException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(string.Empty, new Collection<MacroStabilityInwardsSoilLayer2D>(), SoilProfileType.SoilProfile2D, 0);
@@ -69,7 +69,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null, new Collection<MacroStabilityInwardsSoilLayer2D>(), SoilProfileType.SoilProfile2D, 0);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(string.Empty, null, SoilProfileType.SoilProfile2D, 0);
@@ -77,22 +87,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void ToString_WithNullName_ReturnsStringEmpty()
-        {
-            // Setup
-            var profile = new MacroStabilityInwardsSoilProfile2D(null, new[]
-            {
-                CreateRandomLayer(2)
-            }, SoilProfileType.SoilProfile2D, 0);
-
-            // Call
-            string text = profile.ToString();
-
-            // Assert
-            Assert.IsEmpty(text);
         }
 
         [Test]

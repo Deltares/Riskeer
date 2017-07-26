@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
+        public void Constructor_LayersEmpty_ThrowsArgumentException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>(), SoilProfileType.SoilProfile1D, 0);
@@ -72,8 +72,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
+
         [Test]
-        public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null, new Collection<MacroStabilityInwardsSoilLayer2D>(), SoilProfileType.SoilProfile2D, 0);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D, 0);
@@ -169,22 +180,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             const string expectedMessage = "Layer not found in profile.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void ToString_WithNullName_ReturnsStringEmpty()
-        {
-            // Setup
-            var profile = new MacroStabilityInwardsSoilProfile1D(null, 0.0, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(0.0)
-            }, SoilProfileType.SoilProfile1D, 0);
-
-            // Call
-            string text = profile.ToString();
-
-            // Assert
-            Assert.IsEmpty(text);
         }
 
         [Test]

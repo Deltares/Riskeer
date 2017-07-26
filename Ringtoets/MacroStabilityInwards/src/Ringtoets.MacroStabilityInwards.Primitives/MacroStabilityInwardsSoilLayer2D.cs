@@ -19,10 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {

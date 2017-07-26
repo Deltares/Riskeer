@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -31,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     public class SoilProfileUnderSurfaceLineFactoryTest
     {
         [Test]
-        public void Create_SoilProfileNull_ThrowArgumentNullException()
+        public void Create_SoilProfile1DNull_ThrowArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
@@ -62,6 +64,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        public void Create_SoilProfile2DNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => SoilProfileUnderSurfaceLineFactory.Create(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilProfile", exception.ParamName);
+        }
+
+        [Test]
         public void Create_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
         {
             // Setup
@@ -89,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(2, 2),
                 new Point2D(0, 2),
                 new Point2D(0, 3.2)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -148,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -186,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -221,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(2, top),
                 new Point2D(2, bottom),
                 new Point2D(0, bottom)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -256,7 +269,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -289,14 +302,68 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(3, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(5, bottom),
                 new Point2D(7, top),
                 new Point2D(8, top),
                 new Point2D(8, bottom)
-            }, areas.LayersUnderSurfaceLine.ElementAt(1).OuterLoop);
+            }, areas.LayersUnderSurfaceLine.ElementAt(1).OuterRing);
+        }
+
+        [Test]
+        public void Create_SoilProfile2DWithOuterRingAndHoles_ReturnsEqualGeometries()
+        {
+            // Setup
+            Ring outerRingA = CreateRing(21);
+            Ring outerRingB = CreateRing(12);
+            var holesA = new[]
+            {
+                CreateRing(4),
+                CreateRing(7)
+            };
+            var holesB = new[]
+            {
+                CreateRing(4),
+                CreateRing(7),
+                CreateRing(2)
+            };
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA),
+                new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB)
+            };
+            var profile = new MacroStabilityInwardsSoilProfile2D("name", layers, SoilProfileType.SoilProfile2D, 0);
+
+            // Call
+            SoilProfileUnderSurfaceLine profileUnderSurfaceLine = SoilProfileUnderSurfaceLineFactory.Create(profile);
+
+            // Assert
+            Assert.AreEqual(2, profileUnderSurfaceLine.LayersUnderSurfaceLine.Count());
+            CollectionAssert.AreEqual(new [] { outerRingA.Points, outerRingB.Points }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.OuterRing));
+            CollectionAssert.AreEqual(new [] { holesA.Select(h => h.Points), holesB.Select(h => h.Points) }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.Holes));
+        }
+
+        private static Ring CreateRing(int seed)
+        {
+            var random = new Random(seed);
+            int x1 = random.Next();
+            int y1 = random.Next();
+            int x2 = x1;
+            int y2 = y1 + random.Next();
+            int x3 = x2 + random.Next();
+            int y3 = y2;
+            double x4 = x1 + (x3 - x1) * random.NextDouble();
+            int y4 = y1;
+
+            return new Ring(new[]
+            {
+                new Point2D(x1, y1),
+                new Point2D(x2, y2),
+                new Point2D(x3, y3),
+                new Point2D(x4, y4)
+            });
         }
     }
 }
