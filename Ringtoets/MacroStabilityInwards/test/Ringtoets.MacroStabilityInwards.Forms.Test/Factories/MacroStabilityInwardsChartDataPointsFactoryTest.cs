@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
 
             // Assert
-            AssertEqualPointCollections(surfaceLine.ProjectGeometryToLZ(), points);
+            AssertEqualPointCollections(surfaceLine.LocalGeometry, points);
         }
 
         [Test]

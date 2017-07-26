@@ -816,7 +816,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;
 
-            MacroStabilityInwardsSoilProfile1D soilProfile = stochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            var soilProfile = stochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
             Assert.NotNull(soilProfile);
             int expectedLayerCount = soilProfile.Layers.Count();
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
@@ -840,7 +840,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var surfaceLineChartData = (ChartLineData) chartData;
 
             Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Length);
-            CollectionAssert.AreEqual(surfaceLine.ProjectGeometryToLZ(), surfaceLineChartData.Points);
+            CollectionAssert.AreEqual(surfaceLine.LocalGeometry, surfaceLineChartData.Points);
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }
     }

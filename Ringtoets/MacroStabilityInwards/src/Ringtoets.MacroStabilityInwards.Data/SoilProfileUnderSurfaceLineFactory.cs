@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
-            Point2D[] localizedSurfaceLine = surfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] localizedSurfaceLine = surfaceLine.LocalGeometry.ToArray();
 
             IEnumerable<Point2D> surfaceLineGeometry = CreateSurfaceLineAreaToDepth(localizedSurfaceLine, soilProfile.Bottom);
             IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(l => As2DGeometry(l, soilProfile, localizedSurfaceLine.First().X, localizedSurfaceLine.Last().X));

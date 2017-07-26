@@ -40,7 +40,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     public class RingtoetsMacroStabilityInwardsSurfaceLine : Observable, IMechanismSurfaceLine
     {
         private const int numberOfDecimalPlaces = 2;
-        private Point2D[] localGeometry;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> class.
@@ -49,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             Name = string.Empty;
             Points = new Point3D[0];
-            localGeometry = new Point2D[0];
+            LocalGeometry = new RoundedPoint2DCollection(2, new Point2D[0]);
         }
 
         /// <summary>
@@ -159,13 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the 2D points describing the local geometry of the surface line.
         /// </summary>
-        public IEnumerable<Point2D> LocalGeometry
-        {
-            get
-            {
-                return localGeometry;
-            }
-        }
+        public RoundedPoint2DCollection LocalGeometry { get; private set; }
 
         /// <summary>
         /// Sets the geometry of the surface line.
@@ -191,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 EndingWorldPoint = Points[Points.Length - 1];
             }
 
-            localGeometry = ProjectGeometryToLZ().ToArray();
+            LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.ProjectToLZ().ToArray());
         }
 
         /// <summary>
@@ -438,9 +431,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
 
             var segments = new Collection<Segment2D>();
-            for (var i = 1; i < localGeometry.Length; i++)
+            for (var i = 1; i < LocalGeometry.Count(); i++)
             {
-                segments.Add(new Segment2D(localGeometry[i - 1], localGeometry[i]));
+                segments.Add(new Segment2D(LocalGeometry.ElementAt(i - 1), LocalGeometry.ElementAt(i)));
             }
 
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
@@ -455,34 +448,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
             string message = string.Format(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             throw new RingtoetsMacroStabilityInwardsSurfaceLineException(message);
-        }
-
-        /// <summary>
-        /// Projects the points in <see cref="Points"/> to localized coordinate (LZ-plane) system.
-        /// Z-values are retained, and the first point is put a L=0.
-        /// </summary>
-        /// <returns>Collection of 2D points in the LZ-plane.</returns>
-        public RoundedPoint2DCollection ProjectGeometryToLZ()
-        {
-            int count = Points.Length;
-            if (count == 0)
-            {
-                return new RoundedPoint2DCollection(numberOfDecimalPlaces, Enumerable.Empty<Point2D>());
-            }
-
-            Point3D first = Points.First();
-            if (count == 1)
-            {
-                return new RoundedPoint2DCollection(numberOfDecimalPlaces, new[]
-                {
-                    new Point2D(0.0, first.Z)
-                });
-            }
-
-            Point3D last = Points.Last();
-            var firstPoint = new Point2D(first.X, first.Y);
-            var lastPoint = new Point2D(last.X, last.Y);
-            return new RoundedPoint2DCollection(numberOfDecimalPlaces, Points.Select(p => p.ProjectIntoLocalCoordinates(firstPoint, lastPoint)));
         }
 
         /// <summary>

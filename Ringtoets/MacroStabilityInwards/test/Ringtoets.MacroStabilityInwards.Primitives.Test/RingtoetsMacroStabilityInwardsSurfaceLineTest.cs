@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
@@ -126,71 +125,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
             TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.StartingWorldPoint);
             TestHelper.AssertAreEqualButNotSame(sourceData[3], surfaceLine.EndingWorldPoint);
-        }
-
-        [Test]
-        public void ProjectGeometryToLZ_EmptyCollection_ReturnEmptyCollection()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-
-            // Call
-            RoundedPoint2DCollection lzCoordinates = surfaceLine.ProjectGeometryToLZ();
-
-            // Assert
-            CollectionAssert.IsEmpty(lzCoordinates);
-            Assert.AreEqual(2, lzCoordinates.NumberOfDecimalPlaces);
-        }
-
-        [Test]
-        public void ProjectGeometryToLZ_GeometryWithOnePoint_ReturnSinglePointAtZeroXAndOriginalZ()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            const double originalZ = 3.3;
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(1.1, 2.2, originalZ)
-            });
-
-            // Call
-            RoundedPoint2DCollection lzCoordinates = surfaceLine.ProjectGeometryToLZ();
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0.0, originalZ)
-            }, lzCoordinates);
-            Assert.AreEqual(2, lzCoordinates.NumberOfDecimalPlaces);
-        }
-
-        [Test]
-        public void ProjectGeometryToLZ_GeometryWithMultiplePoints_ProjectPointsOntoLzPlaneKeepingOriginalZ()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(1.0, 1.0, 2.2),
-                new Point3D(2.0, 3.0, 4.4), // Outlier from line specified by extrema
-                new Point3D(3.0, 4.0, 7.7)
-            });
-
-            // Call
-            RoundedPoint2DCollection actual = surfaceLine.ProjectGeometryToLZ();
-
-            // Assert
-            double length = Math.Sqrt(2 * 2 + 3 * 3);
-            const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
-            var expectedCoordinatesX = new[]
-            {
-                0.0,
-                secondCoordinateFactor * length,
-                length
-            };
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(actual.GetAccuracy()));
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Select(p => p.Y).ToArray());
-            Assert.AreEqual(2, actual.NumberOfDecimalPlaces);
         }
 
         [Test]

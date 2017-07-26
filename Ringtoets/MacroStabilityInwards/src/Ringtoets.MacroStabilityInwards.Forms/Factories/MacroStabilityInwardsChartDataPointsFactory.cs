@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
         public static Point2D[] CreateSurfaceLinePoints(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return surfaceLine?.ProjectGeometryToLZ().ToArray() ?? new Point2D[0];
+            return surfaceLine?.LocalGeometry.ToArray() ?? new Point2D[0];
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 return Enumerable.Empty<Point2D[]>();
             }
 
-            Point2D[] surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] surfaceLineLocalGeometry = surfaceLine.LocalGeometry.ToArray();
 
             if (IsSurfaceLineAboveSoilLayer(surfaceLineLocalGeometry, soilLayer))
             {
