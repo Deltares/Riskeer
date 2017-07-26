@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Data;
+using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -29,6 +33,8 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
+        private IDataReader dataReader;
+
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelReader"/>, 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
@@ -43,18 +49,72 @@ namespace Ringtoets.Common.IO.SoilProfile
         public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Prepares a new data reader with a query for version validation.
+        /// Validates the database.
         /// </summary>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The database version could not be read.</item>
-        /// <item>The database version is incorrect.</item>
+        /// <item>The database version could not be read;</item>
+        /// <item>The database version is incorrect;</item>
+        /// <item>Required information for constraint evaluation could not be read;</item>
+        /// <item>The database segment names are not unique;</item>
+        /// <item>Failed to fetch stochastic soil models from the database.</item>
         /// </list>
         /// </exception>
-        public void Initialize()
+        public void Validate()
         {
             VerifyVersion(Path);
             VerifyConstraints(Path);
+            InitializeReader();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (dataReader != null)
+            {
+                dataReader.Close();
+                dataReader.Dispose();
+                dataReader = null;
+            }
+            base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether or not more stochastic soil models can be read using 
+        /// the <see cref="StochasticSoilModelReader"/>.
+        /// </summary>
+        public bool HasNext { get; private set; }
+
+        /// <summary>
+        /// Initializes a new <see cref="SQLiteDataReader"/>.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when failed to fetch stochastic soil models from the database.</exception>
+        private void InitializeReader()
+        {
+            CreateDataReader();
+            MoveNext();
+        }
+
+        private void MoveNext()
+        {
+            HasNext = MoveNext(dataReader);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="SQLiteDataReader"/>.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when failed to fetch stochastic soil models from the database.</exception>
+        private void CreateDataReader()
+        {
+            string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+            try
+            {
+                dataReader = CreateDataReader(stochasticSoilModelSegmentsQuery);
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
+                throw new CriticalFileReadException(message, exception);
+            }
         }
 
         /// <summary>
@@ -63,7 +123,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The database version could not be read.</item>
+        /// <item>The database version could not be read;</item>
         /// <item>The database version is incorrect.</item>
         /// </list>
         /// </exception>

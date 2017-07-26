@@ -88,7 +88,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         [TestCase("text.txt")]
         [TestCase("empty.soil")]
-        public void Initialize_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
+        public void Validate_IncorrectFormatFileOrInvalidSchema_ThrowsCriticalFileReadException(string dbName)
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                TestDelegate test = () => reader.Validate();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Initialize_IncorrectVersion_ThrowsCriticalFileReadException()
+        public void Validate_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(versionReaderTestDataPath, "incorrectVersion.soil");
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                TestDelegate test = () => reader.Validate();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Initialize_InvalidSchemaThatPassesVersionValidation_ThrowsCriticalFileReadException()
+        public void Validate_InvalidSchemaThatPassesVersionValidation_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(constraintsReaderTestDataPath, "missingStochasticSoilModelTable.soil");
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                TestDelegate test = () => reader.Validate();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Initialize_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
+        public void Validate_NonUniqueSoilModelNames_ThrowsCriticalFileReadException()
         {
             // Setup
             string dbFile = Path.Combine(constraintsReaderTestDataPath, "nonUniqueSoilModelNames.soil");
@@ -164,13 +164,31 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => reader.Initialize();
+                TestDelegate test = () => reader.Validate();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Namen van ondergrondmodellen zijn niet uniek.");
                 Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Validate_ValidDatabase_InitializesConnection()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                reader.Validate();
+
+                // Assert
+                Assert.IsTrue(reader.HasNext);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

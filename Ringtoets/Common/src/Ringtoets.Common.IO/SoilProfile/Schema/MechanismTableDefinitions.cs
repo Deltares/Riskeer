@@ -22,28 +22,35 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the table and column names of the table 'StochasticSoilModel' in the DSoil-Model database.
+    /// Defines the table and column names of the table 'Mechanism' in the DSoil-Model database.
     /// </summary>
-    internal static class StochasticSoilModelTableDefinitions
+    internal static class MechanismTableDefinitions
     {
         /// <summary>
         /// Gets the name of the table.
         /// </summary>
-        public const string TableName = "StochasticSoilModel";
+        public const string TableName = "Mechanism";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model id column.
+        /// Gets the name of the failure mechanism id column.
         /// </summary>
-        public const string StochasticSoilModelId = "SSM_ID";
+        public const string MechanismId = "ME_ID";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model name column.
+        /// Gets the name of the failure mechanism name column.
         /// </summary>
-        public const string StochasticSoilModelName = "SSM_Name";
+        public const string MechanismName = "ME_Name";
 
         /// <summary>
-        /// Gets the name of the alias used for identifying if segments are unique.
+        /// Gets the name of the piping failure mechanism value in the <see cref="MechanismName"/> 
+        /// column.
         /// </summary>
-        public const string AreSegmentsUnique = "AreSegmentsUnique";
+        public const string MechanismNamePiping = "Piping";
+
+        /// <summary>
+        /// Gets the name of the macro stability inwards failure mechanism value in the 
+        /// <see cref="MechanismName"/> column.
+        /// </summary>
+        public const string MechanismNameMacroStabilityInwards = "Stability";
     }
 }

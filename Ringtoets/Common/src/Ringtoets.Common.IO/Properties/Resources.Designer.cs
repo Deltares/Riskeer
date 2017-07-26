@@ -1649,6 +1649,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
+        /// </summary>
+        public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelDatabaseReader_Failed_to_read_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

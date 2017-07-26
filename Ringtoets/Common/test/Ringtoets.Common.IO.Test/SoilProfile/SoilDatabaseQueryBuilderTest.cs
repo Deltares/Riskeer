@@ -67,5 +67,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                          "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
             Assert.AreEqual(expectedQuery, query);
         }
+
+        [Test]
+        public void GetStochasticSoilModelOfMechanismQuery_Always_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+
+            // Assert
+            const string expectedQuery = @"SELECT M.ME_Name, SP.XWorld, SP.YWorld, S.SE_Name, SSM.SSM_Name, SSM.SSM_ID " +
+                                         "FROM Mechanism M " +
+                                         "INNER JOIN Segment S USING(ME_ID) " +
+                                         "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
+                                         "INNER JOIN SegmentPoints SP USING(SE_ID) " +
+                                         "ORDER BY M.ME_Name, SSM.SSM_ID;";
+            Assert.AreEqual(expectedQuery, query);
+        }
     }
 }

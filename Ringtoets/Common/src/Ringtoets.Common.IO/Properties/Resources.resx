@@ -815,4 +815,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing" xml:space="preserve">
     <value>Kan geen ondergrondschematisaties lezen. Mogelijk bestaat de '{0}' tabel niet.</value>
   </data>
+  <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
+    <value>Kon geen stochastische ondergrondmodellen verkrijgen uit de database.</value>
+  </data>
 </root>

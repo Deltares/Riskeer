@@ -22,28 +22,18 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the table and column names of the table 'StochasticSoilModel' in the DSoil-Model database.
+    /// Defines the table and column names of the table 'Segment' in the DSoil-Model database.
     /// </summary>
-    internal static class StochasticSoilModelTableDefinitions
+    internal static class SegmentTableDefinitions
     {
         /// <summary>
         /// Gets the name of the table.
         /// </summary>
-        public const string TableName = "StochasticSoilModel";
+        public const string TableName = "Segment";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model id column.
+        /// Gets the name of the segment name column.
         /// </summary>
-        public const string StochasticSoilModelId = "SSM_ID";
-
-        /// <summary>
-        /// Gets the name of the stochastic soil model name column.
-        /// </summary>
-        public const string StochasticSoilModelName = "SSM_Name";
-
-        /// <summary>
-        /// Gets the name of the alias used for identifying if segments are unique.
-        /// </summary>
-        public const string AreSegmentsUnique = "AreSegmentsUnique";
+        public const string SegmentName = "SE_Name";
     }
 }

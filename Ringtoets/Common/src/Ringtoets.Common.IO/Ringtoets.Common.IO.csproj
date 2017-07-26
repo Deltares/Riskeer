@@ -116,7 +116,10 @@
     <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
+    <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentPointsTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\SegmentTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\StochasticSoilModelTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\StochasticSoilProfileTableDefinitions.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
