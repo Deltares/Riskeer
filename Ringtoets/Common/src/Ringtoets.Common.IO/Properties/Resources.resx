@@ -833,4 +833,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
     <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
   </data>
+  <data name="SoilProfile_Cannot_construct_SoilProfile_without_layers" xml:space="preserve">
+    <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
+  </data>
+  <data name="SoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
+    <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
+  </data>
 </root>

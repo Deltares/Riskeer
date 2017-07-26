@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private SoilProfile1D TryReadSoilProfile()
         {
             var criticalProperties = new RequiredProfileProperties(this);
-            var soilProfile = new SoilProfile1D(criticalProperties.ProfileName, criticalProperties.Bottom);
+            var soilProfile = new SoilProfile1D(criticalProperties.ProfileName, criticalProperties.Bottom, new []{new SoilLayer1D(1000) });
 
             for (var i = 1; i <= criticalProperties.LayerCount; i++)
             {

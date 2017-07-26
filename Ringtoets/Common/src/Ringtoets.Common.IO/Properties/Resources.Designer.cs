@@ -1631,6 +1631,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
+        /// </summary>
+        public static string SoilProfile_Cannot_construct_SoilProfile_without_layers {
+            get {
+                return ResourceManager.GetString("SoilProfile_Cannot_construct_SoilProfile_without_layers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie..
+        /// </summary>
+        public static string SoilProfile_Layers_Layer_top_below_profile_bottom {
+            get {
+                return ResourceManager.GetString("SoilProfile_Layers_Layer_top_below_profile_bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string SoilProfileReader_Critical_Unexpected_value_on_column {

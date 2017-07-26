@@ -19,6 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Ringtoets.Common.IO.Properties;
+
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
@@ -26,15 +31,27 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class SoilProfile1D : ISoilProfile
     {
+        private SoilLayer1D[] soilLayers;
+
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfile1D"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
         /// <param name="bottom">The bottom level of the profile.</param>
-        public SoilProfile1D(string name, double bottom)
+        /// <param name="layers">The collection of layers that should be part of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="layers"/> contains no layers</item>
+        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> less than
+        /// <paramref name="bottom"/></item>
+        /// </list>
+        /// </exception>
+        public SoilProfile1D(string name, double bottom, IEnumerable<SoilLayer1D> layers)
         {
             Name = name;
             Bottom = bottom;
+            Layers = layers;
         }
 
         /// <summary>
@@ -42,6 +59,53 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         public double Bottom { get; }
 
+        /// <summary>
+        /// Gets an ordered (by <see cref="SoilLayer1D.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
+        /// <see cref="SoilLayer1D"/> for the <see cref="SoilLayer1D"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
+        public IEnumerable<SoilLayer1D> Layers
+        {
+            get
+            {
+                return soilLayers;
+            }
+            private set
+            {
+                ValidateLayersCollection(value);
+                soilLayers = value.OrderByDescending(l => l.Top).ToArray();
+            }
+        }
+
         public string Name { get; }
+
+        /// <summary>
+        /// Validates the given <paramref name="layers"/>. A valid <paramref name="layers"/> has layers which 
+        /// all have values for <see cref="SoilLayer1D.Top"/> which are greater than or equal to <see cref="Bottom"/>.
+        /// </summary>
+        /// <param name="layers">The collection of <see cref="SoilLayer1D"/> to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="layers"/> contains no layers</item>
+        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> less than
+        /// <see cref="Bottom"/></item>
+        /// </list></exception>
+        private void ValidateLayersCollection(IEnumerable<SoilLayer1D> layers)
+        {
+            if (layers == null)
+            {
+                throw new ArgumentNullException(nameof(layers), string.Format(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers));
+            }
+            if (!layers.Any())
+            {
+                throw new ArgumentException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers);
+            }
+            if (layers.Any(l => l.Top < Bottom))
+            {
+                throw new ArgumentException(Resources.SoilProfile_Layers_Layer_top_below_profile_bottom);
+            }
+        }
     }
 }

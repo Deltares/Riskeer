@@ -33,16 +33,20 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             const string name = "some name";
-            var random = new Random(9);
-            int bottom = random.Next();
+            const int bottom = 1;
+            var soilLayer1Ds = new[]
+            {
+                new SoilLayer1D(2)
+            };
 
             // Call
-            var soilProfile1D = new SoilProfile1D(name, bottom);
+            var soilProfile1D = new SoilProfile1D(name, bottom, soilLayer1Ds);
 
             // Assert
             Assert.IsInstanceOf<ISoilProfile>(soilProfile1D);
             Assert.AreEqual(name, soilProfile1D.Name);
             Assert.AreEqual(bottom, soilProfile1D.Bottom);
+            CollectionAssert.AreEqual(soilLayer1Ds, soilProfile1D.Layers);
         }
     }
 }
