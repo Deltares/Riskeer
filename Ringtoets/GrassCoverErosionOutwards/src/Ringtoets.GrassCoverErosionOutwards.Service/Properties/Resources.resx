@@ -140,12 +140,6 @@
   <data name="GrassCoverErosionOutwardsPlugin_Name_Calculate_WaveHeight_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis berekenen voor locatie '{0}'</value>
   </data>
-  <data name="GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
-    <value>Waterstand bij doorsnede-eis voor locatie '{0}'</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis voor locatie '{0}'</value>
-  </data>
   <data name="GrassCoverErosionOutwardsPlugin_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.</value>
   </data>

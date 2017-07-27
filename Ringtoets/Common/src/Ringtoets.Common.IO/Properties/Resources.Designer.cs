@@ -320,15 +320,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regel heeft geen ID..
-        /// </summary>
-        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
-            get {
-                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
         /// </summary>
         public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
@@ -856,16 +847,6 @@ namespace Ringtoets.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata" +
                         "_for_location_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen gegevens gewijzigd..
-        /// </summary>
-        public static string ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted_No_data_changed {
-            get {
-                return ResourceManager.GetString("ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_abort" +
-                        "ed_No_data_changed", resourceCulture);
             }
         }
         
@@ -2003,15 +1984,6 @@ namespace Ringtoets.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_Stru" +
                         "ctureId_2_missing_or_invalid_default_values_used", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens gewijzigd..
-        /// </summary>
-        public static string StructuresImporter_User_canceled_No_data_changed {
-            get {
-                return ResourceManager.GetString("StructuresImporter_User_canceled_No_data_changed", resourceCulture);
             }
         }
         

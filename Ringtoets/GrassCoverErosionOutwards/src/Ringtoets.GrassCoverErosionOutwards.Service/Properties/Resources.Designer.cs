@@ -154,25 +154,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis voor locatie &apos;{0}&apos;.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_HydraulicBoundaryLocation_0_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_HydraulicBoundaryLocati" +
-                        "on_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis voor locatie &apos;{0}&apos;.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_HydraulicBoundaryLocation_0_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_HydraulicBoundaryLocation_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string GrassCoverErosionOutwardsPlugin_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged {

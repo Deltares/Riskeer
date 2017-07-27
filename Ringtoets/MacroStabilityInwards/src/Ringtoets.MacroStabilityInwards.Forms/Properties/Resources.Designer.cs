@@ -248,15 +248,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie.
-        /// </summary>
-        public static string MacroStabilityInwardsInput_SurfaceLine_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_SurfaceLine_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sta toe om het toetspeil handmatig te specificeren?.
         /// </summary>
         public static string MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description {

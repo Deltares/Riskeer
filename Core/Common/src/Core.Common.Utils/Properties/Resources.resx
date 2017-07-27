@@ -138,9 +138,6 @@
   <data name="Error_Path_must_not_point_to_empty_file_name" xml:space="preserve">
     <value>Bestandspad mag niet verwijzen naar een lege bestandsnaam.</value>
   </data>
-  <data name="TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method" xml:space="preserve">
-    <value>'{0}' is geen geldige expressie voor deze methode.</value>
-  </data>
   <data name="Error_Writing_to_File_0_CustomMessage_1_" xml:space="preserve">
     <value>Fout bij het schrijven naar bestand '{0}': {1}</value>
   </data>

@@ -297,14 +297,5 @@ namespace Core.Common.Utils.Properties {
                 return ResourceManager.GetString("TextFile_On_LineNumber_0_", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; is geen geldige expressie voor deze methode..
-        /// </summary>
-        public static string TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method {
-            get {
-                return ResourceManager.GetString("TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method", resourceCulture);
-            }
-        }
     }
 }

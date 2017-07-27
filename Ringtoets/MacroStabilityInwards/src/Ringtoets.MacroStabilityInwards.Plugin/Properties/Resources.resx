@@ -123,32 +123,6 @@
   <data name="Soil_file_Extension" xml:space="preserve">
     <value>soil</value>
   </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_Read_MacroStabilityInwardsSurfaceLines_0_" xml:space="preserve">
-    <value>Inlezen '{0}'</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
-    <value>{0} 
-Het bestand wordt overgeslagen.</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_AddValidSurfaceLineToCollection_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
-    <value>{0} 
-Deze profielschematisatie wordt overgeslagen.</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
-    <value>Profielschematisatie {0} bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.</value>
-  </data>
-  <data name="AddValidSurfaceLineToCollectionSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
-    <value>Meerdere definities gevonden voor profielschematisatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
-    <value>Inlezen van het profielschematisatiesbestand.</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
-    <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>
-  </data>
-  <data name="MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_" xml:space="preserve">
-    <value>Klaar met het inlezen van profielschematisaties uit bestand '{0}'.</value>
-  </data>
   <data name="MacroStabilityInwardsPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm" xml:space="preserve">
     <value>Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
 

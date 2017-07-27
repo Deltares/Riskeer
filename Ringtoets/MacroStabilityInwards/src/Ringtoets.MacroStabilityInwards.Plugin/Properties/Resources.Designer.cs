@@ -82,16 +82,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meerdere definities gevonden voor profielschematisatie &apos;{0}&apos;. Alleen de eerste definitie wordt geïmporteerd..
-        /// </summary>
-        public static string AddValidSurfaceLineToCollectionSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_ {
-            get {
-                return ResourceManager.GetString("AddValidSurfaceLineToCollectionSurfaceLinesCsvImporter_AddImportedDataToModel_Dup" +
-                        "licate_definitions_for_same_location_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u stochastische ondergrondmodellen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
@@ -137,76 +127,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surface_lines_" +
                         "definitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} 
-        ///Deze profielschematisatie wordt overgeslagen..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_AddValidSurfaceLineToCollection_ParseErrorMessage_0_SurfaceLine_skipped {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_AddValidSurfaceLineToCollection_Pars" +
-                        "eErrorMessage_0_SurfaceLine_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} 
-        ///Het bestand wordt overgeslagen..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inlezen &apos;{0}&apos;.
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_Read_MacroStabilityInwardsSurfaceLines_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_Read_MacroStabilityInwardsSurfaceLin" +
-                        "es_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inlezen van het profielschematisatiesbestand..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_Reading_surface_line_file {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_Reading_surface_line_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klaar met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_su" +
-                        "rface_lines_from_File_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_ {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surfa" +
-                        "ce_lines_from_File_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd..
-        /// </summary>
-        public static string MacroStabilityInwardsSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate" +
-                        "_geometry_points_and_is_ignored", resourceCulture);
             }
         }
         

@@ -300,9 +300,6 @@
   <data name="StructureCollection_UniqueFeature_id_FeatureDescription" xml:space="preserve">
     <value>id</value>
   </data>
-  <data name="WindDirection_WindDirectionAngle_Value_needs_to_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde voor de windrichting moet in het bereik {0} liggen.</value>
-  </data>
   <data name="IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes" xml:space="preserve">
     <value>Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.</value>
   </data>

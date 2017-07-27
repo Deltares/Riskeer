@@ -376,9 +376,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
   </data>
-  <data name="ForeshoreProfilesImporter_HandleUserCancelingImport_foreshoreprofile_import_aborted_No_data_changed" xml:space="preserve">
-    <value>Voorlandprofielen importeren is afgebroken. Geen gegevens gewijzigd.</value>
-  </data>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
@@ -417,9 +414,6 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
-  </data>
-  <data name="StructuresImporter_User_canceled_No_data_changed" xml:space="preserve">
-    <value>Kunstwerken importeren is afgebroken. Geen gegevens gewijzigd.</value>
   </data>
   <data name="StructuresImporter_TrySetConstructionProperty_Parameter_0_of_StructureName_1_StructureId_2_missing_or_invalid_default_values_used" xml:space="preserve">
     <value>Geen definitie gevonden voor parameter '{0}' van kunstwerk '{1}' ({2}). Er wordt een standaard waarde gebruikt.</value>
@@ -682,9 +676,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="CharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
     <value>locatie '{0}'</value>
-  </data>
-  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID" xml:space="preserve">
-    <value>Regel heeft geen ID.</value>
   </data>
   <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
     <value>Ontbrekend scheidingsteken '{0}'.</value>
