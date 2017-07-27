@@ -32,14 +32,14 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads 1d profiles from this database.
+    /// This class reads a DSoil database file and reads 2d profiles from this database.
     /// </summary>
-    public class SoilProfile1DReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
+    public class SoilProfile2DReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
         private IDataReader dataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilProfile1DReader"/>, which will use the 
+        /// Creates a new instance of <see cref="SoilProfile2DReader"/>, which will use the 
         /// <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -49,11 +49,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
-        public SoilProfile1DReader(string databaseFilePath) : base(databaseFilePath) {}
+        public SoilProfile2DReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
         /// Gets a value indicating whether or not more soil profiles can be read using 
-        /// the <see cref="SoilProfile1DReader"/>.
+        /// the <see cref="SoilProfile2DReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
 
@@ -68,19 +68,18 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next soil profile from the database and creates a 
-        /// <see cref="SoilProfile1D"/> instance of the information.
+        /// <see cref="SoilProfile2D"/> instance of the information.
         /// </summary>
-        /// <returns>The next <see cref="SoilProfile1D"/> from the database, or <c>null</c> 
+        /// <returns>The next <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
-        public SoilProfile1D ReadSoilProfile()
+        public SoilProfile2D ReadSoilProfile()
         {
             try
             {
-                SoilProfile1D soilProfile = TryReadSoilProfile();
-                return soilProfile;
+                return TryReadSoilProfile();
             }
             catch (SystemException exception) when (exception is FormatException ||
                                                     exception is OverflowException ||
@@ -122,46 +121,16 @@ namespace Ringtoets.Common.IO.SoilProfile
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Tries to read and create a <see cref="SoilProfile1D"/>.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
-        private SoilProfile1D TryReadSoilProfile()
-        {
-            var properties = new RequiredProfileProperties(this);
-
-            var soilLayers = new List<SoilLayer1D>();
-            if (properties.LayerCount == 0)
-            {
-                throw new SoilProfileReadException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers, properties.ProfileName);
-            }
-
-            for (var i = 1; i <= properties.LayerCount; i++)
-            {
-                soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
-                MoveNext();
-            }
-
-            return new SoilProfile1D(properties.ProfileId,
-                                     properties.ProfileName,
-                                     properties.Bottom,
-                                     soilLayers);
-        }
-
         private void PrepareReader()
         {
-            string subQueryGetNumberOfLayerProfile1D =
-                "SELECT " +
-                "SP1D_ID, " +
-                $"COUNT(*) AS {SoilProfileTableDefinitions.LayerCount} " +
-                "FROM SoilLayer1D " +
-                "GROUP BY SP1D_ID";
-
+            string subQueryGetNumberOfLayerProfile2D =
+                $"SELECT SP2D_ID, COUNT(*) as {SoilProfileTableDefinitions.LayerCount} " +
+                "FROM SoilLayer2D " +
+                "GROUP BY SP2D_ID";
             string subQueryGetMaterialPropertiesOfLayer =
                 "SELECT " +
                 "mat.MA_ID, " +
-                $"mat.MA_Name AS {SoilProfileTableDefinitions.MaterialName}, " +
+                $"mat.MA_Name as {SoilProfileTableDefinitions.MaterialName}, " +
                 $"max(case when pn.PN_Name = 'Color' then pv.PV_Value end) {SoilProfileTableDefinitions.Color}, " +
                 $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) {SoilProfileTableDefinitions.BelowPhreaticLevelDistribution}, " +
                 $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) {SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
@@ -182,21 +151,20 @@ namespace Ringtoets.Common.IO.SoilProfile
                 "WHERE pv.MA_ID = mat.MA_ID OR s.MA_ID = mat.MA_ID " +
                 "GROUP BY mat.MA_ID ";
 
-            string subQueryGetLayerPropertiesOfLayer1D =
+            string subQueryGetLayerPropertiesOfLayer2D =
                 "SELECT " +
-                "SL1D_ID, " +
-                $"PV_Value AS {SoilProfileTableDefinitions.IsAquifer} " +
+                "SL2D_ID, " +
+                $"PV_Value as {SoilProfileTableDefinitions.IsAquifer} " +
                 "FROM ParameterNames " +
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 $"WHERE PN_NAME = '{SoilProfileTableDefinitions.IsAquifer}'";
 
-            string querySoilProfile1D =
+            string querySoilProfile21D =
                 "SELECT " +
-                $"1 AS {SoilProfileTableDefinitions.Dimension}, " +
-                $"sp1d.SP1D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
+                $"sp2d.SP2D_Name as {SoilProfileTableDefinitions.ProfileName}, " +
                 $"layerCount.{SoilProfileTableDefinitions.LayerCount}, " +
-                $"sp1d.BottomLevel AS {SoilProfileTableDefinitions.Bottom}, " +
-                $"sl1d.TopLevel AS {SoilProfileTableDefinitions.Top}, " +
+                $"sl2d.GeometrySurface as {SoilProfileTableDefinitions.LayerGeometry}, " +
+                $"mpl.X as {SoilProfileTableDefinitions.IntersectionX}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
                 $"{SoilProfileTableDefinitions.IsAquifer}, " +
                 $"{SoilProfileTableDefinitions.Color}, " +
@@ -212,19 +180,27 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PermeabilityShift}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityMean}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
-                $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
-                "FROM Segment AS segment " +
+                $"sp2d.SP2D_ID as {SoilProfileTableDefinitions.SoilProfileId} " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN (SELECT SSM_ID, SP1D_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID, SP2D_ID) ssp USING(SSM_ID) " +
-                "JOIN SoilProfile1D sp1d USING (SP1D_ID) " +
-                $"JOIN ({subQueryGetNumberOfLayerProfile1D}) {SoilProfileTableDefinitions.LayerCount} USING (SP1D_ID) " +
-                "JOIN SoilLayer1D sl1d USING (SP1D_ID) " +
-                $"LEFT JOIN ({subQueryGetMaterialPropertiesOfLayer}) materialProperties USING(MA_ID) " +
-                $"LEFT JOIN ({subQueryGetLayerPropertiesOfLayer1D}) layerProperties USING(SL1D_ID) " +
-                "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
+                "JOIN SoilProfile2D sp2d USING (SP2D_ID) " +
+                "JOIN (" +
+                subQueryGetNumberOfLayerProfile2D +
+                ") layerCount USING (SP2D_ID) " +
+                "JOIN SoilLayer2D sl2d USING (SP2D_ID) " +
+                "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetMaterialPropertiesOfLayer +
+                ") materialProperties USING(MA_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetLayerPropertiesOfLayer2D +
+                ") layerProperties USING(SL2D_ID) " +
+                "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
 
             try
             {
-                dataReader = CreateDataReader(querySoilProfile1D);
+                dataReader = CreateDataReader(querySoilProfile21D);
             }
             catch (SQLiteException exception)
             {
@@ -233,52 +209,59 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
-        /// <summary>
-        /// Reads a <see cref="SoilLayer1D"/> from the given <paramref name="reader"/>.
-        /// </summary>
-        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
-        private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
+        private SoilProfile2D TryReadSoilProfile()
         {
-            var properties = new Layer1DProperties(reader, profileName);
+            var properties = new RequiredProfileProperties(this);
 
-            return new SoilLayer1D(properties.Top)
+            var soilLayers = new List<SoilLayer2D>();
+
+            if (properties.LayerCount == 0)
             {
-                IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0),
-                MaterialName = properties.MaterialName,
-                Color = SoilLayerColorConverter.Convert(properties.Color),
-                BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution,
-                BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN,
-                BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean ?? double.NaN,
-                BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation ?? double.NaN,
-                DiameterD70Distribution = properties.DiameterD70Distribution,
-                DiameterD70Shift = properties.DiameterD70Shift ?? double.NaN,
-                DiameterD70Mean = properties.DiameterD70Mean ?? double.NaN,
-                DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation ?? double.NaN,
-                PermeabilityDistribution = properties.PermeabilityDistribution,
-                PermeabilityShift = properties.PermeabilityShift ?? double.NaN,
-                PermeabilityMean = properties.PermeabilityMean ?? double.NaN,
-                PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation ?? double.NaN
-            };
+                MoveNext();
+            }
+            else
+            {
+                for (var i = 1; i <= properties.LayerCount; i++)
+                {
+                    soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
+                    MoveNext();
+                }
+            }
+
+            return new SoilProfile2D(properties.ProfileId,
+                                     properties.ProfileName,
+                                     soilLayers);
         }
 
-        private class Layer1DProperties : LayerProperties
+        /// <summary>
+        /// Reads a <see cref="SoilLayer2D"/> from the given <paramref name="reader"/>.
+        /// </summary>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
+        private static SoilLayer2D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
+        {
+            var properties = new Layer2DProperties(reader, profileName);
+
+            return new SoilLayer2D();
+        }
+
+        private class Layer2DProperties : LayerProperties
         {
             /// <summary>
-            /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="SoilLayer1D"/>. If these properties
+            /// Creates a new instance of <see cref="Layer2DProperties"/>, which contains properties
+            /// that are required to create a complete <see cref="SoilLayer2D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
             /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to read the required layer property values from.</param>
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="SoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal Layer1DProperties(IRowBasedDatabaseReader reader, string profileName)
+            internal Layer2DProperties(IRowBasedDatabaseReader reader, string profileName)
                 : base(reader, profileName)
             {
-                const string readColumn = SoilProfileTableDefinitions.Top;
+                const string readColumn = SoilProfileTableDefinitions.LayerGeometry;
                 try
                 {
-                    Top = reader.Read<double>(readColumn);
+                    GeometryValue = reader.Read<byte[]>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {
@@ -290,16 +273,16 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             /// <summary>
-            /// Gets the top level of the 1D soil layer.
+            /// Gets the geometry for the layer.
             /// </summary>
-            public double Top { get; }
+            public byte[] GeometryValue { get; }
         }
 
         private class RequiredProfileProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="SoilProfile1D"/>. If these properties
+            /// that are required to create a complete <see cref="SoilProfile2D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
             /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to read the required profile property values from.</param>
@@ -312,8 +295,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 {
                     ProfileName = reader.Read<string>(SoilProfileTableDefinitions.ProfileName);
 
-                    readColumn = SoilProfileTableDefinitions.Bottom;
-                    Bottom = reader.Read<double>(readColumn);
+                    readColumn = SoilProfileTableDefinitions.IntersectionX;
+                    IntersectionX = reader.Read<double>(readColumn);
 
                     readColumn = SoilProfileTableDefinitions.LayerCount;
                     LayerCount = reader.Read<long>(readColumn);
@@ -331,9 +314,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             /// <summary>
-            /// The bottom of the profile.
+            /// The 1d intersection of the profile.
             /// </summary>
-            public double Bottom { get; }
+            public double IntersectionX { get; }
 
             /// <summary>
             /// The name of the profile to read.

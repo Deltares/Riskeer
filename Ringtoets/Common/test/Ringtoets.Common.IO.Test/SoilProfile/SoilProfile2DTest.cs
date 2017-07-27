@@ -31,14 +31,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
+            const long id = 12;
             const string name = "some name";
+            var soilLayer2Ds = new[]
+            {
+                new SoilLayer2D()
+            };
 
             // Call
-            var soilProfile2D = new SoilProfile2D(name);
+            var soilProfile2D = new SoilProfile2D(id, name, soilLayer2Ds);
 
             // Assert
             Assert.IsInstanceOf<ISoilProfile>(soilProfile2D);
+            Assert.AreEqual(id, soilProfile2D.Id);
             Assert.AreEqual(name, soilProfile2D.Name);
+            CollectionAssert.AreEqual(soilLayer2Ds, soilProfile2D.Layers);
         }
     }
 }

@@ -1612,6 +1612,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
+        /// </summary>
+        public static string SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments {
+            get {
+                return ResourceManager.GetString("SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
         /// </summary>
         public static string SoilProfile_Cannot_construct_SoilProfile_without_layers {

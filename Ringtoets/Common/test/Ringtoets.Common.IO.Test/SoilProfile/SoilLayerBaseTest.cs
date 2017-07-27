@@ -27,20 +27,16 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayer1DTest
+    public class SoilLayerBaseTest
     {
         [Test]
-        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
+        public void Constructor_ReturnsNewInstanceWithTopSet()
         {
-            // Setup
-            double top = new Random(22).NextDouble();
-
             // Call
-            var layer = new SoilLayer1D(top);
+            var layer = new TestSoilLayerBase();
 
             // Assert
-            Assert.IsInstanceOf<SoilLayerBase>(layer);
-            Assert.AreEqual(top, layer.Top);
+            Assert.IsNotNull(layer);
             Assert.IsFalse(layer.IsAquifer);
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
@@ -60,6 +56,35 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNaN(layer.PermeabilityMean);
             Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
-        
+
+        [Test]
+        public void MaterialName_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var soilLayer = new TestSoilLayerBase();
+
+            // Call
+            TestDelegate test = () => soilLayer.MaterialName = null;
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void MaterialName_NotNullValue_ValueSet()
+        {
+            // Setup
+            var soilLayer = new TestSoilLayerBase();
+            const string materialName = "a name";
+
+            // Call
+            soilLayer.MaterialName = materialName;
+
+            // Assert
+            Assert.AreEqual(materialName, soilLayer.MaterialName);
+        }
+
+        private class TestSoilLayerBase : SoilLayerBase {}
     }
 }

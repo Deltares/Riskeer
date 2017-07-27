@@ -56,6 +56,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             Layers = layers;
         }
 
+        /// <summary>
+        /// Gets the database identifier of the soil profile.
+        /// </summary>
         public long Id { get; }
 
         /// <summary>

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
@@ -27,23 +26,21 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayer1DTest
+    public class SoilLayer2DTest
     {
         [Test]
-        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
+        public void Constructor_ReturnsNewInstanceWithTopSet()
         {
-            // Setup
-            double top = new Random(22).NextDouble();
-
             // Call
-            var layer = new SoilLayer1D(top);
+            var layer = new SoilLayer2D();
 
             // Assert
             Assert.IsInstanceOf<SoilLayerBase>(layer);
-            Assert.AreEqual(top, layer.Top);
             Assert.IsFalse(layer.IsAquifer);
             Assert.IsEmpty(layer.MaterialName);
             Assert.AreEqual(Color.Empty, layer.Color);
+            Assert.IsNull(layer.OuterLoop);
+            CollectionAssert.IsEmpty(layer.InnerLoops);
 
             Assert.IsNull(layer.BelowPhreaticLevelDistribution);
             Assert.IsNaN(layer.BelowPhreaticLevelShift);
@@ -60,6 +57,5 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNaN(layer.PermeabilityMean);
             Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
-        
     }
 }

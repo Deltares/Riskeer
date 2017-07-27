@@ -830,4 +830,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
     <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
   </data>
+  <data name="SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments" xml:space="preserve">
+    <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
+  </data>
 </root>
