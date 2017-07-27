@@ -80,7 +80,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             try
             {
                 SoilProfile1D soilProfile = TryReadSoilProfile();
-                MoveNext();
                 return soilProfile;
             }
             catch (SystemException exception) when (exception is FormatException ||
@@ -139,7 +138,10 @@ namespace Ringtoets.Common.IO.SoilProfile
                 MoveNext();
             }
 
-            return new SoilProfile1D(properties.ProfileName, properties.Bottom, soilLayers);
+            return new SoilProfile1D(properties.ProfileId,
+                                     properties.ProfileName,
+                                     properties.Bottom,
+                                     soilLayers);
         }
 
         private void PrepareReader()

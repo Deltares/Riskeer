@@ -44,11 +44,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var soilProfile = mockRepository.Stub<ISoilProfile>();
             mockRepository.ReplayAll();
 
-            var random = new Random(9);
-            int soilProfileId = random.Next();
-
             // Call
-            TestDelegate test = () => new StochasticSoilProfile(soilProfileId, probability, soilProfile);
+            TestDelegate test = () => new StochasticSoilProfile(probability, soilProfile);
 
             // Assert
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
@@ -67,15 +64,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             var random = new Random(9);
             double probability = random.NextDouble();
-            int soilProfileId = random.Next();
 
             // Call
-            var profile = new StochasticSoilProfile(soilProfileId, probability, soilProfile);
+            var profile = new StochasticSoilProfile(probability, soilProfile);
 
             // Assert
             Assert.AreEqual(probability, profile.Probability);
             Assert.AreSame(soilProfile, profile.SoilProfile);
-            Assert.AreEqual(soilProfileId, profile.SoilProfileId);
 
             mockRepository.VerifyAll();
         }

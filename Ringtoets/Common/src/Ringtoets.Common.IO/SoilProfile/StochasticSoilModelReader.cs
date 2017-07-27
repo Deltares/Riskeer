@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
@@ -35,9 +36,9 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
+        private readonly Dictionary<long, SoilProfile1D> soilProfile1Ds = new Dictionary<long, SoilProfile1D>();
         private IDataReader dataReader;
         private SegmentPointReader segmentPointReader;
-        private SoilProfile1DReader soilProfile1DReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelReader"/>, 
@@ -75,6 +76,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             VerifyVersion(Path);
             VerifyConstraints(Path);
             InitializeReaders();
+            InitializeLookups();
         }
 
         /// <summary>
@@ -115,12 +117,33 @@ namespace Ringtoets.Common.IO.SoilProfile
                 segmentPointReader = null;
             }
 
-            if (soilProfile1DReader != null)
-            {
-                soilProfile1DReader.Dispose();
-                soilProfile1DReader = null;
-            }
             base.Dispose(disposing);
+        }
+
+        private void InitializeLookups()
+        {
+            using (var soilProfile1DReader = new SoilProfile1DReader(Path))
+            {
+                soilProfile1DReader.Initialize();
+
+                while (soilProfile1DReader.HasNext)
+                {
+                    try
+                    {
+                        SoilProfile1D soilProfile1D = soilProfile1DReader.ReadSoilProfile();
+
+                        long soilProfileId = soilProfile1D.Id;
+                        if (!soilProfile1Ds.ContainsKey(soilProfileId))
+                        {
+                            soilProfile1Ds.Add(soilProfileId, soilProfile1D);
+                        }
+                    }
+                    catch (SoilProfileReadException)
+                    {
+                        soilProfile1DReader.MoveNext();
+                    }
+                }
+            }
         }
 
         private StochasticSoilModel TryReadStochasticSoilModel()
@@ -131,14 +154,52 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             StochasticSoilModel stochasticSoilModel = CreateStochasticSoilModel();
-            long currentSegmentSoilModelId = ReadStochasticSoilModelSegmentId();
-            do
-            {
-                stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints(currentSegmentSoilModelId));
-                MoveNext();
-            } while (HasNext && ReadStochasticSoilModelSegmentId() == currentSegmentSoilModelId);
+            long currentSoilModelId = ReadStochasticSoilModelSegmentId();
+
+            stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints(currentSoilModelId));
+            stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles(currentSoilModelId));
 
             return stochasticSoilModel;
+        }
+
+        private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles(long stochasticSoilModelId)
+        {
+            while (HasNext && ReadStochasticSoilModelSegmentId() == stochasticSoilModelId)
+            {
+                double probability = ReadStochasticSoilProfileProbability();
+
+                long? soilProfile1D = ReadSoilProfile1DId();
+                if (soilProfile1D.HasValue)
+                {
+                    if (soilProfile1Ds.ContainsKey(soilProfile1D.Value))
+                    {
+                        yield return new StochasticSoilProfile(probability, soilProfile1Ds[soilProfile1D.Value]);
+                    }
+                }
+
+                MoveNext();
+            }
+        }
+
+        private double ReadStochasticSoilProfileProbability()
+        {
+            return Convert.ToDouble(dataReader[StochasticSoilProfileTableDefinitions.Probability]);
+        }
+
+        private long? ReadSoilProfile1DId()
+        {
+            object soilProfile1DId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile1DId];
+            return soilProfile1DId == Convert.DBNull
+                       ? (long?) null
+                       : Convert.ToInt64(soilProfile1DId);
+        }
+
+        private long? ReadSoilProfile2DId()
+        {
+            object soilProfile2DId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile2DId];
+            return soilProfile2DId == Convert.DBNull
+                       ? (long?) null
+                       : Convert.ToInt64(soilProfile2DId);
         }
 
         private long ReadStochasticSoilModelSegmentId()
@@ -166,9 +227,6 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             segmentPointReader = new SegmentPointReader(Path);
             segmentPointReader.Initialize();
-
-            soilProfile1DReader = new SoilProfile1DReader(Path);
-            soilProfile1DReader.Initialize();
         }
 
         private void MoveNext()

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -32,6 +31,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
+            const long id = 123;
             const string name = "some name";
             const int bottom = 1;
             var soilLayer1Ds = new[]
@@ -40,10 +40,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             };
 
             // Call
-            var soilProfile1D = new SoilProfile1D(name, bottom, soilLayer1Ds);
+            var soilProfile1D = new SoilProfile1D(id, name, bottom, soilLayer1Ds);
 
             // Assert
             Assert.IsInstanceOf<ISoilProfile>(soilProfile1D);
+            Assert.AreEqual(id, soilProfile1D.Id);
             Assert.AreEqual(name, soilProfile1D.Name);
             Assert.AreEqual(bottom, soilProfile1D.Bottom);
             CollectionAssert.AreEqual(soilLayer1Ds, soilProfile1D.Layers);
