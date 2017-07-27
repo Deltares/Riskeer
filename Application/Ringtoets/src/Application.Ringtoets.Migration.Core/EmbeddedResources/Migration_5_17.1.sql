@@ -155,7 +155,7 @@ INSERT INTO PipingFailureMechanismMetaEntity (
 	[A],
 	[WaterVolumetricWeight],
 	[StochasticSoilModelSourcePath],
-	[SurfacelineSourcePath]) 
+	[SurfaceLineSourcePath]) 
 SELECT 
 	[PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],

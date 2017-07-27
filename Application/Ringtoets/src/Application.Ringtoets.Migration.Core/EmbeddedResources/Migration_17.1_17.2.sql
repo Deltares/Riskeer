@@ -541,14 +541,14 @@ INSERT INTO PipingFailureMechanismMetaEntity (
 	[A],
 	[WaterVolumetricWeight],
 	[StochasticSoilModelCollectionSourcePath],
-	[SurfacelineCollectionSourcePath]) 
+	[SurfaceLineCollectionSourcePath]) 
 SELECT 
 	[PipingFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[A],
 	[WaterVolumetricWeight], 
 	[StochasticSoilModelSourcePath],
-	[SurfacelineSourcePath] 
+	[SurfaceLineSourcePath] 
 	FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;

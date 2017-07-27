@@ -404,7 +404,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = 0 " +
                 "FROM [PipingFailureMechanismMetaEntity] " +
                 "WHERE [StochasticSoilModelSourcePath] != \"\"" +
-                "OR [SurfacelineSourcePath] != \"\";";
+                "OR [SurfaceLineSourcePath] != \"\";";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
 
             const string validateCalculationOutputs =
