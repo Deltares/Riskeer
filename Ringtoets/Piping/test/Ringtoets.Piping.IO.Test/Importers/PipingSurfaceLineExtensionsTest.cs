@@ -31,7 +31,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineExtensionsTest
+    public class PipingSurfaceLineExtensionsTest
     {
         private static IEnumerable<TestCaseData> DifferentValidCharacteristicPointConfigurations
         {

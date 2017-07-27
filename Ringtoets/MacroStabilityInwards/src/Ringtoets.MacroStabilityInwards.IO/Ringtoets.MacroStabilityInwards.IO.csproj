@@ -51,7 +51,7 @@
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
     <Compile Include="Importers\MacroStabilityInwardsSurfaceLineTransformer.cs" />
-    <Compile Include="Importers\RingtoetsMacroStabilityInwardsSurfaceLineExtensions.cs" />
+    <Compile Include="Importers\MacroStabilityInwardsSurfaceLineExtensions.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -33,9 +33,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
     /// <summary>
     /// Extension methods for the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> class.
     /// </summary>
-    public static class RingtoetsMacroStabilityInwardsSurfaceLineExtensions
+    public static class MacroStabilityInwardsSurfaceLineExtensions
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsMacroStabilityInwardsSurfaceLineExtensions));
+        private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsSurfaceLineExtensions));
 
         /// <summary>
         /// Tries to set the relevant characteristic points from the <paramref name="characteristicPoints"/>

@@ -79,7 +79,7 @@
     <Compile Include="Configurations\PipingCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Importers\PipingSurfaceLineTransformerTest.cs" />
-    <Compile Include="Importers\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
+    <Compile Include="Importers\PipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />

@@ -32,7 +32,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineExtensionsTest
+    public class MacroStabilityInwardsSurfaceLineExtensionsTest
     {
         private static IEnumerable<TestCaseData> DifferentCharacteristicPointConfigurationsWithMissingMandatoryPoint
         {

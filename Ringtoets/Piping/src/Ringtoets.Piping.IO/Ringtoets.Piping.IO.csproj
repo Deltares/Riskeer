@@ -51,7 +51,7 @@
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />
     <Compile Include="Importers\PipingSurfaceLineTransformer.cs" />
-    <Compile Include="Importers\RingtoetsPipingSurfaceLineExtensions.cs" />
+    <Compile Include="Importers\PipingSurfaceLineExtensions.cs" />
     <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -31,9 +31,9 @@ namespace Ringtoets.Piping.IO.Importers
     /// <summary>
     /// Extension methods for the <see cref="RingtoetsPipingSurfaceLine"/> class.
     /// </summary>
-    public static class RingtoetsPipingSurfaceLineExtensions
+    public static class PipingSurfaceLineExtensions
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsPipingSurfaceLineExtensions));
+        private static readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLineExtensions));
 
         /// <summary>
         /// Tries to set the relevant characteristic points from the <paramref name="characteristicPoints"/>
