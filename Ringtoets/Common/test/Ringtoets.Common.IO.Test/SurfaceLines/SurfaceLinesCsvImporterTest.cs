@@ -765,7 +765,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void Import_ImportingToValidTargetWithInvalidFileWithDuplicatePointsCausingRecline_SkipInvalidRowAndLog()
         {
             // Setup
-            var readSurfaceLines = new Collection<SurfaceLine>();
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
@@ -801,8 +800,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(path, surfaceLineUpdateStrategy.FilePath);
-
-            Assert.AreEqual(0, readSurfaceLines.Count);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
@@ -1093,8 +1090,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         public void Import_TransformerThrowsTransformerException_LogErrorAndReturnFalse()
         {
             // Setup
+            const string exceptionMessage = "This is exceptional";
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var exceptionMessage = "This is exceptional";
             transformer.Expect(t => t.Transform(Arg<SurfaceLine>.Is.Anything, Arg<CharacteristicPoints>.Is.Anything)).Throw(new SurfaceLineTransformException(exceptionMessage));
             mocks.ReplayAll();
             
@@ -1526,13 +1523,6 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         {
             Assert.IsFalse(importResult);
             Assert.IsFalse(updateStrategy.Updated);
-        }
-
-        private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)
-        {
-            Assert.IsTrue(Math2D.AreEqualPoints(expectedPoint, actualPoint),
-                          string.Format("Expected point: {0}" + Environment.NewLine + "Actual point: {1}",
-                                        expectedPoint, actualPoint));
         }
 
         private class TestSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<IMechanismSurfaceLine>

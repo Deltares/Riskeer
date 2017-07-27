@@ -708,17 +708,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(58.42, 0, -0.6), location2.DitchPolderSide);
 
-                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.BottomDitchPolderSide);
+                Assert.IsNull(location2.BottomDitchPolderSide);
 
-                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.BottomDitchDikeSide);
+                Assert.IsNull(location2.BottomDitchDikeSide);
 
-                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.DitchDikeSide);
+                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.DitchDikeSide);
 
-                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.DikeToeAtPolder);
+                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.DikeToeAtPolder);
 
-                Assert.IsNull(location2.ShoulderTopInside);
+                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.ShoulderTopInside);
 
-                Assert.IsNull(location2.ShoulderBaseInside);
+                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.ShoulderBaseInside);
 
                 Assert.AreEqual(new Point3D(38.17, 0, 3.04), location2.DikeTopAtPolder);
 
@@ -728,13 +728,13 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
                 Assert.AreEqual(new Point3D(32.77, 0, 3.11), location2.DikeTopAtRiver);
 
-                Assert.IsNull(location2.ShoulderBaseOutside);
+                Assert.AreEqual(new Point3D(19.61, 0, -0.05), location2.ShoulderBaseOutside);
 
-                Assert.IsNull(location2.ShoulderTopOutside);
+                Assert.AreEqual(new Point3D(0, 0, -0.33), location2.ShoulderTopOutside);
 
-                Assert.AreEqual(new Point3D(19.61, 0, -0.05), location2.DikeToeAtRiver);
+                Assert.IsNull(location2.DikeToeAtRiver);
 
-                Assert.AreEqual(new Point3D(0, 0, -0.33), location2.SurfaceLevelOutside);
+                Assert.IsNull(location2.SurfaceLevelOutside);
 
                 Assert.AreEqual(new Point3D(17.32, 0, -1.52), location2.DikeTableHeight);
 
