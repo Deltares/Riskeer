@@ -97,7 +97,6 @@
     <Compile Include="Probabilistics\TruncatedNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientNormalDistribution.cs" />
-    <Compile Include="Probability\EmptyProbabilityAssessmentOutput.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutput.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />

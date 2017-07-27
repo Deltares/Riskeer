@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
@@ -135,23 +134,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.IsRelevant
                                                                                  ? enabledContextMenuStrip(context, parentData, treeViewControl)
                                                                                  : disabledContextMenuStrip(context, parentData, treeViewControl)
-            };
-        }
-
-        /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for an empty probability assessment output.
-        /// </summary>
-        /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
-        /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<EmptyProbabilityAssessmentOutput> CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
-            Func<EmptyProbabilityAssessmentOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
-        {
-            return new TreeNodeInfo<EmptyProbabilityAssessmentOutput>
-            {
-                Text = emptyOutput => Resources.CalculationOutput_DisplayName,
-                Image = emptyOutput => Resources.GeneralOutputIcon,
-                ForeColor = emptyOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = contextMenuStrip
             };
         }
 

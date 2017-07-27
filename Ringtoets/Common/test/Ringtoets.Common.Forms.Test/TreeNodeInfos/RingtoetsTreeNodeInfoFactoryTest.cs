@@ -32,7 +32,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -1045,79 +1044,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
                 mocks.VerifyAll();
             }
-        }
-
-        #endregion
-
-        #region EmptyProbabilityAssessmentOutputTreeNodeInfo
-
-        [Test]
-        public void CreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ExpectedPropertiesSet()
-        {
-            // Setup
-            Func<EmptyProbabilityAssessmentOutput, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
-
-            // Call
-            TreeNodeInfo<EmptyProbabilityAssessmentOutput> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(contextMenuStrip);
-
-            // Assert
-            Assert.AreEqual(typeof(EmptyProbabilityAssessmentOutput), treeNodeInfo.TagType);
-            Assert.IsNotNull(treeNodeInfo.ContextMenuStrip);
-            Assert.IsNotNull(treeNodeInfo.ForeColor);
-            Assert.IsNotNull(treeNodeInfo.Image);
-            Assert.IsNotNull(treeNodeInfo.Text);
-            Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
-            Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.CanDrag);
-            Assert.IsNull(treeNodeInfo.CanDrop);
-            Assert.IsNull(treeNodeInfo.CanInsert);
-            Assert.IsNull(treeNodeInfo.CanRemove);
-            Assert.IsNull(treeNodeInfo.CanRename);
-            Assert.IsNull(treeNodeInfo.ChildNodeObjects);
-            Assert.IsNull(treeNodeInfo.IsChecked);
-            Assert.IsNull(treeNodeInfo.OnDrop);
-            Assert.IsNull(treeNodeInfo.OnNodeChecked);
-            Assert.IsNull(treeNodeInfo.OnNodeRemoved);
-            Assert.IsNull(treeNodeInfo.OnNodeRenamed);
-        }
-
-        [Test]
-        public void TextOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ReturnsFromResource()
-        {
-            // Setup
-            TreeNodeInfo<EmptyProbabilityAssessmentOutput> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
-
-            // Call
-            string text = treeNodeInfo.Text(null);
-
-            // Assert
-            Assert.AreEqual("Resultaat", text);
-        }
-
-        [Test]
-        public void ImageOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfo_Always_ReturnsGeneralOutputIcon()
-        {
-            // Setup
-            TreeNodeInfo<EmptyProbabilityAssessmentOutput> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
-
-            // Call
-            Image image = treeNodeInfo.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GeneralOutputIcon, image);
-        }
-
-        [Test]
-        public void ForeColorOfCreateEmptyProbabilityAssessmentOutputTreeNodeInfos_Always_ReturnsGrayText()
-        {
-            // Setup
-            TreeNodeInfo<EmptyProbabilityAssessmentOutput> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(null);
-
-            // Call
-            Color textColor = treeNodeInfo.ForeColor(null);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
         }
 
         #endregion
