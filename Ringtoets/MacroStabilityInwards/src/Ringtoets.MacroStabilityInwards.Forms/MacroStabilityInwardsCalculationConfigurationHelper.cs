@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
         /// <item><paramref name="soilModels"/> is <c>null</c></item>
         /// <item><paramref name="generalInput"/> is <c>null</c></item>
         /// </list></exception>
-        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
+        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
         {
             if (surfaceLines == null)
             {
@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
             }
 
             var groups = new List<CalculationGroup>();
-            foreach (RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine in surfaceLines)
+            foreach (MacroStabilityInwardsSurfaceLine surfaceLine in surfaceLines)
             {
                 CalculationGroup group = CreateCalculationGroup(surfaceLine, soilModels, generalInput);
                 if (group.GetCalculations().Any())
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
                 else
                 {
                     log.WarnFormat(
-                        Resources.MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_RingtoetsMacroStabilityInwardsSurfaceLine_0_skipped,
+                        Resources.MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped,
                         surfaceLine.Name);
                 }
             }
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
         /// <returns>The (sub)set of stochastic soil models from <paramref name="availableSoilModels"/>
         /// or empty if no matching <see cref="StochasticSoilModel"/> instances can be found
         /// or when there is not enough information to associate soil profiles to the calculation.</returns>
-        public static IEnumerable<StochasticSoilModel> GetStochasticSoilModelsForSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> availableSoilModels)
+        public static IEnumerable<StochasticSoilModel> GetStochasticSoilModelsForSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> availableSoilModels)
         {
             if (surfaceLine == null)
             {
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
                                       .ToList();
         }
 
-        private static CalculationGroup CreateCalculationGroup(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
+        private static CalculationGroup CreateCalculationGroup(MacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
         {
             var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
             IEnumerable<StochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
             return calculationGroup;
         }
 
-        private static ICalculationBase CreateMacroStabilityInwardsCalculation(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralMacroStabilityInwardsInput generalInput)
+        private static ICalculationBase CreateMacroStabilityInwardsCalculation(MacroStabilityInwardsSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralMacroStabilityInwardsInput generalInput)
         {
             string nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);

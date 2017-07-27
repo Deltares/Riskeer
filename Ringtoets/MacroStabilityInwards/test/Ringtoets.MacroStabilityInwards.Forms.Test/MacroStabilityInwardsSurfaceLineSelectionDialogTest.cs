@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(null, Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>());
+            TestDelegate test = () => new MacroStabilityInwardsSurfaceLineSelectionDialog(null, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,10 +69,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>()))
+                using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>()))
                 {
                     // Assert
-                    Assert.IsInstanceOf<SelectionDialogBase<RingtoetsMacroStabilityInwardsSurfaceLine>>(dialog);
+                    Assert.IsInstanceOf<SelectionDialogBase<MacroStabilityInwardsSurfaceLine>>(dialog);
                     Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
                 }
@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>()))
+            using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>()))
             {
                 dialog.Show();
 
@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         {
             // Setup
             const string testname = "testName";
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = testname
             };

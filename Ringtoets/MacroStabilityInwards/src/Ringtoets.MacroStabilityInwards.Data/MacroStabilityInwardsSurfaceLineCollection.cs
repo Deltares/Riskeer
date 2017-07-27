@@ -27,12 +27,12 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Collection to store <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> items. The 
+    /// Collection to store <see cref="MacroStabilityInwardsSurfaceLine"/> items. The 
     /// names of the items are unique within the collection.
     /// </summary>
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsSurfaceLine>
     {
-        public RingtoetsMacroStabilityInwardsSurfaceLineCollection() : base(line => line.Name,
+        public MacroStabilityInwardsSurfaceLineCollection() : base(line => line.Name,
                                                                             RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                                                                             Resources.UniqueFeature_Name_FeatureDescription) {}
     }

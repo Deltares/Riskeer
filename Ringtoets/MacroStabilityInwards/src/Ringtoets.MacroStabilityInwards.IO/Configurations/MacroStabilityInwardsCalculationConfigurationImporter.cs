@@ -137,14 +137,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
+        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// set which is not available in <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
         private bool TrySetSurfaceLine(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
                                        MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation)
         {
             if (calculationConfiguration.SurfaceLineName != null)
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
+                MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
                                                                                         .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <list type="bullet">
         /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="StochasticSoilModel"/> set
         /// which is not available in the failure mechanism.</item>
-        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
+        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>

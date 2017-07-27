@@ -51,11 +51,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(24, failureMechanism.Contribution);
 
-            RingtoetsMacroStabilityInwardsSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
+            MacroStabilityInwardsSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
             Assert.AreEqual("path/to/surfaceLines", surfaceLines.SourcePath);
             Assert.AreEqual(1, surfaceLines.Count);
-            RingtoetsMacroStabilityInwardsSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = surfaceLineArray[0];
+            MacroStabilityInwardsSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();
+            MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLineArray[0];
             Assert.AreEqual(new Point2D(0.0, 0.0), surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.IsNotEmpty(surfaceLine.LocalGeometry);
 

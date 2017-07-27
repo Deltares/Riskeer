@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="surfaceLine">The surface line for which determines the top of the <paramref name="soilProfile"/>.</param>
         /// <returns>A new <see cref="SoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/> under the <paramref name="surfaceLine"/>.</returns>
-        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)
             {

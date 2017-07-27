@@ -161,9 +161,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> used for obtaining the name.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> used for obtaining the name.</param>
         /// <remarks>A default name is set when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
-        public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             chartData.Name = surfaceLine != null
                                  ? surfaceLine.Name

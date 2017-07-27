@@ -135,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [TestCase("Random", 5)]
         public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithDefaultStyling(string name, int soilLayerIndex)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4),
@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "surface line name"
             };

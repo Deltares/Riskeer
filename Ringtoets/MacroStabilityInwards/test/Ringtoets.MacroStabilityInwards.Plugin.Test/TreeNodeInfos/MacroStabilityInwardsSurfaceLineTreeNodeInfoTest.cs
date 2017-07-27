@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineTreeNodeInfoTest
+    public class MacroStabilityInwardsSurfaceLineTreeNodeInfoTest
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsMacroStabilityInwardsSurfaceLine));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLine));
         }
 
         [TearDown]
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var surfaceLine = mocks.StrictMock<RingtoetsMacroStabilityInwardsSurfaceLine>();
+            var surfaceLine = mocks.StrictMock<MacroStabilityInwardsSurfaceLine>();
             const string testName = "ttt";
             surfaceLine.Name = testName;
 
@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var surfaceLine = mocks.StrictMock<RingtoetsMacroStabilityInwardsSurfaceLine>();
+            var surfaceLine = mocks.StrictMock<MacroStabilityInwardsSurfaceLine>();
 
             mocks.ReplayAll();
 

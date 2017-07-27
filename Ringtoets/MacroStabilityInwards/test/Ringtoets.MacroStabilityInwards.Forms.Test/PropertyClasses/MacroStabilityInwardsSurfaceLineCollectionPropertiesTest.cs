@@ -32,13 +32,13 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollectionPropertiesTest
+    public class MacroStabilityInwardsSurfaceLineCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsSurfaceLineCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,14 +50,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            collection.AddRange(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(), someFilePath);
+            var collection = new MacroStabilityInwardsSurfaceLineCollection();
+            collection.AddRange(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(), someFilePath);
 
             // Call
-            var properties = new RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties(collection);
+            var properties = new MacroStabilityInwardsSurfaceLineCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<RingtoetsMacroStabilityInwardsSurfaceLineCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSurfaceLineCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,10 +66,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var collection = new MacroStabilityInwardsSurfaceLineCollection();
 
             // Call
-            var properties = new RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties(collection);
+            var properties = new MacroStabilityInwardsSurfaceLineCollectionProperties(collection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

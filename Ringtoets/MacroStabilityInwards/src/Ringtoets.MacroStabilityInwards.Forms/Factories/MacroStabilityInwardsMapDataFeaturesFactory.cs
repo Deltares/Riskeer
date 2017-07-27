@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create surface line features based on the provided <paramref name="surfaceLines"/>.
         /// </summary>
-        /// <param name="surfaceLines">The collection of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to create the surface line features for.</param>
+        /// <param name="surfaceLines">The collection of <see cref="MacroStabilityInwardsSurfaceLine"/> to create the surface line features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateSurfaceLineFeatures(RingtoetsMacroStabilityInwardsSurfaceLine[] surfaceLines)
+        public static MapFeature[] CreateSurfaceLineFeatures(MacroStabilityInwardsSurfaceLine[] surfaceLines)
         {
             if (surfaceLines != null && surfaceLines.Any())
             {
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
                 for (var i = 0; i < surfaceLines.Length; i++)
                 {
-                    RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines[i];
+                    MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines[i];
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
@@ -121,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
 
-        private static IEnumerable<Point2D> GetWorldPoints(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private static IEnumerable<Point2D> GetWorldPoints(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
         }

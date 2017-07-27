@@ -33,13 +33,13 @@ using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineTest
+    public class MacroStabilityInwardsSurfaceLineTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Assert
             Assert.IsInstanceOf<Observable>(surfaceLine);
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void ReferenceLineIntersectionWorldPoint_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             var point = new Point2D(1.2, 3.4);
 
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void SetGeometry_EmptyCollection_PointsSetEmptyAndNullStartAndEndWorldPoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             IEnumerable<Point3D> sourceData = Enumerable.Empty<Point3D>();
 
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void SetGeometry_CollectionOfOnePoint_InitializeStartAndEndWorldPointsToSameInstanceAndInitializePoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             var sourceData = new[]
             {
@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void SetGeometry_CollectionOfMultiplePoints_InitializeStartAndEndWorldPointsInitializePoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             var sourceData = new[]
             {
@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetGeometry(null);
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void SetGeometry_GeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetZAtL_GeometryIsEmpty_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             var l = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
@@ -179,7 +179,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             var l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(1.0, 0.0, 2.2),
@@ -223,12 +223,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsRingtoetsMacroStabilityInwardsSurfaceLineException()
+        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsMacroStabilityInwardsSurfaceLineException()
         {
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             var l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -242,7 +242,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var exception = Assert.Throws<RingtoetsMacroStabilityInwardsSurfaceLineException>(test);
+            var exception = Assert.Throws<MacroStabilityInwardsSurfaceLineException>(test);
             string message = $"Kan geen hoogte bepalen op het punt met de lokale coördinaat {l}, omdat de profielschematisatie verticaal loopt op dat punt.";
             Assert.AreEqual(message, exception.Message);
         }
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             // Setup
             const string niceName = "Nice name";
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = niceName
             };
@@ -276,7 +276,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -315,7 +315,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -329,7 +329,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetLocalPointFromGeometry_NoPointsOnSurfaceLine_ReturnsPointWithNanValues()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             Point2D localPoint = surfaceLine.GetLocalPointFromGeometry(new Point3D(1.0, 2.2, 4.4));
@@ -346,7 +346,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 testPoint
@@ -363,7 +363,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_WithSurfaceLineNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             TestDelegate call = () => surfaceLine.CopyProperties(null);
@@ -377,9 +377,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_LineWithUpdatedGeometricPoints_PropertiesUpdated()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
             var expectedGeometry = new List<Point3D>
             {
                 new Point3D(0, 1, 2),
@@ -400,8 +400,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_LineUpdatedWithRemovedCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
-            var surfaceLineToUpdateFrom = new RingtoetsMacroStabilityInwardsSurfaceLine
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            var surfaceLineToUpdateFrom = new MacroStabilityInwardsSurfaceLine
             {
                 Name = surfaceLine.Name,
                 ReferenceLineIntersectionWorldPoint = surfaceLine.ReferenceLineIntersectionWorldPoint
@@ -419,10 +419,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_LineWithUpdatedReferenceLineWorldPoint_PropertiesUpdated()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
 
             var expectedIntersectionPoint = new Point2D(123, 456);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = expectedIntersectionPoint;
 
             // Call
@@ -436,8 +436,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_LineWithUpdatedGeometryAndReferenceLineIntersectionAndCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            MacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
@@ -450,7 +450,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
             var derivedLayer = new TestSurfaceLine(profile);
 
             // Call
@@ -464,7 +464,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
@@ -477,8 +477,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_SameReference_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = surfaceLineOne;
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = surfaceLineOne;
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -493,7 +493,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
@@ -509,7 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToDifferentType_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
@@ -529,10 +529,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentNames_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineOne.Name = "Name A";
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineTwo.Name = "Name B";
 
             // Call
@@ -548,7 +548,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentGeometries_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
@@ -557,7 +557,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point3D(1, 2, 3)
             });
 
-            var surfaceLineTwo = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
@@ -579,10 +579,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentReferenceLineIntersectionWorldPoint_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineOne.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineTwo.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
 
             // Call
@@ -598,8 +598,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentSurfaceLevelInside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetSurfaceLevelInsideAt(points[5]);
 
@@ -616,8 +616,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentTrafficLoadInside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetTrafficLoadInsideAt(points[5]);
 
@@ -634,8 +634,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentTrafficLoadOutside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetTrafficLoadOutsideAt(points[5]);
 
@@ -652,8 +652,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentDikeTopAtPolder_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDikeTopAtPolderAt(points[5]);
 
@@ -670,8 +670,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentShoulderBaseInside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetShoulderBaseInsideAt(points[5]);
 
@@ -688,8 +688,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentShoulderTopInside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetShoulderTopInsideAt(points[7]);
 
@@ -706,8 +706,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentSurfaceLevelOutside_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetSurfaceLevelOutsideAt(points[5]);
 
@@ -724,8 +724,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
 
@@ -742,8 +742,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
 
@@ -760,8 +760,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
 
@@ -778,8 +778,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
 
@@ -796,8 +796,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentDitchDikeSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDitchDikeSideAt(points[1]);
 
@@ -814,8 +814,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentDitchPolderSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDitchPolderSideAt(points[1]);
 
@@ -832,8 +832,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -848,9 +848,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -867,8 +867,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsMacroStabilityInwardsSurfaceLine();
-            var surfaceLineTwo = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             int hashCodeOne = surfaceLineOne.GetHashCode();
@@ -888,7 +888,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 const double testY = 2.2;
                 const double testZ = 4.4;
                 var testPoint = new Point3D(testX, testY, testZ);
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
                 CreateTestGeometry(testPoint, surfaceLine);
 
                 // Call
@@ -905,7 +905,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 // Setup
                 var random = new Random(21);
                 var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
@@ -919,7 +919,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             public void Null_ThrowsArgumentNullException()
             {
                 // Setup
-                var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
@@ -929,20 +929,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
             }
 
-            protected abstract void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
-            protected abstract Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine);
+            protected abstract void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
+            protected abstract Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine);
             protected abstract string CharacteristicPointDescription();
         }
 
         [TestFixture]
         public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDitchPolderSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.DitchPolderSide;
             }
@@ -956,12 +956,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetBottomDitchPolderSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetBottomDitchPolderSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.BottomDitchPolderSide;
             }
@@ -975,12 +975,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetBottomDitchDikeSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetBottomDitchDikeSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.BottomDitchDikeSide;
             }
@@ -994,12 +994,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetDitchDikeSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDitchDikeSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.DitchDikeSide;
             }
@@ -1013,12 +1013,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetDikeTopAtPolderAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDikeTopAtPolderAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.DikeTopAtPolder;
             }
@@ -1032,12 +1032,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetShoulderBaseInsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetShoulderBaseInsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.ShoulderBaseInside;
             }
@@ -1051,12 +1051,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetShoulderTopInsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetShoulderTopInsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.ShoulderTopInside;
             }
@@ -1070,12 +1070,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetSurfaceLevelInsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetSurfaceLevelInsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.SurfaceLevelInside;
             }
@@ -1089,12 +1089,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetSurfaceLevelOutsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetSurfaceLevelOutsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.SurfaceLevelOutside;
             }
@@ -1108,12 +1108,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetTrafficLoadInsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetTrafficLoadInsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.TrafficLoadInside;
             }
@@ -1127,12 +1127,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetTrafficLoadOutsideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetTrafficLoadOutsideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.TrafficLoadOutside;
             }
@@ -1146,12 +1146,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDikeToeAtRiverAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.DikeToeAtRiver;
             }
@@ -1165,12 +1165,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         [TestFixture]
         public class SetDikeToeAtPolderAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDikeToeAtPolderAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
             {
                 return surfaceLine.DikeToeAtPolder;
             }
@@ -1181,16 +1181,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }
         }
 
-        private class TestSurfaceLine : RingtoetsMacroStabilityInwardsSurfaceLine
+        private class TestSurfaceLine : MacroStabilityInwardsSurfaceLine
         {
-            public TestSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine profile)
+            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine profile)
             {
                 CopyProperties(profile);
             }
         }
 
-        private static void AssertPropertiesUpdated(RingtoetsMacroStabilityInwardsSurfaceLine expectedSurfaceLine,
-                                                    RingtoetsMacroStabilityInwardsSurfaceLine actualSurfaceLine)
+        private static void AssertPropertiesUpdated(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,
+                                                    MacroStabilityInwardsSurfaceLine actualSurfaceLine)
         {
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,
@@ -1223,9 +1223,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
+        private static MacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0, 0)
@@ -1265,7 +1265,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             return surfaceLine;
         }
 
-        private static void CreateTestGeometry(Point3D testPoint, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private static void CreateTestGeometry(Point3D testPoint, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             var random = new Random(21);
             var points = new[]

@@ -36,8 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
-                                                                      ISurfaceLineUpdateDataStrategy<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<MacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
+                                                                      ISurfaceLineUpdateDataStrategy<MacroStabilityInwardsSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineUpdateDataStrategy"/>.
@@ -45,29 +45,29 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsSurfaceLineUpdateDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
-            : base(failureMechanism, failureMechanism?.SurfaceLines, new RingtoetsMacroStabilityInwardsSurfaceLineNameEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.SurfaceLines, new MacroStabilityInwardsSurfaceLineNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, string sourceFilePath)
         {
             return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsMacroStabilityInwardsSurfaceLine removedSurfaceLine)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsSurfaceLine removedSurfaceLine)
         {
             return MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
         }
 
         /// <summary>
-        /// Class for comparing <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> by only the name.
+        /// Class for comparing <see cref="MacroStabilityInwardsSurfaceLine"/> by only the name.
         /// </summary>
-        private class RingtoetsMacroStabilityInwardsSurfaceLineNameEqualityComparer : IEqualityComparer<RingtoetsMacroStabilityInwardsSurfaceLine>
+        private class MacroStabilityInwardsSurfaceLineNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsSurfaceLine>
         {
-            public bool Equals(RingtoetsMacroStabilityInwardsSurfaceLine x, RingtoetsMacroStabilityInwardsSurfaceLine y)
+            public bool Equals(MacroStabilityInwardsSurfaceLine x, MacroStabilityInwardsSurfaceLine y)
             {
                 return x.Name == y.Name;
             }
 
-            public int GetHashCode(RingtoetsMacroStabilityInwardsSurfaceLine obj)
+            public int GetHashCode(MacroStabilityInwardsSurfaceLine obj)
             {
                 return obj.Name.GetHashCode();
             }
@@ -75,8 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLineToUpdate,
-                                                                                 RingtoetsMacroStabilityInwardsSurfaceLine matchingSurfaceLine)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsSurfaceLine surfaceLineToUpdate,
+                                                                                 MacroStabilityInwardsSurfaceLine matchingSurfaceLine)
         {
             surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
 
@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateSurfaceLineDependentData(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private IEnumerable<IObservable> UpdateSurfaceLineDependentData(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             IEnumerable<MacroStabilityInwardsCalculation> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
 
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateStochasticSoilModel(RingtoetsMacroStabilityInwardsSurfaceLine updatedSurfaceLine)
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(MacroStabilityInwardsSurfaceLine updatedSurfaceLine)
         {
             IEnumerable<MacroStabilityInwardsCalculation> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(updatedSurfaceLine);
 
@@ -117,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<MacroStabilityInwardsCalculation> GetAffectedCalculationWithSurfaceLine(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private IEnumerable<MacroStabilityInwardsCalculation> GetAffectedCalculationWithSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             IEnumerable<MacroStabilityInwardsCalculation> affectedCalculations =
                 FailureMechanism.Calculations
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             return affectedCalculations;
         }
 
-        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return MacroStabilityInwardsCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
                                                                                                              FailureMechanism.StochasticSoilModels);

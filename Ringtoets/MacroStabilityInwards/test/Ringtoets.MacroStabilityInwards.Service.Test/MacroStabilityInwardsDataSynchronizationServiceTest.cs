@@ -213,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = null;
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -228,7 +228,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = null;
+            MacroStabilityInwardsSurfaceLine surfaceLine = null;
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -243,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
+            MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
             MacroStabilityInwardsCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations
                                                                                              .Cast<MacroStabilityInwardsCalculation>()
                                                                                              .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))

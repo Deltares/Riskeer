@@ -253,7 +253,7 @@
   <data name="MacroStabilityInwardsInput_StochasticSoilModel_Description" xml:space="preserve">
     <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
   </data>
-  <data name="MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_RingtoetsMacroStabilityInwardsSurfaceLine_0_skipped" xml:space="preserve">
+  <data name="MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
@@ -292,7 +292,7 @@
   <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_IsAquifer" xml:space="preserve">
     <value>Is aquifer</value>
   </data>
-  <data name="RingtoetsMacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
+  <data name="MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
   </data>
 </root>

@@ -29,17 +29,17 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="RingtoetsMacroStabilityInwardsSurfaceLineCollection"/> for properties panel.
+    /// ViewModel of <see cref="MacroStabilityInwardsSurfaceLineCollection"/> for properties panel.
     /// </summary>
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties : ObjectProperties<RingtoetsMacroStabilityInwardsSurfaceLineCollection>
+    public class MacroStabilityInwardsSurfaceLineCollectionProperties : ObjectProperties<MacroStabilityInwardsSurfaceLineCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineCollectionProperties"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties(RingtoetsMacroStabilityInwardsSurfaceLineCollection collection)
+        public MacroStabilityInwardsSurfaceLineCollectionProperties(MacroStabilityInwardsSurfaceLineCollection collection)
         {
             if (collection == null)
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsMacroStabilityInwardsSurfaceLineCollection_SourcePath_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description))]
         public string SourcePath
         {
             get

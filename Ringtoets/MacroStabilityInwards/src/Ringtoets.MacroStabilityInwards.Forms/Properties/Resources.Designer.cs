@@ -138,10 +138,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geen ondergrondschematisaties gevonden voor profielschematisatie &apos;{0}&apos;. De profielschematisatie is overgeslagen..
         /// </summary>
-        public static string MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_RingtoetsMacroStabilityInwardsSurfaceLine_0_skipped {
+        public static string MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure" +
-                        "_No_SoilProfile_found_for_RingtoetsMacroStabilityInwardsSurfaceLine_0_skipped", resourceCulture);
+                        "_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped", resourceCulture);
             }
         }
         
@@ -423,20 +423,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd..
+        /// </summary>
+        public static string MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecteer profielschematisaties.
         /// </summary>
         public static string MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd..
-        /// </summary>
-        public static string RingtoetsMacroStabilityInwardsSurfaceLineCollection_SourcePath_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsMacroStabilityInwardsSurfaceLineCollection_SourcePath_Description", resourceCulture);
             }
         }
         

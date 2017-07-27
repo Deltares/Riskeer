@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingSurfaceLinesContext"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection to update.</param>
-        /// <param name="failureMechanism">The failure mechanism</param>
+        /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingSurfaceLinesContext(PipingSurfaceLineCollection surfaceLines,

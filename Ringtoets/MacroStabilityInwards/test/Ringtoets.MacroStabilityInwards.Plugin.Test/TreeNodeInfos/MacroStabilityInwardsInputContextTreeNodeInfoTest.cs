@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var context = new MacroStabilityInwardsInputContext(
                 new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
                 new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
-                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var context = new MacroStabilityInwardsInputContext(
                 new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
                 new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
-                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());

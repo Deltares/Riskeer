@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var surfaceLinesContext = (RingtoetsMacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents[1];
+            var surfaceLinesContext = (MacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.SurfaceLines, surfaceLinesContext.WrappedData);
             Assert.AreSame(failureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);

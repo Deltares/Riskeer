@@ -29,16 +29,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="MacroStabilityInwardsFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsMacroStabilityInwardsSurfaceLinesContext : ObservableWrappedObjectContextBase<RingtoetsMacroStabilityInwardsSurfaceLineCollection>
+    public class MacroStabilityInwardsSurfaceLinesContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsSurfaceLineCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsMacroStabilityInwardsSurfaceLinesContext"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLinesContext"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection to update.</param>
-        /// <param name="failureMechanism">The failure mechanism</param>
+        /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public RingtoetsMacroStabilityInwardsSurfaceLinesContext(RingtoetsMacroStabilityInwardsSurfaceLineCollection surfaceLines,
+        public MacroStabilityInwardsSurfaceLinesContext(MacroStabilityInwardsSurfaceLineCollection surfaceLines,
                                                                  MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                  IAssessmentSection assessmentSection)
             : base(surfaceLines)

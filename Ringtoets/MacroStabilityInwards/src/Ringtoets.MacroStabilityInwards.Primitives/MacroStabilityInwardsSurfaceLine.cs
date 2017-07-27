@@ -37,14 +37,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// <summary>
     /// Definition of a surface line for macro stability inwards.
     /// </summary>
-    public class RingtoetsMacroStabilityInwardsSurfaceLine : Observable, IMechanismSurfaceLine
+    public class MacroStabilityInwardsSurfaceLine : Observable, IMechanismSurfaceLine
     {
         private const int numberOfDecimalPlaces = 2;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> class.
+        /// Initializes a new instance of the <see cref="MacroStabilityInwardsSurfaceLine"/> class.
         /// </summary>
-        public RingtoetsMacroStabilityInwardsSurfaceLine()
+        public MacroStabilityInwardsSurfaceLine()
         {
             Name = string.Empty;
             Points = new Point3D[0];
@@ -170,11 +170,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             if (points == null)
             {
-                throw new ArgumentNullException(nameof(points), Resources.RingtoetsMacroStabilityInwardsSurfaceLine_Collection_of_points_for_geometry_is_null);
+                throw new ArgumentNullException(nameof(points), Resources.MacroStabilityInwardsSurfaceLine_Collection_of_points_for_geometry_is_null);
             }
             if (points.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_A_point_in_the_collection_was_null);
+                throw new ArgumentException(Resources.MacroStabilityInwardsSurfaceLine_A_point_in_the_collection_was_null);
             }
             Points = points.Select(p => new Point3D(p)).ToArray();
 
@@ -409,11 +409,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets the height of the projected <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> at a L=<paramref name="l"/>.
+        /// Gets the height of the projected <see cref="MacroStabilityInwardsSurfaceLine"/> at a L=<paramref name="l"/>.
         /// </summary>
-        /// <param name="l">The L coordinate from where to take the height of the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.</param>
-        /// <returns>The height of the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> at L=<paramref name="l"/>.</returns>
-        /// <exception cref="RingtoetsMacroStabilityInwardsSurfaceLineException">Thrown when the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
+        /// <param name="l">The L coordinate from where to take the height of the <see cref="MacroStabilityInwardsSurfaceLine"/>.</param>
+        /// <returns>The height of the <see cref="MacroStabilityInwardsSurfaceLine"/> at L=<paramref name="l"/>.</returns>
+        /// <exception cref="MacroStabilityInwardsSurfaceLineException">Thrown when the <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <see cref="Points"/> is empty.</exception>
@@ -424,8 +424,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             if (!ValidateInRange(l))
             {
                 var localRangeL = new Range<double>(LocalGeometry.First().X, LocalGeometry.Last().X);
-                string outOfRangeMessage = string.Format(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_0_L_needs_to_be_in_Range_1_,
-                                                         Resources.RingtoetsMacroStabilityInwardsSurfaceLine_GetZAtL_Cannot_determine_height,
+                string outOfRangeMessage = string.Format(Resources.MacroStabilityInwardsSurfaceLine_0_L_needs_to_be_in_Range_1_,
+                                                         Resources.MacroStabilityInwardsSurfaceLine_GetZAtL_Cannot_determine_height,
                                                          localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
@@ -446,8 +446,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 return intersectionPoints.First().Y;
             }
 
-            string message = string.Format(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
-            throw new RingtoetsMacroStabilityInwardsSurfaceLineException(message);
+            string message = string.Format(Resources.MacroStabilityInwardsSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            throw new MacroStabilityInwardsSurfaceLineException(message);
         }
 
         /// <summary>
@@ -489,13 +489,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         /// <summary>
         /// Copies the property values of the <paramref name="fromSurfaceLine"/> to 
-        /// the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+        /// the <see cref="MacroStabilityInwardsSurfaceLine"/>.
         /// </summary>
-        /// <param name="fromSurfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>
+        /// <param name="fromSurfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// to get the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromSurfaceLine"/>
         /// is <c>null</c>.</exception>
-        public void CopyProperties(RingtoetsMacroStabilityInwardsSurfaceLine fromSurfaceLine)
+        public void CopyProperties(MacroStabilityInwardsSurfaceLine fromSurfaceLine)
         {
             if (fromSurfaceLine == null)
             {
@@ -520,8 +520,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            var other = obj as RingtoetsMacroStabilityInwardsSurfaceLine;
-            return other != null && Equals((RingtoetsMacroStabilityInwardsSurfaceLine) obj);
+            var other = obj as MacroStabilityInwardsSurfaceLine;
+            return other != null && Equals((MacroStabilityInwardsSurfaceLine) obj);
         }
 
         public override int GetHashCode()
@@ -557,7 +557,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return Name;
         }
 
-        private void SetCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine fromSurfaceLine)
+        private void SetCharacteristicPoints(MacroStabilityInwardsSurfaceLine fromSurfaceLine)
         {
             SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
             TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
@@ -602,7 +602,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return new ArgumentException(message);
         }
 
-        private bool Equals(RingtoetsMacroStabilityInwardsSurfaceLine other)
+        private bool Equals(MacroStabilityInwardsSurfaceLine other)
         {
             return string.Equals(Name, other.Name)
                    && Equals(ReferenceLineIntersectionWorldPoint, other.ReferenceLineIntersectionWorldPoint)
@@ -610,7 +610,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && EqualCharacteristicPoints(other);
         }
 
-        private bool EqualCharacteristicPoints(RingtoetsMacroStabilityInwardsSurfaceLine other)
+        private bool EqualCharacteristicPoints(MacroStabilityInwardsSurfaceLine other)
         {
             return Equals(SurfaceLevelInside, other.SurfaceLevelInside)
                    && Equals(SurfaceLevelOutside, other.SurfaceLevelOutside)
@@ -653,7 +653,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             if (!Points.Any())
             {
-                throw new InvalidOperationException(Resources.RingtoetsMacroStabilityInwardsSurfaceLine_SurfaceLine_has_no_Geometry);
+                throw new InvalidOperationException(Resources.MacroStabilityInwardsSurfaceLine_SurfaceLine_has_no_Geometry);
             }
         }
     }

@@ -30,71 +30,71 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollectionTest :
+    public class MacroStabilityInwardsSurfaceLineCollectionTest :
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
-            ObservableUniqueItemCollectionWithSourcePath<RingtoetsMacroStabilityInwardsSurfaceLine>, RingtoetsMacroStabilityInwardsSurfaceLine>
+            ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsSurfaceLine>, MacroStabilityInwardsSurfaceLine>
     {
-        protected override ObservableUniqueItemCollectionWithSourcePath<RingtoetsMacroStabilityInwardsSurfaceLine> CreateCollection()
+        protected override ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsSurfaceLine> CreateCollection()
         {
-            return new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            return new MacroStabilityInwardsSurfaceLineCollection();
         }
 
-        protected override IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> UniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsSurfaceLine> UniqueElements()
         {
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name B"
             };
         }
 
-        protected override IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> SingleNonUniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsSurfaceLine> SingleNonUniqueElements()
         {
             const string duplicateName = "Duplicate name it is";
 
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateName
             };
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateName
             };
         }
 
-        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> itemsToAdd)
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsSurfaceLine> itemsToAdd)
         {
             string duplicateName = itemsToAdd.First().Name;
             Assert.AreEqual($"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.",
                             exception.Message);
         }
 
-        protected override IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> MultipleNonUniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsSurfaceLine> MultipleNonUniqueElements()
         {
             const string duplicateNameOne = "Duplicate name it is";
             const string duplicateNameTwo = "Duplicate name again";
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateNameOne
             };
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateNameOne
             };
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateNameTwo
             };
-            yield return new RingtoetsMacroStabilityInwardsSurfaceLine
+            yield return new MacroStabilityInwardsSurfaceLine
             {
                 Name = duplicateNameTwo
             };
         }
 
-        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> itemsToAdd)
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsSurfaceLine> itemsToAdd)
         {
             string duplicateNameOne = itemsToAdd.First().Name;
             string duplicateNameTwo = itemsToAdd.First(i => i.Name != duplicateNameOne).Name;

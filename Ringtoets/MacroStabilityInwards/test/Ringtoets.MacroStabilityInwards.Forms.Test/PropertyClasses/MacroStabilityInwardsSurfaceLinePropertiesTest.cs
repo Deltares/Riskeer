@@ -30,16 +30,16 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLinePropertiesTest
+    public class MacroStabilityInwardsSurfaceLinePropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new RingtoetsMacroStabilityInwardsSurfaceLineProperties();
+            var properties = new MacroStabilityInwardsSurfaceLineProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<RingtoetsMacroStabilityInwardsSurfaceLine>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSurfaceLine>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var point12 = new Point3D(13.1, 4.2, 1.0);
             var point13 = new Point3D(15.1, 5.6, 1.1);
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = expectedName
             };
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             surfaceLine.SetDitchPolderSideAt(point12);
             surfaceLine.SetSurfaceLevelInsideAt(point13);
 
-            var properties = new RingtoetsMacroStabilityInwardsSurfaceLineProperties
+            var properties = new MacroStabilityInwardsSurfaceLineProperties
             {
                 Data = surfaceLine
             };
@@ -124,10 +124,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             // Call
-            var properties = new RingtoetsMacroStabilityInwardsSurfaceLineProperties
+            var properties = new MacroStabilityInwardsSurfaceLineProperties
             {
                 Data = surfaceLine
             };

@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollectionTreeNodeInfoTest
+    public class MacroStabilityInwardsSurfaceLineCollectionTreeNodeInfoTest
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLinesContext));
         }
 
         [TearDown]
@@ -92,8 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var surfaceLinesContext = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(surfaceLinesContext);
@@ -110,8 +110,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var surfaceLinesContext = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             Image image = info.Image(surfaceLinesContext);
@@ -128,8 +128,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var surfaceLinesContext = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             Color foreColor = info.ForeColor(surfaceLinesContext);
@@ -143,16 +143,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var surfaceLine1 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Line A"
             };
-            var surfaceLine2 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Line B"
             };
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
                 surfaceLine1,
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var surfaceLinesContext = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -177,16 +177,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var surfaceLine1 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Line A"
             };
-            var surfaceLine2 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Line B"
             };
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
                 surfaceLine1,
@@ -195,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var surfaceLinesContext = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLinesContext = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 

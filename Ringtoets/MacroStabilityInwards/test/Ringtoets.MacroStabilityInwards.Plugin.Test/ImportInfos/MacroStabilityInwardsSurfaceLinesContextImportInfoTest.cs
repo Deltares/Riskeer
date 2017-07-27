@@ -42,7 +42,7 @@ using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLinesContextImportInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsSurfaceLinesContextImportInfoTest : NUnitFormTest
     {
         private ImportInfo importInfo;
         private MacroStabilityInwardsPlugin plugin;
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
         public override void Setup()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext));
         }
 
         public override void TearDown()
@@ -97,9 +97,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -120,9 +120,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -159,8 +159,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
+            var context = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = importInfo.VerifyUpdates(context);
@@ -193,8 +193,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
+            var context = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -235,15 +235,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
-            var importTarget = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var importTarget = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>>(importer);
+            Assert.IsInstanceOf<SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>>(importer);
             mocks.VerifyAll();
         }
     }

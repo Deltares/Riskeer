@@ -294,7 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsScenariosView ShowFullyConfiguredMacroStabilityInwardsScenarioView()
         {
-            var surfaceLine1 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -307,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)

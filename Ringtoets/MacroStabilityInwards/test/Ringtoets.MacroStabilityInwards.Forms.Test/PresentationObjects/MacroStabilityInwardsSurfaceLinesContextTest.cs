@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLinesContextTest
+    public class MacroStabilityInwardsSurfaceLinesContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -42,13 +42,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
             // Call
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<RingtoetsMacroStabilityInwardsSurfaceLineCollection>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsSurfaceLineCollection>>(context);
             Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
@@ -58,11 +58,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, null);
+            TestDelegate test = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,10 +77,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var surfaceLines = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new RingtoetsMacroStabilityInwardsSurfaceLinesContext(surfaceLines, null, assessmentSection);
+            TestDelegate call = () => new MacroStabilityInwardsSurfaceLinesContext(surfaceLines, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

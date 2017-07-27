@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
                 StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
@@ -254,7 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
                 {
                     InputParameters =
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
                 {
                     InputParameters =
@@ -421,7 +421,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
                 {
@@ -438,7 +438,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 surfaceLineChartData.Attach(observer);
 
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 calculation.InputParameters.SurfaceLine = surfaceLine2;
 
@@ -466,7 +466,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 StochasticSoilProfile soilProfile = GetStochasticSoilProfile();
                 var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
                 {
@@ -571,7 +571,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
 
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
 
                 // Call
@@ -642,7 +642,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 view.Data = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 calculation1.InputParameters.SurfaceLine = surfaceLine2;
 
@@ -661,7 +661,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             using (var view = new MacroStabilityInwardsInputView())
             {
-                RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
                 {
@@ -713,7 +713,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -724,7 +724,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
+        private static MacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -735,9 +735,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Surface line name"
             };
@@ -834,7 +834,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private static void AssertSurfaceLineChartData(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, ChartData chartData)
+        private static void AssertSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var surfaceLineChartData = (ChartLineData) chartData;

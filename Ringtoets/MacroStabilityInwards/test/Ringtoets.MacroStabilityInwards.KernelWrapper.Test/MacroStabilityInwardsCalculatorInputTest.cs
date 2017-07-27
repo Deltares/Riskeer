@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var random = new Random(11);
 
             double hRiverValue = random.NextDouble();
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, random.NextDouble(), new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())

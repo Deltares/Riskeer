@@ -33,8 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the surface lines with the imported surface lines.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
-                                                                       ISurfaceLineUpdateDataStrategy<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<MacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>,
+                                                                       ISurfaceLineUpdateDataStrategy<MacroStabilityInwardsSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineReplaceDataStrategy"/>.
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         public MacroStabilityInwardsSurfaceLineReplaceDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.SurfaceLines) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> readSurfaceLines,
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<MacroStabilityInwardsSurfaceLine> readSurfaceLines,
                                                                            string sourceFilePath)
         {
             return ReplaceTargetCollectionWithImportedData(readSurfaceLines, sourceFilePath);

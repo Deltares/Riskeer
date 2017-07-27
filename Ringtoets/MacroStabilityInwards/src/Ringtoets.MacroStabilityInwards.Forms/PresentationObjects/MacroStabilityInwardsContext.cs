@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         protected MacroStabilityInwardsContext(
             T wrappedData,
-            IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines,
+            IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
             IEnumerable<StochasticSoilModel> stochasticSoilModels,
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
             IAssessmentSection assessmentSection) : base(wrappedData)
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// Gets the available macro stability inwards surface lines in order for the user to select one to 
         /// set <see cref="MacroStabilityInwardsInput.SurfaceLine"/>.
         /// </summary>
-        public IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> AvailableMacroStabilityInwardsSurfaceLines { get; private set; }
+        public IEnumerable<MacroStabilityInwardsSurfaceLine> AvailableMacroStabilityInwardsSurfaceLines { get; private set; }
 
         /// <summary>
         /// Gets the available stochastic soil models in order for the user to select a <see cref="StochasticSoilModel"/> and <see cref="StochasticSoilProfile"/>
@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="macroStabilityInwardsFailureMechanism">The macro stability inwards failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        private static void AssertInputsAreNotNull(IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines,
+        private static void AssertInputsAreNotNull(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                    IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                    MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                    IAssessmentSection assessmentSection)

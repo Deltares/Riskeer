@@ -56,7 +56,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInput.cs" />
-    <Compile Include="RingtoetsMacroStabilityInwardsSurfaceLineCollection.cs" />
+    <Compile Include="MacroStabilityInwardsSurfaceLineCollection.cs" />
     <Compile Include="SoilProfileUnderSurfaceLineFactory.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilModelCollection.cs" />

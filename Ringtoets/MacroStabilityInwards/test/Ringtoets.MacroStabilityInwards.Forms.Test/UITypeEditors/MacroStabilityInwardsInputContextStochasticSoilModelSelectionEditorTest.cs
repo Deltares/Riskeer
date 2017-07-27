@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             };
             var inputContext = new MacroStabilityInwardsInputContext(input,
                                                                      calculationItem,
-                                                                     Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                     Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                      new[]
                                                                      {
                                                                          new TestStochasticSoilModel()
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                     stochasticSoilProfile
                 }
             };
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(2, 1, 0),
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             };
             var inputParametersContext = new MacroStabilityInwardsInputContext(input,
                                                                                calculationItem,
-                                                                               Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                new[]
                                                                                {
                                                                                    stochasticSoilModel

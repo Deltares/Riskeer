@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdateStrategyAndTransformerForMacroStabilityInwards()
         {
             // Call
-            SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
+            SurfaceLinesCsvImporterConfiguration<MacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_Always_ReturnsReplaceStrategyAndTransformerForMacroStabilityInwards()
         {
             // Call
-            SurfaceLinesCsvImporterConfiguration<RingtoetsMacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
+            SurfaceLinesCsvImporterConfiguration<MacroStabilityInwardsSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new MacroStabilityInwardsFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);

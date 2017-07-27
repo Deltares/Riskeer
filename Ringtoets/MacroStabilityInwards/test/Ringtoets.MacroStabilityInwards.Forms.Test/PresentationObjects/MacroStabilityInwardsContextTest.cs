@@ -45,10 +45,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine[] surfaceLines =
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine(),
-                new RingtoetsMacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(),
+                new MacroStabilityInwardsSurfaceLine()
             };
 
             var soilModels = new[]
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                null,
                                                                                                new MacroStabilityInwardsFailureMechanism(),
                                                                                                assessmentSectionStub);
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                                                null,
                                                                                                assessmentSectionStub);
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
-                                                                                               Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                                                new MacroStabilityInwardsFailureMechanism(),
                                                                                                null);
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
         private class SimpleMacroStabilityInwardsContext<T> : MacroStabilityInwardsContext<T> where T : IObservable
         {
-            public SimpleMacroStabilityInwardsContext(T target, IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism, IAssessmentSection assessmentSection)
+            public SimpleMacroStabilityInwardsContext(T target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism, IAssessmentSection assessmentSection)
                 : base(target, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}
         }
 

@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Call
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -232,7 +232,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -292,7 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var random = new Random(22);
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, random.NextDouble(), new[]
@@ -322,7 +322,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -356,7 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -367,7 +367,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             const double assessmentLevel = 0.36;
             const double entryPointL = 0.12;
             const double exitPointL = 0.44;
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
             var dampingFactorExit = new LogNormalDistributionDesignVariable(
@@ -402,7 +402,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void SurfaceLine_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 4.0);
+            MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 4.0);
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
@@ -477,7 +477,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -517,7 +517,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -557,7 +557,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -607,7 +607,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -650,7 +650,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -697,12 +697,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            RingtoetsMacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
+            MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
@@ -731,7 +731,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
+            MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestMacroStabilityInwardsSoilProfile()
@@ -750,7 +750,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 new[]
                                                                 {
                                                                     stochasticSoilModel
@@ -798,7 +798,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 new[]
                                                                 {
                                                                     stochasticSoilModel
@@ -806,7 +806,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            RingtoetsMacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
+            MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
@@ -831,7 +831,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
+            MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile1 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new TestMacroStabilityInwardsSoilProfile()
@@ -857,7 +857,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -878,7 +878,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetAvailableSurfaceLines_Always_ReturnAllRingtoetsMacroStabilityInwardsSurfaceLines()
+        public void GetAvailableSurfaceLines_Always_ReturnAllMacroStabilityInwardsSurfaceLines()
         {
             // Setup
             var mocks = new MockRepository();
@@ -894,7 +894,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
             // Call
-            IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
+            IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
 
             // Assert
             Assert.AreSame(context.AvailableMacroStabilityInwardsSurfaceLines, surfaceLines);
@@ -937,7 +937,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1220,7 +1220,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
             var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
             {
@@ -1274,7 +1274,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
             var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
             {
@@ -1288,7 +1288,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
 
-            RingtoetsMacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
+            MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
 
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
@@ -1342,7 +1342,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
@@ -1369,7 +1369,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
@@ -1405,7 +1405,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
@@ -1432,7 +1432,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
@@ -1462,7 +1462,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculation,
-                                                                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
@@ -1494,9 +1494,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             return stochasticSoilModel;
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine ValidSurfaceLine(double xMin, double xMax)
+        private static MacroStabilityInwardsSurfaceLine ValidSurfaceLine(double xMin, double xMax)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(xMin, 0.0, 0.0),

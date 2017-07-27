@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Gets the available surface lines on <see cref="MacroStabilityInwardsCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> GetAvailableSurfaceLines()
+        public IEnumerable<MacroStabilityInwardsSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailableMacroStabilityInwardsSurfaceLines;
         }
@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
-        public RingtoetsMacroStabilityInwardsSurfaceLine SurfaceLine
+        public MacroStabilityInwardsSurfaceLine SurfaceLine
         {
             get
             {

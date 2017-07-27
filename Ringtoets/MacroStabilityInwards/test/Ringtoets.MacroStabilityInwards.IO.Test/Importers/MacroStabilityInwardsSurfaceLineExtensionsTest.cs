@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((RingtoetsMacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+            TestDelegate test = () => ((MacroStabilityInwardsSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         {
             // Setup
             const string name = "Some line name";
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = name
             };
@@ -199,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
@@ -226,7 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsSurfaceLineTransformException(CharacteristicPoints points, string pointDescription)
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = points.Name
             };
@@ -249,7 +249,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             string pointDescription)
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = points.Name
             };

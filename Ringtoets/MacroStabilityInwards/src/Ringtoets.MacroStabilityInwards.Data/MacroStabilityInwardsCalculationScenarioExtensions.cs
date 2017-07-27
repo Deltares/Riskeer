@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
         public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario, IEnumerable<Segment2D> lineSegments)
         {
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsCalculationScenario?.InputParameters.SurfaceLine;
+            MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsCalculationScenario?.InputParameters.SurfaceLine;
             if (surfaceLine == null)
             {
                 return false;

@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSurfaceLineFeatures_NoSurfaceLines_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(new RingtoetsMacroStabilityInwardsSurfaceLine[0]);
+            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(new MacroStabilityInwardsSurfaceLine[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -72,11 +72,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
             var surfaceLines = new[]
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine
+                new MacroStabilityInwardsSurfaceLine
                 {
                     Name = "Surface line 1"
                 },
-                new RingtoetsMacroStabilityInwardsSurfaceLine
+                new MacroStabilityInwardsSurfaceLine
                 {
                     Name = "Surface line 2"
                 }

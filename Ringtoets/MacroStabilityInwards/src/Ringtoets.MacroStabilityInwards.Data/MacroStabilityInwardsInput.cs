@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
-        public RingtoetsMacroStabilityInwardsSurfaceLine SurfaceLine { get; set; }
+        public MacroStabilityInwardsSurfaceLine SurfaceLine { get; set; }
 
         /// <summary>
         /// Gets or sets the stochastic soil model which is linked to the <see cref="StochasticSoilProfile"/>.

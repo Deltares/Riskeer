@@ -57,7 +57,7 @@
     <Compile Include="PresentationObjects\MacroStabilityInwardsContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsInputContext.cs" />
-    <Compile Include="PresentationObjects\RingtoetsMacroStabilityInwardsSurfaceLinesContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsSurfaceLinesContext.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelCollectionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -68,10 +68,10 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
-    <Compile Include="PropertyClasses\RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
-    <Compile Include="PropertyClasses\RingtoetsMacroStabilityInwardsSurfaceLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor.cs" />

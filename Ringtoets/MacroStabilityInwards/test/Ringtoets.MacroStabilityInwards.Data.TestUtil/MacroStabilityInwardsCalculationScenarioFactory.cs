@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(section));
             }
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             Point2D p = section.Points.First();
             surfaceLine.SetGeometry(new[]
             {
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
             var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);

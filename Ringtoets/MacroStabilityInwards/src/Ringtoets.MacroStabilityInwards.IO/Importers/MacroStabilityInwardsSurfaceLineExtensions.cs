@@ -31,7 +31,7 @@ using MacroStabilityInwardsIOResources = Ringtoets.MacroStabilityInwards.IO.Prop
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
     /// <summary>
-    /// Extension methods for the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> class.
+    /// Extension methods for the <see cref="MacroStabilityInwardsSurfaceLine"/> class.
     /// </summary>
     public static class MacroStabilityInwardsSurfaceLineExtensions
     {
@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         /// <exception cref="SurfaceLineTransformException">Thrown when a mandatory characteristic point is not
         /// present or not on the given <paramref name="surfaceLine"/>.</exception>
-        public static void SetCharacteristicPoints(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        public static void SetCharacteristicPoints(this MacroStabilityInwardsSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (surfaceLine == null)
             {
@@ -75,13 +75,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchPolderSide"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DitchPolderSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchPolderSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchPolderSide"/>.</param>
-        private static void TrySetDitchPolderSide(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DitchPolderSide"/>.</param>
+        private static void TrySetDitchPolderSide(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -97,13 +97,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/>.</param>
-        private static void TrySetBottomDitchPolderSide(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/>.</param>
+        private static void TrySetBottomDitchPolderSide(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -119,13 +119,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/>.</param>
-        private static void TrySetBottomDitchDikeSide(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/>.</param>
+        private static void TrySetBottomDitchDikeSide(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -141,13 +141,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchDikeSide"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DitchDikeSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchDikeSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DitchDikeSide"/>.</param>
-        private static void TrySetDitchDikeSide(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DitchDikeSide"/>.</param>
+        private static void TrySetDitchDikeSide(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -163,15 +163,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/>.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/>.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
-        private static void TrySetSurfaceLevelInside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetSurfaceLevelInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             try
             {
@@ -188,15 +188,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/>.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/>.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
-        private static void TrySetSurfaceLevelOutside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetSurfaceLevelOutside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             try
             {
@@ -213,15 +213,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/>.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/>.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
-        private static void TrySetDikeTopAtPolder(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDikeTopAtPolder(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             try
             {
@@ -238,13 +238,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/>.</param>
-        private static void TrySetShoulderBaseInside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/>.</param>
+        private static void TrySetShoulderBaseInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -260,13 +260,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderTopInside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.ShoulderTopInside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderTopInside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.ShoulderTopInside"/>.</param>
-        private static void TrySetShoulderTopInside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.ShoulderTopInside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.ShoulderTopInside"/>.</param>
+        private static void TrySetShoulderTopInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -282,13 +282,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadInside"/>.</param>
-        private static void TrySetTrafficLoadInside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/>.</param>
+        private static void TrySetTrafficLoadInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -304,13 +304,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/>.</param>
-        private static void TrySetTrafficLoadOutside(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/>.</param>
+        private static void TrySetTrafficLoadOutside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -326,15 +326,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/>.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/>.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
-        private static void TrySetDikeToeAtRiver(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDikeToeAtRiver(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             try
             {
@@ -351,15 +351,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/> at the location of
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/>.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/>.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
-        private static void TrySetDikeToeAtPolder(this RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        private static void TrySetDikeToeAtPolder(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
             try
             {
@@ -375,7 +375,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
         }
 
-        private static void LogOptionalCharacteristicPointError(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, ArgumentException e)
+        private static void LogOptionalCharacteristicPointError(MacroStabilityInwardsSurfaceLine surfaceLine, ArgumentException e)
         {
             log.ErrorFormat(RingtoetsCommonIoResources.SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
                             surfaceLine.Name,

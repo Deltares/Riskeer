@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.TestUtils
         #region MacroStabilityInwards Specific Imports
 
         /// <summary>
-        /// Imports the <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Imports the <see cref="MacroStabilityInwardsSurfaceLine"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
@@ -245,7 +245,7 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_surfacelines.krp.csv"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
-                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>(
                                                           assessmentSection.MacroStabilityInwards.SurfaceLines,
                                                           filePath,
                                                           new ImportMessageProvider(),

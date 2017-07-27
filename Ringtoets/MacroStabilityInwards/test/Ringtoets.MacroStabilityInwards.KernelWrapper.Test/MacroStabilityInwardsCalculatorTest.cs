@@ -109,9 +109,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             }, SoilProfileType.SoilProfile1D, 1234L);
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
+        private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),

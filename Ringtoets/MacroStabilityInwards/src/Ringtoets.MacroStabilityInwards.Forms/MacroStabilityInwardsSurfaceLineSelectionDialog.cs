@@ -32,18 +32,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection from a given set of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>. Upon
-    /// closing of the dialog, the selected <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> can be obtained.
+    /// A dialog which allows the user to make a selection from a given set of <see cref="MacroStabilityInwardsSurfaceLine"/>. Upon
+    /// closing of the dialog, the selected <see cref="MacroStabilityInwardsSurfaceLine"/> can be obtained.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLineSelectionDialog : SelectionDialogBase<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineSelectionDialog : SelectionDialogBase<MacroStabilityInwardsSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLineSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="surfaceLines">The collection of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to show in the dialog.</param>
+        /// <param name="surfaceLines">The collection of <see cref="MacroStabilityInwardsSurfaceLine"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines)
+        public MacroStabilityInwardsSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines)
             : base(dialogParent)
         {
             if (surfaceLines == null)
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
             Text = Resources.MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines;
             InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
 
-            SetDataSource(surfaceLines.Select(sl => new SelectableRow<RingtoetsMacroStabilityInwardsSurfaceLine>(sl, sl.Name)).ToArray());
+            SetDataSource(surfaceLines.Select(sl => new SelectableRow<MacroStabilityInwardsSurfaceLine>(sl, sl.Name)).ToArray());
         }
     }
 }

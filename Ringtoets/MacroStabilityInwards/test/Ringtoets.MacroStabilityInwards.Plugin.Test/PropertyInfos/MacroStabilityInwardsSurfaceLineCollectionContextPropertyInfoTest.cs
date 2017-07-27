@@ -32,7 +32,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineCollectionContextPropertyInfoTest
+    public class MacroStabilityInwardsSurfaceLineCollectionContextPropertyInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsSurfaceLineCollectionProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext), info.DataType);
-            Assert.AreEqual(typeof(RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsSurfaceLinesContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsSurfaceLineCollectionProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -68,14 +68,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var collection = new RingtoetsMacroStabilityInwardsSurfaceLineCollection();
-            var context = new RingtoetsMacroStabilityInwardsSurfaceLinesContext(collection, failureMechanism, assessmentSection);
+            var collection = new MacroStabilityInwardsSurfaceLineCollection();
+            var context = new MacroStabilityInwardsSurfaceLinesContext(collection, failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsSurfaceLineCollectionProperties>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
 
             mocks.VerifyAll();

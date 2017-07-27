@@ -29,24 +29,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> from a collection.
+    /// <see cref="MacroStabilityInwardsSurfaceLine"/> from a collection.
     /// </summary>
-    public class MacroStabilityInwardsInputContextSurfaceLineSelectionEditor : SelectionEditor<MacroStabilityInwardsInputContextProperties, RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsInputContextSurfaceLineSelectionEditor : SelectionEditor<MacroStabilityInwardsInputContextProperties, MacroStabilityInwardsSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputContextSurfaceLineSelectionEditor"/>.
         /// </summary>
         public MacroStabilityInwardsInputContextSurfaceLineSelectionEditor()
         {
-            DisplayMember = nameof(RingtoetsMacroStabilityInwardsSurfaceLine.Name);
+            DisplayMember = nameof(MacroStabilityInwardsSurfaceLine.Name);
         }
 
-        protected override IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<MacroStabilityInwardsSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableSurfaceLines();
         }
 
-        protected override RingtoetsMacroStabilityInwardsSurfaceLine GetCurrentOption(ITypeDescriptorContext context)
+        protected override MacroStabilityInwardsSurfaceLine GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).SurfaceLine;
         }

@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetChartData()
         {
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
+            MacroStabilityInwardsSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
 
             MacroStabilityInwardsChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 

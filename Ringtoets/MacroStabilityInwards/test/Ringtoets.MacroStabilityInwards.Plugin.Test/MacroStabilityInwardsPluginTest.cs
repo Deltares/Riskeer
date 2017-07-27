@@ -76,13 +76,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext),
-                    typeof(RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties));
+                    typeof(MacroStabilityInwardsSurfaceLinesContext),
+                    typeof(MacroStabilityInwardsSurfaceLineCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(RingtoetsMacroStabilityInwardsSurfaceLine),
-                    typeof(RingtoetsMacroStabilityInwardsSurfaceLineProperties));
+                    typeof(MacroStabilityInwardsSurfaceLine),
+                    typeof(MacroStabilityInwardsSurfaceLineProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -112,8 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsMacroStabilityInwardsSurfaceLine)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilProfile)));
@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(2, updateInfos.Length);
-                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext)));
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(StochasticSoilModelCollectionContext)));
             }
         }
@@ -175,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(3, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(RingtoetsMacroStabilityInwardsSurfaceLinesContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MacroStabilityInwardsCalculationGroupContext)));
             }

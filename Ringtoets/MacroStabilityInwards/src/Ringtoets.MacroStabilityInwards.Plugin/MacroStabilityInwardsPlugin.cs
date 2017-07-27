@@ -75,11 +75,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context, new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputContextProperties>();
-            yield return new PropertyInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext, RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsSurfaceLinesContext, MacroStabilityInwardsSurfaceLineCollectionProperties>
             {
-                CreateInstance = context => new RingtoetsMacroStabilityInwardsSurfaceLineCollectionProperties(context.WrappedData)
+                CreateInstance = context => new MacroStabilityInwardsSurfaceLineCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<RingtoetsMacroStabilityInwardsSurfaceLine, RingtoetsMacroStabilityInwardsSurfaceLineProperties>();
+            yield return new PropertyInfo<MacroStabilityInwardsSurfaceLine, MacroStabilityInwardsSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
             {
                 CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
@@ -90,14 +90,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new ImportInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
+            yield return new ImportInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
                 Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>(
                     context.WrappedData,
                     filePath,
                     new ImportMessageProvider(),
@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return new UpdateInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
+            yield return new UpdateInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
                 Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 FileFilterGenerator = SurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsMacroStabilityInwardsSurfaceLine>(
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>(
                     context.WrappedData,
                     filePath,
                     new UpdateMessageProvider(),
@@ -265,16 +265,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<RingtoetsMacroStabilityInwardsSurfaceLinesContext>
+            yield return new TreeNodeInfo<MacroStabilityInwardsSurfaceLinesContext>
             {
                 Text = context => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = RingtoetsMacroStabilityInwardsSurfaceLinesContextContextMenuStrip
+                ContextMenuStrip = MacroStabilityInwardsSurfaceLinesContextContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<RingtoetsMacroStabilityInwardsSurfaceLine>
+            yield return new TreeNodeInfo<MacroStabilityInwardsSurfaceLine>
             {
                 Text = surfaceLine => surfaceLine.Name,
                 Image = surfaceLine => MacroStabilityInwardsFormsResources.SurfaceLineIcon,
@@ -556,9 +556,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return null;
         }
 
-        #region  RingtoetsMacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
+        #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip RingtoetsMacroStabilityInwardsSurfaceLinesContextContextMenuStrip(RingtoetsMacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -677,7 +677,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new RingtoetsMacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
+                new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
@@ -940,7 +940,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             nodeData.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup target, IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
+        private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
         {
             foreach (ICalculationBase group in MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {
@@ -971,7 +971,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             }
         }
 
-        private bool VerifySurfaceLineUpdates(RingtoetsMacroStabilityInwardsSurfaceLinesContext context, string query)
+        private bool VerifySurfaceLineUpdates(MacroStabilityInwardsSurfaceLinesContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
                                                                              query,

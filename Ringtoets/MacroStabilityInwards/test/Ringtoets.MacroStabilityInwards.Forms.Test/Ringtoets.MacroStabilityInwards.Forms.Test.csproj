@@ -66,11 +66,11 @@
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsOutputContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsScenariosContextTest.cs" />
-    <Compile Include="PresentationObjects\RingtoetsMacroStabilityInwardsSurfaceLinesContextTest.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelCollectionContextTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\RingtoetsMacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationGroupContextTest.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="PresentationObjects\MacroStabilityInwardsInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfilePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\RingtoetsMacroStabilityInwardsSurfaceLinePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLinePropertiesTest.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextSurfaceLineSelectionEditorTest.cs" />

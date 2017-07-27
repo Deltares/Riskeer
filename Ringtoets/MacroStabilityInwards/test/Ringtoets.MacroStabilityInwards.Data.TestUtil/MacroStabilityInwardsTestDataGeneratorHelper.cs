@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts sthat the <paramref name="failureMechanism"/> contains <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+        /// Asserts sthat the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsSurfaceLine"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         public static void AssertHasSurfaceLines(MacroStabilityInwardsFailureMechanism failureMechanism)

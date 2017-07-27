@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
-        private readonly RecursiveObserver<RingtoetsMacroStabilityInwardsSurfaceLineCollection, RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLineObserver;
+        private readonly RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children);
-            surfaceLineObserver = new RecursiveObserver<RingtoetsMacroStabilityInwardsSurfaceLineCollection, RingtoetsMacroStabilityInwardsSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc);
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc);
 
             mapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -285,8 +285,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetSurfaceLinesMapData()
         {
-            RingtoetsMacroStabilityInwardsSurfaceLineCollection ringtoetsMacroStabilityInwardsSurfaceLines = data.WrappedData.SurfaceLines;
-            surfaceLinesMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(ringtoetsMacroStabilityInwardsSurfaceLines.ToArray());
+            MacroStabilityInwardsSurfaceLineCollection macroStabilityInwardsSurfaceLines = data.WrappedData.SurfaceLines;
+            surfaceLinesMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(macroStabilityInwardsSurfaceLines.ToArray());
         }
 
         #endregion

@@ -38,9 +38,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create surface line points in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> to create the surface line points for.</param>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to create the surface line points for.</param>
         /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
-        public static Point2D[] CreateSurfaceLinePoints(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateSurfaceLinePoints(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return surfaceLine?.LocalGeometry.ToArray() ?? new Point2D[0];
         }
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         /// <param name="soilLayer">The <see cref="MacroStabilityInwardsSoilLayer1D"/> to create the soil layer points for.</param>
         /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> that contains <paramref name="soilLayer"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> that may intersect with 
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> that may intersect with 
         /// the <paramref name="soilLayer"/> and by doing that restricts the drawn height of it.</param>
         /// <returns>A collection which contains one or more (in the case of <paramref name="surfaceLine"/>
         /// splitting the layer in multiple parts) arrays of points in 2D space or an empty array when:
@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </returns>
         public static IEnumerable<Point2D[]> CreateSoilLayerAreas(MacroStabilityInwardsSoilLayer1D soilLayer,
                                                                   MacroStabilityInwardsSoilProfile1D soilProfile,
-                                                                  RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+                                                                  MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilLayer == null || soilProfile == null || surfaceLine == null)
             {
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the surface level outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateSurfaceLevelOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateSurfaceLevelOutsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelOutside);
         }
@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the dike toe at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtRiverPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateDikeToeAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtRiver);
         }
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the traffic load outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateTrafficLoadOutsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateTrafficLoadOutsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadOutside);
         }
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the traffic load inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateTrafficLoadInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateTrafficLoadInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadInside);
         }
@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the dike top at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeTopAtPolderPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateDikeTopAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeTopAtPolder);
         }
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the shoulder base inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateShoulderBaseInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateShoulderBaseInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderBaseInside);
         }
@@ -188,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the shoulder top inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateShoulderTopInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateShoulderTopInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.ShoulderTopInside);
         }
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the dike toe at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtPolderPoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateDikeToeAtPolderPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeToeAtPolder);
         }
@@ -218,7 +218,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchDikeSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchDikeSide);
         }
@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the bottom ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchDikeSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateBottomDitchDikeSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchDikeSide);
         }
@@ -248,7 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the bottom ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateBottomDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.BottomDitchPolderSide);
         }
@@ -263,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the surface level inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateSurfaceLevelInsidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateSurfaceLevelInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.SurfaceLevelInside);
         }
@@ -278,12 +278,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <item>the ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchPolderSidePoint(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static Point2D[] CreateDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchPolderSide);
         }
 
-        private static Point2D[] GetLocalPointsFromGeometry(RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine,
+        private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
                                                             Point3D worldCoordinate)
         {
             if (surfaceLine == null || worldCoordinate == null)

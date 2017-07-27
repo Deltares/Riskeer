@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
     internal static class MacroStabilityInwardsMapDataFactory
     {
         /// <summary>
-        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="MacroStabilityInwardsSurfaceLine"/>.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()

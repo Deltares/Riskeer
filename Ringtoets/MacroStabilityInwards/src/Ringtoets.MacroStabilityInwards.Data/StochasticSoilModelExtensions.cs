@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static bool IntersectsWithSurfaceLineGeometry(this StochasticSoilModel stochasticSoilModel,
-                                                             RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+                                                             MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (stochasticSoilModel == null)
             {

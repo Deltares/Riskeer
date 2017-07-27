@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
         private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<RingtoetsMacroStabilityInwardsSurfaceLineCollection, RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLineObserver;
+        private readonly RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
         private readonly Observer stochasticSoilModelsObserver;
         private readonly RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile> stochasticSoilProfileObserver;
         private IAssessmentSection assessmentSection;
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
             calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(dataGridViewControl.RefreshDataGridView, cg => cg.Children);
 
-            surfaceLineObserver = new RecursiveObserver<RingtoetsMacroStabilityInwardsSurfaceLineCollection, RingtoetsMacroStabilityInwardsSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
 
             stochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             stochasticSoilProfileObserver = new RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile>(dataGridViewControl.RefreshDataGridView, ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
@@ -273,7 +273,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             Point2D referencePoint = surfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
@@ -536,7 +536,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 return selectableHydraulicBoundaryLocations;
             }
 
-            foreach (RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine in MacroStabilityInwardsFailureMechanism.SurfaceLines)
+            foreach (MacroStabilityInwardsSurfaceLine surfaceLine in MacroStabilityInwardsFailureMechanism.SurfaceLines)
             {
                 selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
             }

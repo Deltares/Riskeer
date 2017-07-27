@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var surfaceLines = new[]
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine()
             };
             var stochasticSoilModels = new[]
             {
@@ -78,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var calculationInput = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
             var surfaceLines = new[]
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine()
             };
             var stochasticSoilModels = new[]
             {

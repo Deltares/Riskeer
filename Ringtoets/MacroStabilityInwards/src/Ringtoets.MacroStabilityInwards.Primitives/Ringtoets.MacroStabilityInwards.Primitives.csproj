@@ -42,7 +42,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Exceptions\RingtoetsMacroStabilityInwardsSurfaceLineException.cs" />
+    <Compile Include="Exceptions\MacroStabilityInwardsSurfaceLineException.cs" />
     <Compile Include="ISoilProfile.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1D.cs" />
@@ -55,7 +55,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Ring.cs" />
-    <Compile Include="RingtoetsMacroStabilityInwardsSurfaceLine.cs" />
+    <Compile Include="MacroStabilityInwardsSurfaceLine.cs" />
     <Compile Include="ShearStrengthModel.cs" />
     <Compile Include="SoilLayerProperties.cs" />
     <Compile Include="SoilProfileType.cs" />

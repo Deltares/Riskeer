@@ -27,6 +27,6 @@ using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Exceptions
 {
     [TestFixture]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<RingtoetsMacroStabilityInwardsSurfaceLineException, Exception> {}
+    public class MacroStabilityInwardsSurfaceLineExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<MacroStabilityInwardsSurfaceLineException, Exception> {}
 }

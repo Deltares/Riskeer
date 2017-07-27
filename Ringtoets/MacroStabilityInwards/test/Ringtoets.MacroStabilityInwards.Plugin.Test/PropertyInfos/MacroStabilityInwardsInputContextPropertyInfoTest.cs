@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             var context = new MacroStabilityInwardsInputContext(
                 scenario.InputParameters,
                 scenario,
-                Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 failureMechanism, assessmentSection);
 

@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Removes a given <see cref="MacroStabilityInwardsSurfaceLine"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="surfaceLine"/>.</param>
@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveSurfaceLine(MacroStabilityInwardsFailureMechanism failureMechanism, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine)
+        public static IEnumerable<IObservable> RemoveSurfaceLine(MacroStabilityInwardsFailureMechanism failureMechanism, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (failureMechanism == null)
             {
@@ -175,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Removes all <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Removes all <see cref="MacroStabilityInwardsSurfaceLine"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>

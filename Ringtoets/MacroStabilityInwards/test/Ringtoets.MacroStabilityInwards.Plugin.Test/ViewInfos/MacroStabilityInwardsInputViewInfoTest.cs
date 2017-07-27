@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var calculationInputContext = new MacroStabilityInwardsInputContext(input, calculation, Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            var calculationInputContext = new MacroStabilityInwardsInputContext(input, calculation, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 new MacroStabilityInwardsFailureMechanism(),
                                                                                 assessmentSection);
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var calculationScenarioContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                                                 Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var calculationToRemove = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             var calculationScenarioContext = new MacroStabilityInwardsCalculationScenarioContext(calculationToRemove,
-                                                                                                 Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
-                                                                                           Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                           Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
@@ -235,7 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
-                                                                                           Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
@@ -267,7 +267,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                           Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);

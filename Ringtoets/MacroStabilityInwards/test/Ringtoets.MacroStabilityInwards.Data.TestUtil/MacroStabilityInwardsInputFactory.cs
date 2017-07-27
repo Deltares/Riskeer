@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             double thicknessAquiferLayer = 1.0,
             double thicknessCoverageLayer = 2.0)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, thicknessCoverageLayer),
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsInput"/>.</returns>
         public static MacroStabilityInwardsInput CreateInputWithAquifer(double thicknessAquiferLayer = 1.0)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0.0),
@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsInput"/>.</returns>
         public static MacroStabilityInwardsInput CreateInputWithSingleAquiferLayerAboveSurfaceLine(double deltaAboveSurfaceLine)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             const double surfaceLineTopLevel = 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsInput"/>.</returns>
         public static MacroStabilityInwardsInput CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness)
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.3),

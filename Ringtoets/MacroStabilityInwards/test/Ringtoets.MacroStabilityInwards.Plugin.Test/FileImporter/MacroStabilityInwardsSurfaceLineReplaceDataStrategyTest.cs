@@ -57,8 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<RingtoetsMacroStabilityInwardsSurfaceLine>>(strategy);
-            Assert.IsInstanceOf<ReplaceDataStrategyBase<RingtoetsMacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<MacroStabilityInwardsSurfaceLine>>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<MacroStabilityInwardsSurfaceLine, MacroStabilityInwardsFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                   null);
 
             // Assert
@@ -96,12 +96,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            RingtoetsMacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            MacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(failureMechanism);
             const string newSourcePath = "some/other/path";
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                    newSourcePath);
 
             // Assert
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             var importedSurfaceLines = new[]
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine()
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                                                    sourceFilePath);
 
             // Assert
-            RingtoetsMacroStabilityInwardsSurfaceLineCollection actualCollection = failureMechanism.SurfaceLines;
+            MacroStabilityInwardsSurfaceLineCollection actualCollection = failureMechanism.SurfaceLines;
             CollectionAssert.AreEqual(importedSurfaceLines, actualCollection);
             CollectionAssert.AreEqual(new[]
             {
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
-            var targetSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name A"
             };
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 targetSurfaceLine
             }, sourceFilePath);
 
-            var readSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine
+            var readSurfaceLine = new MacroStabilityInwardsSurfaceLine
             {
                 Name = "Name B"
             };
@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
         {
             // Setup
-            var existingSurfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var existingSurfaceLine = new MacroStabilityInwardsSurfaceLine();
             existingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 1, 2),
@@ -208,7 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsMacroStabilityInwardsSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                                    sourceFilePath).ToArray();
 
             // Assert
@@ -227,13 +227,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            RingtoetsMacroStabilityInwardsSurfaceLine[] importedSurfaceLines =
+            MacroStabilityInwardsSurfaceLine[] importedSurfaceLines =
             {
-                new RingtoetsMacroStabilityInwardsSurfaceLine
+                new MacroStabilityInwardsSurfaceLine
                 {
                     Name = duplicateName
                 },
-                new RingtoetsMacroStabilityInwardsSurfaceLine
+                new MacroStabilityInwardsSurfaceLine
                 {
                     Name = duplicateName
                 }

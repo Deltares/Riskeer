@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public MacroStabilityInwardsInputContext(MacroStabilityInwardsInput macroStabilityInwardsInput,
                                                  MacroStabilityInwardsCalculationScenario calculation,
-                                                 IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines,
+                                                 IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                  IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                  MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                  IAssessmentSection assessmentSection)

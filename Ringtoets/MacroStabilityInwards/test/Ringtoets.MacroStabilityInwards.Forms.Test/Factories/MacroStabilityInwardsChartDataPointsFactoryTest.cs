@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSurfaceLinePoints_GivenSurfaceLine_ReturnsSurfaceLinePointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSurfaceLevelOutsidePoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var surfaceLevelOutside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetSurfaceLevelOutsideAt(surfaceLevelOutside);
 
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateDikeToeAtRiverPoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var dikeToeAtRiver = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
 
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTrafficLoadOutsidePoint_SurfaceLevelOutsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadOutsidePoint(surfaceLine);
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var trafficLoadOutside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetTrafficLoadOutsideAt(trafficLoadOutside);
 
@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateTrafficLoadInsidePoint_TrafficLoadInsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(surfaceLine);
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var trafficLoadInside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetTrafficLoadInsideAt(trafficLoadInside);
 
@@ -225,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateDikeTopAtPolderPoint_DikeTopAtPolderNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
@@ -239,7 +239,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var dikeTopAtPolder = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDikeTopAtPolderAt(dikeTopAtPolder);
 
@@ -264,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateShoulderBaseInsidePoint_ShoulderBaseInsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var shoulderBaseInside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetShoulderBaseInsideAt(shoulderBaseInside);
 
@@ -303,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateShoulderTopInsidePoint_ShoulderTopInsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
@@ -317,7 +317,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var shoulderTopInside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetShoulderTopInsideAt(shoulderTopInside);
 
@@ -342,7 +342,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateDikeToeAtPolderPoint_DikeToeAtPolderNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
@@ -356,7 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var dikeToeAtPolder = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDikeToeAtPolderAt(dikeToeAtPolder);
 
@@ -381,7 +381,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateDitchDikeSidePoint_DitchDikeSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine);
@@ -395,7 +395,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var ditchDikeSide = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDitchDikeSideAt(ditchDikeSide);
 
@@ -420,7 +420,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateBottomDitchDikeSidePoint_BottomDitchDikeSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine);
@@ -434,7 +434,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var bottomDitchDikeSide = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetBottomDitchDikeSideAt(bottomDitchDikeSide);
 
@@ -459,7 +459,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateBottomDitchPolderSidePoint_BottomDitchPolderSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine);
@@ -473,7 +473,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var bottomDitchPolderSide = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetBottomDitchPolderSideAt(bottomDitchPolderSide);
 
@@ -498,7 +498,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateDitchPolderSidePoint_DitchPolderSideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine);
@@ -512,7 +512,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var ditchPolderSide = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetDitchPolderSideAt(ditchPolderSide);
 
@@ -537,7 +537,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSurfaceLevelInsidePoint_SurfaceLevelInsideNull_ReturnsEmptyPointsArray()
         {
             // Setup
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelInsidePoint(surfaceLine);
@@ -551,7 +551,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var surfaceLevelInside = new Point3D(1.2, 2.3, 4.0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             surfaceLine.SetSurfaceLevelInsideAt(surfaceLevelInside);
 
@@ -570,7 +570,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             {
                 new MacroStabilityInwardsSoilLayer1D(3.2)
             }, SoilProfileType.SoilProfile1D, 0);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(null, soilProfile, surfaceLine);
@@ -584,7 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
-            RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, null, surfaceLine);
@@ -614,7 +614,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4),
@@ -645,7 +645,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineBelowSoilLayer_ReturnsEmptyAreasCollection()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2.0),
@@ -668,7 +668,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingIt_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -704,7 +704,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -742,7 +742,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineStartsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2.0),
@@ -777,7 +777,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineEndsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -812,7 +812,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineZigZagsThroughSoilLayer_ReturnsSoilLayerPointsSplitInMultipleAreas()
         {
             // Setup
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4.0),
@@ -853,7 +853,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             CollectionAssert.AreEqual(points, chartPoints);
         }
 
-        private static void AssertEqualLocalPointCollection(Point3D point, RingtoetsMacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<Point2D> chartPoints)
+        private static void AssertEqualLocalPointCollection(Point3D point, MacroStabilityInwardsSurfaceLine surfaceLine, IEnumerable<Point2D> chartPoints)
         {
             Point3D first = surfaceLine.Points.First();
             Point3D last = surfaceLine.Points.Last();
@@ -867,9 +867,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }, chartPoints);
         }
 
-        private static RingtoetsMacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
         {
-            var surfaceLine = new RingtoetsMacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
 
             surfaceLine.SetGeometry(new[]
             {

@@ -33,10 +33,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="RingtoetsMacroStabilityInwardsSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="MacroStabilityInwardsSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
-    public class RingtoetsMacroStabilityInwardsSurfaceLineProperties : ObjectProperties<RingtoetsMacroStabilityInwardsSurfaceLine>
+    public class MacroStabilityInwardsSurfaceLineProperties : ObjectProperties<MacroStabilityInwardsSurfaceLine>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Name_DisplayName))]

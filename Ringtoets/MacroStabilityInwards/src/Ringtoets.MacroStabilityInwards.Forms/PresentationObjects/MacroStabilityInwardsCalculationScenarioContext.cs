@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the macro stability inwards context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationScenarioContext(MacroStabilityInwardsCalculationScenario calculation,
-                                                               IEnumerable<RingtoetsMacroStabilityInwardsSurfaceLine> surfaceLines,
+                                                               IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                                IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                                MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                                IAssessmentSection assessmentSection)
