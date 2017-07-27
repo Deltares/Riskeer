@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -130,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var illustrationPoints = new[]
             {
-                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint()),
+                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
             };
             var stochasts = new[]
             {
@@ -140,7 +139,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             if (withIllustrationPoints)
             {
-                hydraulicBoundaryLocationOutput.SetGeneralResult(new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2), stochasts, illustrationPoints));
+                hydraulicBoundaryLocationOutput.SetGeneralResult(new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
+                                                                                                                          stochasts,
+                                                                                                                          illustrationPoints));
             }
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
