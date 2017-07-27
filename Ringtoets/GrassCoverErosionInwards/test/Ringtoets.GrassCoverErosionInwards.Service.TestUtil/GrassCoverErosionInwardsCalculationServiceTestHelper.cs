@@ -44,5 +44,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
                                  : "Er is geen foutrapport beschikbaar."),
                             actual);
         }
+
+        public static void AssertCalculationNotConverged(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"De {calculationDescription} berekening voor grasbekleding erosie kruin en binnentalud '{calculationName}' is niet geconvergeerd.", actual);
+        }
+
+        public static void AssertGeneralResultNotSetMessage(string actual)
+        {
+            Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", actual);
+        }
     }
 }

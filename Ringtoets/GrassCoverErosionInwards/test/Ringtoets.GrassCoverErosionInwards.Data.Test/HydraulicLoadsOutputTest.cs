@@ -136,15 +136,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var random = new Random(32);
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(targetProbability,
-                                                      targetReliability,
-                                                      calculatedProbability,
-                                                      calculatedReliability,
+            var output = new TestHydraulicLoadsOutput(double.NaN,
+                                                      double.NaN,
+                                                      double.NaN,
+                                                      double.NaN,
                                                       convergence);
 
             // Call

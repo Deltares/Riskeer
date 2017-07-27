@@ -740,21 +740,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return validationResult.ToArray();
         }
 
-        /// <summary>
-        /// Converts a <see cref="HydraRingGeneralResult"/> based on the information 
-        /// of <paramref name="result"/> to a <see cref="GeneralResult{TopLevelFaultTreeInllustrationPoint}"/> .
-        /// </summary>
-        /// <param name="result">The <see cref="HydraRingGeneralResult"/> to base the 
-        /// <see cref="GeneralResult{T}"/> to create on.</param>
-        /// <param name="errorMessage">Error message to display when the general result is null</param>
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
         {
             if (result == null)
             {
-                if (errorMessage != null)
-                {
-                    log.Warn(errorMessage);
-                }
+                log.Warn(errorMessage);
                 return null;
             }
 
