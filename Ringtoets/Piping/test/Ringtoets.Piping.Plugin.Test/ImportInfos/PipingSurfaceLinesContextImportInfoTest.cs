@@ -42,7 +42,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinesContextImportInfoTest : NUnitFormTest
+    public class PipingSurfaceLinesContextImportInfoTest : NUnitFormTest
     {
         private ImportInfo importInfo;
         private PipingPlugin plugin;
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public override void Setup()
         {
             plugin = new PipingPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(PipingSurfaceLinesContext));
         }
 
         public override void TearDown()
@@ -97,9 +97,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -120,9 +120,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -159,8 +159,8 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = importInfo.VerifyUpdates(context);
@@ -193,8 +193,8 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -235,9 +235,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
-            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var importTarget = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");

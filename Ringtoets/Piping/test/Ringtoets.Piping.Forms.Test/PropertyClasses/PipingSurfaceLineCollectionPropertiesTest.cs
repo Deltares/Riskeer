@@ -32,13 +32,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCollectionPropertiesTest
+    public class PipingSurfaceLineCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineCollectionProperties(null);
+            TestDelegate test = () => new PipingSurfaceLineCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,14 +50,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new RingtoetsPipingSurfaceLineCollection();
+            var collection = new PipingSurfaceLineCollection();
             collection.AddRange(Enumerable.Empty<PipingSurfaceLine>(), someFilePath);
 
             // Call
-            var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);
+            var properties = new PipingSurfaceLineCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<RingtoetsPipingSurfaceLineCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingSurfaceLineCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -66,10 +66,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new RingtoetsPipingSurfaceLineCollection();
+            var collection = new PipingSurfaceLineCollection();
 
             // Call
-            var properties = new RingtoetsPipingSurfaceLineCollectionProperties(collection);
+            var properties = new PipingSurfaceLineCollectionProperties(collection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

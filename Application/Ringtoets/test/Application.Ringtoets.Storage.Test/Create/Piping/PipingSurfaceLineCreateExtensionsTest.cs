@@ -33,7 +33,7 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Test.Create.Piping
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCreateExtensionsTest
+    public class PipingSurfaceLineCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()

@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
         {
             PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();
-            SurfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            SurfaceLines = new PipingSurfaceLineCollection();
             StochasticSoilModels = new StochasticSoilModelCollection();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available surface lines within the scope of the piping failure mechanism.
         /// </summary>
-        public RingtoetsPipingSurfaceLineCollection SurfaceLines { get; }
+        public PipingSurfaceLineCollection SurfaceLines { get; }
 
         /// <summary>
         /// Gets the available stochastic soil models within the scope of the piping failure mechanism.

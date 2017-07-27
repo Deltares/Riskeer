@@ -27,6 +27,6 @@ using Ringtoets.Piping.Primitives.Exceptions;
 namespace Ringtoets.Piping.Primitives.Test.Exceptions
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<RingtoetsPipingSurfaceLineException, Exception> {}
+    public class PipingSurfaceLineExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<PipingSurfaceLineException, Exception> {}
 }

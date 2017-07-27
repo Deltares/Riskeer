@@ -29,17 +29,17 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="RingtoetsPipingSurfaceLineCollection"/> for properties panel.
+    /// ViewModel of <see cref="PipingSurfaceLineCollection"/> for properties panel.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineCollectionProperties : ObjectProperties<RingtoetsPipingSurfaceLineCollection>
+    public class PipingSurfaceLineCollectionProperties : ObjectProperties<PipingSurfaceLineCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineCollectionProperties"/>.
+        /// Creates a new instance of <see cref="PipingSurfaceLineCollectionProperties"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineCollectionProperties(RingtoetsPipingSurfaceLineCollection collection)
+        public PipingSurfaceLineCollectionProperties(PipingSurfaceLineCollection collection)
         {
             if (collection == null)
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.RingtoetsPipingSurfaceLineCollection_SourcePath_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingSurfaceLineCollection_SourcePath_Description))]
         public string SourcePath
         {
             get

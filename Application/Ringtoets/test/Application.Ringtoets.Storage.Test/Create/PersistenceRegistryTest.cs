@@ -129,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutRingtoetsPipingSurfaceLine_ThrowsArgumentNullException()
+        public void Contains_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -143,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_RingtoetsPipingSurfaceLineAdded_ReturnsTrue()
+        public void Contains_PipingSurfaceLineAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -158,7 +158,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoRingtoetsPipingSurfaceLineAdded_ReturnsFalse()
+        public void Contains_NoPipingSurfaceLineAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherRingtoetsPipingSurfaceLineAdded_ReturnsFalse()
+        public void Contains_OtherPipingSurfaceLineAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1073,7 +1073,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutRingtoetsPipingSurfaceLine_ThrowsArgumentNullException()
+        public void Get_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1087,7 +1087,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_RingtoetsPipingSurfaceLineAdded_ReturnsEntity()
+        public void Get_PipingSurfaceLineAdded_ReturnsEntity()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1103,7 +1103,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_NoRingtoetsPipingSurfaceLineAdded_ThrowsInvalidOperationException()
+        public void Get_NoPipingSurfaceLineAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -1117,7 +1117,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_OtherRingtoetsPipingSurfaceLineAdded_ThrowsInvalidOperationException()
+        public void Get_OtherPipingSurfaceLineAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var registry = new PersistenceRegistry();

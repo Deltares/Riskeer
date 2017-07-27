@@ -59,7 +59,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PipingProbabilityAssessmentInput.cs" />
-    <Compile Include="RingtoetsPipingSurfaceLineCollection.cs" />
+    <Compile Include="PipingSurfaceLineCollection.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilModelCollection.cs" />
     <Compile Include="StochasticSoilModelExtensions.cs" />

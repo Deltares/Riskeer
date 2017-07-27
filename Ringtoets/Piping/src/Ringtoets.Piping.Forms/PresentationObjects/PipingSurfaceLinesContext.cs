@@ -29,18 +29,18 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<RingtoetsPipingSurfaceLineCollection>
+    public class PipingSurfaceLinesContext : ObservableWrappedObjectContextBase<PipingSurfaceLineCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
+        /// Creates a new instance of <see cref="PipingSurfaceLinesContext"/>.
         /// </summary>
         /// <param name="surfaceLines">The collection to update.</param>
         /// <param name="failureMechanism">The failure mechanism</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(RingtoetsPipingSurfaceLineCollection surfaceLines,
-                                                  PipingFailureMechanism failureMechanism,
-                                                  IAssessmentSection assessmentSection)
+        public PipingSurfaceLinesContext(PipingSurfaceLineCollection surfaceLines,
+                                         PipingFailureMechanism failureMechanism,
+                                         IAssessmentSection assessmentSection)
             : base(surfaceLines)
         {
             if (assessmentSection == null)
@@ -59,11 +59,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public PipingFailureMechanism FailureMechanism { get; private set; }
+        public PipingFailureMechanism FailureMechanism { get; }
     }
 }

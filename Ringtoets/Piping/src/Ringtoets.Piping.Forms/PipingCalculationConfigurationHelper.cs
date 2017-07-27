@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Forms
                 else
                 {
                     log.WarnFormat(
-                        Resources.PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped,
+                        Resources.PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped,
                         surfaceLine.Name);
                 }
             }

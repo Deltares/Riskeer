@@ -616,14 +616,14 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
         private static PipingSurfaceLine CreateValidSurfaceLine()
         {
-            var ringtoetsPipingSurfaceLine = new PipingSurfaceLine();
-            ringtoetsPipingSurfaceLine.SetGeometry(new[]
+            var pipingSurfaceLine = new PipingSurfaceLine();
+            pipingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),
                 new Point3D(1, 0, 8),
                 new Point3D(2, 0, -1)
             });
-            return ringtoetsPipingSurfaceLine;
+            return pipingSurfaceLine;
         }
     }
 }

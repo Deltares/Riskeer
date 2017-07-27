@@ -427,7 +427,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_SurfaceLineEntityAdded_ReturnsRingtoetsPipingSurfaceLine()
+        public void Get_SurfaceLineEntityAdded_ReturnsPipingSurfaceLine()
         {
             // Setup
             var entity = new SurfaceLineEntity();
@@ -492,7 +492,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_RingtoetsPipingSurfaceLineIsNull_ThrowsArgumentNullException()
+        public void Read_PipingSurfaceLineIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();

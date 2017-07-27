@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Setup
             const string testname = "testName";
-            var ringtoetsPipingSurfaceLine = new PipingSurfaceLine
+            var pipingSurfaceLine = new PipingSurfaceLine
             {
                 Name = testname
             };
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test
             using (var viewParent = new Form())
             using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, new[]
             {
-                ringtoetsPipingSurfaceLine
+                pipingSurfaceLine
             }))
             {
                 // Assert

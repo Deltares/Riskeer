@@ -134,10 +134,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm {
+        public static string PipingPlugin_VerifyPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surface_lines_" +
-                        "calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_VerifyPipingSurfaceLineImport_When_importing_surface_lines_calculati" +
+                        "on_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         
@@ -146,10 +146,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        public static string PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
+        public static string PipingPlugin_VerifyPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm {
             get {
-                return ResourceManager.GetString("PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surface_lines_" +
-                        "definitions_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
+                return ResourceManager.GetString("PipingPlugin_VerifyPipingSurfaceLineUpdates_When_updating_surface_lines_definitio" +
+                        "ns_assigned_to_calculation_output_will_be_cleared_confirm", resourceCulture);
             }
         }
         

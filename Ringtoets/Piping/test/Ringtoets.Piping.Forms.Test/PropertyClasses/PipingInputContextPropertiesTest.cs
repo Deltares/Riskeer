@@ -1464,7 +1464,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetAvailableSurfaceLines_Always_ReturnAllRingtoetsPipingSurfaceLines()
+        public void GetAvailableSurfaceLines_Always_ReturnAllPipingSurfaceLines()
         {
             // Setup
             var mocks = new MockRepository();

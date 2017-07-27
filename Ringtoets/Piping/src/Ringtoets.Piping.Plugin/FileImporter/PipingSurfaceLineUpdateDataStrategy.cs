@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism in which the surface lines are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public PipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
-            : base(failureMechanism, failureMechanism?.SurfaceLines, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
+            : base(failureMechanism, failureMechanism?.SurfaceLines, new PipingSurfaceLineNameEqualityComparer()) {}
 
         public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<PipingSurfaceLine> surfaceLines, string sourceFilePath)
         {
@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <summary>
         /// Class for comparing <see cref="PipingSurfaceLine"/> by only the name.
         /// </summary>
-        private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<PipingSurfaceLine>
+        private class PipingSurfaceLineNameEqualityComparer : IEqualityComparer<PipingSurfaceLine>
         {
             public bool Equals(PipingSurfaceLine x, PipingSurfaceLine y)
             {

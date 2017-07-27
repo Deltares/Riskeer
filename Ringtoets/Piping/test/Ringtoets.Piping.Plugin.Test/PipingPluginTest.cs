@@ -78,13 +78,13 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(RingtoetsPipingSurfaceLinesContext),
-                    typeof(RingtoetsPipingSurfaceLineCollectionProperties));
+                    typeof(PipingSurfaceLinesContext),
+                    typeof(PipingSurfaceLineCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingSurfaceLine),
-                    typeof(RingtoetsPipingSurfaceLineProperties));
+                    typeof(PipingSurfaceLineProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(2, updateInfos.Length);
-                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingSurfaceLinesContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(StochasticSoilModelCollectionContext)));
             }
         }
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(3, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(PipingSurfaceLinesContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(PipingCalculationGroupContext)));
             }

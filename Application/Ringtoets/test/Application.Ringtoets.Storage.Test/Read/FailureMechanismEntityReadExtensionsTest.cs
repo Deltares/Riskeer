@@ -397,7 +397,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            RingtoetsPipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
             Assert.AreEqual(sourcePath, surfaceLines.SourcePath);
             CollectionAssert.IsEmpty(surfaceLines);
         }

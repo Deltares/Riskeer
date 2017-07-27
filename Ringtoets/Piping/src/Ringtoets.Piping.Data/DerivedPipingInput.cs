@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Data
             }
             catch (Exception e)
             {
-                if (e is RingtoetsPipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
+                if (e is PipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
                 {
                     return double.NaN;
                 }
@@ -524,7 +524,7 @@ namespace Ringtoets.Piping.Data
             }
             catch (Exception e)
             {
-                if (e is RingtoetsPipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
+                if (e is PipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
                 {
                     return double.NaN;
                 }

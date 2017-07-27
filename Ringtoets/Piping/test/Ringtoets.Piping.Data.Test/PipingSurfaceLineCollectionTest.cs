@@ -30,13 +30,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCollectionTest :
+    public class PipingSurfaceLineCollectionTest :
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
             ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>, PipingSurfaceLine>
     {
         protected override ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine> CreateCollection()
         {
-            return new RingtoetsPipingSurfaceLineCollection();
+            return new PipingSurfaceLineCollection();
         }
 
         protected override IEnumerable<PipingSurfaceLine> UniqueElements()

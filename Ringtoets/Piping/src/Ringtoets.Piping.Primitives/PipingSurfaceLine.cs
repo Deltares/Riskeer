@@ -127,11 +127,11 @@ namespace Ringtoets.Piping.Primitives
         {
             if (points == null)
             {
-                throw new ArgumentNullException(nameof(points), Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null);
+                throw new ArgumentNullException(nameof(points), Resources.PipingSurfaceLine_Collection_of_points_for_geometry_is_null);
             }
             if (points.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null);
+                throw new ArgumentException(Resources.PipingSurfaceLine_A_point_in_the_collection_was_null);
             }
             Points = points.Select(p => new Point3D(p)).ToArray();
 
@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.Primitives
         /// </summary>
         /// <param name="l">The L coordinate from where to take the height of the <see cref="PipingSurfaceLine"/>.</param>
         /// <returns>The height of the <see cref="PipingSurfaceLine"/> at L=<paramref name="l"/>.</returns>
-        /// <exception cref="RingtoetsPipingSurfaceLineException">Thrown when the <see cref="PipingSurfaceLine"/>
+        /// <exception cref="PipingSurfaceLineException">Thrown when the <see cref="PipingSurfaceLine"/>
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <see cref="Points"/> is empty.</exception>
@@ -262,8 +262,8 @@ namespace Ringtoets.Piping.Primitives
             if (!ValidateInRange(l))
             {
                 var localRangeL = new Range<double>(LocalGeometry.First().X, LocalGeometry.Last().X);
-                string outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_Range_1_,
-                                                         Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
+                string outOfRangeMessage = string.Format(Resources.PipingSurfaceLine_0_L_needs_to_be_in_Range_1_,
+                                                         Resources.PipingSurfaceLine_GetZAtL_Cannot_determine_height,
                                                          localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                 throw new ArgumentOutOfRangeException(null, outOfRangeMessage);
             }
@@ -284,8 +284,8 @@ namespace Ringtoets.Piping.Primitives
                 return intersectionPoints.First().Y;
             }
 
-            string message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
-            throw new RingtoetsPipingSurfaceLineException(message);
+            string message = string.Format(Resources.PipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            throw new PipingSurfaceLineException(message);
         }
 
         /// <summary>
@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.Primitives
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            string message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+            string message = string.Format(Resources.PipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
                                            point,
                                            characteristicPointDescription);
             return new ArgumentException(message);
@@ -494,7 +494,7 @@ namespace Ringtoets.Piping.Primitives
         {
             if (!Points.Any())
             {
-                throw new InvalidOperationException(Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry);
+                throw new InvalidOperationException(Resources.PipingSurfaceLine_SurfaceLine_has_no_Geometry);
             }
         }
     }

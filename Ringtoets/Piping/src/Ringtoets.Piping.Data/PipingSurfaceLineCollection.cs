@@ -30,10 +30,10 @@ namespace Ringtoets.Piping.Data
     /// Collection to store <see cref="PipingSurfaceLine"/> items. The 
     /// names of the items are unique within the collection.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>
+    public class PipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>
     {
-        public RingtoetsPipingSurfaceLineCollection() : base(line => line.Name,
-                                                             RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                                                             Resources.UniqueFeature_Name_FeatureDescription) {}
+        public PipingSurfaceLineCollection() : base(line => line.Name,
+                                                    RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                                                    Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

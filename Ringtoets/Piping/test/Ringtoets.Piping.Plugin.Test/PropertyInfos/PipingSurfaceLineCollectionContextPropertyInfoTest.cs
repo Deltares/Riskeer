@@ -32,7 +32,7 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCollectionContextPropertyInfoTest
+    public class PipingSurfaceLineCollectionContextPropertyInfoTest
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(RingtoetsPipingSurfaceLineCollectionProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingSurfaceLineCollectionProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(RingtoetsPipingSurfaceLinesContext), info.DataType);
-            Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineCollectionProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingSurfaceLinesContext), info.DataType);
+            Assert.AreEqual(typeof(PipingSurfaceLineCollectionProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -68,14 +68,14 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var collection = new RingtoetsPipingSurfaceLineCollection();
-            var context = new RingtoetsPipingSurfaceLinesContext(collection, failureMechanism, assessmentSection);
+            var collection = new PipingSurfaceLineCollection();
+            var context = new PipingSurfaceLinesContext(collection, failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<RingtoetsPipingSurfaceLineCollectionProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingSurfaceLineCollectionProperties>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
 
             mocks.VerifyAll();

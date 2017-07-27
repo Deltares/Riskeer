@@ -41,7 +41,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinesContextUpdateInfoTest : NUnitFormTest
+    public class PipingSurfaceLinesContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         public override void Setup()
         {
             plugin = new PipingPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext));
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(PipingSurfaceLinesContext));
         }
 
         public override void TearDown()
@@ -96,9 +96,9 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -117,10 +117,10 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
             surfaceLines.AddRange(Enumerable.Empty<PipingSurfaceLine>(), "some/path");
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -157,8 +157,8 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
@@ -191,8 +191,8 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "some/path";
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
                 new PipingSurfaceLine()
@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             string currentPath = updateInfo.CurrentPath(context);
@@ -260,9 +260,9 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
-            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var importTarget = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");

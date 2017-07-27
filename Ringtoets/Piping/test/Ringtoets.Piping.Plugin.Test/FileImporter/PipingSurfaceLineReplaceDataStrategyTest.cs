@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
 
             var strategy = new PipingSurfaceLineReplaceDataStrategy(failureMechanism);
             const string newSourcePath = "some/other/path";
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                                                                    sourceFilePath);
 
             // Assert
-            RingtoetsPipingSurfaceLineCollection actualCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection actualCollection = failureMechanism.SurfaceLines;
             CollectionAssert.AreEqual(importedSurfaceLines, actualCollection);
             CollectionAssert.AreEqual(new[]
             {

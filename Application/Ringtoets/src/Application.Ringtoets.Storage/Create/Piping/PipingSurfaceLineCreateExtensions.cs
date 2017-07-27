@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
     /// Extensions methods for <see cref="PipingSurfaceLine"/> related to creating
     /// a <see cref="SurfaceLineEntity"/>.
     /// </summary>
-    internal static class RingtoetsPipingSurfaceLineCreateExtensions
+    internal static class PipingSurfaceLineCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="SurfaceLineEntity"/> based on the information of the <see cref="PipingSurfaceLine"/>.

@@ -396,7 +396,7 @@ namespace Ringtoets.Piping.Forms.Test
             const string testName3 = "group3";
             const string testName4 = "group4";
 
-            var ringtoetsPipingSurfaceLines = new List<PipingSurfaceLine>
+            var pipingSurfaceLines = new List<PipingSurfaceLine>
             {
                 new PipingSurfaceLine
                 {
@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Forms.Test
             Action call = () =>
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    ringtoetsPipingSurfaceLines,
+                    pipingSurfaceLines,
                     Enumerable.Empty<StochasticSoilModel>(),
                     new GeneralPipingInput()).ToArray();
             };

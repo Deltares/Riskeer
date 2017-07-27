@@ -30,13 +30,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinePropertiesTest
+    public class PipingSurfaceLinePropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new RingtoetsPipingSurfaceLineProperties();
+            var properties = new PipingSurfaceLineProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingSurfaceLine>>(properties);
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             surfaceLine.SetBottomDitchPolderSideAt(point2);
             surfaceLine.SetDitchPolderSideAt(point2);
 
-            var properties = new RingtoetsPipingSurfaceLineProperties
+            var properties = new PipingSurfaceLineProperties
             {
                 Data = surfaceLine
             };
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var surfaceLine = new PipingSurfaceLine();
 
             // Call
-            var properties = new RingtoetsPipingSurfaceLineProperties
+            var properties = new PipingSurfaceLineProperties
             {
                 Data = surfaceLine
             };

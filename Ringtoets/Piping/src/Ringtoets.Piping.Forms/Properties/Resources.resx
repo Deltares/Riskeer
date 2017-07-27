@@ -457,7 +457,7 @@
   <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
     <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
   </data>
-  <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped" xml:space="preserve">
+  <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
@@ -562,7 +562,7 @@
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift" xml:space="preserve">
     <value>Verzadigd gewicht (verschuiving) [kN/m³]</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
+  <data name="PipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
   </data>
 </root>

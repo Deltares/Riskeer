@@ -560,8 +560,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedLayer.PermeabilityCoefficientOfVariation, actualLayer.PermeabilityCoefficientOfVariation);
         }
 
-        private static void AssertSurfaceLines(RingtoetsPipingSurfaceLineCollection expectedSurfaceLines,
-                                               RingtoetsPipingSurfaceLineCollection actualSurfaceLines)
+        private static void AssertSurfaceLines(PipingSurfaceLineCollection expectedSurfaceLines,
+                                               PipingSurfaceLineCollection actualSurfaceLines)
         {
             Assert.Greater(expectedSurfaceLines.Count, 0);
 

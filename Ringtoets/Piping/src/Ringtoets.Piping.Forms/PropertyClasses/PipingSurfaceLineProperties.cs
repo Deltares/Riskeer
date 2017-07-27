@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// ViewModel of <see cref="PipingSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
-    public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
+    public class PipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Name_DisplayName))]

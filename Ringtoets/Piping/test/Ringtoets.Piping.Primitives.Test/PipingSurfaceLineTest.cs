@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
-        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsRingtoetsPipingSurfaceLineException()
+        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsPipingSurfaceLineException()
         {
             // Setup
             double testZ = new Random(22).NextDouble();
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Primitives.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var exception = Assert.Throws<RingtoetsPipingSurfaceLineException>(test);
+            var exception = Assert.Throws<PipingSurfaceLineException>(test);
             string message = $"Kan geen hoogte bepalen op het punt met de lokale coördinaat {l}, omdat de profielschematisatie verticaal loopt op dat punt.";
             Assert.AreEqual(message, exception.Message);
         }

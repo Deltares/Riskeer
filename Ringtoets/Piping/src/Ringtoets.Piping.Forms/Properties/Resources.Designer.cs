@@ -354,10 +354,10 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geen ondergrondschematisaties gevonden voor profielschematisatie &apos;{0}&apos;. De profielschematisatie is overgeslagen..
         /// </summary>
-        public static string PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped {
+        public static string PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped {
             get {
                 return ResourceManager.GetString("PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilP" +
-                        "rofile_found_for_RingtoetsPipingSurfaceLine_0_skipped", resourceCulture);
+                        "rofile_found_for_PipingSurfaceLine_0_skipped", resourceCulture);
             }
         }
         
@@ -1212,6 +1212,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd..
+        /// </summary>
+        public static string PipingSurfaceLineCollection_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLineCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingSurfaceLineIcon {
@@ -1254,15 +1263,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string Probabilistics_Shift_Symbol {
             get {
                 return ResourceManager.GetString("Probabilistics_Shift_Symbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLineCollection_SourcePath_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLineCollection_SourcePath_Description", resourceCulture);
             }
         }
         

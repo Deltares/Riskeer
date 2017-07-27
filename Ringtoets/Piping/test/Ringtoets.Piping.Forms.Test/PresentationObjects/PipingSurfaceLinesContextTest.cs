@@ -30,7 +30,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLinesContextTest
+    public class PipingSurfaceLinesContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -42,13 +42,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
             // Call
-            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var context = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<RingtoetsPipingSurfaceLineCollection>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<PipingSurfaceLineCollection>>(context);
             Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
@@ -58,11 +58,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, null);
+            TestDelegate test = () => new PipingSurfaceLinesContext(surfaceLines, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,10 +77,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
 
             // Call
-            TestDelegate call = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null, assessmentSection);
+            TestDelegate call = () => new PipingSurfaceLinesContext(surfaceLines, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

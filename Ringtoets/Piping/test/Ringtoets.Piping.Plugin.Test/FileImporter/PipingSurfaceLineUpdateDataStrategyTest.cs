@@ -38,7 +38,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineUpdateDataStrategyTest
+    public class PipingSurfaceLineUpdateDataStrategyTest
     {
         private const string sourceFilePath = "some/path";
 
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             surfaceLineToUpdateFrom.SetGeometry(expectedGeometry);
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingSurfaceLine surfaceLineToUpdateFrom = CreateValidSurfaceLineForCalculations();
             surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = new Point2D(123, 456);
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var targetCollection = new PipingSurfaceLineCollection();
             targetCollection.AddRange(new[]
             {
                 surfaceLine
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingSurfaceLine surfaceLineToUpdateFrom = DeepCloneAndModifyPoints(surfaceLine);
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 surfaceLine
@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 lineTwo
             };
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var targetCollection = new PipingSurfaceLineCollection();
             var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
 
             // Call
@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 expectedSurfaceLine
             };
 
-            var targetCollection = new RingtoetsPipingSurfaceLineCollection();
+            var targetCollection = new PipingSurfaceLineCollection();
             targetCollection.AddRange(expectedCollection, sourceFilePath);
 
             PipingSurfaceLine[] importedSurfaceLines =
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Name = collectionSurfaceLineName
             };
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
                 targetSurfaceLine
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
             surfaceLineCollection.AddRange(new[]
             {
                 targetSurfaceLine
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
             surfaceLineCollection.AddRange(new[]
             {
                 surfaceLineOne,
@@ -491,7 +491,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            RingtoetsPipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
             surfaceLineCollection.AddRange(new[]
             {
                 surfaceLine
@@ -561,7 +561,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine,
@@ -651,7 +651,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 removedSurfaceLine,
@@ -1157,7 +1157,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine
@@ -1227,7 +1227,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection collection = failureMechanism.SurfaceLines;
             collection.AddRange(new[]
             {
                 affectedSurfaceLine

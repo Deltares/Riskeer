@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest
+    public class PipingSurfaceLineCollectionTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSurfaceLinesContext));
         }
 
         [TearDown]
@@ -92,11 +92,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            string text = info.Text(ringtoetsPipingSurfaceLines);
+            string text = info.Text(pipingSurfaceLines);
 
             // Assert
             Assert.AreEqual("Profielschematisaties", text);
@@ -110,11 +110,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            Image image = info.Image(ringtoetsPipingSurfaceLines);
+            Image image = info.Image(pipingSurfaceLines);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -128,11 +128,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            var ringtoetsPipingSurfaceLines = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var surfaceLines = new PipingSurfaceLineCollection();
+            var pipingSurfaceLines = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             // Call
-            Color foreColor = info.ForeColor(ringtoetsPipingSurfaceLines);
+            Color foreColor = info.ForeColor(pipingSurfaceLines);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -143,30 +143,30 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var ringtoetsPipingSurfaceLine1 = new PipingSurfaceLine
+            var pipingSurfaceLine1 = new PipingSurfaceLine
             {
                 Name = "Line A"
             };
-            var ringtoetsPipingSurfaceLine2 = new PipingSurfaceLine
+            var pipingSurfaceLine2 = new PipingSurfaceLine
             {
                 Name = "Line B"
             };
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                ringtoetsPipingSurfaceLine1,
-                ringtoetsPipingSurfaceLine2
+                pipingSurfaceLine1,
+                pipingSurfaceLine2
             }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             // Call
-            Color foreColor = info.ForeColor(ringtoetsPipingSurfaceLineContext);
+            Color foreColor = info.ForeColor(pipingSurfaceLineContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -177,36 +177,36 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var ringtoetsPipingSurfaceLine1 = new PipingSurfaceLine
+            var pipingSurfaceLine1 = new PipingSurfaceLine
             {
                 Name = "Line A"
             };
-            var ringtoetsPipingSurfaceLine2 = new PipingSurfaceLine
+            var pipingSurfaceLine2 = new PipingSurfaceLine
             {
                 Name = "Line B"
             };
 
-            var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
+            var surfaceLines = new PipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                ringtoetsPipingSurfaceLine1,
-                ringtoetsPipingSurfaceLine2
+                pipingSurfaceLine1,
+                pipingSurfaceLine2
             }, "path");
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
+            var pipingSurfaceLineContext = new PipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             // Call
-            object[] objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLineContext);
+            object[] objects = info.ChildNodeObjects(pipingSurfaceLineContext);
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                ringtoetsPipingSurfaceLine1,
-                ringtoetsPipingSurfaceLine2
+                pipingSurfaceLine1,
+                pipingSurfaceLine2
             }, objects);
         }
 

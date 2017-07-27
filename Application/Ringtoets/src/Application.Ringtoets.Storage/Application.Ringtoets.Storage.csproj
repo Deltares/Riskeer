@@ -427,7 +427,7 @@
     <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilLayerCreateExtensions.cs" />
     <Compile Include="Create\Piping\PipingSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />

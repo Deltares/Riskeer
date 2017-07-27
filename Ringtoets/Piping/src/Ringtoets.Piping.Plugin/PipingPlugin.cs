@@ -77,11 +77,11 @@ namespace Ringtoets.Piping.Plugin
                 CreateInstance = context => new PipingInputContextProperties(context, new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputContextProperties>();
-            yield return new PropertyInfo<RingtoetsPipingSurfaceLinesContext, RingtoetsPipingSurfaceLineCollectionProperties>
+            yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
-                CreateInstance = context => new RingtoetsPipingSurfaceLineCollectionProperties(context.WrappedData)
+                CreateInstance = context => new PipingSurfaceLineCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<PipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
+            yield return new PropertyInfo<PipingSurfaceLine, PipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
             {
                 CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
@@ -92,19 +92,19 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new ImportInfo<RingtoetsPipingSurfaceLinesContext>
+            yield return new ImportInfo<PipingSurfaceLinesContext>
             {
                 Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
-                FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
+                FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     context.WrappedData,
                     filePath,
                     new ImportMessageProvider(),
                     SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
-                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
@@ -142,12 +142,12 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
-            yield return new UpdateInfo<RingtoetsPipingSurfaceLinesContext>
+            yield return new UpdateInfo<PipingSurfaceLinesContext>
             {
                 Name = RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
-                FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
+                FileFilterGenerator = PipingSurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Plugin
                     filePath,
                     new UpdateMessageProvider(),
                     SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism, context.AssessmentSection.ReferenceLine)),
-                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyRingtoetsPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
@@ -264,13 +264,13 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
+            yield return new TreeNodeInfo<PipingSurfaceLinesContext>
             {
-                Text = ringtoetsPipingSurfaceLine => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = RingtoetsPipingSurfaceLinesContextContextMenuStrip
+                Text = pipingSurfaceLine => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                Image = pipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
+                ContextMenuStrip = PipingSurfaceLinesContextContextMenuStrip
             };
 
             yield return new TreeNodeInfo<PipingSurfaceLine>
@@ -555,9 +555,9 @@ namespace Ringtoets.Piping.Plugin
             return null;
         }
 
-        #region  RingtoetsPipingSurfaceLinesContext TreeNodeInfo
+        #region PipingSurfaceLinesContext TreeNodeInfo
 
-        private ContextMenuStrip RingtoetsPipingSurfaceLinesContextContextMenuStrip(RingtoetsPipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -676,7 +676,7 @@ namespace Ringtoets.Piping.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
+                new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
@@ -1068,7 +1068,7 @@ namespace Ringtoets.Piping.Plugin
 
         #region Ringtoets piping surface line importer
 
-        private static FileFilterGenerator RingtoetsPipingSurfaceLineFileFilter
+        private static FileFilterGenerator PipingSurfaceLineFileFilter
         {
             get
             {
@@ -1078,7 +1078,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool VerifyPipingSurfaceLineUpdates(RingtoetsPipingSurfaceLinesContext context, string query)
+        private bool VerifyPipingSurfaceLineUpdates(PipingSurfaceLinesContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
                                                                              query,
