@@ -24,6 +24,7 @@ using System.Drawing;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -200,25 +201,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
-        }
-
-        [Test]
-        public void ToString_WithNullName_ReturnsStringEmpty()
-        {
-            // Setup
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D(null, 0.0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(0.0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            // Call
-            string text = stochasticSoilProfile.ToString();
-
-            // Assert
-            Assert.IsEmpty(text);
         }
 
         [Test]
