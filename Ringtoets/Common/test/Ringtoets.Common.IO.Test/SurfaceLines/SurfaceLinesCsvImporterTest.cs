@@ -44,8 +44,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
     {
         private const string krpFormat = "{0}.krp.csv";
         private const string surfaceLineFormat = "{0}.csv";
-        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
-        private readonly string pluginSurfaceLinesTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
+        private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "SurfaceLines");
 
         private MockRepository mocks;
         private ISurfaceLineTransformer<IMechanismSurfaceLine> transformer;
@@ -667,8 +666,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_DuplicateIdentifier";
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string expectedCharacteristicPointsFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string expectedCharacteristicPointsFile = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -901,8 +900,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_EmptyCharacteristicPoints";
-            string surfaceLinesFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -939,8 +938,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_InvalidHeaderCharacteristicPoints";
-            string surfaceLinesFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -984,8 +983,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             string copyCharacteristicPointsTargetFileName = string.Format(krpFormat, target);
             string copyCharacteristicPointsTargetPath = TestHelper.GetScratchPadPath(copyCharacteristicPointsTargetFileName);
 
-            string surfaceLinesPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, source));
-            string validFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, source));
+            string surfaceLinesPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, source));
+            string validFilePath = Path.Combine(ioTestDataPath, string.Format(krpFormat, source));
 
             File.Copy(surfaceLinesPath, copyTargetPath);
             File.Copy(validFilePath, copyCharacteristicPointsTargetPath);
@@ -1054,8 +1053,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints";
-            string surfaceLinesFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1101,7 +1100,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
-            string validSurfaceLinesFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
+            string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1138,8 +1137,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints";
-            string surfaceLinesFile = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var progressCallCount = 0;
             var surfaceLines = new TestSurfaceLineCollection();
@@ -1211,8 +1210,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_WithOneCharacteristicPointsLocation";
-            string surfaceLinesPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var progressCallCount = 0;
             var surfaceLines = new TestSurfaceLineCollection();
@@ -1279,8 +1278,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_WithThreeCharacteristicPointsLocations";
-            string surfaceLinesPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));
-            string corruptPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(krpFormat, fileName));
+            string surfaceLinesPath = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var progressCallCount = 0;
             var surfaceLines = new TestSurfaceLineCollection();
@@ -1356,8 +1355,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string twovalidsurfacelinesCharacteristicPointsCsv = string.Format(krpFormat, fileName);
 
-            string validSurfaceLinesFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
-            string validCharacteristicPointsFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
+            string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
+            string validCharacteristicPointsFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var callCount = 0;
             var progressStarted = false;
@@ -1501,7 +1500,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
-            string validSurfaceLinesFilePath = Path.Combine(pluginSurfaceLinesTestDataPath, twovalidsurfacelinesCsv);
+            string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var updateStrategy = new TestSurfaceLineUpdateStrategy();
             updateStrategy.UpdatedInstances = new[]

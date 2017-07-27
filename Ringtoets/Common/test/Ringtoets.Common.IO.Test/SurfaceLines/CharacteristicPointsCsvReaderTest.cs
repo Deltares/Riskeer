@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
     [TestFixture]
     public class CharacteristicPointsCsvReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "CharacteristicPoints" + Path.DirectorySeparatorChar);
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "SurfaceLines" + Path.DirectorySeparatorChar);
 
         [Test]
         [TestCase("")]
