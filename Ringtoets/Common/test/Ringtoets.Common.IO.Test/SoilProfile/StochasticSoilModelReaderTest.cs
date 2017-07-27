@@ -224,10 +224,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
 
-            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            using (var reader = new StochasticSoilModelReader(dbFile))
             {
+                reader.Validate();
+
                 // Call
-                StochasticSoilModel model = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
 
                 // Assert
                 Assert.IsNull(model);
@@ -259,20 +261,20 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             var expectedSegmentAndModelNames = new[]
             {
-                "36005_Piping",
-                "36006_Piping",
-                "36007_Piping",
                 "36005_Stability",
+                "36005_Piping",
                 "36006_Stability",
-                "36007_Stability"
+                "36006_Piping",
+                "36007_Stability",
+                "36007_Piping"
             };
             var expectedSegmentPointCount = new[]
             {
                 1797,
-                144,
-                606,
                 1797,
                 144,
+                144,
+                606,
                 606
             };
 

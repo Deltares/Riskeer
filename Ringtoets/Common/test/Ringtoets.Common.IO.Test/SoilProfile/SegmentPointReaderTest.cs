@@ -126,5 +126,25 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
+
+        [Test]
+        public void ReadSegmentPoints_FirstModelInCompleteDatabase_ReturnsExpectedSegmentPoints()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.soil");
+
+            using (var reader = new SegmentPointReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                Point2D[] segmentPoints = reader.ReadSegmentPoints(1).ToArray();
+
+                // Assert
+                Assert.AreEqual(1797, segmentPoints.Length);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         public IEnumerable<Point2D> ReadSegmentPoints(long stochasticSoilModelId)
         {
-            while (HasNext && ReadStochasticSoilModelSegmentId() == stochasticSoilModelId)
+            while (HasNext && ReadStochasticSoilModelSegmentId() <= stochasticSoilModelId)
             {
                 yield return ReadSegmentPoint();
                 MoveNext();

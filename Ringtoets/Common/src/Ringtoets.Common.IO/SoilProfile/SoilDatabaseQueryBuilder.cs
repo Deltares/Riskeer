@@ -79,39 +79,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// per failure mechanism from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
-        public static string GetStochasticSoilModelOfMechanismQuery()
-        {
-            return string.Format(@"SELECT M.{7}, SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
-                                 "FROM {0} M " +
-                                 "INNER JOIN {1} S USING({4}) " +
-                                 "INNER JOIN {2} SSM USING({5}) " +
-                                 "INNER JOIN {3} SP USING({6}) " +
-                                 "ORDER BY M.{7}, SSM.{12};",
-                                 MechanismTableDefinitions.TableName,
-                                 SegmentTableDefinitions.TableName,
-                                 StochasticSoilModelTableDefinitions.TableName,
-                                 SegmentPointsTableDefinitions.TableName,
-                                 MechanismTableDefinitions.MechanismId,
-                                 StochasticSoilModelTableDefinitions.StochasticSoilModelId,
-                                 SegmentPointsTableDefinitions.SegmentId,
-                                 MechanismTableDefinitions.MechanismName,
-                                 SegmentPointsTableDefinitions.CoordinateX,
-                                 SegmentPointsTableDefinitions.CoordinateY,
-                                 SegmentTableDefinitions.SegmentName,
-                                 StochasticSoilModelTableDefinitions.StochasticSoilModelName,
-                                 StochasticSoilModelTableDefinitions.StochasticSoilModelId
-            );
-        }
-
-        /// <summary>
-        /// Returns the SQL query to execute to fetch stochastic soil models 
-        /// per failure mechanism from the DSoil-Model database.
-        /// </summary>
-        /// <returns>The SQL query to execute.</returns>
         public static string GetStochasticSoilModelPerMechanismQuery()
         {
-            return $"SELECT M.{MechanismTableDefinitions.MechanismName}, " +
-                   $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
+            return $"SELECT SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
+                   $"M.{MechanismTableDefinitions.MechanismName}, " +
                    $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelName}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.Probability}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.SoilProfile1DId}, " +
@@ -120,7 +91,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                    $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({MechanismTableDefinitions.MechanismId}) " +
                    $"INNER JOIN {StochasticSoilModelTableDefinitions.TableName} SSM USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
                    $"INNER JOIN {StochasticSoilProfileTableDefinitions.TableName} SSP USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
-                   $"ORDER BY M.{MechanismTableDefinitions.MechanismName}, SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId};";
+                   $"ORDER BY SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId};";
         }
 
         /// <summary>

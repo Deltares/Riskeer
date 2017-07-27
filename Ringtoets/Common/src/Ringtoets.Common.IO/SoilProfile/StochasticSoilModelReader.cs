@@ -22,7 +22,6 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
@@ -37,6 +36,8 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
         private IDataReader dataReader;
+        private SegmentPointReader segmentPointReader;
+        private SoilProfile1DReader soilProfile1DReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelReader"/>, 
@@ -73,7 +74,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             VerifyVersion(Path);
             VerifyConstraints(Path);
-            InitializeReader();
+            InitializeReaders();
         }
 
         /// <summary>
@@ -107,6 +108,18 @@ namespace Ringtoets.Common.IO.SoilProfile
                 dataReader.Dispose();
                 dataReader = null;
             }
+
+            if (segmentPointReader != null)
+            {
+                segmentPointReader.Dispose();
+                segmentPointReader = null;
+            }
+
+            if (soilProfile1DReader != null)
+            {
+                soilProfile1DReader.Dispose();
+                soilProfile1DReader = null;
+            }
             base.Dispose(disposing);
         }
 
@@ -121,18 +134,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             long currentSegmentSoilModelId = ReadStochasticSoilModelSegmentId();
             do
             {
-                stochasticSoilModel.Geometry.Add(ReadSegmentPoint());
+                stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints(currentSegmentSoilModelId));
                 MoveNext();
             } while (HasNext && ReadStochasticSoilModelSegmentId() == currentSegmentSoilModelId);
 
             return stochasticSoilModel;
-        }
-
-        private Point2D ReadSegmentPoint()
-        {
-            double coordinateX = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateX]);
-            double coordinateY = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateY]);
-            return new Point2D(coordinateX, coordinateY);
         }
 
         private long ReadStochasticSoilModelSegmentId()
@@ -153,10 +159,16 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Initializes a new <see cref="SQLiteDataReader"/>.
         /// </summary>
         /// <exception cref="CriticalFileReadException">Thrown when failed to fetch stochastic soil models from the database.</exception>
-        private void InitializeReader()
+        private void InitializeReaders()
         {
             CreateDataReader();
             MoveNext();
+
+            segmentPointReader = new SegmentPointReader(Path);
+            segmentPointReader.Initialize();
+
+            soilProfile1DReader = new SoilProfile1DReader(Path);
+            soilProfile1DReader.Initialize();
         }
 
         private void MoveNext()
@@ -171,7 +183,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// models from the database failed.</exception>
         private void CreateDataReader()
         {
-            string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+            string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelPerMechanismQuery();
             try
             {
                 dataReader = CreateDataReader(stochasticSoilModelSegmentsQuery);
