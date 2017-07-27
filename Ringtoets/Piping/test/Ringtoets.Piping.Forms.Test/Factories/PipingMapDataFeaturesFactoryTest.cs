@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         public void CreateSurfaceLineFeatures_NoSurfaceLines_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(new RingtoetsPipingSurfaceLine[0]);
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(new PipingSurfaceLine[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -72,11 +72,11 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             };
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine
+                new PipingSurfaceLine
                 {
                     Name = "Surface line 1"
                 },
-                new RingtoetsPipingSurfaceLine
+                new PipingSurfaceLine
                 {
                     Name = "Surface line 2"
                 }

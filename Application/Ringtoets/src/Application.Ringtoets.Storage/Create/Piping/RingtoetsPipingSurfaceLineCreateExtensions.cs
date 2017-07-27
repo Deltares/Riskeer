@@ -30,20 +30,20 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extensions methods for <see cref="RingtoetsPipingSurfaceLine"/> related to creating
+    /// Extensions methods for <see cref="PipingSurfaceLine"/> related to creating
     /// a <see cref="SurfaceLineEntity"/>.
     /// </summary>
     internal static class RingtoetsPipingSurfaceLineCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="SurfaceLineEntity"/> based on the information of the <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Creates a <see cref="SurfaceLineEntity"/> based on the information of the <see cref="PipingSurfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>a new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SurfaceLineEntity Create(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
+        internal static SurfaceLineEntity Create(this PipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             return entity;
         }
 
-        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
+        private static void CreateCharacteristicPointEntities(PipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
             var characteristicPointAssociations = new[]
             {

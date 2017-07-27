@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(3.3, 4.4)
                 });
 
-                var surfaceLineA = new RingtoetsPipingSurfaceLine
+                var surfaceLineA = new PipingSurfaceLine
                 {
                     Name = "Line A"
                 };
@@ -277,7 +277,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new RingtoetsPipingSurfaceLine
+                var surfaceLineB = new PipingSurfaceLine
                 {
                     Name = "Name B"
                 };
@@ -560,7 +560,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
 
                 var geometry1 = new Collection<Point3D>
                 {
@@ -599,7 +599,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
                 var failureMechanism = new PipingFailureMechanism();
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
@@ -725,14 +725,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var surfaceLineA = new RingtoetsPipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new RingtoetsPipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine();
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -774,14 +774,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new RingtoetsPipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new RingtoetsPipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine();
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -824,14 +824,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new RingtoetsPipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine();
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new RingtoetsPipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine();
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -995,18 +995,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private static void AssertSurfaceLinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)
+        private static void AssertSurfaceLinesMapData(IEnumerable<PipingSurfaceLine> surfaceLines, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var surfaceLinesMapData = (MapLineData) mapData;
             MapFeature[] surfaceLineFeatures = surfaceLinesMapData.Features.ToArray();
-            RingtoetsPipingSurfaceLine[] surfaceLinesArray = surfaceLines.ToArray();
+            PipingSurfaceLine[] surfaceLinesArray = surfaceLines.ToArray();
             Assert.AreEqual(surfaceLinesArray.Length, surfaceLineFeatures.Length);
 
             for (var index = 0; index < surfaceLinesArray.Length; index++)
             {
                 Assert.AreEqual(1, surfaceLineFeatures[index].MapGeometries.Count());
-                RingtoetsPipingSurfaceLine surfaceLine = surfaceLinesArray[index];
+                PipingSurfaceLine surfaceLine = surfaceLinesArray[index];
                 CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfaceLineFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Profielschematisaties", mapData.Name);

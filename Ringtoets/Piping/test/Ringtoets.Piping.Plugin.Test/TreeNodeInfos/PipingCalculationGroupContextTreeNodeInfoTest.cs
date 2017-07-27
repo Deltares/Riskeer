@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanism,
                                                              assessmentSection);
@@ -209,12 +209,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanism,
                                                              assessmentSection);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                    pipingFailureMechanism,
                                                                    assessmentSection);
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingFailureMechanism = new TestPipingFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanism,
                                                              assessmentSection);
@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  new[]
                                                                  {
                                                                      new TestStochasticSoilModel()
@@ -497,7 +497,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  new[]
                                                                  {
-                                                                     new RingtoetsPipingSurfaceLine()
+                                                                     new PipingSurfaceLine()
                                                                  },
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
@@ -539,7 +539,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  new[]
                                                                  {
-                                                                     new RingtoetsPipingSurfaceLine()
+                                                                     new PipingSurfaceLine()
                                                                  },
                                                                  new[]
                                                                  {
@@ -586,7 +586,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -635,7 +635,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -677,7 +677,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -718,7 +718,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -760,7 +760,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -803,7 +803,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
@@ -840,12 +840,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSection);
@@ -898,12 +898,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSection);
@@ -971,12 +971,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSection);
@@ -1037,12 +1037,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSectionStub);
@@ -1113,12 +1113,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSectionStub);
@@ -1177,11 +1177,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var surfaceLines = new[]
                 {
-                    new RingtoetsPipingSurfaceLine
+                    new PipingSurfaceLine
                     {
                         Name = "surfaceLine1"
                     },
-                    new RingtoetsPipingSurfaceLine
+                    new PipingSurfaceLine
                     {
                         Name = "surfaceLine2"
                     }
@@ -1238,7 +1238,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new RingtoetsPipingSurfaceLine
+                var surfaceLine1 = new PipingSurfaceLine
                 {
                     Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -1251,7 +1251,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine
+                var surfaceLine2 = new PipingSurfaceLine
                 {
                     Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
@@ -1350,7 +1350,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new RingtoetsPipingSurfaceLine
+                var surfaceLine1 = new PipingSurfaceLine
                 {
                     Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -1363,7 +1363,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new RingtoetsPipingSurfaceLine
+                var surfaceLine2 = new PipingSurfaceLine
                 {
                     Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
@@ -1461,7 +1461,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanism,
                                                              assessmentSection);
@@ -1469,7 +1469,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                    pipingFailureMechanism,
                                                                    assessmentSection);
@@ -1493,7 +1493,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             var group = new CalculationGroup();
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-            RingtoetsPipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
+            PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -1509,7 +1509,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanism,
                                                              assessmentSection);
@@ -1517,7 +1517,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             CalculationGroup parentGroup = pipingFailureMechanism.CalculationsGroup;
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                    pipingFailureMechanism,
                                                                    assessmentSection);
@@ -1550,7 +1550,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 calculation1InputObserver.Expect(obs => obs.UpdateObserver());
                 calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1597,12 +1597,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSectionStub);
@@ -1643,7 +1643,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculation2Observer = mocks.StrictMock<IObserver>();
                 var calculation2InputObserver = mocks.StrictMock<IObserver>();
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1694,12 +1694,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSectionStub);
@@ -1759,7 +1759,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 calculation2Observer.Expect(obs => obs.UpdateObserver());
                 calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1810,12 +1810,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
                                                                  assessmentSectionStub);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
                                                                        assessmentSectionStub);
@@ -1859,7 +1859,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private static void ChangeSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        private static void ChangeSurfaceLine(PipingSurfaceLine surfaceLine)
         {
             surfaceLine.SetGeometry(new[]
             {

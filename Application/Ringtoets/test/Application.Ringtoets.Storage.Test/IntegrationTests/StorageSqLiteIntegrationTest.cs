@@ -571,8 +571,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      AssertSurfaceLine);
         }
 
-        private static void AssertSurfaceLine(RingtoetsPipingSurfaceLine expectedSurfaceLine,
-                                              RingtoetsPipingSurfaceLine actualSurfaceLine)
+        private static void AssertSurfaceLine(PipingSurfaceLine expectedSurfaceLine,
+                                              PipingSurfaceLine actualSurfaceLine)
         {
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);

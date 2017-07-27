@@ -127,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithSurfaceLineInCollector_CalculationHasAlreadyReadSurfaceLine()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),

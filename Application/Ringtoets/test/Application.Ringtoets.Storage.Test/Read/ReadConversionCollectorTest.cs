@@ -366,7 +366,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = new SurfaceLineEntity();
-            var model = new RingtoetsPipingSurfaceLine();
+            var model = new PipingSurfaceLine();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, model);
@@ -398,7 +398,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var registeredEntity = new SurfaceLineEntity();
-            var model = new RingtoetsPipingSurfaceLine();
+            var model = new PipingSurfaceLine();
 
             var collector = new ReadConversionCollector();
             collector.Read(registeredEntity, model);
@@ -431,13 +431,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = new SurfaceLineEntity();
-            var model = new RingtoetsPipingSurfaceLine();
+            var model = new PipingSurfaceLine();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, model);
 
             // Call
-            RingtoetsPipingSurfaceLine retrievedGeometryPoint = collector.Get(entity);
+            PipingSurfaceLine retrievedGeometryPoint = collector.Get(entity);
 
             // Assert
             Assert.AreSame(model, retrievedGeometryPoint);
@@ -463,7 +463,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var registeredEntity = new SurfaceLineEntity();
-            var model = new RingtoetsPipingSurfaceLine();
+            var model = new PipingSurfaceLine();
 
             var collector = new ReadConversionCollector();
             collector.Read(registeredEntity, model);
@@ -484,7 +484,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(null, new RingtoetsPipingSurfaceLine());
+            TestDelegate test = () => collector.Read(null, new PipingSurfaceLine());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void SetCharacteristicPoints_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((RingtoetsPipingSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
+            TestDelegate test = () => ((PipingSurfaceLine) null).SetCharacteristicPoints(new CharacteristicPoints("Empty"));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void SetCharacteristicPoints_CharacteristicPointsNull_NoCharacteristicPointsSet()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3, 2, 5),
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 BottomDitchPolderSide = new Point3D(8.5, 7.2, 4.2),
                 DitchPolderSide = new Point3D(9.6, 7.5, 3.9)
             };
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call

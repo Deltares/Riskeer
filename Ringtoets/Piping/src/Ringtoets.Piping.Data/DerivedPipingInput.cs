@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.Data
         private void UpdateThicknessAquiferLayerMean(LogNormalDistribution thicknessAquiferLayer)
         {
             StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
-            RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
+            PipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 
             if (stochasticSoilProfile?.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Data
         private void UpdateThicknessCoverageLayerMean(LogNormalDistribution thicknessCoverageLayerDistribution)
         {
             StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
-            RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
+            PipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 
             if (stochasticSoilProfile?.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
@@ -469,7 +469,7 @@ namespace Ringtoets.Piping.Data
 
         private PipingSoilLayer[] GetConsecutiveAquiferLayers()
         {
-            RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
+            PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
             RoundedDouble exitPointL = input.ExitPointL;
 
@@ -483,7 +483,7 @@ namespace Ringtoets.Piping.Data
 
         private PipingSoilLayer[] GetConsecutiveCoverageLayers()
         {
-            RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
+            PipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile?.SoilProfile;
             RoundedDouble exitPointL = input.ExitPointL;
 
@@ -498,7 +498,7 @@ namespace Ringtoets.Piping.Data
             return new PipingSoilLayer[0];
         }
 
-        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
+        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, PipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
         {
             try
             {
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static double GetThicknessCoverageLayers(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
+        private static double GetThicknessCoverageLayers(PipingSoilProfile soilProfile, PipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
         {
             try
             {

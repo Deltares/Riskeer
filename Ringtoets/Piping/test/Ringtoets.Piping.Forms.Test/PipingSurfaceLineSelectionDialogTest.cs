@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSurfaceLineSelectionDialog(null, Enumerable.Empty<RingtoetsPipingSurfaceLine>());
+            TestDelegate test = () => new PipingSurfaceLineSelectionDialog(null, Enumerable.Empty<PipingSurfaceLine>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,10 +69,10 @@ namespace Ringtoets.Piping.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsPipingSurfaceLine>()))
+                using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<PipingSurfaceLine>()))
                 {
                     // Assert
-                    Assert.IsInstanceOf<SelectionDialogBase<RingtoetsPipingSurfaceLine>>(dialog);
+                    Assert.IsInstanceOf<SelectionDialogBase<PipingSurfaceLine>>(dialog);
                     Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
                 }
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsPipingSurfaceLine>()))
+            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<PipingSurfaceLine>()))
             {
                 dialog.Show();
 
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Setup
             const string testname = "testName";
-            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine
+            var ringtoetsPipingSurfaceLine = new PipingSurfaceLine
             {
                 Name = testname
             };

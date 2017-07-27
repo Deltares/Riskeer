@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
-            surfaceLines.AddRange(Enumerable.Empty<RingtoetsPipingSurfaceLine>(), "some/path");
+            surfaceLines.AddRange(Enumerable.Empty<PipingSurfaceLine>(), "some/path");
 
             var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, failureMechanism, assessmentSection);
 
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var surfaceLines = new RingtoetsPipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             }, expectedFilePath);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>>(importer);
+            Assert.IsInstanceOf<SurfaceLinesCsvImporter<PipingSurfaceLine>>(importer);
             mocks.VerifyAll();
         }
     }

@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSurfaceLine));
         }
 
         [TearDown]
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var ringtoetsPipingSurfaceLine = mocks.StrictMock<RingtoetsPipingSurfaceLine>();
+            var ringtoetsPipingSurfaceLine = mocks.StrictMock<PipingSurfaceLine>();
             const string testName = "ttt";
             ringtoetsPipingSurfaceLine.Name = testName;
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var ringtoetsPipingSurfaceLine = mocks.StrictMock<RingtoetsPipingSurfaceLine>();
+            var ringtoetsPipingSurfaceLine = mocks.StrictMock<PipingSurfaceLine>();
 
             mocks.ReplayAll();
 

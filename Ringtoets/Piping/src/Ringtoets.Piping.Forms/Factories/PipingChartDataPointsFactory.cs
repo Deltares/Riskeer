@@ -39,9 +39,9 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create surface line points in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the surface line points for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the surface line points for.</param>
         /// <returns>An array of points in 2D space or an empty array when <paramref name="surfaceLine"/> is <c>null</c>.</returns>
-        public static Point2D[] CreateSurfaceLinePoints(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateSurfaceLinePoints(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.LocalGeometry.ToArray() ?? new Point2D[0];
         }
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>An array with an entry point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="pipingInput"/> is <c>null</c>;</item>
-        /// <item>the <see cref="RingtoetsPipingSurfaceLine"/> in <paramref name="pipingInput"/> is <c>null</c>;</item>
+        /// <item>the <see cref="PipingSurfaceLine"/> in <paramref name="pipingInput"/> is <c>null</c>;</item>
         /// <item>the entry point in <paramref name="pipingInput"/> equals <c>double.NaN</c>.</item>
         /// </list>
         /// </returns>
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>An array with an exit point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="pipingInput"/> is <c>null</c>;</item>
-        /// <item>the <see cref="RingtoetsPipingSurfaceLine"/> in <paramref name="pipingInput"/> is <c>null</c>;</item>
+        /// <item>the <see cref="PipingSurfaceLine"/> in <paramref name="pipingInput"/> is <c>null</c>;</item>
         /// <item>the exit point in <paramref name="pipingInput"/> equals <c>double.NaN</c>.</item>
         /// </list>
         /// </returns>
@@ -91,14 +91,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the ditch polder side point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the ditch polder side point for.</param>
         /// <returns>An array with a ditch polder side point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchPolderSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateDitchPolderSidePoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.DitchPolderSide != null
                        ? new[]
@@ -111,14 +111,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a bottom ditch polder side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the bottom ditch polder side point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the bottom ditch polder side point for.</param>
         /// <returns>An array with a bottom ditch polder side point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the bottom ditch polder side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchPolderSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateBottomDitchPolderSidePoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.BottomDitchPolderSide != null
                        ? new[]
@@ -131,14 +131,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a bottom ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the bottom ditch dike side point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the bottom ditch dike side point for.</param>
         /// <returns>An array with a bottom ditch dike side point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the bottom ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateBottomDitchDikeSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateBottomDitchDikeSidePoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.BottomDitchDikeSide != null
                        ? new[]
@@ -151,14 +151,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a ditch dike side point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the ditch dike side point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the ditch dike side point for.</param>
         /// <returns>An array with a ditch dike side point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the ditch dike side point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDitchDikeSidePoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateDitchDikeSidePoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.DitchDikeSide != null
                        ? new[]
@@ -171,14 +171,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a dike toe at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the dike toe at river point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the dike toe at river point for.</param>
         /// <returns>An array with a dike toe at river point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike toe at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtRiverPoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateDikeToeAtRiverPoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.DikeToeAtRiver != null
                        ? new[]
@@ -191,14 +191,14 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create a dike toe at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to create the dike toe at polder point for.</param>
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to create the dike toe at polder point for.</param>
         /// <returns>An array with a dike toe at polder point in 2D space or an empty array when:
         /// <list type="bullet">
         /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
         /// <item>the dike toe at polder point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
         /// </list>
         /// </returns>
-        public static Point2D[] CreateDikeToeAtPolderPoint(RingtoetsPipingSurfaceLine surfaceLine)
+        public static Point2D[] CreateDikeToeAtPolderPoint(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine?.DikeToeAtPolder != null
                        ? new[]
@@ -213,7 +213,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// </summary>
         /// <param name="soilLayer">The <see cref="PipingSoilLayer"/> to create the soil layer points for.</param>
         /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> that contains <paramref name="soilLayer"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> that may intersect with 
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> that may intersect with 
         /// the <paramref name="soilLayer"/> and by doing that restricts the drawn height of it.</param>
         /// <returns>A collection which contains one or more (in the case of <paramref name="surfaceLine"/>
         /// splitting the layer in multiple parts) arrays of points in 2D space or an empty array when:
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <item>the <paramref name="surfaceLine"/> is below the <paramref name="soilLayer"/>.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(PipingSoilLayer soilLayer, PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine)
+        public static IEnumerable<Point2D[]> CreateSoilLayerAreas(PipingSoilLayer soilLayer, PipingSoilProfile soilProfile, PipingSurfaceLine surfaceLine)
         {
             if (soilLayer == null || soilProfile == null || surfaceLine == null)
             {

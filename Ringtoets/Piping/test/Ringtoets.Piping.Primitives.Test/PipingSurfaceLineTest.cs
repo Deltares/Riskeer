@@ -33,13 +33,13 @@ using Ringtoets.Piping.Primitives.Exceptions;
 namespace Ringtoets.Piping.Primitives.Test
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineTest
+    public class PipingSurfaceLineTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Assert
             Assert.IsInstanceOf<Observable>(surfaceLine);
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void ReferenceLineIntersectionWorldPoint_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             var point = new Point2D(1.2, 3.4);
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void SetGeometry_EmptyCollection_PointsSetEmptyAndNullStartAndEndWorldPoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             IEnumerable<Point3D> sourceData = Enumerable.Empty<Point3D>();
 
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void SetGeometry_CollectionOfOnePoint_InitializeStartAndEndWorldPointsToSameInstanceAndInitializePoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             var sourceData = new[]
             {
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void SetGeometry_CollectionOfMultiplePoints_InitializeStartAndEndWorldPointsInitializePoints()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             var sourceData = new[]
             {
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetGeometry(null);
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void SetGeometry_GeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void GetZAtL_GeometryIsEmpty_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             var l = (RoundedDouble) new Random(21).NextDouble();
 
             // Call
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Primitives.Test
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             var l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Primitives.Test
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(1.0, 0.0, 2.2),
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Primitives.Test
             // Setup
             double testZ = new Random(22).NextDouble();
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             var l = (RoundedDouble) 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Primitives.Test
         {
             // Setup
             const string niceName = "Nice name";
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = niceName
             };
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -315,7 +315,7 @@ namespace Ringtoets.Piping.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void GetLocalPointFromGeometry_NoPointsOnSurfaceLine_ReturnsPointWithNanValues()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             Point2D localPoint = surfaceLine.GetLocalPointFromGeometry(new Point3D(1.0, 2.2, 4.4));
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Primitives.Test
             const double testY = 2.2;
             const double testZ = 4.4;
             var testPoint = new Point3D(testX, testY, testZ);
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 testPoint
@@ -363,7 +363,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void CopyProperties_WithSurfaceLineNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             TestDelegate call = () => surfaceLine.CopyProperties(null);
@@ -377,9 +377,9 @@ namespace Ringtoets.Piping.Primitives.Test
         public void CopyProperties_LineWithUpdatedGeometricPoints_PropertiesUpdated()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
 
-            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
             var expectedGeometry = new List<Point3D>
             {
                 new Point3D(0, 1, 2),
@@ -400,8 +400,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void CopyProperties_LineUpdatedWithRemovedCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
-            var surfaceLineToUpdateFrom = new RingtoetsPipingSurfaceLine
+            PipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            var surfaceLineToUpdateFrom = new PipingSurfaceLine
             {
                 Name = surfaceLine.Name,
                 ReferenceLineIntersectionWorldPoint = surfaceLine.ReferenceLineIntersectionWorldPoint
@@ -419,10 +419,10 @@ namespace Ringtoets.Piping.Primitives.Test
         public void CopyProperties_LineWithUpdatedReferenceLineWorldPoint_PropertiesUpdated()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
 
             var expectedIntersectionPoint = new Point2D(123, 456);
-            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineToUpdateFrom.ReferenceLineIntersectionWorldPoint = expectedIntersectionPoint;
 
             // Call
@@ -436,8 +436,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void CopyProperties_LineWithUpdatedGeometryAndReferenceLineIntersectionAndCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            RingtoetsPipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
+            var surfaceLine = new PipingSurfaceLine();
+            PipingSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             surfaceLine.CopyProperties(surfaceLineToUpdateFrom);
@@ -450,7 +450,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
         {
             // Setup
-            RingtoetsPipingSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine profile = CreateSurfaceLineWithCharacteristicPoints();
             var derivedLayer = new TestSurfaceLine(profile);
 
             // Call
@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
+            var surfaceLineOne = new PipingSurfaceLine();
 
             // Call
             bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
@@ -477,8 +477,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_SameReference_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = surfaceLineOne;
+            var surfaceLineOne = new PipingSurfaceLine();
+            PipingSurfaceLine surfaceLineTwo = surfaceLineOne;
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -493,7 +493,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            var surfaceLineOne = new PipingSurfaceLine
             {
                 Name = "Name A"
             };
@@ -509,7 +509,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_ToDifferentType_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            var surfaceLineOne = new PipingSurfaceLine
             {
                 Name = "Name A"
             };
@@ -529,10 +529,10 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentNames_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineOne.Name = "Name A";
 
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineTwo.Name = "Name B";
 
             // Call
@@ -548,7 +548,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentGeometries_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine
+            var surfaceLineOne = new PipingSurfaceLine
             {
                 Name = "Name A"
             };
@@ -557,7 +557,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 new Point3D(1, 2, 3)
             });
 
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine
+            var surfaceLineTwo = new PipingSurfaceLine
             {
                 Name = "Name A"
             };
@@ -579,10 +579,10 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentReferenceLineIntersectionWorldPoint_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineOne.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
 
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             surfaceLineTwo.ReferenceLineIntersectionWorldPoint = new Point2D(1, 1);
 
             // Call
@@ -598,8 +598,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentBottomDitchDikeSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
 
@@ -616,8 +616,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentBottomDitchPolderSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetBottomDitchPolderSideAt(points[5]);
 
@@ -634,8 +634,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentDikeToeAtPolder_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDikeToeAtPolderAt(points[5]);
 
@@ -652,8 +652,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentDikeToeAtRiver_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDikeToeAtRiverAt(points[5]);
 
@@ -670,8 +670,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentDitchDikeSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDitchDikeSideAt(points[1]);
 
@@ -688,8 +688,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_DifferentDitchPolderSide_ReturnsFalse()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
             surfaceLineTwo.SetDitchPolderSideAt(points[1]);
 
@@ -706,8 +706,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_NamesGeometriesAndReferenceLineIntersectionWorldPointAndCharacteristicPointsEqual_ReturnsTrue()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -722,9 +722,9 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Equals_TransitivePropertyWithSameNamesAndGeometry_ReturnsTrue()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            RingtoetsPipingSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            PipingSurfaceLine surfaceLineThree = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -741,8 +741,8 @@ namespace Ringtoets.Piping.Primitives.Test
         public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
         {
             // Setup
-            var surfaceLineOne = new RingtoetsPipingSurfaceLine();
-            var surfaceLineTwo = new RingtoetsPipingSurfaceLine();
+            var surfaceLineOne = new PipingSurfaceLine();
+            var surfaceLineTwo = new PipingSurfaceLine();
 
             // Call
             int hashCodeOne = surfaceLineOne.GetHashCode();
@@ -762,7 +762,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 const double testY = 2.2;
                 const double testZ = 4.4;
                 var testPoint = new Point3D(testX, testY, testZ);
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
                 CreateTestGeometry(testPoint, surfaceLine);
 
                 // Call
@@ -779,7 +779,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 // Setup
                 var random = new Random(21);
                 var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
@@ -793,7 +793,7 @@ namespace Ringtoets.Piping.Primitives.Test
             public void Null_ThrowsArgumentNullException()
             {
                 // Setup
-                var surfaceLine = new RingtoetsPipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine();
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
@@ -803,20 +803,20 @@ namespace Ringtoets.Piping.Primitives.Test
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
             }
 
-            protected abstract void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point);
-            protected abstract Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine);
+            protected abstract void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point);
+            protected abstract Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine);
             protected abstract string CharacteristicPointDescription();
         }
 
         [TestFixture]
         public class SetDitchPolderSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDitchPolderSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.DitchPolderSide;
             }
@@ -830,12 +830,12 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         public class SetBottomDitchPolderSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetBottomDitchPolderSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.BottomDitchPolderSide;
             }
@@ -849,12 +849,12 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         public class SetBottomDitchDikeSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetBottomDitchDikeSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.BottomDitchDikeSide;
             }
@@ -868,12 +868,12 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         public class SetDitchDikeSideAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDitchDikeSideAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.DitchDikeSide;
             }
@@ -887,12 +887,12 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDikeToeAtRiverAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.DikeToeAtRiver;
             }
@@ -906,12 +906,12 @@ namespace Ringtoets.Piping.Primitives.Test
         [TestFixture]
         public class SetDikeToeAtPolderAtTest : SetCharacteristicPointTest
         {
-            protected override void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+            protected override void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point)
             {
                 surfaceLine.SetDikeToeAtPolderAt(point);
             }
 
-            protected override Point3D GetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine)
+            protected override Point3D GetCharacteristicPoint(PipingSurfaceLine surfaceLine)
             {
                 return surfaceLine.DikeToeAtPolder;
             }
@@ -922,17 +922,17 @@ namespace Ringtoets.Piping.Primitives.Test
             }
         }
 
-        private class TestSurfaceLine : RingtoetsPipingSurfaceLine
+        private class TestSurfaceLine : PipingSurfaceLine
         {
-            public TestSurfaceLine(RingtoetsPipingSurfaceLine profile)
+            public TestSurfaceLine(PipingSurfaceLine profile)
             {
                 CopyProperties(profile);
             }
         }
 
-        private static RingtoetsPipingSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
+        private static PipingSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Name A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0, 0)
@@ -957,7 +957,7 @@ namespace Ringtoets.Piping.Primitives.Test
             return surfaceLine;
         }
 
-        private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        private static void CreateTestGeometry(Point3D testPoint, PipingSurfaceLine surfaceLine)
         {
             var random = new Random(21);
             var points = new[]
@@ -969,7 +969,7 @@ namespace Ringtoets.Piping.Primitives.Test
             surfaceLine.SetGeometry(points);
         }
 
-        private static void AssertPropertiesUpdated(RingtoetsPipingSurfaceLine expectedSurfaceLine, RingtoetsPipingSurfaceLine actualSurfaceLine)
+        private static void AssertPropertiesUpdated(PipingSurfaceLine expectedSurfaceLine, PipingSurfaceLine actualSurfaceLine)
         {
             Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
             TestHelper.AssertAreEqualButNotSame(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint,

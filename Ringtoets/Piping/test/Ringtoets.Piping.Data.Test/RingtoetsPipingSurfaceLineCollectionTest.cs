@@ -32,69 +32,69 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class RingtoetsPipingSurfaceLineCollectionTest :
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
-            ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>, RingtoetsPipingSurfaceLine>
+            ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>, PipingSurfaceLine>
     {
-        protected override ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine> CreateCollection()
+        protected override ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine> CreateCollection()
         {
             return new RingtoetsPipingSurfaceLineCollection();
         }
 
-        protected override IEnumerable<RingtoetsPipingSurfaceLine> UniqueElements()
+        protected override IEnumerable<PipingSurfaceLine> UniqueElements()
         {
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = "Name A"
             };
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = "Name B"
             };
         }
 
-        protected override IEnumerable<RingtoetsPipingSurfaceLine> SingleNonUniqueElements()
+        protected override IEnumerable<PipingSurfaceLine> SingleNonUniqueElements()
         {
             const string duplicateName = "Duplicate name it is";
 
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateName
             };
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateName
             };
         }
 
-        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsPipingSurfaceLine> itemsToAdd)
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<PipingSurfaceLine> itemsToAdd)
         {
             string duplicateName = itemsToAdd.First().Name;
             Assert.AreEqual($"Profielschematisaties moeten een unieke naam hebben. Gevonden dubbele elementen: {duplicateName}.",
                             exception.Message);
         }
 
-        protected override IEnumerable<RingtoetsPipingSurfaceLine> MultipleNonUniqueElements()
+        protected override IEnumerable<PipingSurfaceLine> MultipleNonUniqueElements()
         {
             const string duplicateNameOne = "Duplicate name it is";
             const string duplicateNameTwo = "Duplicate name again";
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateNameOne
             };
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateNameOne
             };
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateNameTwo
             };
-            yield return new RingtoetsPipingSurfaceLine
+            yield return new PipingSurfaceLine
             {
                 Name = duplicateNameTwo
             };
         }
 
-        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<RingtoetsPipingSurfaceLine> itemsToAdd)
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<PipingSurfaceLine> itemsToAdd)
         {
             string duplicateNameOne = itemsToAdd.First().Name;
             string duplicateNameTwo = itemsToAdd.First(i => i.Name != duplicateNameOne).Name;

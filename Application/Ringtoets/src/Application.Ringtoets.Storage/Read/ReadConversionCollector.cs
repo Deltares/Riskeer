@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
             CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
 
-        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines =
-            CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+        private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
+            CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
@@ -316,16 +316,16 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Registers a read operation for <see cref="SurfaceLineEntity"/> and the
-        /// <see cref="RingtoetsPipingSurfaceLine"/> that was constructed with the information.
+        /// <see cref="PipingSurfaceLine"/> that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> that was constructed.</param>
+        /// <param name="model">The <see cref="PipingSurfaceLine"/> that was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Read(SurfaceLineEntity entity, RingtoetsPipingSurfaceLine model)
+        internal void Read(SurfaceLineEntity entity, PipingSurfaceLine model)
         {
             if (entity == null)
             {
@@ -355,18 +355,18 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Obtains the <see cref="RingtoetsPipingSurfaceLine"/> which was read for the
+        /// Obtains the <see cref="PipingSurfaceLine"/> which was read for the
         /// given <see cref="SurfaceLineEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> for which a read operation
         /// has been registered.</param>
-        /// <returns>The constructed <see cref="RingtoetsPipingSurfaceLine"/>.</returns>
+        /// <returns>The constructed <see cref="PipingSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(SurfaceLineEntity)"/> to find out whether a
         /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal RingtoetsPipingSurfaceLine Get(SurfaceLineEntity entity)
+        internal PipingSurfaceLine Get(SurfaceLineEntity entity)
         {
             if (entity == null)
             {

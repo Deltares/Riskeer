@@ -42,32 +42,32 @@ namespace Ringtoets.Piping.IO.Test.Importers
             {
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeToeAtRiver = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.DikeToeAtRiver),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.DikeToeAtRiver),
                         "Teen dijk buitenwaarts")
                     .SetName("Move DikeToeAtRiver");
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.BottomDitchDikeSide = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.BottomDitchDikeSide),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.BottomDitchDikeSide),
                         "Slootbodem dijkzijde")
                     .SetName("Move BottomDitchDikeSide");
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.BottomDitchPolderSide = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.BottomDitchPolderSide),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.BottomDitchPolderSide),
                         "Slootbodem polderzijde")
                     .SetName("Move BottomDitchPolderSide");
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DitchPolderSide = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.DitchPolderSide),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.DitchPolderSide),
                         "Insteek sloot polderzijde")
                     .SetName("Move DitchPolderSide");
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DitchDikeSide = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.DitchDikeSide),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.DitchDikeSide),
                         "Insteek sloot dijkzijde")
                     .SetName("Move DitchDikeSide");
                 yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeToeAtPolder = p),
-                        new Func<RingtoetsPipingSurfaceLine, Point3D>(sl => sl.DikeToeAtPolder),
+                        new Func<PipingSurfaceLine, Point3D>(sl => sl.DikeToeAtPolder),
                         "Teen dijk binnenwaarts")
                     .SetName("Move DikeToeAtPolder");
             }
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             });
 
             // Call
-            RingtoetsPipingSurfaceLine result = transformer.Transform(surfaceLine, null);
+            PipingSurfaceLine result = transformer.Transform(surfaceLine, null);
 
             // Assert
             Assert.IsNull(result.DitchDikeSide);
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(MoveCharacteristicPoint))]
-        public void Transform_CharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(Action<CharacteristicPoints, Point3D> pointChange, Func<RingtoetsPipingSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        public void Transform_CharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(Action<CharacteristicPoints, Point3D> pointChange, Func<PipingSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 new Point2D(6.8, 15)
             });
 
-            RingtoetsPipingSurfaceLine result = null;
+            PipingSurfaceLine result = null;
 
             // Call
             Action call = () => result = transformer.Transform(surfaceLine, characteristicPoints);

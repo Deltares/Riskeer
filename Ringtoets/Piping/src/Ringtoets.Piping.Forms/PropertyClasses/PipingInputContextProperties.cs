@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
+        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailablePipingSurfaceLines;
         }
@@ -265,7 +265,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
-        public RingtoetsPipingSurfaceLine SurfaceLine
+        public PipingSurfaceLine SurfaceLine
         {
             get
             {

@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
                                                             calculationItem,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
                                                             new[]
                                                             {
                                                                 new TestStochasticSoilModel()
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                     stochasticSoilProfile
                 }
             };
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(2, 1, 0),
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
                                                                 calculationItem,
-                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                 new[]
                                                                 {
                                                                     stochasticSoilModel

@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="RingtoetsPipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
+        /// Removes a given <see cref="PipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="surfaceLine"/>.</param>
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveSurfaceLine(PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine surfaceLine)
+        public static IEnumerable<IObservable> RemoveSurfaceLine(PipingFailureMechanism failureMechanism, PipingSurfaceLine surfaceLine)
         {
             if (failureMechanism == null)
             {
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Removes all <see cref="RingtoetsPipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
+        /// Removes all <see cref="PipingSurfaceLine"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>

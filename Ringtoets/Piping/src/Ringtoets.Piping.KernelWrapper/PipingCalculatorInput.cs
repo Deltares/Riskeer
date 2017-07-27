@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <summary>
         /// Gets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine { get; private set; }
+        public PipingSurfaceLine SurfaceLine { get; private set; }
 
         /// <summary>
         /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.KernelWrapper
             /// <summary>
             /// Gets the surface line.
             /// </summary>
-            public RingtoetsPipingSurfaceLine SurfaceLine { internal get; set; }
+            public PipingSurfaceLine SurfaceLine { internal get; set; }
 
             /// <summary>
             /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.

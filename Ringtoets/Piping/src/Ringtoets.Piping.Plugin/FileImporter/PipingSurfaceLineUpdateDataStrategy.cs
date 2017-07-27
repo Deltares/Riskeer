@@ -37,8 +37,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating surface lines based on imported data.
     /// </summary>
-    public class PipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
-                                                       ISurfaceLineUpdateDataStrategy<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineUpdateDataStrategy : UpdateDataStrategyBase<PipingSurfaceLine, PipingFailureMechanism>,
+                                                       ISurfaceLineUpdateDataStrategy<PipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLineUpdateDataStrategy"/>.
@@ -48,27 +48,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public PipingSurfaceLineUpdateDataStrategy(PipingFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.SurfaceLines, new RingtoetsPipingSurfaceLineNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<PipingSurfaceLine> surfaceLines, string sourceFilePath)
         {
             return UpdateTargetCollectionData(surfaceLines, sourceFilePath);
         }
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(RingtoetsPipingSurfaceLine removedSurfaceLine)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(PipingSurfaceLine removedSurfaceLine)
         {
             return PipingDataSynchronizationService.RemoveSurfaceLine(FailureMechanism, removedSurfaceLine);
         }
 
         /// <summary>
-        /// Class for comparing <see cref="RingtoetsPipingSurfaceLine"/> by only the name.
+        /// Class for comparing <see cref="PipingSurfaceLine"/> by only the name.
         /// </summary>
-        private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<RingtoetsPipingSurfaceLine>
+        private class RingtoetsPipingSurfaceLineNameEqualityComparer : IEqualityComparer<PipingSurfaceLine>
         {
-            public bool Equals(RingtoetsPipingSurfaceLine x, RingtoetsPipingSurfaceLine y)
+            public bool Equals(PipingSurfaceLine x, PipingSurfaceLine y)
             {
                 return x.Name == y.Name;
             }
 
-            public int GetHashCode(RingtoetsPipingSurfaceLine obj)
+            public int GetHashCode(PipingSurfaceLine obj)
             {
                 return obj.Name.GetHashCode();
             }
@@ -76,8 +76,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region Updating Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(RingtoetsPipingSurfaceLine surfaceLineToUpdate,
-                                                                                 RingtoetsPipingSurfaceLine matchingSurfaceLine)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(PipingSurfaceLine surfaceLineToUpdate,
+                                                                                 PipingSurfaceLine matchingSurfaceLine)
         {
             surfaceLineToUpdate.CopyProperties(matchingSurfaceLine);
 
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateSurfaceLineDependentData(RingtoetsPipingSurfaceLine surfaceLine)
+        private IEnumerable<IObservable> UpdateSurfaceLineDependentData(PipingSurfaceLine surfaceLine)
         {
             IEnumerable<PipingCalculation> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> UpdateStochasticSoilModel(RingtoetsPipingSurfaceLine updatedSurfaceLine)
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(PipingSurfaceLine updatedSurfaceLine)
         {
             IEnumerable<PipingCalculation> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(updatedSurfaceLine);
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<PipingCalculation> GetAffectedCalculationWithSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine)
+        private IEnumerable<PipingCalculation> GetAffectedCalculationWithSurfaceLine(PipingSurfaceLine surfaceLine)
         {
             IEnumerable<PipingCalculation> affectedCalculations =
                 FailureMechanism.Calculations
@@ -129,13 +129,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedCalculations;
         }
 
-        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(RingtoetsPipingSurfaceLine surfaceLine)
+        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(PipingSurfaceLine surfaceLine)
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
                                                                                               FailureMechanism.StochasticSoilModels);
         }
 
-        private void ValidateEntryAndExitPoints(RingtoetsPipingSurfaceLine surfaceLine)
+        private void ValidateEntryAndExitPoints(PipingSurfaceLine surfaceLine)
         {
             IEnumerable<PipingCalculation> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
             foreach (PipingCalculation affectedCalculation in affectedCalculations)
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private static bool ValidateLocalCoordinateOnSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine, double localCoordinateL)
+        private static bool ValidateLocalCoordinateOnSurfaceLine(PipingSurfaceLine surfaceLine, double localCoordinateL)
         {
             return surfaceLine.ValidateInRange(localCoordinateL);
         }

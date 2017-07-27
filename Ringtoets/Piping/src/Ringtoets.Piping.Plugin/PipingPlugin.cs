@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 CreateInstance = context => new RingtoetsPipingSurfaceLineCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
+            yield return new PropertyInfo<PipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
             {
                 CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     context.WrappedData,
                     filePath,
                     new ImportMessageProvider(),
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.Plugin
                 FileFilterGenerator = RingtoetsPipingSurfaceLineFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     context.WrappedData,
                     filePath,
                     new UpdateMessageProvider(),
@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.Plugin
                 ContextMenuStrip = RingtoetsPipingSurfaceLinesContextContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
+            yield return new TreeNodeInfo<PipingSurfaceLine>
             {
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
@@ -1002,7 +1002,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.NotifyObservers();
         }
 
-        private static void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
+        private static void GeneratePipingCalculations(CalculationGroup target, IEnumerable<PipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
             foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {

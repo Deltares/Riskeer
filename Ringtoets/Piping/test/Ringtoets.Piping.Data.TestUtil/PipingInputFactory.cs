@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithAquiferAndCoverageLayer(double thicknessAquiferLayer = 1.0, double thicknessCoverageLayer = 2.0)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, thicknessCoverageLayer),
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithAquifer(double thicknessAquiferLayer = 1.0)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0.0),
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithSingleAquiferLayerAboveSurfaceLine(double deltaAboveSurfaceLine)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             const double surfaceLineTopLevel = 2.0;
             surfaceLine.SetGeometry(new[]
             {
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingInput"/>.</returns>
         public static PipingInput CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.3),

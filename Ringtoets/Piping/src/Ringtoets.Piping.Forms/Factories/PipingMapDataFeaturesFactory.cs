@@ -41,9 +41,9 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <summary>
         /// Create surface line features based on the provided <paramref name="surfaceLines"/>.
         /// </summary>
-        /// <param name="surfaceLines">The collection of <see cref="RingtoetsPipingSurfaceLine"/> to create the surface line features for.</param>
+        /// <param name="surfaceLines">The collection of <see cref="PipingSurfaceLine"/> to create the surface line features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="surfaceLines"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateSurfaceLineFeatures(RingtoetsPipingSurfaceLine[] surfaceLines)
+        public static MapFeature[] CreateSurfaceLineFeatures(PipingSurfaceLine[] surfaceLines)
         {
             if (surfaceLines != null && surfaceLines.Any())
             {
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Factories
 
                 for (var i = 0; i < surfaceLines.Length; i++)
                 {
-                    RingtoetsPipingSurfaceLine surfaceLine = surfaceLines[i];
+                    PipingSurfaceLine surfaceLine = surfaceLines[i];
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Factories
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
         }
 
-        private static IEnumerable<Point2D> GetWorldPoints(RingtoetsPipingSurfaceLine surfaceLine)
+        private static IEnumerable<Point2D> GetWorldPoints(PipingSurfaceLine surfaceLine)
         {
             return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
         }

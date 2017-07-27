@@ -54,8 +54,8 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             RingtoetsPipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
             Assert.AreEqual("path/to/surfaceLines", surfaceLines.SourcePath);
             Assert.AreEqual(1, surfaceLines.Count);
-            RingtoetsPipingSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();
-            RingtoetsPipingSurfaceLine surfaceLine = surfaceLineArray[0];
+            PipingSurfaceLine[] surfaceLineArray = surfaceLines.ToArray();
+            PipingSurfaceLine surfaceLine = surfaceLineArray[0];
             Assert.AreEqual(new Point2D(0.0, 0.0), surfaceLine.ReferenceLineIntersectionWorldPoint);
             CollectionAssert.IsNotEmpty(surfaceLine.LocalGeometry);
 

@@ -28,9 +28,9 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
-    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="RingtoetsPipingSurfaceLine"/>.
+    /// Transforms generic <see cref="SurfaceLine"/> into piping specific <see cref="PipingSurfaceLine"/>.
     /// </summary>
-    public class PipingSurfaceLineTransformer : ISurfaceLineTransformer<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineTransformer : ISurfaceLineTransformer<PipingSurfaceLine>
     {
         private readonly ReferenceLine referenceLine;
 
@@ -49,11 +49,11 @@ namespace Ringtoets.Piping.IO.Importers
             this.referenceLine = referenceLine;
         }
 
-        public RingtoetsPipingSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        public PipingSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
 
-            var pipingSurfaceLine = new RingtoetsPipingSurfaceLine
+            var pipingSurfaceLine = new PipingSurfaceLine
             {
                 Name = surfaceLine.Name
             };

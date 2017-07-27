@@ -67,8 +67,8 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
             CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
 
-        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines =
-            CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+        private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
+            CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
 
         private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations =
             CreateDictionary<object, HydraulicBoundaryLocation>();
@@ -302,13 +302,13 @@ namespace Application.Ringtoets.Storage.Create
         /// that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingSurfaceLine"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Register(SurfaceLineEntity entity, RingtoetsPipingSurfaceLine model)
+        internal void Register(SurfaceLineEntity entity, PipingSurfaceLine model)
         {
             Register(surfaceLines, entity, model);
         }
@@ -465,10 +465,10 @@ namespace Application.Ringtoets.Storage.Create
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> to check for.</param>
+        /// <param name="model">The <see cref="PipingSurfaceLine"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(RingtoetsPipingSurfaceLine model)
+        internal bool Contains(PipingSurfaceLine model)
         {
             return ContainsValue(surfaceLines, model);
         }
@@ -659,15 +659,15 @@ namespace Application.Ringtoets.Storage.Create
         /// Obtains the <see cref="SurfaceLineEntity"/> which was registered for the given
         /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="RingtoetsPipingSurfaceLine"/> for which a
+        /// <param name="model">The <see cref="PipingSurfaceLine"/> for which a
         /// read operation has been registered.</param>
         /// <returns>The constructed <see cref="SurfaceLineEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(RingtoetsPipingSurfaceLine)"/> to find out
+        /// <remarks>Use <see cref="Contains(PipingSurfaceLine)"/> to find out
         /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal SurfaceLineEntity Get(RingtoetsPipingSurfaceLine model)
+        internal SurfaceLineEntity Get(PipingSurfaceLine model)
         {
             return Get(surfaceLines, model);
         }

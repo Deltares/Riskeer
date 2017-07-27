@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.TestUtils
         #region Piping Specific Imports
 
         /// <summary>
-        /// Imports the <see cref="RingtoetsPipingSurfaceLine"/> data for the <see cref="PipingFailureMechanism"/>
+        /// Imports the <see cref="PipingSurfaceLine"/> data for the <see cref="PipingFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_surfacelines.krp.csv"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
-                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                var activity = new FileImportActivity(new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                                                           assessmentSection.PipingFailureMechanism.SurfaceLines,
                                                           filePath,
                                                           new ImportMessageProvider(),

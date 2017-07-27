@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingCalculationGroupContext(CalculationGroup calculationGroup,
-                                             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+                                             IEnumerable<PipingSurfaceLine> surfaceLines,
                                              IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                              PipingFailureMechanism pipingFailureMechanism,
                                              IAssessmentSection assessmentSection)

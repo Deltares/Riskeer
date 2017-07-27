@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         [TestCase("Random", 5)]
         public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithDefaultStyling(string name, int soilLayerIndex)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4),
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "surface line name"
             };

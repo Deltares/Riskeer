@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void SetChartData()
         {
             PipingInput pipingInput = data.InputParameters;
-            RingtoetsPipingSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
+            PipingSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
 
             PipingChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 

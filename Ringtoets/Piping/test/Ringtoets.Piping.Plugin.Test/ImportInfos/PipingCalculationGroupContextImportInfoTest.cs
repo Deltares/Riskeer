@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                             failureMechanism,
                                                             assessmentSection);

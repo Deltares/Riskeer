@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="PipingSurfaceLine"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         public static void AssertHasSurfaceLines(PipingFailureMechanism failureMechanism)

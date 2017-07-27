@@ -138,14 +138,14 @@ namespace Ringtoets.Piping.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="RingtoetsPipingSurfaceLine"/>
+        /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="PipingSurfaceLine"/>
         /// set which is not available in <see cref="PipingFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
         private bool TrySetSurfaceLine(PipingCalculationConfiguration calculationConfiguration,
                                        PipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.SurfaceLineName != null)
             {
-                RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
+                PipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
                                                                          .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when entry or exit point is set without <see cref="RingtoetsPipingSurfaceLine"/>,
+        /// <returns><c>false</c> when entry or exit point is set without <see cref="PipingSurfaceLine"/>,
         /// or when entry or exit point is invalid, <c>true</c> otherwise.</returns>
         private bool TrySetEntryExitPoint(PipingCalculationConfiguration calculationConfiguration,
                                           PipingCalculationScenario pipingCalculation)
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <list type="bullet">
         /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="StochasticSoilModel"/> set
         /// which is not available in the failure mechanism.</item>
-        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="RingtoetsPipingSurfaceLine"/>
+        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="PipingSurfaceLine"/>
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>

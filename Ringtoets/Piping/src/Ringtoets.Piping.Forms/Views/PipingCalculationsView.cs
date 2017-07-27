@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
         private readonly Observer pipingFailureMechanismObserver;
-        private readonly RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine> pipingSurfaceLineObserver;
+        private readonly RecursiveObserver<RingtoetsPipingSurfaceLineCollection, PipingSurfaceLine> pipingSurfaceLineObserver;
         private readonly Observer pipingStochasticSoilModelsObserver;
         private readonly RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile> stochasticSoilProfileObserver;
         private IAssessmentSection assessmentSection;
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Views
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
             pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(dataGridViewControl.RefreshDataGridView, pcg => pcg.Children);
 
-            pipingSurfaceLineObserver = new RecursiveObserver<RingtoetsPipingSurfaceLineCollection, RingtoetsPipingSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
+            pipingSurfaceLineObserver = new RecursiveObserver<RingtoetsPipingSurfaceLineCollection, PipingSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
 
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             stochasticSoilProfileObserver = new RecursiveObserver<StochasticSoilModelCollection, StochasticSoilProfile>(dataGridViewControl.RefreshDataGridView, ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, RingtoetsPipingSurfaceLine surfaceLine)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, PipingSurfaceLine surfaceLine)
         {
             Point2D referencePoint = surfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
@@ -557,7 +557,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return selectableHydraulicBoundaryLocations;
             }
 
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in PipingFailureMechanism.SurfaceLines)
+            foreach (PipingSurfaceLine surfaceLine in PipingFailureMechanism.SurfaceLines)
             {
                 selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
             }

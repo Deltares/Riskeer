@@ -29,24 +29,24 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="RingtoetsPipingSurfaceLine"/> from a collection.
+    /// <see cref="PipingSurfaceLine"/> from a collection.
     /// </summary>
-    public class PipingInputContextSurfaceLineSelectionEditor : SelectionEditor<PipingInputContextProperties, RingtoetsPipingSurfaceLine>
+    public class PipingInputContextSurfaceLineSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextSurfaceLineSelectionEditor"/>.
         /// </summary>
         public PipingInputContextSurfaceLineSelectionEditor()
         {
-            DisplayMember = nameof(RingtoetsPipingSurfaceLine.Name);
+            DisplayMember = nameof(PipingSurfaceLine.Name);
         }
 
-        protected override IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<PipingSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableSurfaceLines();
         }
 
-        protected override RingtoetsPipingSurfaceLine GetCurrentOption(ITypeDescriptorContext context)
+        protected override PipingSurfaceLine GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).SurfaceLine;
         }

@@ -45,10 +45,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            RingtoetsPipingSurfaceLine[] surfaceLines =
+            PipingSurfaceLine[] surfaceLines =
             {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine(),
+                new PipingSurfaceLine()
             };
 
             var soilModels = new[]
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 null,
                                                                                 new PipingFailureMechanism(),
                                                                                 assessmentSectionStub);
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 null,
                                                                                 assessmentSectionStub);
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 new PipingFailureMechanism(),
                                                                                 null);
@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
         {
-            public SimplePipingContext(T target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+            public SimplePipingContext(T target, IEnumerable<PipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
                 : base(target, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
         }
 

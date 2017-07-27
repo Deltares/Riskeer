@@ -1435,7 +1435,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 yield return stochasticSoilModel;
             }
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
+            foreach (PipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
             {
                 yield return surfaceLine;
             }

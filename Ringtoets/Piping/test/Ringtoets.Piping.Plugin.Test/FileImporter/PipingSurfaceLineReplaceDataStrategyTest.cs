@@ -57,8 +57,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Assert
-            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<RingtoetsPipingSurfaceLine>>(strategy);
-            Assert.IsInstanceOf<ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<ISurfaceLineUpdateDataStrategy<PipingSurfaceLine>>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<PipingSurfaceLine, PipingFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            TestDelegate test = () => strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<PipingSurfaceLine>(),
                                                                                   null);
 
             // Assert
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string newSourcePath = "some/other/path";
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<PipingSurfaceLine>(),
                                                                                                    newSourcePath);
 
             // Assert
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             var importedSurfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
-            var targetSurfaceLine = new RingtoetsPipingSurfaceLine
+            var targetSurfaceLine = new PipingSurfaceLine
             {
                 Name = "Name A"
             };
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 targetSurfaceLine
             }, sourceFilePath);
 
-            var readSurfaceLine = new RingtoetsPipingSurfaceLine
+            var readSurfaceLine = new PipingSurfaceLine
             {
                 Name = "Name B"
             };
@@ -183,7 +183,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
         {
             // Setup
-            var existingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            var existingSurfaceLine = new PipingSurfaceLine();
             existingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 1, 2),
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var strategy = new PipingSurfaceLineReplaceDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateSurfaceLinesWithImportedData(Enumerable.Empty<PipingSurfaceLine>(),
                                                                                                    sourceFilePath).ToArray();
 
             // Assert
@@ -228,13 +228,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            RingtoetsPipingSurfaceLine[] importedSurfaceLines =
+            PipingSurfaceLine[] importedSurfaceLines =
             {
-                new RingtoetsPipingSurfaceLine
+                new PipingSurfaceLine
                 {
                     Name = duplicateName
                 },
-                new RingtoetsPipingSurfaceLine
+                new PipingSurfaceLine
                 {
                     Name = duplicateName
                 }

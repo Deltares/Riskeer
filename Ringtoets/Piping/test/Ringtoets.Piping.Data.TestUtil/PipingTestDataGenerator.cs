@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario GetPipingCalculationScenario()
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
                 Name = "PK001_0001"
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static void ConfigureFailureMechanismWithAllCalculationConfigurations(PipingFailureMechanism failureMechanism,
                                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            var surfaceLine1 = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
                 Name = "Line A"
@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 new Point3D(0, 0, 0),
                 new Point3D(0, 10, 0)
             });
-            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            var surfaceLine2 = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(10, 5),
                 Name = "Line B"

@@ -213,7 +213,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = null;
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            RingtoetsPipingSurfaceLine surfaceLine = null;
+            PipingSurfaceLine surfaceLine = null;
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            RingtoetsPipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
+            PipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
             PipingCalculation[] calculationsWithSurfaceLine = failureMechanism.Calculations
                                                                               .Cast<PipingCalculation>()
                                                                               .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))

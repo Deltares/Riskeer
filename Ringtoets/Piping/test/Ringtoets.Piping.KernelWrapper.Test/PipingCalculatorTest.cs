@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
-            properties.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            properties.SurfaceLine = new PipingSurfaceLine();
 
             var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
-            properties.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            properties.SurfaceLine = new PipingSurfaceLine();
 
             var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
@@ -614,9 +614,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             }, SoilProfileType.SoilProfile1D, 1234L);
         }
 
-        private static RingtoetsPipingSurfaceLine CreateValidSurfaceLine()
+        private static PipingSurfaceLine CreateValidSurfaceLine()
         {
-            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine = new PipingSurfaceLine();
             ringtoetsPipingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),

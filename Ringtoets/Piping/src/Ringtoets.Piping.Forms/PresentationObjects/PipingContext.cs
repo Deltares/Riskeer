@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         protected PipingContext(
             T wrappedData,
-            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+            IEnumerable<PipingSurfaceLine> surfaceLines,
             IEnumerable<StochasticSoilModel> stochasticSoilModels,
             PipingFailureMechanism pipingFailureMechanism,
             IAssessmentSection assessmentSection) : base(wrappedData)
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Gets the available piping surface lines in order for the user to select one to 
         /// set <see cref="PipingInput.SurfaceLine"/>.
         /// </summary>
-        public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; private set; }
+        public IEnumerable<PipingSurfaceLine> AvailablePipingSurfaceLines { get; private set; }
 
         /// <summary>
         /// Gets the available stochastic soil models in order for the user to select a <see cref="StochasticSoilModel"/> and <see cref="StochasticSoilProfile"/>
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        private static void AssertInputsAreNotNull(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+        private static void AssertInputsAreNotNull(IEnumerable<PipingSurfaceLine> surfaceLines,
                                                    IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                    PipingFailureMechanism pipingFailureMechanism,
                                                    IAssessmentSection assessmentSection)

@@ -26,37 +26,37 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     /// <summary>
     /// Denotes a <see cref="Point3D"/> as being used to mark a particular
-    /// characteristic point of a <see cref="RingtoetsPipingSurfaceLine"/>.
+    /// characteristic point of a <see cref="PipingSurfaceLine"/>.
     /// </summary>
     public enum CharacteristicPointType
     {
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.DikeToeAtRiver"/>.
         /// </summary>
         DikeToeAtRiver = 1,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.DikeToeAtPolder"/>.
         /// </summary>
         DikeToeAtPolder = 2,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.DitchDikeSide"/>.
         /// </summary>
         DitchDikeSide = 3,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.BottomDitchDikeSide"/>.
         /// </summary>
         BottomDitchDikeSide = 4,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.BottomDitchPolderSide"/>.
         /// </summary>
         BottomDitchPolderSide = 5,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.DitchPolderSide"/>.
         /// </summary>
         DitchPolderSide = 6
     }

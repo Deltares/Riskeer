@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Profielschematisatie"
             };
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Profielschematisatie"
             };
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Profielschematisatie"
             };
@@ -573,7 +573,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(readerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Profielschematisatie"
             };

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectsReferenceline_ReturnsFalse()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };

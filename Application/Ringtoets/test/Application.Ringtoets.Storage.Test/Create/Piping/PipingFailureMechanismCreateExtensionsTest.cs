@@ -244,9 +244,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(1, childGroupEntities[1].Order);
         }
 
-        private RingtoetsPipingSurfaceLine CreateSurfaceLine(Random random)
+        private PipingSurfaceLine CreateSurfaceLine(Random random)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())

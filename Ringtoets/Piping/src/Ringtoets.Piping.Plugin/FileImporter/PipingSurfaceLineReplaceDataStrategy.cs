@@ -33,8 +33,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the surface lines with the imported surface lines.
     /// </summary>
-    public class PipingSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<RingtoetsPipingSurfaceLine, PipingFailureMechanism>,
-                                                        ISurfaceLineUpdateDataStrategy<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineReplaceDataStrategy : ReplaceDataStrategyBase<PipingSurfaceLine, PipingFailureMechanism>,
+                                                        ISurfaceLineUpdateDataStrategy<PipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLineReplaceDataStrategy"/>.
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public PipingSurfaceLineReplaceDataStrategy(PipingFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.SurfaceLines) {}
 
-        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateSurfaceLinesWithImportedData(IEnumerable<PipingSurfaceLine> surfaceLines, string sourceFilePath)
         {
             return ReplaceTargetCollectionWithImportedData(surfaceLines, sourceFilePath);
         }

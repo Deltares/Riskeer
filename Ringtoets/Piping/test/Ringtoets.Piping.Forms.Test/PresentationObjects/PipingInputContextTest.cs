@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             };
             var stochasticSoilModels = new[]
             {
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculationInput = new PipingInput(new GeneralPipingInput());
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             };
             var stochasticSoilModels = new[]
             {

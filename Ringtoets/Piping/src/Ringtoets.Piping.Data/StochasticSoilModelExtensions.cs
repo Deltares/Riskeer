@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static bool IntersectsWithSurfaceLineGeometry(this StochasticSoilModel stochasticSoilModel,
-                                                             RingtoetsPipingSurfaceLine surfaceLine)
+                                                             PipingSurfaceLine surfaceLine)
         {
             if (stochasticSoilModel == null)
             {

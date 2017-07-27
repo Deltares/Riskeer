@@ -143,11 +143,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine
+            var ringtoetsPipingSurfaceLine1 = new PipingSurfaceLine
             {
                 Name = "Line A"
             };
-            var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine
+            var ringtoetsPipingSurfaceLine2 = new PipingSurfaceLine
             {
                 Name = "Line B"
             };
@@ -177,11 +177,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine
+            var ringtoetsPipingSurfaceLine1 = new PipingSurfaceLine
             {
                 Name = "Line A"
             };
-            var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine
+            var ringtoetsPipingSurfaceLine2 = new PipingSurfaceLine
             {
                 Name = "Line B"
             };

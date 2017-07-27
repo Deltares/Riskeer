@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             double meanDiameter70Value = random.NextDouble();
             double beddingAngleValue = random.NextDouble();
             double exitPointXCoordinate = random.NextDouble();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())

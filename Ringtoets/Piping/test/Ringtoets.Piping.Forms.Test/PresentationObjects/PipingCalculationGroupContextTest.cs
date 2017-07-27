@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             };
             var soilModels = new StochasticSoilModel[]
             {

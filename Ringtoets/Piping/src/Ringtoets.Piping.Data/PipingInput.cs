@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data
         private readonly LogNormalDistribution dampingFactorExit;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
-        private RingtoetsPipingSurfaceLine surfaceLine;
+        private PipingSurfaceLine surfaceLine;
         private RoundedDouble assessmentLevel;
         private bool useAssessmentLevelManualInput;
 
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine
+        public PipingSurfaceLine SurfaceLine
         {
             get
             {

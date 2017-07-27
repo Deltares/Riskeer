@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             }
 
             var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);

@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             var context = new PipingInputContext(
                 scenario.InputParameters,
                 scenario,
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 failureMechanism, assessmentSection);
 

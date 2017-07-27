@@ -32,18 +32,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection from a given set of <see cref="RingtoetsPipingSurfaceLine"/>. Upon
-    /// closing of the dialog, the selected <see cref="RingtoetsPipingSurfaceLine"/> can be obtained.
+    /// A dialog which allows the user to make a selection from a given set of <see cref="PipingSurfaceLine"/>. Upon
+    /// closing of the dialog, the selected <see cref="PipingSurfaceLine"/> can be obtained.
     /// </summary>
-    public class PipingSurfaceLineSelectionDialog : SelectionDialogBase<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineSelectionDialog : SelectionDialogBase<PipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLineSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="surfaceLines">The collection of <see cref="RingtoetsPipingSurfaceLine"/> to show in the dialog.</param>
+        /// <param name="surfaceLines">The collection of <see cref="PipingSurfaceLine"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
+        public PipingSurfaceLineSelectionDialog(IWin32Window dialogParent, IEnumerable<PipingSurfaceLine> surfaceLines)
             : base(dialogParent)
         {
             if (surfaceLines == null)
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms
             Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
             InitializeDataGridView(RingtoetsCommonFormsResources.SurfaceLine_DisplayName);
 
-            SetDataSource(surfaceLines.Select(sl => new SelectableRow<RingtoetsPipingSurfaceLine>(sl, sl.Name)).ToArray());
+            SetDataSource(surfaceLines.Select(sl => new SelectableRow<PipingSurfaceLine>(sl, sl.Name)).ToArray());
         }
     }
 }

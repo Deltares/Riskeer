@@ -121,12 +121,12 @@ namespace Demo.Ringtoets.Test.Commands
             mocks.VerifyAll();
         }
 
-        private static void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)
+        private static void AssertCharacteristicPointsOnSurfaceLines(PipingSurfaceLine[] surfaceLines)
         {
-            RingtoetsPipingSurfaceLine surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
-            RingtoetsPipingSurfaceLine surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
-            RingtoetsPipingSurfaceLine surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
-            RingtoetsPipingSurfaceLine surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
+            PipingSurfaceLine surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
+            PipingSurfaceLine surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
+            PipingSurfaceLine surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
+            PipingSurfaceLine surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
 
             Assert.IsNotNull(surfaceLine1);
             Assert.IsNotNull(surfaceLine2);
@@ -376,7 +376,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             StochasticSoilModel[] soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
             Assert.AreEqual(4, soilModels.Length);
-            RingtoetsPipingSurfaceLine[] surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
+            PipingSurfaceLine[] surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 

@@ -30,23 +30,23 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="RingtoetsPipingSurfaceLine"/>
+    /// This class defines extension methods for read operations for an <see cref="PipingSurfaceLine"/>
     /// based on the <see cref="SurfaceLineEntity"/>.
     /// </summary>
     internal static class SurfaceLineEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="SurfaceLineEntity"/> and use the information to construct
-        /// a <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// a <see cref="PipingSurfaceLine"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to create
-        /// <see cref="RingtoetsPipingSurfaceLine"/> for.</param>
+        /// <see cref="PipingSurfaceLine"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="RingtoetsPipingSurfaceLine"/>.</returns>
+        /// <returns>A new <see cref="PipingSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        internal static RingtoetsPipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
+        internal static PipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = entity.Name,
                 ReferenceLineIntersectionWorldPoint = new Point2D(
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return surfaceLine;
         }
 
-        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine)
+        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, PipingSurfaceLine surfaceLine)
         {
             Point3D[] geometryPoints = new Point3DXmlSerializer().FromXml(entity.PointsXml);
             surfaceLine.SetGeometry(geometryPoints);
@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             }
         }
 
-        private static void SetCharacteristicPoint(RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPointType type, Point3D geometryPoint)
+        private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, CharacteristicPointType type, Point3D geometryPoint)
         {
             switch (type)
             {

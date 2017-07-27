@@ -27,10 +27,10 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Collection to store <see cref="RingtoetsPipingSurfaceLine"/> items. The 
+    /// Collection to store <see cref="PipingSurfaceLine"/> items. The 
     /// names of the items are unique within the collection.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<RingtoetsPipingSurfaceLine>
+    public class RingtoetsPipingSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<PipingSurfaceLine>
     {
         public RingtoetsPipingSurfaceLineCollection() : base(line => line.Name,
                                                              RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,

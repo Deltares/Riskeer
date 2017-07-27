@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Contains((RingtoetsPipingSurfaceLine) null);
+            TestDelegate test = () => registry.Contains((PipingSurfaceLine) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             registry.Register(new SurfaceLineEntity(), surfaceLine);
 
             // Call
@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             bool result = registry.Contains(surfaceLine);
@@ -176,8 +176,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            registry.Register(new SurfaceLineEntity(), new RingtoetsPipingSurfaceLine());
+            var surfaceLine = new PipingSurfaceLine();
+            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine());
 
             // Call
             bool result = registry.Contains(surfaceLine);
@@ -1079,7 +1079,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Get((RingtoetsPipingSurfaceLine) null);
+            TestDelegate test = () => registry.Get((PipingSurfaceLine) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1091,7 +1091,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             var entity = new SurfaceLineEntity();
             registry.Register(entity, surfaceLine);
 
@@ -1107,7 +1107,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
 
             // Call
             TestDelegate test = () => registry.Get(surfaceLine);
@@ -1121,8 +1121,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            registry.Register(new SurfaceLineEntity(), new RingtoetsPipingSurfaceLine());
+            var surfaceLine = new PipingSurfaceLine();
+            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine());
 
             // Call
             TestDelegate test = () => registry.Get(surfaceLine);

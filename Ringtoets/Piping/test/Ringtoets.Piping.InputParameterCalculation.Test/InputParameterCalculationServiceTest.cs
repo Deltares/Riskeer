@@ -30,6 +30,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
+using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
 namespace Ringtoets.Piping.InputParameterCalculation.Test
 {
@@ -73,7 +74,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_WithMultipleCharacteristicTypesOnSamePoint_ReturnsThickness()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),
@@ -124,7 +125,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),
@@ -246,7 +247,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             }
         }
 
-        private static void AssertEqualSurfaceLines(RingtoetsPipingSurfaceLine pipingSurfaceLine, PipingSurfaceLine otherSurfaceLine)
+        private static void AssertEqualSurfaceLines(PipingSurfaceLine pipingSurfaceLine, Deltares.WTIPiping.PipingSurfaceLine otherSurfaceLine)
         {
             AssertPointsAreEqual(pipingSurfaceLine.DitchDikeSide, otherSurfaceLine.DitchDikeSide);
             AssertPointsAreEqual(pipingSurfaceLine.BottomDitchDikeSide, otherSurfaceLine.BottomDitchDikeSide);

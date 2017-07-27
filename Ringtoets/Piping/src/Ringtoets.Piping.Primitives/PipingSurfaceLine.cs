@@ -37,14 +37,14 @@ namespace Ringtoets.Piping.Primitives
     /// <summary>
     /// Definition of a surface line for piping.
     /// </summary>
-    public class RingtoetsPipingSurfaceLine : Observable, IMechanismSurfaceLine
+    public class PipingSurfaceLine : Observable, IMechanismSurfaceLine
     {
         private const int numberOfDecimalPlaces = 2;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
+        /// Initializes a new instance of the <see cref="PipingSurfaceLine"/> class.
         /// </summary>
-        public RingtoetsPipingSurfaceLine()
+        public PipingSurfaceLine()
         {
             Name = string.Empty;
             Points = new Point3D[0];
@@ -247,11 +247,11 @@ namespace Ringtoets.Piping.Primitives
         }
 
         /// <summary>
-        /// Gets the height of the projected <see cref="RingtoetsPipingSurfaceLine"/> at a L=<paramref name="l"/>.
+        /// Gets the height of the projected <see cref="PipingSurfaceLine"/> at a L=<paramref name="l"/>.
         /// </summary>
-        /// <param name="l">The L coordinate from where to take the height of the <see cref="RingtoetsPipingSurfaceLine"/>.</param>
-        /// <returns>The height of the <see cref="RingtoetsPipingSurfaceLine"/> at L=<paramref name="l"/>.</returns>
-        /// <exception cref="RingtoetsPipingSurfaceLineException">Thrown when the <see cref="RingtoetsPipingSurfaceLine"/>
+        /// <param name="l">The L coordinate from where to take the height of the <see cref="PipingSurfaceLine"/>.</param>
+        /// <returns>The height of the <see cref="PipingSurfaceLine"/> at L=<paramref name="l"/>.</returns>
+        /// <exception cref="RingtoetsPipingSurfaceLineException">Thrown when the <see cref="PipingSurfaceLine"/>
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="l"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <see cref="Points"/> is empty.</exception>
@@ -327,13 +327,13 @@ namespace Ringtoets.Piping.Primitives
 
         /// <summary>
         /// Copies the property values of the <paramref name="fromSurfaceLine"/> to 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// the <see cref="PipingSurfaceLine"/>.
         /// </summary>
-        /// <param name="fromSurfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/>
+        /// <param name="fromSurfaceLine">The <see cref="PipingSurfaceLine"/>
         /// to get the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromSurfaceLine"/>
         /// is <c>null</c>.</exception>
-        public void CopyProperties(RingtoetsPipingSurfaceLine fromSurfaceLine)
+        public void CopyProperties(PipingSurfaceLine fromSurfaceLine)
         {
             if (fromSurfaceLine == null)
             {
@@ -359,8 +359,8 @@ namespace Ringtoets.Piping.Primitives
             {
                 return true;
             }
-            var other = obj as RingtoetsPipingSurfaceLine;
-            return other != null && Equals((RingtoetsPipingSurfaceLine) obj);
+            var other = obj as PipingSurfaceLine;
+            return other != null && Equals((PipingSurfaceLine) obj);
         }
 
         public override int GetHashCode()
@@ -389,7 +389,7 @@ namespace Ringtoets.Piping.Primitives
             return Name;
         }
 
-        private void SetCharacteristicPoints(RingtoetsPipingSurfaceLine fromSurfaceLine)
+        private void SetCharacteristicPoints(PipingSurfaceLine fromSurfaceLine)
         {
             if (fromSurfaceLine.BottomDitchDikeSide != null)
             {
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Primitives
             DitchPolderSide = null;
         }
 
-        private bool Equals(RingtoetsPipingSurfaceLine other)
+        private bool Equals(PipingSurfaceLine other)
         {
             return string.Equals(Name, other.Name)
                    && Equals(ReferenceLineIntersectionWorldPoint, other.ReferenceLineIntersectionWorldPoint)
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Primitives
                    && EqualCharacteristicPoints(other);
         }
 
-        private bool EqualCharacteristicPoints(RingtoetsPipingSurfaceLine other)
+        private bool EqualCharacteristicPoints(PipingSurfaceLine other)
         {
             return Equals(DikeToeAtPolder, other.DikeToeAtPolder)
                    && Equals(DikeToeAtRiver, other.DikeToeAtRiver)

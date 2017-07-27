@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void CreateUpdateStrategyConfiguration_Always_ReturnsUpdateStrategyAndTransformerForPiping()
         {
             // Call
-            SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
+            SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_Always_ReturnsReplaceStrategyAndTransformerForPiping()
         {
             // Call
-            SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
+            SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine> result = SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new PipingFailureMechanism(), new ReferenceLine());
 
             // Assert
             Assert.IsNotNull(result);

@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
 
             // Call
-            RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, surfaceLine.Name);
@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
 
             // Call
-            RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, surfaceLine.Name);
@@ -202,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[6], CharacteristicPointType.DitchPolderSide));
 
             // Call
-            RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, surfaceLine.Name);
@@ -274,7 +274,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
 
             // Call
-            RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, surfaceLine.Name);
@@ -305,8 +305,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
 
             // Call
-            RingtoetsPipingSurfaceLine surfaceLine1 = entity.Read(collector);
-            RingtoetsPipingSurfaceLine surfaceLine2 = entity.Read(collector);
+            PipingSurfaceLine surfaceLine1 = entity.Read(collector);
+            PipingSurfaceLine surfaceLine2 = entity.Read(collector);
 
             // Assert
             Assert.AreSame(surfaceLine1, surfaceLine2);

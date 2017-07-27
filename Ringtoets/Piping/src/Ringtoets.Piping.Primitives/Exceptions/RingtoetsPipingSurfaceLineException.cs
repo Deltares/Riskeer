@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 namespace Ringtoets.Piping.Primitives.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when operations on <see cref="RingtoetsPipingSurfaceLine"/> encounter 
+    /// The exception that is thrown when operations on <see cref="PipingSurfaceLine"/> encounter 
     /// an error.
     /// </summary>
     [Serializable]

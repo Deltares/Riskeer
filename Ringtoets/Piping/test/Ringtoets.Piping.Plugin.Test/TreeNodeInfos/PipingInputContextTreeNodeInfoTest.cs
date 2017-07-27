@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());

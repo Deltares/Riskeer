@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Factories
     internal static class PipingMapDataFactory
     {
         /// <summary>
-        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="PipingSurfaceLine"/>.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSurfaceLinesMapData()

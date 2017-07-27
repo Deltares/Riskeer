@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>>(importer);
+            Assert.IsInstanceOf<SurfaceLinesCsvImporter<PipingSurfaceLine>>(importer);
             mocks.VerifyAll();
         }
     }

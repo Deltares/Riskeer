@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
             var index = 0;
-            foreach (RingtoetsPipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
+            foreach (PipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
             {
                 entity.SurfaceLineEntities.Add(surfaceLine.Create(registry, index++));
             }

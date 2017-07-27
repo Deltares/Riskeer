@@ -540,7 +540,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    "DR6_surfacelines.csv",
                                                                                    "DR6_surfacelines.krp.csv"))
             {
-                var surfaceLinesImporter = new SurfaceLinesCsvImporter<RingtoetsPipingSurfaceLine>(
+                var surfaceLinesImporter = new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     pipingFailureMechanism.SurfaceLines,
                     Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                  "DR6_surfacelines.csv"),

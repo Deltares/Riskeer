@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 surfaceLine.SetDitchDikeSideAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetBottomDitchDikeSideAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetDitchPolderSideAt(new Point3D(1.2, 2.3, 4.0));
@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
@@ -285,7 +285,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
@@ -424,7 +424,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 var characteristicPoint = new Point3D(1.2, 2.3, 4.0);
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
                 surfaceLine.SetDitchDikeSideAt(characteristicPoint);
                 surfaceLine.SetBottomDitchDikeSideAt(characteristicPoint);
@@ -465,7 +465,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dikeToeAtRiverData.Attach(observer);
 
                 var characteristicPoint2 = new Point3D(3.5, 2.3, 8.0);
-                RingtoetsPipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 surfaceLine2.SetDitchDikeSideAt(characteristicPoint2);
                 surfaceLine2.SetBottomDitchDikeSideAt(characteristicPoint2);
@@ -511,7 +511,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 StochasticSoilProfile soilProfile = GetStochasticSoilProfile();
                 var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
                 {
@@ -601,7 +601,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
 
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
 
                 // Call
@@ -644,7 +644,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
@@ -665,7 +665,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 view.Data = calculation2;
 
-                RingtoetsPipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
                 calculation1.InputParameters.SurfaceLine = surfaceLine2;
 
@@ -684,7 +684,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Given
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
@@ -726,7 +726,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
         }
 
-        private static RingtoetsPipingSurfaceLine GetSurfaceLineWithGeometry()
+        private static PipingSurfaceLine GetSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -737,7 +737,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static RingtoetsPipingSurfaceLine GetSecondSurfaceLineWithGeometry()
+        private static PipingSurfaceLine GetSecondSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -748,9 +748,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static RingtoetsPipingSurfaceLine GetSurfaceLine(Point3D[] points)
+        private static PipingSurfaceLine GetSurfaceLine(Point3D[] points)
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = "Surface line name"
             };
@@ -830,7 +830,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private static void AssertSurfaceLineChartData(RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
+        private static void AssertSurfaceLineChartData(PipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartLineData>(chartData);
             var surfaceLineChartData = (ChartLineData) chartData;
@@ -840,7 +840,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }
 
-        private static void AssertEntryPointLPointchartData(PipingInput pipingInput, RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
+        private static void AssertEntryPointLPointchartData(PipingInput pipingInput, PipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartPointData>(chartData);
             var entryPointChartData = (ChartPointData) chartData;
@@ -854,7 +854,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Intredepunt", entryPointChartData.Name);
         }
 
-        private static void AssertExitPointLPointchartData(PipingInput pipingInput, RingtoetsPipingSurfaceLine surfaceLine, ChartData chartData)
+        private static void AssertExitPointLPointchartData(PipingInput pipingInput, PipingSurfaceLine surfaceLine, ChartData chartData)
         {
             Assert.IsInstanceOf<ChartPointData>(chartData);
             var exitPointChartData = (ChartPointData) chartData;
@@ -868,7 +868,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Uittredepunt", exitPointChartData.Name);
         }
 
-        private static void AssertCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, IList<ChartData> characteristicPoints)
+        private static void AssertCharacteristicPoints(PipingSurfaceLine surfaceLine, IList<ChartData> characteristicPoints)
         {
             Point3D first = surfaceLine.Points.First();
             Point3D last = surfaceLine.Points.Last();

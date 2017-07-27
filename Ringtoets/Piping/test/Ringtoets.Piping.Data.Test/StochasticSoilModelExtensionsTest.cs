@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IntersectsWithSurfaceLineGeometry_SoilModelNull_ThrowArgumentNullException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point2D(5.0, 0.0)
             });
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Data.Test
                 new Point2D(5.0, 0.0)
             });
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),

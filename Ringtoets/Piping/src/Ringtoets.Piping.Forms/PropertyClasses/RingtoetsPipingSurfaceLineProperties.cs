@@ -33,10 +33,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="PipingSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
-    public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
+    public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Name_DisplayName))]

@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(RingtoetsPipingSurfaceLine),
+                    typeof(PipingSurfaceLine),
                     typeof(RingtoetsPipingSurfaceLineProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilProfile)));

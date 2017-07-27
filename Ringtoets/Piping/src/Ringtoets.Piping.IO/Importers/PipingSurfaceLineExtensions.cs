@@ -29,7 +29,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
-    /// Extension methods for the <see cref="RingtoetsPipingSurfaceLine"/> class.
+    /// Extension methods for the <see cref="PipingSurfaceLine"/> class.
     /// </summary>
     public static class PipingSurfaceLineExtensions
     {
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
         /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="characteristicPoints"/> defines
         /// a dike toe at polder side in front of the dike toe at river side.</exception>
-        public static void SetCharacteristicPoints(this RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        public static void SetCharacteristicPoints(this PipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (surfaceLine == null)
             {
@@ -66,13 +66,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.DitchPolderSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.</param>
-        private static void TrySetDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.DitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.DitchPolderSide"/>.</param>
+        private static void TrySetDitchPolderSide(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -88,13 +88,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.BottomDitchPolderSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.</param>
-        private static void TrySetBottomDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.BottomDitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.BottomDitchPolderSide"/>.</param>
+        private static void TrySetBottomDitchPolderSide(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -110,13 +110,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.BottomDitchDikeSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.</param>
-        private static void TrySetBottomDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.BottomDitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.BottomDitchDikeSide"/>.</param>
+        private static void TrySetBottomDitchDikeSide(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -132,13 +132,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.DitchDikeSide"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.</param>
-        private static void TrySetDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.DitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.DitchDikeSide"/>.</param>
+        private static void TrySetDitchDikeSide(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -154,13 +154,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.DikeToeAtRiver"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/>.</param>
-        private static void TrySetDikeToeAtRiver(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.DikeToeAtRiver"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.DikeToeAtRiver"/>.</param>
+        private static void TrySetDikeToeAtRiver(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -176,13 +176,13 @@ namespace Ringtoets.Piping.IO.Importers
         }
 
         /// <summary>
-        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> at the location of
+        /// Tries to set the <see cref="PipingSurfaceLine.DikeToeAtPolder"/> at the location of
         /// <paramref name="point"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
-        /// <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.</param>
-        private static void TrySetDikeToeAtPolder(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
+        /// <param name="surfaceLine">The <see cref="PipingSurfaceLine"/> to set the 
+        /// <see cref="PipingSurfaceLine.DikeToeAtPolder"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="PipingSurfaceLine.DikeToeAtPolder"/>.</param>
+        private static void TrySetDikeToeAtPolder(this PipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
             {
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.IO.Importers
             }
         }
 
-        private static void LogError(RingtoetsPipingSurfaceLine surfaceLine, ArgumentException e)
+        private static void LogError(PipingSurfaceLine surfaceLine, ArgumentException e)
         {
             log.ErrorFormat(Resources.SurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
                             surfaceLine.Name,
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="characteristicPoints">The characteristic points (possibly) containing the dike toes.</param>
         /// <exception cref="SurfaceLineTransformException">Thrown when the dike toes are not in the right order.</exception>
-        private static void ValidateDikeToesInOrder(this RingtoetsPipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
+        private static void ValidateDikeToesInOrder(this PipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (characteristicPoints.DikeToeAtRiver != null && characteristicPoints.DikeToeAtPolder != null)
             {

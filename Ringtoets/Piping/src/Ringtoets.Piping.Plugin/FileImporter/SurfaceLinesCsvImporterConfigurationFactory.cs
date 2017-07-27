@@ -38,9 +38,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism to replace the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the replace operation.</returns>
-        public static SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> CreateReplaceStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)
+        public static SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine> CreateReplaceStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)
         {
-            return new SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine>(
+            return new SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine>(
                 new PipingSurfaceLineTransformer(referenceLine),
                 new PipingSurfaceLineReplaceDataStrategy(failureMechanism));
         }
@@ -51,9 +51,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism to update the surface lines for.</param>
         /// <param name="referenceLine">The reference line to use for matching imported surface lines on.</param>
         /// <returns>The configuration for the update operation.</returns>
-        public static SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine> CreateUpdateStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)
+        public static SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine> CreateUpdateStrategyConfiguration(PipingFailureMechanism failureMechanism, ReferenceLine referenceLine)
         {
-            return new SurfaceLinesCsvImporterConfiguration<RingtoetsPipingSurfaceLine>(
+            return new SurfaceLinesCsvImporterConfiguration<PipingSurfaceLine>(
                 new PipingSurfaceLineTransformer(referenceLine),
                 new PipingSurfaceLineUpdateDataStrategy(failureMechanism));
         }

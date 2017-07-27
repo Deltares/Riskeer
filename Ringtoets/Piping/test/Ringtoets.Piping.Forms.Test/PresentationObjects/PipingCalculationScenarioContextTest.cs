@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var surfaceLines = new[]
             {
-                new RingtoetsPipingSurfaceLine()
+                new PipingSurfaceLine()
             };
             var soilModels = new[]
             {

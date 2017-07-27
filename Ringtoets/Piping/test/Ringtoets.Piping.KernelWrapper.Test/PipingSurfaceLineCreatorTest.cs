@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
+using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Local coordinate surface line";
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -49,7 +50,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             });
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Local coordinate surface line";
             const double firstX = 4.6;
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -77,7 +78,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             });
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
@@ -93,7 +94,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Global coordinate surface line";
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -105,7 +106,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             });
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             double length = Math.Sqrt(2 * 2 + 3 * 3);
@@ -128,7 +129,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Global coordinate surface line";
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -138,7 +139,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             });
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             double[] expectedCoordinatesX =
@@ -157,13 +158,13 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surface line without points";
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -176,7 +177,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -187,7 +188,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetDikeToeAtPolderAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -201,7 +202,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -212,7 +213,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetDitchDikeSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -226,7 +227,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -237,7 +238,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetDitchDikeSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -251,7 +252,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -262,7 +263,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetBottomDitchDikeSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -276,7 +277,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -287,7 +288,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetBottomDitchPolderSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -301,7 +302,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -312,7 +313,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetDitchPolderSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);
@@ -326,7 +327,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             const string name = "Surface line without points";
             var point = new Point3D(1.0, 1.0, 2.2);
-            var surfaceLine = new RingtoetsPipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine
             {
                 Name = name
             };
@@ -342,7 +343,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             surfaceLine.SetDitchPolderSideAt(point);
 
             // Call
-            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+            Deltares.WTIPiping.PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
             Assert.AreEqual(name, actual.Name);

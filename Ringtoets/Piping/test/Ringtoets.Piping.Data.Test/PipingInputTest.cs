@@ -304,7 +304,7 @@ namespace Ringtoets.Piping.Data.Test
         public void EntryPointL_Always_SameNumberOfDecimalsAsSurfaceLineLocalGeometry()
         {
             // Setup
-            RingtoetsPipingSurfaceLine surfaceLine = CreateSurfaceLine();
+            PipingSurfaceLine surfaceLine = CreateSurfaceLine();
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -344,7 +344,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -375,7 +375,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -424,7 +424,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -497,7 +497,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsEntryAndExitPointInputSynchronized_SurfaceLineAndInputInSync_ReturnTrue()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Data.Test
         public void IsEntryAndExitPointInputSynchronized_SurfaceLineAndInputNotInSync_ReturnFalse(Point3D newDikeToeAtRiver, Point3D newDikeToeAtPolder)
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -572,7 +572,7 @@ namespace Ringtoets.Piping.Data.Test
             // Given
             var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1272,9 +1272,9 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
         }
 
-        private static RingtoetsPipingSurfaceLine CreateSurfaceLine()
+        private static PipingSurfaceLine CreateSurfaceLine()
         {
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),

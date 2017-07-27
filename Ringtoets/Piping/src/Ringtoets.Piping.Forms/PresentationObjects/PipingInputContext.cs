@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingInputContext(PipingInput pipingInput,
                                   PipingCalculationScenario calculation,
-                                  IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+                                  IEnumerable<PipingSurfaceLine> surfaceLines,
                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
                                   IAssessmentSection assessmentSection)
