@@ -44,7 +44,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -112,33 +111,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
-        {
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-
-            var comment = children[0] as Comment;
-            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
-
-            var closingStructuresInputContext = children[1] as ClosingStructuresInputContext;
-            Assert.IsNotNull(closingStructuresInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, closingStructuresInputContext.WrappedData);
-
-            Assert.IsInstanceOf<EmptyProbabilityAssessmentOutput>(children[2]);
-        }
-
-        [Test]
-        public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData(bool hasOutput)
         {
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -146,7 +121,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Output = new TestStructuresOutput()
+                Output = hasOutput ? new TestStructuresOutput() : null
             };
 
             var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);

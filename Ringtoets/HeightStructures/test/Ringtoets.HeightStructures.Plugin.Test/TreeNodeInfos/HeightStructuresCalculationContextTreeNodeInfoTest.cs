@@ -41,7 +41,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -126,34 +125,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
-        {
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-
-            var comment = children[0] as Comment;
-            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
-
-            var heightStructuresInputContext = children[1] as HeightStructuresInputContext;
-            Assert.IsNotNull(heightStructuresInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
-
-            var emptyOutput = children[2] as EmptyProbabilityAssessmentOutput;
-            Assert.IsNotNull(emptyOutput);
-        }
-
-        [Test]
-        public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData(bool hasOutput)
         {
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -161,7 +135,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new TestStructuresOutput()
+                Output = hasOutput ? new TestStructuresOutput() : null
             };
 
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);

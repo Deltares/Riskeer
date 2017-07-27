@@ -36,7 +36,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -711,25 +710,15 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static object[] CalculationContextChildNodeObjects(HeightStructuresCalculationContext context)
         {
-            var childNodes = new List<object>
+            return new object[]
             {
                 context.WrappedData.Comments,
                 new HeightStructuresInputContext(context.WrappedData.InputParameters,
                                                  context.WrappedData,
                                                  context.FailureMechanism,
-                                                 context.AssessmentSection)
+                                                 context.AssessmentSection),
+                new StructuresOutputContext(context.WrappedData)
             };
-
-            if (context.WrappedData.HasOutput)
-            {
-                childNodes.Add(new StructuresOutputContext(context.WrappedData));
-            }
-            else
-            {
-                childNodes.Add(new EmptyProbabilityAssessmentOutput());
-            }
-
-            return childNodes.ToArray();
         }
 
         private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationContext context,

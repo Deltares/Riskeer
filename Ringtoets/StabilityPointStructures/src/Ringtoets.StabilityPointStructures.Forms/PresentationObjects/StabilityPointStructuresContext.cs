@@ -62,11 +62,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section of this instance.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the parent failure mechanism of this instance.
         /// </summary>
-        public StabilityPointStructuresFailureMechanism FailureMechanism { get; private set; }
+        public StabilityPointStructuresFailureMechanism FailureMechanism { get; }
     }
 }

@@ -65,11 +65,11 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section of this instance.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the failure mechanism of this instance.
         /// </summary>
-        public HeightStructuresFailureMechanism FailureMechanism { get; private set; }
+        public HeightStructuresFailureMechanism FailureMechanism { get; }
     }
 }
