@@ -185,6 +185,11 @@ namespace Ringtoets.Common.Data
             return !(firstLocalPoint.X > roundedLocalCoordinateL) && !(lastLocalPoint.X < roundedLocalCoordinateL);
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         /// <summary>
         /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
         /// </summary>

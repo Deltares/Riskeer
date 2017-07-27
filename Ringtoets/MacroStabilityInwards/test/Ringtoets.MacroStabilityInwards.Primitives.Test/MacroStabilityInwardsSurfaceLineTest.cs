@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives.Exceptions;
+using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -223,7 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsMacroStabilityInwardsSurfaceLineException()
+        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsMechanismSurfaceLineException()
         {
             // Setup
             double testZ = new Random(22).NextDouble();
@@ -242,7 +242,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var exception = Assert.Throws<MacroStabilityInwardsSurfaceLineException>(test);
+            var exception = Assert.Throws<MechanismSurfaceLineException>(test);
             string message = $"Kan geen hoogte bepalen op het punt met de lokale coördinaat {l}, omdat de profielschematisatie verticaal loopt op dat punt.";
             Assert.AreEqual(message, exception.Message);
         }

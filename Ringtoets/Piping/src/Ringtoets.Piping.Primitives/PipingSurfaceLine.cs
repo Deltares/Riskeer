@@ -228,11 +228,6 @@ namespace Ringtoets.Piping.Primitives
             }
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
         private void SetCharacteristicPoints(PipingSurfaceLine fromSurfaceLine)
         {
             if (fromSurfaceLine.BottomDitchDikeSide != null)
