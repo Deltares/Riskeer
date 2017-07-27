@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Piping.Primitives.Exceptions;
 
 namespace Ringtoets.Piping.Data
 {
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Data
             }
             catch (Exception e)
             {
-                if (e is PipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
+                if (e is MechanismSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
                 {
                     return double.NaN;
                 }
@@ -524,7 +524,7 @@ namespace Ringtoets.Piping.Data
             }
             catch (Exception e)
             {
-                if (e is PipingSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
+                if (e is MechanismSurfaceLineException || e is InvalidOperationException || e is ArgumentException)
                 {
                     return double.NaN;
                 }

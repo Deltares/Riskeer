@@ -71,6 +71,7 @@
     <Compile Include="DikeProfiles\ForeshoreProfileCollectionTest.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
     <Compile Include="Exceptions\IllustrationPointConversionExceptionTest.cs" />
+    <Compile Include="Exceptions\MechanismSurfaceLineExceptionTest.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneStateTest.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerTwoAResultTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />

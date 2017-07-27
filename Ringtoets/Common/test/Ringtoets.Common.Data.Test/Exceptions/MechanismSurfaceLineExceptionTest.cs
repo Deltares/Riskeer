@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives.Exceptions;
+using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.Piping.Primitives.Test.Exceptions
+namespace Ringtoets.Common.Data.Test.Exceptions
 {
     [TestFixture]
-    public class PipingSurfaceLineExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<PipingSurfaceLineException, Exception> {}
+    public class MechanismSurfaceLineExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<MechanismSurfaceLineException, Exception> {}
 }

@@ -60,6 +60,7 @@
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
     <Compile Include="Exceptions\IllustrationPointConversionException.cs" />
+    <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\DesignWaterLevelCalculation.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Hydraulics\IHydraulicBoundaryWrapperCalculation.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculation.cs" />
     <Compile Include="IMechanismSurfaceLine.cs" />
+    <Compile Include="MechanismSurfaceLineBase.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />

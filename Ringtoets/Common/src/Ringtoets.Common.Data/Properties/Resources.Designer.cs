@@ -571,6 +571,71 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} De lokale coördinaat moet in het bereik {1} liggen..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_0_L_needs_to_be_in_Range_1_ {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_0_L_needs_to_be_in_Range_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een punt in de geometrie voor de profielschematisatie heeft geen waarde..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_A_point_in_the_collection_was_null {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_A_point_in_the_collection_was_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen hoogte bepalen op het punt met de lokale coördinaat {0}, omdat de profielschematisatie verticaal loopt op dat punt..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_Cannot_determine_reliable_z_when_surface_line_is_vertica" +
+                        "l_in_l", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_Collection_of_points_for_geometry_is_null {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_Collection_of_points_for_geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen hoogte bepalen..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_GetZAtL_Cannot_determine_height {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_GetZAtL_Cannot_determine_height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie {0} om als &apos;{1}&apos; in te stellen..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_ {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point" +
+                        "_at_0_to_assign_as_characteristic_point_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De profielschematisatie heeft geen geometrie..
+        /// </summary>
+        public static string MechanismSurfaceLineBase_SurfaceLine_has_no_Geometry {
+            get {
+                return ResourceManager.GetString("MechanismSurfaceLineBase_SurfaceLine_has_no_Geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;N&apos; moet in het bereik {0} liggen..
         /// </summary>
         public static string N_Value_should_be_in_Range_0_ {
