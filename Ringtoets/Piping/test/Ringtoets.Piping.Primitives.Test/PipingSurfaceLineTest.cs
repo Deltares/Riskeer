@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.Piping.Primitives.Test
@@ -42,120 +42,7 @@ namespace Ringtoets.Piping.Primitives.Test
             var surfaceLine = new PipingSurfaceLine();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(surfaceLine);
-            Assert.IsEmpty(surfaceLine.Name);
-            CollectionAssert.IsEmpty(surfaceLine.Points);
-            Assert.IsNull(surfaceLine.StartingWorldPoint);
-            Assert.IsNull(surfaceLine.EndingWorldPoint);
-            Assert.IsNull(surfaceLine.ReferenceLineIntersectionWorldPoint);
-        }
-
-        [Test]
-        public void ReferenceLineIntersectionWorldPoint_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            var point = new Point2D(1.2, 3.4);
-
-            // Call
-            surfaceLine.ReferenceLineIntersectionWorldPoint = point;
-
-            // Assert
-            Assert.AreEqual(point, surfaceLine.ReferenceLineIntersectionWorldPoint);
-        }
-
-        [Test]
-        public void SetGeometry_EmptyCollection_PointsSetEmptyAndNullStartAndEndWorldPoints()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            IEnumerable<Point3D> sourceData = Enumerable.Empty<Point3D>();
-
-            // Call
-            surfaceLine.SetGeometry(sourceData);
-
-            // Assert
-            CollectionAssert.IsEmpty(surfaceLine.Points);
-            Assert.IsNull(surfaceLine.StartingWorldPoint);
-            Assert.IsNull(surfaceLine.EndingWorldPoint);
-        }
-
-        [Test]
-        public void SetGeometry_CollectionOfOnePoint_InitializeStartAndEndWorldPointsToSameInstanceAndInitializePoints()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            var sourceData = new[]
-            {
-                new Point3D(1.1, 2.2, 3.3)
-            };
-
-            // Call
-            surfaceLine.SetGeometry(sourceData);
-
-            // Assert
-            Assert.AreNotSame(sourceData, surfaceLine.Points);
-            CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.StartingWorldPoint);
-            TestHelper.AssertAreEqualButNotSame(sourceData[0], surfaceLine.EndingWorldPoint);
-        }
-
-        [Test]
-        public void SetGeometry_CollectionOfMultiplePoints_InitializeStartAndEndWorldPointsInitializePoints()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            var sourceData = new[]
-            {
-                new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6),
-                new Point3D(7.7, 8.8, 9.9),
-                new Point3D(10.10, 11.11, 12.12)
-            };
-
-            // Call
-            surfaceLine.SetGeometry(sourceData);
-
-            // Assert
-            Assert.AreNotSame(sourceData, surfaceLine.Points);
-            CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
-            Assert.AreEqual(sourceData[0], surfaceLine.StartingWorldPoint);
-            Assert.AreEqual(sourceData[3], surfaceLine.EndingWorldPoint);
-        }
-
-        [Test]
-        public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith("De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.", exception.Message);
-        }
-
-        [Test]
-        public void SetGeometry_GeometryContainsNullPoint_ThrowsArgumentException()
-        {
-            // Setup
-            var surfaceLine = new PipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
-            {
-                null
-            });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            StringAssert.StartsWith("Een punt in de geometrie voor de profielschematisatie heeft geen waarde.", exception.Message);
+            Assert.IsInstanceOf<MechanismSurfaceLineBase>(surfaceLine);
         }
 
         [Test]

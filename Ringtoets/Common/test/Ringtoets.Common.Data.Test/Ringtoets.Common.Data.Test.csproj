@@ -94,6 +94,7 @@
     <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTest.cs" />
     <Compile Include="Hydraulics\WaveHeightCalculationTest.cs" />
+    <Compile Include="MechanismSurfaceLineBaseTest.cs" />
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculatorTest.cs" />
