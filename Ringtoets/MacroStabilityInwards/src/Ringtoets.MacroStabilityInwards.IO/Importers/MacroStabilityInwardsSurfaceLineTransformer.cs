@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
     /// <summary>
-    /// Transforms generic <see cref="SurfaceLine"/> into macro stability specific <see cref="MacroStabilityInwardsSurfaceLine"/>.
+    /// Transforms generic <see cref="SurfaceLine"/> into macro stability inwards specific <see cref="MacroStabilityInwardsSurfaceLine"/>.
     /// </summary>
     public class MacroStabilityInwardsSurfaceLineTransformer : ISurfaceLineTransformer<MacroStabilityInwardsSurfaceLine>
     {
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
         public MacroStabilityInwardsSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
-            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             var macroStabilityInwardsSurfaceLine = new MacroStabilityInwardsSurfaceLine
             {

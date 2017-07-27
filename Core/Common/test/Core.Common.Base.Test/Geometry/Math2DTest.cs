@@ -109,7 +109,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void LineIntersectionWithLine_InterSectionsHigherUpX_ReturnsIntersectionWithTolerance()
+        public void LineIntersectionWithLine_IntersectionsHigherUpX_ReturnsIntersectionWithTolerance()
         {
             // Setup
             const double y1 = 5.925;

@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="DitchPolderSide"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="DitchDikeSide"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Primitives
         /// Sets the <see cref="DikeToeAtPolder"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)

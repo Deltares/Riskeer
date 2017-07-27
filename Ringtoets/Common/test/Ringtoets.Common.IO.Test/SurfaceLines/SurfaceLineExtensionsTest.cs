@@ -31,10 +31,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
     public class SurfaceLineExtensionsTest
     {
         [Test]
-        public void GetSingleReferenceLineInterSection_WithoutSurfaceLine_ThrowsArgumentNullException()
+        public void GetSingleReferenceLineIntersection_WithoutSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((SurfaceLine) null).GetSingleReferenceLineInterSection(new ReferenceLine());
+            TestDelegate test = () => ((SurfaceLine) null).GetSingleReferenceLineIntersection(new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -42,10 +42,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_WithoutReferenceLine_ThrowsArgumentNullException()
+        public void GetSingleReferenceLineIntersection_WithoutReferenceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SurfaceLine().GetSingleReferenceLineInterSection(null);
+            TestDelegate test = () => new SurfaceLine().GetSingleReferenceLineIntersection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_SurfaceLineThroughReferenceLine_ReturnIntersectionPoint()
+        public void GetSingleReferenceLineIntersection_SurfaceLineThroughReferenceLine_ReturnIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -75,14 +75,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            Point2D result = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             Assert.AreEqual(new Point2D(3.0, 4.5), result);
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_SurfaceLineThroughReferenceLinePoint_ReturnIntersectionPoint()
+        public void GetSingleReferenceLineIntersection_SurfaceLineThroughReferenceLinePoint_ReturnIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -105,14 +105,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            Point2D result = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             Assert.AreEqual(new Point2D(3.0, 4.5), result);
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformException()
+        public void GetSingleReferenceLineIntersection_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            TestDelegate test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_SurfaceLineIntersectsReferenceLineMultipleTimesInSamePoint_ReturnsIntersectionPoint()
+        public void GetSingleReferenceLineIntersection_SurfaceLineIntersectsReferenceLineMultipleTimesInSamePoint_ReturnsIntersectionPoint()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -166,14 +166,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            Point2D result = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            Point2D result = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             Assert.AreEqual(new Point2D(1.0, 4.0), result);
         }
 
         [Test]
-        public void GetSingleReferenceLineInterSection_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformException()
+        public void GetSingleReferenceLineIntersection_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            TestDelegate test = () => surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";

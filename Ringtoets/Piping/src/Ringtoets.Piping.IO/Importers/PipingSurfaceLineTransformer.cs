@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         public PipingSurfaceLine Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
-            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineInterSection(referenceLine);
+            Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
             var pipingSurfaceLine = new PipingSurfaceLine
             {

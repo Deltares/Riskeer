@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <item>has more than one intersection with the reference line.</item>
         /// </list>
         /// </exception>
-        public static Point2D GetSingleReferenceLineInterSection(this SurfaceLine surfaceLine, ReferenceLine referenceLine)
+        public static Point2D GetSingleReferenceLineIntersection(this SurfaceLine surfaceLine, ReferenceLine referenceLine)
         {
             if (surfaceLine == null)
             {
@@ -73,14 +73,14 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.NoIntersections)
             {
-                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_,
+                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_,
                                                surfaceLine.Name,
-                                               Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_This_could_be_caused_coordinates_being_local_coordinate_system);
+                                               Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coordinates_being_local_coordinate_system);
                 throw new SurfaceLineTransformException(message);
             }
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
-                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineInterSection_SurfaceLine_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
+                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
                 throw new SurfaceLineTransformException(message);
             }
 
