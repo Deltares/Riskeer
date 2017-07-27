@@ -294,9 +294,9 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het uitlezen van illustratiepunten is mislukt..
         /// </summary>
-        public static string SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed {
+        public static string SetGeneralResult_Converting_IllustrationPointResult_Failed {
             get {
-                return ResourceManager.GetString("SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed", resourceCulture);
+                return ResourceManager.GetString("SetGeneralResult_Converting_IllustrationPointResult_Failed", resourceCulture);
             }
         }
         

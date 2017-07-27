@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
+        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void SetIllustrationPoints_ValidGeneralResult_SetExpectedProperties()
+        public void SetGeneralResult_ValidGeneralResult_SetExpectedProperties()
         {
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();

@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the value indicating whether the output contains illustration points.
+        /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
         public bool HasGeneralResult
         {

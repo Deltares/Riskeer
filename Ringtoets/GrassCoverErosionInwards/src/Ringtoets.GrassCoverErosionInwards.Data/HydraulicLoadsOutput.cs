@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public CalculationConvergence CalculationConvergence { get; }
 
         /// <summary>
-        /// Gets the value indicating whether the output contains illustration points.
+        /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
         public bool HasGeneralResult
         {

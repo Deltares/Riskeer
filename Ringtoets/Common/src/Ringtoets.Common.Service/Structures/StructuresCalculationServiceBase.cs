@@ -278,7 +278,7 @@ namespace Ringtoets.Common.Service.Structures
 
             if (calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
             {
-                SetIllustrationPointsResult(calculation.Output, calculator.IllustrationPointsResult);
+                SetGeneralResult(calculation.Output, calculator.IllustrationPointsResult);
             }
         }
 
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Service.Structures
         /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private void SetIllustrationPointsResult(StructuresOutput structuresOutput,
+        private void SetGeneralResult(StructuresOutput structuresOutput,
                                                  HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
@@ -307,7 +307,7 @@ namespace Ringtoets.Common.Service.Structures
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
         }
 

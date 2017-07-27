@@ -194,7 +194,7 @@ namespace Ringtoets.Common.Service
 
             if (waveHeightCalculation.CalculateIllustrationPoints)
             {
-                SetIllustrationPointsResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
+                SetGeneralResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
             }
 
             waveHeightCalculation.Output = hydraulicBoundaryLocationOutput;
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Service
         /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private void SetIllustrationPointsResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
+        private void SetGeneralResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
                                                  HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(Resources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
         }
 

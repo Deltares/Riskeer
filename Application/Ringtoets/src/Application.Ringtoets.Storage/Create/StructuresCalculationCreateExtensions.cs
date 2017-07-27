@@ -100,12 +100,12 @@ namespace Application.Ringtoets.Storage.Create
             ProbabilityAssessmentOutput probabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
             var outputEntity = probabilityAssessmentOutput.Create<TOutputEntity>();
 
-            SetIllustrationPoints(outputEntity, calculationOutput);
+            SetGeneralResult(outputEntity, calculationOutput);
 
             outputEntities.Add(outputEntity);
         }
 
-        private static void SetIllustrationPoints(IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity,
+        private static void SetGeneralResult(IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity,
                                                   StructuresOutput calculationOutput)
         {
             if (calculationOutput.HasGeneralResult)

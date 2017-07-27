@@ -116,16 +116,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(32);
-            double targetProbability = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedProbability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(targetProbability,
-                                                                   targetReliability,
-                                                                   calculatedProbability,
-                                                                   calculatedReliability,
-                                                                   convergence);
+            var output = new TestHydraulicLoadsOutput(double.NaN,
+                                                      double.NaN,
+                                                      double.NaN,
+                                                      double.NaN,
+                                                      convergence);
             // Call
             TestDelegate call = () => output.SetGeneralResult(null);
 
@@ -156,6 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.IsTrue(output.HasGeneralResult);
         }
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput

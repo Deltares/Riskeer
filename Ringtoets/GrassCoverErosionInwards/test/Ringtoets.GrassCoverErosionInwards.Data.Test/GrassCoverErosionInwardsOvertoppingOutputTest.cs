@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -69,10 +68,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             const double waveHeight = 3.2934;
 
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = null;
-
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
+            TestDelegate call = () => new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetIllustrationPoints_GeneralResultNull_ThrowsArgumentNullException()
+        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(32);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetIllustrationPoints_ValidGeneralResult_SetsExpectedProperties()
+        public void SetGeneralResult_ValidGeneralResult_SetsExpectedProperties()
         {
             // Setup
             var random = new Random(32);

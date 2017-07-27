@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using Core.Common.Base.IO;
 using Core.Common.Utils;
 using log4net;
@@ -39,9 +41,9 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
@@ -221,9 +223,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> action, HydraRingGeneralResult generalResult, string parserError, bool shouldCalculate)
+        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
+                                             HydraRingGeneralResult generalResult,
+                                             string parserError,
+                                             bool shouldCalculate)
         {
-            if (action == null || !shouldCalculate)
+            if (!shouldCalculate)
             {
                 return;
             }
@@ -231,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             GeneralResult<TopLevelFaultTreeIllustrationPoint> converted = ConvertIllustrationPointsResult(generalResult, parserError);
             if (converted != null)
             {
-                action(converted);
+                setGeneralResultAction(converted);
             }
         }
 
@@ -330,9 +335,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             DikeHeightOutput output = CreateDikeHeightOutput(dikeHeightCalculator,
-                                          calculation.Name,
-                                          dikeHeightCalculationInput.Beta,
-                                          norm);
+                                                             calculation.Name,
+                                                             dikeHeightCalculationInput.Beta,
+                                                             norm);
             SetGeneralResult(output.SetGeneralResult,
                              dikeHeightCalculator.IllustrationPointsResult,
                              dikeHeightCalculator.IllustrationPointsParserErrorMessage,
@@ -388,9 +393,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             OvertoppingRateOutput output = CreateOvertoppingRateOutput(overtoppingRateCalculator,
-                                               calculation.Name,
-                                               overtoppingRateCalculationInput.Beta,
-                                               norm);
+                                                                       calculation.Name,
+                                                                       overtoppingRateCalculationInput.Beta,
+                                                                       norm);
             SetGeneralResult(output.SetGeneralResult,
                              overtoppingRateCalculator.IllustrationPointsResult,
                              overtoppingRateCalculator.IllustrationPointsParserErrorMessage,
@@ -401,7 +406,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <summary>
         /// Performs a grass cover erosion inwards calculation.
         /// </summary>
-        /// <param name="performCalculation">The action that performs the calculation.</param>
+        /// <param name="performCalculation">The setGeneralResultAction that performs the calculation.</param>
         /// <param name="getLastErrorFileContent">The function for obtaining the last error file content.</param>
         /// <param name="getOutputDirectory">The function for obtaining the output directory.</param>
         /// <param name="calculationName">The name of the calculation to perform.</param>
@@ -736,10 +741,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Converts a <see cref="GeneralResult"/> based on the information 
+        /// Converts a <see cref="HydraRingGeneralResult"/> based on the information 
         /// of <paramref name="result"/> to a <see cref="GeneralResult{TopLevelFaultTreeInllustrationPoint}"/> .
         /// </summary>
-        /// <param name="result">The <see cref="GeneralResult"/> to base the 
+        /// <param name="result">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
         /// <param name="errorMessage">Error message to display when the general result is null</param>
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)
@@ -761,7 +766,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(RingtoetsCommonServiceResources.SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(RingtoetsCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
 
             return null;

@@ -315,7 +315,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         }
 
         [Test]
-        public void Read_ValidEntityWithOutputAndIllustrationPoints_ReturnCalculationWithOutputAndGeneralResult()
+        public void Read_ValidEntityWithOutputAndGeneralResult_ReturnCalculationWithOutputAndGeneralResult()
         {
             // Setup
             var random = new Random(678);

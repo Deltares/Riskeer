@@ -206,7 +206,7 @@
   <data name="Perform_wave_conditions_calculation_with_name_0_" xml:space="preserve">
     <value>Golfcondities berekenen voor '{0}'</value>
   </data>
-  <data name="SetIllustrationPointsResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
+  <data name="SetGeneralResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
     <value>Het uitlezen van illustratiepunten is mislukt.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report" xml:space="preserve">
