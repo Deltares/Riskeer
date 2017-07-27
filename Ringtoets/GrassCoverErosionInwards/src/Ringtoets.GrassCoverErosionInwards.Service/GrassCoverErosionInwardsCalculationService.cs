@@ -203,10 +203,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                           failureMechanismContribution,
                                                                                           generalInput.N,
                                                                                           overtoppingCalculator.ExceedanceProbabilityBeta));
-                SetGeneralResult(overtoppingOutput.SetGeneralResult,
-                                 overtoppingCalculator.IllustrationPointsResult,
-                                 overtoppingCalculator.IllustrationPointsParserErrorMessage,
-                                 calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+
+                bool overtoppingConversionSuccess = SetGeneralResult(overtoppingOutput.SetGeneralResult,
+                                                          overtoppingCalculator.IllustrationPointsResult,
+                                                          overtoppingCalculator.IllustrationPointsParserErrorMessage,
+                                                          calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+
+                if (!overtoppingConversionSuccess && calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
+                {
+                    dikeHeightOutput.ClearGeneralResult();
+                    overtoppingRateOutput.ClearGeneralResult();
+                }
 
                 calculation.Output = new GrassCoverErosionInwardsOutput(
                     overtoppingOutput,
@@ -223,21 +230,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
+        private static bool SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
                                              HydraRingGeneralResult generalResult,
                                              string parserError,
                                              bool shouldCalculate)
         {
             if (!shouldCalculate)
             {
-                return;
+                return false;
             }
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> converted = ConvertIllustrationPointsResult(generalResult, parserError);
-            if (converted != null)
+            if (converted == null)
             {
-                setGeneralResultAction(converted);
+                return false;
             }
+
+            setGeneralResultAction(converted);
+            return true;
         }
 
         private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory)

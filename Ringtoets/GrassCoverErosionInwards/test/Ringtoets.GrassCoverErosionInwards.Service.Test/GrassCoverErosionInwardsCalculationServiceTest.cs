@@ -650,25 +650,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var expectedExceptionThrown = false;
-
             // Call
             Action call = () =>
             {
-                try
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                }
-                catch (HydraRingFileParserException)
-                {
-                    expectedExceptionThrown = true;
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 }
             };
 
@@ -693,7 +684,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     msgs[3]);
                 CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
-            Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
 
             mockRepository.VerifyAll();
@@ -733,25 +723,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 }
             };
 
-            var expectedExceptionThrown = false;
-
             // Call
             Action call = () =>
             {
-                try
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                }
-                catch (HydraRingFileParserException)
-                {
-                    expectedExceptionThrown = true;
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 }
             };
 
@@ -776,7 +757,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     msgs[3]);
                 CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
             });
-            Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
 
             mockRepository.VerifyAll();
@@ -1209,23 +1189,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1250,7 +1221,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1290,23 +1260,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1331,7 +1292,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1372,23 +1332,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1414,7 +1365,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1457,23 +1407,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1498,7 +1439,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1539,23 +1479,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1580,7 +1511,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1621,23 +1551,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var exceptionThrown = false;
-
                 // Call
                 Action call = () =>
                 {
-                    try
-                    {
-                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution,
-                                                                                   validFile);
-                    }
-                    catch (HydraRingFileParserException)
-                    {
-                        exceptionThrown = true;
-                    }
+                    new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism.GeneralInput,
+                                                                               failureMechanism.Contribution,
+                                                                               validFile);
                 };
 
                 // Assert
@@ -1662,7 +1583,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(exceptionThrown);
             }
         }
 
@@ -1740,9 +1660,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 });
 
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
-                Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
 
             mockRepository.VerifyAll();
@@ -2230,8 +2150,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 });
 
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
-                Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
             }
 
@@ -2352,10 +2272,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution,
-                                                                               validFile);
+                                                                                               assessmentSectionStub,
+                                                                                               failureMechanism.GeneralInput,
+                                                                                               failureMechanism.Contribution,
+                                                                                               validFile);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
