@@ -1128,4 +1128,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SurfaceLine_Description" xml:space="preserve">
     <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
   </data>
+  <data name="IllustrationPointProperty_IllustrationPoints_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IllustrationPointProperty_IllustrationPoints_DisplayName" xml:space="preserve">
+    <value>Illustratiepunten</value>
+  </data>
+  <data name="IllustrationPoint_Realization_Description" xml:space="preserve">
+    <value>Realisaties van de stochasten in het illustratiepunt</value>
+  </data>
+  <data name="IllustrationPoint_Realization_DisplayName" xml:space="preserve">
+    <value>Waarden in het illustratiepunt</value>
+  </data>
 </root>

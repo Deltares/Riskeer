@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -48,6 +49,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
 
             Data = structuresOutput;
+        }
+
+        [DynamicVisible]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [Description("")]
+        public IllustrationPointProperty IllustrationPointProperty
+        {
+            get
+            {
+                return new IllustrationPointProperty(data.GeneralResult);
+            }
         }
 
         [PropertyOrder(1)]
@@ -108,6 +122,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.ProbabilityAssessmentOutput.FactorOfSafety;
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return propertyName == "IllustrationPointProperty" && data.HasGeneralResult;
         }
     }
 }

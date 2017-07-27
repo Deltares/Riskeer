@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -40,6 +41,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int probabilityPropertyIndex = 2;
         private const int reliabilityPropertyIndex = 3;
         private const int factorOfSafetyPropertyIndex = 4;
+        private const int illustrationPointPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -82,7 +84,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                               probability,
                                                                               reliability,
                                                                               factorOfSafety);
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            structuresOutput.SetGeneralResult(generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -93,10 +97,72 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
+            Assert.IsNotNull(properties.IllustrationPointProperty);
+            Assert.AreEqual("SSE", properties.IllustrationPointProperty.WindDirection);
+            Assert.AreEqual(0, properties.IllustrationPointProperty.IllustrationPoints.Length);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            structuresOutput.SetGeneralResult(generalResult);
+
+            // Call
+            var properties = new StructuresOutputProperties(structuresOutput);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkanseis [1/jaar]",
+                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkans [1/jaar]",
+                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            true);
+
+            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkans [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
+                                                                            true);
+
+            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
+                                                                            "Resultaat",
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor deze berekening.",
+                                                                            true);
+
+            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
+                                                                            "Illustratiepunten",
+                                                                            "Illustratiepunten",
+                                                                            "",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
