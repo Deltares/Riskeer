@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
@@ -62,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -95,6 +96,35 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ForeColor_HasNoOutput_ReturnGrayText()
+        {
+            // Setup
+            mocksRepository.ReplayAll();
+
+            // Call
+            Color color = info.ForeColor(new StructuresOutputContext(new TestStructuresCalculation()));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+        }
+
+        [Test]
+        public void ForeColor_HasOutput_ReturnControlText()
+        {
+            // Setup
+            mocksRepository.ReplayAll();
+
+            // Call
+            Color color = info.ForeColor(new StructuresOutputContext(new TestStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            }));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
             // Setup
@@ -114,6 +144,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
             }

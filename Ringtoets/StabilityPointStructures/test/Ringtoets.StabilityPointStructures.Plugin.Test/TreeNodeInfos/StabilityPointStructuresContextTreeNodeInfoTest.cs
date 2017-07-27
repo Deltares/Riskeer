@@ -197,13 +197,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var faliureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Precondition
-            CollectionAssert.IsEmpty(faliureMechanism.StabilityPointStructures);
+            CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
 
-            var context = new StabilityPointStructuresContext(faliureMechanism.StabilityPointStructures,
-                                                              faliureMechanism,
+            var context = new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures,
+                                                              failureMechanism,
                                                               assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
