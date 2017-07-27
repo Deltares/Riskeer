@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 $"WHERE PN_NAME = '{SoilProfileTableDefinitions.IsAquifer}'";
 
-            string querySoilProfile21D =
+            string querySoilProfile2D =
                 "SELECT " +
                 $"sp2d.SP2D_Name as {SoilProfileTableDefinitions.ProfileName}, " +
                 $"layerCount.{SoilProfileTableDefinitions.LayerCount}, " +
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             try
             {
-                dataReader = CreateDataReader(querySoilProfile21D);
+                dataReader = CreateDataReader(querySoilProfile2D);
             }
             catch (SQLiteException exception)
             {
@@ -217,15 +217,13 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             if (properties.LayerCount == 0)
             {
-                MoveNext();
+                throw new SoilProfileReadException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers, properties.ProfileName);
             }
-            else
+
+            for (var i = 1; i <= properties.LayerCount; i++)
             {
-                for (var i = 1; i <= properties.LayerCount; i++)
-                {
-                    soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
-                    MoveNext();
-                }
+                soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
+                MoveNext();
             }
 
             return new SoilProfile2D(properties.ProfileId,
@@ -296,7 +294,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     ProfileName = reader.Read<string>(SoilProfileTableDefinitions.ProfileName);
 
                     readColumn = SoilProfileTableDefinitions.IntersectionX;
-                    IntersectionX = reader.Read<double>(readColumn);
+                    IntersectionX = reader.ReadOrDefault<double?>(readColumn);
 
                     readColumn = SoilProfileTableDefinitions.LayerCount;
                     LayerCount = reader.Read<long>(readColumn);
@@ -316,7 +314,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// <summary>
             /// The 1d intersection of the profile.
             /// </summary>
-            public double IntersectionX { get; }
+            public double? IntersectionX { get; }
 
             /// <summary>
             /// The name of the profile to read.

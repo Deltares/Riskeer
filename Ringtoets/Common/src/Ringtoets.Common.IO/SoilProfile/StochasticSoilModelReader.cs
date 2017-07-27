@@ -37,6 +37,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
         private readonly Dictionary<long, SoilProfile1D> soilProfile1Ds = new Dictionary<long, SoilProfile1D>();
+        private readonly Dictionary<long, SoilProfile2D> soilProfile2Ds = new Dictionary<long, SoilProfile2D>();
         private IDataReader dataReader;
         private SegmentPointReader segmentPointReader;
 
@@ -144,6 +145,29 @@ namespace Ringtoets.Common.IO.SoilProfile
                     }
                 }
             }
+
+            using (var soilProfile2DReader = new SoilProfile2DReader(Path))
+            {
+                soilProfile2DReader.Initialize();
+
+                while (soilProfile2DReader.HasNext)
+                {
+                    try
+                    {
+                        SoilProfile2D soilProfile2D = soilProfile2DReader.ReadSoilProfile();
+
+                        long soilProfileId = soilProfile2D.Id;
+                        if (!soilProfile2Ds.ContainsKey(soilProfileId))
+                        {
+                            soilProfile2Ds.Add(soilProfileId, soilProfile2D);
+                        }
+                    }
+                    catch (SoilProfileReadException)
+                    {
+                        soilProfile2DReader.MoveNext();
+                    }
+                }
+            }
         }
 
         private StochasticSoilModel TryReadStochasticSoilModel()
@@ -169,12 +193,14 @@ namespace Ringtoets.Common.IO.SoilProfile
                 double probability = ReadStochasticSoilProfileProbability();
 
                 long? soilProfile1D = ReadSoilProfile1DId();
-                if (soilProfile1D.HasValue)
+                long? soilProfile2D = ReadSoilProfile2DId();
+                if (soilProfile1D.HasValue && soilProfile1Ds.ContainsKey(soilProfile1D.Value))
                 {
-                    if (soilProfile1Ds.ContainsKey(soilProfile1D.Value))
-                    {
-                        yield return new StochasticSoilProfile(probability, soilProfile1Ds[soilProfile1D.Value]);
-                    }
+                    yield return new StochasticSoilProfile(probability, soilProfile1Ds[soilProfile1D.Value]);
+                }
+                else if (soilProfile2D.HasValue && soilProfile2Ds.ContainsKey(soilProfile2D.Value))
+                {
+                    yield return new StochasticSoilProfile(probability, soilProfile2Ds[soilProfile2D.Value]);
                 }
 
                 MoveNext();
@@ -188,18 +214,18 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         private long? ReadSoilProfile1DId()
         {
-            object soilProfile1DId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile1DId];
-            return soilProfile1DId == Convert.DBNull
+            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile1DId];
+            return soilProfileId == Convert.DBNull
                        ? (long?) null
-                       : Convert.ToInt64(soilProfile1DId);
+                       : Convert.ToInt64(soilProfileId);
         }
 
         private long? ReadSoilProfile2DId()
         {
-            object soilProfile2DId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile2DId];
-            return soilProfile2DId == Convert.DBNull
+            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile2DId];
+            return soilProfileId == Convert.DBNull
                        ? (long?) null
-                       : Convert.ToInt64(soilProfile2DId);
+                       : Convert.ToInt64(soilProfileId);
         }
 
         private long ReadStochasticSoilModelSegmentId()

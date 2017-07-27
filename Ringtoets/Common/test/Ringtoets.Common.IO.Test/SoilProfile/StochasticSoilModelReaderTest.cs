@@ -288,11 +288,22 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 8
             };
 
+            var expected2DProfileCount = new[]
+            {
+                10,
+                0,
+                0,
+                0,
+                0,
+                0
+            };
+
 
             Assert.AreEqual(expectedSegmentAndModelNames.Length, readModels.Count);
             CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
             CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
             CollectionAssert.AreEqual(expected1DProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile).OfType<SoilProfile1D>().Count()));
+            CollectionAssert.AreEqual(expected2DProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile).OfType<SoilProfile2D>().Count()));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
