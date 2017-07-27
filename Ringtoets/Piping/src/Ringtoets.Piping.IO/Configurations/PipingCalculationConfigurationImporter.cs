@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.IO.Configurations
             if (calculationConfiguration.SurfaceLineName != null)
             {
                 PipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                         .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
+                                                                .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
                 {

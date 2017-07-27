@@ -410,7 +410,6 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[3]);
                 Assert.AreEqual("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
-
             });
             Assert.IsFalse(isValid);
         }

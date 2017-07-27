@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             if (calculationConfiguration.SurfaceLineName != null)
             {
                 MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines
-                                                                                        .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
+                                                                               .FirstOrDefault(sl => sl.Name == calculationConfiguration.SurfaceLineName);
 
                 if (surfaceLine == null)
                 {

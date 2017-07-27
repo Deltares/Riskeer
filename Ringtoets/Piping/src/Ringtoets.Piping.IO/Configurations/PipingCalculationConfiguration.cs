@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <summary>
         /// Gets or sets the configuration of the phreatic level exit of the piping calculation.
         /// </summary>
-        public StochastConfiguration PhreaticLevelExit{ get; set; }
+        public StochastConfiguration PhreaticLevelExit { get; set; }
 
         /// <summary>
         /// Gets or sets the configuration of the damping factor exit of the piping calculation.

@@ -39,8 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public MacroStabilityInwardsSurfaceLinesContext(MacroStabilityInwardsSurfaceLineCollection surfaceLines,
-                                                                 MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                 IAssessmentSection assessmentSection)
+                                                        MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection)
             : base(surfaceLines)
         {
             if (assessmentSection == null)

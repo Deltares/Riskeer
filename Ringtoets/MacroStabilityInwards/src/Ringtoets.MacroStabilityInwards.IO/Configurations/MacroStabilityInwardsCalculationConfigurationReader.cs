@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
     /// This class reads a macro stability inwards calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="MacroStabilityInwardsCalculationConfiguration"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculationConfigurationReader 
+    public class MacroStabilityInwardsCalculationConfigurationReader
         : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
         private const string scenarioSchemaName = "ScenarioSchema.xsd";

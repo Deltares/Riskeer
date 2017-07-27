@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public class MacroStabilityInwardsSurfaceLineCollection : ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsSurfaceLine>
     {
         public MacroStabilityInwardsSurfaceLineCollection() : base(line => line.Name,
-                                                                            RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
-                                                                            Resources.UniqueFeature_Name_FeatureDescription) {}
+                                                                   RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                                                                   Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

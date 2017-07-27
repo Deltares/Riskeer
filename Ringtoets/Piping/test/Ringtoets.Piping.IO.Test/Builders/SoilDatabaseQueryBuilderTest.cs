@@ -60,7 +60,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
         [Test]
         public void GetPipingSoilProfileCountQuery_Always_ReturnsExpectedValues()
         {
-
             // Call
             string query = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
 
