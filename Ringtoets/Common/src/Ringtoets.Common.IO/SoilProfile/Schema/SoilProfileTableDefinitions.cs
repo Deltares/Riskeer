@@ -27,7 +27,6 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class SoilProfileTableDefinitions
     {
         public const string SoilProfileId = "SoilProfileId";
-        public const string Dimension = "Dimension";
         public const string IsAquifer = "IsAquifer";
         public const string ProfileName = "ProfileName";
         public const string IntersectionX = "IntersectionX";
@@ -50,6 +49,5 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string DiameterD70CoefficientOfVariation = "DiameterD70CoefficientOfVariation";
 
         public const string LayerCount = "LayerCount";
-        public const string ProfileCount = "nrOfRows";
     }
 }

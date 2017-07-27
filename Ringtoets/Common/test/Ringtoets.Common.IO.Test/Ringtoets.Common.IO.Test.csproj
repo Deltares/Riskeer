@@ -115,9 +115,11 @@
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayer1DTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DTest.cs" />
     <Compile Include="SoilProfile\SoilLayerBaseTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
+    <Compile Include="SoilProfile\SoilLayerConversionExceptionTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DTest.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />

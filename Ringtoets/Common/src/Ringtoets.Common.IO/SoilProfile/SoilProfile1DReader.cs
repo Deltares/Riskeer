@@ -192,7 +192,6 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             string querySoilProfile1D =
                 "SELECT " +
-                $"1 AS {SoilProfileTableDefinitions.Dimension}, " +
                 $"sp1d.SP1D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
                 $"layerCount.{SoilProfileTableDefinitions.LayerCount}, " +
                 $"sp1d.BottomLevel AS {SoilProfileTableDefinitions.Bottom}, " +
@@ -244,7 +243,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             return new SoilLayer1D(properties.Top)
             {
                 IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0),
-                MaterialName = properties.MaterialName,
+                MaterialName = properties.MaterialName ?? string.Empty,
                 Color = SoilLayerColorConverter.Convert(properties.Color),
                 BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution,
                 BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN,

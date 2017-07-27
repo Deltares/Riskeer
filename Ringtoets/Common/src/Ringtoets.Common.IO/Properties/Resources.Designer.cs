@@ -1621,6 +1621,33 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coördinaat van een punt bevat ongeldige waarde..
+        /// </summary>
+        public static string SoilLayer2DReader_Could_not_parse_point_location {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Could_not_parse_point_location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het XML-document dat de geometrie beschrijft voor de laag is niet geldig..
+        /// </summary>
+        public static string SoilLayer2DReader_Geometry_contains_no_valid_xml {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Geometry_contains_no_valid_xml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie is leeg..
+        /// </summary>
+        public static string SoilLayer2DReader_Geometry_is_null {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
         /// </summary>
         public static string SoilProfile_Cannot_construct_SoilProfile_without_layers {
@@ -2461,6 +2488,27 @@ namespace Ringtoets.Common.IO.Properties {
         public static string VoorlandProfielSchema {
             get {
                 return ResourceManager.GetString("VoorlandProfielSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2017. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///MERCHANTABILITY [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string XmlGeometrySchema {
+            get {
+                return ResourceManager.GetString("XmlGeometrySchema", resourceCulture);
             }
         }
     }

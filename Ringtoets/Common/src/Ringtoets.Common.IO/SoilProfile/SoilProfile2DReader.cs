@@ -238,8 +238,48 @@ namespace Ringtoets.Common.IO.SoilProfile
         private static SoilLayer2D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new Layer2DProperties(reader, profileName);
+            byte[] geometryValue = properties.GeometryValue;
 
-            return new SoilLayer2D();
+            SoilLayer2D soilLayer;
+            try
+            {
+                soilLayer = new SoilLayer2DReader().Read(geometryValue);
+            }
+            catch (SoilLayerConversionException e)
+            {
+                throw CreateSoilProfileReadException(reader.Path, profileName, e);
+            }
+
+            if (soilLayer != null)
+            {
+                soilLayer.IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0);
+                soilLayer.MaterialName = properties.MaterialName ?? string.Empty;
+                soilLayer.Color = SoilLayerColorConverter.Convert(properties.Color);
+
+                soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution;
+                soilLayer.BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN;
+                soilLayer.BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean ?? double.NaN;
+                soilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation ?? double.NaN;
+
+                soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution;
+                soilLayer.DiameterD70Shift = properties.DiameterD70Shift ?? double.NaN;
+                soilLayer.DiameterD70Mean = properties.DiameterD70Mean ?? double.NaN;
+                soilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation ?? double.NaN;
+
+                soilLayer.PermeabilityDistribution = properties.PermeabilityDistribution;
+                soilLayer.PermeabilityShift = properties.PermeabilityShift ?? double.NaN;
+                soilLayer.PermeabilityMean = properties.PermeabilityMean ?? double.NaN;
+                soilLayer.PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation ?? double.NaN;
+            }
+            return soilLayer;
+        }
+
+        private static SoilProfileReadException CreateSoilProfileReadException(string filePath, string profileName, Exception innerException)
+        {
+            string message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(innerException.Message);
+            return new SoilProfileReadException(message, profileName, innerException);
         }
 
         private class Layer2DProperties : LayerProperties

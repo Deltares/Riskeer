@@ -833,4 +833,16 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments" xml:space="preserve">
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
   </data>
+  <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
+    <value>Coördinaat van een punt bevat ongeldige waarde.</value>
+  </data>
+  <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
+    <value>Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.</value>
+  </data>
+  <data name="SoilLayer2DReader_Geometry_is_null" xml:space="preserve">
+    <value>De geometrie is leeg.</value>
+  </data>
+  <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>
