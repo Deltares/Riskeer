@@ -499,7 +499,7 @@ namespace Core.Common.TestUtil
         /// element in <paramref name="actual"/> at that position.</item>
         /// </list>
         /// </exception>
-        public static void AssertCollectionAreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, IEqualityComparer<T> equalityComparer)
+        public static void AssertCollectionsAreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, IEqualityComparer<T> equalityComparer)
         {
             Assert.NotNull(expected, "Expect collection is not expected to be null.");
             Assert.NotNull(actual, "Actual collection is not expected to be null.");

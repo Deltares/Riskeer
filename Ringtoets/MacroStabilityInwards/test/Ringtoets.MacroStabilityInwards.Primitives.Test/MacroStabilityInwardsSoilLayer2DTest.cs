@@ -32,7 +32,46 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
     public class MacroStabilityInwardsSoilLayer2DTest
     {
         [Test]
-        public void DefaultConstructor_ReturnsNewInstance()
+        public void Constructor_WithoutOuterRing_ArgumentNullException()
+        {
+            // Setup
+            var holes = new[]
+            {
+                new Ring(new[]
+                {
+                    new Point2D(0, 2),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test= () => new MacroStabilityInwardsSoilLayer2D(null, holes);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("outerRing", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithoutHoles_ReturnsNewInstance()
+        {
+            // Setup
+            var outerRing = new Ring(new[]
+            {
+                new Point2D(0, 2),
+                new Point2D(2, 2)
+            });
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("holes", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithOuterRingAndHoles_ReturnsNewInstance()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -56,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.NotNull(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
-            TestHelper.AssertCollectionAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
+            TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.NotNull(layer.Properties);
         }
 

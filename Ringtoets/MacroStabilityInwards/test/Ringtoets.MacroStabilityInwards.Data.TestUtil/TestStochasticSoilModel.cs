@@ -39,11 +39,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
-                    SoilProfile = new TestMacroStabilityInwardsSoilProfile("A")
+                    SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("A")
                 },
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
-                    SoilProfile = new TestMacroStabilityInwardsSoilProfile("B")
+                    SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("B")
                 }
             });
         }

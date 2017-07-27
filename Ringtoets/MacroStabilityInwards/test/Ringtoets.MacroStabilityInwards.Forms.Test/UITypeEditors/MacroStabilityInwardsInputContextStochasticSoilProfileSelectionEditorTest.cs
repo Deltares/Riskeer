@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             {
                 StochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
                 {
-                    SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                    SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
                 }
             };
             var inputContext = new MacroStabilityInwardsInputContext(input,
@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
 
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
             var stochasticSoilModel = new StochasticSoilModel("Model")
             {

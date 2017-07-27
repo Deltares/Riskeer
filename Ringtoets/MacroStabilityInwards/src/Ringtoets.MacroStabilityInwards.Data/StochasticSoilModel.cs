@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             foreach (StochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp as MacroStabilityInwardsSoilProfile1D, sp.SoilProfile as MacroStabilityInwardsSoilProfile1D))).ToArray())
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);
@@ -126,15 +126,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
             return Name;
         }
 
-        private static bool IsSame(MacroStabilityInwardsSoilProfile1D macroStabilityInwardsSoilProfile, MacroStabilityInwardsSoilProfile1D otherMacroStabilityInwardsSoilProfile)
+        private static bool IsSame(ISoilProfile soilProfile, ISoilProfile otherSoilProfile)
         {
-            return macroStabilityInwardsSoilProfile.Name.Equals(otherMacroStabilityInwardsSoilProfile.Name)
-                   && macroStabilityInwardsSoilProfile.SoilProfileType.Equals(otherMacroStabilityInwardsSoilProfile.SoilProfileType);
+            bool equalNames = soilProfile.Name.Equals(otherSoilProfile.Name);
+            bool equalTypes = soilProfile.GetType() == otherSoilProfile.GetType();
+            return equalNames && equalTypes;
         }
 
         private static bool IsSame(StochasticSoilProfile stochasticSoilProfile, StochasticSoilProfile otherStochasticSoilProfile)
         {
-            return IsSame(stochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D, otherStochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D);
+            return IsSame(stochasticSoilProfile.SoilProfile, otherStochasticSoilProfile.SoilProfile);
         }
     }
 }

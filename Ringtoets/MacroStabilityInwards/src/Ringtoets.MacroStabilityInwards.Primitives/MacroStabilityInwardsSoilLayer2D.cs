@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -32,10 +34,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="outerRing"></param>
-        /// <param name="holes"></param>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, Ring[] holes)
+        /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
+        /// <param name="holes">The rings describing the holes within the outer boundaries of 
+        /// the layer.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
         {
+            if (outerRing == null)
+            {
+                throw new ArgumentNullException(nameof(outerRing));
+            }
+            if (holes == null)
+            {
+                throw new ArgumentNullException(nameof(holes));
+            }
             Properties = new SoilLayerProperties();
             OuterRing = outerRing;
             Holes = holes.ToArray();

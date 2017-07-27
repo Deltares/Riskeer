@@ -314,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            var existingModel = new TestStochasticSoilModel(modelsName);
+            StochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
@@ -323,7 +323,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 existingModel
             }, sourceFilePath);
 
-            StochasticSoilModel readModel = new TestStochasticSoilModel(modelsName);
+            StochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
             StochasticSoilProfile changedProfile = CloneAndSlightlyModify(readModel.StochasticSoilProfiles.ElementAt(0));
             readModel.StochasticSoilProfiles[0] = changedProfile;
 
@@ -467,6 +467,40 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, affectedObjects);
         }
 
+        private static StochasticSoilModel CreateStochasticSoilModel(string modelsName)
+        {
+            var model = new StochasticSoilModel(modelsName);
+
+            model.StochasticSoilProfiles.AddRange(new[]
+            {
+                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                {
+                    SoilProfile = new MacroStabilityInwardsSoilProfile1D(
+                        "A",
+                        0.0,
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer1D(0.0)
+                        },
+                        SoilProfileType.SoilProfile1D,
+                        0)
+                },
+                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                {
+                    SoilProfile = new MacroStabilityInwardsSoilProfile1D(
+                        "B",
+                        0.0,
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer1D(0.0)
+                        },
+                        SoilProfileType.SoilProfile1D,
+                        0)
+                }
+            });
+            return model;
+        }
+
         /// <summary>
         /// Creates a simple model with names for the model and profiles in the model set as specified.
         /// </summary>
@@ -481,7 +515,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 model.StochasticSoilProfiles.Add(
                     new StochasticSoilProfile(1.0 / profileNames.Length, SoilProfileType.SoilProfile1D, -1)
                     {
-                        SoilProfile = new TestMacroStabilityInwardsSoilProfile(profileName)
+                        SoilProfile = new TestMacroStabilityInwardsSoilProfile1D(profileName)
                     });
             }
             return model;

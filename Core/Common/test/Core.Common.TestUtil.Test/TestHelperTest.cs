@@ -948,7 +948,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_ExpectedCollectionShorterThanActual_ThrowsException()
+        public void AssertCollectionsAreEqual_ExpectedCollectionShorterThanActual_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -962,7 +962,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,
@@ -981,7 +981,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_ExpectedCollectionLongerThanActual_ThrowsException()
+        public void AssertCollectionsAreEqual_ExpectedCollectionLongerThanActual_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -995,7 +995,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,
@@ -1014,7 +1014,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_CollectionsCompletelyEqual_DoesNotThrowException()
+        public void AssertCollectionsAreEqual_CollectionsCompletelyEqual_DoesNotThrowException()
         {
             // Setup
             var objectA = new object();
@@ -1027,7 +1027,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,
@@ -1045,7 +1045,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_CollectionsPartiallyEqual_ThrowsException()
+        public void AssertCollectionsAreEqual_CollectionsPartiallyEqual_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -1061,7 +1061,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,
@@ -1081,7 +1081,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_ExpectedCollectionNull_ThrowsException()
+        public void AssertCollectionsAreEqual_ExpectedCollectionNull_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -1094,7 +1094,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(null,
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(null,
                                                                           new[]
                                                                           {
                                                                               objectA,
@@ -1109,7 +1109,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_ActualCollectionNull_ThrowsException()
+        public void AssertCollectionsAreEqual_ActualCollectionNull_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -1122,7 +1122,7 @@ namespace Core.Common.TestUtil.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,
@@ -1136,7 +1136,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertCollectionAreEqual_ComparerNull_ThrowsException()
+        public void AssertCollectionsAreEqual_ComparerNull_ThrowsException()
         {
             // Setup
             var objectA = new object();
@@ -1145,7 +1145,7 @@ namespace Core.Common.TestUtil.Test
             var objectD = new object();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionAreEqual(new[]
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
             {
                 objectA,
                 objectB,

@@ -28,10 +28,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     /// A <see cref="MacroStabilityInwardsSoilProfile1D"/> configured to be usable immediately for testing
     /// purposes.
     /// </summary>
-    public class TestMacroStabilityInwardsSoilProfile : MacroStabilityInwardsSoilProfile1D
+    public class TestMacroStabilityInwardsSoilProfile1D : MacroStabilityInwardsSoilProfile1D
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile1D"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <see cref="string.Empty"/></item>
@@ -41,10 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
-        public TestMacroStabilityInwardsSoilProfile() : this("") {}
+        public TestMacroStabilityInwardsSoilProfile1D() : this("") {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile1D"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/></item>
@@ -55,10 +55,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
-        public TestMacroStabilityInwardsSoilProfile(string name) : this(name, SoilProfileType.SoilProfile1D) {}
+        public TestMacroStabilityInwardsSoilProfile1D(string name) : this(name, SoilProfileType.SoilProfile1D) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile1D"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
         /// which has:
         /// <list type="bullet">
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/></item>
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// </summary>
         /// <param name="name">The name for the profile.</param>
         /// <param name="soilProfileType">The type of the profile.</param>
-        public TestMacroStabilityInwardsSoilProfile(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
+        public TestMacroStabilityInwardsSoilProfile1D(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
         {
             new MacroStabilityInwardsSoilLayer1D(0.0)
             {

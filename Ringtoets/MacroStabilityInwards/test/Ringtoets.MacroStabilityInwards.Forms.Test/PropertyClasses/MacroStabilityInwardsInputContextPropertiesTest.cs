@@ -710,7 +710,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             inputParameters.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
 
             // Call
@@ -734,7 +734,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
             var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
@@ -779,7 +779,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var soilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
             var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(soilProfile);
@@ -834,14 +834,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile1 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
             var stochasticSoilModel1 = new StochasticSoilModel("StochasticSoilModel1Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile1);
 
             var stochasticSoilProfile2 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             };
             var stochasticSoilModel2 = new StochasticSoilModel("StochasticSoilModel2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
@@ -1487,7 +1487,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234)
             {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile()
+                SoilProfile = new TestMacroStabilityInwardsSoilProfile1D()
             });
             stochasticSoilModel.Geometry.Add(new Point2D(xMin, 1.0));
             stochasticSoilModel.Geometry.Add(new Point2D(xMax, 0.0));

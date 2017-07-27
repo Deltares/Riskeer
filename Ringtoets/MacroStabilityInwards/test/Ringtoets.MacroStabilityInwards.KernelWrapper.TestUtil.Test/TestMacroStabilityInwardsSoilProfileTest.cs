@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         public void DefaultConstructor_ExpectedPropertiesSet()
         {
             // Call
-            var profile = new TestMacroStabilityInwardsSoilProfile();
+            var profile = new TestMacroStabilityInwardsSoilProfile1D();
 
             // Assert
             Assert.IsEmpty(profile.Name);
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             const string name = "some name";
 
             // Call
-            var profile = new TestMacroStabilityInwardsSoilProfile(name);
+            var profile = new TestMacroStabilityInwardsSoilProfile1D(name);
 
             // Assert
             Assert.AreEqual(name, profile.Name);
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             var soilProfileType = new Random(6543).NextEnumValue<SoilProfileType>();
 
             // Call
-            var profile = new TestMacroStabilityInwardsSoilProfile(name, soilProfileType);
+            var profile = new TestMacroStabilityInwardsSoilProfile1D(name, soilProfileType);
 
             // Assert
             Assert.AreEqual(name, profile.Name);

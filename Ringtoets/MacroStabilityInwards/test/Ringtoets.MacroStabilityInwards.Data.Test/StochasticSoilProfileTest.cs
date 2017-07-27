@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -139,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             const double probability = 1.0;
-            var profile = new TestMacroStabilityInwardsSoilProfile();
+            var profile = new TestSoilProfile();
             var stochasticProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = profile
@@ -206,39 +203,27 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [Test]
         [TestCase("")]
         [TestCase("some name")]
-        public void ToString_WithName_ReturnsName(string name)
+        public void ToString_WithProfile_ReturnsToStringResultOfProfile(string name)
         {
             // Setup
+            var profile = new TestSoilProfile();
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(0.0)
-                }, SoilProfileType.SoilProfile1D, 0)
+                SoilProfile = profile
             };
 
             // Call
             string text = stochasticSoilProfile.ToString();
 
             // Assert
-            Assert.AreEqual(name, text);
+            Assert.AreEqual(profile.ToString(), text);
         }
 
         private static TestCaseData[] StochasticProfileUnequalCombinations()
         {
-            const string profileName = "newProfile";
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile(profileName, SoilProfileType.SoilProfile1D)
-            };
-            var otherStochasticSoilProfileA = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile(profileName, SoilProfileType.SoilProfile1D)
-            };
-            var otherStochasticSoilProfileB = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 0)
-            {
-                SoilProfile = new TestMacroStabilityInwardsSoilProfile(profileName, SoilProfileType.SoilProfile2D)
-            };
+            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0);
+            var otherStochasticSoilProfileA = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0);
+            var otherStochasticSoilProfileB = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 0);
 
             return new[]
             {
@@ -287,22 +272,37 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
         }
 
-        private static MacroStabilityInwardsSoilProfile1D CreateRandomProfile(Random random)
+        private static TestSoilProfile CreateRandomProfile(Random random)
         {
-            return new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -1.0 - random.NextDouble(), new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
-                {
-                    MaterialName = GetRandomName(random),
-                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                    IsAquifer = random.NextBoolean()
-                }
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            return new TestSoilProfile(GetRandomName(random));
         }
 
         private static string GetRandomName(Random random)
         {
             return new string('x', random.Next(0, 40));
+        }
+
+        private class TestSoilProfile : ISoilProfile
+        {
+            public TestSoilProfile() {}
+
+            public TestSoilProfile(string name)
+            {
+                Name = name;
+            }
+
+            public string Name { get; }
+
+            public override int GetHashCode()
+            {
+                return 0;
+            }
+
+            public override bool Equals(object obj)
+            {
+                var other = obj as ISoilProfile;
+                return other != null && Name.Equals(other.Name);
+            }
         }
     }
 }
