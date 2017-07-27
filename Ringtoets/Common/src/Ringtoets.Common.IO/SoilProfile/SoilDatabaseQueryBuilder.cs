@@ -104,18 +104,39 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to fetch all stochastic soil profiles 
-        /// from the DSoil-Model database.
+        /// Returns the SQL query to execute to fetch stochastic soil models 
+        /// per failure mechanism from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
-        public static string GetAllStochasticSoilProfileQuery()
+        public static string GetStochasticSoilModelPerMechanismQuery()
         {
-            return string.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
-                                 StochasticSoilProfileTableDefinitions.TableName,
-                                 StochasticSoilProfileTableDefinitions.StochasticSoilModelId,
-                                 StochasticSoilProfileTableDefinitions.Probability,
-                                 StochasticSoilProfileTableDefinitions.SoilProfile1DId,
-                                 StochasticSoilProfileTableDefinitions.SoilProfile2DId);
+            return $"SELECT M.{MechanismTableDefinitions.MechanismName}, " +
+                   $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
+                   $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelName}, " +
+                   $"SSP.{StochasticSoilProfileTableDefinitions.Probability}, " +
+                   $"SSP.{StochasticSoilProfileTableDefinitions.SoilProfile1DId}, " +
+                   $"SSP.{StochasticSoilProfileTableDefinitions.SoilProfile2DId} " +
+                   $"FROM {MechanismTableDefinitions.TableName} M " +
+                   $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({MechanismTableDefinitions.MechanismId}) " +
+                   $"INNER JOIN {StochasticSoilModelTableDefinitions.TableName} SSM USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                   $"INNER JOIN {StochasticSoilProfileTableDefinitions.TableName} SSP USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                   $"ORDER BY M.{MechanismTableDefinitions.MechanismName}, SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId};";
+        }
+
+        /// <summary>
+        /// Returns the SQL query to execute to fetch segments and segment points
+        /// per stochastic soil model from the DSoil-Model database.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetSegmentPointsQuery()
+        {
+            return $"SELECT SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
+                   $"SP.{SegmentPointsTableDefinitions.CoordinateX}, " +
+                   $"SP.{SegmentPointsTableDefinitions.CoordinateY} " +
+                   $"FROM {SegmentTableDefinitions.TableName} S " +
+                   $"INNER JOIN {StochasticSoilModelTableDefinitions.TableName} SSM USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                   $"INNER JOIN {SegmentPointsTableDefinitions.TableName} SP USING({SegmentTableDefinitions.SegmentId}) " +
+                   $"ORDER BY SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId};";
         }
     }
 }

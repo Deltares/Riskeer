@@ -34,10 +34,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string query = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
 
             // Assert
-            const string expectedQuery = "SELECT Value " +
-                                         "FROM _MetaData " +
-                                         "WHERE Key = 'VERSION' " +
-                                         "AND Value = @Value;";
+            const string expectedQuery =
+                "SELECT Value " +
+                "FROM _MetaData " +
+                "WHERE Key = 'VERSION' " +
+                "AND Value = @Value;";
             Assert.AreEqual(expectedQuery, query);
         }
 
@@ -62,9 +63,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();
 
             // Assert
-            const string expectedQuery = "SELECT COUNT(Probability) == 0 AS AllProbabilitiesValid " +
-                                         "FROM StochasticSoilProfile " +
-                                         "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
+            const string expectedQuery =
+                "SELECT COUNT(Probability) == 0 AS AllProbabilitiesValid " +
+                "FROM StochasticSoilProfile " +
+                "WHERE Probability NOT BETWEEN 0 AND 1 OR Probability ISNULL;";
             Assert.AreEqual(expectedQuery, query);
         }
 
@@ -75,25 +77,46 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
 
             // Assert
-            const string expectedQuery = @"SELECT M.ME_Name, SP.XWorld, SP.YWorld, S.SE_Name, SSM.SSM_Name, SSM.SSM_ID " +
-                                         "FROM Mechanism M " +
-                                         "INNER JOIN Segment S USING(ME_ID) " +
-                                         "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
-                                         "INNER JOIN SegmentPoints SP USING(SE_ID) " +
-                                         "ORDER BY M.ME_Name, SSM.SSM_ID;";
+            const string expectedQuery =
+                "SELECT M.ME_Name, SP.XWorld, SP.YWorld, S.SE_Name, SSM.SSM_Name, SSM.SSM_ID " +
+                "FROM Mechanism M " +
+                "INNER JOIN Segment S USING(ME_ID) " +
+                "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
+                "INNER JOIN SegmentPoints SP USING(SE_ID) " +
+                "ORDER BY M.ME_Name, SSM.SSM_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
 
         [Test]
-        public void GetAllStochasticSoilProfileQuery_ReturnsExpectedValues()
+        public void GetStochasticSoilModelPerMechanismQuery_ReturnsExpectedValues()
         {
             // Call
-            string query = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelPerMechanismQuery();
 
             // Assert
-            const string expectedQuery = "SELECT SSM_ID, Probability, SP1D_ID, SP2D_ID " +
-                                         "FROM StochasticSoilProfile " +
-                                         "ORDER BY SSM_ID;";
+            const string expectedQuery =
+                "SELECT M.ME_Name, SSM.SSM_ID, SSM.SSM_Name, SSP.Probability, SSP.SP1D_ID, SSP.SP2D_ID " +
+                "FROM Mechanism M " +
+                "INNER JOIN Segment S USING(ME_ID) " +
+                "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
+                "INNER JOIN StochasticSoilProfile SSP USING(SSM_ID) " +
+                "ORDER BY M.ME_Name, SSM.SSM_ID;";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetSegmentPointsQuery_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetSegmentPointsQuery();
+
+            // Assert
+            const string expectedQuery =
+                "SELECT SSM.SSM_ID, SP.XWorld, SP.YWorld " +
+                "FROM Segment S " +
+                "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
+                "INNER JOIN SegmentPoints SP USING(SE_ID) " +
+                "ORDER BY SSM.SSM_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
     }

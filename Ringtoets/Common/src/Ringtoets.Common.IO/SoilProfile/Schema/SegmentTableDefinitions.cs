@@ -32,6 +32,11 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string TableName = "Segment";
 
         /// <summary>
+        /// Gets the name of the segment id column.
+        /// </summary>
+        public const string SegmentId = "SE_ID";
+
+        /// <summary>
         /// Gets the name of the segment name column.
         /// </summary>
         public const string SegmentName = "SE_Name";

@@ -72,6 +72,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <returns>The next <see cref="SoilProfile1D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
         public SoilProfile1D ReadSoilProfile()

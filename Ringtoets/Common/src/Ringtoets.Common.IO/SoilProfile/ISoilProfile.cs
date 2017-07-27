@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class represents a soil profile.
+    /// Interface for the different types of soil profiles.
     /// </summary>
     public interface ISoilProfile
     {
