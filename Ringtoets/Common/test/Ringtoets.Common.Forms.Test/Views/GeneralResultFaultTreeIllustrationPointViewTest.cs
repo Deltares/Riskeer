@@ -19,12 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -32,11 +38,40 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
+        private readonly TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint1 =
+            new TopLevelFaultTreeIllustrationPoint(
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                "Closing situation 1",
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
+                                                                         1.1,
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         CombinationType.And)));
+
+        private readonly TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint2 =
+            new TopLevelFaultTreeIllustrationPoint(
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                "Closing situation 2",
+                new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
+                                                                            2.2,
+                                                                            Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                            Enumerable.Empty<IllustrationPointResult>())));
+
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_GetGeneralResultFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            TestDelegate call = () => new GeneralResultFaultTreeIllustrationPointView(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("getGeneralResultFunc", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidArguments_ValuesAsExpected()
+        {
+            // Call
+            using (GeneralResultFaultTreeIllustrationPointView view = GetValidView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -62,13 +97,16 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetValidViewWithTestData())
             {
                 // Call
                 view.Data = data;
 
                 // Assert
                 Assert.AreSame(data, view.Data);
+
+                var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
+                CollectionAssert.AreEqual(GetExpectedControlItems(), illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
             }
 
             mocks.VerifyAll();
@@ -80,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var data = new object();
 
-            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetValidView())
             {
                 // Call
                 view.Data = data;
@@ -94,7 +132,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_Null_NullSet()
         {
             // Setup
-            using (GeneralResultFaultTreeIllustrationPointView view = GetTestView())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetValidView())
             {
                 // Call
                 view.Data = null;
@@ -104,9 +142,38 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private static GeneralResultFaultTreeIllustrationPointView GetTestView()
+        private IEnumerable<IllustrationPointControlItem> GetExpectedControlItems()
+        {
+            var faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) topLevelFaultTreeIllustrationPoint1.FaultTreeNodeRoot.Data;
+            yield return new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
+                                                          topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
+                                                          topLevelFaultTreeIllustrationPoint1.ClosingSituation,
+                                                          faultTreeIllustrationPoint.Stochasts,
+                                                          faultTreeIllustrationPoint.Beta);
+
+            var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelFaultTreeIllustrationPoint2.FaultTreeNodeRoot.Data;
+            yield return new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
+                                                          topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
+                                                          topLevelFaultTreeIllustrationPoint2.ClosingSituation,
+                                                          subMechanismIllustrationPoint.Stochasts,
+                                                          subMechanismIllustrationPoint.Beta);
+        }
+
+        private static GeneralResultFaultTreeIllustrationPointView GetValidView()
         {
             return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        private GeneralResultFaultTreeIllustrationPointView GetValidViewWithTestData()
+        {
+            return new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                                       WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                       Enumerable.Empty<Stochast>(),
+                                                                       new List<TopLevelFaultTreeIllustrationPoint>
+                                                                       {
+                                                                           topLevelFaultTreeIllustrationPoint1,
+                                                                           topLevelFaultTreeIllustrationPoint2
+                                                                       }));
         }
     }
 }
