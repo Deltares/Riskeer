@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Data.SQLite;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Properties;
@@ -37,7 +36,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
         /// that are required to create a complete soil layer.
         /// </summary>
-        /// <param name="reader">The <see cref="SQLiteDataReader"/> to obtain the required layer property values from.</param>
+        /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain the required layer property values from.</param>
         /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when the values in the database cannot be 

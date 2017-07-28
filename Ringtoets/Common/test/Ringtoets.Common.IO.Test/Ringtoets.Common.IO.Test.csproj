@@ -110,6 +110,7 @@
     <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Configurations\StructureCalculationConfigurationTest.cs" />
+    <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SegmentPointReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
