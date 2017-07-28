@@ -101,12 +101,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(FaultTreeIllustrationPointBaseProperty.WindDirection), "")]
-        public FaultTreeIllustrationPointBaseProperty[] IllustrationPoints
+        [KeyValueElement(nameof(FaultTreeIllustrationPointBaseProperties.WindDirection), "")]
+        public FaultTreeIllustrationPointBaseProperties[] IllustrationPoints
         {
             get
             {
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new FaultTreeIllustrationPointBaseProperty(point)).ToArray();
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new FaultTreeIllustrationPointBaseProperties(point)).ToArray();
             }
         }
 

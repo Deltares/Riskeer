@@ -31,58 +31,39 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the Fault tree of Illustration Points
+    /// Properties for the Submechanism Illustration Points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class FaultTreeIllustrationPointChildProperty : IllustrationPointChildProperty
+    public class SubMechanismIllustrationPointChildProperties : IllustrationPointChildProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FaultTreeIllustrationPointChildProperty"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPointChildProperties"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
         /// <param name="windDirection">String containing the wind direction for this illustration point</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when illustrationPointNode is of the wrong type.</exception>
-        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="FaultTreeIllustrationPoint"/></exception>
-        public FaultTreeIllustrationPointChildProperty(
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="SubMechanismIllustrationPoint"/></exception>
+        public SubMechanismIllustrationPointChildProperties(
             IllustrationPointNode illustrationPointNode, string windDirection) : base(illustrationPointNode, windDirection)
         {
-            if (!(data.Data is FaultTreeIllustrationPoint))
+            if (!(data.Data is SubMechanismIllustrationPoint))
             {
-                throw new ArgumentException("illustrationPointNode data type has to be FaultTreeIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode data type has to be SubMechanismIllustrationPoint");
             }
         }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
-        public Stochast[] AlphaValues
+        [KeyValueElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        public SubMechanismIllustrationPointStochast[] SubMechanismStochasts
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
             }
-        }
-
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
-        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
-        public Stochast[] Durations
-        {
-            get
-            {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"{Name}";
         }
     }
 }

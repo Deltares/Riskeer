@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
-                new FaultTreeIllustrationPointBaseProperty(topLevelFaultTreeIllustrationPoint)
+                new FaultTreeIllustrationPointBaseProperties(topLevelFaultTreeIllustrationPoint)
             };
             var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), 
                                                                                       new Stochast[0], 

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string expectedMessage = "Value cannot be null.";
 
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointBaseProperty(null);
+            TestDelegate test = () => new FaultTreeIllustrationPointBaseProperties(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointBaseProperty(topLevel);
+            var faultTree = new FaultTreeIllustrationPointBaseProperties(topLevel);
 
             // Assert
             Assert.AreEqual(faultTree.WindDirection, "N");
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new FaultTreeIllustrationPointBaseProperty(
+            var faultTree = new FaultTreeIllustrationPointBaseProperties(
                 new TopLevelFaultTreeIllustrationPoint(
                     new WindDirection("SSE", 5.0),
                     "closing situation",

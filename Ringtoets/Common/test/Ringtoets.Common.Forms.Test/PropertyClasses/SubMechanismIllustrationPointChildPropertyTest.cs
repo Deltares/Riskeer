@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -31,6 +32,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class SubMechanismIllustrationPointChildPropertyTest
     {
+        private const int probabilityPropertyIndex = 0;
+        private const int reliabilityPropertyIndex = 1;
+        private const int windDirectionPropertyIndex = 2;
+        private const int closingScenarioPropertyIndex = 3;
+        private const int subMechanismStochastPropertyIndex = 4;
+
+        private const string illustrationPointsCategoryName = "Illustratiepunten";
+
         [Test]
         public void Constructor_InvalidIllustrationPointType_ThrowsException()
         {
@@ -38,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string expectedMessage = "illustrationPointNode data type has to be SubMechanismIllustrationPoint";
 
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
+            TestDelegate test = () => new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
                                                                                          new FaultTreeIllustrationPoint("N",
                                                                                                                         1.5,
                                                                                                                         new Stochast[0],
@@ -55,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
 
             // Call
-            var faultTree = new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
+            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
                                                                                new SubMechanismIllustrationPoint("N",
                                                                                                                  1.5,
                                                                                                                  new SubMechanismIllustrationPointStochast[0],
@@ -77,10 +86,61 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_WithSubMechanismIllustrationPoint_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
+                                                                               new SubMechanismIllustrationPoint("N",
+                                                                                                                 1.5,
+                                                                                                                 new SubMechanismIllustrationPointStochast[0],
+                                                                                                                 new IllustrationPointResult[0])),
+                                                                           "N");
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
+            Assert.AreEqual(5, dynamicProperties.Count);
+
+            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Windrichting",
+                                                                            "De windrichting waarvoor dit illlustratiepunt is berekend.",
+                                                                            true);
+
+            PropertyDescriptor closingScenarioProperty = dynamicProperties[closingScenarioPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(closingScenarioProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Sluitscenario",
+                                                                            "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
+                                                                            true);
+
+            PropertyDescriptor subMechanismStochastProperty = dynamicProperties[subMechanismStochastPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(subMechanismStochastProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Waarden in het illustratiepunt",
+                                                                            "Realisaties van de stochasten in het illustratiepunt",
+                                                                            true);
+        }
+
+        [Test]
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
+            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
                                                                                new SubMechanismIllustrationPoint("N",
                                                                                                                  1.5,
                                                                                                                  new SubMechanismIllustrationPointStochast[0],
