@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             const string expectedQuery =
-                "SELECT SSM.SSM_ID, SP.XWorld, SP.YWorld " +
+                "SELECT SSM.SSM_ID, SSM.SSM_Name, SP.XWorld, SP.YWorld " +
                 "FROM Segment S " +
                 "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
                 "INNER JOIN SegmentPoints SP USING(SE_ID) " +

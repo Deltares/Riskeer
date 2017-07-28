@@ -39,13 +39,36 @@ namespace Ringtoets.Common.IO.SoilProfile
     {
         private IDataReader dataReader;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="SegmentPointReader"/>, 
+        /// which will use the <paramref name="databaseFilePath"/> as its source.
+        /// </summary>
+        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// </list>
+        /// </exception>
         public SegmentPointReader(string databaseFilePath) : base(databaseFilePath) {}
 
+        /// <summary>
+        /// Initializes the database.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when the query to fetch stochastic 
+        /// soil model segment points from the database failed.</exception>
         public void Initialize()
         {
-            InitializeReader();
+            CreateDataReader();
+            MoveNext();
         }
 
+        /// <summary>
+        /// Reads the segment points corresponding to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModelId"></param>
+        /// <returns>The segment points corresponding to the stochastic soil model</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         public IEnumerable<Point2D> ReadSegmentPoints(long stochasticSoilModelId)
         {
             while (HasNext && ReadStochasticSoilModelSegmentId() <= stochasticSoilModelId)
@@ -73,19 +96,37 @@ namespace Ringtoets.Common.IO.SoilProfile
             return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
         }
 
+        private string ReadStochasticSoilModelSegmentName()
+        {
+            return Convert.ToString(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelName]);
+        }
+
+        /// <summary>
+        /// Reads the segment point from the database.
+        /// </summary>
+        /// <returns>The segment point.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         private Point2D ReadSegmentPoint()
         {
-            double coordinateX = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateX]);
-            double coordinateY = Convert.ToDouble(dataReader[SegmentPointsTableDefinitions.CoordinateY]);
-            return new Point2D(coordinateX, coordinateY);
+            object coordinateX = dataReader[SegmentPointsTableDefinitions.CoordinateX];
+            object coordinateY = dataReader[SegmentPointsTableDefinitions.CoordinateY];
+            if (coordinateX == Convert.DBNull || coordinateY == Convert.DBNull)
+            {
+                throw new StochasticSoilModelException(
+                    string.Format(Resources.SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry,
+                                  ReadStochasticSoilModelSegmentName()));
+            }
+
+            double coordinateXValue = Convert.ToDouble(coordinateX);
+            double coordinateYValue = Convert.ToDouble(coordinateY);
+            return new Point2D(coordinateXValue, coordinateYValue);
         }
 
-        private void InitializeReader()
-        {
-            CreateDataReader();
-            MoveNext();
-        }
-
+        /// <summary>
+        /// Creates a new <see cref="SQLiteDataReader"/>.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when query to fetch stochastic soil 
+        /// model segment points from the database failed.</exception>
         private void CreateDataReader()
         {
             string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetSegmentPointsQuery();

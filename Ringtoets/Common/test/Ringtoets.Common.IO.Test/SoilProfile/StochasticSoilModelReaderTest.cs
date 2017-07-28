@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_InvalidSegmentPoint_ThrowsStochasticSoilModelReadException()
+        public void ReadStochasticSoilModel_InvalidSegmentPoint_ThrowsStochasticSoilModelException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
@@ -252,10 +252,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 TestDelegate test = () => reader.ReadStochasticSoilModel();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<StochasticSoilModelException>(test);
 
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                    .Build("De ondergrondschematisatie verwijst naar een ongeldige waarde.");
+                const string expectedMessage = "Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 
@@ -263,7 +262,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfile_ThrowsExceptionAndHasNext()
+        public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfile_ThrowsStochasticSoilModelExceptionAndHasNext()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "modelWithoutProfile.soil");

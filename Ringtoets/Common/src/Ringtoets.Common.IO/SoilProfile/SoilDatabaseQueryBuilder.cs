@@ -126,6 +126,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         public static string GetSegmentPointsQuery()
         {
             return $"SELECT SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
+                   $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelName}, " +
                    $"SP.{SegmentPointsTableDefinitions.CoordinateX}, " +
                    $"SP.{SegmentPointsTableDefinitions.CoordinateY} " +
                    $"FROM {SegmentTableDefinitions.TableName} S " +

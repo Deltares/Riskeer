@@ -1517,6 +1517,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; moet een geometrie bevatten..
+        /// </summary>
+        public static string SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry {
+            get {
+                return ResourceManager.GetString("SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BEGIN TRANSACTION;
         ///CREATE TABLE &quot;TimeIntegrationSettings&quot; (
         ///                &quot;LocationID&quot; INTEGER NOT NULL,

@@ -108,6 +108,28 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadStochasticSoilModel_SegmentPointNull_ThrowsStochasticSoilModelException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
+
+            using (var reader = new SegmentPointReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSegmentPoints(1).ToArray();
+
+                // Assert
+                var exception = Assert.Throws<StochasticSoilModelException>(test);
+                Assert.AreEqual("Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten.",
+                                exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadStochasticSoilModel_EmptyDatabase_ReturnsFalse()
         {
             // Setup
