@@ -219,7 +219,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(validFilePath, surfaceLineUpdateStrategy.FilePath);
-            
+
             Assert.AreEqual(expectedNumberOfSurfaceLines, readSurfaceLines.Count);
 
             SurfaceLine firstSurfaceLine = readSurfaceLines[0];
@@ -742,7 +742,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Assert.IsTrue(importResult);
             Assert.IsTrue(surfaceLineUpdateStrategy.Updated);
             Assert.AreEqual(corruptPath, surfaceLineUpdateStrategy.FilePath);
-            
+
             Assert.AreEqual(2, readSurfaceLines.Count);
             Assert.AreEqual(1, readSurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, readSurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
@@ -1094,7 +1094,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             transformer.Expect(t => t.Transform(Arg<SurfaceLine>.Is.Anything, Arg<CharacteristicPoints>.Is.Anything)).Throw(new SurfaceLineTransformException(exceptionMessage));
             mocks.ReplayAll();
-            
+
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
@@ -1229,7 +1229,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Er konden geen karakteristieke punten gevonden worden voor locatie 'Rotterdam1'.", LogLevelConstant.Warn)
+                Tuple.Create("Er konden geen karakteristieke punten gevonden worden voor locatie \'Rotterdam1\'.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
@@ -1297,7 +1297,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie 'Extra'.", LogLevelConstant.Warn)
+                Tuple.Create("Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie \'Extra\'.", LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
 
