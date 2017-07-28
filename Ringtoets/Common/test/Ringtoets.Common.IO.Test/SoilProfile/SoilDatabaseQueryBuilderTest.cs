@@ -102,5 +102,164 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "ORDER BY SSM.SSM_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
+
+        [Test]
+        public void GetSoilProfile1DQuery_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetSoilProfile1DQuery();
+
+            // Assert
+            const string expectedQuery =
+                "SELECT " +
+                "sp1d.SP1D_Name AS ProfileName, " +
+                "layerCount.LayerCount, " +
+                "sp1d.BottomLevel AS Bottom, " +
+                "sl1d.TopLevel AS Top, " +
+                "MaterialName, " +
+                "IsAquifer, " +
+                "Color, " +
+                "BelowPhreaticLevelDistribution, " +
+                "BelowPhreaticLevelShift, " +
+                "BelowPhreaticLevelMean, " +
+                "BelowPhreaticLevelDeviation, " +
+                "DiameterD70Distribution, " +
+                "DiameterD70Shift, " +
+                "DiameterD70Mean, " +
+                "DiameterD70CoefficientOfVariation, " +
+                "PermeabKxDistribution, " +
+                "PermeabKxShift, " +
+                "PermeabKxMean, " +
+                "PermeabKxCoefficientOfVariation, " +
+                "sp1d.SP1D_ID AS SoilProfileId " +
+                "FROM Segment AS segment " +
+                "JOIN " +
+                "(" +
+                "SELECT SSM_ID, SP1D_ID, SP2D_ID " +
+                "FROM StochasticSoilProfile " +
+                "GROUP BY SSM_ID, SP1D_ID, SP2D_ID" +
+                ") ssp USING(SSM_ID) " +
+                "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
+                "JOIN " +
+                "(" +
+                "SELECT SP1D_ID, COUNT(*) AS LayerCount " +
+                "FROM SoilLayer1D " +
+                "GROUP BY SP1D_ID" +
+                ") LayerCount USING(SP1D_ID) " +
+                "JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
+                "LEFT JOIN " +
+                "(" +
+                "SELECT " +
+                "mat.MA_ID, " +
+                "mat.MA_Name AS MaterialName, " +
+                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) Color, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) BelowPhreaticLevelShift, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) BelowPhreaticLevelMean, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) PermeabKxShift, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) PermeabKxMean, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) PermeabKxCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) DiameterD70Shift, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) DiameterD70Mean, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) DiameterD70CoefficientOfVariation " +
+                "FROM ParameterNames AS pn " +
+                "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
+                "LEFT JOIN Stochast AS s USING(PN_ID) " +
+                "JOIN Materials AS mat " +
+                "WHERE pv.MA_ID = mat.MA_ID OR s.MA_ID = mat.MA_ID GROUP BY mat.MA_ID " +
+                ") materialProperties USING(MA_ID) " +
+                "LEFT JOIN " +
+                "(" +
+                "SELECT SL1D_ID, PV_Value AS IsAquifer " +
+                "FROM ParameterNames " +
+                "JOIN LayerParameterValues USING(PN_ID) " +
+                "WHERE PN_NAME = 'IsAquifer'" +
+                ") layerProperties USING(SL1D_ID) " +
+                "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
+        public void GetSoilProfile2DQuery_ReturnsExpectedValues()
+        {
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetSoilProfile2DQuery();
+
+            // Assert
+            const string expectedQuery =
+                "SELECT sp2d.SP2D_Name AS ProfileName, " +
+                "layerCount.LayerCount, " +
+                "sl2d.GeometrySurface AS LayerGeometry, " +
+                "mpl.X AS IntersectionX, " +
+                "MaterialName, " +
+                "IsAquifer, " +
+                "Color, " +
+                "BelowPhreaticLevelDistribution, " +
+                "BelowPhreaticLevelShift, " +
+                "BelowPhreaticLevelMean, " +
+                "BelowPhreaticLevelDeviation, " +
+                "DiameterD70Distribution, " +
+                "DiameterD70Shift, " +
+                "DiameterD70Mean, " +
+                "DiameterD70CoefficientOfVariation, " +
+                "PermeabKxDistribution, " +
+                "PermeabKxShift, " +
+                "PermeabKxMean, " +
+                "PermeabKxCoefficientOfVariation, " +
+                "sp2d.SP2D_ID AS SoilProfileId " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
+                "JOIN " +
+                "(" +
+                "SELECT SSM_ID, SP1D_ID, SP2D_ID " +
+                "FROM StochasticSoilProfile " +
+                "GROUP BY SSM_ID, SP1D_ID, SP2D_ID" +
+                ") ssp USING(SSM_ID) " +
+                "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
+                "JOIN " +
+                "(" +
+                "SELECT SP2D_ID, COUNT(*) AS LayerCount " +
+                "FROM SoilLayer2D " +
+                "GROUP BY SP2D_ID" +
+                ") LayerCount USING(SP2D_ID) " +
+                "JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
+                "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
+                "LEFT JOIN " +
+                "(" +
+                "SELECT " +
+                "mat.MA_ID, mat.MA_Name AS MaterialName, " +
+                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) Color, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) BelowPhreaticLevelShift, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) BelowPhreaticLevelMean, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) PermeabKxShift, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) PermeabKxMean, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) PermeabKxCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) DiameterD70Shift, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) DiameterD70Mean, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) DiameterD70CoefficientOfVariation " +
+                "FROM ParameterNames AS pn " +
+                "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
+                "LEFT JOIN Stochast AS s USING(PN_ID) " +
+                "JOIN Materials AS mat " +
+                "WHERE pv.MA_ID = mat.MA_ID OR s.MA_ID = mat.MA_ID " +
+                "GROUP BY mat.MA_ID " +
+                ") materialProperties USING(MA_ID) " +
+                "LEFT JOIN " +
+                "(" +
+                "SELECT SL2D_ID, PV_Value AS IsAquifer " +
+                "FROM ParameterNames " +
+                "JOIN LayerParameterValues USING(PN_ID) " +
+                "WHERE PN_NAME = 'IsAquifer'" +
+                ") layerProperties USING(SL2D_ID) " +
+                "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
+            Assert.AreEqual(expectedQuery, query);
+        }
     }
 }
