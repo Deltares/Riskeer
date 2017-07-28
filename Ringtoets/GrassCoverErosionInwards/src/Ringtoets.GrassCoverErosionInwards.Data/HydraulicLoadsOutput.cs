@@ -118,13 +118,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             GeneralResult = generalResult;
         }
-
-        /// <summary>
-        /// Clears the general result with the fault tree illustration points
-        /// </summary>
-        public void ClearGeneralResult()
-        {
-            GeneralResult = null;
-        }
     }
 }

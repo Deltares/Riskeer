@@ -25,10 +25,12 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
@@ -1587,7 +1589,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingGeneralResultNull_IlllustrationPointNotSetAndLogs()
+        public void Calculate_ValidInputButOvertoppingGeneralResultNull_GeneralResultNotSetAndLogs()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1639,30 +1641,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
+                    Assert.AreEqual(parserError, msgs[2]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
-                        msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                        msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
-                        msgs[3]);
+                        msgs[4]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
-                        msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                        msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
-                        msgs[5]);
-                    Assert.AreEqual(parserError, msgs[6]);
+                        msgs[6]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
                 });
 
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
-                Assert.IsFalse(calculation.Output.DikeHeightOutput.HasGeneralResult);
-                Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
 
             mockRepository.VerifyAll();
@@ -1726,7 +1728,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -1734,7 +1736,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
@@ -1751,7 +1753,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingRateGeneralResultNull_IlllustrationPointNotSetAndLogs()
+        public void Calculate_ValidInputButOvertoppingRateGeneralResultNull_GeneralResultNotSetAndLogs()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1807,7 +1809,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -1815,7 +1817,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
@@ -1890,7 +1892,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -1898,7 +1900,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
@@ -1915,7 +1917,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButDikeHeightGeneralResultNull_IlllustrationPointNotSetAndLogs()
+        public void Calculate_ValidInputButDikeHeightGeneralResultNull_GeneralResultNotSetAndLogs()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1971,7 +1973,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -1980,7 +1982,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
@@ -2054,7 +2056,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -2062,7 +2064,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
@@ -2118,9 +2120,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                validFile);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
 
                     Assert.AreEqual(8, msgs.Length);
 
@@ -2129,30 +2133,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNotSetMessage(msgs[2]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
-                        msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                        msgs[3]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
-                        msgs[3]);
+                        msgs[4]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
-                        msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                        msgs[5]);
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
-                        msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNotSetMessage(msgs[6]);
+                        msgs[6]);
+
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[2].Item3);
                 });
 
                 Assert.IsNotNull(calculation.Output);
-                Assert.IsFalse(calculation.Output.DikeHeightOutput.HasGeneralResult);
-                Assert.IsFalse(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
                 Assert.IsFalse(calculation.Output.OvertoppingOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.DikeHeightOutput.HasGeneralResult);
+                Assert.IsTrue(calculation.Output.OvertoppingRateOutput.HasGeneralResult);
             }
 
             mockRepository.VerifyAll();
@@ -2198,9 +2205,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                validFile);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
 
                     Assert.AreEqual(8, msgs.Length);
 
@@ -2213,7 +2222,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -2221,12 +2230,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[4]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNotSetMessage(msgs[6]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[6].Item3);
                 });
 
                 Assert.IsNotNull(calculation.Output);
@@ -2278,9 +2289,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                validFile);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
 
                     Assert.AreEqual(8, msgs.Length);
 
@@ -2293,7 +2306,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         dikeHeightCalculator.OutputDirectory,
                         msgs[2]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
@@ -2302,11 +2315,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConverged(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
+
+                    Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[4].Item3);
                 });
 
                 Assert.IsNotNull(calculation.Output);

@@ -622,12 +622,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool withDikeProfile)
         {
             // Setup
-            const string schematizationCategoryName = "Schematisatie";
-            const string criticalValuesCategoryName = "Toetseisen";
-            const string hydraulicDataCategoryName = "Hydraulische gegevens";
-            const string dikeHeightCategoryName = "HBN";
-            const string overtoppingRateCategoryName = "Overslagdebiet";
-            const string overtoppingOutputCategoryName = "Sterkte berekening";
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -644,6 +638,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
+            const string schematizationCategoryName = "Schematisatie";
+            const string criticalValuesCategoryName = "Toetseisen";
+            const string hydraulicDataCategoryName = "Hydraulische gegevens";
+            const string dikeHeightCategoryName = "HBN";
+            const string overtoppingRateCategoryName = "Overslagdebiet";
+            const string overtoppingOutputCategoryName = "Sterkte berekening";
+
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(14, dynamicProperties.Count);
 

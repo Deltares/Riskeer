@@ -166,7 +166,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             try
             {
-                CalculateOvertopping(calculation, generalInput, hydraulicBoundaryDatabaseFilePath, numberOfCalculators);
+                GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput =
+                    CalculateOvertopping(calculation,
+                                         generalInput,
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         assessmentSection.FailureMechanismContribution.Norm,
+                                         failureMechanismContribution,
+                                         numberOfCalculators);
 
                 if (canceled)
                 {
@@ -196,25 +202,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     return;
                 }
 
-                var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(overtoppingCalculator.WaveHeight,
-                                                                                      overtoppingCalculator.IsOvertoppingDominant,
-                                                                                      ProbabilityAssessmentService.Calculate(
-                                                                                          assessmentSection.FailureMechanismContribution.Norm,
-                                                                                          failureMechanismContribution,
-                                                                                          generalInput.N,
-                                                                                          overtoppingCalculator.ExceedanceProbabilityBeta));
-
-                bool overtoppingConversionSuccess = SetGeneralResult(overtoppingOutput.SetGeneralResult,
-                                                          overtoppingCalculator.IllustrationPointsResult,
-                                                          overtoppingCalculator.IllustrationPointsParserErrorMessage,
-                                                          calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-
-                if (!overtoppingConversionSuccess && calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
-                {
-                    dikeHeightOutput.ClearGeneralResult();
-                    overtoppingRateOutput.ClearGeneralResult();
-                }
-
                 calculation.Output = new GrassCoverErosionInwardsOutput(
                     overtoppingOutput,
                     dikeHeightOutput,
@@ -230,24 +217,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static bool SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
+        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
                                              HydraRingGeneralResult generalResult,
                                              string parserError,
                                              bool shouldCalculate)
         {
             if (!shouldCalculate)
             {
-                return false;
+                return;
             }
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> converted = ConvertIllustrationPointsResult(generalResult, parserError);
-            if (converted == null)
+            if (converted != null)
             {
-                return false;
+                setGeneralResultAction(converted);
             }
-
-            setGeneralResultAction(converted);
-            return true;
         }
 
         private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory)
@@ -277,12 +261,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The calculation containing the input for the overtopping calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
+        /// <param name="norm">The norm which has been defined on the assessment section.</param>
+        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section</param>
         /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
+        /// <returns>A <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
-                                          GeneralGrassCoverErosionInwardsInput generalInput,
-                                          string hydraulicBoundaryDatabaseFilePath,
-                                          int numberOfCalculators)
+        private GrassCoverErosionInwardsOvertoppingOutput CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
+                                                                               GeneralGrassCoverErosionInwardsInput generalInput,
+                                                                               string hydraulicBoundaryDatabaseFilePath,
+                                                                               double norm,
+                                                                               double failureMechanismContribution,
+                                                                               int numberOfCalculators)
         {
             NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
@@ -295,6 +284,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                () => overtoppingCalculator.OutputDirectory,
                                calculation.Name,
                                Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
+
+            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(overtoppingCalculator.WaveHeight,
+                                                                                  overtoppingCalculator.IsOvertoppingDominant,
+                                                                                  ProbabilityAssessmentService.Calculate(
+                                                                                      norm,
+                                                                                      failureMechanismContribution,
+                                                                                      generalInput.N,
+                                                                                      overtoppingCalculator.ExceedanceProbabilityBeta));
+
+            SetGeneralResult(overtoppingOutput.SetGeneralResult,
+                             overtoppingCalculator.IllustrationPointsResult,
+                             overtoppingCalculator.IllustrationPointsParserErrorMessage,
+                             calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+
+            return overtoppingOutput;
         }
 
         private DikeHeightOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
@@ -416,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <summary>
         /// Performs a grass cover erosion inwards calculation.
         /// </summary>
-        /// <param name="performCalculation">The setGeneralResultAction that performs the calculation.</param>
+        /// <param name="performCalculation">The action that performs the calculation.</param>
         /// <param name="getLastErrorFileContent">The function for obtaining the last error file content.</param>
         /// <param name="getOutputDirectory">The function for obtaining the output directory.</param>
         /// <param name="calculationName">The name of the calculation to perform.</param>

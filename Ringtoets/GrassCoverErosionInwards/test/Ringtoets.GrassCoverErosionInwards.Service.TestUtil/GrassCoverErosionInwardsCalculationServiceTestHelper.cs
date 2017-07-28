@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
                             actual);
         }
 
-        public static void AssertCalculationNotConverged(string calculationDescription, string calculationName, string actual)
+        public static void AssertCalculationNotConvergedMessage(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"De {calculationDescription} berekening voor grasbekleding erosie kruin en binnentalud '{calculationName}' is niet geconvergeerd.", actual);
         }

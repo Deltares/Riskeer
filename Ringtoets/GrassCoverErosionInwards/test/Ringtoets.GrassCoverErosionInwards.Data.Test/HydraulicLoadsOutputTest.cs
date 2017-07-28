@@ -151,48 +151,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.HasGeneralResult);
         }
 
-        [Test]
-        public void ClearGeneralResult_ValidGeneralResultPresent_ClearsGeneralResult()
-        {
-            // Setup
-            var random = new Random(32);
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      convergence);
-            output.SetGeneralResult(generalResult);
-
-            // Call
-            output.ClearGeneralResult();
-
-            // Assert
-            Assert.IsNull(output.GeneralResult);
-            Assert.IsFalse(output.HasGeneralResult);
-        }
-
-        [Test]
-        public void ClearGeneralResult_NoGeneralResultPresent_ClearsGeneralResult()
-        {
-            // Setup
-            var random = new Random(32);
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      convergence);
-
-            // Call
-            output.ClearGeneralResult();
-
-            // Assert
-            Assert.IsNull(output.GeneralResult);
-            Assert.IsFalse(output.HasGeneralResult);
-        }
-
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
         {
             public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,

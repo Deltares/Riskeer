@@ -143,5 +143,69 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
             // Assert
             Assert.Throws<AssertionException>(test);
         }
+
+        [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertCalculationNotConvergedMessage_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
+                    description,
+                    name,
+                    $"De {description} berekening voor grasbekleding erosie kruin en binnentalud '{name}' is niet geconvergeerd.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("De  berekening voor grasbekleding erosie kruin en binnentalud ' ' is niet geconvergeer")]
+        [TestCase("e  berekening voor grasbekleding erosie kruin en binnentalud ' ' is niet geconvergeerd.")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertCalculationNotConvergedMessage_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationNotConvergedMessage(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertGeneralResultNotSetMessage_EqualMessage_DoesNotThrow()
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNotSetMessage(
+                    "Het uitlezen van illustratiepunten is mislukt.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("Het uitlezen van illustratiepunten is misluk")]
+        [TestCase("et uitlezen van illustratiepunten is mislukt.")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultNotSetMessage_EqualMessage_ThrowsAssertionException(string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNotSetMessage(message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
     }
 }
