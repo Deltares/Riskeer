@@ -38,24 +38,6 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
-        private readonly TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint1 =
-            new TopLevelFaultTreeIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                "Closing situation 1",
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
-                                                                         1.1,
-                                                                         Enumerable.Empty<Stochast>(),
-                                                                         CombinationType.And)));
-
-        private readonly TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint2 =
-            new TopLevelFaultTreeIllustrationPoint(
-                WindDirectionTestFactory.CreateTestWindDirection(),
-                "Closing situation 2",
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
-                                                                            2.2,
-                                                                            Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                            Enumerable.Empty<IllustrationPointResult>())));
-
         [Test]
         public void Constructor_GetGeneralResultFuncNull_ThrowsArgumentNullException()
         {
@@ -97,16 +79,13 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            using (GeneralResultFaultTreeIllustrationPointView view = GetValidViewWithTestData())
+            using (GeneralResultFaultTreeIllustrationPointView view = GetValidView())
             {
                 // Call
                 view.Data = data;
 
                 // Assert
                 Assert.AreSame(data, view.Data);
-
-                var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
-                CollectionAssert.AreEqual(GetExpectedControlItems(), illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
             }
 
             mocks.VerifyAll();
@@ -142,38 +121,98 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private IEnumerable<IllustrationPointControlItem> GetExpectedControlItems()
+        [Test]
+        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_IllustrationPointsControlSyncedAccordingly()
         {
-            var faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) topLevelFaultTreeIllustrationPoint1.FaultTreeNodeRoot.Data;
-            yield return new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
-                                                          topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
-                                                          topLevelFaultTreeIllustrationPoint1.ClosingSituation,
-                                                          faultTreeIllustrationPoint.Stochasts,
-                                                          faultTreeIllustrationPoint.Beta);
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
 
-            var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelFaultTreeIllustrationPoint2.FaultTreeNodeRoot.Data;
-            yield return new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
-                                                          topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
-                                                          topLevelFaultTreeIllustrationPoint2.ClosingSituation,
-                                                          subMechanismIllustrationPoint.Stochasts,
-                                                          subMechanismIllustrationPoint.Beta);
+            mocks.ReplayAll();
+
+            var topLevelFaultTreeIllustrationPoint1 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 1",
+                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
+                                                                             1.1,
+                                                                             Enumerable.Empty<Stochast>(),
+                                                                             CombinationType.And)));
+
+            var topLevelFaultTreeIllustrationPoint2 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 2",
+                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
+                                                                                2.2,
+                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                                Enumerable.Empty<IllustrationPointResult>())));
+
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                                                  WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                  Enumerable.Empty<Stochast>(),
+                                                                                  new List<TopLevelFaultTreeIllustrationPoint>
+                                                                                  {
+                                                                                      topLevelFaultTreeIllustrationPoint1,
+                                                                                      topLevelFaultTreeIllustrationPoint2
+                                                                                  })))
+            {
+                // Call
+                view.Data = data;
+
+                // Assert
+                Assert.AreSame(data, view.Data);
+
+                var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
+                var faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) topLevelFaultTreeIllustrationPoint1.FaultTreeNodeRoot.Data;
+                var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelFaultTreeIllustrationPoint2.FaultTreeNodeRoot.Data;
+                var expectedControlItems = new[]
+                {
+                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
+                                                     topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
+                                                     topLevelFaultTreeIllustrationPoint1.ClosingSituation,
+                                                     faultTreeIllustrationPoint.Stochasts,
+                                                     faultTreeIllustrationPoint.Beta),
+
+                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
+                                                     topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
+                                                     topLevelFaultTreeIllustrationPoint2.ClosingSituation,
+                                                     subMechanismIllustrationPoint.Stochasts,
+                                                     subMechanismIllustrationPoint.Beta)
+                };
+                CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingData_IllustrationPointsControlSyncedAccordingly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => null))
+            {
+                // Call
+                view.Data = data;
+
+                // Assert
+                Assert.AreSame(data, view.Data);
+
+                var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
+                Assert.IsNull(illustrationPointsControl.Data);
+            }
+
+            mocks.VerifyAll();
         }
 
         private static GeneralResultFaultTreeIllustrationPointView GetValidView()
         {
             return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
-        }
-
-        private GeneralResultFaultTreeIllustrationPointView GetValidViewWithTestData()
-        {
-            return new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                       WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                       Enumerable.Empty<Stochast>(),
-                                                                       new List<TopLevelFaultTreeIllustrationPoint>
-                                                                       {
-                                                                           topLevelFaultTreeIllustrationPoint1,
-                                                                           topLevelFaultTreeIllustrationPoint2
-                                                                       }));
         }
     }
 }
