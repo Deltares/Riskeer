@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
@@ -27,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
@@ -255,7 +257,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(shouldIllustrationPointsBeCalculated, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)
+        private static void AssertHydraulicBoundaryLocationOutput(IHydraulicLocationOutputEntity expected,
+                                                                  HydraulicBoundaryLocationOutput actual)
         {
             if (expected == null)
             {
@@ -273,6 +276,28 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.IsNotNull(expected.CalculatedProbability);
             Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
+
+            AssertGeneralResult(expected.GeneralResultSubMechanismIllustrationPointEntity,
+                                actual.GeneralResult);
+        }
+
+        private static void AssertGeneralResult(GeneralResultSubMechanismIllustrationPointEntity expectedGeneralResultEntity,
+                                                GeneralResult<TopLevelSubMechanismIllustrationPoint> actualGeneralResult)
+        {
+            if (expectedGeneralResultEntity == null)
+            {
+                Assert.IsNull(actualGeneralResult);
+                return;
+            }
+
+            WindDirection governingWindDirection = actualGeneralResult.GoverningWindDirection;
+            Assert.AreEqual(expectedGeneralResultEntity.GoverningWindDirectionName, governingWindDirection.Name);
+            Assert.AreEqual(expectedGeneralResultEntity.GoverningWindDirectionAngle, governingWindDirection.Angle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(expectedGeneralResultEntity.TopLevelSubMechanismIllustrationPointEntities.Count,
+                            actualGeneralResult.TopLevelIllustrationPoints.Count());
+            Assert.AreEqual(expectedGeneralResultEntity.StochastEntities.Count, actualGeneralResult.Stochasts.Count());
         }
     }
 }
