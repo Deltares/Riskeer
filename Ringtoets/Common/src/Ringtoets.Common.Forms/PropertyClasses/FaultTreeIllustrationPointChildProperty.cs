@@ -22,15 +22,11 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -55,31 +51,33 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
-         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
-         public Stochast[] AlphaValues
-         {
-             get
-             {
-                 return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
-             }
-         }
-            
-         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
-         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
-         public Stochast[] Durations
-         {
-             get
-             {
-                 return ((FaultTreeIllustrationPoint)data.Data).Stochasts.ToArray();
-             }
-         }
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
+        public Stochast[] AlphaValues
+        {
+            get
+            {
+                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+            }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
+        public Stochast[] Durations
+        {
+            get
+            {
+                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+            }
+        }
 
         public override string ToString()
         {

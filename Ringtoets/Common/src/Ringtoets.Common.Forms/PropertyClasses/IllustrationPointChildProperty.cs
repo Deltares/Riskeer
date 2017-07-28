@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -57,6 +58,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
         }
 
         [ReadOnly(true)]
+        [PropertyOrder(0)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_Description))]
@@ -69,6 +71,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
         }
 
         [ReadOnly(true)]
+        [PropertyOrder(1)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_Description))]
@@ -81,11 +84,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
         }
 
         [ReadOnly(true)]
+        [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_Description))]
         public string WindDirection { get; }
 
         [ReadOnly(true)]
+        [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
         public string Name
@@ -98,6 +103,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
 
         [ReadOnly(true)]
         [DynamicVisible]
+        [PropertyOrder(6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -106,7 +112,29 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
         {
             get
             {
-                return data.Children.Select(point => new IllustrationPointChildProperty(point, WindDirection)).ToArray();
+                var points = new List<IllustrationPointChildProperty>();
+                foreach (IllustrationPointNode illustrationPointNode in data.Children)
+                {
+                    var faultTree = illustrationPointNode.Data as FaultTreeIllustrationPoint;
+                    if (faultTree != null)
+                    {
+                        points.Add(new FaultTreeIllustrationPointChildProperty(illustrationPointNode, WindDirection));
+                        continue;
+                    }
+
+                    var subMechanism = illustrationPointNode.Data as SubMechanismIllustrationPoint;
+                    if (subMechanism != null)
+                    {
+                        points.Add(new SubMechanismIllustrationPointChildProperty(illustrationPointNode, WindDirection));
+                        continue;
+                    }
+
+                    // If type is not supported, throw exception (currently not possible, safeguard for future)
+                    throw new NotSupportedException("IllustrationPointNode is not of a supported type (FaultTree/SubMechanism)");
+
+
+                }
+                return points.ToArray();
             }
         }
 

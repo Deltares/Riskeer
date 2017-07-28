@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -50,6 +51,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
