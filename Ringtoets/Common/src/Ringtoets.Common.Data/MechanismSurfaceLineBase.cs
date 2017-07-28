@@ -206,12 +206,12 @@ namespace Ringtoets.Common.Data
         }
 
         /// <summary>
-        /// Creates a configured <exception cref="ArgumentException"/> for the case that a characteristic point
+        /// Creates a configured <see cref="ArgumentException"/> for the case that a characteristic point
         /// is not in the geometry of the surface line.
         /// </summary>
         /// <param name="point">The point that is not in the geometry.</param>
         /// <param name="characteristicPointDescription">The description of the characteristic point.</param>
-        /// <returns>Returns a configured <exception cref="ArgumentException"/>.</returns>
+        /// <returns>Returns a configured <see cref="ArgumentException"/>.</returns>
         protected static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
             string message = string.Format(Resources.MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
