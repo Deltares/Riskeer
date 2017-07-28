@@ -37,17 +37,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class FaultTreeIllustrationPointChildProperty : IllustrationPointChildProperty
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointProperty"/>.
+        /// Creates a new instance of <see cref="FaultTreeIllustrationPointChildProperty"/>.
         /// </summary>
-        /// <param name="faultTreeData">The data to use for the properties. </param>
+        /// <param name="illustrationPointNode">The data to use for the properties. </param>
         /// <param name="windDirection">String containing the wind direction for this illustration point</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when faultTreeData is of the wrong type.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when illustrationPointNode is of the wrong type.</exception>
+        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="FaultTreeIllustrationPoint"/></exception>
         public FaultTreeIllustrationPointChildProperty(
-            IllustrationPointNode faultTreeData, string windDirection) : base(faultTreeData, windDirection)
+            IllustrationPointNode illustrationPointNode, string windDirection) : base(illustrationPointNode, windDirection)
         {
             if (!(data.Data is FaultTreeIllustrationPoint))
             {
-                throw new ArgumentException("IllustrationPoint data type has to be FaultTreeIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode data type has to be FaultTreeIllustrationPoint");
             }
         }
 

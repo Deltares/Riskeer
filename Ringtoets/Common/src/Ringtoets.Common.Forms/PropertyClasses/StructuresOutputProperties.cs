@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -74,7 +75,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
-        public Stochast[] AlphaValues
+        public IEnumerable<Stochast> AlphaValues
         {
             get
             {
@@ -89,7 +90,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
-        public Stochast[] Durations
+        public IEnumerable<Stochast> Durations
         {
             get
             {

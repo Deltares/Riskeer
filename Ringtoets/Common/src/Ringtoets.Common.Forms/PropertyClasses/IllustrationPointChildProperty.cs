@@ -39,23 +39,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     public class IllustrationPointChildProperty : ObjectProperties<IllustrationPointNode>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointProperty"/>.
+        /// Creates a new instance of <see cref="IllustrationPointChildProperty"/>.
         /// </summary>
-        /// <param name="faultTreeData">The data to use for the properties. </param>
+        /// <param name="illustrationPointNode">The data to use for the properties. </param>
         /// <param name="windDirection">String containing the wind direction for this illustration point</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public IllustrationPointChildProperty(
-            IllustrationPointNode faultTreeData, string windDirection)
+            IllustrationPointNode illustrationPointNode, string windDirection)
         {
-            if (faultTreeData == null)
+            if (illustrationPointNode == null)
             {
-                throw new ArgumentNullException(nameof(faultTreeData));
+                throw new ArgumentNullException(nameof(illustrationPointNode));
             }
             if (windDirection == null)
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
-            data = faultTreeData;
+            data = illustrationPointNode;
             WindDirection = windDirection;
         }
 
