@@ -82,7 +82,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "FROM Mechanism M " +
                 "INNER JOIN Segment S USING(ME_ID) " +
                 "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
-                "INNER JOIN StochasticSoilProfile SSP USING(SSM_ID) " +
+                "LEFT JOIN StochasticSoilProfile SSP USING(SSM_ID) " +
                 "ORDER BY SSM.SSM_ID;";
             Assert.AreEqual(expectedQuery, query);
         }

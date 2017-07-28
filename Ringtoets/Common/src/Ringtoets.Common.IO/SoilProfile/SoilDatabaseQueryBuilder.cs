@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                    $"FROM {MechanismTableDefinitions.TableName} M " +
                    $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({MechanismTableDefinitions.MechanismId}) " +
                    $"INNER JOIN {StochasticSoilModelTableDefinitions.TableName} SSM USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
-                   $"INNER JOIN {StochasticSoilProfileTableDefinitions.TableName} SSP USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                   $"LEFT JOIN {StochasticSoilProfileTableDefinitions.TableName} SSP USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
                    $"ORDER BY SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId};";
         }
 

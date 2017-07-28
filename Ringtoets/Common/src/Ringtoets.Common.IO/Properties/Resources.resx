@@ -845,4 +845,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="StochasticSoilModelReader_ReadStochasticSoilProfiles_No_profiles_found_in_stochastic_soil_model_Name_0_" xml:space="preserve">
+    <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'</value>
+  </data>
 </root>

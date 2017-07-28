@@ -219,7 +219,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsFalse()
+        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsNull()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
@@ -239,7 +239,97 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_CompleteDatabase_ThreeModelsWithProfiles()
+        public void ReadStochasticSoilModel_InvalidSegmentPoint_ThrowsStochasticSoilModelReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                TestDelegate test = () => reader.ReadStochasticSoilModel();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
+                    .Build("De ondergrondschematisatie verwijst naar een ongeldige waarde.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfile_ThrowsExceptionAndHasNext()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWithoutProfile.soil");
+
+            StochasticSoilModelException expectedException = null;
+            var readModels = new List<StochasticSoilModel>();
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                while (reader.HasNext)
+                {
+                    try
+                    {
+                        // Call
+                        readModels.Add(reader.ReadStochasticSoilModel());
+                    }
+                    catch (StochasticSoilModelException e)
+                    {
+                        expectedException = e;
+                        reader.MoveNext();
+                    }
+                }
+
+                Assert.IsFalse(reader.HasNext);
+            }
+
+            // Assert
+            var expectedSegmentAndModelNames = new[]
+            {
+                "36005_Stability",
+                "36005_Piping",
+                "36006_Stability",
+                "36007_Stability",
+                "36007_Piping"
+            };
+            var expectedSegmentPointCount = new[]
+            {
+                1797,
+                1797,
+                144,
+                606,
+                606
+            };
+            var expectedProfileCount = new[]
+            {
+                10,
+                10,
+                6,
+                8,
+                8
+            };
+
+            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
+            CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
+            CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
+
+            Assert.IsInstanceOf<StochasticSoilModelException>(expectedException);
+            Assert.AreEqual("Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '36006_Piping'",
+                            expectedException.Message);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_CompleteDatabase_SixModelsWithProfiles()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.soil");
@@ -297,7 +387,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 0,
                 0
             };
-
 
             Assert.AreEqual(expectedSegmentAndModelNames.Length, readModels.Count);
             CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));

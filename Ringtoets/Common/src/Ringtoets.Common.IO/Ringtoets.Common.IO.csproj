@@ -143,6 +143,7 @@
     <Compile Include="SoilProfile\SoilProfile2DReader.cs" />
     <Compile Include="SoilProfile\SoilProfileReadException.cs" />
     <Compile Include="SoilProfile\StochasticSoilModel.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelException.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />

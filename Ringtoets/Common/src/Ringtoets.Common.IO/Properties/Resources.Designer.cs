@@ -1720,6 +1720,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel &apos;{0}&apos;.
+        /// </summary>
+        public static string StochasticSoilModelReader_ReadStochasticSoilProfiles_No_profiles_found_in_stochastic_soil_model_Name_0_ {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelReader_ReadStochasticSoilProfiles_No_profiles_found_in_stochas" +
+                        "tic_soil_model_Name_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik {0} liggen..
         /// </summary>
         public static string StochasticSoilProfile_Probability_Should_be_in_range_0_ {
