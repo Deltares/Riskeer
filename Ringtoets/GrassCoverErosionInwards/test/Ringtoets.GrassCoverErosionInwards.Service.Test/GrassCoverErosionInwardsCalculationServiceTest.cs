@@ -1348,7 +1348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
@@ -1364,7 +1364,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         dikeHeightCalculator.OutputDirectory,
                         msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-                    Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -1567,6 +1566,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     GrassCoverErosionInwardsCalculationServiceTestHelper.AssertCalculationFinishedMessage(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
@@ -1582,7 +1582,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         overtoppingRateCalculator.OutputDirectory,
                         msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-                    Assert.AreEqual(5, msgs.Length);
                 });
                 Assert.IsNotNull(calculation.Output);
             }
@@ -2150,7 +2149,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
-
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[7]);
 
                     Assert.IsInstanceOf<IllustrationPointConversionException>(tupleArray[2].Item3);
