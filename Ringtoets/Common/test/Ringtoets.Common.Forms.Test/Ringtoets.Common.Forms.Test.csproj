@@ -93,7 +93,6 @@
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointChildPropertyTest.cs" />
     <Compile Include="PropertyClasses\IllustrationPointChildPropertyTest.cs" />
     <Compile Include="PropertyClasses\FaultTreeIllustrationPointChildPropertyTest.cs" />
-    <Compile Include="PropertyClasses\IllustrationPointPropertyTest.cs" />
     <Compile Include="PropertyClasses\FaultTreeIllustrationPointBasePropertyTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StructureCollectionPropertiesTest.cs" />

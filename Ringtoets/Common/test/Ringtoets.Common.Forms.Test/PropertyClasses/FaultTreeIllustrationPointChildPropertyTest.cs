@@ -51,9 +51,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 1.5, new Stochast[0], CombinationType.And));
             var illustrationPointNodeChild = new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 3.5, new Stochast[0], CombinationType.Or));
-            var illustrationPointNodeChildren = new[] { illustrationPointNodeChild, illustrationPointNodeChild };
+            var illustrationPointNodeChildren = new[]
+            {
+                illustrationPointNodeChild,
+                illustrationPointNodeChild
+            };
             illustrationPointNode.SetChildren(illustrationPointNodeChildren);
-            
+
             // Call
             var faultTree = new FaultTreeIllustrationPointChildProperty(illustrationPointNode, "N");
 
@@ -77,7 +81,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(faultTree.IllustrationPoints[0].CalculatedProbability, StatisticsConverter.ReliabilityToProbability(3.5));
             Assert.AreEqual(faultTree.IllustrationPoints[0].Reliability, 3.5);
             Assert.AreEqual(faultTree.IllustrationPoints[0].IllustrationPoints.Length, 0);
-
         }
 
         [Test]
@@ -91,8 +94,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(toString, "N");
-
         }
-
     }
 }

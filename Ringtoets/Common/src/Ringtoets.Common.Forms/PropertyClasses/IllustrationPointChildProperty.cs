@@ -33,9 +33,11 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Common.Forms.PropertyClasses {
+namespace Ringtoets.Common.Forms.PropertyClasses
+{
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class IllustrationPointChildProperty : ObjectProperties<IllustrationPointNode> {
+    public class IllustrationPointChildProperty : ObjectProperties<IllustrationPointNode>
+    {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointProperty"/>.
         /// </summary>
@@ -126,13 +128,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses {
                     if (subMechanism != null)
                     {
                         points.Add(new SubMechanismIllustrationPointChildProperty(illustrationPointNode, WindDirection));
-                        continue;
                     }
-
-                    // If type is not supported, throw exception (currently not possible, safeguard for future)
-                    throw new NotSupportedException("IllustrationPointNode is not of a supported type (FaultTree/SubMechanism)");
-
-
                 }
                 return points.ToArray();
             }

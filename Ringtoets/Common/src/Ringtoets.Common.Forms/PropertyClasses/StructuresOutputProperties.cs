@@ -21,10 +21,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
@@ -51,16 +54,61 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = structuresOutput;
         }
 
+        [ReadOnly(true)]
         [DynamicVisible]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [Description("")]
-        public IllustrationPointProperty IllustrationPointProperty
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        public string WindDirection
         {
             get
             {
-                return new IllustrationPointProperty(data.GeneralResult);
+                return data.GeneralResult.GoverningWindDirection.Name;
+            }
+        }
+
+        [ReadOnly(true)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
+        public Stochast[] AlphaValues
+        {
+            get
+            {
+                return data.GeneralResult.Stochasts.ToArray();
+            }
+        }
+
+        [ReadOnly(true)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
+        public Stochast[] Durations
+        {
+            get
+            {
+                return data.GeneralResult.Stochasts.ToArray();
+            }
+        }
+
+        [ReadOnly(true)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [KeyValueElement(nameof(FaultTreeIllustrationPointBaseProperty.WindDirection), "")]
+        public FaultTreeIllustrationPointBaseProperty[] IllustrationPoints
+        {
+            get
+            {
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new FaultTreeIllustrationPointBaseProperty(point)).ToArray();
             }
         }
 
@@ -127,7 +175,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return propertyName == "IllustrationPointProperty" && data.HasGeneralResult;
+            if (propertyName == "WindDirection" ||
+                propertyName == "AlphaValues" ||
+                propertyName == "Durations" ||
+                propertyName == "IllustrationPoints")
+            {
+                return data.HasGeneralResult;
+            }
+
+            return false;
         }
     }
 }

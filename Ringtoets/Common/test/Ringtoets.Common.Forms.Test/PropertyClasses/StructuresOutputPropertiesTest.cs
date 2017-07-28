@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -41,7 +43,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int probabilityPropertyIndex = 2;
         private const int reliabilityPropertyIndex = 3;
         private const int factorOfSafetyPropertyIndex = 4;
-        private const int illustrationPointPropertyIndex = 5;
+        private const int windDirectionPropertyIndex = 5;
+        private const int alphaValuesPropertyIndex = 6;
+        private const int durationsPropertyIndex = 7;
+        private const int illustrationPointsPropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -84,8 +89,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                               probability,
                                                                               reliability,
                                                                               factorOfSafety);
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(new WindDirection("SSE", 5.0), "closing situation", new IllustrationPointNode(new TestIllustrationPoint()));
+
+            var expectedFaultTreeIllustrationPointBaseProperty = new[]
+            {
+                new FaultTreeIllustrationPointBaseProperty(topLevelFaultTreeIllustrationPoint)
+            };
+            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), new Stochast[0], new List<TopLevelFaultTreeIllustrationPoint> { topLevelFaultTreeIllustrationPoint }); var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
             structuresOutput.SetGeneralResult(generalResult);
 
             // Call
@@ -97,15 +107,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
-            Assert.IsNotNull(properties.IllustrationPointProperty);
-            Assert.AreEqual("SSE", properties.IllustrationPointProperty.WindDirection);
-            Assert.AreEqual(0, properties.IllustrationPointProperty.IllustrationPoints.Length);
+            Assert.AreEqual("SSE", properties.WindDirection);
+            Assert.IsEmpty(properties.AlphaValues);
+            Assert.IsEmpty(properties.Durations);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
         }
 
         [Test]
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            const string illustrationPointsCategoryName = "Illustratiepunten";
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
@@ -116,7 +132,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
@@ -153,9 +169,30 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointPropertyIndex];
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Maatgevende windrichting",
+                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
+                                                                            true);
+
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
-                                                                            "Illustratiepunten",
+                                                                            illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
                                                                             "",
                                                                             true);
