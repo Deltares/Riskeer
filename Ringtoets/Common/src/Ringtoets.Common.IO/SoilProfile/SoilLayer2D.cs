@@ -50,6 +50,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
         /// for which each of the segments are connected to the next.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="value"/>
         /// do not form a loop.</exception>
         public IEnumerable<Segment2D> OuterLoop
@@ -60,6 +61,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             internal set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
                 Segment2D[] loop = value.ToArray();
                 CheckValidLoop(loop);
                 outerLoop = loop;
@@ -91,6 +97,12 @@ namespace Ringtoets.Common.IO.SoilProfile
             innerLoops.Add(loop);
         }
 
+        /// <summary>
+        /// Validates that <paramref name="innerLoop"/> forms a loop.
+        /// </summary>
+        /// <param name="innerLoop"></param>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoop"/> 
+        /// do not form a loop.</exception>
         private static void CheckValidLoop(Segment2D[] innerLoop)
         {
             if (innerLoop.Length == 1 || !IsLoopConnected(innerLoop))
