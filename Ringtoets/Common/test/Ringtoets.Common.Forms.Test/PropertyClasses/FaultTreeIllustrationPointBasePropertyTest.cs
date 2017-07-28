@@ -54,8 +54,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 7.2, new Stochast[0], CombinationType.And)));
             topLevel.FaultTreeNodeRoot.SetChildren(new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 7.2, new Stochast[0], CombinationType.And)),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 7.2, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0]))
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                         7.2,
+                                                                         new Stochast[0],
+                                                                         CombinationType.And)),
+                new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                            7.2,
+                                                                            new SubMechanismIllustrationPointStochast[0],
+                                                                            new IllustrationPointResult[0]))
             });
 
             // Call
@@ -86,7 +92,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new TopLevelFaultTreeIllustrationPoint(
                     new WindDirection("SSE", 5.0),
                     "closing situation",
-                    new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 1.5, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0]))));
+                    new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                                1.5,
+                                                                                new SubMechanismIllustrationPointStochast[0],
+                                                                                new IllustrationPointResult[0]))));
 
             // Call
             string toString = faultTree.ToString();

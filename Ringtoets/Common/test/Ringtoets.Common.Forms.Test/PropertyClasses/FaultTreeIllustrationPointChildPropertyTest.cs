@@ -49,8 +49,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_FaultTreeIllustrationPoint_CorrectValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 1.5, new Stochast[0], CombinationType.And));
-            var illustrationPointNodeChild = new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 3.5, new Stochast[0], CombinationType.Or));
+            var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                                                 1.5,
+                                                                                                 new Stochast[0],
+                                                                                                 CombinationType.And));
+            var illustrationPointNodeChild = new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                                                      3.5,
+                                                                                                      new Stochast[0],
+                                                                                                      CombinationType.Or));
             var illustrationPointNodeChildren = new[]
             {
                 illustrationPointNodeChild,
@@ -87,7 +93,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new FaultTreeIllustrationPointChildProperty(new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 1.5, new Stochast[0], CombinationType.And)), "N");
+            var faultTree = new FaultTreeIllustrationPointChildProperty(new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                                                                                 1.5,
+                                                                                                                                 new Stochast[0],
+                                                                                                                                 CombinationType.And)),
+                                                                        "N");
 
             // Call
             string toString = faultTree.ToString();

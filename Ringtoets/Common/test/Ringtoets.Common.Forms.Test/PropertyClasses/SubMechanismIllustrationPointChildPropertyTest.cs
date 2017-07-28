@@ -39,7 +39,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
-                                                                                         new FaultTreeIllustrationPoint("N", 1.5, new Stochast[0], CombinationType.And)),
+                                                                                         new FaultTreeIllustrationPoint("N",
+                                                                                                                        1.5,
+                                                                                                                        new Stochast[0],
+                                                                                                                        CombinationType.And)),
                                                                                      "N");
 
             // Assert
@@ -53,7 +56,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             var faultTree = new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
-                                                                               new SubMechanismIllustrationPoint("N", 1.5, new SubMechanismIllustrationPointStochast[0],
+                                                                               new SubMechanismIllustrationPoint("N",
+                                                                                                                 1.5,
+                                                                                                                 new SubMechanismIllustrationPointStochast[0],
                                                                                                                  new IllustrationPointResult[0])),
                                                                            "N");
 
@@ -76,7 +81,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var faultTree = new SubMechanismIllustrationPointChildProperty(new IllustrationPointNode(
-                                                                               new SubMechanismIllustrationPoint("N", 1.5, new SubMechanismIllustrationPointStochast[0],
+                                                                               new SubMechanismIllustrationPoint("N",
+                                                                                                                 1.5,
+                                                                                                                 new SubMechanismIllustrationPointStochast[0],
                                                                                                                  new IllustrationPointResult[0])),
                                                                            "N");
 

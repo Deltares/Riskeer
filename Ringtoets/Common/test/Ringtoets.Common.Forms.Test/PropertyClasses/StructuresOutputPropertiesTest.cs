@@ -89,13 +89,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                               probability,
                                                                               reliability,
                                                                               factorOfSafety);
-            var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(new WindDirection("SSE", 5.0), "closing situation", new IllustrationPointNode(new TestIllustrationPoint()));
+            var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(new WindDirection("SSE", 5.0), 
+                                                                                            "closing situation", 
+                                                                                            new IllustrationPointNode(new TestIllustrationPoint()));
 
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
                 new FaultTreeIllustrationPointBaseProperty(topLevelFaultTreeIllustrationPoint)
             };
-            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), new Stochast[0], new List<TopLevelFaultTreeIllustrationPoint> { topLevelFaultTreeIllustrationPoint }); var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), 
+                                                                                      new Stochast[0], 
+                                                                                      new List<TopLevelFaultTreeIllustrationPoint> { topLevelFaultTreeIllustrationPoint });
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
             structuresOutput.SetGeneralResult(generalResult);
 
             // Call

@@ -65,7 +65,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
 
             // Call
-            var faultTree = new IllustrationPointChildProperty(new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 1.5, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0])), "N");
+            var faultTree = new IllustrationPointChildProperty(new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                                                                           1.5,
+                                                                                                                           new SubMechanismIllustrationPointStochast[0],
+                                                                                                                           new IllustrationPointResult[0])),
+                                                               "N");
 
             // Assert
             Assert.AreEqual(faultTree.WindDirection, "N");
@@ -88,8 +92,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                                     new IllustrationPointResult[0]));
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 7.2, new Stochast[0], CombinationType.And)),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 7.2, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0]))
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                         7.2,
+                                                                         new Stochast[0],
+                                                                         CombinationType.And)),
+                new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                            7.2,
+                                                                            new SubMechanismIllustrationPointStochast[0],
+                                                                            new IllustrationPointResult[0]))
             });
 
             // Call
@@ -110,14 +120,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new IllustrationPointChildProperty(new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 1.5, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0])), "N");
+            var faultTree = new IllustrationPointChildProperty(new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                                                                           1.5,
+                                                                                                                           new SubMechanismIllustrationPointStochast[0],
+                                                                                                                           new IllustrationPointResult[0])),
+                                                               "N");
 
             // Call
             string toString = faultTree.ToString();
 
             // Assert
             Assert.AreEqual(toString, "N");
-
         }
 
         [Test]
@@ -130,8 +143,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                                     new IllustrationPointResult[0]));
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("N", 7.2, new Stochast[0], CombinationType.And)),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("N", 7.2, new SubMechanismIllustrationPointStochast[0], new IllustrationPointResult[0]))
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
+                                                                         7.2,
+                                                                         new Stochast[0],
+                                                                         CombinationType.And)),
+                new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
+                                                                            7.2,
+                                                                            new SubMechanismIllustrationPointStochast[0],
+                                                                            new IllustrationPointResult[0]))
             });
 
             // Call
@@ -220,6 +239,5 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
                                                                             true);
         }
-
     }
 }

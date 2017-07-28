@@ -55,7 +55,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = structuresOutput;
         }
 
-        [ReadOnly(true)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
@@ -68,14 +67,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
-        public IEnumerable<Stochast> AlphaValues
+        public Stochast[] AlphaValues
         {
             get
             {
@@ -83,14 +81,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
-        public IEnumerable<Stochast> Durations
+        public Stochast[] Durations
         {
             get
             {
