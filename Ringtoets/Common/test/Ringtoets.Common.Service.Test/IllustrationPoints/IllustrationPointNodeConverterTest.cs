@@ -170,7 +170,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             string expectedMessageInnerException = $"Cannot convert {hydraRingIllustrationPointData.GetType()}.";
             Exception innerException = exception.InnerException;
-            Assert.IsNotNull(innerException);
             Assert.IsInstanceOf<NotSupportedException>(innerException);
             Assert.AreEqual(expectedMessageInnerException, innerException.Message);
         }
@@ -204,7 +203,6 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             string expectedMessageInnerException = $"Cannot convert {typeof(TestHydraRingIllustrationPointData)}.";
             Exception innerException = exception.InnerException;
-            Assert.IsNotNull(innerException);
             Assert.IsInstanceOf<NotSupportedException>(innerException);
             Assert.AreEqual(expectedMessageInnerException, innerException.Message);
         }

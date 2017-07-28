@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 case HydraRingCombinationType.And:
                     return CombinationType.And;
                 default:
-                    throw new NotSupportedException($"A value of {hydraRingCombinationType} is not supported.");
+                    throw new NotSupportedException($"The value {hydraRingCombinationType} is not supported.");
             }
         }
     }

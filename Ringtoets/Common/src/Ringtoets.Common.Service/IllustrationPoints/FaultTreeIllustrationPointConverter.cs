@@ -54,14 +54,13 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingFaultTreeIllustrationPoint));
             }
 
-            FaultTreeIllustrationPoint illustrationPoint;
             try
             {
                 CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingFaultTreeIllustrationPoint.CombinationType);
                 IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint
                     .Stochasts.Select(StochastConverter.Convert);
 
-                illustrationPoint = new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
+                return new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
                                                                    hydraRingFaultTreeIllustrationPoint.Beta,
                                                                    stochasts,
                                                                    combinationType);
@@ -71,8 +70,6 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 string errorMessage = $"Could not convert the {typeof(HydraRingCombinationType)} into a {typeof(CombinationType)}.";
                 throw new IllustrationPointConversionException(errorMessage, e);
             }
-
-            return illustrationPoint;
         }
     }
 }

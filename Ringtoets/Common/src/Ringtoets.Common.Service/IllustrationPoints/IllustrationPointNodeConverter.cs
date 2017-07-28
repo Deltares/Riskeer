@@ -81,8 +81,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
         /// </summary>
         /// <param name="data">The <see cref="HydraRingIIllustrationPoint"/> to base the 
         /// <see cref="IllustrationPointBase"/> to create on.</param>
-        /// <returns>A <see cref="IllustrationPointBase"/>, <c>null</c> when no appropriate
-        /// conversion was found.</returns>
+        /// <returns>A <see cref="IllustrationPointBase"/>.</returns>
         /// <exception cref="IllustrationPointConversionException">Thrown when <paramref name="data"/>
         /// could not be converted.</exception>
         /// <exception cref="NotSupportedException">Thrown when no suitable conversion for <paramref name="data"/>
