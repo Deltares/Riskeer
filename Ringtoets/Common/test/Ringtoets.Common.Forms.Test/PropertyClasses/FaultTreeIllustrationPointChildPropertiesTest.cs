@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_InvalidIllustrationPointType_ThrowsException()
         {
             // Setup
-            const string expectedMessage = "illustrationPointNode data type has to be FaultTreeIllustrationPoint";
+            const string expectedMessage = "illustrationPointNode type has to be FaultTreeIllustrationPoint";
 
             // Call
             TestDelegate test = () => new FaultTreeIllustrationPointChildProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N");
