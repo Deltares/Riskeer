@@ -138,45 +138,24 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_IllustrationPointsControlSyncedAccordingly()
+        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_ThenIllustrationPointsControlSyncedAccordingly()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var data = mocks.Stub<ICalculation>();
 
             mocks.ReplayAll();
 
-            var topLevelFaultTreeIllustrationPoint1 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 1",
-                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
-                                                                             1.1,
-                                                                             Enumerable.Empty<Stochast>(),
-                                                                             CombinationType.And)));
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            var topLevelFaultTreeIllustrationPoint2 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 2",
-                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
-                                                                                2.2,
-                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                                Enumerable.Empty<IllustrationPointResult>())));
-
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                                  WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                  Enumerable.Empty<Stochast>(),
-                                                                                  new List<TopLevelFaultTreeIllustrationPoint>
-                                                                                  {
-                                                                                      topLevelFaultTreeIllustrationPoint1,
-                                                                                      topLevelFaultTreeIllustrationPoint2
-                                                                                  })))
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult))
             {
-                // Call
+                // When
                 view.Data = data;
 
-                // Assert
+                // Then
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint1 = generalResult.TopLevelIllustrationPoints.ElementAt(0);
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint2 = generalResult.TopLevelIllustrationPoints.ElementAt(1);
                 var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
                 var faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) topLevelFaultTreeIllustrationPoint1.FaultTreeNodeRoot.Data;
                 var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelFaultTreeIllustrationPoint2.FaultTreeNodeRoot.Data;
@@ -201,9 +180,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingData_IllustrationPointsControlSyncedAccordingly()
+        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingData_ThenIllustrationPointsControlSyncedAccordingly()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var data = mocks.Stub<ICalculation>();
 
@@ -211,10 +190,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = new GeneralResultFaultTreeIllustrationPointView(() => null))
             {
-                // Call
+                // When
                 view.Data = data;
 
-                // Assert
+                // Then
                 var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
                 Assert.IsNull(illustrationPointsControl.Data);
             }
@@ -223,9 +202,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithDataSetAndGeneralResultFuncReturningTestData_WhenDataNotifiesObserver_IllustrationPointsControlSyncedAccordingly()
+        public void GivenViewWithDataSetAndGeneralResultFuncReturningTestData_WhenDataNotifiesObserver_ThenIllustrationPointsControlSyncedAccordingly()
         {
-            // Setup
+            // Given
             var returnGeneralResult = false;
             var data = new TestCalculation();
 
@@ -234,28 +213,29 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                             WindDirectionTestFactory.CreateTestWindDirection(),
                                                                                             Enumerable.Empty<Stochast>(),
                                                                                             Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>())
-                                                                                        : null))
+                                                                                        : null)
             {
-                view.Data = data;
-
+                Data = data
+            })
+            {
                 returnGeneralResult = true;
 
                 // Precondition
                 var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
                 Assert.IsNull(illustrationPointsControl.Data);
 
-                // Call
+                // When
                 data.NotifyObservers();
 
-                // Assert
+                // Then
                 CollectionAssert.AreEqual(Enumerable.Empty<IllustrationPointControlItem>(), illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
             }
         }
 
         [Test]
-        public void GivenDisposedViewWithDataSetAndGeneralResultFuncReturningTestData_WhenDataNotifiesObserver_IllustrationPointsControlNoLongerSynced()
+        public void GivenDisposedViewWithDataSetAndGeneralResultFuncReturningTestData_WhenDataNotifiesObserver_ThenIllustrationPointsControlNoLongerSynced()
         {
-            // Setup
+            // Given
             var returnGeneralResult = false;
             var data = new TestCalculation();
 
@@ -264,9 +244,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                             WindDirectionTestFactory.CreateTestWindDirection(),
                                                                                             Enumerable.Empty<Stochast>(),
                                                                                             Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>())
-                                                                                        : null))
+                                                                                        : null)
             {
-                view.Data = data;
+                Data = data
+            })
+            {
                 view.Dispose();
 
                 returnGeneralResult = true;
@@ -275,69 +257,46 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
                 Assert.IsNull(illustrationPointsControl.Data);
 
-                // Call
+                // When
                 data.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.IsNull(illustrationPointsControl.Data);
             }
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_SelectionChangePropagatedAccordingly()
+        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_ThenSelectionChangedAndPropagatedAccordingly()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var data = mocks.Stub<ICalculation>();
 
             mocks.ReplayAll();
 
-            var topLevelFaultTreeIllustrationPoint1 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 1",
-                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
-                                                                             1.1,
-                                                                             Enumerable.Empty<Stochast>(),
-                                                                             CombinationType.And)));
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            var topLevelFaultTreeIllustrationPoint2 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 2",
-                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
-                                                                                2.2,
-                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                                Enumerable.Empty<IllustrationPointResult>())));
-
-            var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                           WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                           Enumerable.Empty<Stochast>(),
-                                                                           new List<TopLevelFaultTreeIllustrationPoint>
-                                                                           {
-                                                                               topLevelFaultTreeIllustrationPoint1,
-                                                                               topLevelFaultTreeIllustrationPoint2
-                                                                           }));
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult);
 
             ShowTestView(view);
 
-            var selectionChangedCounter = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+            var selectionChangedCount = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            // Call
+            // When
             view.Data = data;
 
-            // Assert
-            Assert.AreNotEqual(0, selectionChangedCounter);
-            Assert.AreSame(topLevelFaultTreeIllustrationPoint1, view.Selection);
+            // Then
+            Assert.AreNotEqual(0, selectionChangedCount);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(0), view.Selection);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningEmptyData_WhenSettingData_NoSelectionChangePropagated()
+        public void GivenViewWithGeneralResultFuncReturningEmptyData_WhenSettingData_ThenNoSelectionChangedAndPropagated()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var data = mocks.Stub<ICalculation>();
 
@@ -350,62 +309,39 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             ShowTestView(view);
 
-            var selectionChangedCounter = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+            var selectionChangedCount = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            // Call
+            // When
             view.Data = data;
 
-            // Assert
-            Assert.AreEqual(0, selectionChangedCounter);
+            // Then
+            Assert.AreEqual(0, selectionChangedCount);
             Assert.IsNull(view.Selection);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingCellInRow_SelectionChangePropagatedAccordingly()
+        public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedAndPropagatedAccordingly()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var data = mocks.Stub<ICalculation>();
 
             mocks.ReplayAll();
 
-            var topLevelFaultTreeIllustrationPoint1 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 1",
-                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
-                                                                             1.1,
-                                                                             Enumerable.Empty<Stochast>(),
-                                                                             CombinationType.And)));
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            var topLevelFaultTreeIllustrationPoint2 =
-                new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "Closing situation 2",
-                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
-                                                                                2.2,
-                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                                                Enumerable.Empty<IllustrationPointResult>())));
-
-            var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                           WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                           Enumerable.Empty<Stochast>(),
-                                                                           new List<TopLevelFaultTreeIllustrationPoint>
-                                                                           {
-                                                                               topLevelFaultTreeIllustrationPoint1,
-                                                                               topLevelFaultTreeIllustrationPoint2
-                                                                           }))
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult)
             {
                 Data = data
             };
 
             ShowTestView(view);
 
-            var selectionChangedCounter = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+            var selectionChangedCount = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
@@ -413,10 +349,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
 
-
-            // Assert
-            Assert.AreNotEqual(0, selectionChangedCounter);
-            Assert.AreSame(topLevelFaultTreeIllustrationPoint2, view.Selection);
+            // Then
+            Assert.AreNotEqual(0, selectionChangedCount);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(1), view.Selection);
 
             mocks.VerifyAll();
         }
@@ -430,6 +365,35 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             testForm.Controls.Add(view);
             testForm.Show();
+        }
+
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTwoTopLevelIllustrationPoints()
+        {
+            var topLevelFaultTreeIllustrationPoint1 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 1",
+                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
+                                                                             1.1,
+                                                                             Enumerable.Empty<Stochast>(),
+                                                                             CombinationType.And)));
+
+            var topLevelFaultTreeIllustrationPoint2 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 2",
+                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
+                                                                                2.2,
+                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                                Enumerable.Empty<IllustrationPointResult>())));
+
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         new List<TopLevelFaultTreeIllustrationPoint>
+                                                                         {
+                                                                             topLevelFaultTreeIllustrationPoint1,
+                                                                             topLevelFaultTreeIllustrationPoint2
+                                                                         });
         }
     }
 }
