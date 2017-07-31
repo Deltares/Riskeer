@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -39,6 +39,20 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_GetGeneralResultFuncNull_ThrowsArgumentNullException()
         {
@@ -296,29 +310,26 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                 Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                                                                                 Enumerable.Empty<IllustrationPointResult>())));
 
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                                  WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                  Enumerable.Empty<Stochast>(),
-                                                                                  new List<TopLevelFaultTreeIllustrationPoint>
-                                                                                  {
-                                                                                      topLevelFaultTreeIllustrationPoint1,
-                                                                                      topLevelFaultTreeIllustrationPoint2
-                                                                                  })))
-            {
-                WindowsFormsTestHelper.Show(view);
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                                           WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                           Enumerable.Empty<Stochast>(),
+                                                                           new List<TopLevelFaultTreeIllustrationPoint>
+                                                                           {
+                                                                               topLevelFaultTreeIllustrationPoint1,
+                                                                               topLevelFaultTreeIllustrationPoint2
+                                                                           }));
 
-                var selectionChangedCounter = 0;
-                view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+            ShowTestView(view);
 
-                // Call
-                view.Data = data;
+            var selectionChangedCounter = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
 
-                // Assert
-                Assert.AreNotEqual(0, selectionChangedCounter);
-                Assert.AreSame(topLevelFaultTreeIllustrationPoint1, view.Selection);
-            }
+            // Call
+            view.Data = data;
 
-            WindowsFormsTestHelper.CloseAll();
+            // Assert
+            Assert.AreNotEqual(0, selectionChangedCounter);
+            Assert.AreSame(topLevelFaultTreeIllustrationPoint1, view.Selection);
 
             mocks.VerifyAll();
         }
@@ -332,25 +343,80 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                                                  WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                  Enumerable.Empty<Stochast>(),
-                                                                                  Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>())))
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                                           WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                           Enumerable.Empty<Stochast>(),
+                                                                           Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()));
+
+            ShowTestView(view);
+
+            var selectionChangedCounter = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+
+            // Call
+            view.Data = data;
+
+            // Assert
+            Assert.AreEqual(0, selectionChangedCounter);
+            Assert.IsNull(view.Selection);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingCellInRow_SelectionChangePropagatedAccordingly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            var topLevelFaultTreeIllustrationPoint1 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 1",
+                    new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree illustration point",
+                                                                             1.1,
+                                                                             Enumerable.Empty<Stochast>(),
+                                                                             CombinationType.And)));
+
+            var topLevelFaultTreeIllustrationPoint2 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "Closing situation 2",
+                    new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub mechanism illustration point",
+                                                                                2.2,
+                                                                                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                                Enumerable.Empty<IllustrationPointResult>())));
+
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                                                           WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                           Enumerable.Empty<Stochast>(),
+                                                                           new List<TopLevelFaultTreeIllustrationPoint>
+                                                                           {
+                                                                               topLevelFaultTreeIllustrationPoint1,
+                                                                               topLevelFaultTreeIllustrationPoint2
+                                                                           }))
             {
-                var selectionChangedCounter = 0;
-                view.SelectionChanged += (sender, args) => selectionChangedCounter++;
+                Data = data
+            };
 
-                WindowsFormsTestHelper.Show(view);
+            ShowTestView(view);
 
-                // Call
-                view.Data = data;
+            var selectionChangedCounter = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCounter++;
 
-                // Assert
-                Assert.AreEqual(0, selectionChangedCounter);
-                Assert.IsNull(view.Selection);
-            }
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
-            WindowsFormsTestHelper.CloseAll();
+            // When
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+
+
+            // Assert
+            Assert.AreNotEqual(0, selectionChangedCounter);
+            Assert.AreSame(topLevelFaultTreeIllustrationPoint2, view.Selection);
 
             mocks.VerifyAll();
         }
@@ -358,6 +424,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static GeneralResultFaultTreeIllustrationPointView GetValidView()
         {
             return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        private void ShowTestView(GeneralResultFaultTreeIllustrationPointView view)
+        {
+            testForm.Controls.Add(view);
+            testForm.Show();
         }
     }
 }
