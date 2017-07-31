@@ -108,9 +108,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartPointData CreateTrafficLoadInsideChartData()
         {
             return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside,
-                                      GetCharacteristicPointStyle(Color.BurlyWood,
-                                                                  Color.Transparent,
-                                                                  ChartPointSymbol.Diamond));
+                                      GetCharacteristicPointStyle(Color.LightSlateGray,
+                                                                  Color.White,
+                                                                  ChartPointSymbol.Circle));
         }
 
         /// <summary>
@@ -121,9 +121,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartPointData CreateTrafficLoadOutsideChartData()
         {
             return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside,
-                                      GetCharacteristicPointStyle(Color.SlateGray,
-                                                                  Color.Transparent,
-                                                                  ChartPointSymbol.Diamond));
+                                      GetCharacteristicPointStyle(Color.DarkSlateGray,
+                                                                  Color.White,
+                                                                  ChartPointSymbol.Circle));
         }
 
         /// <summary>

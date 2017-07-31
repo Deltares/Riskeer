@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Verkeersbelasting kant binnenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.BurlyWood, 8, Color.Transparent, 0, ChartPointSymbol.Diamond);
+            AssertEqualStyle(data.Style, Color.LightSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Verkeersbelasting kant buitenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.SlateGray, 8, Color.Transparent, 0, ChartPointSymbol.Diamond);
+            AssertEqualStyle(data.Style, Color.DarkSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
         }
 
         [Test]
@@ -213,10 +213,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Setup
             var chartData = new ChartDataCollection("test name");
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("soil profile name", 2.0,
-                                                                   new[]
-                                                                   {
-                                                                       new MacroStabilityInwardsSoilLayer1D(3.2)
-                                                                   }, SoilProfileType.SoilProfile1D, 0);
+                                                                     new[]
+                                                                     {
+                                                                         new MacroStabilityInwardsSoilLayer1D(3.2)
+                                                                     }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(chartData, soilProfile);
