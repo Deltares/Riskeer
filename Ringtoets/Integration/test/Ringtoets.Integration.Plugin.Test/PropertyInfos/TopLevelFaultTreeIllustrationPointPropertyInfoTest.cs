@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
+        public void CreateInstance_TopLevelFaultTreeIllustrationPoint_ReturnFaultTreeIllustrationPointBaseProperties()
         {
             // Setup
             var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(
