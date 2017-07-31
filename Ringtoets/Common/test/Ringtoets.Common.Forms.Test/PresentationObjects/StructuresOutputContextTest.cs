@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var structuresOutputContext = new StructuresOutputContext(structuresCalculationStub);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
             Assert.AreSame(structuresCalculationStub, structuresOutputContext.WrappedData);
             mocks.VerifyAll();
         }

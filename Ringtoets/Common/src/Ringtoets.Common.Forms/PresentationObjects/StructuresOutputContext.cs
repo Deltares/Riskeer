@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for the output of structures calculations.
     /// </summary>
-    public class StructuresOutputContext : WrappedObjectContextBase<IStructuresCalculation>
+    public class StructuresOutputContext : ObservableWrappedObjectContextBase<IStructuresCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutputContext"/>.
