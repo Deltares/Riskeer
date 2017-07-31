@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the Submechanism Illustration Points.
+    /// Properties for the submechanism illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class SubMechanismIllustrationPointChildProperties : IllustrationPointChildProperties
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (!(data.Data is SubMechanismIllustrationPoint))
             {
-                throw new ArgumentException("illustrationPointNode data type has to be SubMechanismIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode type has to be SubMechanismIllustrationPoint");
             }
         }
 

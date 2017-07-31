@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FaultTreeIllustrationPointChildPropertyTest
+    public class FaultTreeIllustrationPointChildPropertiesTest
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
@@ -242,10 +242,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var faultTree = new FaultTreeIllustrationPointChildProperties(new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
-                                                                                                                                 1.5,
-                                                                                                                                 new Stochast[0],
-                                                                                                                                 CombinationType.And)),
-                                                                        "N");
+                                                                                                                                   1.5,
+                                                                                                                                   new Stochast[0],
+                                                                                                                                   CombinationType.And)),
+                                                                          "N");
 
             // Call
             string toString = faultTree.ToString();

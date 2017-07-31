@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the (child) Fault tree of Illustration Points
+    /// Properties for the fault tree illustration points
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FaultTreeIllustrationPointChildProperties : IllustrationPointChildProperties
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (!(data.Data is FaultTreeIllustrationPoint))
             {
-                throw new ArgumentException("illustrationPointNode data type has to be FaultTreeIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode type has to be FaultTreeIllustrationPoint");
             }
         }
 

@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FaultTreeIllustrationPointBasePropertyTest
+    public class FaultTreeIllustrationPointBasePropertiesTest
     {
         [Test]
         public void Constructor_Null_ThrowsException()

@@ -35,7 +35,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the Fault tree of Illustration Points.
+    /// Properties for the fault tree illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FaultTreeIllustrationPointBaseProperties : ObjectProperties<TopLevelFaultTreeIllustrationPoint>
