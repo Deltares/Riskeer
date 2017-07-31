@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -33,9 +35,18 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
         /// </summary>
-        public StochasticSoilModel()
+        /// <param name="name">The name of the stochastic soil model.</param>
+        /// <param name="failureMechanismType">The failure mechanism this stochastic soil model belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public StochasticSoilModel(string name, FailureMechanismType failureMechanismType)
         {
-            Name = string.Empty;
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            Name = name;
+            FailureMechanismType = failureMechanismType;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<StochasticSoilProfile>();
         }
@@ -43,7 +54,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets the name of the segment soil model.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
+
+        /// <summary>
+        /// Gets the failure mechanism the soil model applies to.
+        /// </summary>
+        public FailureMechanismType FailureMechanismType { get; }
 
         /// <summary>
         /// Gets the list of geometry points.

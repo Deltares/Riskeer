@@ -40,17 +40,5 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// Gets the name of the failure mechanism name column.
         /// </summary>
         public const string MechanismName = "ME_Name";
-
-        /// <summary>
-        /// Gets the name of the piping failure mechanism value in the <see cref="MechanismName"/> 
-        /// column.
-        /// </summary>
-        public const string MechanismNamePiping = "Piping";
-
-        /// <summary>
-        /// Gets the name of the macro stability inwards failure mechanism value in the 
-        /// <see cref="MechanismName"/> column.
-        /// </summary>
-        public const string MechanismNameMacroStabilityInwards = "Stability";
     }
 }

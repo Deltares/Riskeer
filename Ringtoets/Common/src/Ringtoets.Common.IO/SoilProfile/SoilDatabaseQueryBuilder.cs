@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         public static string GetStochasticSoilModelPerMechanismQuery()
         {
             return $"SELECT SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
-                   $"M.{MechanismTableDefinitions.MechanismName}, " +
+                   $"M.{MechanismTableDefinitions.MechanismId}, M.{MechanismTableDefinitions.MechanismName}, " +
                    $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelName}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.Probability}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.SoilProfile1DId}, " +

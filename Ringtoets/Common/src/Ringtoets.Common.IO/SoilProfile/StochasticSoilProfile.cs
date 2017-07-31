@@ -40,10 +40,15 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="probability">Probability of the stochastic soil profile.</param>
         /// <param name="soilProfile">The soil profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probability"/>
         /// is outside the range [0, 1].</exception>
         public StochasticSoilProfile(double probability, ISoilProfile soilProfile)
         {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
             Probability = probability;
             SoilProfile = soilProfile;
         }

@@ -851,4 +851,11 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry" xml:space="preserve">
     <value>Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.</value>
   </data>
+  <data name="StochasticSoilModelReader_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped" xml:space="preserve">
+    <value>{0} 
+Deze ondergrondschematisatie wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported" xml:space="preserve">
+    <value>Het faalmechanisme '{0}' wordt niet ondersteund.</value>
+  </data>
 </root>

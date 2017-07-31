@@ -120,6 +120,7 @@
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="SoilProfile\ISoilProfile.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
+    <Compile Include="SoilProfile\Schema\FailureMechanismType.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\SegmentPointsTableDefinitions.cs" />

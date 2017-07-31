@@ -32,11 +32,6 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string TableName = "StochasticSoilProfile";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model id column.
-        /// </summary>
-        public const string StochasticSoilModelId = "SSM_ID";
-
-        /// <summary>
         /// Gets the name of the stochastic soil profile 1D id column.
         /// </summary>
         public const string SoilProfile1DId = "SP1D_ID";

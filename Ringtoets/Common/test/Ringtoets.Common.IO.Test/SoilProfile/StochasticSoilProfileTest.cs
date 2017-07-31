@@ -55,6 +55,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [TestCase]
+        public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new StochasticSoilProfile(0.5, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("soilProfile", paramName);
+        }
+
+        [TestCase]
         public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup

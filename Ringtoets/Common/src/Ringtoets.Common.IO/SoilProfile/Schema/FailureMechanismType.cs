@@ -22,23 +22,22 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the table and column names of the table 'SegmentPoints' of the DSoil-Model database.
+    /// Defines the various failure mechanism types in the DSoil-Model database.
     /// </summary>
-    internal static class SegmentPointsTableDefinitions
+    public enum FailureMechanismType : long
     {
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        public const string TableName = "SegmentPoints";
-
-        /// <summary>
-        /// Gets the name of the world x coordinate column.
-        /// </summary>
-        public const string CoordinateX = "XWorld";
-
-        /// <summary>
-        /// Gets the name of the world Y coordinate column.
-        /// </summary>
-        public const string CoordinateY = "YWorld";
+        None = 0,
+        Stability = 1,
+        Settlement = 2,
+        PipingUpliftGradient = 3,
+        Piping = 4,
+        FlowSlide = 6,
+        Overtopping = 7,
+        AnchorLoading = 9,
+        DAM = 10,
+        Structures = 11,
+        BlockRevetment = 12,
+        Dunes = 14,
+        AsphaltRevetment = 15
     }
 }

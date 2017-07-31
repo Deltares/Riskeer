@@ -88,8 +88,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// if no more soil models can be read.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
-        /// <exception cref="StochasticSoilModelException">Thrown when no stochastic soil profiles 
-        /// could be read for this stochastic soil model.</exception>
+        /// <exception cref="StochasticSoilModelException">Thrown when:
+        /// <list type="bullet">
+        /// <item>no stochastic soil profiles could be read;</item>
+        /// <item>the read failure mechanism type is not supported.</item>
+        /// </list>
+        /// </exception>
         public StochasticSoilModel ReadStochasticSoilModel()
         {
             try
@@ -177,6 +181,17 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="StochasticSoilModel"/> from the data reader.
+        /// </summary>
+        /// <returns>The next <see cref="StochasticSoilModel"/> from the database, or <c>null</c> 
+        /// if no more soil models can be read.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when:
+        /// <list type="bullet">
+        /// <item>no stochastic soil profiles could be read;</item>
+        /// <item>the read failure mechanism type is not supported.</item>
+        /// </list>
+        /// </exception>
         private StochasticSoilModel TryReadStochasticSoilModel()
         {
             if (!HasNext)
@@ -199,7 +214,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="stochasticSoilModelId">The database identifier of the soil model.</param>
         /// <returns>The read stochastic soil profiles.</returns>
-        /// <exception cref="StochasticSoilModelException">Thrown when no stochastic soil profiles could be read.</exception>
+        /// <exception cref="StochasticSoilModelException">Thrown when:
+        /// <list type="bullet">
+        /// <item>no stochastic soil profiles could be read;</item>
+        /// <item>the read failure mechanism type is not supported.</item>
+        /// </list>
+        /// </exception>
         private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles(long stochasticSoilModelId)
         {
             while (HasNext && ReadStochasticSoilModelId() == stochasticSoilModelId)
@@ -229,46 +249,15 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
-        private double? ReadStochasticSoilProfileProbability()
-        {
-            object probability = dataReader[StochasticSoilProfileTableDefinitions.Probability];
-            return probability == Convert.DBNull
-                       ? (double?) null
-                       : Convert.ToDouble(probability);
-        }
-
-        private long? ReadSoilProfile1DId()
-        {
-            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile1DId];
-            return soilProfileId == Convert.DBNull
-                       ? (long?) null
-                       : Convert.ToInt64(soilProfileId);
-        }
-
-        private long? ReadSoilProfile2DId()
-        {
-            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile2DId];
-            return soilProfileId == Convert.DBNull
-                       ? (long?) null
-                       : Convert.ToInt64(soilProfileId);
-        }
-
-        private long ReadStochasticSoilModelId()
-        {
-            return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
-        }
-
-        private string ReadStochasticSoilModelName()
-        {
-            return Convert.ToString(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelName]);
-        }
-
+        /// <summary>
+        /// Creates a new basic <see cref="StochasticSoilModel"/>, based on the data read from the data reader.
+        /// </summary>
+        /// <returns>The newly created <see cref="StochasticSoilModel"/>.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the read failure mechanism 
+        /// type is not supported.</exception>
         private StochasticSoilModel CreateStochasticSoilModel()
         {
-            return new StochasticSoilModel
-            {
-                Name = ReadStochasticSoilModelName()
-            };
+            return new StochasticSoilModel(ReadStochasticSoilModelName(), ReadFailureMechanismType());
         }
 
         /// <summary>
@@ -338,5 +327,93 @@ namespace Ringtoets.Common.IO.SoilProfile
                 reader.VerifyConstraints();
             }
         }
+
+        #region Read columns
+
+        /// <summary>
+        /// Reads the stochastic soil profile probability from the data reader.
+        /// </summary>
+        /// <returns>The 1D soil profile id.</returns>
+        /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
+        /// <exception cref="OverflowException">The read value represents a number that is less 
+        /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        private double? ReadStochasticSoilProfileProbability()
+        {
+            object probability = dataReader[StochasticSoilProfileTableDefinitions.Probability];
+            return probability == Convert.DBNull
+                       ? (double?) null
+                       : Convert.ToDouble(probability);
+        }
+
+        /// <summary>
+        /// Reads the 1D soil profile id from the data reader.
+        /// </summary>
+        /// <returns>The 1D soil profile id.</returns>
+        /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
+        /// <exception cref="OverflowException">The read value represents a number that is less 
+        /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
+        private long? ReadSoilProfile1DId()
+        {
+            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile1DId];
+            return soilProfileId == Convert.DBNull
+                       ? (long?) null
+                       : Convert.ToInt64(soilProfileId);
+        }
+
+        /// <summary>
+        /// Reads the 2D soil profile id from the data reader.
+        /// </summary>
+        /// <returns>The 2D soil profile id.</returns>
+        /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
+        /// <exception cref="OverflowException">The read value represents a number that is less 
+        /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
+        private long? ReadSoilProfile2DId()
+        {
+            object soilProfileId = dataReader[StochasticSoilProfileTableDefinitions.SoilProfile2DId];
+            return soilProfileId == Convert.DBNull
+                       ? (long?) null
+                       : Convert.ToInt64(soilProfileId);
+        }
+
+        /// <summary>
+        /// Reads the stochastic soil model id from the data reader.
+        /// </summary>
+        /// <returns>The stochastic soil model id.</returns>
+        /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
+        /// <exception cref="OverflowException">The read value represents a number that is less 
+        /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
+        private long ReadStochasticSoilModelId()
+        {
+            return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
+        }
+
+        private string ReadStochasticSoilModelName()
+        {
+            return Convert.ToString(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelName]);
+        }
+
+        private string ReadMechanismName()
+        {
+            return Convert.ToString(dataReader[MechanismTableDefinitions.MechanismName]);
+        }
+
+        /// <summary>
+        /// Reads the failure mechanism type from the data reader.
+        /// </summary>
+        /// <returns>The failure mechanism type.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the read failure mechanism type is not supported.</exception>
+        private FailureMechanismType ReadFailureMechanismType()
+        {
+            long mechanismId = Convert.ToInt64(dataReader[MechanismTableDefinitions.MechanismId]);
+            if (Enum.IsDefined(typeof(FailureMechanismType), mechanismId))
+            {
+                return (FailureMechanismType) mechanismId;
+            }
+
+            string message = string.Format(Resources.StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported, ReadMechanismName());
+            throw new StochasticSoilModelException(message);
+        }
+
+        #endregion
     }
 }

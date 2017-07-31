@@ -262,6 +262,29 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadStochasticSoilModel_OtherFailureMechanism_ThrowsStochasticSoilModelException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "otherFailureMechanism.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                TestDelegate test = () => reader.ReadStochasticSoilModel();
+
+                // Assert
+                var exception = Assert.Throws<StochasticSoilModelException>(test);
+
+                const string expectedMessage = "Het faalmechanisme 'AssessmentLevel' wordt niet ondersteund.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfile_ThrowsStochasticSoilModelExceptionAndHasNext()
         {
             // Setup

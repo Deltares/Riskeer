@@ -44,8 +44,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="layers"/> contains no layers</item>
-        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> less than
-        /// <paramref name="bottom"/></item>
+        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
+        /// less than <paramref name="bottom"/></item>
         /// </list>
         /// </exception>
         public SoilProfile1D(long id, string name, double bottom, IEnumerable<SoilLayer1D> layers)
@@ -71,7 +71,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <see cref="SoilLayer1D"/> for the <see cref="SoilLayer1D"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="value"/> contains no layers</item>
+        /// <item><paramref name="value"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
+        /// less than <see cref="Bottom"/></item>
+        /// </list>
+        /// </exception>
         public IEnumerable<SoilLayer1D> Layers
         {
             get
@@ -93,12 +99,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="layers">The collection of <see cref="SoilLayer1D"/> to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when
+        /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="layers"/> contains no layers</item>
-        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> less than
-        /// <see cref="Bottom"/></item>
-        /// </list></exception>
+        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
+        /// less than <see cref="Bottom"/></item>
+        /// </list>
+        /// </exception>
         private void ValidateLayersCollection(IEnumerable<SoilLayer1D> layers)
         {
             if (layers == null)

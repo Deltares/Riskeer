@@ -46,6 +46,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         public long Id { get; }
 
+        /// <summary>
+        /// Gets the collection of layers that are part of the profile.
+        /// </summary>
         public IEnumerable<SoilLayer2D> Layers { get; }
 
         public string Name { get; }

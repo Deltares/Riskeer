@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
@@ -28,13 +31,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class StochasticSoilModelTest
     {
         [Test]
-        public void Constructor_Always_ExpectedValues()
+        public void Constructor_NameNull_ExpectedValues()
         {
+            // Setup
+            var failureMechanismType = new Random(145).NextEnumValue<FailureMechanismType>();
+
             // Call
-            var stochasticSoilModel = new StochasticSoilModel();
+            TestDelegate test = () => new StochasticSoilModel(null, failureMechanismType);
 
             // Assert
-            Assert.AreEqual(string.Empty, stochasticSoilModel.Name);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("name", paramName);
+        }
+
+        [Test]
+        public void Constructor_Always_ExpectedValues()
+        {
+            // Setup
+            const string name = "some name";
+            var failureMechanismType = new Random(145).NextEnumValue<FailureMechanismType>();
+
+            // Call
+            var stochasticSoilModel = new StochasticSoilModel(name, failureMechanismType);
+
+            // Assert
+            Assert.AreEqual(name, stochasticSoilModel.Name);
+            Assert.AreEqual(failureMechanismType, stochasticSoilModel.FailureMechanismType);
             CollectionAssert.IsEmpty(stochasticSoilModel.Geometry);
             CollectionAssert.IsEmpty(stochasticSoilModel.StochasticSoilProfiles);
         }
