@@ -26,38 +26,38 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Class that represents a top level illustration point together 
+    /// Class that represents a top level sub mechanism illustration point together 
     /// with all the calculated closing situations that are present.
     /// </summary>
-    public class SelectableTopLevelIllustrationPoint
+    public class SelectedTopLevelSubMechanismIllustrationPoint
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SelectableTopLevelIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="SelectedTopLevelSubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="topLevelIllustrationPoint">The <see cref="TopLevelIllustrationPointBase"/>.</param>
+        /// <param name="topLevelSubMechanismIllustrationPoint">The top level sub mechanism illustration point.</param>
         /// <param name="closingSituations">The closing situations that are present.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SelectableTopLevelIllustrationPoint(TopLevelIllustrationPointBase topLevelIllustrationPoint,
-                                                   IEnumerable<string> closingSituations)
+        public SelectedTopLevelSubMechanismIllustrationPoint(TopLevelSubMechanismIllustrationPoint topLevelSubMechanismIllustrationPoint,
+                                                             IEnumerable<string> closingSituations)
         {
-            if (topLevelIllustrationPoint == null)
+            if (topLevelSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(topLevelIllustrationPoint));
+                throw new ArgumentNullException(nameof(topLevelSubMechanismIllustrationPoint));
             }
             if (closingSituations == null)
             {
                 throw new ArgumentNullException(nameof(closingSituations));
             }
 
-            TopLevelIllustrationPoint = topLevelIllustrationPoint;
+            TopLevelSubMechanismIllustrationPoint = topLevelSubMechanismIllustrationPoint;
             ClosingSituations = closingSituations;
         }
 
         /// <summary>
-        /// Gets the top level illustration point.
+        /// Gets the top level sub mechanism illustration point.
         /// </summary>
-        public TopLevelIllustrationPointBase TopLevelIllustrationPoint { get; }
-        
+        public TopLevelSubMechanismIllustrationPoint TopLevelSubMechanismIllustrationPoint { get; }
+
         /// <summary>
         /// Gets the calculated closing situations.
         /// </summary>

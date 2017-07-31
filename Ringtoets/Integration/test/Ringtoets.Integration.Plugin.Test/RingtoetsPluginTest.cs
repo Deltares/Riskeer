@@ -279,7 +279,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(SelectableTopLevelIllustrationPoint),
+                    typeof(SelectedTopLevelSubMechanismIllustrationPoint),
                     typeof(TopLevelSubMechanismIllustrationPointProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

@@ -23,32 +23,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SelectableTopLevelIllustrationPointTest
+    public class SelectedTopLevelSubMechanismIllustrationPointTest
     {
         [Test]
-        public void Constructor_TopLevelIllustrationPointNull_ThrowsArgumentNullException()
+        public void Constructor_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectableTopLevelIllustrationPoint(null,
-                                                                              Enumerable.Empty<string>());
+            TestDelegate call = () => new SelectedTopLevelSubMechanismIllustrationPoint(null,
+                                                                                        Enumerable.Empty<string>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("topLevelIllustrationPoint", exception.ParamName);
+            Assert.AreEqual("topLevelSubMechanismIllustrationPoint", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectableTopLevelIllustrationPoint(new TestTopLevelIllustrationPoint(),
-                                                                              null);
+            TestDelegate call = () => new SelectedTopLevelSubMechanismIllustrationPoint(CreateTopLevelSubMechanismIllustrationPoint(),
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,16 +60,23 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup
-            var topLevelIllustrationPoint = new TestTopLevelIllustrationPoint();
+            TopLevelSubMechanismIllustrationPoint topLevelSubMechanismIllustrationPoint = CreateTopLevelSubMechanismIllustrationPoint();
             IEnumerable<string> closingSituations = Enumerable.Empty<string>();
 
             // Call
-            var illustrationPoint = new SelectableTopLevelIllustrationPoint(topLevelIllustrationPoint,
-                                                                            closingSituations);
+            var selectedTopLevelSubMechanismIllustrationPoint = new SelectedTopLevelSubMechanismIllustrationPoint(topLevelSubMechanismIllustrationPoint,
+                                                                                                                  closingSituations);
 
             // Assert
-            Assert.AreSame(topLevelIllustrationPoint, illustrationPoint.TopLevelIllustrationPoint);
-            Assert.AreSame(closingSituations, illustrationPoint.ClosingSituations);
+            Assert.AreSame(topLevelSubMechanismIllustrationPoint, selectedTopLevelSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoint);
+            Assert.AreSame(closingSituations, selectedTopLevelSubMechanismIllustrationPoint.ClosingSituations);
+        }
+
+        private static TopLevelSubMechanismIllustrationPoint CreateTopLevelSubMechanismIllustrationPoint()
+        {
+            return new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                             "Closing situation",
+                                                             new TestSubMechanismIllustrationPoint());
         }
     }
 }

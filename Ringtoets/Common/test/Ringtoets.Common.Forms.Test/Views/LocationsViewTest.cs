@@ -188,10 +188,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             object selection = view.Selection;
 
             // Then
-            var selectableTopLevelIllustrationPoint = selection as SelectableTopLevelIllustrationPoint;
-            Assert.IsNotNull(selectableTopLevelIllustrationPoint);
+            var selectedTopLevelSubMechanismIllustrationPoint = selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selectedTopLevelSubMechanismIllustrationPoint);
             Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1),
-                           selectableTopLevelIllustrationPoint.TopLevelIllustrationPoint);
+                           selectedTopLevelSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoint);
         }
 
         [Test]

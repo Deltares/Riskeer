@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class SelectableTopLevelIllustrationPointPropertyInfoTest
+    public class SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -53,41 +53,27 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(SelectableTopLevelIllustrationPoint), info.DataType);
+            Assert.AreEqual(typeof(SelectedTopLevelSubMechanismIllustrationPoint), info.DataType);
             Assert.AreEqual(typeof(TopLevelSubMechanismIllustrationPointProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_TopLevelSubMechanismPointIllustrationPointData_ReturnsTopLevelSubMechanismIllustrationPointProperties()
+        public void CreateInstance_SelectedTopLevelSubMechanismIllustrationPoint_ReturnsTopLevelSubMechanismIllustrationPointProperties()
         {
             // Setup
-            var topLevelIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                                                      string.Empty,
-                                                                                      new TestSubMechanismIllustrationPoint());
+            var topLevelSubMechanismIllustrationPoint = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                                  string.Empty,
+                                                                                                  new TestSubMechanismIllustrationPoint());
 
-            var selectableIllustrationPointData = new SelectableTopLevelIllustrationPoint(topLevelIllustrationPoint,
-                                                                                          Enumerable.Empty<string>());
+            var selectedTopLevelSubMechanismIllustrationPoint = new SelectedTopLevelSubMechanismIllustrationPoint(topLevelSubMechanismIllustrationPoint,
+                                                                                                                  Enumerable.Empty<string>());
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(selectableIllustrationPointData);
+            IObjectProperties objectProperties = info.CreateInstance(selectedTopLevelSubMechanismIllustrationPoint);
 
             // Assert
             Assert.IsInstanceOf<TopLevelSubMechanismIllustrationPointProperties>(objectProperties);
-            Assert.AreSame(topLevelIllustrationPoint, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_TopLevelIllustrationPointData_ReturnsNull()
-        {
-            // Setup
-            var selectableIllustrationPointData = new SelectableTopLevelIllustrationPoint(new TestTopLevelIllustrationPoint(),
-                                                                                          Enumerable.Empty<string>());
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(selectableIllustrationPointData);
-
-            // Assert
-            Assert.IsNull(objectProperties);
+            Assert.AreSame(topLevelSubMechanismIllustrationPoint, objectProperties.Data);
         }
     }
 }
