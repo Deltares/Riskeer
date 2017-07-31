@@ -29,7 +29,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -146,13 +145,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 selectedLocationRow.Cells[0].Value = true;
 
                 // Assert
-                var expectedSelection = tableControl.Selection as SelectableTopLevelIllustrationPoint;
-                var controlSelection = control.Selection as SelectableTopLevelIllustrationPoint;
+                var expectedSelection = tableControl.Selection as IllustrationPointControlItem;
+                var controlSelection = control.Selection as IllustrationPointControlItem;
                 Assert.IsNotNull(expectedSelection);
                 Assert.IsNotNull(controlSelection);
-
-                Assert.AreSame(expectedSelection.TopLevelIllustrationPoint, controlSelection.TopLevelIllustrationPoint);
-                CollectionAssert.AreEqual(expectedSelection.ClosingSituations, controlSelection.ClosingSituations);
+                Assert.AreSame(expectedSelection, controlSelection);
             }
         }
     }

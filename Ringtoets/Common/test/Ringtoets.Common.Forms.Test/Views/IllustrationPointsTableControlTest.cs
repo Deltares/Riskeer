@@ -29,7 +29,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -233,7 +232,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_WithIllustrationPoints_ReturnsSelectedWindDirection()
+        public void Selection_WithIllustrationPoints_ReturnsSelectedIllustrationPointControlItem()
         {
             // Setup
             IllustrationPointsTableControl control = ShowControl();
@@ -246,15 +245,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             selectedLocationRow.Cells[0].Value = true;
 
             // Assert
-            var selection = control.Selection as SelectableTopLevelIllustrationPoint;
+            var selection = control.Selection as IllustrationPointControlItem;
             var dataBoundItem = selectedLocationRow.DataBoundItem as IllustrationPointRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
-            Assert.AreSame(dataBoundItem.IllustrationPointControlItem.Source, selection.TopLevelIllustrationPoint);
-
-            IEnumerable<string> expectedClosingSituations = control.Data.Select(ipc => ipc.ClosingSituation);
-            CollectionAssert.AreEqual(expectedClosingSituations, selection.ClosingSituations);
+            Assert.AreSame(dataBoundItem.IllustrationPointControlItem, selection);
         }
 
         private IllustrationPointsTableControl ShowControl()

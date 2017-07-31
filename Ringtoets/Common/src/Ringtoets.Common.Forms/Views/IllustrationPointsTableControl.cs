@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -76,23 +74,10 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
+                var illustrationPointRow = (IllustrationPointRow) illustrationPointsDataGridViewControl.CurrentRow?.DataBoundItem;
 
-        private object CreateSelectedItemFromCurrentRow()
-        {
-            DataGridViewRow currentRow = illustrationPointsDataGridViewControl.CurrentRow;
-            var illustrationPointRow = (IllustrationPointRow) currentRow?.DataBoundItem;
-
-            SelectableTopLevelIllustrationPoint selection = null;
-            if (illustrationPointRow != null)
-            {
-                selection = new SelectableTopLevelIllustrationPoint(
-                    illustrationPointRow.IllustrationPointControlItem.Source,
-                    data.Select(ipc => ipc.ClosingSituation));
+                return illustrationPointRow?.IllustrationPointControlItem;
             }
-            return selection;
         }
 
         private void InitializeEventHandlers()

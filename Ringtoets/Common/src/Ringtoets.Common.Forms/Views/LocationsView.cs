@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -188,7 +189,12 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (!updatingControls)
             {
-                Selection = illustrationPointsControl.Selection;
+                var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
+                Selection = selection != null
+                                ? new SelectableTopLevelIllustrationPoint(selection.Source,
+                                                                          GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                                : null;
+
                 OnSelectionChanged();
             }
         }
