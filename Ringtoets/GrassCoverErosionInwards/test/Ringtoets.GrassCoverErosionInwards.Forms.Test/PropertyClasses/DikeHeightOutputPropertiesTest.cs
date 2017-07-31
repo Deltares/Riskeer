@@ -26,7 +26,9 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
@@ -43,6 +45,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int calculatedProbabilityPropertyIndex = 3;
         private const int calculatedReliabilityPropertyIndex = 4;
         private const int convergencePropertyIndex = 5;
+        private const int windDirectionPropertyIndex = 6;
+        private const int alphaValuesPropertyIndex = 7;
+        private const int durationsPropertyIndex = 8;
+        private const int illustrationPointsPropertyIndex = 9;
+
+        private const string dikeHeightCategory = "\tHBN";
+        private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -100,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_Always_ReturnExpectedValues()
+        public void PropertyAttributes_NoGeneralResult_ReturnExpectedValues()
         {
             // Setup
             var output = new TestDikeHeightOutput(10);
@@ -115,47 +124,134 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
-            const string category = "HBN";
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightProperty,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "HBN [m+NAP]",
                                                                             "Het berekende Hydraulisch Belasting Niveau (HBN).",
                                                                             true);
 
             PropertyDescriptor targetProbability = dynamicProperties[targetProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbability,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "Doelkans [1/jaar]",
                                                                             "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliability = dynamicProperties[targetReliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliability,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "Betrouwbaarheidsindex doelkans [-]",
                                                                             "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor calculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbability,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "Berekende kans [1/jaar]",
                                                                             "De berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertyDescriptor calculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliability,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
                                                                             true);
 
             PropertyDescriptor calculationConvergence = dynamicProperties[convergencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergence,
-                                                                            category,
+                                                                            dikeHeightCategory,
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de HBN berekening?",
+                                                                            true);
+        }
+
+        [Test]
+        public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues()
+        {
+            // Setup
+            var output = new TestDikeHeightOutput(10);
+            output.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            var properties = new DikeHeightOutputProperties
+            {
+                Data = output
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(10, dynamicProperties.Count);
+
+            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightProperty,
+                                                                            dikeHeightCategory,
+                                                                            "HBN [m+NAP]",
+                                                                            "Het berekende Hydraulisch Belasting Niveau (HBN).",
+                                                                            true);
+
+            PropertyDescriptor targetProbability = dynamicProperties[targetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbability,
+                                                                            dikeHeightCategory,
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliability = dynamicProperties[targetReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliability,
+                                                                            dikeHeightCategory,
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbability = dynamicProperties[calculatedProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbability,
+                                                                            dikeHeightCategory,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliability = dynamicProperties[calculatedReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliability,
+                                                                            dikeHeightCategory,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculationConvergence = dynamicProperties[convergencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculationConvergence,
+                                                                            dikeHeightCategory,
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de HBN berekening?",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Maatgevende windrichting",
+                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
+                                                                            true);
+
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Illustratiepunten",
+                                                                            "",
                                                                             true);
         }
     }
