@@ -337,6 +337,10 @@ namespace Ringtoets.Integration.Plugin
                     return null;
                 }
             };
+            yield return new PropertyInfo<TopLevelFaultTreeIllustrationPoint, FaultTreeIllustrationPointBaseProperties>
+            {
+                CreateInstance = point => new FaultTreeIllustrationPointBaseProperties(point)
+            };
         }
 
         /// <summary>

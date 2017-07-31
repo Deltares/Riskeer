@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -34,12 +35,14 @@ namespace Ringtoets.Common.Forms.Views
     /// This class is a view for presenting <see cref="TopLevelFaultTreeIllustrationPoint"/> objects
     /// (as part of the <see cref="GeneralResult{T}"/> of a <see cref="ICalculation"/>).
     /// </summary>
-    public partial class GeneralResultFaultTreeIllustrationPointView : UserControl, IView
+    public partial class GeneralResultFaultTreeIllustrationPointView : UserControl, IView, ISelectionProvider
     {
         private readonly Observer calculationObserver;
         private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
 
         private ICalculation data;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResultFaultTreeIllustrationPointView"/>.
@@ -50,6 +53,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <exception cref="NullReferenceException">Thrown when <paramref name="getGeneralResultFunc"/> is <c>null</c>.</exception>
         public GeneralResultFaultTreeIllustrationPointView(Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
         {
+            InitializeComponent();
+
             if (getGeneralResultFunc == null)
             {
                 throw new ArgumentNullException(nameof(getGeneralResultFunc));
@@ -59,8 +64,10 @@ namespace Ringtoets.Common.Forms.Views
 
             calculationObserver = new Observer(UpdateIllustrationPointsControl);
 
-            InitializeComponent();
+            illustrationPointsControl.SelectionChanged += OnIllustrationPointsControlSelectionChanged;
         }
+
+        public object Selection { get; private set; }
 
         public object Data
         {
@@ -129,6 +136,18 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             return null;
+        }
+
+        private void OnIllustrationPointsControlSelectionChanged(object sender, EventArgs e)
+        {
+            Selection = (illustrationPointsControl.Selection as SelectableTopLevelIllustrationPoint)?.TopLevelIllustrationPoint;
+
+            OnSelectionChanged();
+        }
+
+        private void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
     }
 }
