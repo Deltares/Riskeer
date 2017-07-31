@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -56,7 +55,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
         public string WindDirection
@@ -68,7 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
@@ -82,7 +81,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
@@ -97,7 +96,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [ReadOnly(true)]
         [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -111,7 +110,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Description))]
         public string RequiredProbability
@@ -123,7 +122,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Description))]
         public RoundedDouble RequiredReliability
@@ -135,7 +134,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Description))]
         public string Probability
@@ -147,7 +146,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Description))]
         public RoundedDouble Reliability
@@ -159,7 +158,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Description))]
         public RoundedDouble FactorOfSafety
@@ -173,10 +172,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == "WindDirection" ||
-                propertyName == "AlphaValues" ||
-                propertyName == "Durations" ||
-                propertyName == "IllustrationPoints")
+            if (propertyName.Equals(nameof(WindDirection)) ||
+                propertyName.Equals(nameof(AlphaValues)) ||
+                propertyName.Equals(nameof(Durations)) ||
+                propertyName.Equals(nameof(IllustrationPoints)))
             {
                 return data.HasGeneralResult;
             }

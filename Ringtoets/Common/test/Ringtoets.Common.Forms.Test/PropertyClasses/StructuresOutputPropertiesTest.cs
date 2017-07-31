@@ -48,6 +48,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int durationsPropertyIndex = 7;
         private const int illustrationPointsPropertyIndex = 8;
 
+        private const string illustrationPointsCategoryName = "Illustratiepunten";
+        private const string resultCategoryName = "\tResultaat";
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -126,7 +129,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            const string illustrationPointsCategoryName = "Illustratiepunten";
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
@@ -141,35 +143,35 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Faalkanseis [1/jaar]",
                                                                             "De maximaal toegestane faalkanseis voor het toetsspoor.",
                                                                             true);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkanseis [-]",
                                                                             "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
                                                                             true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Faalkans [1/jaar]",
                                                                             "De kans dat het toetsspoor optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Veiligheidsfactor [-]",
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
@@ -219,35 +221,35 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Faalkanseis [1/jaar]",
                                                                             "De maximaal toegestane faalkanseis voor het toetsspoor.",
                                                                             true);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkanseis [-]",
                                                                             "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
                                                                             true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Faalkans [1/jaar]",
                                                                             "De kans dat het toetsspoor optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            "Resultaat",
+                                                                            resultCategoryName,
                                                                             "Veiligheidsfactor [-]",
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
