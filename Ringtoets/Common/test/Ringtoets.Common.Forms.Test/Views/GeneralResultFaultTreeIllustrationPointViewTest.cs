@@ -350,7 +350,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
 
             // Then
-            Assert.AreNotEqual(0, selectionChangedCount);
+            Assert.AreEqual(1, selectionChangedCount);
             Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(1), view.Selection);
 
             mocks.VerifyAll();

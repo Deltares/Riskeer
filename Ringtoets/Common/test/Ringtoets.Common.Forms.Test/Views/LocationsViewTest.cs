@@ -192,6 +192,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsNotNull(selectedTopLevelSubMechanismIllustrationPoint);
             Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1),
                            selectedTopLevelSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoint);
+            CollectionAssert.AreEqual(calculatableObject.GeneralResult.TopLevelIllustrationPoints.Select(ip => ip.ClosingSituation),
+                                      selectedTopLevelSubMechanismIllustrationPoint.ClosingSituations);
         }
 
         [Test]
