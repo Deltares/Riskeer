@@ -27,6 +27,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -36,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayer2DReaderTest
     {
         [Test]
-        public void Constructor_Always_ReturnsNewInstance()
+        public void Constructor_ReturnsNewInstance()
         {
             // Call
             var result = new SoilLayer2DReader();
@@ -46,22 +47,35 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_MalformedXmlDocument_ThrowsSoilLayer2DConversionException()
+        public void Read_NullByteArray_ThrowsArgumentNullException()
         {
             // Setup
-            byte[] xmlDoc = GetByteArray("test");
             var reader = new SoilLayer2DReader();
 
             // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
+            TestDelegate test = () => reader.Read((byte[]) null);
 
             // Assert
-            var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "De geometrie is leeg.");
+            Assert.AreEqual("geometry", exception.ParamName);
         }
 
         [Test]
-        public void Read_XmlDocumentWithoutSaneContent_ThrowsSoilLayer2DConversionException()
+        public void Read_NullXmlDocument_ThrowsArgumentNullException()
+        {
+            // Setup
+            var reader = new SoilLayer2DReader();
+
+            // Call
+            TestDelegate test = () => reader.Read((XDocument) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("geometry", paramName);
+        }
+
+        [Test]
+        public void Read_XmlDocumentWithoutSaneContent_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<doc/>");
@@ -76,7 +90,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithNoInnerLoops_ThrowsSoilLayer2DConversionException()
+        public void Read_XmlDocumentWithNoInnerLoops_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/></GeometrySurface>");
@@ -91,7 +105,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithNoOuterLoop_ThrowsSoilLayer2DConversionException()
+        public void Read_XmlDocumentWithNoOuterLoop_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
@@ -125,7 +139,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         [TestCase("x")]
         [TestCase("")]
-        public void Read_XmlDocumentWithInvalidPointCoordinate_ThrowsSoilLayer2DConversionException(string incorrectNumber)
+        public void Read_XmlDocumentWithInvalidPointCoordinate_ThrowsSoilLayerConversionException(string incorrectNumber)
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument(
@@ -144,7 +158,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWitOverflowingPointCoordinate_ThrowsSoilLayer2DConversionException()
+        public void Read_XmlDocumentWithOverflowingPointCoordinate_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument(
@@ -226,7 +240,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
+        public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument(
@@ -243,7 +257,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
+        public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument(

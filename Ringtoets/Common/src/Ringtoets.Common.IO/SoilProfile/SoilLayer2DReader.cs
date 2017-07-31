@@ -81,7 +81,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             try
             {
-                return Read(XDocument.Load(new MemoryStream(geometry)));
+                using (var stream = new MemoryStream(geometry))
+                {
+                    return Read(XDocument.Load(stream));
+                }
             }
             catch (XmlException e)
             {
@@ -105,6 +108,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <seealso cref="Read(byte[])"/>
         public SoilLayer2D Read(XDocument geometry)
         {
+            if (geometry == null)
+            {
+                throw new ArgumentNullException(nameof(geometry));
+            }
             ValidateToSchema(geometry);
 
             return ParseLayer(geometry);
