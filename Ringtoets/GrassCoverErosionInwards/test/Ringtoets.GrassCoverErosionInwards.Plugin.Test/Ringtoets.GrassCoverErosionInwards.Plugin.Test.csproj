@@ -67,14 +67,14 @@
     <Compile Include="ImportInfos\DikeProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\GrassCoverErosionInwardsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfos\DikeHeightOutputPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\DikeHeightOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DikeProfileCollectionPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionInwardsOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\OvertoppingOutputContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\OvertoppingRateOutputPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DikeHeightOutputTreeNodeInfoTest.cs" />
+    <Compile Include="PropertyInfos\OvertoppingRateOutputContextPropertyInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DikeHeightOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyDikeHeightOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmtpyOvertoppingRateOutputTreeNodeInfoTest.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\OvertoppingOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\OvertoppingRateOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\OvertoppingRateOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\DikeProfilesContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />

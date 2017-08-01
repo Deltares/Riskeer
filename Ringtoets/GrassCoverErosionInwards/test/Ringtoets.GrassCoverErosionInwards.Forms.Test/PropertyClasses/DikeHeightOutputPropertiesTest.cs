@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -54,14 +53,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DikeHeightOutput_ExpectedValues()
         {
+            // Setup
+            var dikeHeightOutput = new TestDikeHeightOutput(0.5);
+
             // Call
-            var properties = new DikeHeightOutputProperties();
+            var properties = new DikeHeightOutputProperties(dikeHeightOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DikeHeightOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(dikeHeightOutput, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_DikeHeightOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DikeHeightOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dikeHeightOutput", exception.ParamName);
         }
 
         [Test]
@@ -76,17 +89,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double dikeHeightCalculatedReliability = random.NextDouble();
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var output = new DikeHeightOutput(dikeHeight,
-                                              dikeHeightTargetProbability,
-                                              dikeHeightTargetReliability,
-                                              dikeHeightCalculatedProbability,
-                                              dikeHeightCalculatedReliability,
-                                              dikeHeightConvergence);
+            var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
+                                                        dikeHeightTargetProbability,
+                                                        dikeHeightTargetReliability,
+                                                        dikeHeightCalculatedProbability,
+                                                        dikeHeightCalculatedReliability,
+                                                        dikeHeightConvergence);
             // Call
-            var properties = new DikeHeightOutputProperties
-            {
-                Data = output
-            };
+            var properties = new DikeHeightOutputProperties(dikeHeightOutput);
 
             // Assert
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
@@ -112,13 +122,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_NoGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var output = new TestDikeHeightOutput(10);
+            var dikeHeightOutput = new TestDikeHeightOutput(10);
 
             // Call
-            var properties = new DikeHeightOutputProperties
-            {
-                Data = output
-            };
+            var properties = new DikeHeightOutputProperties(dikeHeightOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -171,14 +178,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var output = new TestDikeHeightOutput(10);
-            output.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+            var dikeHeightOutput = new TestDikeHeightOutput(10);
+            dikeHeightOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var properties = new DikeHeightOutputProperties
-            {
-                Data = output
-            };
+            var properties = new DikeHeightOutputProperties(dikeHeightOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -53,14 +53,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_OvertoppingRateOutput_ExpectedValues()
         {
+            // Setup
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(0.5);
+
             // Call
-            var properties = new OvertoppingRateOutputProperties();
+            var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<OvertoppingRateOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(overtoppingRateOutput, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_OvertoppingRateOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new OvertoppingRateOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("overtoppingRateOutput", exception.ParamName);
         }
 
         [Test]
@@ -75,18 +89,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double overtoppingRateCalculatedReliability = random.NextDouble();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var output = new OvertoppingRateOutput(overtoppingRate,
-                                                   overtoppingRateTargetProbability,
-                                                   overtoppingRateTargetReliability,
-                                                   overtoppingRateCalculatedProbability,
-                                                   overtoppingRateCalculatedReliability,
-                                                   overtoppingRateConvergence);
+            var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
+                                                                  overtoppingRateTargetProbability,
+                                                                  overtoppingRateTargetReliability,
+                                                                  overtoppingRateCalculatedProbability,
+                                                                  overtoppingRateCalculatedReliability,
+                                                                  overtoppingRateConvergence);
 
             // Call
-            var properties = new OvertoppingRateOutputProperties
-            {
-                Data = output
-            };
+            var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
 
             // Assert
             Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
@@ -112,13 +123,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_NoGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var output = new TestOvertoppingRateOutput(10);
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(10);
 
             // Call
-            var properties = new OvertoppingRateOutputProperties
-            {
-                Data = output
-            };
+            var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -171,14 +179,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var output = new TestOvertoppingRateOutput(10);
-            output.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(10);
+            overtoppingRateOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var properties = new OvertoppingRateOutputProperties
-            {
-                Data = output
-            };
+            var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

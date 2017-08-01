@@ -93,8 +93,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput)
             };
-            yield return new PropertyInfo<DikeHeightOutput, DikeHeightOutputProperties>();
-            yield return new PropertyInfo<OvertoppingRateOutput, OvertoppingRateOutputProperties>();
+            yield return new PropertyInfo<DikeHeightOutputContext, DikeHeightOutputProperties>
+            {
+                CreateInstance = context => new DikeHeightOutputProperties(context.WrappedData.Output.DikeHeightOutput)
+            };
+            yield return new PropertyInfo<OvertoppingRateOutputContext, OvertoppingRateOutputProperties>
+            {
+                CreateInstance = context => new OvertoppingRateOutputProperties(context.WrappedData.Output.OvertoppingRateOutput)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -283,7 +289,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<OvertoppingOutputContext>
             {
-                Text = output => Resources.OvertoppingOutputContext_DisplayName,
+                Text = output => Resources.OvertoppingOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -302,7 +308,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<DikeHeightOutput>
+            yield return new TreeNodeInfo<DikeHeightOutputContext>
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
@@ -323,7 +329,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<OvertoppingRateOutput>
+            yield return new TreeNodeInfo<OvertoppingRateOutputContext>
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
@@ -487,8 +493,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        : new[]
                        {
                            new OvertoppingOutputContext(calculation),
-                           calculation.Output.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
-                           calculation.Output.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
+                           calculation.Output.DikeHeightOutput != null
+                               ? new DikeHeightOutputContext(calculation)
+                               : (object) new EmptyDikeHeightOutput(),
+                           calculation.Output.OvertoppingRateOutput != null
+                               ? new OvertoppingRateOutputContext(calculation)
+                               : (object) new EmptyOvertoppingRateOutput()
                        };
         }
 

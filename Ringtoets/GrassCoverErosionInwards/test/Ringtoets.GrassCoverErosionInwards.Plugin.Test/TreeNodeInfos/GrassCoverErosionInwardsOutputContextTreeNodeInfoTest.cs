@@ -153,11 +153,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(overtoppingOutputContext);
             Assert.AreSame(grassCoverErosionInwardsCalculation, overtoppingOutputContext.WrappedData);
 
-            var dikeHeightOutput = children[1] as DikeHeightOutput;
-            Assert.AreSame(grassCoverErosionInwardsCalculation.Output.DikeHeightOutput, dikeHeightOutput);
+            var dikeHeightOutputContext = children[1] as DikeHeightOutputContext;
+            Assert.IsNotNull(dikeHeightOutputContext);
+            Assert.AreSame(grassCoverErosionInwardsCalculation, dikeHeightOutputContext.WrappedData);
 
-            var overtoppingRateOutput = children[2] as OvertoppingRateOutput;
-            Assert.AreSame(grassCoverErosionInwardsCalculation.Output.OvertoppingRateOutput, overtoppingRateOutput);
+            var overtoppingRateOutputContext = children[2] as OvertoppingRateOutputContext;
+            Assert.IsNotNull(overtoppingRateOutputContext);
+            Assert.AreSame(grassCoverErosionInwardsCalculation, overtoppingRateOutputContext.WrappedData);
         }
 
         [Test]

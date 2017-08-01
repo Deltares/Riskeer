@@ -25,12 +25,13 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class OvertoppingRateOutputPropertyInfoTest
+    public class DikeHeightOutputContextPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -39,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(OvertoppingRateOutputProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(DikeHeightOutputProperties));
         }
 
         [TearDown]
@@ -52,22 +53,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(OvertoppingRateOutput), info.DataType);
-            Assert.AreEqual(typeof(OvertoppingRateOutputProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(DikeHeightOutputContext), info.DataType);
+            Assert.AreEqual(typeof(DikeHeightOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
         public void CreateInstance_Always_NewPropertiesWithData()
         {
             // Setup
-            var output = new TestOvertoppingRateOutput(10);
+            var dikeHeightOutput = new TestDikeHeightOutput(10);
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.5),
+                                                            dikeHeightOutput,
+                                                            null)
+            };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(output);
+            IObjectProperties objectProperties = info.CreateInstance(new DikeHeightOutputContext(calculation));
 
             // Assert
-            Assert.IsInstanceOf<OvertoppingRateOutputProperties>(objectProperties);
-            Assert.AreSame(output, objectProperties.Data);
+            Assert.IsInstanceOf<DikeHeightOutputProperties>(objectProperties);
+            Assert.AreSame(dikeHeightOutput, objectProperties.Data);
         }
     }
 }

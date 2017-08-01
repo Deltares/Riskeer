@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -42,6 +43,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class DikeHeightOutputProperties : ObjectProperties<DikeHeightOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DikeHeightOutputProperties"/>.
+        /// </summary>
+        /// <param name="dikeHeightOutput">The dike height output to create the object properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeHeightOutput"/> is <c>null</c>.</exception>
+        public DikeHeightOutputProperties(DikeHeightOutput dikeHeightOutput)
+        {
+            if (dikeHeightOutput == null)
+            {
+                throw new ArgumentNullException(nameof(dikeHeightOutput));
+            }
+
+            Data = dikeHeightOutput;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.DikeHeight_DisplayName), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_DikeHeight_DisplayName))]
