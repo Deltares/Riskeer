@@ -27,13 +27,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class OvertoppingOutputTreeNodeInfoTest
+    public class OvertoppingOutputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(OvertoppingOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(OvertoppingOutputContext));
         }
 
         [TearDown]

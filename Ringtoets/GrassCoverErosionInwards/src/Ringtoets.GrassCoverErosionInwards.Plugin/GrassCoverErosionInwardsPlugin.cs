@@ -81,15 +81,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
-            {
-                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData.Output)
-            };
             yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
             {
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<OvertoppingOutput, OvertoppingOutputProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
+            {
+                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData.Output)
+            };
+            yield return new PropertyInfo<OvertoppingOutputContext, OvertoppingOutputProperties>
+            {
+                CreateInstance = context => new OvertoppingOutputProperties(context.WrappedData.Output.OvertoppingOutput)
+            };
             yield return new PropertyInfo<DikeHeightOutput, DikeHeightOutputProperties>();
             yield return new PropertyInfo<OvertoppingRateOutput, OvertoppingRateOutputProperties>();
         }
@@ -278,9 +281,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<OvertoppingOutput>
+            yield return new TreeNodeInfo<OvertoppingOutputContext>
             {
-                Text = output => Resources.OvertoppingOutput_DisplayName,
+                Text = output => Resources.OvertoppingOutputContext_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -483,7 +486,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        ? new object[0]
                        : new[]
                        {
-                           calculation.Output.OvertoppingOutput,
+                           new OvertoppingOutputContext(calculation),
                            calculation.Output.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
                            calculation.Output.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
                        };

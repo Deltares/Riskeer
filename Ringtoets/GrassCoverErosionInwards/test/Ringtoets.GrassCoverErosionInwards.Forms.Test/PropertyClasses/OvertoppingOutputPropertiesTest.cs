@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
@@ -52,14 +53,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_OvertoppingOutput_ExpectedValues()
         {
+            // Setup
+            var overtoppingOutput = new TestOvertoppingOutput(0.5);
+
             // Call
-            var properties = new OvertoppingOutputProperties();
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<OvertoppingOutput>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(overtoppingOutput, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_OvertoppingOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new OvertoppingOutputProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("overtoppingOutput", exception.ParamName);
         }
 
         [Test]
@@ -85,10 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                           probabilityAssessmentOutput);
 
             // Call
-            var properties = new OvertoppingOutputProperties
-            {
-                Data = overtoppingOutput
-            };
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
@@ -111,18 +123,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new OvertoppingOutput(waveHeight,
-                                               true,
-                                               probabilityAssessmentOutput);
+            var overtoppingOutput = new OvertoppingOutput(waveHeight,
+                                                          true,
+                                                          probabilityAssessmentOutput);
 
             // Call
-            var properties = new OvertoppingOutputProperties
-            {
-                Data = output
-            };
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
-            int propertiesCount = output.HasWaveHeight ? 7 : 6;
+            int propertiesCount = overtoppingOutput.HasWaveHeight ? 7 : 6;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
@@ -162,7 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
-            if (output.HasWaveHeight)
+            if (overtoppingOutput.HasWaveHeight)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
@@ -172,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int waveHeightNotPresentOffset = output.HasWaveHeight
+            int waveHeightNotPresentOffset = overtoppingOutput.HasWaveHeight
                                                  ? 0
                                                  : 1;
 
@@ -191,19 +200,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new OvertoppingOutput(waveHeight,
-                                               true,
-                                               probabilityAssessmentOutput);
-            output.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+            var overtoppingOutput = new OvertoppingOutput(waveHeight,
+                                                          true,
+                                                          probabilityAssessmentOutput);
+            overtoppingOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var properties = new OvertoppingOutputProperties
-            {
-                Data = output
-            };
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
-            int propertiesCount = output.HasWaveHeight ? 11 : 10;
+            int propertiesCount = overtoppingOutput.HasWaveHeight ? 11 : 10;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
@@ -243,7 +249,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
-            if (output.HasWaveHeight)
+            if (overtoppingOutput.HasWaveHeight)
             {
                 PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
@@ -253,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                 true);
             }
 
-            int waveHeightNotPresentOffset = output.HasWaveHeight
+            int waveHeightNotPresentOffset = overtoppingOutput.HasWaveHeight
                                                  ? 0
                                                  : 1;
 

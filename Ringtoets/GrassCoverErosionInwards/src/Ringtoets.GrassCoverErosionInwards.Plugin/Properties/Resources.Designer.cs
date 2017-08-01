@@ -187,9 +187,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Sterkte berekening.
         /// </summary>
-        internal static string OvertoppingOutput_DisplayName {
+        internal static string OvertoppingOutputContext_DisplayName {
             get {
-                return ResourceManager.GetString("OvertoppingOutput_DisplayName", resourceCulture);
+                return ResourceManager.GetString("OvertoppingOutputContext_DisplayName", resourceCulture);
             }
         }
     }

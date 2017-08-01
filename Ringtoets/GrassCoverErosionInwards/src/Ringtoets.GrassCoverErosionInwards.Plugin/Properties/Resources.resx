@@ -148,7 +148,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_DikeProfiles" xml:space="preserve">
     <value>&amp;Bijwerken dijkprofielen...</value>
   </data>
-  <data name="OvertoppingOutput_DisplayName" xml:space="preserve">
+  <data name="OvertoppingOutputContext_DisplayName" xml:space="preserve">
     <value>Sterkte berekening</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

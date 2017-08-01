@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -40,6 +41,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class OvertoppingOutputProperties : ObjectProperties<OvertoppingOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="OvertoppingOutputProperties"/>.
+        /// </summary>
+        /// <param name="overtoppingOutput">The overtopping output to create the object properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="overtoppingOutput"/> is <c>null</c>.</exception>
+        public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput)
+        {
+            if (overtoppingOutput == null)
+            {
+                throw new ArgumentNullException(nameof(overtoppingOutput));
+            }
+
+            Data = overtoppingOutput;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
