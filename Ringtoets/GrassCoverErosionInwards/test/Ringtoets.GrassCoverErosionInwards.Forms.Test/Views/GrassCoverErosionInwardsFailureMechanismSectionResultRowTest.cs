@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -81,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var calculation = new GrassCoverErosionInwardsCalculation();
             if (status == CalculationScenarioStatus.Failed)
             {
-                calculation.Output = new GrassCoverErosionInwardsOutput(new TestGrassCoverErosionInwardsOvertoppingOutput(double.NaN),
+                calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
                                                                         new TestDikeHeightOutput(0),
                                                                         new TestOvertoppingRateOutput(0));
             }
@@ -108,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             const double probability = 0.95;
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new TestGrassCoverErosionInwardsOvertoppingOutput(probability),
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };

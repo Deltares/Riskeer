@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsOutput"/>.
         /// </summary>
-        public TestGrassCoverErosionInwardsOutput() : base(new TestGrassCoverErosionInwardsOvertoppingOutput(0),
+        public TestGrassCoverErosionInwardsOutput() : base(new TestOvertoppingOutput(0),
                                                            new TestDikeHeightOutput(0),
                                                            new TestOvertoppingRateOutput(0)) {}
     }

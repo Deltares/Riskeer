@@ -1495,8 +1495,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput,
                                                                  GrassCoverErosionInwardsOutput actualOutput)
         {
-            GrassCoverErosionInwardsOvertoppingOutput expectedOvertoppingOutput = expectedOutput.OvertoppingOutput;
-            GrassCoverErosionInwardsOvertoppingOutput actualOvertoppingOutput = actualOutput.OvertoppingOutput;
+            OvertoppingOutput expectedOvertoppingOutput = expectedOutput.OvertoppingOutput;
+            OvertoppingOutput actualOvertoppingOutput = actualOutput.OvertoppingOutput;
 
             Assert.AreEqual(expectedOvertoppingOutput.WaveHeight, actualOvertoppingOutput.WaveHeight);
             Assert.AreEqual(expectedOvertoppingOutput.IsOvertoppingDominant, actualOvertoppingOutput.IsOvertoppingDominant);
@@ -1754,15 +1754,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return;
             }
 
-            AssertWindDirection(expected.GoverningWindDirection, 
-                actual.GoverningWindDirection);
+            AssertWindDirection(expected.GoverningWindDirection,
+                                actual.GoverningWindDirection);
 
-            AssertCollectionAndItems(expected.Stochasts, 
-                actual.Stochasts, 
-                AssertStochast);
+            AssertCollectionAndItems(expected.Stochasts,
+                                     actual.Stochasts,
+                                     AssertStochast);
 
-            AssertCollectionAndItems(expected.TopLevelIllustrationPoints, 
-                actual.TopLevelIllustrationPoints,
+            AssertCollectionAndItems(expected.TopLevelIllustrationPoints,
+                                     actual.TopLevelIllustrationPoints,
                                      AssertTopLevelFaultTreeIllustrationPoint);
         }
 
@@ -1784,12 +1784,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var actualFaultTreeIllustrationPoint = actual.Data as FaultTreeIllustrationPoint;
                 Assert.IsNotNull(actualFaultTreeIllustrationPoint);
 
-                AssertFaultTreeIllustrationPoint(expectedFaultTreeIllustrationPoint, 
-                    actualFaultTreeIllustrationPoint);
+                AssertFaultTreeIllustrationPoint(expectedFaultTreeIllustrationPoint,
+                                                 actualFaultTreeIllustrationPoint);
 
-                AssertCollectionAndItems(expected.Children, 
-                    actual.Children, 
-                    AssertIllustrationPointNode);
+                AssertCollectionAndItems(expected.Children,
+                                         actual.Children,
+                                         AssertIllustrationPointNode);
                 return;
             }
 

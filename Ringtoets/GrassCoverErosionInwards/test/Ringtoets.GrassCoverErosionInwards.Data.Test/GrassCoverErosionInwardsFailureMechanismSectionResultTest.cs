@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(1.0, false, probabilityAssessmentOutput),
+                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(1.0, false, probabilityAssessmentOutput),
+                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }

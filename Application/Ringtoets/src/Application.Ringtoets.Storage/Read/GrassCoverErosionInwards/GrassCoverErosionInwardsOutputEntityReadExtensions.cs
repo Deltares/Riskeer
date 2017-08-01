@@ -47,11 +47,11 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                       GetOvertoppingRateOutput(entity));
         }
 
-        private static GrassCoverErosionInwardsOvertoppingOutput GetOvertoppingOutput(GrassCoverErosionInwardsOutputEntity entity)
+        private static OvertoppingOutput GetOvertoppingOutput(GrassCoverErosionInwardsOutputEntity entity)
         {
-            return new GrassCoverErosionInwardsOvertoppingOutput(entity.WaveHeight.ToNullAsNaN(),
-                                                                 Convert.ToBoolean(entity.IsOvertoppingDominant),
-                                                                 ReadProbabilityAssessmentOutput(entity));
+            return new OvertoppingOutput(entity.WaveHeight.ToNullAsNaN(),
+                                         Convert.ToBoolean(entity.IsOvertoppingDominant),
+                                         ReadProbabilityAssessmentOutput(entity));
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)

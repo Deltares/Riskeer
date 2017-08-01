@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble(), random.NextDouble(),
                                                                               random.NextDouble());
-            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput);
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput);
 
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, true, probabilityAssessmentOutput);
+            var overtoppingOutput = new OvertoppingOutput(double.NaN, true, probabilityAssessmentOutput);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
@@ -132,8 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                1, true, probabilityAssessmentOutput),
+            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput),
                                                             null, overtoppingRateOutput);
 
             // Call
@@ -149,8 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(
-                                                                1, true, probabilityAssessmentOutput),
+            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput),
                                                             dikeHeightOutput, null);
 
             // Call

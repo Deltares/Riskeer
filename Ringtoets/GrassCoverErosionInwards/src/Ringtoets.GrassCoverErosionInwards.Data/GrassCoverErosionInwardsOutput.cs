@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="overtoppingRateOutput">The overtopping rate output.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="overtoppingOutput"/>
         /// is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput,
+        public GrassCoverErosionInwardsOutput(OvertoppingOutput overtoppingOutput,
                                               DikeHeightOutput dikeHeightOutput,
                                               OvertoppingRateOutput overtoppingRateOutput)
         {
@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the overtopping output.
         /// </summary>
-        public GrassCoverErosionInwardsOvertoppingOutput OvertoppingOutput { get; }
+        public OvertoppingOutput OvertoppingOutput { get; }
 
         /// <summary>
         /// Gets the dike height output.

@@ -323,7 +323,7 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeprofile1
                 },
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
                                                             new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
@@ -333,7 +333,7 @@ namespace Ringtoets.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
                                                             new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.TestUtils
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeprofile2
                 },
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
                                                             new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };
@@ -371,7 +371,7 @@ namespace Ringtoets.Integration.TestUtils
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(new GrassCoverErosionInwardsOvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
+                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)),
                                                             new DikeHeightOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged),
                                                             new OvertoppingRateOutput(0, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged))
             };

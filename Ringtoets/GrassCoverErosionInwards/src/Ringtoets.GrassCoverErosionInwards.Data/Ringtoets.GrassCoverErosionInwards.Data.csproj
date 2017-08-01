@@ -41,7 +41,7 @@
     </Compile>
     <Compile Include="EmptyDikeHeightOutput.cs" />
     <Compile Include="EmptyOvertoppingRateOutput.cs" />
-    <Compile Include="GrassCoverErosionInwardsOvertoppingOutput.cs" />
+    <Compile Include="OvertoppingOutput.cs" />
     <Compile Include="OvertoppingRateOutput.cs" />
     <Compile Include="DikeHeightOutput.cs" />
     <Compile Include="HydraulicLoadsOutput.cs" />

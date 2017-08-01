@@ -24,7 +24,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -60,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             const double overtoppingRate = 0.9;
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
+            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
             var dikeHeightOutput = new TestDikeHeightOutput(dikeHeight);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(overtoppingRate);
 
@@ -70,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<Observable>(output);
-            
+
             Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
             Assert.AreSame(probabilityAssessmentOutput, output.OvertoppingOutput.ProbabilityAssessmentOutput);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);

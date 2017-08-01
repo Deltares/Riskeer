@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsOvertoppingOutput, GrassCoverErosionInwardsOvertoppingOutputProperties>();
+            yield return new PropertyInfo<OvertoppingOutput, OvertoppingOutputProperties>();
             yield return new PropertyInfo<DikeHeightOutput, DikeHeightOutputProperties>();
             yield return new PropertyInfo<OvertoppingRateOutput, OvertoppingRateOutputProperties>();
         }
@@ -278,9 +278,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsOvertoppingOutput>
+            yield return new TreeNodeInfo<OvertoppingOutput>
             {
-                Text = output => Resources.GrassCoverErosionInwardsOvertoppingOutput_DisplayName,
+                Text = output => Resources.OvertoppingOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

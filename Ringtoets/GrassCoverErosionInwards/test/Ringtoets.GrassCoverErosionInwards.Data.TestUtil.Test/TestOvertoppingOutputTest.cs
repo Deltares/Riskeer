@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestGrassCoverErosionInwardsOvertoppingOutputTest
+    public class TestOvertoppingOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -35,10 +35,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             const double probability = 0.3;
 
             // Call
-            var output = new TestGrassCoverErosionInwardsOvertoppingOutput(probability);
+            var output = new TestOvertoppingOutput(probability);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsOvertoppingOutput>(output);
+            Assert.IsInstanceOf<OvertoppingOutput>(output);
 
             Assert.AreEqual(1.0, output.WaveHeight.Value);
             Assert.IsTrue(output.IsOvertoppingDominant);

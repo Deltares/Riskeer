@@ -166,13 +166,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             try
             {
-                GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput =
-                    CalculateOvertopping(calculation,
-                                         generalInput,
-                                         hydraulicBoundaryDatabaseFilePath,
-                                         assessmentSection.FailureMechanismContribution.Norm,
-                                         failureMechanismContribution,
-                                         numberOfCalculators);
+                OvertoppingOutput overtoppingOutput = CalculateOvertopping(calculation,
+                                                                           generalInput,
+                                                                           hydraulicBoundaryDatabaseFilePath,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
+                                                                           failureMechanismContribution,
+                                                                           numberOfCalculators);
 
                 if (canceled)
                 {
@@ -264,14 +263,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="norm">The norm which has been defined on the assessment section.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section</param>
         /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
-        /// <returns>A <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>.</returns>
+        /// <returns>A <see cref="OvertoppingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private GrassCoverErosionInwardsOvertoppingOutput CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
-                                                                               GeneralGrassCoverErosionInwardsInput generalInput,
-                                                                               string hydraulicBoundaryDatabaseFilePath,
-                                                                               double norm,
-                                                                               double failureMechanismContribution,
-                                                                               int numberOfCalculators)
+        private OvertoppingOutput CalculateOvertopping(GrassCoverErosionInwardsCalculation calculation,
+                                                       GeneralGrassCoverErosionInwardsInput generalInput,
+                                                       string hydraulicBoundaryDatabaseFilePath,
+                                                       double norm,
+                                                       double failureMechanismContribution,
+                                                       int numberOfCalculators)
         {
             NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,
                                          Resources.GrassCoverErosionInwardsCalculationService_Overtopping),
@@ -285,13 +284,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                calculation.Name,
                                Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
 
-            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(overtoppingCalculator.WaveHeight,
-                                                                                  overtoppingCalculator.IsOvertoppingDominant,
-                                                                                  ProbabilityAssessmentService.Calculate(
-                                                                                      norm,
-                                                                                      failureMechanismContribution,
-                                                                                      generalInput.N,
-                                                                                      overtoppingCalculator.ExceedanceProbabilityBeta));
+            var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
+                                                          overtoppingCalculator.IsOvertoppingDominant,
+                                                          ProbabilityAssessmentService.Calculate(
+                                                              norm,
+                                                              failureMechanismContribution,
+                                                              generalInput.N,
+                                                              overtoppingCalculator.ExceedanceProbabilityBeta));
 
             SetGeneralResult(overtoppingOutput.SetGeneralResult,
                              overtoppingCalculator.IllustrationPointsResult,

@@ -80,7 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionInwardsOvertoppingOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\OvertoppingOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\OvertoppingRateOutputPropertiesTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactoryTest.cs" />

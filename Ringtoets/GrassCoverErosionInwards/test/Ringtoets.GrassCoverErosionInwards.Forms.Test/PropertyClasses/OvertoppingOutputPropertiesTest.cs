@@ -34,7 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOvertoppingOutputPropertiesTest
+    public class OvertoppingOutputPropertiesTest
     {
         private const int requiredProbabilityPropertyIndex = 0;
         private const int requiredReliabilityPropertyIndex = 1;
@@ -55,10 +55,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionInwardsOvertoppingOutputProperties();
+            var properties = new OvertoppingOutputProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsOvertoppingOutput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<OvertoppingOutput>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -80,12 +80,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                               reliability,
                                                                               factorOfSafety);
 
-            var overtoppingOutput = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight,
-                                                                                  isOvertoppingDominant,
-                                                                                  probabilityAssessmentOutput);
+            var overtoppingOutput = new OvertoppingOutput(waveHeight,
+                                                          isOvertoppingDominant,
+                                                          probabilityAssessmentOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOvertoppingOutputProperties
+            var properties = new OvertoppingOutputProperties
             {
                 Data = overtoppingOutput
             };
@@ -111,12 +111,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight,
-                                                                       true,
-                                                                       probabilityAssessmentOutput);
+            var output = new OvertoppingOutput(waveHeight,
+                                               true,
+                                               probabilityAssessmentOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOvertoppingOutputProperties
+            var properties = new OvertoppingOutputProperties
             {
                 Data = output
             };
@@ -191,13 +191,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight,
-                                                                       true,
-                                                                       probabilityAssessmentOutput);
+            var output = new OvertoppingOutput(waveHeight,
+                                               true,
+                                               probabilityAssessmentOutput);
             output.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var properties = new GrassCoverErosionInwardsOvertoppingOutputProperties
+            var properties = new OvertoppingOutputProperties
             {
                 Data = output
             };

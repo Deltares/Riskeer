@@ -82,15 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sterkte berekening.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsOvertoppingOutput_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsOvertoppingOutput_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip {
@@ -190,6 +181,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
             get {
                 object obj = ResourceManager.GetObject("OutputIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte berekening.
+        /// </summary>
+        internal static string OvertoppingOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingOutput_DisplayName", resourceCulture);
             }
         }
     }

@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOvertoppingOutputPropertyInfoTest
+    public class OvertoppingOutputPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsOvertoppingOutputProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(OvertoppingOutputProperties));
         }
 
         [TearDown]
@@ -52,21 +52,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsOvertoppingOutput), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsOvertoppingOutputProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(OvertoppingOutput), info.DataType);
+            Assert.AreEqual(typeof(OvertoppingOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
         public void CreateInstance_Always_NewPropertiesWithData()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(10, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
+            var output = new OvertoppingOutput(10, true, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0));
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(output);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsOvertoppingOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<OvertoppingOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
         }
     }

@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOvertoppingOutputTest
+    public class OvertoppingOutputTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                                               factorOfSafety);
 
             // Call
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
+            var output = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput);
 
             // Assert
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             const double waveHeight = 3.2934;
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsOvertoppingOutput(waveHeight, true, null);
+            TestDelegate call = () => new OvertoppingOutput(waveHeight, true, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasWaveHeight_WaveHeightNaN_ReturnFalse()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
+            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             bool hasWaveHeight = output.HasWaveHeight;
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
+            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             TestDelegate call = () => output.SetGeneralResult(null);
@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
-            var output = new GrassCoverErosionInwardsOvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
+            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
 
             // Call
             output.SetGeneralResult(generalResult);

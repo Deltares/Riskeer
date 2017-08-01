@@ -29,17 +29,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class contains the result of an overtopping calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsOvertoppingOutput
+    public class OvertoppingOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>.
+        /// Creates a new instance of <see cref="OvertoppingOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
-        public GrassCoverErosionInwardsOvertoppingOutput(double waveHeight,
-                                                         bool isOvertoppingDominant,
-                                                         ProbabilityAssessmentOutput probabilityAssessmentOutput)
+        public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput)
         {
             if (probabilityAssessmentOutput == null)
             {

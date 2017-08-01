@@ -50,13 +50,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
             ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
 
             Assert.AreEqual(entity.WaveHeight, overtoppingOutput.WaveHeight.Value);
             Assert.IsFalse(overtoppingOutput.IsOvertoppingDominant);
             Assert.IsNull(output.DikeHeightOutput);
-            Assert.IsNull(output.OvertoppingRateOutput);            
+            Assert.IsNull(output.OvertoppingRateOutput);
             Assert.AreEqual(entity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(entity.Probability, probabilityAssessmentOutput.Probability);
             Assert.AreEqual(entity.RequiredProbability, probabilityAssessmentOutput.RequiredProbability);
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
             ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
 
             Assert.IsNaN(overtoppingOutput.WaveHeight);

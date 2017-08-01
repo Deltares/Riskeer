@@ -563,7 +563,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }
 
             // Assert
-            GrassCoverErosionInwardsOvertoppingOutput overtoppingOutput = calculation.Output.OvertoppingOutput;
+            OvertoppingOutput overtoppingOutput = calculation.Output.OvertoppingOutput;
             Assert.IsFalse(double.IsNaN(overtoppingOutput.WaveHeight));
             ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
             Assert.IsNotNull(probabilityAssessmentOutput);

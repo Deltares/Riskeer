@@ -24,16 +24,16 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
-    /// Simple implementation of a <see cref="GrassCoverErosionInwardsOvertoppingOutput"/>, which can be
+    /// Simple implementation of a <see cref="OvertoppingOutput"/>, which can be
     /// used in tests where actual output values are not important.
     /// </summary>
-    public class TestGrassCoverErosionInwardsOvertoppingOutput : GrassCoverErosionInwardsOvertoppingOutput
+    public class TestOvertoppingOutput : OvertoppingOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsOvertoppingOutput"/>.
+        /// Creates a new instance of <see cref="TestOvertoppingOutput"/>.
         /// </summary>
         /// <param name="probability">The probability to set to the output.</param>
-        public TestGrassCoverErosionInwardsOvertoppingOutput(double probability) 
+        public TestOvertoppingOutput(double probability)
             : base(1, true, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0)) {}
     }
 }

@@ -36,9 +36,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsOvertoppingOutput"/> for properties panel.
+    /// ViewModel of <see cref="OvertoppingOutput"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsOvertoppingOutputProperties : ObjectProperties<GrassCoverErosionInwardsOvertoppingOutput>
+    public class OvertoppingOutputProperties : ObjectProperties<OvertoppingOutput>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]

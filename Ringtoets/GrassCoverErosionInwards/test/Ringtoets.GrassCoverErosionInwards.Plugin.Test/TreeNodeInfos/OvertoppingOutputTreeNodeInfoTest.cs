@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOvertoppingOutputTreeNodeInfoTest
+    public class OvertoppingOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsOvertoppingOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(OvertoppingOutput));
         }
 
         [TearDown]

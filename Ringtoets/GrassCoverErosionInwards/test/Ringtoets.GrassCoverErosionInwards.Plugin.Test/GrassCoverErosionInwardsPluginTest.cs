@@ -86,8 +86,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(GrassCoverErosionInwardsOvertoppingOutput),
-                    typeof(GrassCoverErosionInwardsOvertoppingOutputProperties));
+                    typeof(OvertoppingOutput),
+                    typeof(OvertoppingOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOvertoppingOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(OvertoppingOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyDikeHeightOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeHeightOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyOvertoppingRateOutput)));
