@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -41,6 +42,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
@@ -204,6 +206,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
             };
+
+            yield return new ViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            {
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
+            };
+
+            yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            {
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
+            };
+
+            yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            {
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
+                GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -291,6 +320,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => Resources.OvertoppingOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.Output?.OvertoppingOutput != null
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -302,7 +334,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = context => context.WrappedData.Output.DikeHeightOutput != null
+                ForeColor = context => context.WrappedData.Output?.DikeHeightOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
@@ -316,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = context => context.WrappedData.Output.OvertoppingRateOutput != null
+                ForeColor = context => context.WrappedData.Output?.OvertoppingRateOutput != null
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
@@ -459,6 +491,57 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         }
 
         #endregion
+
+        private static bool CloseCalculationViewForData<T>(IView view, object o) where T : ICalculation
+        {
+            var context = o as ICalculationContext<T, IFailureMechanism>;
+            if (context != null)
+            {
+                return ReferenceEquals(view.Data, context.WrappedData);
+            }
+
+            IEnumerable<T> calculations;
+
+            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            if (calculationGroupContext != null)
+            {
+                calculations = calculationGroupContext.WrappedData
+                                                      .GetCalculations()
+                                                      .OfType<T>();
+            }
+            else
+            {
+                calculations = GetCalculationsFromFailureMechanisms<T>(o);
+            }
+
+            return calculations.Any(c => ReferenceEquals(view.Data, c));
+        }
+
+        private static IEnumerable<T> GetCalculationsFromFailureMechanisms<T>(object o)
+        {
+            var failureMechanism = o as IFailureMechanism;
+
+            var context = o as IFailureMechanismContext<IFailureMechanism>;
+            if (context != null)
+            {
+                failureMechanism = context.WrappedData;
+            }
+
+            if (failureMechanism != null)
+            {
+                return failureMechanism.Calculations.OfType<T>();
+            }
+
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                return assessmentSection.GetFailureMechanisms()
+                                        .SelectMany(fm => fm.Calculations)
+                                        .OfType<T>();
+            }
+
+            return Enumerable.Empty<T>();
+        }
 
         private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
         {

@@ -26,6 +26,7 @@ using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -136,12 +137,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, viewInfos.Length);
+                Assert.AreEqual(7, viewInfos.Length);
 
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(OvertoppingOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(DikeHeightOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(OvertoppingRateOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
             }
         }
 

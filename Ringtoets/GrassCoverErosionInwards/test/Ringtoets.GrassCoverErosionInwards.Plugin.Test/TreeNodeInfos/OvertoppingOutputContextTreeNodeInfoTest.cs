@@ -27,6 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -62,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -92,6 +94,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Sterkte berekening", text);
+        }
+
+        [Test]
+        public void ForeColor_HasNoOutput_ReturnGrayText()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            // Call
+            Color color = info.ForeColor(new OvertoppingOutputContext(calculation));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+        }
+
+        [Test]
+        public void ForeColor_HasOutput_ReturnControlText()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(
+                    new TestOvertoppingOutput(0.5),
+                    null,
+                    null)
+            };
+
+            // Call
+            Color color = info.ForeColor(new OvertoppingOutputContext(calculation));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
         }
 
         [Test]
