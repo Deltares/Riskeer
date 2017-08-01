@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,7 +35,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
@@ -208,9 +206,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = context => RingtoetsCommonFormsResources.DikeProfiles_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = context => context.WrappedData.Any() ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData
                                                      .Cast<object>()
                                                      .ToArray(),
@@ -279,6 +277,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Text = output => Resources.GrassCoverErosionInwardsOvertoppingOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -298,6 +298,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -317,6 +319,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -330,7 +334,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
