@@ -88,16 +88,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGeneralOutputIcon()
-        {
-            // Call
-            Image image = info.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(Resources.OutputIcon, image);
-        }
-
-        [Test]
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Call
@@ -118,6 +108,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGeneralOutputIcon()
+        {
+            // Call
+            Image image = info.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(Resources.OutputIcon, image);
         }
 
         [Test]

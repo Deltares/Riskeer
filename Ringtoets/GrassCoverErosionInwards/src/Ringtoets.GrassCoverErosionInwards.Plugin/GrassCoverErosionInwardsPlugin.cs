@@ -298,33 +298,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<EmptyDikeHeightOutput>
-            {
-                Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<DikeHeightOutputContext>
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.Output.DikeHeightOutput != null
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<EmptyOvertoppingRateOutput>
-            {
-                Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -333,6 +316,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = output => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.Output.OvertoppingRateOutput != null
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -490,15 +476,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return !calculation.HasOutput
                        ? new object[0]
-                       : new[]
+                       : new object[]
                        {
                            new OvertoppingOutputContext(calculation),
-                           calculation.Output.DikeHeightOutput != null
-                               ? new DikeHeightOutputContext(calculation)
-                               : (object) new EmptyDikeHeightOutput(),
-                           calculation.Output.OvertoppingRateOutput != null
-                               ? new OvertoppingRateOutputContext(calculation)
-                               : (object) new EmptyOvertoppingRateOutput()
+                           new DikeHeightOutputContext(calculation),
+                           new OvertoppingRateOutputContext(calculation)
                        };
         }
 
