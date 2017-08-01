@@ -28,6 +28,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile

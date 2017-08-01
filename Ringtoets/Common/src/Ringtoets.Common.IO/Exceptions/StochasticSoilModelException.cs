@@ -22,38 +22,38 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Ringtoets.Common.IO.Exceptions
 {
     /// <summary>
-    /// Exception thrown when something went wrong while converting soil layers for a soil profile.
+    /// Exception thrown when something went wrong while constructing a soil model.
     /// </summary>
     [Serializable]
-    public class SoilLayerConversionException : Exception
+    public class StochasticSoilModelException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class.
+        /// Initializes a new instance of the <see cref="StochasticSoilModelException"/> class.
         /// </summary>
-        public SoilLayerConversionException() {}
+        public StochasticSoilModelException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class 
+        /// Initializes a new instance of the <see cref="StochasticSoilModelException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public SoilLayerConversionException(string message)
+        public StochasticSoilModelException(string message)
             : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class with a specified error message 
+        /// Initializes a new instance of the <see cref="StochasticSoilModelException"/> class with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public SoilLayerConversionException(string message, Exception innerException) : base(message, innerException) {}
+        public StochasticSoilModelException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="SoilLayerConversionException"/> with
+        /// Initializes a new instance of <see cref="StochasticSoilModelException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected SoilLayerConversionException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected StochasticSoilModelException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

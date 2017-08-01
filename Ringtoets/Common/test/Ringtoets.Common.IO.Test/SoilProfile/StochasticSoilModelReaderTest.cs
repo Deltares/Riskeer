@@ -27,6 +27,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile

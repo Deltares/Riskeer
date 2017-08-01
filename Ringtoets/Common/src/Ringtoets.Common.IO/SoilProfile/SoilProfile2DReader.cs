@@ -26,6 +26,7 @@ using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 

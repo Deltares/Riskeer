@@ -137,14 +137,14 @@
     <Compile Include="SoilProfile\SoilLayer2DReader.cs" />
     <Compile Include="SoilProfile\SoilLayerBase.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
-    <Compile Include="SoilProfile\SoilLayerConversionException.cs" />
+    <Compile Include="Exceptions\SoilLayerConversionException.cs" />
     <Compile Include="SoilProfile\SoilProfile1D.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile2D.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReader.cs" />
-    <Compile Include="SoilProfile\SoilProfileReadException.cs" />
+    <Compile Include="Exceptions\SoilProfileReadException.cs" />
     <Compile Include="SoilProfile\StochasticSoilModel.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelException.cs" />
+    <Compile Include="Exceptions\StochasticSoilModelException.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />

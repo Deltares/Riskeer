@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw new CriticalFileReadException(
                     BuildMessageWithPath(string.Format(
                                              Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilProfile_Perhaps_table_missing,
-                                             StochasticSoilProfileTableDefinitions.TableName)), 
+                                             StochasticSoilProfileTableDefinitions.TableName)),
                     exception);
             }
         }

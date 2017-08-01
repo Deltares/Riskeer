@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.IO.Readers;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
