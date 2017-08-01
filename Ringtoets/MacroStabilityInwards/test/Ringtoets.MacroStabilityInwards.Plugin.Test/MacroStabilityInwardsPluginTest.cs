@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -140,11 +142,34 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(5, viewInfos.Length);
 
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(MacroStabilityInwardsFailureMechanismView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(MacroStabilityInwardsCalculationsView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(MacroStabilityInwardsFailureMechanismResultView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(MacroStabilityInwardsInputView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(MacroStabilityInwardsScenariosView)));
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsFailureMechanismContext),
+                    typeof(MacroStabilityInwardsFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>),
+                    typeof(MacroStabilityInwardsFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsCalculationGroupContext),
+                    typeof(CalculationGroup),
+                    typeof(MacroStabilityInwardsCalculationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsInputContext),
+                    typeof(MacroStabilityInwardsCalculationScenario),
+                    typeof(MacroStabilityInwardsInputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(MacroStabilityInwardsScenariosView));
             }
         }
 

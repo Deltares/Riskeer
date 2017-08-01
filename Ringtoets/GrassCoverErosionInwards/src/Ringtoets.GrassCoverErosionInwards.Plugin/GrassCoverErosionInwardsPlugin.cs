@@ -42,7 +42,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Service;
@@ -207,31 +206,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CloseForData = CloseInputViewForData
             };
 
-            yield return new ViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            yield return new ViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingOutputGeneralResultFaultTreeIllustrationPointView>
             {
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
-                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
+                CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
+                    () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
 
-            yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>
             {
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
-                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
+                CreateInstance = context => new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
+                    () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
 
-            yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, GeneralResultFaultTreeIllustrationPointView>
+            yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>
             {
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
-                CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
+                CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
+                    () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
         }
 

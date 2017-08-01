@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -139,13 +140,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(7, viewInfos.Length);
 
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(OvertoppingOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(DikeHeightOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(OvertoppingRateOutputContext) && vi.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView)));
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionInwardsFailureMechanismContext),
+                    typeof(GrassCoverErosionInwardsFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionInwardsScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(GrassCoverErosionInwardsScenariosView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>),
+                    typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>),
+                    typeof(GrassCoverErosionInwardsFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionInwardsInputContext),
+                    typeof(GrassCoverErosionInwardsCalculation),
+                    typeof(GrassCoverErosionInwardsInputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(DikeHeightOutputContext),
+                    typeof(GrassCoverErosionInwardsCalculation),
+                    typeof(DikeHeightOutputGeneralResultFaultTreeIllustrationPointView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(OvertoppingOutputContext),
+                    typeof(GrassCoverErosionInwardsCalculation),
+                    typeof(OvertoppingOutputGeneralResultFaultTreeIllustrationPointView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(OvertoppingRateOutputContext),
+                    typeof(GrassCoverErosionInwardsCalculation),
+                    typeof(OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView));
             }
         }
 

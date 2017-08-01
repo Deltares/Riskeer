@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -142,11 +144,34 @@ namespace Ringtoets.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(5, viewInfos.Length);
 
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingCalculationsView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismResultView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingInputView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingScenariosView)));
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingFailureMechanismContext),
+                    typeof(PipingFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>),
+                    typeof(IEnumerable<PipingFailureMechanismSectionResult>),
+                    typeof(PipingFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingCalculationGroupContext),
+                    typeof(CalculationGroup),
+                    typeof(PipingCalculationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingInputContext),
+                    typeof(PipingCalculationScenario),
+                    typeof(PipingInputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingScenariosContext),
+                    typeof(CalculationGroup),
+                    typeof(PipingScenariosView));
             }
         }
 
