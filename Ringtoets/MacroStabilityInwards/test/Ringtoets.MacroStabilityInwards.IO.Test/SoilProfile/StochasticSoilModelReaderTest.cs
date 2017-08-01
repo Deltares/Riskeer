@@ -80,8 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -103,8 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "withoutSoilModelTables.soil");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Kan geen ondergrondmodellen lezen. Mogelijk bestaat de 'StochasticSoilModel' tabel niet.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -127,8 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             // Setup
             string path = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO.Path, "SoilDatabaseConstraintsReader"));
             string dbFile = Path.Combine(path, "nonUniqueSoilModelNames.soil");
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build("Namen van ondergrondmodellen zijn niet uniek.");
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Namen van ondergrondmodellen zijn niet uniek.");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -166,10 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
-            const string version = "15.0.6.0";
-            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
-            const string dbName = "incorrectversion.soil";
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "incorrectversion.soil");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -182,6 +176,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
+
+            const string version = "17.2.0.0";
+            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
             Assert.AreEqual(expectedVersionMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

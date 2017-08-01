@@ -126,7 +126,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
 
-                const string version = "15.0.6.0";
+                const string version = "17.2.0.0";
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(
                     "De database heeft niet de vereiste versie informatie. " +
                     $"Vereiste versie is '{version}'.");

@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 TestDelegate test = () => versionReader.VerifyVersion();
 
                 // Assert
-                const string requiredVersion = "15.0.6.0";
+                const string requiredVersion = "17.2.0.0";
                 string expectedVersionMessage = $"Fout bij het lezen van bestand '{filePath}': " +
                                                 "de database heeft niet de vereiste versie informatie. " +
                                                 $"Vereiste versie is '{requiredVersion}'.";

@@ -74,10 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
         public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
-            const string version = "15.0.6.0";
-            string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
-            const string dbName = "incorrectversion.soil";
-            string dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, "incorrectversion.soil");
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -89,6 +86,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                const string version = "17.2.0.0";
+                string expectedVersionMessage = $"De database heeft niet de vereiste versie informatie. Vereiste versie is '{version}'.";
                 Assert.AreEqual(expectedVersionMessage, exception.Message);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
