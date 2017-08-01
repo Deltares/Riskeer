@@ -121,25 +121,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_HasNoOutput_ReturnsEmptyCollection()
-        {
-            // Setup
-            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation());
-
-            // Call
-            object[] children = info.ChildNodeObjects(grassCoverErosionInwardsOutputContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(0, children.Length);
-        }
-
-        [Test]
-        public void ChildNodeObjects_HasOutput_ReturnsCollectionWithOutputObjects()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Output = hasOutput ? new TestGrassCoverErosionInwardsOutput() : null
             };
             var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(grassCoverErosionInwardsCalculation);
 

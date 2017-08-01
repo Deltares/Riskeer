@@ -474,14 +474,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
 
-            return !calculation.HasOutput
-                       ? new object[0]
-                       : new object[]
-                       {
-                           new OvertoppingOutputContext(calculation),
-                           new DikeHeightOutputContext(calculation),
-                           new OvertoppingRateOutputContext(calculation)
-                       };
+            return new object[]
+            {
+                new OvertoppingOutputContext(calculation),
+                new DikeHeightOutputContext(calculation),
+                new OvertoppingRateOutputContext(calculation)
+            };
         }
 
         #endregion
