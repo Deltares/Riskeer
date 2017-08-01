@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_StructuresOutput_ExpectedValues()
         {
             // Setup
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());

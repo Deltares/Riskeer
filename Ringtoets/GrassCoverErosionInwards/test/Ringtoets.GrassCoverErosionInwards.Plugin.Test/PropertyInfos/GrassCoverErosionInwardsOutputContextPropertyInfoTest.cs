@@ -25,12 +25,13 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsOutputPropertyInfoTest
+    public class GrassCoverErosionInwardsOutputContextPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -52,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsOutput), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputContext), info.DataType);
             Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), info.PropertyObjectType);
         }
 
@@ -61,9 +62,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         {
             // Setup
             var output = new TestGrassCoverErosionInwardsOutput();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = output
+            };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(output);
+            IObjectProperties objectProperties = info.CreateInstance(new GrassCoverErosionInwardsOutputContext(calculation));
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsOutputProperties>(objectProperties);

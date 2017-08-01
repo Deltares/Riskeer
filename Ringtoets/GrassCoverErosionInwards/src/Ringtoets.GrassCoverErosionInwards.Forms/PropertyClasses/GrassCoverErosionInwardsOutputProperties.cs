@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -39,6 +40,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<GrassCoverErosionInwardsOutput>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputProperties"/>.
+        /// </summary>
+        /// <param name="grassCoverErosionInwardsOutput">The grass cover erosion inwards output to create the object properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="grassCoverErosionInwardsOutput"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput)
+        {
+            if (grassCoverErosionInwardsOutput == null)
+            {
+                throw new ArgumentNullException(nameof(grassCoverErosionInwardsOutput));
+            }
+
+            Data = grassCoverErosionInwardsOutput;
+        }
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {

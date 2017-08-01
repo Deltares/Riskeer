@@ -28,38 +28,34 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyGrassCoverErosionInwardsOutputTreeNodeInfoTest
+    public class GrassCoverErosionInwardsOutputContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyGrassCoverErosionInwardsOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutputContext));
         }
 
         [TearDown]
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -67,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -84,9 +80,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             string text = info.Text(null);
 
@@ -97,9 +90,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -108,19 +98,72 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_Always_ReturnGrayText()
+        public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Call
-            Color foreColor = info.ForeColor(null);
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation()));
 
             // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+        }
+
+        [Test]
+        public void ForeColor_HasOutput_ReturnControlText()
+        {
+            // Call
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            }));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
+        public void ChildNodeObjects_HasNoOutput_ReturnsEmptyCollection()
+        {
+            // Setup
+            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation());
+
+            // Call
+            object[] children = info.ChildNodeObjects(grassCoverErosionInwardsOutputContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(0, children.Length);
+        }
+
+        [Test]
+        public void ChildNodeObjects_HasOutput_ReturnsCollectionWithOutputObjects()
+        {
+            // Setup
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+            var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(grassCoverErosionInwardsCalculation);
+
+            // Call
+            object[] children = info.ChildNodeObjects(grassCoverErosionInwardsOutputContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var overtoppingOutput = children[0] as GrassCoverErosionInwardsOvertoppingOutput;
+            Assert.AreSame(grassCoverErosionInwardsCalculation.Output.OvertoppingOutput, overtoppingOutput);
+
+            var dikeHeightOutput = children[1] as DikeHeightOutput;
+            Assert.AreSame(grassCoverErosionInwardsCalculation.Output.DikeHeightOutput, dikeHeightOutput);
+
+            var overtoppingRateOutput = children[2] as OvertoppingRateOutput;
+            Assert.AreSame(grassCoverErosionInwardsCalculation.Output.OvertoppingRateOutput, overtoppingRateOutput);
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -139,8 +182,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
-            // Assert expectancies called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

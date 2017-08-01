@@ -81,7 +81,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsOutputContext, GrassCoverErosionInwardsOutputProperties>
+            {
+                CreateInstance = context => new GrassCoverErosionInwardsOutputProperties(context.WrappedData.Output)
+            };
             yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
             {
                 CreateInstance = context => new DikeProfileCollectionProperties(context.WrappedData)
@@ -262,10 +265,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutput>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => Resources.OutputIcon,
+                Text = context => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = context => Resources.OutputIcon,
+                ForeColor = context => context.WrappedData.HasOutput
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = OutputChildNodeObjects,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -321,16 +327,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
-            {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => Resources.OutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -476,6 +472,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
             }
         }
+
+        #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
+
+        private static object[] OutputChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
+        {
+            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
+
+            return !calculation.HasOutput
+                       ? new object[0]
+                       : new[]
+                       {
+                           calculation.Output.OvertoppingOutput,
+                           calculation.Output.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
+                           calculation.Output.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
+                       };
+        }
+
+        #endregion
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
@@ -809,25 +823,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext context)
         {
-            var childNodes = new List<object>
+            return new object[]
             {
                 context.WrappedData.Comments,
                 new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
                                                          context.WrappedData,
                                                          context.FailureMechanism,
-                                                         context.AssessmentSection)
+                                                         context.AssessmentSection),
+                new GrassCoverErosionInwardsOutputContext(context.WrappedData)
             };
-
-            if (context.WrappedData.HasOutput)
-            {
-                childNodes.Add(context.WrappedData.Output);
-            }
-            else
-            {
-                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
-            }
-
-            return childNodes.ToArray();
         }
 
         private ContextMenuStrip CalculationContextContextMenuStrip(GrassCoverErosionInwardsCalculationContext context, object parentData, TreeViewControl treeViewControl)
@@ -955,20 +959,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 affectedObject.NotifyObservers();
             }
-        }
-
-        #endregion
-
-        #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
-
-        private static object[] OutputChildNodeObjects(GrassCoverErosionInwardsOutput node)
-        {
-            return new[]
-            {
-                node.OvertoppingOutput,
-                node.DikeHeightOutput ?? (object) new EmptyDikeHeightOutput(),
-                node.OvertoppingRateOutput ?? (object) new EmptyOvertoppingRateOutput()
-            };
         }
 
         #endregion

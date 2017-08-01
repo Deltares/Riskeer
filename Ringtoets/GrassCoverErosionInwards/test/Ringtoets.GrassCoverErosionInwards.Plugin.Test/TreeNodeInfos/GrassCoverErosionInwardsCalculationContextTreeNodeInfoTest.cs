@@ -122,41 +122,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_CalculationWithoutOutput_ReturnCollectionWithEmptyOutputObject()
-        {
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-
-            var comment = children[0] as Comment;
-            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
-
-            var grassCoverErosionInwardsInputContext = children[1] as GrassCoverErosionInwardsInputContext;
-            Assert.IsNotNull(grassCoverErosionInwardsInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
-
-            var emptyOutput = children[2] as EmptyGrassCoverErosionInwardsOutput;
-            Assert.IsNotNull(emptyOutput);
-        }
-
-        [Test]
-        public void ChildNodeObjects_CalculationWithOutput_ReturnCollectionWithOutputObject()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Output = hasOutput
+                             ? new TestGrassCoverErosionInwardsOutput()
+                             : null
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
@@ -174,9 +151,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(grassCoverErosionInwardsInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
 
-            var grassCoverErosionInwardsOutput = children[2] as GrassCoverErosionInwardsOutput;
-            Assert.IsNotNull(grassCoverErosionInwardsOutput);
-            Assert.AreSame(calculationContext.WrappedData.Output, grassCoverErosionInwardsOutput);
+            var grassCoverErosionInwardsOutputContext = children[2] as GrassCoverErosionInwardsOutputContext;
+            Assert.IsNotNull(grassCoverErosionInwardsOutputContext);
+            Assert.AreSame(calculationContext.WrappedData, grassCoverErosionInwardsOutputContext.WrappedData);
         }
 
         [Test]
