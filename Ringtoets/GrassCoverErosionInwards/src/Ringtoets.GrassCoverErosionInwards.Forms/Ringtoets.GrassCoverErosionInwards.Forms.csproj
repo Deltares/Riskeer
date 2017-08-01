@@ -45,6 +45,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationObjects\DikeHeightOutputContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContext.cs" />
     <Compile Include="PresentationObjects\OvertoppingOutputContext.cs" />
     <Compile Include="PresentationObjects\OvertoppingRateOutputContext.cs" />
     <Compile Include="PropertyClasses\DikeHeightOutputProperties.cs" />

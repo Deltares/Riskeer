@@ -59,6 +59,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContextTest.cs" />
     <Compile Include="PresentationObjects\OvertoppingOutputContextTest.cs" />
     <Compile Include="PresentationObjects\OvertoppingRateOutputContextTest.cs" />
     <Compile Include="PresentationObjects\DikeHeightOutputContextTest.cs" />
