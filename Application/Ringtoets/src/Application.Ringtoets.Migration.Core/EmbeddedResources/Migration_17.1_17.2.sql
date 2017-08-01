@@ -49,9 +49,11 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Id] || 
-	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Id] END as [Id],
+	CASE 
+		WHEN Suffix 
+			THEN [Id] || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength) || Suffix 
+		ELSE [Id] 
+	END AS [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -78,13 +80,22 @@ SELECT
 	[IdenticalApertures],
 	[FailureProbabilityReparation],
 	[InflowModelType]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT CS.rowid
-                     FROM [SOURCEPROJECT].ClosingStructureEntity
-                     WHERE CS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
-                     AND CS.[Id] IS [Id]
-                     AND CS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
+	FROM (
+		SELECT *,
+		MaxLength - LENGTH([Id]) AS SuffixPreLength,
+		(
+			SELECT CS.rowid
+			FROM [SOURCEPROJECT].ClosingStructureEntity
+			WHERE CS.[ClosingStructureEntityId] > [ClosingStructureEntityId]
+			AND CS.[Id] IS [Id]
+			AND CS.[FailuremechanismEntityId] = [FailuremechanismEntityId]
+		) AS Suffix
 	FROM [SOURCEPROJECT].ClosingStructureEntity CS
-	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].ClosingStructureEntity));
+	JOIN (
+		SELECT MAX(LENGTH([Id])) AS MaxLength
+		FROM [SOURCEPROJECT].ClosingStructureEntity
+		)
+	);
 INSERT INTO ClosingStructuresCalculationEntity(
 	[ClosingStructuresCalculationEntityId],
 	[CalculationGroupEntityId],
@@ -186,11 +197,19 @@ SELECT
 	[ClosingStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N2A],
-	CASE WHEN COUNT([ClosingStructureEntityId]) THEN "" ELSE NULL END,
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
+	CASE 
+		WHEN COUNT([ClosingStructureEntityId])
+			THEN ""
+		ELSE NULL
+	END,
+	CASE 
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+		ELSE NULL
+	END
 	FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity
-	LEFT JOIN [SOURCEPROJECT].ClosingStructureEntity USING (FailureMechanismEntityId)
-	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ClosingStructureEntity USING(FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
 INSERT INTO ClosingStructuresOutputEntity(
 	[ClosingStructuresOutputEntityId],
@@ -235,9 +254,11 @@ INSERT INTO ForeshoreProfileEntity(
 SELECT
 	[ForeshoreProfileEntityId],
 	[FailureMechanismEntityId],
-	CASE WHEN Suffix THEN [Id] || 
-	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Id] END as [Id],
+	CASE
+		WHEN Suffix 
+			THEN [Id] || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength) || Suffix 
+		ELSE [Id] 
+	END AS [Id],
 	[Name],
 	[Orientation],
 	[BreakWaterType],
@@ -247,13 +268,22 @@ SELECT
 	[Y],
 	[X0],
 	[Order]
-	FROM (SELECT *, MaxLength - LENGTH(Id) as SuffixPreLength, (SELECT FS.rowid
-                     FROM [SOURCEPROJECT].ForeshoreProfileEntity
-                     WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
-                     AND FS.Id IS Id
-                     AND FS.FailuremechanismEntityId = FailuremechanismEntityId) as Suffix
+	FROM (
+		SELECT *,
+		MaxLength - LENGTH(Id) AS SuffixPreLength,
+		(
+			SELECT FS.rowid
+			FROM [SOURCEPROJECT].ForeshoreProfileEntity
+			WHERE FS.ForeshoreProfileEntityId > ForeshoreProfileEntityId
+			AND FS.Id IS Id
+			AND FS.FailuremechanismEntityId = FailuremechanismEntityId
+		) AS Suffix
 	FROM [SOURCEPROJECT].ForeshoreProfileEntity FS
-	JOIN (SELECT MAX(LENGTH(Id)) as MaxLength FROM [SOURCEPROJECT].ForeshoreProfileEntity));
+	JOIN (
+		SELECT MAX(LENGTH(Id)) AS MaxLength 
+		FROM [SOURCEPROJECT].ForeshoreProfileEntity
+		)
+	);
 INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
@@ -269,9 +299,13 @@ SELECT
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
+	CASE
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+		ELSE NULL
+	END
 	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
 INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity(
 	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
@@ -282,7 +316,7 @@ INSERT INTO GrassCoverErosionOutwardsHydraulicLocationEntity(
 	[LocationY],
 	[ShouldWaveHeightIllustrationPointsBeCalculated],
 	[ShouldDesignWaterLevelIllustrationPointsBeCalculated],
-	[Order]) 
+	[Order])
 SELECT 
 	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
 	[FailureMechanismEntityId],
@@ -322,7 +356,7 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FR
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
-INSERT INTO HeightStructureEntity ( 
+INSERT INTO HeightStructureEntity (
 	[HeightStructureEntityId],
 	[FailureMechanismEntityId],
 	[Order],
@@ -349,9 +383,11 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Id] || 
-	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Id] END as [Id],
+	CASE
+		WHEN Suffix
+			THEN [Id] || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)|| Suffix 
+		ELSE [Id]
+	END AS [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -368,13 +404,21 @@ SELECT
 	[StorageStructureAreaCoefficientOfVariation],
 	[AllowedLevelIncreaseStorageMean],
 	[AllowedLevelIncreaseStorageStandardDeviation]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT HS.rowid
-                     FROM [SOURCEPROJECT].HeightStructureEntity
-                     WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
-                     AND HS.[Id] IS [Id]
-                     AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
-	FROM [SOURCEPROJECT].HeightStructureEntity HS
-	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].HeightStructureEntity));
+	FROM (
+		SELECT *, 
+		MaxLength - LENGTH([Id]) AS SuffixPreLength, (
+			SELECT HS.rowid
+			FROM [SOURCEPROJECT].HeightStructureEntity
+			WHERE HS.[HeightStructureEntityId] > [HeightStructureEntityId]
+			AND HS.[Id] IS [Id]
+			AND HS.[FailuremechanismEntityId] = [FailuremechanismEntityId]
+		) AS Suffix
+		FROM [SOURCEPROJECT].HeightStructureEntity HS
+		JOIN (
+			SELECT MAX(LENGTH([Id])) AS MaxLength 
+			FROM [SOURCEPROJECT].HeightStructureEntity
+		)
+	);
 INSERT INTO HeightStructuresCalculationEntity(
 	[HeightStructuresCalculationEntityId],
 	[CalculationGroupEntityId],
@@ -448,11 +492,19 @@ SELECT
 	[HeightStructuresFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([HeightStructureEntityId]) THEN "" ELSE NULL END,
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
+	CASE 
+		WHEN COUNT([HeightStructureEntityId])
+			THEN ""
+		ELSE NULL
+	END,
+	CASE 
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+		ELSE NULL
+	END
 	FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity
-	LEFT JOIN [SOURCEPROJECT].HeightStructureEntity USING (FailureMechanismEntityId)
-	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].HeightStructureEntity USING(FailureMechanismEntityId)
+	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING(FailureMechanismEntityId)
 	GROUP BY FailureMechanismEntityID;
 INSERT INTO HeightStructuresOutputEntity(
 	[HeightStructuresOutputEntityId],
@@ -613,9 +665,11 @@ SELECT
 	[FailureMechanismEntityId],
 	[Order],
 	[Name],
-	CASE WHEN Suffix THEN [Id] || 
-	SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength)
-	|| Suffix ELSE [Id] END as [Id],
+	CASE
+		WHEN Suffix
+			THEN [Id] || SUBSTR(QUOTE(ZEROBLOB((SuffixPreLength + 1) / 2)), 3, SuffixPreLength) || Suffix
+		ELSE [Id]
+	END AS [Id],
 	[X],
 	[Y],
 	[StructureNormalOrientation],
@@ -662,13 +716,22 @@ SELECT
 	[AreaFlowAperturesMean],
 	[AreaFlowAperturesStandardDeviation],
 	[InflowModelType]
-	FROM (SELECT *, MaxLength - LENGTH([Id]) AS SuffixPreLength, (SELECT SPS.rowid
-                     FROM [SOURCEPROJECT].StabilityPointStructureEntity
-                     WHERE SPS.[StabilityPointStructureEntityId] > [StabilityPointStructureEntityId]
-                     AND SPS.[Id] IS [Id]
-                     AND SPS.[FailuremechanismEntityId] = [FailuremechanismEntityId]) AS Suffix
-	FROM [SOURCEPROJECT].StabilityPointStructureEntity SPS
-	JOIN (SELECT MAX(LENGTH([Id])) AS MaxLength FROM [SOURCEPROJECT].StabilityPointStructureEntity));
+	FROM (
+		SELECT *, 
+		MaxLength - LENGTH([Id]) AS SuffixPreLength, 
+		(
+			SELECT SPS.rowid
+			FROM [SOURCEPROJECT].StabilityPointStructureEntity
+			WHERE SPS.[StabilityPointStructureEntityId] > [StabilityPointStructureEntityId]
+			AND SPS.[Id] IS [Id]
+			AND SPS.[FailuremechanismEntityId] = [FailuremechanismEntityId]
+		) AS Suffix
+		FROM [SOURCEPROJECT].StabilityPointStructureEntity SPS
+		JOIN (
+			SELECT MAX(LENGTH([Id])) AS MaxLength 
+			FROM [SOURCEPROJECT].StabilityPointStructureEntity
+		)
+	);
 INSERT INTO StabilityPointStructuresCalculationEntity(
 	[StabilityPointStructuresCalculationEntityId],
 	[CalculationGroupEntityId],
@@ -810,8 +873,16 @@ SELECT
 	[StrengthStabilityPointConstructionFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
 	[N],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END,
-	CASE WHEN COUNT([StabilityPointStructureEntityId]) THEN "" ELSE NULL END
+	CASE 
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+		ELSE NULL
+	END,
+	CASE 
+		WHEN COUNT([StabilityPointStructureEntityId])
+			THEN ""
+		ELSE NULL
+	END
 	FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityId)
 	LEFT JOIN [SOURCEPROJECT].StabilityPointStructureEntity USING (FailureMechanismEntityId)
@@ -842,9 +913,13 @@ INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEP
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
 	[FailureMechanismEntityId],
 	[ForeshoreProfileCollectionSourcePath])
-SELECT 
+SELECT
 	[FailureMechanismEntityId],
-	CASE WHEN COUNT([ForeshoreProfileEntityId]) THEN "" ELSE NULL END
+	CASE
+		WHEN COUNT([ForeshoreProfileEntityId])
+			THEN ""
+		ELSE NULL
+	END
 	FROM [SOURCEPROJECT].FailureMechanismEntity
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 7
@@ -880,7 +955,7 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPR
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
-INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity  (
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
 	[FailureMechanismEntityId],
 	[ForeshoreProfileCollectionSourcePath])
 SELECT 
@@ -908,9 +983,9 @@ CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 );
 	
 INSERT INTO [LOGDATABASE].MigrationLogEntity(
-		[FromVersion], 
-		[ToVersion], 
-		[LogMessage])
+	[FromVersion],
+	[ToVersion],
+	[LogMessage])
 VALUES ("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:");
 
 CREATE TEMP TABLE TempFailureMechanisms
@@ -1073,21 +1148,23 @@ SELECT
 	fmm.[FailureMechanismName], 
 	[msg], 
 	fmm.[level]
-	FROM FailureMechanismMessages as fmm
+	FROM FailureMechanismMessages AS fmm
 	WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
 	ORDER BY 1, 3, 6
 )
 SELECT 
 	"17.1",
 	"17.2",
-	CASE WHEN [AssessmentSectionName] IS NOT NULL 
-		THEN "* Traject: '" || [AssessmentSectionName] || "'" 
-	ELSE
-		CASE WHEN [FailureMechanismName] IS NOT NULL 
-			THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'" 
+	CASE 
+		WHEN [AssessmentSectionName] IS NOT NULL 
+			THEN "* Traject: '" || [AssessmentSectionName] || "'" 
 		ELSE
-			"    - " || [msg]
-		END
+			CASE
+				WHEN [FailureMechanismName] IS NOT NULL 
+					THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'" 
+				ELSE
+				"    - " || [msg]
+			END
 	END
 FROM AssessmentSectionFailureMechanismMessages;
 
