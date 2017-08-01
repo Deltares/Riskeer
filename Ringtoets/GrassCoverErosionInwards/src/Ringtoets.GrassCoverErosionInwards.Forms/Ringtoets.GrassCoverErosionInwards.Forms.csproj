@@ -76,6 +76,9 @@
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditor.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactory.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataPointsFactory.cs" />
+    <Compile Include="Views\OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -98,6 +101,12 @@
     </Compile>
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismView.Designer.cs">
       <DependentUpon>GrassCoverErosionInwardsFailureMechanismView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DikeHeightOutputGeneralResultFaultTreeIllustrationPointView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OvertoppingOutputGeneralResultFaultTreeIllustrationPointView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

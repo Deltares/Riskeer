@@ -85,6 +85,7 @@
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataFactoryTest.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsChartDataPointsFactoryTest.cs" />
+    <Compile Include="Views\DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsInputViewTest.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Views\GrassCoverErosionInwardsScenariosViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsScenarioRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismViewTest.cs" />
+    <Compile Include="Views\OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewTest.cs" />
+    <Compile Include="Views\OvertoppingOutputGeneralResultFaultTreeIllustrationPointViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
