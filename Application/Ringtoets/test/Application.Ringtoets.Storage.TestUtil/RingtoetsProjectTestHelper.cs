@@ -339,10 +339,10 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             var designWaterLevelOutput = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
                                                                              double.NaN, double.NaN,
-                                                                             double.NaN, CalculationConvergence.CalculatedConverged);
-            designWaterLevelOutput.SetGeneralResult(GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
-            var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged);
-            waveHeightOutput.SetGeneralResult(GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
+                                                                             double.NaN, CalculationConvergence.CalculatedConverged,
+                                                                             GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
+            var waveHeightOutput = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged,
+                                                                       GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint());
             var hydraulicBoundaryLocationWithIllustrationPoints = new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8)
             {
                 DesignWaterLevelCalculation =

@@ -124,22 +124,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                       calculatedReliability,
                                                                                       convergence);
 
-            var illustrationPoints = new[]
-            {
-                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
-            };
-            var stochasts = new[]
-            {
-                new Stochast("a", 2, 3)
-            };
-            var governingWindDirection = "EAST";
-
             if (withIllustrationPoints)
             {
-                hydraulicBoundaryLocationOutput.SetGeneralResult(new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
-                                                                                                                          stochasts,
-                                                                                                                          illustrationPoints));
+                var illustrationPoints = new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
+                };
+                var stochasts = new[]
+                {
+                    new Stochast("a", 2, 3)
+                };
+                var governingWindDirection = "EAST";
+                var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
+                                                                                             stochasts,
+                                                                                             illustrationPoints);
+
+                hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
+                                                                                      targetProbability,
+                                                                                      targetReliability,
+                                                                                      calculatedProbability,
+                                                                                      calculatedReliability,
+                                                                                      convergence,
+                                                                                      generalResult);
             }
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
                 DesignWaterLevelCalculation =
@@ -177,10 +185,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             if (withIllustrationPoints)
             {
-                CollectionAssert.AreEqual(stochasts, properties.AlphaValues);
-                CollectionAssert.AreEqual(stochasts, properties.Durations);
-                CollectionAssert.AreEqual(illustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
-                Assert.AreEqual(governingWindDirection, properties.GoverningWindDirection);
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult = hydraulicBoundaryLocationOutput.GeneralResult;
+                CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.AlphaValues);
+                CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.Durations);
+                CollectionAssert.AreEqual(expectedGeneralResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
+                Assert.AreEqual(expectedGeneralResult.GoverningWindDirection.Name, properties.GoverningWindDirection);
             }
         }
 

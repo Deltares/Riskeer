@@ -20,11 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -97,6 +101,117 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
+        public void Read_EntityWithIllustrationPoints_ReturnsHydraulicBoundarLocationOutputWithGeneralResult()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var stochastEntities = new[]
+            {
+                new StochastEntity
+                {
+                    Name = "stochastEntityOne",
+                    Duration = random.NextDouble(),
+                    Alpha = random.NextDouble(),
+                    Order = 0
+                }
+            };
+            var topLevelIllustrationPointEntities = new[]
+            {
+                new TopLevelSubMechanismIllustrationPointEntity
+                {
+                    WindDirectionName = "WindDirectionTwo",
+                    WindDirectionAngle = random.NextDouble(),
+                    ClosingSituation = "ClosingSituationTwo",
+                    SubMechanismIllustrationPointEntity = new SubMechanismIllustrationPointEntity
+                    {
+                        Beta = random.NextDouble(),
+                        Name = "IllustrationPointTwo"
+                    },
+                    Order = 0
+                }
+            };
+
+            var entity = new TestHydraulicLocationOutputEntity
+            {
+                Result = double.NaN,
+                TargetProbability = double.NaN,
+                TargetReliability = double.NaN,
+                CalculatedProbability = double.NaN,
+                CalculatedReliability = double.NaN,
+                CalculationConvergence = (byte) random.NextEnumValue<CalculationConvergence>(),
+                GeneralResultSubMechanismIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
+                {
+                    GoverningWindDirectionName = "SSE",
+                    GoverningWindDirectionAngle = random.NextDouble(),
+                    StochastEntities = stochastEntities,
+                    TopLevelSubMechanismIllustrationPointEntities = topLevelIllustrationPointEntities
+                }
+            };
+
+            // Call
+            HydraulicBoundaryLocationOutput output = entity.Read();
+
+            // Assert
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = output.GeneralResult;
+            GeneralResultSubMechanismIllustrationPointEntity generalResultEntity =
+                entity.GeneralResultSubMechanismIllustrationPointEntity;
+
+            AssertWindDirection(generalResultEntity, generalResult.GoverningWindDirection);
+            AssertStochasts(generalResultEntity.StochastEntities.ToArray(), generalResult.Stochasts.ToArray());
+            AssertIllustrationPoints(generalResultEntity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
+                                     generalResult.TopLevelIllustrationPoints.ToArray());
+        }
+
+        private static void AssertIllustrationPoints(
+            IList<TopLevelSubMechanismIllustrationPointEntity> entities,
+            IList<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
+        {
+            Assert.AreEqual(entities.Count, illustrationPoints.Count);
+            for (var i = 0; i < entities.Count; i++)
+            {
+                AssertTopLevelSubMechanismIllustrationPoint(entities[i], illustrationPoints[i]);
+            }
+        }
+
+        private static void AssertTopLevelSubMechanismIllustrationPoint(
+            TopLevelSubMechanismIllustrationPointEntity illustrationPointEntity,
+            TopLevelSubMechanismIllustrationPoint readTopLevelSubMechanismIllustrationPoint)
+        {
+            Assert.AreEqual(illustrationPointEntity.ClosingSituation, readTopLevelSubMechanismIllustrationPoint.ClosingSituation);
+
+            WindDirection actualWindDirection = readTopLevelSubMechanismIllustrationPoint.WindDirection;
+            Assert.AreEqual(illustrationPointEntity.WindDirectionName, actualWindDirection.Name);
+            Assert.AreEqual(illustrationPointEntity.WindDirectionAngle, actualWindDirection.Angle, actualWindDirection.Angle);
+
+            Assert.IsNotNull(readTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
+        }
+
+        private static void AssertStochasts(IList<StochastEntity> entities, IList<Stochast> stochasts)
+        {
+            Assert.AreEqual(entities.Count, stochasts.Count);
+            for (var i = 0; i < entities.Count; i++)
+            {
+                AssertStochast(entities[i], stochasts[i]);
+            }
+        }
+
+        private static void AssertStochast(StochastEntity stochastEntity,
+                                           Stochast readStochast)
+        {
+            Assert.AreEqual(stochastEntity.Name, readStochast.Name);
+            Assert.AreEqual(stochastEntity.Alpha, readStochast.Alpha, readStochast.Alpha.GetAccuracy());
+            Assert.AreEqual(stochastEntity.Duration, readStochast.Duration, readStochast.Duration.GetAccuracy());
+        }
+
+        private static void AssertWindDirection(IGeneralResultEntity entity, WindDirection windDirection)
+        {
+            Assert.AreEqual(entity.GoverningWindDirectionName, windDirection.Name);
+            Assert.AreEqual(entity.GoverningWindDirectionAngle, windDirection.Angle,
+                            windDirection.Angle.GetAccuracy());
         }
 
         private class TestHydraulicLocationOutputEntity : IHydraulicLocationOutputEntity

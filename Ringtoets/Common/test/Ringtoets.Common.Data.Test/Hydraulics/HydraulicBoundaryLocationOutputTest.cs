@@ -109,35 +109,35 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
+        public void Constructor_GeneralResultNotNull_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
             double result = random.NextDouble();
-            var output = new TestHydraulicBoundaryLocationOutput(result);
-
-            // Call
-            TestDelegate call = () => output.SetGeneralResult(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("generalResult", paramName);
-        }
-
-        [Test]
-        public void SetGeneralResult_ValidGeneralResult_SetsExpectedProperties()
-        {
-            // Setup
-            var random = new Random(32);
-            double result = random.NextDouble();
-            var output = new TestHydraulicBoundaryLocationOutput(result);
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint();
 
             // Call
-            output.SetGeneralResult(generalResult);
+            var output = new HydraulicBoundaryLocationOutput(result,
+                                                             targetProbability,
+                                                             targetReliability,
+                                                             calculatedProbability,
+                                                             calculatedReliability,
+                                                             convergence, 
+                                                             generalResult);
 
             // Assert
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.AreSame(generalResult, output.GeneralResult);
             Assert.IsTrue(output.HasGeneralResult);
         }

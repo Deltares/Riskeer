@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Application.Ringtoets.Storage.Read
@@ -42,7 +43,8 @@ namespace Application.Ringtoets.Storage.Read
                                                        entity.TargetReliability.ToNullAsNaN(),
                                                        entity.CalculatedProbability.ToNullAsNaN(),
                                                        entity.CalculatedReliability.ToNullAsNaN(),
-                                                       (CalculationConvergence) entity.CalculationConvergence);
+                                                       (CalculationConvergence) entity.CalculationConvergence, 
+                                                       entity.GeneralResultSubMechanismIllustrationPointEntity?.Read());
         }
     }
 }

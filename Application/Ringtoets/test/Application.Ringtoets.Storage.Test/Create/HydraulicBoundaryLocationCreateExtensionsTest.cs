@@ -165,13 +165,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationDesignWaterLevelOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
+                new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationWaveHeightOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), 
+                new TestGeneralResultSubMechanismIllustrationPoint());
 
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
@@ -362,13 +362,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationDesignWaterLevelOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
+                new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
-            hydraulicBoundaryLocationWaveHeightOutput.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
+                new TestGeneralResultSubMechanismIllustrationPoint());
 
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())

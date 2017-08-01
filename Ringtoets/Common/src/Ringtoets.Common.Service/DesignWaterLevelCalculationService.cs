@@ -188,44 +188,40 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
-                messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged);
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = designWaterLevelCalculation.CalculateIllustrationPoints
+                                                                                     ? GetGeneralResult(calculator.IllustrationPointsResult)
+                                                                                     : null;
 
-            if (designWaterLevelCalculation.CalculateIllustrationPoints)
-            {
-                SetGeneralResult(hydraulicBoundaryLocationOutput, calculator.IllustrationPointsResult);
-            }
+            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
+                messageProvider, designWaterLevelCalculation.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);
 
             designWaterLevelCalculation.Output = hydraulicBoundaryLocationOutput;
         }
 
         /// <summary>
-        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
-        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="hydraulicBoundaryLocationOutput"/>.
+        /// Gets a <see cref="GeneralResult{T}"/> based on the information of <paramref name="hydraRingGeneralResult"/>. 
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
-        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private void SetGeneralResult(HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput,
-                                                 HydraRingGeneralResult hydraRingGeneralResult)
+        /// <returns>A <see cref="GeneralResult{T}"/>.</returns>
+        private GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult(HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
             {
                 log.Warn(calculator.IllustrationPointsParserErrorMessage);
-                return;
+                return null;
             }
 
             try
             {
-                GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
-                    GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
-                hydraulicBoundaryLocationOutput.SetGeneralResult(generalResult);
+                return GeneralResultConverter.ConvertToGeneralResultTopLevelSubMechanismIllustrationPoint(hydraRingGeneralResult);
             }
             catch (IllustrationPointConversionException e)
             {
                 log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
+
+            return null;
         }
 
         /// <summary>
@@ -236,6 +232,7 @@ namespace Ringtoets.Common.Service
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <param name="calculatorConverged">The value indicating whether the calculation converged.</param>
+        /// <param name="generalResult">The general result with illustration points.</param>
         /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
@@ -244,7 +241,8 @@ namespace Ringtoets.Common.Service
             string hydraulicBoundaryLocationName,
             double targetReliability,
             double targetProbability,
-            bool? calculatorConverged)
+            bool? calculatorConverged,
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
             double designWaterLevel = calculator.DesignWaterLevel;
             double reliability = calculator.ReliabilityIndex;
@@ -259,7 +257,8 @@ namespace Ringtoets.Common.Service
 
             return new HydraulicBoundaryLocationOutput(designWaterLevel, targetProbability,
                                                        targetReliability, probability, reliability,
-                                                       converged);
+                                                       converged,
+                                                       generalResult);
         }
 
         /// <summary>

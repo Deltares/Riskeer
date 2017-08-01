@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
@@ -36,5 +37,20 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set in the output.</param>
         public TestHydraulicBoundaryLocationOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
             base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocationOutput"/> with a specified general result.
+        /// </summary>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to set in the output.</param>
+        public TestHydraulicBoundaryLocationOutput(GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult) :
+            base(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, generalResult) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocationOutput"/> with a specified general result.
+        /// </summary>
+        /// <param name="result">The result to set in the output.</param>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to set in the output.</param>
+        public TestHydraulicBoundaryLocationOutput(double result, GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult) :
+            base(result, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, generalResult) {}
     }
 }

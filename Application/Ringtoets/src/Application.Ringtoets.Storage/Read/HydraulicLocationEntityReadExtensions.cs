@@ -79,8 +79,6 @@ namespace Application.Ringtoets.Storage.Read
             if (waveHeightOutputEntity != null)
             {
                 waveHeightCalculation.Output = waveHeightOutputEntity.Read();
-                SetGeneralResult(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                 waveHeightCalculation.Output);
             }
         }
 
@@ -95,17 +93,6 @@ namespace Application.Ringtoets.Storage.Read
             if (designWaterLevelOutputEntity != null)
             {
                 designWaterLevelCalculation.Output = designWaterLevelOutputEntity.Read();
-                SetGeneralResult(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity,
-                                 designWaterLevelCalculation.Output);
-            }
-        }
-
-        private static void SetGeneralResult(GeneralResultSubMechanismIllustrationPointEntity entity,
-                                             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput)
-        {
-            if (entity != null)
-            {
-                hydraulicBoundaryLocationOutput.SetGeneralResult(entity.Read());
             }
         }
 

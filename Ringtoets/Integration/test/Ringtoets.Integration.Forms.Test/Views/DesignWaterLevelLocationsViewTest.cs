@@ -404,8 +404,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Precondition
             Assert.IsNull(illustrationPointsControl.Data);
 
-            var output = new TestHydraulicBoundaryLocationOutput(1);
-
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -413,7 +411,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                           new TestSubMechanismIllustrationPoint())
             };
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            output.SetGeneralResult(generalResult);
+            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
             view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].DesignWaterLevelCalculation.Output = output;
@@ -491,8 +489,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                         }
                     }
                 });
-                var output = new TestHydraulicBoundaryLocationOutput(1.01);
-                output.SetGeneralResult(new TestGeneralResultSubMechanismIllustrationPoint());
+                var output = new TestHydraulicBoundaryLocationOutput(1.01, new TestGeneralResultSubMechanismIllustrationPoint());
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
                     DesignWaterLevelCalculation =

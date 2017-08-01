@@ -200,15 +200,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView();
 
-            var output = new TestHydraulicBoundaryLocationOutput(1);
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                           "Regular",
                                                           new TestSubMechanismIllustrationPoint())
             };
+
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            output.SetGeneralResult(generalResult);
+            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             var calculation = new HydraulicBoundaryLocationCalculation
             {
