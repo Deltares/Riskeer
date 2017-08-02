@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -28,6 +29,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -95,9 +97,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                               reliability,
                                                                               factorOfSafety);
 
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            var expectedFaultTreeIllustrationPointBaseProperty = new[]
+            {
+                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
+            };
+
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           isOvertoppingDominant,
                                                           probabilityAssessmentOutput);
+            overtoppingOutput.SetGeneralResult(generalResult);
 
             // Call
             var properties = new OvertoppingOutputProperties(overtoppingOutput);
@@ -114,6 +123,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
+
+            Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
+            Assert.AreEqual(generalResult.Stochasts, properties.AlphaValues);
+            Assert.AreEqual(generalResult.Stochasts, properties.Durations);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
         }
 
         [Test]

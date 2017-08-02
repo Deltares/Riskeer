@@ -19,31 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// A simple general result with top level fault tree illustration point that
-    /// can be used for testing.
+    /// A simple sub mechanism illustration point that can be used for testing.
     /// </summary>
-    public class TestGeneralResultFaultTreeIllustrationPoint : GeneralResult<TopLevelFaultTreeIllustrationPoint>
+    public class TestFaultTreeIllustrationPoint : FaultTreeIllustrationPoint
     {
         /// <summary>
-        /// Create a new instance of <see cref="TestGeneralResultFaultTreeIllustrationPoint"/>.
+        /// Creates a new instance of <see cref="TestFaultTreeIllustrationPoint"/>.
         /// </summary>
-        public TestGeneralResultFaultTreeIllustrationPoint()
-            : base(WindDirectionTestFactory.CreateTestWindDirection(),
-                   new[]
-                   {
-                       new Stochast("A", 10.0, 5.0)
-                   },
-                   new List<TopLevelFaultTreeIllustrationPoint>
-                   {
-                       new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                              "closing situation",
-                                                              new IllustrationPointNode(new TestFaultTreeIllustrationPoint()))
-                   }) {}
+        public TestFaultTreeIllustrationPoint()
+            : this(3.14) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFaultTreeIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="beta">The beta of the illustration point.</param>
+        public TestFaultTreeIllustrationPoint(double beta)
+            : base("Illustration Point",
+                   beta,
+                   Enumerable.Empty<Stochast>(),
+                   CombinationType.And) {}
     }
 }

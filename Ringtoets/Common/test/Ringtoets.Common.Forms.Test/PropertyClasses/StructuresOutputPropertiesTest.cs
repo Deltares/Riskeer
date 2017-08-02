@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -92,17 +91,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                               probability,
                                                                               reliability,
                                                                               factorOfSafety);
-            var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(new WindDirection("SSE", 5.0), 
-                                                                                            "closing situation", 
-                                                                                            new IllustrationPointNode(new TestIllustrationPoint()));
 
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
-                new FaultTreeIllustrationPointBaseProperties(topLevelFaultTreeIllustrationPoint)
+                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
             };
-            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), 
-                                                                                      new Stochast[0], 
-                                                                                      new List<TopLevelFaultTreeIllustrationPoint> { topLevelFaultTreeIllustrationPoint });
+
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
             // Call
@@ -114,9 +109,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual("SSE", properties.WindDirection);
-            Assert.IsEmpty(properties.AlphaValues);
-            Assert.IsEmpty(properties.Durations);
+            Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
+            Assert.AreEqual(5.0, properties.AlphaValues[0].Alpha);
+            Assert.AreEqual(10.0, properties.Durations[0].Duration);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);

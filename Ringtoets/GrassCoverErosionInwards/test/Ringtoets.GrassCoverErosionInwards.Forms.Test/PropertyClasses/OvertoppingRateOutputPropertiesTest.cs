@@ -20,14 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
@@ -89,12 +93,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double overtoppingRateCalculatedReliability = random.NextDouble();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
 
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            var expectedFaultTreeIllustrationPointBaseProperty = new[]
+            {
+                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
+            };
+
             var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
                                                                   overtoppingRateTargetProbability,
                                                                   overtoppingRateTargetReliability,
                                                                   overtoppingRateCalculatedProbability,
                                                                   overtoppingRateCalculatedReliability,
                                                                   overtoppingRateConvergence);
+            overtoppingRateOutput.SetGeneralResult(generalResult);
 
             // Call
             var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
@@ -117,6 +128,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
+            Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
+            Assert.AreEqual(generalResult.Stochasts, properties.AlphaValues);
+            Assert.AreEqual(generalResult.Stochasts, properties.Durations);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
         }
 
         [Test]

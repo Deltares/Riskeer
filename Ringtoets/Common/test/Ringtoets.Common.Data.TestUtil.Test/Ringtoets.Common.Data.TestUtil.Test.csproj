@@ -60,6 +60,7 @@
     <Compile Include="IllustrationPoints\TestGeneralResultSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointStochastTest.cs" />
+    <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestTopLevelIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTestFactoryTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />

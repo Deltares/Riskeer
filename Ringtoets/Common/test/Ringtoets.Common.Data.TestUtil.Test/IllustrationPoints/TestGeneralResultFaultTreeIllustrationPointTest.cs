@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -37,8 +38,16 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             // Assert
             Assert.IsInstanceOf<GeneralResult<TopLevelFaultTreeIllustrationPoint>>(generalResult);
             AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.GoverningWindDirection);
-            CollectionAssert.IsEmpty(generalResult.Stochasts);
-            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints);
+            Assert.AreEqual("A", generalResult.Stochasts.First().Name);
+            Assert.AreEqual(5.0, generalResult.Stochasts.First().Alpha);
+            Assert.AreEqual(10.0, generalResult.Stochasts.First().Duration);
+            Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(), 1);
+            AssertWindDirection(WindDirectionTestFactory.CreateTestWindDirection(), generalResult.TopLevelIllustrationPoints.First().WindDirection);
+            Assert.AreEqual("closing situation", generalResult.TopLevelIllustrationPoints.First().ClosingSituation);
+            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+            Assert.AreEqual(illustrationPointNode.Data.Name, generalResult.TopLevelIllustrationPoints.First().FaultTreeNodeRoot.Data.Name);
+            Assert.AreEqual(illustrationPointNode.Data.Beta, generalResult.TopLevelIllustrationPoints.First().FaultTreeNodeRoot.Data.Beta);
+            CollectionAssert.IsEmpty(generalResult.TopLevelIllustrationPoints.First().FaultTreeNodeRoot.Children);
         }
 
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)

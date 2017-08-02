@@ -61,6 +61,7 @@
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactory.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultFaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestIllustrationPoint.cs" />
+    <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultSubMechanismIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointStochast.cs" />
