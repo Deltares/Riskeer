@@ -329,11 +329,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     Output = new HydraulicBoundaryLocationOutput(12.4, double.NaN,
                                                                  double.NaN, double.NaN,
-                                                                 double.NaN, CalculationConvergence.CalculatedConverged)
+                                                                 double.NaN, CalculationConvergence.CalculatedConverged, null)
                 },
                 WaveHeightCalculation =
                 {
-                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged)
+                    Output = new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, null)
                 }
             };
 

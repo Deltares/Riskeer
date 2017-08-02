@@ -75,12 +75,12 @@ namespace Ringtoets.Integration.TestUtils
                 DesignWaterLevelCalculation =
                 {
                     Output = new HydraulicBoundaryLocationOutput(
-                        1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                        1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
                 },
                 WaveHeightCalculation =
                 {
                     Output = new HydraulicBoundaryLocationOutput(
-                        2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged)
+                        2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
                 }
             };
 
@@ -895,13 +895,13 @@ namespace Ringtoets.Integration.TestUtils
                 {
                     Output = new HydraulicBoundaryLocationOutput(
                         hydraulicBoundaryLocation.WaveHeight + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
-                        hydraulicBoundaryLocation.WaveHeightCalculationConvergence)
+                        hydraulicBoundaryLocation.WaveHeightCalculationConvergence, null)
                 },
                 DesignWaterLevelCalculation =
                 {
                     Output = new HydraulicBoundaryLocationOutput(
                         hydraulicBoundaryLocation.DesignWaterLevel + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
-                        hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence)
+                        hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence, null)
                 }
             };
             failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);

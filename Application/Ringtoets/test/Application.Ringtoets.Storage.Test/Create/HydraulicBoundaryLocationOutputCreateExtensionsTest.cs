@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(21);
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 

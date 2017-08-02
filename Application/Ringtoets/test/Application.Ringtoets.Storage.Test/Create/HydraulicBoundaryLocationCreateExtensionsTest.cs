@@ -123,10 +123,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
@@ -320,10 +320,10 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {

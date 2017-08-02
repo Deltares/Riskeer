@@ -95,7 +95,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(CalculationConvergence.NotCalculated, testLocation.WaveHeightCalculationConvergence);
 
             HydraulicBoundaryLocationOutput expectedDesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(designWaterLevelValue);
-            AssertAreEqual(expectedDesignWaterLevelOutput, testLocation.DesignWaterLevelCalculation.Output);
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = testLocation.DesignWaterLevelCalculation;
+            AssertAreEqual(expectedDesignWaterLevelOutput, designWaterLevelCalculation.Output);
+            Assert.IsNull(designWaterLevelCalculation.Output.GeneralResult);
         }
 
         [Test]
@@ -118,7 +120,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, testLocation.WaveHeightCalculationConvergence);
 
             HydraulicBoundaryLocationOutput expectedWaveHeightOutput = CreateHydraulicBoundaryLocationOutput(waveHeightValue);
-            AssertAreEqual(expectedWaveHeightOutput, testLocation.WaveHeightCalculation.Output);
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = testLocation.WaveHeightCalculation;
+            AssertAreEqual(expectedWaveHeightOutput, waveHeightCalculation.Output);
+            Assert.IsNull(waveHeightCalculation.Output.GeneralResult);
         }
 
         [Test]
@@ -140,14 +144,19 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, testLocation.WaveHeightCalculationConvergence);
 
             HydraulicBoundaryLocationOutput expectedDesignWaterLevelOutput = CreateHydraulicBoundaryLocationOutput(designWaterLevelValue);
-            AssertAreEqual(expectedDesignWaterLevelOutput, testLocation.DesignWaterLevelCalculation.Output);
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = testLocation.DesignWaterLevelCalculation;
+            AssertAreEqual(expectedDesignWaterLevelOutput, designWaterLevelCalculation.Output);
+            Assert.IsNull(designWaterLevelCalculation.Output.GeneralResult);
+
             HydraulicBoundaryLocationOutput expectedWaveHeightOutput = CreateHydraulicBoundaryLocationOutput(waveHeightValue);
-            AssertAreEqual(expectedWaveHeightOutput, testLocation.WaveHeightCalculation.Output);
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = testLocation.WaveHeightCalculation;
+            AssertAreEqual(expectedWaveHeightOutput, waveHeightCalculation.Output);
+            Assert.IsNull(waveHeightCalculation.Output.GeneralResult);
         }
 
         private static HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(double result)
         {
-            return new HydraulicBoundaryLocationOutput(result, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
+            return new HydraulicBoundaryLocationOutput(result, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged, null);
         }
 
         private static void AssertAreEqual(HydraulicBoundaryLocationOutput expected, HydraulicBoundaryLocationOutput actual)

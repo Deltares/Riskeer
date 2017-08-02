@@ -117,36 +117,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             double designWaterLevel = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
-                                                                                      targetProbability,
-                                                                                      targetReliability,
-                                                                                      calculatedProbability,
-                                                                                      calculatedReliability,
-                                                                                      convergence);
 
-            if (withIllustrationPoints)
+            var illustrationPoints = new[]
             {
-                var illustrationPoints = new[]
-                {
-                    new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
-                };
-                var stochasts = new[]
-                {
-                    new Stochast("a", 2, 3)
-                };
-                var governingWindDirection = "EAST";
-                var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
-                                                                                             stochasts,
-                                                                                             illustrationPoints);
+                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
+            };
+            var stochasts = new[]
+            {
+                new Stochast("a", 2, 3)
+            };
+            const string governingWindDirection = "EAST";
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                withIllustrationPoints ? new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
+                                                                                                  stochasts,
+                                                                                                  illustrationPoints)
+                    : null;
 
-                hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
+            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
                                                                                       targetProbability,
                                                                                       targetReliability,
                                                                                       calculatedProbability,
                                                                                       calculatedReliability,
                                                                                       convergence,
                                                                                       generalResult);
-            }
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {

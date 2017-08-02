@@ -33,20 +33,27 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     {
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-0.01)]
-        [TestCase(1.01)]
-        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
+        [Combinatorial]
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException([Values(-0.01, 1.01)] double targetProbability,
+                                                                                           [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(32);
+            TestGeneralResultSubMechanismIllustrationPoint generalResult = withIllustrationPoints
+                                                                               ? new TestGeneralResultSubMechanismIllustrationPoint()
+                                                                               : null;
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationOutput(random.NextDouble(),
-                                                                          targetProbability,
-                                                                          random.NextDouble(),
-                                                                          random.NextDouble(),
-                                                                          random.NextDouble(),
-                                                                          random.NextEnumValue<CalculationConvergence>());
+            TestDelegate call = () =>
+            {
+                new HydraulicBoundaryLocationOutput(random.NextDouble(),
+                                                    targetProbability,
+                                                    random.NextDouble(),
+                                                    random.NextDouble(),
+                                                    random.NextDouble(),
+                                                    random.NextEnumValue<CalculationConvergence>(),
+                                                    generalResult);
+            };
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -56,12 +63,15 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-0.01)]
-        [TestCase(1.01)]
-        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
+        [Combinatorial]
+        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException([Values(-0.01, 1.01)] double calculatedProbability,
+                                                                                               [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(32);
+            TestGeneralResultSubMechanismIllustrationPoint generalResult = withIllustrationPoints
+                                                                               ? new TestGeneralResultSubMechanismIllustrationPoint()
+                                                                               : null;
 
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationOutput(random.NextDouble(),
@@ -69,7 +79,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                                           random.NextDouble(),
                                                                           calculatedProbability,
                                                                           random.NextDouble(),
-                                                                          random.NextEnumValue<CalculationConvergence>());
+                                                                          random.NextEnumValue<CalculationConvergence>(),
+                                                                          generalResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -78,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_ValidInput_ExpectedProperties()
+        public void Constructor_ValidInputAndGeneralResultNull_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
@@ -95,7 +106,8 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                              targetReliability,
                                                              calculatedProbability,
                                                              calculatedReliability,
-                                                             convergence);
+                                                             convergence,
+                                                             null);
 
             // Assert
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
@@ -109,7 +121,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        public void Constructor_GeneralResultNotNull_ExpectedProperties()
+        public void Constructor_ValidInputAndGeneralResultNotNull_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
@@ -128,7 +140,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                                                              targetReliability,
                                                              calculatedProbability,
                                                              calculatedReliability,
-                                                             convergence, 
+                                                             convergence,
                                                              generalResult);
 
             // Assert

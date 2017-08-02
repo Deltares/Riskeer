@@ -53,12 +53,12 @@ namespace Ringtoets.Common.Data.TestUtil
             if (designWaterLevel.HasValue)
             {
                 DesignWaterLevelCalculation.Output = new HydraulicBoundaryLocationOutput(
-                    designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
+                    designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged, null);
             }
             if (waveHeight.HasValue)
             {
                 WaveHeightCalculation.Output = new HydraulicBoundaryLocationOutput(
-                    waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged);
+                    waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged, null);
             }
         }
 

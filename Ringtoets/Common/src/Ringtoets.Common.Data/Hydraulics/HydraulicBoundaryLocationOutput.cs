@@ -40,36 +40,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <param name="calculatedProbability">the calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        public HydraulicBoundaryLocationOutput(double result,
-                                               double targetProbability,
-                                               double targetReliability,
-                                               double calculatedProbability,
-                                               double calculatedReliability,
-                                               CalculationConvergence calculationConvergence)
-        {
-            ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
-            ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
-
-            Result = new RoundedDouble(2, result);
-
-            TargetProbability = targetProbability;
-            TargetReliability = new RoundedDouble(5, targetReliability);
-            CalculatedProbability = calculatedProbability;
-            CalculatedReliability = new RoundedDouble(5, calculatedReliability);
-            CalculationConvergence = calculationConvergence;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationOutput"/>.
-        /// </summary>
-        /// <param name="result">The calculation result.</param>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
-        /// <param name="targetReliability">The reliability index used during the calculation.</param>
-        /// <param name="calculatedProbability">the calculated probability.</param>
-        /// <param name="calculatedReliability">The calculated reliability.</param>
-        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <param name="generalResult">The general result of this output with submechanism illustration points.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>

@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="result">The result to set in the output.</param>
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set in the output.</param>
         public TestHydraulicBoundaryLocationOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
-            base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+            base(result, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocationOutput"/> with a specified general result.
