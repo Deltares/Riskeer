@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeProfile_Description))]
         public DikeProfile DikeProfile
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WorldReferencePoint_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WorldReferencePoint_DikeProfile_Description))]
         public Point2D WorldReferencePoint
@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Orientation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Orientation_DikeProfile_Description))]
         public RoundedDouble Orientation
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.BreakWaterProperties_Description))]
         public UseBreakWaterProperties BreakWater
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(foreshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ForeshoreProperties_Description))]
         public UseForeshoreProperties Foreshore
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeGeometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeGeometryProperties_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeGeometryProperties_Description))]
         public GrassCoverErosionInwardsInputContextDikeGeometryProperties DikeGeometry
@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(dikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), 2, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.DikeHeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_Description))]
         public RoundedDouble DikeHeight
@@ -206,43 +206,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(calculateDikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeightCalculationType_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public DikeHeightCalculationType DikeHeightCalculationType
-        {
-            get
-            {
-                return data.WrappedData.DikeHeightCalculationType;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public OvertoppingRateCalculationType OvertoppingRateCalculationType
-        {
-            get
-            {
-                return data.WrappedData.OvertoppingRateCalculationType;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateCalculationType = value, propertyChangeHandler);
-            }
-        }
-
         [PropertyOrder(criticalFlowRatePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalValues))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_CriticalValues), 3, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CriticalFlowRate_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CriticalFlowRate_Description))]
         public LogNormalDistributionProperties CriticalFlowRate
@@ -256,39 +222,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldDikeHeightIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 4, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated
@@ -304,9 +238,75 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(calculateDikeHeightPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeightCalculationType_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public DikeHeightCalculationType DikeHeightCalculationType
+        {
+            get
+            {
+                return data.WrappedData.DikeHeightCalculationType;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldDikeHeightIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public OvertoppingRateCalculationType OvertoppingRateCalculationType
+        {
+            get
+            {
+                return data.WrappedData.OvertoppingRateCalculationType;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateCalculationType = value, propertyChangeHandler);
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
+            }
+        }
+
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), 1, 6)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation

@@ -59,8 +59,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
         private const int calculateDikeHeightPropertyIndex = 9;
         private const int calculateOvertoppingRatePropertyIndex = 10;
-        private const int dikeHeightOutputIllustrationPointsPropertyIndex = 11;
-        private const int overtoppingOutputIllustrationPointsPropertyIndex = 12;
+        private const int overtoppingOutputIllustrationPointsPropertyIndex = 11;
+        private const int dikeHeightOutputIllustrationPointsPropertyIndex = 12;
         private const int overtoppingRateIllustrationPointsPropertyIndex = 13;
         private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
@@ -638,12 +638,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
-            const string schematizationCategoryName = "Schematisatie";
-            const string criticalValuesCategoryName = "Toetseisen";
-            const string hydraulicDataCategoryName = "Hydraulische gegevens";
-            const string dikeHeightCategoryName = "HBN";
+            const string schematizationCategoryName = "\t\t\t\tSchematisatie";
+            const string criticalValuesCategoryName = "\t\t\tToetseisen";
+            const string hydraulicDataCategoryName = "\t\t\t\t\tHydraulische gegevens";
+            const string dikeHeightCategoryName = "\tHBN";
             const string overtoppingRateCategoryName = "Overslagdebiet";
-            const string overtoppingOutputCategoryName = "Sterkte berekening";
+            const string overtoppingOutputCategoryName = "\t\tSterkte berekening";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(14, dynamicProperties.Count);
@@ -723,19 +723,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Overslagdebiet berekenen",
                                                                             "Geeft aan of ook het overslagdebiet moet worden berekend.");
 
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightOutputIllustrationPointsPropertyIndex],
-                                                                            dikeHeightCategoryName,
-                                                                            "Illustratiepunten inlezen",
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingOutputIllustrationPointsPropertyIndex],
+                                                                            overtoppingOutputCategoryName,
+                                                                            "Illustratiepunten inlezen   ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingOutputIllustrationPointsPropertyIndex],
-                                                                            overtoppingRateCategoryName,
-                                                                            "Illustratiepunten inlezen",
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightOutputIllustrationPointsPropertyIndex],
+                                                                            dikeHeightCategoryName,
+                                                                            "Illustratiepunten inlezen ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateIllustrationPointsPropertyIndex],
-                                                                            overtoppingOutputCategoryName,
-                                                                            "Illustratiepunten inlezen",
+                                                                            overtoppingRateCategoryName,
+                                                                            "Illustratiepunten inlezen  ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
             mockRepository.VerifyAll();
         }

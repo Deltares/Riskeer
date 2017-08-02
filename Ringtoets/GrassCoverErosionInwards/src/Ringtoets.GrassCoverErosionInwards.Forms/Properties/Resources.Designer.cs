@@ -469,7 +469,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        ///   Looks up a localized string similar to Illustratiepunten inlezen .
         /// </summary>
         public static string ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName {
             get {
@@ -478,7 +478,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        ///   Looks up a localized string similar to Illustratiepunten inlezen   .
         /// </summary>
         public static string ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName {
             get {
@@ -487,7 +487,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Illustratiepunten inlezen.
+        ///   Looks up a localized string similar to Illustratiepunten inlezen  .
         /// </summary>
         public static string ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName {
             get {
