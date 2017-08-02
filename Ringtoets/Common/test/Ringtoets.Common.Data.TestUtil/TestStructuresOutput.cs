@@ -34,6 +34,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates new instance of <see cref="TestStructuresOutput"/>.
         /// </summary>
         public TestStructuresOutput()
-            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)) {}
+            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null) {}
     }
 }

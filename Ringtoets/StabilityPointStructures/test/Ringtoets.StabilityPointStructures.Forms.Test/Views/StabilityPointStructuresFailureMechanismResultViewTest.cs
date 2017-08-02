@@ -29,9 +29,11 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
@@ -438,16 +440,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [Combinatorial]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict)] AssessmentLayerOneState assessmentLayerOneState,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0), generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
@@ -476,15 +482,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(bool withIllustrationPoints)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0), generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
@@ -512,7 +523,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource("AssessmentLayerOneStateIsSufficientVariousSections")]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
@@ -538,23 +549,29 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(notAssessed")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(noVerdict")]
+        [TestCase(AssessmentLayerOneState.NotAssessed, true, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(notAssessed, true)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, true, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(noVerdict, true)")]
+        [TestCase(AssessmentLayerOneState.NotAssessed, false, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(notAssessed, false)")]
+        [TestCase(AssessmentLayerOneState.NoVerdict, false, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(noVerdict, false)")]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+            AssessmentLayerOneState assessmentLayerOneState,
+            bool withIllustrationPoints)
         {
             // Given
             using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var successfulCalculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0), generalResult)
                 };
 
                 var failedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0), generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
@@ -607,17 +624,35 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0), null)
                 }
-            }, "-").SetName("SectionWithInvalidCalculationOutput");
+            }, "-").SetName("SectionWithInvalidCalculationOutputWithoutGeneralResult");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0), null)
                 }
-            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutputWithoutGeneralResult");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                                                  new TestGeneralResultFaultTreeIllustrationPoint())
+                }
+            }, "-").SetName("SectionWithInvalidCalculationOutputWithGeneralResult");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                                                  new TestGeneralResultFaultTreeIllustrationPoint())
+                }
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutputWithGeneralResult");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()

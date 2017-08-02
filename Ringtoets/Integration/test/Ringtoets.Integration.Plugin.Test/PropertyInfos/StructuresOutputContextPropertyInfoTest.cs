@@ -23,8 +23,10 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -58,10 +60,15 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties(bool withIllustrationPoints)
         {
             // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), generalResult);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(new TestStructuresCalculation

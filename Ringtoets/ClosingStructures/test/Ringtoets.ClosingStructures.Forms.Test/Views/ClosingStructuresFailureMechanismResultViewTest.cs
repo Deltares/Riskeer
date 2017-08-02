@@ -31,9 +31,11 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 
@@ -437,16 +439,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [Combinatorial]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict)] AssessmentLayerOneState assessmentLayerOneState,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Given
             using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0), generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -475,17 +481,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
+        [Combinatorial]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict)] AssessmentLayerOneState assessmentLayerOneState,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Given
             using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0), generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -514,7 +524,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource("AssessmentLayerOneStateIsSufficientVariousSections")]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             ClosingStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
@@ -540,23 +550,28 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [Combinatorial]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict)] AssessmentLayerOneState assessmentLayerOneState,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Given
             using (ClosingStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
+                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                      : null;
                 var successfulCalculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                                                  generalResult)
                 };
 
                 var failedCalculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                                                  generalResult)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -609,17 +624,37 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                                                  null)
                 }
-            }, "-").SetName("SectionWithInvalidCalculationOutput");
+            }, "-").SetName("SectionWithInvalidCalculationOutputWithoutGeneralResult");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                                                  null)
                 }
-            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutputWithoutGeneralResult");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0),
+                                                  new TestGeneralResultFaultTreeIllustrationPoint())
+                }
+            }, "-").SetName("SectionWithInvalidCalculationOutputWithGeneralResult");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0),
+                                                  new TestGeneralResultFaultTreeIllustrationPoint())
+                }
+            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutputWithGeneralResult");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()

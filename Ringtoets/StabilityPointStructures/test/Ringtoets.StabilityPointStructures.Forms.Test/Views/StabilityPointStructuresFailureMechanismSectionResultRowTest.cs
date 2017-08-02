@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
@@ -73,16 +74,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(CalculationScenarioStatus.Failed)]
-        [TestCase(CalculationScenarioStatus.NotCalculated)]
-        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        [Combinatorial]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(
+            [Values(CalculationScenarioStatus.Failed, CalculationScenarioStatus.NotCalculated)] CalculationScenarioStatus status,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
+                                                                               ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                               : null;
             if (status == CalculationScenarioStatus.Failed)
             {
                 var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
+                calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
             }
 
             FailureMechanismSection section = CreateSection();
@@ -101,13 +106,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA(bool withIllustrationPoints)
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
+            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
+                                                                               ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                               : null;
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = new StructuresOutput(probabilityAssessmentOutput)
+                Output = new StructuresOutput(probabilityAssessmentOutput, generalResult)
             };
 
             FailureMechanismSection section = CreateSection();

@@ -35,22 +35,6 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         /// <param name="probabilityAssessmentOutput">The results of the probabilistic
         /// assessment calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <paramref name="probabilityAssessmentOutput"/> is <c>null</c>.</exception>
-        public StructuresOutput(ProbabilityAssessmentOutput probabilityAssessmentOutput)
-        {
-            if (probabilityAssessmentOutput == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityAssessmentOutput));
-            }
-            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="StructuresOutput"/>.
-        /// </summary>
-        /// <param name="probabilityAssessmentOutput">The results of the probabilistic
-        /// assessment calculation.</param>
         /// <param name="generalResult">The general result of this output with the 
         /// fault tree illustration points.</param>
         /// <exception cref="ArgumentNullException">Thrown when 

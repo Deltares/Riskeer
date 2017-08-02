@@ -22,8 +22,10 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -63,16 +65,21 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN(bool withIllustrationPoints)
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0), generalResult)
                 }
             };
 
@@ -84,17 +91,22 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability(bool withIllustrationPoints)
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             const double probability = 0.65;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
-                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0))
+                    Output = new StructuresOutput(new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0), generalResult)
                 }
             };
 

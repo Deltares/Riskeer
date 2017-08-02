@@ -51,10 +51,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
-        public void Constructor_StructuresOutput_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_StructuresOutput_ExpectedValues(bool withIllustrationPoints)
         {
             // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                      : null;
+
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -203,7 +209,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, null);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);

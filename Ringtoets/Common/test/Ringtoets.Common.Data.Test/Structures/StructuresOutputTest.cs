@@ -31,10 +31,17 @@ namespace Ringtoets.Common.Data.Test.Structures
     public class StructuresOutputTest
     {
         [Test]
-        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException(bool withIllustrationPoints)
         {
+            // Setup
+            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
+                                                                            ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                            : null;
+
             // Call
-            TestDelegate call = () => new StructuresOutput(null);
+            TestDelegate call = () => new StructuresOutput(null, generalResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -42,13 +49,13 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Constructor_ValidProbabilityAssessmentOutput_ReturnsExpectedProperties()
+        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResultNulls_ReturnsExpectedProperties()
         {
             // Setup
             var output = new TestProbabilityAssessmentOutput();
 
             // Call
-            var structuresOutput = new StructuresOutput(output);
+            var structuresOutput = new StructuresOutput(output, null);
 
             // Assert
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
@@ -67,6 +74,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
             // Assert
+            Assert.AreSame(probabilityAssessmentOutput, structuresOutput.ProbabilityAssessmentOutput);
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);
             Assert.IsTrue(structuresOutput.HasGeneralResult);
         }

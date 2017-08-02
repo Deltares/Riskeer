@@ -44,6 +44,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
             Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
             Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.IsNull(output.GeneralResult);
+            Assert.IsFalse(output.HasGeneralResult);
         }
     }
 }
