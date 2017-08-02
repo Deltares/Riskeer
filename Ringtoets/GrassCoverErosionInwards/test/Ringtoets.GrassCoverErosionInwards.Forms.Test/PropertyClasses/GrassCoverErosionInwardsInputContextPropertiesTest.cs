@@ -254,6 +254,56 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void ShouldDikeHeightIllustrationPointsBeCalculated_DikeHeightNotCalculated_ReturnsFalse()
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var inputParameters = new GrassCoverErosionInwardsInput
+            {
+                ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation
+            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
+
+            // Assert
+            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+        }
+
+        [Test]
+        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_OvertoppingRateNotCalculated_ReturnsFalse()
+        {
+            // Setup
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var inputParameters = new GrassCoverErosionInwardsInput
+            {
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation
+            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
+
+            // Assert
+            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+        }
+
+        [Test]
         public void DikeProfile_Always_InputChangedAndObservablesNotified()
         {
             var dikeProfile = new TestDikeProfile();
@@ -300,7 +350,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+            };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
             inputContext.Attach(observerMock);
@@ -617,9 +671,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool withDikeProfile)
+        [Test]
+        [Combinatorial]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues([Values(true, false)] bool withDikeProfile,
+                                                                              [Values(true, false)] bool calculationsEnabled)
         {
             // Setup
             mockRepository.ReplayAll();
@@ -631,6 +686,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             if (withDikeProfile)
             {
                 input.DikeProfile = new TestDikeProfile();
+            }
+
+            if (calculationsEnabled)
+            {
+                input.DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
+                ;
+                input.OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm;
             }
 
             // Call
@@ -731,12 +793,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightOutputIllustrationPointsPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "Illustratiepunten inlezen ",
-                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
+                                                                            !calculationsEnabled);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateIllustrationPointsPropertyIndex],
                                                                             overtoppingRateCategoryName,
                                                                             "Illustratiepunten inlezen  ",
-                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
+                                                                            !calculationsEnabled);
             mockRepository.VerifyAll();
         }
 

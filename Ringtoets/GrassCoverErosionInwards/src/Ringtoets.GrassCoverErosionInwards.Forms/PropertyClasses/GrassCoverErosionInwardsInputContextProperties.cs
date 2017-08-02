@@ -255,6 +255,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
@@ -262,6 +263,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
+                if (DikeHeightCalculationType == DikeHeightCalculationType.NoCalculation)
+                {
+                    return false;
+                }
+
                 return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
             }
             set
@@ -288,6 +294,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
@@ -295,6 +302,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
+                if (OvertoppingRateCalculationType == OvertoppingRateCalculationType.NoCalculation)
+                {
+                    return false;
+                }
+
                 return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
             }
             set
@@ -327,7 +339,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.WrappedData.DikeProfile == null;
+            if (propertyName.Equals(nameof(Orientation)) ||
+                propertyName.Equals(nameof(DikeHeight)))
+            {
+                return data.WrappedData.DikeProfile == null;
+            }
+
+            if (propertyName.Equals(nameof(ShouldDikeHeightIllustrationPointsBeCalculated)))
+            {
+                return DikeHeightCalculationType == DikeHeightCalculationType.NoCalculation;
+            }
+
+            if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated)))
+            {
+                return OvertoppingRateCalculationType == OvertoppingRateCalculationType.NoCalculation;
+            }
+
+            return false;
         }
 
         /// <summary>
