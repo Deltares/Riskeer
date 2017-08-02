@@ -36,8 +36,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// Creates a <see cref="TopLevelFaultTreeIllustrationPointEntity"/>
         /// based on the information of <paramref name="topLevelFaultTreeIllustrationPoint"/>.
         /// </summary>
-        /// <param name="topLevelFaultTreeIllustrationPoint">The illustration point to create 
-        /// a database entity for.</param>
+        /// <param name="topLevelFaultTreeIllustrationPoint">The top level illustration point to 
+        /// create a database entity for.</param>
         /// <param name="order">The index at which <paramref name="topLevelFaultTreeIllustrationPoint"/>
         /// resides within its parent.</param>
         /// <returns>A <see cref="TopLevelFaultTreeIllustrationPointEntity"/>.</returns>
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 ClosingSituation = topLevelFaultTreeIllustrationPoint.ClosingSituation.DeepClone(),
                 WindDirectionName = windDirection.Name.DeepClone(),
                 WindDirectionAngle = windDirection.Angle,
-                FaultTreeIllustrationPointEntity = 
+                FaultTreeIllustrationPointEntity =
                     topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.Create(0),
                 Order = order
             };

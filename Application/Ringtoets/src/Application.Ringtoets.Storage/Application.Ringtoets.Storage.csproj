@@ -222,7 +222,6 @@
     <Compile Include="DbContext\IllustrationPointResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\ITopLevelIllustrationPointEntity.cs" />
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -244,8 +243,6 @@
     <Compile Include="DbContext\PartialHydraulicLocationOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\PartialTopLevelFaultTreeIllustrationPointEntity.cs" />
-    <Compile Include="DbContext\PartialTopLevelSubMechanismIllustrationPointEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

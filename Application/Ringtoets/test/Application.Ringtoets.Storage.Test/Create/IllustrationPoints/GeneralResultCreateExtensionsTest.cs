@@ -37,11 +37,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         [Test]
         public void CreateGeneralResultSubMechanismIllustrationPointEntity_GeneralResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
-
             // Call
-            TestDelegate call = () => generalResult.CreateGeneralResultSubMechanismIllustrationPointEntity();
+            TestDelegate call = () => ((GeneralResult<TopLevelSubMechanismIllustrationPoint>) null)
+                .CreateGeneralResultSubMechanismIllustrationPointEntity();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralWithIllustrationPoints_ReturnsEntityWithTopLevelSubMechanismIllustrationPointEntities()
+        public void CreateGeneralResultSubMechanismIllustrationPointEntity_ValidGeneralResultWithIllustrationPoints_ReturnsEntityWithTopLevelSubMechanismIllustrationPointEntities()
         {
             // Setup
             var random = new Random(21);
@@ -120,11 +118,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         [Test]
         public void CreateGeneralResultFaultTreeIllustrationPointEntity_GeneralResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
-
             // Call
-            TestDelegate call = () => generalResult.CreateGeneralResultFaultTreeIllustrationPointEntity();
+            TestDelegate call = () => ((GeneralResult<TopLevelFaultTreeIllustrationPoint>) null)
+                .CreateGeneralResultFaultTreeIllustrationPointEntity();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -174,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultFaultTreeIllustrationPointEntity_ValidGeneralWithIllustrationPoints_ReturnsEntityWithTopLevelFaultTreeIllustrationPointEntities()
+        public void CreateGeneralResultFaultTreeIllustrationPointEntity_ValidGeneralResultsWithIllustrationPoints_ReturnsEntityWithTopLevelFaultTreeIllustrationPointEntities()
         {
             // Setup
             var random = new Random(22);
@@ -255,11 +251,10 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             Assert.AreEqual(expectedOrder, stochastEntity.Order);
         }
 
-        private static void AssertITopLevelIllustrationPointEntities<TTopLevelIllustrationPoint, TTopLevelIllustrationPointEntity>(
+        private static void AssertITopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint[] illustrationPoints,
-            TTopLevelIllustrationPointEntity[] illustrationPointEntities)
+            TopLevelSubMechanismIllustrationPointEntity[] illustrationPointEntities)
             where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
-            where TTopLevelIllustrationPointEntity : ITopLevelIllustrationPointEntity
         {
             Assert.AreEqual(illustrationPoints.Length, illustrationPointEntities.Length);
 
@@ -271,12 +266,43 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             }
         }
 
-        private static void AssertITopLevelIllustrationPointEntity<TTopLevelIllustrationPoint, TTopLevelIllustrationPointEntity>(
+        private static void AssertITopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint illustrationPoint,
-            TTopLevelIllustrationPointEntity illustrationPointEntity,
+            TopLevelSubMechanismIllustrationPointEntity illustrationPointEntity,
             int expectedOrder)
             where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
-            where TTopLevelIllustrationPointEntity : ITopLevelIllustrationPointEntity
+        {
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation,
+                                                illustrationPointEntity.ClosingSituation);
+
+            WindDirection expectedWindDirection = illustrationPoint.WindDirection;
+            TestHelper.AssertAreEqualButNotSame(expectedWindDirection.Name, illustrationPointEntity.WindDirectionName);
+            Assert.AreEqual(expectedWindDirection.Angle, illustrationPointEntity.WindDirectionAngle,
+                            expectedWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(expectedOrder, illustrationPointEntity.Order);
+        }
+
+        private static void AssertITopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
+            TTopLevelIllustrationPoint[] illustrationPoints,
+            TopLevelFaultTreeIllustrationPointEntity[] illustrationPointEntities)
+            where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
+        {
+            Assert.AreEqual(illustrationPoints.Length, illustrationPointEntities.Length);
+
+            for (var i = 0; i < illustrationPoints.Length; i++)
+            {
+                AssertITopLevelIllustrationPointEntity(illustrationPoints[i],
+                                                       illustrationPointEntities[i],
+                                                       i);
+            }
+        }
+
+        private static void AssertITopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
+            TTopLevelIllustrationPoint illustrationPoint,
+            TopLevelFaultTreeIllustrationPointEntity illustrationPointEntity,
+            int expectedOrder)
+            where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
         {
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation,
                                                 illustrationPointEntity.ClosingSituation);

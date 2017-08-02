@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
                                                              subMechanismIllustrationPoint);
         }
 
-        private static WindDirection GetWindDirection(ITopLevelIllustrationPointEntity entity)
+        private static WindDirection GetWindDirection(TopLevelSubMechanismIllustrationPointEntity entity)
         {
             return new WindDirection(entity.WindDirectionName,
                                      entity.WindDirectionAngle);

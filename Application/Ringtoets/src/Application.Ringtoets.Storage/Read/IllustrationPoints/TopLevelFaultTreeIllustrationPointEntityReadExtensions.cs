@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
             return new TopLevelFaultTreeIllustrationPoint(windDirection, entity.ClosingSituation, node);
         }
 
-        private static WindDirection GetWindDirection(ITopLevelIllustrationPointEntity entity)
+        private static WindDirection GetWindDirection(TopLevelFaultTreeIllustrationPointEntity entity)
         {
             return new WindDirection(entity.WindDirectionName,
                                      entity.WindDirectionAngle);

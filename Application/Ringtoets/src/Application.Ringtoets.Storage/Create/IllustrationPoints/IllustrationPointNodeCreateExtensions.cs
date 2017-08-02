@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -65,7 +64,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             FaultTreeIllustrationPointEntity entity = CreateFaultTreeIllustrationPoint(faultTreeIllustrationPoint,
                                                                                        order);
 
-            CreateChildElements(illustrationPointNode.Children.ToArray(), entity);
+            CreateChildElements(illustrationPointNode.Children, entity);
             return entity;
         }
 
@@ -95,13 +94,12 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             }
         }
 
-        private static void CreateChildElements(IllustrationPointNode[] illustrationPointNodes,
+        private static void CreateChildElements(IEnumerable<IllustrationPointNode> illustrationPointNodes,
                                                 FaultTreeIllustrationPointEntity entity)
         {
-            for (var i = 0; i < illustrationPointNodes.Length; i++)
+            var i = 0;
+            foreach (IllustrationPointNode node in illustrationPointNodes)
             {
-                IllustrationPointNode node = illustrationPointNodes[i];
-
                 var faultTreeIllustrationPoint = node.Data as FaultTreeIllustrationPoint;
                 if (faultTreeIllustrationPoint != null)
                 {
@@ -113,6 +111,8 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 {
                     entity.SubMechanismIllustrationPointEntities.Add(subMechanismIllustrationPoint.Create(i));
                 }
+
+                i++;
             }
         }
     }
