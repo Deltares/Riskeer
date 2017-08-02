@@ -50,11 +50,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var structuresOutput = new StructuresOutput(
                 new ProbabilityAssessmentOutput(double.NaN, double.NaN,
                                                 double.NaN, double.NaN,
-                                                double.NaN));
-            structuresOutput.SetGeneralResult(new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                                                       WindDirectionTestFactory.CreateTestWindDirection(),
-                                                       Enumerable.Empty<Stochast>(),
-                                                       Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()));
+                                                double.NaN),
+                new TestGeneralResultFaultTreeIllustrationPoint());
             return structuresOutput;
         }
 

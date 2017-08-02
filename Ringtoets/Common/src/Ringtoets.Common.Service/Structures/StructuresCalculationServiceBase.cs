@@ -29,7 +29,6 @@ using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -274,41 +273,40 @@ namespace Ringtoets.Common.Service.Structures
         private void SetOutput(StructuresCalculation<TStructureInput> calculation,
                                ProbabilityAssessmentOutput probabilityAssessmentOutput)
         {
-            calculation.Output = new StructuresOutput(probabilityAssessmentOutput);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated
+                    ? GetGeneralResult(calculator.IllustrationPointsResult)
+                    : null;
 
-            if (calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
-            {
-                SetGeneralResult(calculation.Output, calculator.IllustrationPointsResult);
-            }
+            calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
         }
 
         /// <summary>
-        /// Sets a <see cref="GeneralResult{T}"/> based on the information 
-        /// of <paramref name="hydraRingGeneralResult"/> to the <paramref name="structuresOutput"/>.
+        /// Gets a <see cref="GeneralResult{T}"/> based on the information 
+        /// of <paramref name="hydraRingGeneralResult"/>.
         /// </summary>
-        /// <param name="structuresOutput">The <see cref="HydraulicBoundaryLocationOutput"/> 
-        /// for which to set the <see cref="GeneralResult{T}"/>.</param>
         /// <param name="hydraRingGeneralResult">The <see cref="HydraRingGeneralResult"/> to base the 
         /// <see cref="GeneralResult{T}"/> to create on.</param>
-        private void SetGeneralResult(StructuresOutput structuresOutput,
-                                                 HydraRingGeneralResult hydraRingGeneralResult)
+        /// <returns>A <see cref="GeneralResult{T}"/>, or <c>null</c> if the 
+        /// <paramref name="hydraRingGeneralResult"/> could not be converted.</returns>
+        private GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResult(HydraRingGeneralResult hydraRingGeneralResult)
         {
             if (hydraRingGeneralResult == null)
             {
                 log.Warn(calculator.IllustrationPointsParserErrorMessage);
-                return;
+                return null;
             }
 
             try
             {
-                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                    GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
-                structuresOutput.SetGeneralResult(generalResult);
+                return GeneralResultConverter.ConvertToGeneralResultTopLevelFaultTreeIllustrationPoint(hydraRingGeneralResult);
             }
             catch (IllustrationPointConversionException e)
             {
                 log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
+
+            return null;
         }
 
         /// <summary>

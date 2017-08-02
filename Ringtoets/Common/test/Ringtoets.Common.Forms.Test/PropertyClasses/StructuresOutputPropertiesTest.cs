@@ -103,8 +103,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("SSE", 5.0), 
                                                                                       new Stochast[0], 
                                                                                       new List<TopLevelFaultTreeIllustrationPoint> { topLevelFaultTreeIllustrationPoint });
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
-            structuresOutput.SetGeneralResult(generalResult);
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -131,8 +130,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
-            structuresOutput.SetGeneralResult(generalResult);
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);

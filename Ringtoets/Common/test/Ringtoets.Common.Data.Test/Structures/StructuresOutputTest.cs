@@ -57,30 +57,14 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput());
-
-            // Call
-            TestDelegate call = () => structuresOutput.SetGeneralResult(null) ;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("generalResult", exception.ParamName);
-        }
-
-        [Test]
-        public void SetGeneralResult_ValidGeneralResult_SetExpectedProperties()
+        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResult_SetExpectedProperties()
         {
             // Setup
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
 
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput);
-
             // Call
-            structuresOutput.SetGeneralResult(generalResult);
+            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
             // Assert
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);

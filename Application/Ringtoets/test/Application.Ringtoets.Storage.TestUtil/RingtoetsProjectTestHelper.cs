@@ -427,8 +427,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
-                                                                              random.NextDouble()));
-            output.SetGeneralResult(GetConfiguredGeneralResultFaultTreeIllustrationPoint());
+                                                                              random.NextDouble()),
+                                              GetConfiguredGeneralResultFaultTreeIllustrationPoint());
             return output;
         }
 

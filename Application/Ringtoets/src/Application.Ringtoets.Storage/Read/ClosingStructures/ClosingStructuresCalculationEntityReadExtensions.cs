@@ -110,13 +110,8 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 return;
             }
 
-            var output = new StructuresOutput(outputEntity.Read());
-
-            if (outputEntity.GeneralResultFaultTreeIllustrationPointEntity != null)
-            {
-                output.SetGeneralResult(outputEntity.GeneralResultFaultTreeIllustrationPointEntity.Read());
-            }
-
+            var output = new StructuresOutput(outputEntity.Read(),
+                                              outputEntity.GeneralResultFaultTreeIllustrationPointEntity?.Read());
             calculation.Output = output;
         }
     }

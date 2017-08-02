@@ -47,6 +47,26 @@ namespace Ringtoets.Common.Data.Structures
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="StructuresOutput"/>.
+        /// </summary>
+        /// <param name="probabilityAssessmentOutput">The results of the probabilistic
+        /// assessment calculation.</param>
+        /// <param name="generalResult">The general result of this output with the 
+        /// fault tree illustration points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <paramref name="probabilityAssessmentOutput"/> is <c>null</c>.</exception>
+        public StructuresOutput(ProbabilityAssessmentOutput probabilityAssessmentOutput,
+                                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            if (probabilityAssessmentOutput == null)
+            {
+                throw new ArgumentNullException(nameof(probabilityAssessmentOutput));
+            }
+            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
+            GeneralResult = generalResult;
+        }
+
+        /// <summary>
         /// Gets the probabilistic assessment output.
         /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
@@ -65,23 +85,6 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
-
-        /// <summary>
-        /// Sets the general result of this output with the fault tree illustration points.
-        /// </summary>
-        /// <param name="generalResult">The general result which belongs
-        /// to this output.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
-        /// is <c>null</c>.</exception>
-        public void SetGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            if (generalResult == null)
-            {
-                throw new ArgumentNullException(nameof(generalResult));
-            }
-
-            GeneralResult = generalResult;
-        }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
     }
 }
