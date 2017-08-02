@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -58,7 +59,8 @@ namespace Application.Ringtoets.Storage.Create
                 CalculatedReliability = double.IsNaN(output.CalculatedReliability)
                                             ? (double?) null
                                             : output.CalculatedReliability,
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = (byte) output.CalculationConvergence,
+                GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
             };
         }
     }

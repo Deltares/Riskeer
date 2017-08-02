@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -33,13 +36,20 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationOutputCreateExtensionsTest
     {
         [Test]
-        public void CreateHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet(
+            bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(21);
+
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                     ? GetGeneralResult()
+                                                                                     : null;
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), generalResult);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -55,16 +65,23 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
-        public void CreateHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN(
+            bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(21);
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                     ? GetGeneralResult()
+                                                                                     : null;
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), generalResult);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -80,17 +97,24 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithValidParameters_ReturnsHydraulicLocationEntityWithOutputSet(
+            bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(21);
+
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                    ? GetGeneralResult()
+                                                                                    : null;
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), generalResult);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -106,16 +130,23 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateGrassCoverErosionOutwardsHydraulicLocationOutputEntity_WithNaNParameters_ReturnsHydraulicLocationEntityWithOutputNaN(
+            bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(21);
+
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                    ? GetGeneralResult()
+                                                                                    : null;
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
+                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), generalResult);
 
             var outputType = random.NextEnumValue<HydraulicLocationOutputType>();
 
@@ -132,7 +163,66 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            Assert.IsNull(entity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+        }
+
+        private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
+        {
+            var random = new Random(55);
+            var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
+                new WindDirection("SSE", random.NextDouble()),
+                new[]
+                {
+                    new Stochast("stochastOne", random.NextDouble(), random.NextDouble()),
+                },
+                new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                              "IllustrationPointTwo",
+                                                              new TestSubMechanismIllustrationPoint())
+                });
+
+            return generalResult;
+        }
+
+        private static void AssertGeneralResult(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
+                                                GeneralResultSubMechanismIllustrationPointEntity entity)
+        {
+            if (illustrationPoint == null)
+            {
+                Assert.IsNull(entity);
+                return;
+            }
+
+            Assert.IsNotNull(entity);
+            WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
+            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            AssertStochastEntities(illustrationPoint.Stochasts.ToArray(), entity.StochastEntities.ToArray());
+            Assert.AreEqual(illustrationPoint.TopLevelIllustrationPoints.Count(),
+                            entity.TopLevelSubMechanismIllustrationPointEntities.Count);
+        }
+
+        private static void AssertStochastEntities(Stochast[] stochasts, StochastEntity[] stochastEntities)
+        {
+            Assert.AreEqual(stochasts.Length, stochastEntities.Length);
+            for (var i = 0; i < stochasts.Length; i++)
+            {
+                AssertStochastEntity(stochasts[i], stochastEntities[i], i);
+            }
+        }
+
+        private static void AssertStochastEntity(Stochast stochast,
+                                                 StochastEntity stochastEntity,
+                                                 int expectedOrder)
+        {
+            TestHelper.AssertAreEqualButNotSame(stochast.Name, stochastEntity.Name);
+            Assert.AreEqual(stochast.Duration, stochastEntity.Duration, stochast.Duration.GetAccuracy());
+            Assert.AreEqual(stochast.Alpha, stochastEntity.Alpha, stochast.Alpha.GetAccuracy());
+
+            Assert.AreEqual(expectedOrder, stochastEntity.Order);
         }
     }
 }
