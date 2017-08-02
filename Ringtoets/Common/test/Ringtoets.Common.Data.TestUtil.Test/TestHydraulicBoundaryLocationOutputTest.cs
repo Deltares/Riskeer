@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationOutput>(output);
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
-            Assert.IsNull(output.GeneralResult);
+            Assert.AreSame(generalResult, output.GeneralResult);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);
