@@ -279,6 +279,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             TestHelper.AssertAreEqualButNotSame(expectedWindDirection.Name, illustrationPointEntity.WindDirectionName);
             Assert.AreEqual(expectedWindDirection.Angle, illustrationPointEntity.WindDirectionAngle,
                             expectedWindDirection.Angle.GetAccuracy());
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, illustrationPointEntity.ClosingSituation);
 
             Assert.AreEqual(expectedOrder, illustrationPointEntity.Order);
         }
@@ -311,6 +312,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             TestHelper.AssertAreEqualButNotSame(expectedWindDirection.Name, illustrationPointEntity.WindDirectionName);
             Assert.AreEqual(expectedWindDirection.Angle, illustrationPointEntity.WindDirectionAngle,
                             expectedWindDirection.Angle.GetAccuracy());
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, illustrationPointEntity.ClosingSituation);
 
             Assert.AreEqual(expectedOrder, illustrationPointEntity.Order);
         }

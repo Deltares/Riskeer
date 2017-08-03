@@ -54,12 +54,12 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 
             IEnumerable<Stochast> stochasts = GetReadStochasts(entity.StochastEntities);
 
-            IEnumerable<TopLevelFaultTreeIllustrationPoint> illustrationPoints =
+            IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelIllustrationPoints =
                 GetReadTopLevelFaultTreeIllustrationPoint(entity.TopLevelFaultTreeIllustrationPointEntities);
 
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(governingWindDirection,
                                                                          stochasts,
-                                                                         illustrationPoints);
+                                                                         topLevelIllustrationPoints);
         }
 
         private static WindDirection GetGoverningWindDirection(IGeneralResultEntity entity)
@@ -75,10 +75,10 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         }
 
         private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetReadTopLevelFaultTreeIllustrationPoint(
-            IEnumerable<TopLevelFaultTreeIllustrationPointEntity> illustrationPointEntities)
+            IEnumerable<TopLevelFaultTreeIllustrationPointEntity> topLevelIllustrationPointEntities)
         {
-            return illustrationPointEntities.OrderBy(ip => ip.Order)
-                                            .Select(ip => ip.Read());
+            return topLevelIllustrationPointEntities.OrderBy(ip => ip.Order)
+                                                    .Select(ip => ip.Read());
         }
     }
 }

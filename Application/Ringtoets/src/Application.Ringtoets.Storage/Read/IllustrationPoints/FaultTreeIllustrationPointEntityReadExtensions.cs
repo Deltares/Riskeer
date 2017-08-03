@@ -105,9 +105,7 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
 
         private static CombinationType GetCombinationType(FaultTreeIllustrationPointEntity entity)
         {
-            return entity.CombinationType == (byte) CombinationType.And
-                       ? CombinationType.And
-                       : CombinationType.Or;
+            return (CombinationType) entity.CombinationType;
         }
 
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)

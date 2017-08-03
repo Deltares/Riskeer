@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 {
     [TestFixture]
-    public class TopLevelSubMechanismIllustrationPointTest
+    public class TopLevelSubMechanismIllustrationPointCreateExtensionsTest
     {
         [Test]
         public void Create_TopLevelSubMechanismIllustrationPointNull_ThrowsArgumentNullException()

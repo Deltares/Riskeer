@@ -110,8 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             CollectionAssert.IsEmpty(entity.TopLevelFaultTreeIllustrationPointEntities);
             Assert.AreEqual(order, entity.Order);
 
-            StochastEntity entityStochastEntity = entity.StochastEntities.FirstOrDefault();
-            Assert.IsNotNull(entityStochastEntity);
+            StochastEntity entityStochastEntity = entity.StochastEntities.Single();
             Stochast stochast = illustrationPoint.Stochasts.First();
             Assert.AreEqual(stochast.Name, entityStochastEntity.Name);
             Assert.AreEqual(stochast.Alpha, entityStochastEntity.Alpha);
@@ -119,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         }
 
         [Test]
-        public void Create_IllustrationPointNodeWithSubMechanismIllustrationPoint_ThrowsInvalidOperationException()
+        public void Create_IllustrationPointNodeWithSubMechanismIllustrationPoint_ThrowsNotSupportedException()
         {
             // Setup
             var node = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
@@ -128,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             TestDelegate call = () => node.Create(0);
 
             // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<NotSupportedException>(call).Message;
             Assert.AreEqual($"Illustration point type '{typeof(TestSubMechanismIllustrationPoint)}' is not supported.", message);
         }
 
@@ -192,17 +191,20 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             {
                 new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()),
                 node
-            }).SetName("IllustrationPointsWithChildren");
+            }).SetName("FaultTreeIllustrationPointsWithChildren");
         }
 
         private static void AssertIllustrationPointEntities(
             IllustrationPointNode[] children,
-            IList<SubMechanismIllustrationPointEntity> subMechanismIllustrationPointEntities,
-            IList<FaultTreeIllustrationPointEntity> faultTreeIllustrationPointEntity
+            IEnumerable<SubMechanismIllustrationPointEntity> subMechanismIllustrationPointEntities,
+            IEnumerable<FaultTreeIllustrationPointEntity> faultTreeIllustrationPointEntity
         )
         {
             for (var i = 0; i < children.Length; i++)
             {
+                int nrOfTotalCreatedEntities = subMechanismIllustrationPointEntities.Count() + faultTreeIllustrationPointEntity.Count();
+                Assert.AreEqual(nrOfTotalCreatedEntities, children.Length);
+
                 IllustrationPointNode child = children[i];
 
                 var subMechanismIllustrationPoint = child.Data as SubMechanismIllustrationPoint;
@@ -231,6 +233,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             Assert.IsNotNull(illustrationPoint);
             Assert.AreEqual(illustrationPoint.Beta, illustrationPointEntity.Beta, illustrationPoint.Beta.GetAccuracy());
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.Name, illustrationPointEntity.Name);
+
+            CollectionAssert.IsEmpty(illustrationPointEntity.IllustrationPointResultEntities);
+            CollectionAssert.IsEmpty(illustrationPointEntity.SubMechanismIllustrationPointStochastEntities);
         }
 
         private static void AssertFaultTreeIllustrationPointEntity(FaultTreeIllustrationPoint illustrationPoint,

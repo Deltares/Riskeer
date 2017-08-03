@@ -97,7 +97,7 @@
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensionsTest.cs" />
-    <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointTest.cs" />
+    <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensionsTest.cs">
       <SubType>Code</SubType>
     </Compile>

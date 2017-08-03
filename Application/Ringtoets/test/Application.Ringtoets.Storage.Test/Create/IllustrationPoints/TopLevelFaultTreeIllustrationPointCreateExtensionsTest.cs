@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
@@ -64,6 +65,38 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, entity.ClosingSituation);
             TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
             Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
+            CollectionAssert.IsEmpty(illustrationPoint.FaultTreeNodeRoot.Children);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_ValidTopLevelFaultTreeIllustrationPointWithChildren_ReturnsTopLevelFaultTreeIllustrationPointEntityWithChildren()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var windDirection = new WindDirection("WindDirection Name", random.NextDouble());
+            var topLevelIllustrationPoint = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
+            topLevelIllustrationPoint.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+            });
+
+            var illustrationPoint = new TopLevelFaultTreeIllustrationPoint(
+                windDirection,
+                "Just a situation",
+                topLevelIllustrationPoint);
+            int order = random.Next();
+
+            // Call
+            TopLevelFaultTreeIllustrationPointEntity entity = illustrationPoint.Create(order);
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, entity.ClosingSituation);
+            TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
+            Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
+            Assert.AreEqual(2, entity.FaultTreeIllustrationPointEntity.SubMechanismIllustrationPointEntities.Count);
             Assert.AreEqual(order, entity.Order);
         }
     }

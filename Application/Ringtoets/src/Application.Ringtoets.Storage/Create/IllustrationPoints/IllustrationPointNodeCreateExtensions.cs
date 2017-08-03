@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
         /// <returns>A new <see cref="FaultTreeIllustrationPointEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointNode"/> 
         /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when <see cref="IllustrationPointNode.Data"/> 
+        /// <exception cref="NotSupportedException">Thrown when <see cref="IllustrationPointNode.Data"/> 
         /// is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
         public static FaultTreeIllustrationPointEntity Create(
             this IllustrationPointNode illustrationPointNode,
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
             var faultTreeIllustrationPoint = illustrationPointNode.Data as FaultTreeIllustrationPoint;
             if (faultTreeIllustrationPoint == null)
             {
-                throw new InvalidOperationException($"Illustration point type '{illustrationPointNode.Data.GetType()}' is not supported.");
+                throw new NotSupportedException($"Illustration point type '{illustrationPointNode.Data.GetType()}' is not supported.");
             }
 
             FaultTreeIllustrationPointEntity entity = CreateFaultTreeIllustrationPoint(faultTreeIllustrationPoint,
