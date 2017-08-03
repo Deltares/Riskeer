@@ -66,7 +66,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
 
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+            AssertGeneralResult(output.GeneralResult,
+                                entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -97,7 +98,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            AssertGeneralResult(output.GeneralResult,
+                                entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -110,8 +113,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
 
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                    ? GetGeneralResult()
-                                                                                    : null;
+                                                                                     ? GetGeneralResult()
+                                                                                     : null;
             var output = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), generalResult);
@@ -130,7 +133,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            AssertGeneralResult(output.GeneralResult,
+                                entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         [Test]
@@ -143,8 +148,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
 
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                    ? GetGeneralResult()
-                                                                                    : null;
+                                                                                     ? GetGeneralResult()
+                                                                                     : null;
             var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
                                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), generalResult);
 
@@ -163,7 +168,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultSubMechanismIllustrationPointEntity);
+
+            AssertGeneralResult(output.GeneralResult,
+                                entity.GeneralResultSubMechanismIllustrationPointEntity);
         }
 
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
@@ -173,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 new WindDirection("SSE", random.NextDouble()),
                 new[]
                 {
-                    new Stochast("stochastOne", random.NextDouble(), random.NextDouble()),
+                    new Stochast("stochastOne", random.NextDouble(), random.NextDouble())
                 },
                 new[]
                 {

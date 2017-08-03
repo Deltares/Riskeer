@@ -1745,8 +1745,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         #region IllustrationPoints
 
-        private static void AssertGeneralResultTopLevelFaultTreeIllustrationPoint(GeneralResult<TopLevelFaultTreeIllustrationPoint> expected,
-                                                                                  GeneralResult<TopLevelFaultTreeIllustrationPoint> actual)
+        private static void AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> expected,
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> actual)
         {
             if (expected == null)
             {
@@ -1766,8 +1767,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      AssertTopLevelFaultTreeIllustrationPoint);
         }
 
-        private static void AssertTopLevelFaultTreeIllustrationPoint(TopLevelFaultTreeIllustrationPoint expected,
-                                                                     TopLevelFaultTreeIllustrationPoint actual)
+        private static void AssertTopLevelFaultTreeIllustrationPoint(
+            TopLevelFaultTreeIllustrationPoint expected,
+            TopLevelFaultTreeIllustrationPoint actual)
         {
             AssertWindDirection(expected.WindDirection, actual.WindDirection);
 
@@ -1776,7 +1778,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertIllustrationPointNode(expected.FaultTreeNodeRoot, actual.FaultTreeNodeRoot);
         }
 
-        private static void AssertIllustrationPointNode(IllustrationPointNode expected, IllustrationPointNode actual)
+        private static void AssertIllustrationPointNode(IllustrationPointNode expected,
+                                                        IllustrationPointNode actual)
         {
             var expectedFaultTreeIllustrationPoint = expected.Data as FaultTreeIllustrationPoint;
             if (expectedFaultTreeIllustrationPoint != null)
@@ -1801,7 +1804,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 AssertSubMechanismIllustrationPoint(expectedSubMechanismIllustrationPoint,
                                                     actualSubMechanismIllustrationPoint);
+                return;
             }
+
+            Assert.Fail($"Expected data type {expected.Data.GetType()} is not supported.");
         }
 
         private static void AssertFaultTreeIllustrationPoint(FaultTreeIllustrationPoint expected,
@@ -1836,7 +1842,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      AssertTopLevelSubMechanismIllustrationPoint);
         }
 
-        private static void AssertWindDirection(WindDirection expectedWindDirection, WindDirection actualWindDirection)
+        private static void AssertWindDirection(WindDirection expectedWindDirection,
+                                                WindDirection actualWindDirection)
         {
             Assert.AreEqual(expectedWindDirection.Name, actualWindDirection.Name);
             Assert.AreEqual(expectedWindDirection.Angle, actualWindDirection.Angle);
@@ -1865,25 +1872,32 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                 actualTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
         }
 
-        private static void AssertSubMechanismIllustrationPoint(SubMechanismIllustrationPoint expectedSubMechanismIllustrationPoint,
-                                                                SubMechanismIllustrationPoint actualSubMechanismIllustrationPoint)
+        private static void AssertSubMechanismIllustrationPoint(
+            SubMechanismIllustrationPoint expectedSubMechanismIllustrationPoint,
+            SubMechanismIllustrationPoint actualSubMechanismIllustrationPoint)
         {
             Assert.AreEqual(expectedSubMechanismIllustrationPoint.Name, actualSubMechanismIllustrationPoint.Name);
             Assert.AreEqual(expectedSubMechanismIllustrationPoint.Beta, actualSubMechanismIllustrationPoint.Beta);
 
-            AssertCollectionAndItems(expectedSubMechanismIllustrationPoint.Stochasts, actualSubMechanismIllustrationPoint.Stochasts, AssertSubMechanismIllustrationPointStochast);
-            AssertCollectionAndItems(expectedSubMechanismIllustrationPoint.IllustrationPointResults, actualSubMechanismIllustrationPoint.IllustrationPointResults, AssertIllustrationPointResult);
+            AssertCollectionAndItems(expectedSubMechanismIllustrationPoint.Stochasts,
+                                     actualSubMechanismIllustrationPoint.Stochasts,
+                                     AssertSubMechanismIllustrationPointStochast);
+            AssertCollectionAndItems(expectedSubMechanismIllustrationPoint.IllustrationPointResults,
+                                     actualSubMechanismIllustrationPoint.IllustrationPointResults,
+                                     AssertIllustrationPointResult);
         }
 
-        private static void AssertSubMechanismIllustrationPointStochast(SubMechanismIllustrationPointStochast expectedStochast,
-                                                                        SubMechanismIllustrationPointStochast actualStochast)
+        private static void AssertSubMechanismIllustrationPointStochast(
+            SubMechanismIllustrationPointStochast expectedStochast,
+            SubMechanismIllustrationPointStochast actualStochast)
         {
             AssertStochast(expectedStochast, actualStochast);
             Assert.AreEqual(expectedStochast.Realization, actualStochast.Realization);
         }
 
-        private static void AssertIllustrationPointResult(IllustrationPointResult expectedResult,
-                                                          IllustrationPointResult actualResult)
+        private static void AssertIllustrationPointResult(
+            IllustrationPointResult expectedResult,
+            IllustrationPointResult actualResult)
         {
             Assert.AreEqual(expectedResult.Description, actualResult.Description);
             Assert.AreEqual(expectedResult.Value, actualResult.Value);

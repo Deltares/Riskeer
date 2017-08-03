@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -46,6 +47,29 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
             Assert.IsNull(output.GeneralResult);
             Assert.IsFalse(output.HasGeneralResult);
+        }
+
+        [Test]
+        public void GeneralResultConstructor_SetExpectedValues()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            var output = new TestStructuresOutput(generalResult);
+
+            // Assert
+            Assert.IsInstanceOf<StructuresOutput>(output);
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                output.ProbabilityAssessmentOutput;
+            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.IsTrue(output.HasGeneralResult);
         }
     }
 }

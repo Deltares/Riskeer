@@ -31,7 +31,6 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -47,12 +46,27 @@ namespace Application.Ringtoets.Storage.Test.Create
     {
         private static StructuresOutput GetStructuresOutputWithGeneralResult()
         {
-            var structuresOutput = new StructuresOutput(
-                new ProbabilityAssessmentOutput(double.NaN, double.NaN,
-                                                double.NaN, double.NaN,
-                                                double.NaN),
-                new TestGeneralResultFaultTreeIllustrationPoint());
-            return structuresOutput;
+            return new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+        }
+
+        private static void AssertGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> illustrationPoint,
+                                                GeneralResultFaultTreeIllustrationPointEntity entity)
+        {
+            if (illustrationPoint == null)
+            {
+                Assert.IsNull(entity);
+                return;
+            }
+
+            Assert.IsNotNull(entity);
+            WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
+            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(illustrationPoint.Stochasts.Count(), entity.StochastEntities.Count);
+            Assert.AreEqual(illustrationPoint.TopLevelIllustrationPoints.Count(),
+                            entity.TopLevelFaultTreeIllustrationPointEntities.Count);
         }
 
         #region CreateForHeightStructures
@@ -359,12 +373,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForHeightStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForHeightStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndGeneralResult()
         {
             // Setup
+            StructuresOutput output = GetStructuresOutputWithGeneralResult();
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = GetStructuresOutputWithGeneralResult()
+                Output = output
             };
 
             var registry = new PersistenceRegistry();
@@ -373,9 +388,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             HeightStructuresCalculationEntity entity = calculation.CreateForHeightStructures(registry, 0);
 
             // Assert
-            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            HeightStructuresOutputEntity outputEntity = entity.HeightStructuresOutputEntities.Single();
             Assert.IsNotNull(outputEntity);
-            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultFaultTreeIllustrationPointEntity generalResultEntity = outputEntity.GeneralResultFaultTreeIllustrationPointEntity;
+            Assert.IsNotNull(generalResultEntity);
+
+            AssertGeneralResult(output.GeneralResult, generalResultEntity);
         }
 
         #endregion
@@ -740,12 +758,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForClosingStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForClosingStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndGeneralResult()
         {
             // Setup
+            StructuresOutput output = GetStructuresOutputWithGeneralResult();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
-                Output = GetStructuresOutputWithGeneralResult()
+                Output = output
             };
 
             var registry = new PersistenceRegistry();
@@ -754,9 +773,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, 0);
 
             // Assert
-            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            ClosingStructuresOutputEntity outputEntity = entity.ClosingStructuresOutputEntities.Single();
             Assert.IsNotNull(outputEntity);
-            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultFaultTreeIllustrationPointEntity generalResultEntity = outputEntity.GeneralResultFaultTreeIllustrationPointEntity;
+            Assert.IsNotNull(generalResultEntity);
+
+            AssertGeneralResult(output.GeneralResult, generalResultEntity);
         }
 
         #endregion
@@ -1270,12 +1292,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateForStabilityPointStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndIllustrationPoints()
+        public void CreateForStabilityPointStructures_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndGeneralResult()
         {
             // Setup
+            StructuresOutput output = GetStructuresOutputWithGeneralResult();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = GetStructuresOutputWithGeneralResult()
+                Output = output
             };
 
             var registry = new PersistenceRegistry();
@@ -1284,9 +1307,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
 
             // Assert
-            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            StabilityPointStructuresOutputEntity outputEntity = entity.StabilityPointStructuresOutputEntities.Single();
             Assert.IsNotNull(outputEntity);
-            Assert.IsNotNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultFaultTreeIllustrationPointEntity generalResultEntity = outputEntity.GeneralResultFaultTreeIllustrationPointEntity;
+            Assert.IsNotNull(generalResultEntity);
+
+            AssertGeneralResult(output.GeneralResult, generalResultEntity);
         }
 
         #endregion

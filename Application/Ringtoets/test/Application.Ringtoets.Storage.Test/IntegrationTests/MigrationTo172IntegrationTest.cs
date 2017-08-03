@@ -65,6 +65,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertClosingStructuresFailureMechanism(reader);
                     AssertStabilityPointStructuresFailureMechanism(reader);
 
+                    AssertHydraulicBoundaryLocations(reader);
+
                     AssertClosingStructures(reader);
                     AssertHeightStructures(reader);
                     AssertStabilityPointStructures(reader);
@@ -240,6 +242,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "LEFT JOIN[ForeshoreProfileEntity] USING([FailureMechanismEntityId]) " +
                 "GROUP BY[FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateForeshoreProfileCollectionSourcePath);
+
+            const string validateCalculations =
+                "SELECT COUNT() = 0 " +
+                "FROM GrassCoverErosionOutwardsHydraulicLocationEntity " +
+                "WHERE ShouldWaveHeightIllustrationPointsBeCalculated != 0 " +
+                "|| ShouldDesignWaterLevelIllustrationPointsBeCalculated != 0;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
@@ -381,6 +390,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = 0 " +
                 "FROM StabilityPointStructuresCalculationEntity " +
                 "WHERE ShouldIllustrationPointsBeCalculated != 0;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
+        }
+
+        private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader)
+        {
+            const string validateCalculations =
+                "SELECT COUNT() = 0 " +
+                "FROM HydraulicLocationEntity " +
+                "WHERE ShouldWaveHeightIllustrationPointsBeCalculated != 0 " +
+                "|| ShouldDesignWaterLevelIllustrationPointsBeCalculated != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
         }
 

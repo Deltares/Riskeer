@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), 
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
                 new TestGeneralResultSubMechanismIllustrationPoint());
 
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();

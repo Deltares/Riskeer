@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -286,11 +287,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
             Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
 
-            AssertGeneralResultSubMechanismIllustrationPoint(expected.GeneralResultSubMechanismIllustrationPointEntity,
-                                                             actual.GeneralResult);
+            AssertGeneralResult(expected.GeneralResultSubMechanismIllustrationPointEntity, actual.GeneralResult);
         }
 
-        private static void AssertGeneralResultSubMechanismIllustrationPoint(GeneralResultSubMechanismIllustrationPointEntity expected,
+        private static void AssertGeneralResult(GeneralResultSubMechanismIllustrationPointEntity expected,
                                                                              GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint)
         {
             if (expected == null)

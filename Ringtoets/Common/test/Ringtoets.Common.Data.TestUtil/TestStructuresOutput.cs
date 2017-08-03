@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
@@ -34,6 +35,14 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates new instance of <see cref="TestStructuresOutput"/>.
         /// </summary>
         public TestStructuresOutput()
-            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null) {}
+            : this(null) {}
+
+        /// <summary>
+        /// Creates new instance of <see cref="TestStructuresOutput"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result of this output with the 
+        /// fault tree illustration points.</param>
+        public TestStructuresOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+            : base(new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), generalResult) {}
     }
 }
