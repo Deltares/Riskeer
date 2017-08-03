@@ -61,6 +61,7 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.DuneErosion.Data;
@@ -422,7 +423,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
-                CloseForData = CloseCalculationViewForData<ICalculation<WaveConditionsInput>>,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context))
             };
 
@@ -431,7 +432,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseCalculationViewForData<IStructuresCalculation>,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
             };
         }
@@ -1015,57 +1016,6 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
-
-        private static bool CloseCalculationViewForData<T>(IView view, object o) where T : ICalculation
-        {
-            var context = o as ICalculationContext<T, IFailureMechanism>;
-            if (context != null)
-            {
-                return ReferenceEquals(view.Data, context.WrappedData);
-            }
-
-            IEnumerable<T> calculations;
-
-            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
-            {
-                calculations = calculationGroupContext.WrappedData
-                                                      .GetCalculations()
-                                                      .OfType<T>();
-            }
-            else
-            {
-                calculations = GetCalculationsFromFailureMechanisms<T>(o);
-            }
-
-            return calculations.Any(c => ReferenceEquals(view.Data, c));
-        }
-
-        private static IEnumerable<T> GetCalculationsFromFailureMechanisms<T>(object o)
-        {
-            var failureMechanism = o as IFailureMechanism;
-
-            var context = o as IFailureMechanismContext<IFailureMechanism>;
-            if (context != null)
-            {
-                failureMechanism = context.WrappedData;
-            }
-
-            if (failureMechanism != null)
-            {
-                return failureMechanism.Calculations.OfType<T>();
-            }
-
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
-            {
-                return assessmentSection.GetFailureMechanisms()
-                                        .SelectMany(fm => fm.Calculations)
-                                        .OfType<T>();
-            }
-
-            return Enumerable.Empty<T>();
-        }
 
         #endregion
 

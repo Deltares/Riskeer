@@ -26,7 +26,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -44,6 +43,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms;
@@ -211,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
@@ -221,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
@@ -231,7 +231,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseCalculationViewForData<GrassCoverErosionInwardsCalculation>,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
@@ -493,57 +493,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         }
 
         #endregion
-
-        private static bool CloseCalculationViewForData<T>(IView view, object o) where T : ICalculation
-        {
-            var context = o as ICalculationContext<T, IFailureMechanism>;
-            if (context != null)
-            {
-                return ReferenceEquals(view.Data, context.WrappedData);
-            }
-
-            IEnumerable<T> calculations;
-
-            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
-            {
-                calculations = calculationGroupContext.WrappedData
-                                                      .GetCalculations()
-                                                      .OfType<T>();
-            }
-            else
-            {
-                calculations = GetCalculationsFromFailureMechanisms<T>(o);
-            }
-
-            return calculations.Any(c => ReferenceEquals(view.Data, c));
-        }
-
-        private static IEnumerable<T> GetCalculationsFromFailureMechanisms<T>(object o)
-        {
-            var failureMechanism = o as IFailureMechanism;
-
-            var context = o as IFailureMechanismContext<IFailureMechanism>;
-            if (context != null)
-            {
-                failureMechanism = context.WrappedData;
-            }
-
-            if (failureMechanism != null)
-            {
-                return failureMechanism.Calculations.OfType<T>();
-            }
-
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
-            {
-                return assessmentSection.GetFailureMechanisms()
-                                        .SelectMany(fm => fm.Calculations)
-                                        .OfType<T>();
-            }
-
-            return Enumerable.Empty<T>();
-        }
 
         private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
         {

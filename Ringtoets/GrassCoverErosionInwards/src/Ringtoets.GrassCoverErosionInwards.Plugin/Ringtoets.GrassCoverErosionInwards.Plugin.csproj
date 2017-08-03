@@ -107,6 +107,11 @@
       <Name>Ringtoets.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
+      <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
+      <Name>Ringtoets.Common.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
