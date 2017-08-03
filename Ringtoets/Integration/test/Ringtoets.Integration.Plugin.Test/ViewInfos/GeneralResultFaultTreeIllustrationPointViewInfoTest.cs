@@ -102,6 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Assert.AreSame(calculation, viewData);
         }
 
+        [Ignore("Just a base class")]
         public class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
         {
             protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
