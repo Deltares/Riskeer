@@ -302,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            Assert.IsTrue(inputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsTrue(inputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [Test]
