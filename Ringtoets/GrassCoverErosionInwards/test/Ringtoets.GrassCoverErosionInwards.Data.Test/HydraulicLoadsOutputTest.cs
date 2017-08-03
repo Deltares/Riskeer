@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
@@ -112,43 +113,64 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
+        [TestCase(double.NaN, 0.8457)]
+        [TestCase(0.654, double.NaN)]
+        public void SetGeneralResult_ValidInputAndGeneralResultNull_ReturnsExpectedProperties(double targetProbability, double calculatedProbability)
         {
             // Setup
+            // Setup
             var random = new Random(32);
+            double targetReliability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      convergence);
+
             // Call
-            TestDelegate call = () => output.SetGeneralResult(null);
+            var output = new TestHydraulicLoadsOutput(targetProbability,
+                                                      targetReliability,
+                                                      calculatedProbability,
+                                                      calculatedReliability,
+                                                      convergence,
+                                                      null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("generalResult", exception.ParamName);
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsFalse(output.HasGeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
-        public void SetGeneralResult_ValidGeneralResult_SetExpectedProperties()
+        [TestCase(double.NaN, 0.8457)]
+        [TestCase(0.654, double.NaN)]
+        public void SetGeneralResult_ValidInputAndGeneralResult_ReturnsExpectedProperties(double targetProbability, double calculatedProbability)
         {
             // Setup
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            // Setup
             var random = new Random(32);
+            double targetReliability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-            var output = new TestHydraulicLoadsOutput(double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      double.NaN,
-                                                      convergence);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
             // Call
-            output.SetGeneralResult(generalResult);
+            var output = new TestHydraulicLoadsOutput(targetProbability,
+                                                      targetReliability,
+                                                      calculatedProbability,
+                                                      calculatedReliability,
+                                                      convergence,
+                                                      generalResult);
 
             // Assert
-            Assert.AreSame(generalResult, output.GeneralResult);
+            Assert.AreEqual(targetProbability, output.TargetProbability);
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsTrue(output.HasGeneralResult);
+            Assert.AreSame(generalResult, output.GeneralResult);
         }
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
@@ -157,6 +179,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                             double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
                 : base(targetProbability, targetReliability, calculatedProbability,
                        calculatedReliability, calculationConvergence) {}
+
+            public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,
+                                            double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence,
+                                            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+                : base(targetProbability, targetReliability, calculatedProbability,
+                       calculatedReliability, calculationConvergence, generalResult) {}
         }
     }
 }

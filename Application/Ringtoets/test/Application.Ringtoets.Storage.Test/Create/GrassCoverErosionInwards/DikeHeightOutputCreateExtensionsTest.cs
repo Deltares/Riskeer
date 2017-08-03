@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var random = new Random(21);
             var output = new DikeHeightOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>());
+                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var random = new Random(21);
             var output = new DikeHeightOutput(double.NaN, double.NaN, double.NaN,
-                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>());
+                                              double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
 
             // Call
             GrassCoverErosionInwardsDikeHeightOutputEntity entity = output.Create();

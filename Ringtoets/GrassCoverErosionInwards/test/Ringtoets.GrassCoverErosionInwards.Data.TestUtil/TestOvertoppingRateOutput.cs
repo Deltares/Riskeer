@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
@@ -30,11 +31,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
     public class TestOvertoppingRateOutput : OvertoppingRateOutput
     {
         /// <summary>
+        /// Creates a new instance of <see cref="TestOvertoppingRateOutput"/> with a specified
+        /// <see cref="GeneralResult{T}"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result with illustration points belonging
+        /// to this output.</param>
+        public TestOvertoppingRateOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+            : base(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedNotConverged, generalResult) {}
+
+        /// <summary>
         /// Creates a new instance of <see cref="TestOvertoppingRateOutput"/>.
         /// </summary>
         /// <param name="overtoppingRate">The overtopping rate to set to the output.</param>
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set to the output.</param>
         public TestOvertoppingRateOutput(double overtoppingRate, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :
-            base(overtoppingRate, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence) {}
+            base(overtoppingRate, double.NaN, double.NaN, double.NaN, double.NaN, calculationConvergence, null) {}
     }
 }

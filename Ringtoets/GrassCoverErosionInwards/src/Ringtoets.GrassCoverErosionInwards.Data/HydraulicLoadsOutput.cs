@@ -44,7 +44,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         protected HydraulicLoadsOutput(double targetProbability, double targetReliability,
                                        double calculatedProbability, double calculatedReliability,
-                                       CalculationConvergence calculationConvergence)
+                                       CalculationConvergence calculationConvergence) : this(targetProbability, targetReliability, calculatedProbability, calculatedReliability, calculationConvergence, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
+        /// </summary>
+        /// <param name="targetProbability">The norm used during the calculation.</param>
+        /// <param name="targetReliability">The reliability index used during the calculation.</param>
+        /// <param name="calculatedProbability">The calculated probability.</param>
+        /// <param name="calculatedReliability">The calculated reliability index.</param>
+        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
+        /// <param name="generalResult">The general result with the fault tree illustration points.</param> 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
+        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
+        protected HydraulicLoadsOutput(double targetProbability, double targetReliability,
+                                       double calculatedProbability, double calculatedReliability,
+                                       CalculationConvergence calculationConvergence,
+                                       GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             ProbabilityHelper.ValidateProbability(targetProbability, nameof(targetProbability), true);
             ProbabilityHelper.ValidateProbability(calculatedProbability, nameof(calculatedProbability), true);
@@ -54,6 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CalculatedProbability = calculatedProbability;
             CalculatedReliability = new RoundedDouble(5, calculatedReliability);
             CalculationConvergence = calculationConvergence;
+            GeneralResult = generalResult;
         }
 
         /// <summary>
@@ -100,23 +117,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
-
-        /// <summary>
-        /// Sets the general result of this output with the fault tree illustration points.
-        /// </summary>
-        /// <param name="generalResult">The general result which belongs
-        /// to this output.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
-        /// is <c>null</c>.</exception>
-        public void SetGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            if (generalResult == null)
-            {
-                throw new ArgumentNullException(nameof(generalResult));
-            }
-
-            GeneralResult = generalResult;
-        }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
     }
 }

@@ -39,7 +39,7 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator; 
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -350,11 +350,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             DikeHeightOutput output = CreateDikeHeightOutput(dikeHeightCalculator,
                                                              calculation.Name,
                                                              dikeHeightCalculationInput.Beta,
-                                                             norm);
-            SetGeneralResult(output.SetGeneralResult,
-                             dikeHeightCalculator.IllustrationPointsResult,
-                             dikeHeightCalculator.IllustrationPointsParserErrorMessage,
-                             calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+                                                             norm,
+                                                             calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
             return output;
         }
 
@@ -408,11 +405,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             OvertoppingRateOutput output = CreateOvertoppingRateOutput(overtoppingRateCalculator,
                                                                        calculation.Name,
                                                                        overtoppingRateCalculationInput.Beta,
-                                                                       norm);
-            SetGeneralResult(output.SetGeneralResult,
-                             overtoppingRateCalculator.IllustrationPointsResult,
-                             overtoppingRateCalculator.IllustrationPointsParserErrorMessage,
-                             calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+                                                                       norm,
+                                                                       calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             return output;
         }
 
@@ -656,13 +650,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <param name="shouldIllustrationPointsBeCalculated">Indicates whether the illustration points
+        /// should be calculated for the calculation.</param>
         /// <returns>A <see cref="DikeHeightOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private static DikeHeightOutput CreateDikeHeightOutput(IHydraulicLoadsCalculator calculator,
                                                                string calculationName,
                                                                double targetReliability,
-                                                               double targetProbability)
+                                                               double targetProbability,
+                                                               bool shouldIllustrationPointsBeCalculated)
         {
             double dikeHeight = calculator.Value;
             double reliability = calculator.ReliabilityIndex;
@@ -678,9 +675,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                   calculationName));
             }
 
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = shouldIllustrationPointsBeCalculated
+                                                                                  ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
+                                                                                                                    calculator.IllustrationPointsParserErrorMessage)
+                                                                                  : null;
+
             return new DikeHeightOutput(dikeHeight, targetProbability,
                                         targetReliability, probability, reliability,
-                                        converged);
+                                        converged, generalResult);
         }
 
         /// <summary>
@@ -690,13 +692,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculationName">The name of the calculation.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <param name="shouldIllustrationPointsBeCalculated">Indicates whether the illustration points
+        /// should be calculated for the calculation.</param>
         /// <returns>A <see cref="OvertoppingRateOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         private static OvertoppingRateOutput CreateOvertoppingRateOutput(IHydraulicLoadsCalculator calculator,
                                                                          string calculationName,
                                                                          double targetReliability,
-                                                                         double targetProbability)
+                                                                         double targetProbability,
+                                                                         bool shouldIllustrationPointsBeCalculated)
         {
             double overtoppingRate = calculator.Value;
             double reliability = calculator.ReliabilityIndex;
@@ -712,9 +717,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                   calculationName));
             }
 
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = shouldIllustrationPointsBeCalculated
+                                                                                 ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
+                                                                                                                   calculator.IllustrationPointsParserErrorMessage)
+                                                                                 : null;
+
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,
                                              targetReliability, probability, reliability,
-                                             converged);
+                                             converged, generalResult);
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)

@@ -104,8 +104,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                   overtoppingRateTargetReliability,
                                                                   overtoppingRateCalculatedProbability,
                                                                   overtoppingRateCalculatedReliability,
-                                                                  overtoppingRateConvergence);
-            overtoppingRateOutput.SetGeneralResult(generalResult);
+                                                                  overtoppingRateConvergence,
+                                                                  generalResult);
 
             // Call
             var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
@@ -198,8 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var overtoppingRateOutput = new TestOvertoppingRateOutput(10);
-            overtoppingRateOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);

@@ -26,8 +26,10 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -107,18 +109,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      isOvertoppingDominant,
                                                      probabilityAssessmentOutput);
+
             var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
                                                         dikeHeightTargetProbability,
                                                         dikeHeightTargetReliability,
                                                         dikeHeightCalculatedProbability,
                                                         dikeHeightCalculatedReliability,
-                                                        dikeHeightConvergence);
+                                                        dikeHeightConvergence,
+                                                        null);
             var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
                                                                   overtoppingRateTargetProbability,
                                                                   overtoppingRateTargetReliability,
                                                                   overtoppingRateCalculatedProbability,
                                                                   overtoppingRateCalculatedReliability,
-                                                                  overtoppingRateConvergence);
+                                                                  overtoppingRateConvergence,
+                                                                  null);
             var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call

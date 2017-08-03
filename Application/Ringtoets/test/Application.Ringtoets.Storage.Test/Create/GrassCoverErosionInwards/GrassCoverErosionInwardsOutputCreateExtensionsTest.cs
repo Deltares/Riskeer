@@ -51,10 +51,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             var dikeHeightOutput = new DikeHeightOutput(random.NextDouble(), random.NextDouble(),
                                                         random.NextDouble(), random.NextDouble(),
-                                                        random.NextDouble(), dikeHeightConvergence);
+                                                        random.NextDouble(), dikeHeightConvergence, null);
             var overtoppingRateOutput = new OvertoppingRateOutput(random.NextDouble(), random.NextDouble(),
                                                                   random.NextDouble(), random.NextDouble(),
-                                                                  random.NextDouble(), overtoppingRateConvergence);
+                                                                  random.NextDouble(), overtoppingRateConvergence, null);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call

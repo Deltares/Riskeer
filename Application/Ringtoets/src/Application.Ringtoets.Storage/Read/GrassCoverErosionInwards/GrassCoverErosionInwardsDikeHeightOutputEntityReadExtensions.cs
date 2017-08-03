@@ -53,7 +53,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                         entity.TargetReliability.ToNullAsNaN(),
                                         entity.CalculatedProbability.ToNullAsNaN(),
                                         entity.CalculatedReliability.ToNullAsNaN(),
-                                        (CalculationConvergence) entity.CalculationConvergence);
+                                        (CalculationConvergence) entity.CalculationConvergence,
+                                        null);
         }
     }
 }

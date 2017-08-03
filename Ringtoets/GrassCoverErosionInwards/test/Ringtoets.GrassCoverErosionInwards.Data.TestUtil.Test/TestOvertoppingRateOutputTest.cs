@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
@@ -48,6 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -69,6 +71,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
+        public void TestOvertoppingRateOutput_WithGeneralResult_ReturnsExpectedValues()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            var output = new TestOvertoppingRateOutput(generalResult);
+
+            // Assert
+            Assert.IsInstanceOf<OvertoppingRateOutput>(output);
+            Assert.IsNaN(output.OvertoppingRate);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.TargetReliability);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.CalculatedReliability);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
+            Assert.AreSame(generalResult, output.GeneralResult);
         }
     }
 }

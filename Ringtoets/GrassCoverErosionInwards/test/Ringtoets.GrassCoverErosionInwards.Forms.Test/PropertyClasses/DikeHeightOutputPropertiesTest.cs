@@ -102,8 +102,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                         dikeHeightTargetReliability,
                                                         dikeHeightCalculatedProbability,
                                                         dikeHeightCalculatedReliability,
-                                                        dikeHeightConvergence);
-            dikeHeightOutput.SetGeneralResult(generalResult);
+                                                        dikeHeightConvergence, 
+                                                        generalResult);
 
             // Call
             var properties = new DikeHeightOutputProperties(dikeHeightOutput);
@@ -196,8 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues()
         {
             // Setup
-            var dikeHeightOutput = new TestDikeHeightOutput(10);
-            dikeHeightOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+            var dikeHeightOutput = new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             var properties = new DikeHeightOutputProperties(dikeHeightOutput);

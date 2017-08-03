@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -39,12 +40,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability index.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
+        /// <param name="generalResult">The general result with the illustration points for this output.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
         public DikeHeightOutput(double dikeHeight, double targetProbability, double targetReliability,
-                                double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
+                                double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence,
+                                GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
             : base(targetProbability, targetReliability, calculatedProbability,
-                   calculatedReliability, calculationConvergence)
+                   calculatedReliability, calculationConvergence, generalResult)
         {
             DikeHeight = new RoundedDouble(2, dikeHeight);
         }
