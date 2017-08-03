@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRealizationRoundedDoubleElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
         public SubMechanismIllustrationPointStochast[] SubMechanismStochasts
         {
             get

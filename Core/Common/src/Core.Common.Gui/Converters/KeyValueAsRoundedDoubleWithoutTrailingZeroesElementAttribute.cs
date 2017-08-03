@@ -27,19 +27,19 @@ using Core.Common.Base.Data;
 namespace Core.Common.Gui.Converters
 {
     /// <summary>
-    /// Attribute when using the <see cref="KeyValueAsRealizationRoundedDoubleElementAttribute"/> to define what is
+    /// Attribute when using the <see cref="KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute"/> to define what is
     /// shown as name and value for each element.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class KeyValueAsRealizationRoundedDoubleElementAttribute : KeyValueElementAttribute
+    public class KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute : KeyValueElementAttribute
     {
         /// <summary>
-        /// Creates a new instance of <see cref="KeyValueAsRealizationRoundedDoubleElementAttribute"/>.
+        /// Creates a new instance of <see cref="KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute"/>.
         /// </summary>
         /// <param name="namePropertyName">The name of the property to show as name.</param>
         /// <param name="valuePropertyName">The name of the property to show as value.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public KeyValueAsRealizationRoundedDoubleElementAttribute(string namePropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName) {}
+        public KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute(string namePropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName) {}
 
         /// <summary>
         /// Gets the property value from the <paramref name="source"/> that is used
@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Converters
             }
 
             var doubleValue = (RoundedDouble) valueProperty;
-            return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
+            return doubleValue.ToString("0.#####", CultureInfo.GetCultureInfo("nl-NL"));
         }
     }
 }
