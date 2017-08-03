@@ -19,20 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.Common.Plugin;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -41,60 +35,86 @@ namespace Ringtoets.Common.Service.Test
     {
         protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
         {
-            using (var plugin = new RingtoetsPlugin())
-            {
-                return plugin.GetViewInfos()
-                             .First(tni => tni.ViewType == typeof(GeneralResultFaultTreeIllustrationPointView))
-                             .CloseForData(view, o);
-            }
+            return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
         protected override IView GetView()
         {
-            return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+            return new TestView();
         }
 
         protected override ICalculation GetCalculation()
         {
-            return new StructuresCalculation<HeightStructuresInput>();
+            return new TestCalculation("Calculation");
         }
 
         protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
-            return new HeightStructuresCalculationContext(
-                new StructuresCalculation<HeightStructuresInput>(),
-                new HeightStructuresFailureMechanism(),
-                new AssessmentSection(AssessmentSectionComposition.Dike));
+            return new TestCalculationContext();
         }
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
-            return new HeightStructuresCalculationGroupContext(
-                new CalculationGroup
-                {
-                    Children =
-                    {
-                        new StructuresCalculation<HeightStructuresInput>()
-                    }
-                },
-                new HeightStructuresFailureMechanism(),
-                new AssessmentSection(AssessmentSectionComposition.Dike));
+            return new TestCalculationGroupContext();
         }
 
         protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
-            return new HeightStructuresFailureMechanismContext(
-                new HeightStructuresFailureMechanism
+            return new TestFailureMechanismContext();
+        }
+
+        private class TestView : IView
+        {
+            public object Data { get; set; }
+
+            public string Text { get; set; }
+
+            public void Dispose() {}
+        }
+
+        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, TestFailureMechanism>
+        {
+            public TestCalculationContext()
+            {
+                WrappedData = new TestCalculation("Calculation");
+                FailureMechanism = new TestFailureMechanism();
+            }
+
+            public TestCalculation WrappedData { get; }
+
+            public TestFailureMechanism FailureMechanism { get; }
+        }
+
+        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, TestFailureMechanism>
+        {
+            public TestCalculationGroupContext()
+            {
+                WrappedData = new CalculationGroup
                 {
-                    CalculationsGroup =
+                    Children =
                     {
-                        Children =
-                        {
-                            new StructuresCalculation<HeightStructuresInput>()
-                        }
+                        new TestCalculation("Calculation")
                     }
-                },
-                new AssessmentSection(AssessmentSectionComposition.Dike));
+                };
+                FailureMechanism = new TestFailureMechanism();
+            }
+
+            public CalculationGroup WrappedData { get; }
+
+            public TestFailureMechanism FailureMechanism { get; }
+        }
+
+        private class TestFailureMechanismContext : Observable, IFailureMechanismContext<TestFailureMechanism>
+        {
+            public TestFailureMechanismContext()
+            {
+                WrappedData = new TestFailureMechanism(new[]
+                {
+                    new TestCalculation("Calculation")
+                });
+            }
+
+            public TestFailureMechanism WrappedData { get; }
         }
     }
 }
