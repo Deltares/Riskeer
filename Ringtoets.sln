@@ -1667,6 +1667,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Plugin", "
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Plugin.Test", "Ringtoets\Common\test\Ringtoets.Common.Plugin.Test\Ringtoets.Common.Plugin.Test.csproj", "{17312C88-D2FC-4354-8A70-8CDEA6EC906A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -4195,6 +4200,14 @@ Global
 		{8513B8D6-79C8-4173-B663-59C91AC65E5F}.Release|x86.Build.0 = Release|x86
 		{8513B8D6-79C8-4173-B663-59C91AC65E5F}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{8513B8D6-79C8-4173-B663-59C91AC65E5F}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.Debug|x86.ActiveCfg = Debug|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.Debug|x86.Build.0 = Debug|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.Release|x86.ActiveCfg = Release|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.Release|x86.Build.0 = Release|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4554,6 +4567,7 @@ Global
 		{72109E33-6518-4632-ACCF-6CBF2A312711} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
 		{9B0B8825-A623-4DC8-8FB3-A7CBF0693774} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{8513B8D6-79C8-4173-B663-59C91AC65E5F} = {0590D3BB-EB3E-4B53-BD64-1725E1CBB1F4}
+		{17312C88-D2FC-4354-8A70-8CDEA6EC906A} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
