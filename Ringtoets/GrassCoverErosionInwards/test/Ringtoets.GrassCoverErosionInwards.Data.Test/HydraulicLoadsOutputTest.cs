@@ -100,7 +100,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetGeneralResult_ValidInputAndGeneralResultNull_ReturnsExpectedProperties(double targetProbability, double calculatedProbability)
         {
             // Setup
-            // Setup
             var random = new Random(32);
             double targetReliability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
@@ -129,7 +128,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [TestCase(0.654, double.NaN)]
         public void SetGeneralResult_ValidInputAndGeneralResult_ReturnsExpectedProperties(double targetProbability, double calculatedProbability)
         {
-            // Setup
             // Setup
             var random = new Random(32);
             double targetReliability = random.NextDouble();
