@@ -19,13 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin;
 
 namespace Ringtoets.Common.Service.Test
@@ -43,26 +38,6 @@ namespace Ringtoets.Common.Service.Test
             return new TestView();
         }
 
-        protected override ICalculation GetCalculation()
-        {
-            return new TestCalculation("Calculation");
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new TestCalculationContext();
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new TestCalculationGroupContext();
-        }
-
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new TestFailureMechanismContext();
-        }
-
         private class TestView : IView
         {
             public object Data { get; set; }
@@ -70,51 +45,6 @@ namespace Ringtoets.Common.Service.Test
             public string Text { get; set; }
 
             public void Dispose() {}
-        }
-
-        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, TestFailureMechanism>
-        {
-            public TestCalculationContext()
-            {
-                WrappedData = new TestCalculation("Calculation");
-                FailureMechanism = new TestFailureMechanism();
-            }
-
-            public TestCalculation WrappedData { get; }
-
-            public TestFailureMechanism FailureMechanism { get; }
-        }
-
-        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, TestFailureMechanism>
-        {
-            public TestCalculationGroupContext()
-            {
-                WrappedData = new CalculationGroup
-                {
-                    Children =
-                    {
-                        new TestCalculation("Calculation")
-                    }
-                };
-                FailureMechanism = new TestFailureMechanism();
-            }
-
-            public CalculationGroup WrappedData { get; }
-
-            public TestFailureMechanism FailureMechanism { get; }
-        }
-
-        private class TestFailureMechanismContext : Observable, IFailureMechanismContext<TestFailureMechanism>
-        {
-            public TestFailureMechanismContext()
-            {
-                WrappedData = new TestFailureMechanism(new[]
-                {
-                    new TestCalculation("Calculation")
-                });
-            }
-
-            public TestFailureMechanism WrappedData { get; }
         }
     }
 }
