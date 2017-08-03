@@ -105,8 +105,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           isOvertoppingDominant,
-                                                          probabilityAssessmentOutput);
-            overtoppingOutput.SetGeneralResult(generalResult);
+                                                          probabilityAssessmentOutput,
+                                                          generalResult);
 
             // Call
             var properties = new OvertoppingOutputProperties(overtoppingOutput);
@@ -220,8 +220,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
-                                                          probabilityAssessmentOutput);
-            overtoppingOutput.SetGeneralResult(new TestGeneralResultFaultTreeIllustrationPoint());
+                                                          probabilityAssessmentOutput,
+                                                          new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             var properties = new OvertoppingOutputProperties(overtoppingOutput);

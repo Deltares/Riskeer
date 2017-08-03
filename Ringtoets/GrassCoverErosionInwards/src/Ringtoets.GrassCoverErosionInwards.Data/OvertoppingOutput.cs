@@ -38,6 +38,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
         public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput)
+            : this(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="OvertoppingOutput"/>.
+        /// </summary>
+        /// <param name="waveHeight">The calculated wave height.</param>
+        /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
+        /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
+        /// <param name="generalResult">The general result of this output with the fault tree 
+        /// illustration points. </param>
+        public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput,
+                                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             if (probabilityAssessmentOutput == null)
             {
@@ -46,6 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             IsOvertoppingDominant = isOvertoppingDominant;
             WaveHeight = new RoundedDouble(2, waveHeight);
             ProbabilityAssessmentOutput = probabilityAssessmentOutput;
+            GeneralResult = generalResult;
         }
 
         /// <summary>
@@ -86,23 +99,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
-
-        /// <summary>
-        /// Sets the general result of this output with the fault tree illustration points.
-        /// </summary>
-        /// <param name="generalResult">The general result which belongs
-        /// to this output.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalResult"/>
-        /// is <c>null</c>.</exception>
-        public void SetGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            if (generalResult == null)
-            {
-                throw new ArgumentNullException(nameof(generalResult));
-            }
-
-            GeneralResult = generalResult;
-        }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
     }
 }

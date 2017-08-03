@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -30,6 +31,74 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class OvertoppingOutputTest
     {
+        [Test]
+        public void Constructor_ValidInputWithGeneralResultNull_ReturnsExpectedProperties()
+        {
+            // Setup
+            const double waveHeight = 3.2934;
+            const double requiredProbability = 0.2;
+            const double requiredReliability = 0.3;
+            const double probability = 0.4;
+            const double reliability = 0.1;
+            const double factorOfSafety = 0.7;
+
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
+                                                                              requiredReliability,
+                                                                              probability,
+                                                                              reliability,
+                                                                              factorOfSafety);
+
+            // Call
+            var output = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, null);
+
+            // Assert
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.IsTrue(output.IsOvertoppingDominant);
+
+            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
+            Assert.IsTrue(output.HasWaveHeight);
+
+            Assert.IsFalse(output.HasGeneralResult);
+            Assert.IsNull(output.GeneralResult);
+
+        }
+
+        [Test]
+        public void Constructor_ValidInputWithGeneralResult_ReturnsExpectedProperties()
+        {
+            // Setup
+            const double waveHeight = 3.2934;
+            const double requiredProbability = 0.2;
+            const double requiredReliability = 0.3;
+            const double probability = 0.4;
+            const double reliability = 0.1;
+            const double factorOfSafety = 0.7;
+
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
+                                                                              requiredReliability,
+                                                                              probability,
+                                                                              reliability,
+                                                                              factorOfSafety);
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            var output = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, generalResult);
+
+            // Assert
+            Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.IsTrue(output.IsOvertoppingDominant);
+
+            Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
+            Assert.IsTrue(output.HasWaveHeight);
+
+            Assert.IsTrue(output.HasGeneralResult);
+            Assert.AreSame(generalResult, output.GeneralResult);
+
+        }
+
         [Test]
         public void ParameteredConstructor_DefaultValues()
         {
@@ -87,36 +156,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsFalse(hasWaveHeight);
-        }
-
-        [Test]
-        public void SetGeneralResult_GeneralResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
-
-            // Call
-            TestDelegate call = () => output.SetGeneralResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("generalResult", exception.ParamName);
-        }
-
-        [Test]
-        public void SetGeneralResult_ValidGeneralResult_SetExpectedProperties()
-        {
-            // Setup
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-
-            var output = new OvertoppingOutput(double.NaN, false, new TestProbabilityAssessmentOutput());
-
-            // Call
-            output.SetGeneralResult(generalResult);
-
-            // Assert
-            Assert.IsNotNull(output.GeneralResult);
-            Assert.AreSame(generalResult, output.GeneralResult);
         }
     }
 }

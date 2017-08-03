@@ -39,7 +39,7 @@ using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Calculator; 
+using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -216,23 +216,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static void SetGeneralResult(Action<GeneralResult<TopLevelFaultTreeIllustrationPoint>> setGeneralResultAction,
-                                             HydraRingGeneralResult generalResult,
-                                             string parserError,
-                                             bool shouldCalculate)
-        {
-            if (!shouldCalculate)
-            {
-                return;
-            }
-
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> converted = ConvertIllustrationPointsResult(generalResult, parserError);
-            if (converted != null)
-            {
-                setGeneralResultAction(converted);
-            }
-        }
-
         private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory)
         {
             var numberOfCalculators = 1;
@@ -284,19 +267,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                calculation.Name,
                                Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
 
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated
+                                                                                  ? ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult,
+                                                                                                                    overtoppingCalculator.IllustrationPointsParserErrorMessage)
+                                                                                  : null;
+
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
                                                           overtoppingCalculator.IsOvertoppingDominant,
                                                           ProbabilityAssessmentService.Calculate(
                                                               norm,
                                                               failureMechanismContribution,
                                                               generalInput.N,
-                                                              overtoppingCalculator.ExceedanceProbabilityBeta));
-
-            SetGeneralResult(overtoppingOutput.SetGeneralResult,
-                             overtoppingCalculator.IllustrationPointsResult,
-                             overtoppingCalculator.IllustrationPointsParserErrorMessage,
-                             calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-
+                                                              overtoppingCalculator.ExceedanceProbabilityBeta),
+                                                          generalResult);
             return overtoppingOutput;
         }
 
@@ -718,9 +701,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = shouldIllustrationPointsBeCalculated
-                                                                                 ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
-                                                                                                                   calculator.IllustrationPointsParserErrorMessage)
-                                                                                 : null;
+                                                                                  ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
+                                                                                                                    calculator.IllustrationPointsParserErrorMessage)
+                                                                                  : null;
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,
                                              targetReliability, probability, reliability,
