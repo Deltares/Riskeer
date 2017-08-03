@@ -254,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ShouldDikeHeightIllustrationPointsBeCalculated_DikeHeightNotCalculated_ReturnsFalse()
+        public void ShouldDikeHeightIllustrationPointsBeCalculated_DikeHeightNotCalculated_PropertyReturnsFalse()
         {
             // Setup
             mockRepository.ReplayAll();
@@ -276,10 +276,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsTrue(inputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
         }
 
         [Test]
-        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_OvertoppingRateNotCalculated_ReturnsFalse()
+        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_OvertoppingRateNotCalculated_PropertyReturnsFalse()
         {
             // Setup
             mockRepository.ReplayAll();
@@ -301,6 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            Assert.IsTrue(inputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -691,7 +693,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             if (calculationsEnabled)
             {
                 input.DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm;
-                ;
                 input.OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm;
             }
 

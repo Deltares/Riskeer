@@ -251,12 +251,14 @@
   </data>
   <data name="ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen </value>
-    <comment>Spaces are added after these values to make them unique</comment>
+    <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
   <data name="ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen  </value>
+    <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
   <data name="ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName" xml:space="preserve">
     <value>Illustratiepunten inlezen   </value>
+    <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
 </root>
