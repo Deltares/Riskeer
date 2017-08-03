@@ -259,6 +259,7 @@ namespace Ringtoets.Common.Service.Test
         /// Gets a calculation for testing purposes.
         /// </summary>
         /// <returns>A calculation object.</returns>
+        /// <remarks>A default implementation is added for creating a <see cref="TestCalculation"/>.</remarks>
         protected virtual ICalculation GetCalculation()
         {
             return new TestCalculation("Calculation");
@@ -268,6 +269,7 @@ namespace Ringtoets.Common.Service.Test
         /// Gets a calculation context for testing purposes.
         /// </summary>
         /// <returns>A calculation context object.</returns>
+        /// <remarks>A default implementation is added for creating a <see cref="TestCalculationContext"/>.</remarks>
         protected virtual ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new TestCalculationContext();
@@ -277,6 +279,7 @@ namespace Ringtoets.Common.Service.Test
         /// Gets a calculation group context for testing purposes.
         /// </summary>
         /// <returns>A calculation group context object.</returns>
+        /// <remarks>A default implementation is added for creating a <see cref="TestCalculationGroupContext"/>.</remarks>
         protected virtual ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new TestCalculationGroupContext();
@@ -286,6 +289,7 @@ namespace Ringtoets.Common.Service.Test
         /// Gets a failure mechanism context for testing purposes.
         /// </summary>
         /// <returns>A failure mechanism context object.</returns>
+        /// <remarks>A default implementation is added for creating a <see cref="TestFailureMechanismContext"/>.</remarks>
         protected virtual IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
             return new TestFailureMechanismContext();
