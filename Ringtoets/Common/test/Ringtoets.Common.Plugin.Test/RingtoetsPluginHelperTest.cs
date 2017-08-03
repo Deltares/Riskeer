@@ -22,7 +22,6 @@
 using System.Linq;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -38,213 +37,9 @@ using Ringtoets.Integration.Plugin;
 namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
-    public class RingtoetsPluginHelperTest
+    public class RingtoetsPluginHelperTest : ShouldCloseViewWithCalculationDataTester
     {
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
-        {
-            // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = calculationContext.WrappedData;
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, calculationContext);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
-        {
-            // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = GetCalculation();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, calculationContext);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
-        {
-            // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = calculationGroupContext.WrappedData.GetCalculations().First();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, calculationGroupContext);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
-        {
-            // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = GetCalculation();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, calculationGroupContext);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = failureMechanismContext.WrappedData.Calculations.First();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, failureMechanismContext.WrappedData);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = GetCalculation();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, failureMechanismContext.WrappedData);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue()
-        {
-            // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = failureMechanismContext.WrappedData.Calculations.First();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, failureMechanismContext);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse()
-        {
-            // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
-
-            using (IView view = GetView())
-            {
-                view.Data = GetCalculation();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, failureMechanismContext);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-
-            IFailureMechanism failureMechanism = GetFailureMechanismContextWithCalculation().WrappedData;
-
-            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            using (IView view = GetView())
-            {
-                view.Data = failureMechanism.Calculations.First();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, assessmentSectionStub);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-
-            IFailureMechanism failureMechanism = GetFailureMechanismContextWithCalculation().WrappedData;
-
-            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            using (IView view = GetView())
-            {
-                view.Data = GetCalculation();
-
-                // Call
-                bool closeForData = PerformCloseMethod(view, assessmentSectionStub);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        protected static bool PerformCloseMethod(IView view, object o)
+        protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
         {
             using (var plugin = new RingtoetsPlugin())
             {
@@ -254,17 +49,17 @@ namespace Ringtoets.Common.Service.Test
             }
         }
 
-        protected static IView GetView()
+        protected override IView GetView()
         {
             return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
-        protected static ICalculation GetCalculation()
+        protected override ICalculation GetCalculation()
         {
             return new StructuresCalculation<HeightStructuresInput>();
         }
 
-        protected static ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new HeightStructuresCalculationContext(
                 new StructuresCalculation<HeightStructuresInput>(),
@@ -272,7 +67,7 @@ namespace Ringtoets.Common.Service.Test
                 new AssessmentSection(AssessmentSectionComposition.Dike));
         }
 
-        protected static ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new HeightStructuresCalculationGroupContext(
                 new CalculationGroup
@@ -286,7 +81,7 @@ namespace Ringtoets.Common.Service.Test
                 new AssessmentSection(AssessmentSectionComposition.Dike));
         }
 
-        protected static IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
             return new HeightStructuresFailureMechanismContext(
                 new HeightStructuresFailureMechanism
