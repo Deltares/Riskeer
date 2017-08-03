@@ -34,9 +34,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     {
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-0.01)]
-        [TestCase(1.01)]
-        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double targetProbability)
+        [Combinatorial]
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(
+            [Values(-0.01, 1.01)] double targetProbability,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(32);
@@ -44,13 +45,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
 
             // Call
             TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,
-                                                                   convergence);
+                                                                   convergence,
+                                                                   generalResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -60,9 +65,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(-0.01)]
-        [TestCase(1.01)]
-        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(double calculatedProbability)
+        public void Constructor_InvalidCalculatedProbability_ThrowsArgumentOutOfRangeException(
+            [Values(-0.01, 1.01)] double calculatedProbability,
+            [Values(true, false)] bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(32);
@@ -71,45 +76,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
+
             // Call
             TestDelegate call = () => new TestHydraulicLoadsOutput(targetProbability,
                                                                    targetReliability,
                                                                    calculatedProbability,
                                                                    calculatedReliability,
-                                                                   convergence);
+                                                                   convergence,
+                                                                   generalResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             Assert.AreEqual("calculatedProbability", exception.ParamName);
             StringAssert.Contains("Kans moet in het bereik [0,0, 1,0] liggen.", exception.Message);
-        }
-
-        [Test]
-        [TestCase(double.NaN, 0.8457)]
-        [TestCase(0.654, double.NaN)]
-        public void Constructor_ValidInput_ExpectedProperties(double targetProbability, double calculatedProbability)
-        {
-            // Setup
-            var random = new Random(32);
-            double targetReliability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-
-            // Call
-            var output = new TestHydraulicLoadsOutput(targetProbability,
-                                                      targetReliability,
-                                                      calculatedProbability,
-                                                      calculatedReliability,
-                                                      convergence);
-
-            // Assert
-            Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsFalse(output.HasGeneralResult);
-            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -175,11 +157,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
         {
-            public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,
-                                            double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence)
-                : base(targetProbability, targetReliability, calculatedProbability,
-                       calculatedReliability, calculationConvergence) {}
-
             public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,
                                             double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence,
                                             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)

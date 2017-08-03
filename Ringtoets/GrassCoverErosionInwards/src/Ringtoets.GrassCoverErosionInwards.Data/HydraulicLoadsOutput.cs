@@ -40,20 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability index.</param>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
-        /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        protected HydraulicLoadsOutput(double targetProbability, double targetReliability,
-                                       double calculatedProbability, double calculatedReliability,
-                                       CalculationConvergence calculationConvergence) : this(targetProbability, targetReliability, calculatedProbability, calculatedReliability, calculationConvergence, null) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
-        /// </summary>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
-        /// <param name="targetReliability">The reliability index used during the calculation.</param>
-        /// <param name="calculatedProbability">The calculated probability.</param>
-        /// <param name="calculatedReliability">The calculated reliability index.</param>
-        /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <param name="generalResult">The general result with the fault tree illustration points.</param> 
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or <paramref name="calculatedProbability"/> falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
