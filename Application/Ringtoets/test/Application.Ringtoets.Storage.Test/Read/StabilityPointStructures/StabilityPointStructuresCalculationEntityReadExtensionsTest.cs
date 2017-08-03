@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -403,17 +404,18 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         {
             // Setup
             var random = new Random(678);
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "name",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
             var entity = new StabilityPointStructuresCalculationEntity
             {
                 StabilityPointStructuresOutputEntities =
                 {
                     new StabilityPointStructuresOutputEntity
                     {
-                        GeneralResultFaultTreeIllustrationPointEntity = new GeneralResultFaultTreeIllustrationPointEntity
-                        {
-                            GoverningWindDirectionName = "name",
-                            GoverningWindDirectionAngle = random.NextDouble()
-                        }
+                        GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
                     }
                 }
             };
@@ -426,6 +428,11 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             // Assert
             Assert.IsTrue(calculation.HasOutput);
             Assert.IsTrue(calculation.Output.HasGeneralResult);
+
+            WindDirection windDirection = calculation.Output.GeneralResult.GoverningWindDirection;
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionName, windDirection.Name);
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionAngle, windDirection.Angle,
+                            windDirection.Angle.GetAccuracy());
         }
 
         [Test]

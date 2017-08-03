@@ -434,31 +434,25 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetConfiguredGeneralResultFaultTreeIllustrationPoint()
         {
-            var random = new Random(57);
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
-                new WindDirection("GoverningWindDirection",
-                                  random.NextDouble()),
+                new WindDirection("GoverningWindDirection", 180),
                 new[]
                 {
-                    new Stochast("Stochast",
-                                 random.NextDouble(),
-                                 random.NextDouble())
+                    new Stochast("Stochast", 0.1, 0.9)
                 },
                 new[]
                 {
                     new TopLevelFaultTreeIllustrationPoint(
-                        new WindDirection("WindDirection",
-                                          random.NextDouble()),
+                        new WindDirection("WindDirection", 120),
                         "ClosingSituation",
                         new IllustrationPointNode(
-                            new FaultTreeIllustrationPoint("FaultTreeIllustrationPoint",
-                                                           random.NextDouble(),
-                                                           new[]
-                                                           {
-                                                               new Stochast("Stochast",
-                                                                            random.NextDouble(),
-                                                                            random.NextDouble())
-                                                           }, random.NextEnumValue<CombinationType>()
+                            new FaultTreeIllustrationPoint(
+                                "FaultTreeIllustrationPoint",
+                                0.5,
+                                new[]
+                                {
+                                    new Stochast("FaultTreeIllustrationPoint stochast", 1, 2.58)
+                                }, CombinationType.And
                             ))
                     )
                 }
@@ -494,6 +488,45 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Comments =
                         {
                             Body = "Fully configured for greatness!"
+                        },
+                        InputParameters =
+                        {
+                            BreakWater =
+                            {
+                                Type = BreakWaterType.Dam,
+                                Height = (RoundedDouble) random.NextDouble()
+                            },
+                            DrainCoefficient =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble()
+                            },
+                            FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                            FailureProbabilityStructureWithErosion = random.NextDouble(),
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydroLocation,
+                            LoadSchematizationType = LoadSchematizationType.Quadratic,
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble()
+                            },
+                            VolumicWeightWater = (RoundedDouble) random.NextDouble(),
+                            UseForeshore = random.NextBoolean(),
+                            UseBreakWater = random.NextBoolean(),
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble()
+                            },
+                            Structure = stabilityPointStructure,
+                            ShouldIllustrationPointsBeCalculated = false
+                        },
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                    },
+                    new StructuresCalculation<StabilityPointStructuresInput>
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Fully configured for with general result"
                         },
                         InputParameters =
                         {
@@ -576,6 +609,40 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Name = "Closing structures A",
                 Children =
                 {
+                    new StructuresCalculation<ClosingStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            BreakWater =
+                            {
+                                Type = BreakWaterType.Dam,
+                                Height = (RoundedDouble) 4.4
+                            },
+                            FactorStormDurationOpenStructure = (RoundedDouble) 0.56,
+                            FailureProbabilityStructureWithErosion = (RoundedDouble) 0.34,
+                            ForeshoreProfile = foreshoreProfile,
+                            DeviationWaveDirection = (RoundedDouble) 18.18,
+                            DrainCoefficient =
+                            {
+                                Mean = (RoundedDouble) 19.19
+                            },
+                            HydraulicBoundaryLocation = hydroLocation,
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 13.13
+                            },
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            Structure = closingStructure,
+                            UseBreakWater = true,
+                            UseForeshore = true,
+                            ShouldIllustrationPointsBeCalculated = false
+                        },
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                    },
+
                     new StructuresCalculation<ClosingStructuresInput>
                     {
                         InputParameters =
@@ -719,6 +786,25 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Name = "Height structures A",
                 Children =
                 {
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.7
+                            },
+                            Structure = heightStructure,
+                            ShouldIllustrationPointsBeCalculated = false
+                        },
+                        Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                    },
                     new StructuresCalculation<HeightStructuresInput>
                     {
                         InputParameters =

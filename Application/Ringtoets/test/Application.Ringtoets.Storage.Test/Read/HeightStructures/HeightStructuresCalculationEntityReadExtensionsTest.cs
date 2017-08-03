@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
@@ -210,17 +211,18 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         {
             // Setup
             var random = new Random(678);
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "name",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
             var entity = new HeightStructuresCalculationEntity
             {
                 HeightStructuresOutputEntities =
                 {
                     new HeightStructuresOutputEntity
                     {
-                        GeneralResultFaultTreeIllustrationPointEntity = new GeneralResultFaultTreeIllustrationPointEntity
-                        {
-                            GoverningWindDirectionName = "name",
-                            GoverningWindDirectionAngle = random.NextDouble()
-                        }
+                        GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
                     }
                 }
             };
@@ -233,6 +235,11 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             // Assert
             Assert.IsTrue(calculation.HasOutput);
             Assert.IsTrue(calculation.Output.HasGeneralResult);
+
+            WindDirection windDirection = calculation.Output.GeneralResult.GoverningWindDirection;
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionName, windDirection.Name);
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionAngle, windDirection.Angle,
+                            windDirection.Angle.GetAccuracy());
         }
 
         [Test]

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
@@ -160,10 +159,10 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
                             windDirection.Angle.GetAccuracy());
         }
 
-        private static void AssertStochasts(IList<StochastEntity> entities, IList<Stochast> stochasts)
+        private static void AssertStochasts(StochastEntity[] entities, Stochast[] stochasts)
         {
-            Assert.AreEqual(entities.Count, stochasts.Count);
-            for (var i = 0; i < entities.Count; i++)
+            Assert.AreEqual(entities.Length, stochasts.Length);
+            for (var i = 0; i < entities.Length; i++)
             {
                 AssertStochast(entities[i], stochasts[i]);
             }
@@ -178,17 +177,17 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         }
 
         private static void AssertIllustrationPoints(
-            IList<TopLevelFaultTreeIllustrationPointEntity> entities,
-            IList<TopLevelFaultTreeIllustrationPoint> illustrationPoints)
+            TopLevelFaultTreeIllustrationPointEntity[] entities,
+            TopLevelFaultTreeIllustrationPoint[] illustrationPoints)
         {
-            Assert.AreEqual(entities.Count, illustrationPoints.Count);
-            for (var i = 0; i < entities.Count; i++)
+            Assert.AreEqual(entities.Length, illustrationPoints.Length);
+            for (var i = 0; i < entities.Length; i++)
             {
-                TopLevelFaultTreeIllustrationPoint(entities[i], illustrationPoints[i]);
+                AssertTopLevelFaultTreeIllustrationPoint(entities[i], illustrationPoints[i]);
             }
         }
 
-        private static void TopLevelFaultTreeIllustrationPoint(
+        private static void AssertTopLevelFaultTreeIllustrationPoint(
             TopLevelFaultTreeIllustrationPointEntity illustrationPointEntity,
             TopLevelFaultTreeIllustrationPoint illustrationPoint)
         {

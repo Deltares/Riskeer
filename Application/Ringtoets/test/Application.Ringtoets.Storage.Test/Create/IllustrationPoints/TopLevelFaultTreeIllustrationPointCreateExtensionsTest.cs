@@ -76,28 +76,41 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             var random = new Random(21);
 
             var windDirection = new WindDirection("WindDirection Name", random.NextDouble());
-            var topLevelIllustrationPoint = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
-            topLevelIllustrationPoint.SetChildren(new[]
+            var illustrationPointNode = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
+            illustrationPointNode.SetChildren(new[]
             {
                 new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
                 new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
             });
 
-            var illustrationPoint = new TopLevelFaultTreeIllustrationPoint(
+            var topLevelIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(
                 windDirection,
                 "Just a situation",
-                topLevelIllustrationPoint);
+                illustrationPointNode);
             int order = random.Next();
 
             // Call
-            TopLevelFaultTreeIllustrationPointEntity entity = illustrationPoint.Create(order);
+            TopLevelFaultTreeIllustrationPointEntity entity = topLevelIllustrationPoint.Create(order);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, entity.ClosingSituation);
+            TestHelper.AssertAreEqualButNotSame(topLevelIllustrationPoint.ClosingSituation, entity.ClosingSituation);
             TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
             Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
-            Assert.AreEqual(2, entity.FaultTreeIllustrationPointEntity.SubMechanismIllustrationPointEntities.Count);
             Assert.AreEqual(order, entity.Order);
+
+            SubMechanismIllustrationPointEntity[] subMechanismIllustrationPointEntities =
+                entity.FaultTreeIllustrationPointEntity.SubMechanismIllustrationPointEntities.ToArray();
+            Assert.AreEqual(2, subMechanismIllustrationPointEntities.Length);
+
+            var expectedIllustrationPoint = new TestSubMechanismIllustrationPoint();
+            for (var i = 0; i < 2; i++)
+            {
+                SubMechanismIllustrationPointEntity firstIllustrationPointEntity = subMechanismIllustrationPointEntities[i];
+                Assert.AreEqual(expectedIllustrationPoint.Name, firstIllustrationPointEntity.Name);
+                Assert.AreEqual(expectedIllustrationPoint.Beta, firstIllustrationPointEntity.Beta, expectedIllustrationPoint.Beta.GetAccuracy());
+                Assert.AreEqual(expectedIllustrationPoint.IllustrationPointResults.Count(), firstIllustrationPointEntity.IllustrationPointResultEntities.Count);
+                Assert.AreEqual(i, firstIllustrationPointEntity.Order);
+            }
         }
     }
 }

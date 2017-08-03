@@ -28,6 +28,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -319,17 +320,18 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         {
             // Setup
             var random = new Random(678);
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "name",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
             var entity = new ClosingStructuresCalculationEntity
             {
                 ClosingStructuresOutputEntities =
                 {
                     new ClosingStructuresOutputEntity
                     {
-                        GeneralResultFaultTreeIllustrationPointEntity = new GeneralResultFaultTreeIllustrationPointEntity
-                        {
-                            GoverningWindDirectionName = "name",
-                            GoverningWindDirectionAngle = random.NextDouble()
-                        }
+                        GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
                     }
                 }
             };
@@ -342,6 +344,11 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             // Assert
             Assert.IsTrue(calculation.HasOutput);
             Assert.IsTrue(calculation.Output.HasGeneralResult);
+
+            WindDirection windDirection = calculation.Output.GeneralResult.GoverningWindDirection;
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionName, windDirection.Name);
+            Assert.AreEqual(generalResultEntity.GoverningWindDirectionAngle, windDirection.Angle,
+                            windDirection.Angle.GetAccuracy());
         }
 
         [Test]

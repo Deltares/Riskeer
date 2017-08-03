@@ -127,8 +127,8 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             IllustrationPointNode[] children = node.Children.ToArray();
             Assert.AreEqual(2, children.Length);
 
-            AssertFaultTreeIllustrationPoint(entity.FaultTreeIllustrationPointEntity1.First(), children[0]);
-            AssertSubMechanismIllustrationPoint(entity.SubMechanismIllustrationPointEntities.First(), children[1]);
+            AssertFaultTreeIllustrationPointNode(entity.FaultTreeIllustrationPointEntity1.First(), children[0]);
+            AssertSubMechanismIllustrationPointNode(entity.SubMechanismIllustrationPointEntities.First(), children[1]);
         }
 
         [Test]
@@ -204,12 +204,12 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             Assert.AreEqual(entitiesArray.Length, faultTreeNodes.Length);
 
-            for (var i = 0; i < faultTreeNodes.Length; i++)
+            for (var i = 0; i < entitiesArray.Length; i++)
             {
                 FaultTreeIllustrationPointEntity entity = entitiesArray[i];
                 IllustrationPointNode node = faultTreeNodes[i];
 
-                AssertFaultTreeIllustrationPoint(entity, node);
+                AssertFaultTreeIllustrationPointNode(entity, node);
             }
         }
 
@@ -221,17 +221,17 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             Assert.AreEqual(entitiesArray.Length, subMechanismNodes.Length);
 
-            for (var i = 0; i < subMechanismNodes.Length; i++)
+            for (var i = 0; i < entitiesArray.Length; i++)
             {
                 SubMechanismIllustrationPointEntity entity = entitiesArray[i];
                 IllustrationPointNode node = subMechanismNodes[i];
 
-                AssertSubMechanismIllustrationPoint(entity, node);
+                AssertSubMechanismIllustrationPointNode(entity, node);
             }
         }
 
-        private static void AssertFaultTreeIllustrationPoint(FaultTreeIllustrationPointEntity entity,
-                                                             IllustrationPointNode node)
+        private static void AssertFaultTreeIllustrationPointNode(FaultTreeIllustrationPointEntity entity,
+                                                                 IllustrationPointNode node)
         {
             var illustrationPoint = node.Data as FaultTreeIllustrationPoint;
             Assert.IsNotNull(illustrationPoint);
@@ -244,8 +244,8 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             AssertIllustrationPointNodes(entity.SubMechanismIllustrationPointEntities, node.Children);
         }
 
-        private static void AssertSubMechanismIllustrationPoint(SubMechanismIllustrationPointEntity entity,
-                                                                IllustrationPointNode node)
+        private static void AssertSubMechanismIllustrationPointNode(SubMechanismIllustrationPointEntity entity,
+                                                                    IllustrationPointNode node)
         {
             var illustrationPoint = node.Data as SubMechanismIllustrationPoint;
             Assert.IsNotNull(illustrationPoint);
@@ -263,7 +263,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         {
             Assert.AreEqual(stochastEntities.Length, stochasts.Length);
 
-            for (var i = 0; i < stochasts.Length; i++)
+            for (var i = 0; i < stochastEntities.Length; i++)
             {
                 SubMechanismIllustrationPointStochastEntity stochastEntity = stochastEntities[i];
                 SubMechanismIllustrationPointStochast stochast = stochasts[i];
@@ -279,7 +279,7 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
         {
             Assert.AreEqual(stochastEntities.Length, stochasts.Length);
 
-            for (var i = 0; i < stochasts.Length; i++)
+            for (var i = 0; i < stochastEntities.Length; i++)
             {
                 StochastEntity stochastEntity = stochastEntities[i];
                 Stochast stochast = stochasts[i];

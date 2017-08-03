@@ -236,11 +236,16 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            Assert.AreEqual(2, firstCalculationGroup.Children.Count);
 
             var calculationWithOutput = (StructuresCalculation<HeightStructuresInput>) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
-            Assert.IsTrue(calculationWithOutput.Output.HasGeneralResult);
+            Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
+
+            var calculationGeneralResult = (StructuresCalculation<HeightStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationGeneralResult.HasOutput);
+            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
@@ -261,19 +266,24 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            Assert.AreEqual(2, firstCalculationGroup.Children.Count);
 
             var calculationWithOutput = (StructuresCalculation<ClosingStructuresInput>) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
-            Assert.IsTrue(calculationWithOutput.Output.HasGeneralResult);
+            Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
+
+            var calculationGeneralResult = (StructuresCalculation<ClosingStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationGeneralResult.HasOutput);
+            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
+
+            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
+            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             var calculationWithoutOutput = (StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
-
-            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
-            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
         private static void AssertDuneErosionFailureMechanism(AssessmentSection assessmentSection)
@@ -305,11 +315,16 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            Assert.AreEqual(2, firstCalculationGroup.Children.Count);
 
             var calculationWithOutput = (StructuresCalculation<StabilityPointStructuresInput>) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
-            Assert.IsTrue(calculationWithOutput.Output.HasGeneralResult);
+            Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
+
+            var calculationGeneralResult = (StructuresCalculation<StabilityPointStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationGeneralResult.HasOutput);
+            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
@@ -318,6 +333,38 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, sectionResult.Calculation);
+        }
+
+        private static void AssertGeneralResultTopLevelFaultTreeIllustrationPoint(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            WindDirection actualGoverningWindDirection = generalResult.GoverningWindDirection;
+            Assert.AreEqual("GoverningWindDirection", actualGoverningWindDirection.Name);
+            Assert.AreEqual(180, actualGoverningWindDirection.Angle, actualGoverningWindDirection.Angle.GetAccuracy());
+
+            Stochast stochast = generalResult.Stochasts.Single();
+            Assert.AreEqual("Stochast", stochast.Name);
+            Assert.AreEqual(0.9, stochast.Alpha, stochast.Alpha.GetAccuracy());
+            Assert.AreEqual(0.1, stochast.Duration, stochast.Duration.GetAccuracy());
+
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint =
+                generalResult.TopLevelIllustrationPoints.Single();
+            Assert.AreEqual("ClosingSituation", topLevelFaultTreeIllustrationPoint.ClosingSituation);
+            Assert.AreEqual("WindDirection", topLevelFaultTreeIllustrationPoint.WindDirection.Name);
+            Assert.AreEqual(120, topLevelFaultTreeIllustrationPoint.WindDirection.Angle,
+                            topLevelFaultTreeIllustrationPoint.WindDirection.Angle.GetAccuracy());
+
+            IllustrationPointNode node = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
+            Assert.AreEqual(0, node.Children.Count());
+
+            var faultTreeIllustrationPoint = node.Data as FaultTreeIllustrationPoint;
+            Assert.IsNotNull(faultTreeIllustrationPoint);
+            Assert.AreEqual("FaultTreeIllustrationPoint", faultTreeIllustrationPoint.Name);
+            Assert.AreEqual(0.5, faultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta.GetAccuracy());
+
+            Stochast innerStochast = faultTreeIllustrationPoint.Stochasts.Single();
+            Assert.AreEqual("FaultTreeIllustrationPoint stochast", innerStochast.Name);
+            Assert.AreEqual(2.58, innerStochast.Alpha, innerStochast.Alpha.GetAccuracy());
+            Assert.AreEqual(1, innerStochast.Duration, innerStochast.Duration.GetAccuracy());
         }
 
         #region Hydraulic Boundary Database

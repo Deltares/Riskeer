@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
@@ -146,16 +145,16 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 
             // Assert
             AssertWindDirection(entity, generalResult.GoverningWindDirection);
-            AssertIllustrationPoints(entity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
-                                     generalResult.TopLevelIllustrationPoints.ToArray());
+            AssertTopLevelSubMechanismIllustrationPoints(entity.TopLevelSubMechanismIllustrationPointEntities.ToArray(),
+                                                         generalResult.TopLevelIllustrationPoints.ToArray());
         }
 
-        private static void AssertIllustrationPoints(
-            IList<TopLevelSubMechanismIllustrationPointEntity> entities,
-            IList<TopLevelSubMechanismIllustrationPoint> illustrationPoints)
+        private static void AssertTopLevelSubMechanismIllustrationPoints(
+            TopLevelSubMechanismIllustrationPointEntity[] entities,
+            TopLevelSubMechanismIllustrationPoint[] illustrationPoints)
         {
-            Assert.AreEqual(entities.Count, illustrationPoints.Count);
-            for (var i = 0; i < entities.Count; i++)
+            Assert.AreEqual(entities.Length, illustrationPoints.Length);
+            for (var i = 0; i < entities.Length; i++)
             {
                 AssertTopLevelSubMechanismIllustrationPoint(entities[i], illustrationPoints[i]);
             }
@@ -174,10 +173,10 @@ namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
             Assert.IsNotNull(readTopLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint);
         }
 
-        private static void AssertStochasts(IList<StochastEntity> entities, IList<Stochast> stochasts)
+        private static void AssertStochasts(StochastEntity[] entities, Stochast[] stochasts)
         {
-            Assert.AreEqual(entities.Count, stochasts.Count);
-            for (var i = 0; i < entities.Count; i++)
+            Assert.AreEqual(entities.Length, stochasts.Length);
+            for (var i = 0; i < entities.Length; i++)
             {
                 AssertStochast(entities[i], stochasts[i]);
             }
