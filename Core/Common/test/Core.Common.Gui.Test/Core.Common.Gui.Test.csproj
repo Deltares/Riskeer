@@ -93,6 +93,7 @@
     <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
+    <Compile Include="Converters\KeyValueAsRealizationRoundedDoubleElementAttributeTest.cs" />
     <Compile Include="Converters\KeyValueElementAttributeTest.cs" />
     <Compile Include="Converters\KeyValueExpandableArrayConverterTest.cs" />
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />

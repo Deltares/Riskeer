@@ -20,59 +20,26 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Reflection;
+using Core.Common.Base.Data;
 
 namespace Core.Common.Gui.Converters
 {
     /// <summary>
-    /// Attribute when using the <see cref="KeyValueExpandableArrayConverter"/> to define what is
+    /// Attribute when using the <see cref="KeyValueAsRealizationRoundedDoubleElementAttribute"/> to define what is
     /// shown as name and value for each element.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class KeyValueElementAttribute : Attribute
+    public class KeyValueAsRealizationRoundedDoubleElementAttribute : KeyValueElementAttribute
     {
-        protected readonly string ValuePropertyName;
-        private readonly string namePropertyName;
-
         /// <summary>
-        /// Creates a new instance of <see cref="KeyValueElementAttribute"/>.
+        /// Creates a new instance of <see cref="KeyValueAsRealizationRoundedDoubleElementAttribute"/>.
         /// </summary>
         /// <param name="namePropertyName">The name of the property to show as name.</param>
         /// <param name="valuePropertyName">The name of the property to show as value.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public KeyValueElementAttribute(string namePropertyName, string valuePropertyName)
-        {
-            this.namePropertyName = namePropertyName;
-            ValuePropertyName = valuePropertyName;
-            if (valuePropertyName == null)
-            {
-                throw new ArgumentNullException(nameof(valuePropertyName));
-            }
-            if (namePropertyName == null)
-            {
-                throw new ArgumentNullException(nameof(namePropertyName));
-            }
-        }
-
-        /// <summary>
-        /// Gets the property value from the <paramref name="source"/> that is used
-        /// as name.
-        /// </summary>
-        /// <param name="source">The source to obtain the property value of.</param>
-        /// <returns>The value used as name of the property.</returns>
-        /// <exception cref="ArgumentException">Thrown when the property used for the name of
-        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
-        /// </exception>
-        public string GetName(object source)
-        {
-            PropertyInfo namePropertyInfo = source.GetType().GetProperty(namePropertyName);
-            if (namePropertyInfo == null)
-            {
-                throw new ArgumentException($"Name property '{namePropertyName}' was not found on type {source.GetType().Name}.");
-            }
-
-            return Convert.ToString(namePropertyInfo.GetValue(source, new object[0]));
-        }
+        public KeyValueAsRealizationRoundedDoubleElementAttribute(string namePropertyName, string valuePropertyName) : base(namePropertyName, valuePropertyName) {}
 
         /// <summary>
         /// Gets the property value from the <paramref name="source"/> that is used
@@ -81,9 +48,10 @@ namespace Core.Common.Gui.Converters
         /// <param name="source">The source to obtain the property value of.</param>
         /// <returns>The value used as value of the property.</returns>
         /// <exception cref="ArgumentException">Thrown when the property used for the value of
-        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>.
+        /// the <see cref="KeyValueElementAttribute"/> is not found on the <paramref name="source"/>
+        /// or if the value is not of type RoundedDouble
         /// </exception>
-        public virtual string GetValue(object source)
+        public override string GetValue(object source)
         {
             PropertyInfo valuePropertyInfo = source.GetType().GetProperty(ValuePropertyName);
             if (valuePropertyInfo == null)
@@ -91,7 +59,14 @@ namespace Core.Common.Gui.Converters
                 throw new ArgumentException($"Value property '{ValuePropertyName}' was not found on type {source.GetType().Name}.");
             }
 
-            return Convert.ToString(valuePropertyInfo.GetValue(source, new object[0]));
+            object valueProperty = valuePropertyInfo.GetValue(source, new object[0]);
+            if (!(valueProperty is RoundedDouble))
+            {
+                throw new ArgumentException($"Value property '{ValuePropertyName}' was not of type RoundedDouble.");
+            }
+
+            var doubleValue = (RoundedDouble) valueProperty;
+            return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
         }
     }
 }

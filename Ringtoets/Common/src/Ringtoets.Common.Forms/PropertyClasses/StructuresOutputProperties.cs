@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -100,12 +101,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(FaultTreeIllustrationPointBaseProperties.WindDirection), "")]
-        public FaultTreeIllustrationPointBaseProperties[] IllustrationPoints
+        public TopLevelFaultTreeIllustrationPointProperties[] IllustrationPoints
         {
             get
             {
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new FaultTreeIllustrationPointBaseProperties(point)).ToArray();
+                List<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+                                                                                                                topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
+
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations.Distinct().Count() > 1)).ToArray();
             }
         }
 
@@ -172,15 +175,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName.Equals(nameof(WindDirection)) ||
-                propertyName.Equals(nameof(AlphaValues)) ||
-                propertyName.Equals(nameof(Durations)) ||
-                propertyName.Equals(nameof(IllustrationPoints)))
-            {
-                return data.HasGeneralResult;
-            }
-
-            return false;
+            return data.HasGeneralResult &&
+                   (
+                       propertyName.Equals(nameof(WindDirection)) ||
+                       propertyName.Equals(nameof(AlphaValues)) ||
+                       propertyName.Equals(nameof(Durations)) ||
+                       propertyName.Equals(nameof(IllustrationPoints))
+                   );
         }
     }
 }

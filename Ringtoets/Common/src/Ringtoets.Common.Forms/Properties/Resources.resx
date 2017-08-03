@@ -1129,7 +1129,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
   </data>
   <data name="IllustrationPointProperty_IllustrationPoints_Description" xml:space="preserve">
-    <value />
+    <value>De lijst van illustratiepunten voor de berekening.</value>
   </data>
   <data name="IllustrationPointProperty_IllustrationPoints_DisplayName" xml:space="preserve">
     <value>Illustratiepunten</value>

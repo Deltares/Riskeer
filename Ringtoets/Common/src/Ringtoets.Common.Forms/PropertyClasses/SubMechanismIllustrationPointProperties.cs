@@ -31,24 +31,24 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the fault tree illustration points
+    /// Properties for the sub mechanism illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class FaultTreeIllustrationPointChildProperties : IllustrationPointChildProperties
+    public class SubMechanismIllustrationPointProperties : IllustrationPointProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FaultTreeIllustrationPointChildProperties"/>.
+        /// Creates a new instance of <see cref="SubMechanismIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when illustrationPointNode is of the wrong type.</exception>
-        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="FaultTreeIllustrationPoint"/></exception>
-        public FaultTreeIllustrationPointChildProperties(
+        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        public SubMechanismIllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection) : base(illustrationPointNode, windDirection)
         {
-            if (!(data.Data is FaultTreeIllustrationPoint))
+            if (!(data.Data is SubMechanismIllustrationPoint))
             {
-                throw new ArgumentException("illustrationPointNode type has to be FaultTreeIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode type has to be SubMechanismIllustrationPoint");
             }
         }
 
@@ -57,12 +57,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
-        public Stochast[] AlphaValues
+        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Alpha))]
+        public SubMechanismIllustrationPointStochast[] AlphaValues
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
             }
         }
 
@@ -71,18 +71,27 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
-        public Stochast[] Durations
+        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Duration))]
+        public SubMechanismIllustrationPointStochast[] Durations
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
             }
         }
 
-        public override string ToString()
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueAsRealizationRoundedDoubleElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        public SubMechanismIllustrationPointStochast[] SubMechanismStochasts
         {
-            return $"{Name}";
+            get
+            {
+                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
+            }
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
@@ -34,6 +35,26 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// </summary>
         public TestSubMechanismIllustrationPoint()
             : this(3.14) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="name">The name of the illustration point.</param>
+        public TestSubMechanismIllustrationPoint(string name)
+            : base(name,
+                   3.14,
+                   Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                   Enumerable.Empty<IllustrationPointResult>()) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="stochasts">The stochasts of the illustration point.</param>
+        public TestSubMechanismIllustrationPoint(IEnumerable<SubMechanismIllustrationPointStochast> stochasts)
+            : base("Illustration Point",
+                   3.14,
+                   stochasts,
+                   Enumerable.Empty<IllustrationPointResult>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.

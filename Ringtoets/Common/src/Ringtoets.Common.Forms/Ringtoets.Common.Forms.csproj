@@ -81,10 +81,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\IllustrationPointChildProperties.cs" />
-    <Compile Include="PropertyClasses\SubMechanismIllustrationPointChildProperties.cs" />
-    <Compile Include="PropertyClasses\FaultTreeIllustrationPointChildProperties.cs" />
-    <Compile Include="PropertyClasses\FaultTreeIllustrationPointBaseProperties.cs" />
+    <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\FaultTreeIllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\TopLevelFaultTreeIllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StructureCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StructuresOutputProperties.cs" />

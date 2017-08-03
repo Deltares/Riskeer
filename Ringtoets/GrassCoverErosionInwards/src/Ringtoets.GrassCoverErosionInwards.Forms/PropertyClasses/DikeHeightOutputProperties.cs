@@ -180,12 +180,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(FaultTreeIllustrationPointBaseProperties.WindDirection), "")]
-        public FaultTreeIllustrationPointBaseProperties[] IllustrationPoints
+        [KeyValueElement(nameof(TopLevelFaultTreeIllustrationPointProperties.WindDirection), "")]
+        public TopLevelFaultTreeIllustrationPointProperties[] IllustrationPoints
         {
             get
             {
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new FaultTreeIllustrationPointBaseProperties(point)).ToArray();
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point)).ToArray();
             }
         }
 

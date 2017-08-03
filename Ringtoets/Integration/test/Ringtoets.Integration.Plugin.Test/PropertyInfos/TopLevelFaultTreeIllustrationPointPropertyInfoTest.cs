@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(TopLevelFaultTreeIllustrationPoint), info.DataType);
-            Assert.AreEqual(typeof(FaultTreeIllustrationPointBaseProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(TopLevelFaultTreeIllustrationPointProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(topLevelFaultTreeIllustrationPoint);
 
             // Assert
-            Assert.IsInstanceOf<FaultTreeIllustrationPointBaseProperties>(objectProperties);
+            Assert.IsInstanceOf<TopLevelFaultTreeIllustrationPointProperties>(objectProperties);
             Assert.AreSame(topLevelFaultTreeIllustrationPoint, objectProperties.Data);
         }
     }

@@ -58,8 +58,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                      ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                      : null;
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
 
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), generalResult);
 
@@ -100,10 +100,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                               factorOfSafety);
 
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var expectedFaultTreeIllustrationPointBaseProperty = new[]
-            {
-                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
-            };
 
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
@@ -111,6 +107,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
+            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First());
+
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
@@ -119,18 +117,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
             Assert.AreEqual(5.0, properties.AlphaValues[0].Alpha);
             Assert.AreEqual(10.0, properties.Durations[0].Duration);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.WindDirection, properties.IllustrationPoints[0].WindDirection);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.Reliability, properties.IllustrationPoints[0].Reliability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
         }
 
         [Test]
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
 
@@ -201,7 +199,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
-                                                                            "",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
         }
 
@@ -209,7 +207,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, null);
 
             // Call

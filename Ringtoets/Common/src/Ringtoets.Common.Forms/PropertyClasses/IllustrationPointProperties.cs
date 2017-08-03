@@ -36,18 +36,18 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base properties for the child Illustration Points in a tree
+    /// Base properties for the child Illustration Points in a tree.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class IllustrationPointChildProperties : ObjectProperties<IllustrationPointNode>
+    public class IllustrationPointProperties : ObjectProperties<IllustrationPointNode>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointChildProperties"/>.
+        /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point</param>
+        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public IllustrationPointChildProperties(
+        public IllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection)
         {
             if (illustrationPointNode == null)
@@ -62,7 +62,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             WindDirection = windDirection;
         }
 
-        [ReadOnly(true)]
         [PropertyOrder(0)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
@@ -76,7 +75,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [PropertyOrder(1)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
@@ -90,14 +88,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_Description))]
         public string WindDirection { get; }
 
-        [ReadOnly(true)]
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
@@ -110,7 +106,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [DynamicVisible]
         [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
@@ -118,25 +113,27 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [KeyValueElement(nameof(WindDirection), "")]
-        public IllustrationPointChildProperties[] IllustrationPoints
+        public IllustrationPointProperties[] IllustrationPoints
         {
             get
             {
-                var points = new List<IllustrationPointChildProperties>();
+                var points = new List<IllustrationPointProperties>();
                 foreach (IllustrationPointNode illustrationPointNode in data.Children)
                 {
-                    var faultTree = illustrationPointNode.Data as FaultTreeIllustrationPoint;
-                    if (faultTree != null)
+                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointChildProperties(illustrationPointNode, WindDirection));
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection));
                         continue;
                     }
 
-                    var subMechanism = illustrationPointNode.Data as SubMechanismIllustrationPoint;
-                    if (subMechanism != null)
+                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointChildProperties(illustrationPointNode, WindDirection));
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection));
+                        continue;
                     }
+
+                    // If type is not supported, throw exception (currently not possible, safeguard for future)
+                    throw new NotSupportedException($"IllustrationPointNode of type {nameof(FaultTreeIllustrationPoint)} is not supported. Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
                 }
                 return points.ToArray();
             }
@@ -145,7 +142,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool IsDynamicVisible(string propertyName)
         {
-            return propertyName == "IllustrationPoints" && data.Children.Any();
+            return propertyName.Equals(nameof(IllustrationPoints)) && data.Children.Any();
         }
 
         public override string ToString()

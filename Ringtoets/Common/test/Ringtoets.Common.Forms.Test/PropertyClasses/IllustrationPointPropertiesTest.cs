@@ -31,132 +31,101 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class IllustrationPointChildPropertiesTest
+    public class IllustrationPointPropertiesTest
     {
         private const string illustrationPointCategoryName = "Illustratiepunten";
 
         [Test]
         public void Constructor_IllustrationPointNodeNull_ThrowsException()
         {
-            // Setup
-            const string expectedMessage = "Value cannot be null.";
-
             // Call
-            TestDelegate test = () => new IllustrationPointChildProperties(null, "N");
+            TestDelegate test = () => new IllustrationPointProperties(null, "Point name A");
 
             // Assert
+            const string expectedMessage = "Value cannot be null.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
         public void Constructor_WindDirectionNull_ThrowsException()
         {
-            // Setup
-            const string expectedMessage = "Value cannot be null.";
-
             // Call
-            TestDelegate test = () => new IllustrationPointChildProperties(new IllustrationPointNode(new TestIllustrationPoint()), null);
+            TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), null);
 
             // Assert
+            const string expectedMessage = "Value cannot be null.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
         public void Constructor_FaultTreeIllustrationPointWithoutChildren_CorrectValues()
         {
-            // Setup
-
             // Call
-            var faultTree = new IllustrationPointChildProperties(new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                                                                             1.5,
-                                                                                                                             new SubMechanismIllustrationPointStochast[0],
-                                                                                                                             new IllustrationPointResult[0])),
-                                                                 "N");
+            var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), "NNE");
 
             // Assert
-            Assert.AreEqual(faultTree.WindDirection, "N");
-            Assert.AreEqual(faultTree.Reliability.Value, 1.5);
-            Assert.AreEqual(faultTree.Reliability.NumberOfDecimalPlaces, 5);
-            Assert.AreEqual(faultTree.CalculatedProbability, StatisticsConverter.ReliabilityToProbability(1.5));
-            Assert.AreEqual(faultTree.Name, "N");
+            Assert.AreEqual("NNE", faultTree.WindDirection);
+            Assert.AreEqual(3.14, faultTree.Reliability.Value);
+            Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
+            Assert.AreEqual("Illustration Point", faultTree.Name);
 
             Assert.IsNotNull(faultTree.IllustrationPoints);
-            Assert.AreEqual(faultTree.IllustrationPoints.Length, 0);
+            Assert.AreEqual(0, faultTree.IllustrationPoints.Length);
         }
 
         [Test]
         public void Constructor_FaultTreeIllustrationPointWithChildren_CorrectValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                                                    1.5,
-                                                                                                    new SubMechanismIllustrationPointStochast[0],
-                                                                                                    new IllustrationPointResult[0]));
+            var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
-                                                                         7.2,
-                                                                         new Stochast[0],
-                                                                         CombinationType.And)),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                            7.2,
-                                                                            new SubMechanismIllustrationPointStochast[0],
-                                                                            new IllustrationPointResult[0]))
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
             });
 
             // Call
-            var faultTree = new IllustrationPointChildProperties(illustrationPointNode, "N");
+            var faultTree = new IllustrationPointProperties(illustrationPointNode, "N");
 
             // Assert
-            Assert.AreEqual(faultTree.WindDirection, "N");
-            Assert.AreEqual(faultTree.Reliability.Value, 1.5);
-            Assert.AreEqual(faultTree.Reliability.NumberOfDecimalPlaces, 5);
-            Assert.AreEqual(faultTree.CalculatedProbability, StatisticsConverter.ReliabilityToProbability(1.5));
-            Assert.AreEqual(faultTree.Name, "N");
+            Assert.AreEqual("N", faultTree.WindDirection);
+            Assert.AreEqual(3.14, faultTree.Reliability.Value);
+            Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
+            Assert.AreEqual("Illustration Point", faultTree.Name);
 
             Assert.IsNotNull(faultTree.IllustrationPoints);
-            Assert.AreEqual(faultTree.IllustrationPoints.Length, 2);
+            Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
         }
 
         [Test]
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new IllustrationPointChildProperties(new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                                                                             1.5,
-                                                                                                                             new SubMechanismIllustrationPointStochast[0],
-                                                                                                                             new IllustrationPointResult[0])),
-                                                                 "N");
+            var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint("ImportantName")),
+                                                            "NotImportant");
 
             // Call
             string toString = faultTree.ToString();
 
             // Assert
-            Assert.AreEqual(toString, "N");
+            Assert.AreEqual("ImportantName", toString);
         }
 
         [Test]
         public void Constructor_WithChildIllustrationPointNodes_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                                                    1.5,
-                                                                                                    new SubMechanismIllustrationPointStochast[0],
-                                                                                                    new IllustrationPointResult[0]));
+            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("N",
-                                                                         7.2,
-                                                                         new Stochast[0],
-                                                                         CombinationType.And)),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                            7.2,
-                                                                            new SubMechanismIllustrationPointStochast[0],
-                                                                            new IllustrationPointResult[0]))
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint())
             });
 
             // Call
-            var faultTree = new IllustrationPointChildProperties(illustrationPointNode, "N");
+            var faultTree = new IllustrationPointProperties(illustrationPointNode, "N");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
@@ -194,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointCategoryName,
                                                                             "Illustratiepunten",
-                                                                            "",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
         }
 
@@ -202,12 +171,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WithoutChildIllustrationPointNodes_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new SubMechanismIllustrationPoint("N",
-                                                                                                    1.5,
-                                                                                                    new SubMechanismIllustrationPointStochast[0],
-                                                                                                    new IllustrationPointResult[0]));
+            var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
             // Call
-            var faultTree = new IllustrationPointChildProperties(illustrationPointNode, "N");
+            var faultTree = new IllustrationPointProperties(illustrationPointNode, "N");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);

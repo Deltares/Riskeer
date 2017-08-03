@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
-                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
+                new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First())
             };
 
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
@@ -314,7 +314,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
-                                                                            "",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
         }
     }

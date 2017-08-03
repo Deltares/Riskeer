@@ -21,84 +21,85 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class SubMechanismIllustrationPointChildPropertiesTest
+    public class SubMechanismIllustrationPointPropertiesTest
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
         private const int windDirectionPropertyIndex = 2;
         private const int closingScenarioPropertyIndex = 3;
-        private const int subMechanismStochastPropertyIndex = 4;
+        private const int alphasPropertyIndex = 4;
+        private const int durationsPropertyIndex = 5;
+        private const int subMechanismStochastPropertyIndex = 6;
 
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
-        public void Constructor_InvalidIllustrationPointType_ThrowsException()
+        public void Constructor_InvalidIllustrationPointType_ThrowsArgumentException()
         {
-            // Setup
-            const string expectedMessage = "illustrationPointNode type has to be SubMechanismIllustrationPoint";
-
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
-                                                                                           new FaultTreeIllustrationPoint("N",
-                                                                                                                          1.5,
-                                                                                                                          new Stochast[0],
-                                                                                                                          CombinationType.And)),
-                                                                                       "N");
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(
+                                                                                      new TestIllustrationPoint()),
+                                                                                  "N");
 
             // Assert
+            const string expectedMessage = "illustrationPointNode type has to be SubMechanismIllustrationPoint";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
         public void Constructor_FaultTreeIllustrationPoint_CorrectValues()
         {
-            // Setup
-
             // Call
-            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
-                                                                                 new SubMechanismIllustrationPoint("N",
-                                                                                                                   1.5,
-                                                                                                                   new SubMechanismIllustrationPointStochast[0],
-                                                                                                                   new IllustrationPointResult[0])),
-                                                                             "N");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(
+                                                                                         new TestSubMechanismIllustrationPoint(new[]
+                                                                                         {
+                                                                                             new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
+                                                                                         })),
+                                                                                     "N");
 
             // Assert
-            Assert.AreEqual(faultTree.WindDirection, "N");
-            Assert.AreEqual(faultTree.Reliability.Value, 1.5);
-            Assert.AreEqual(faultTree.Reliability.NumberOfDecimalPlaces, 5);
-            Assert.AreEqual(faultTree.CalculatedProbability, StatisticsConverter.ReliabilityToProbability(1.5));
-            Assert.AreEqual(faultTree.Name, "N");
+            Assert.AreEqual("N", subMechanismProperties.WindDirection);
+            Assert.AreEqual(3.14, subMechanismProperties.Reliability.Value);
+            Assert.AreEqual(5, subMechanismProperties.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), subMechanismProperties.CalculatedProbability);
+            Assert.AreEqual("Illustration Point", subMechanismProperties.Name);
 
-            Assert.IsNotNull(faultTree.SubMechanismStochasts);
-            Assert.AreEqual(faultTree.SubMechanismStochasts.Length, 0);
+            Assert.IsNotEmpty(subMechanismProperties.AlphaValues);
+            Assert.AreEqual(1, subMechanismProperties.AlphaValues.Length);
+            Assert.AreEqual(4.5, subMechanismProperties.AlphaValues.First().Alpha);
 
-            Assert.IsNotNull(faultTree.IllustrationPoints);
-            Assert.AreEqual(faultTree.IllustrationPoints.Length, 0);
+            Assert.IsNotEmpty(subMechanismProperties.Durations);
+            Assert.AreEqual(1, subMechanismProperties.Durations.Length);
+            Assert.AreEqual(2.0, subMechanismProperties.Durations.First().Duration);
+
+            Assert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
+            Assert.AreEqual(1, subMechanismProperties.SubMechanismStochasts.Length);
+            Assert.AreEqual(0.1, subMechanismProperties.SubMechanismStochasts.First().Realization);
+
+            Assert.IsEmpty(subMechanismProperties.IllustrationPoints);
+            Assert.AreEqual(0, subMechanismProperties.IllustrationPoints.Length);
         }
 
         [Test]
         public void Constructor_WithSubMechanismIllustrationPoint_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
-                                                                                 new SubMechanismIllustrationPoint("N",
-                                                                                                                   1.5,
-                                                                                                                   new SubMechanismIllustrationPointStochast[0],
-                                                                                                                   new IllustrationPointResult[0])),
-                                                                             "N");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N");
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -128,6 +129,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Het sluitscenario waarvoor dit illustratiepunt is berekend.",
                                                                             true);
 
+            PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
             PropertyDescriptor subMechanismStochastProperty = dynamicProperties[subMechanismStochastPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(subMechanismStochastProperty,
                                                                             illustrationPointsCategoryName,
@@ -140,18 +155,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var faultTree = new SubMechanismIllustrationPointChildProperties(new IllustrationPointNode(
-                                                                                 new SubMechanismIllustrationPoint("N",
-                                                                                                                   1.5,
-                                                                                                                   new SubMechanismIllustrationPointStochast[0],
-                                                                                                                   new IllustrationPointResult[0])),
-                                                                             "N");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("Relevant")),
+                "NotRelevant");
 
             // Call
-            string toString = faultTree.ToString();
+            string toString = subMechanismProperties.ToString();
 
             // Assert
-            Assert.AreEqual(toString, "N");
+            Assert.AreEqual(toString, "Relevant");
         }
     }
 }

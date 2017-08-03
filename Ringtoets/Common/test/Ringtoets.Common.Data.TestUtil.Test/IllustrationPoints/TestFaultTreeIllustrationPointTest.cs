@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -43,7 +44,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void ParameteredConstructor_WithBeta_ExpectedValues()
         {
             // Setup
             const double beta = 1.23;
@@ -57,6 +58,43 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             Assert.AreEqual("Illustration Point", illustrationPoint.Name);
             CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+        }
+
+        [Test]
+        public void ParameteredConstructor_WithName_ExpectedValues()
+        {
+            // Call
+            var illustrationPoint = new TestFaultTreeIllustrationPoint("Test Name");
+
+            // Assert
+            Assert.IsInstanceOf<FaultTreeIllustrationPoint>(illustrationPoint);
+
+            Assert.AreEqual("Test Name", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+        }
+
+        [Test]
+        public void ParameteredConstructor_WithStochast_ExpectedValues()
+        {
+            // Setup
+            var stochast = new Stochast("Stochast 1", 5.0, 10.0);
+
+            // Call
+            var illustrationPoint = new TestFaultTreeIllustrationPoint(new[]
+            {
+                stochast
+            });
+
+            // Assert
+            Assert.IsInstanceOf<FaultTreeIllustrationPoint>(illustrationPoint);
+
+            Assert.AreEqual("Illustration Point", illustrationPoint.Name);
+            Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.IsNotEmpty(illustrationPoint.Stochasts);
+            Assert.AreEqual(stochast.Name, illustrationPoint.Stochasts.First().Name);
+            Assert.AreEqual(stochast.Alpha, illustrationPoint.Stochasts.First().Alpha);
+            Assert.AreEqual(stochast.Duration, illustrationPoint.Stochasts.First().Duration);
         }
     }
 }

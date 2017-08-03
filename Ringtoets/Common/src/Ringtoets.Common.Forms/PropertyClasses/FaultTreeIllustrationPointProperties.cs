@@ -31,39 +31,58 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties for the submechanism illustration points.
+    /// Properties for the fault tree illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class SubMechanismIllustrationPointChildProperties : IllustrationPointChildProperties
+    public class FaultTreeIllustrationPointProperties : IllustrationPointProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SubMechanismIllustrationPointChildProperties"/>.
+        /// Creates a new instance of <see cref="FaultTreeIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point</param>
+        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="SubMechanismIllustrationPoint"/></exception>
-        public SubMechanismIllustrationPointChildProperties(
+        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
+        public FaultTreeIllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection) : base(illustrationPointNode, windDirection)
         {
-            if (!(data.Data is SubMechanismIllustrationPoint))
+            if (!(data.Data is FaultTreeIllustrationPoint))
             {
-                throw new ArgumentException("illustrationPointNode type has to be SubMechanismIllustrationPoint");
+                throw new ArgumentException("illustrationPointNode type has to be FaultTreeIllustrationPoint");
             }
         }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
-        public SubMechanismIllustrationPointStochast[] SubMechanismStochasts
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
+        public Stochast[] AlphaValues
         {
             get
             {
-                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
+                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
             }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
+        public Stochast[] Durations
+        {
+            get
+            {
+                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}";
         }
     }
 }

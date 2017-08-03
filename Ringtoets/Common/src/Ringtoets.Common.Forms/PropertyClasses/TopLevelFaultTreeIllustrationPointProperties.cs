@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
@@ -38,24 +39,26 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Properties for the fault tree illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class FaultTreeIllustrationPointBaseProperties : ObjectProperties<TopLevelFaultTreeIllustrationPoint>
+    public class TopLevelFaultTreeIllustrationPointProperties : ObjectProperties<TopLevelFaultTreeIllustrationPoint>
     {
+        private readonly bool showClosingSituation;
+
         /// <summary>
-        /// Creates a new instance of <see cref="FaultTreeIllustrationPointBaseProperties"/>.
+        /// Creates a new instance of <see cref="TopLevelFaultTreeIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="faultTreeData">The data to use for the properties. </param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FaultTreeIllustrationPointBaseProperties(
-            TopLevelFaultTreeIllustrationPoint faultTreeData)
+        public TopLevelFaultTreeIllustrationPointProperties(
+            TopLevelFaultTreeIllustrationPoint faultTreeData, bool hasUniqueClosingSituations = false)
         {
             if (faultTreeData == null)
             {
                 throw new ArgumentNullException(nameof(faultTreeData));
             }
             data = faultTreeData;
+            showClosingSituation = hasUniqueClosingSituations;
         }
 
-        [ReadOnly(true)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
@@ -68,7 +71,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_DisplayName))]
@@ -81,7 +83,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_Description))]
@@ -93,7 +94,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
@@ -131,40 +132,40 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ReadOnly(true)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(WindDirection), "")]
-        public IllustrationPointChildProperties[] IllustrationPoints
+        public IllustrationPointProperties[] IllustrationPoints
         {
             get
             {
-                var points = new List<IllustrationPointChildProperties>();
+                var points = new List<IllustrationPointProperties>();
                 foreach (IllustrationPointNode illustrationPointNode in data.FaultTreeNodeRoot.Children)
                 {
-                    var faultTree = illustrationPointNode.Data as FaultTreeIllustrationPoint;
-                    if (faultTree != null)
+                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointChildProperties(illustrationPointNode, WindDirection));
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection));
                         continue;
                     }
 
-                    var subMechanism = illustrationPointNode.Data as SubMechanismIllustrationPoint;
-                    if (subMechanism != null)
+                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointChildProperties(illustrationPointNode, WindDirection));
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection));
                         continue;
                     }
-                    
+
                     // If type is not supported, throw exception (currently not possible, safeguard for future)
-                    throw new NotSupportedException("IllustrationPointNode is not of a supported type (FaultTree/SubMechanism)");
-
-
+                    throw new NotSupportedException($"IllustrationPointNode of type {nameof(FaultTreeIllustrationPoint)} is not supported. Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
                 }
                 return points.ToArray();
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return propertyName.Equals(nameof(ClosingSituation)) && showClosingSituation;
         }
 
         public override string ToString()

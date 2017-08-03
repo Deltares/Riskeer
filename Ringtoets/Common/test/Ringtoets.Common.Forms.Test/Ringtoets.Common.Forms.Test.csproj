@@ -90,10 +90,10 @@
     <Compile Include="PresentationObjects\StructuresOutputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\SubMechanismIllustrationPointChildPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\IllustrationPointChildPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FaultTreeIllustrationPointChildPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FaultTreeIllustrationPointBasePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\SubMechanismIllustrationPointPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\IllustrationPointPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FaultTreeIllustrationPointPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\TopLevelFaultTreeIllustrationPointPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StructureCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StructuresOutputPropertiesTest.cs" />

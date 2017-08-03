@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.IllustrationPoints;
 
@@ -34,6 +35,26 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
         /// </summary>
         public TestFaultTreeIllustrationPoint()
             : this(3.14) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFaultTreeIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="name">The name of the illustration point.</param>
+        public TestFaultTreeIllustrationPoint(string name)
+            : base(name,
+                   3.14,
+                   Enumerable.Empty<Stochast>(),
+                   CombinationType.And) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFaultTreeIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="stochasts">The stochasts of the illustration point.</param>
+        public TestFaultTreeIllustrationPoint(IEnumerable<Stochast> stochasts)
+            : base("Illustration Point",
+                   3.14,
+                   stochasts,
+                   CombinationType.And) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestFaultTreeIllustrationPoint"/>.

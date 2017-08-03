@@ -1863,7 +1863,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to De lijst van illustratiepunten voor de berekening..
         /// </summary>
         public static string IllustrationPointProperty_IllustrationPoints_Description {
             get {

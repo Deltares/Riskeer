@@ -290,7 +290,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(TopLevelFaultTreeIllustrationPoint),
-                    typeof(FaultTreeIllustrationPointBaseProperties));
+                    typeof(TopLevelFaultTreeIllustrationPointProperties));
             }
         }
 

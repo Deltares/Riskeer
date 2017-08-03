@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.PropertyBag;
@@ -28,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -96,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
-                new FaultTreeIllustrationPointBaseProperties(generalResult.TopLevelIllustrationPoints.First())
+                new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First())
             };
 
             var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
@@ -274,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
-                                                                            "",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
         }
     }
