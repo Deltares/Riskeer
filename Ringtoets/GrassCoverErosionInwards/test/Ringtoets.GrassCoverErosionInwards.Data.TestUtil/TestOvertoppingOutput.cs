@@ -34,6 +34,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// </summary>
         /// <param name="probability">The probability to set to the output.</param>
         public TestOvertoppingOutput(double probability)
-            : base(1, true, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0)) {}
+            : base(1, true, new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
     }
 }

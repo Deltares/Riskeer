@@ -108,7 +108,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                               factorOfSafety);
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      isOvertoppingDominant,
-                                                     probabilityAssessmentOutput);
+                                                     probabilityAssessmentOutput,
+                                                     null);
 
             var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
                                                         dikeHeightTargetProbability,
@@ -186,7 +187,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
-                                                     probabilityAssessmentOutput);
+                                                     probabilityAssessmentOutput, 
+                                                     null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
 
@@ -219,7 +221,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var resultOutput = new OvertoppingOutput(2,
                                                      true,
-                                                     probabilityAssessmentOutput);
+                                                     probabilityAssessmentOutput,
+                                                     null);
 
             if (dikeHeightCalculated)
             {
@@ -264,7 +267,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      true,
-                                                     probabilityAssessmentOutput);
+                                                     probabilityAssessmentOutput,
+                                                     null);
 
             var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);
 

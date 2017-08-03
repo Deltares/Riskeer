@@ -22,7 +22,9 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -81,17 +83,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN(bool withIllustrationPoints)
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput),
+                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput, generalResult),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }
@@ -105,18 +112,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability(bool withIllustrationPoints)
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             const double probability = 0.65;
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput),
+                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput, generalResult),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }
