@@ -150,13 +150,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection));
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode,
+                                                                            WindDirection,
+                                                                            AreClosingSituationsSame() ? string.Empty : ClosingSituation));
                         continue;
                     }
 
                     if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection));
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode,
+                                                                               WindDirection,
+                                                                               AreClosingSituationsSame() ? string.Empty : ClosingSituation));
                         continue;
                     }
 
@@ -172,7 +176,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (propertyName == nameof(ClosingSituation))
             {
-                return !(closingSituations.Distinct().Count() < 2);
+                return !AreClosingSituationsSame();
             }
 
             return false;
@@ -181,6 +185,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return $"{WindDirection}";
+        }
+
+        private bool AreClosingSituationsSame()
+        {
+            return closingSituations.Distinct().Count() < 2;
         }
     }
 }

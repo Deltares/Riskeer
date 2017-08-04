@@ -142,8 +142,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null
-                            ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint)selection.Source,
-                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                            ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint) selection.Source,
+                                                                             GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
                             : null;
 
             OnSelectionChanged();

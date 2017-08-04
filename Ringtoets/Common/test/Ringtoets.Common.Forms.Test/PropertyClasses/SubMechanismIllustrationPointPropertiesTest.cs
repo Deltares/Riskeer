@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Call
             TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(
                                                                                       new TestIllustrationPoint()),
-                                                                                  "N");
+                                                                                  "N", "Regular");
 
             // Assert
             const string expectedMessage = "illustrationPointNode type has to be SubMechanismIllustrationPoint";
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                          {
                                                                                              new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
                                                                                          })),
-                                                                                     "N");
+                                                                                     "N", "closing situation");
 
             // Assert
             Assert.AreEqual("N", subMechanismProperties.WindDirection);
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, NoProbabilityValueDoubleConverter>(
                 nameof(SubMechanismIllustrationPointProperties.CalculatedProbability));
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), subMechanismProperties.CalculatedProbability);
-            Assert.AreEqual("Illustration Point", subMechanismProperties.Name);
+            Assert.AreEqual("closing situation", subMechanismProperties.ClosingSituation);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.AlphaValues));
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WithSubMechanismIllustrationPoint_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", "Regular");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
@@ -168,12 +168,65 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_HiddenClosingSituation_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", string.Empty);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Windrichting",
+                                                                            "De windrichting waarvoor dit illlustratiepunt is berekend.",
+                                                                            true);
+
+            PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            PropertyDescriptor subMechanismStochastProperty = dynamicProperties[subMechanismStochastPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(subMechanismStochastProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Waarden in het illustratiepunt",
+                                                                            "Realisaties van de stochasten in het illustratiepunt",
+                                                                            true);
+        }
+
+        [Test]
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
             var subMechanismProperties = new SubMechanismIllustrationPointProperties(
                 new IllustrationPointNode(new TestSubMechanismIllustrationPoint("Relevant")),
-                "NotRelevant");
+                "NotRelevant", "ClosingSit");
 
             // Call
             string toString = subMechanismProperties.ToString();

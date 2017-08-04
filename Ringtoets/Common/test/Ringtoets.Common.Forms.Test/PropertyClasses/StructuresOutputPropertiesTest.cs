@@ -108,7 +108,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
-            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new [] {"closing situation"});
+            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
+            {
+                "closing situation"
+            });
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());

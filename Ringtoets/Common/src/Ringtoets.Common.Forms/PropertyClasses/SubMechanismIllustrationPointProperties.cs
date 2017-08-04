@@ -41,10 +41,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
+        /// <param name="closingSituation">String containing the name of the closing situation. If empty 
+        /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
         public SubMechanismIllustrationPointProperties(
-            IllustrationPointNode illustrationPointNode, string windDirection) : base(illustrationPointNode, windDirection)
+            IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
         {
             if (!(data.Data is SubMechanismIllustrationPoint))
             {

@@ -41,14 +41,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class IllustrationPointProperties : ObjectProperties<IllustrationPointNode>
     {
+        private readonly string name;
+
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The data to use for the properties. </param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
+        /// <param name="closingSituation">String containing the name of the closing situation. If empty 
+        /// the <see cref="ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public IllustrationPointProperties(
-            IllustrationPointNode illustrationPointNode, string windDirection)
+            IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation)
         {
             if (illustrationPointNode == null)
             {
@@ -58,8 +62,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
+            if (closingSituation == null)
+            {
+                throw new ArgumentNullException(nameof(closingSituation));
+            }
             data = illustrationPointNode;
             WindDirection = windDirection;
+            ClosingSituation = closingSituation;
+            name = data.Data.Name;
         }
 
         [PropertyOrder(0)]
@@ -94,17 +104,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_Description))]
         public string WindDirection { get; }
 
+        [DynamicVisible]
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Data.Name;
-            }
-        }
+        public string ClosingSituation { get; }
 
         [DynamicVisible]
         [PropertyOrder(6)]
@@ -122,13 +127,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection));
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection, ClosingSituation));
                         continue;
                     }
 
                     if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection));
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection, ClosingSituation));
                         continue;
                     }
 
@@ -142,12 +147,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool IsDynamicVisible(string propertyName)
         {
-            return propertyName.Equals(nameof(IllustrationPoints)) && data.Children.Any();
+            if (propertyName.Equals(nameof(IllustrationPoints)))
+            {
+                return data.Children.Any();
+            }
+
+            if (propertyName.Equals(nameof(ClosingSituation)))
+            {
+                return ClosingSituation != string.Empty;
+            }
+
+            return false;
         }
 
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{name}";
         }
     }
 }

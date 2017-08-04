@@ -289,7 +289,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Then
             Assert.AreNotEqual(0, selectionChangedCount);
-            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(0), ((SelectedTopLevelFaultTreeIllustrationPoint)view.Selection).TopLevelFaultTreeIllustrationPoint);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(0), ((SelectedTopLevelFaultTreeIllustrationPoint) view.Selection).TopLevelFaultTreeIllustrationPoint);
 
             mocks.VerifyAll();
         }

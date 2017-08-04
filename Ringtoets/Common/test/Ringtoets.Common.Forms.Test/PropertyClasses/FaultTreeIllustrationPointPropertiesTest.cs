@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string expectedMessage = "illustrationPointNode type has to be FaultTreeIllustrationPoint";
 
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N");
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", "Regular");
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
@@ -73,14 +73,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "NNE");
+            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "NNE", "closing situation");
 
             // Assert
             Assert.AreEqual("NNE", faultTree.WindDirection);
             Assert.AreEqual(3.14, faultTree.Reliability.Value);
             Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
-            Assert.AreEqual("Illustration Point", faultTree.Name);
+            Assert.AreEqual("closing situation", faultTree.ClosingSituation);
 
             Assert.IsNotEmpty(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsNotNull(faultTree.IllustrationPoints);
             Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
             Assert.AreEqual("NNE", faultTree.IllustrationPoints[0].WindDirection);
-            Assert.AreEqual("Illustration Point", faultTree.IllustrationPoints[0].Name);
+            Assert.AreEqual("closing situation", faultTree.IllustrationPoints[0].ClosingSituation);
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.IllustrationPoints[0].CalculatedProbability);
             Assert.AreEqual(3.14, faultTree.IllustrationPoints[0].Reliability);
             Assert.AreEqual(0, faultTree.IllustrationPoints[0].IllustrationPoints.Length);
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N");
+            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", "Regular");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
@@ -168,12 +168,73 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void VisibleProperties_HiddenClosingSituation_ExpectedAttributesValues()
+        {
+            // Setup
+            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+            illustrationPointNode.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+            });
+
+            // Call
+            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", string.Empty);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(windDirectionProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Windrichting",
+                                                                            "De windrichting waarvoor dit illlustratiepunt is berekend.",
+                                                                            true);
+
+            PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphasProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Alfa's [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Tijdsduren [min]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Illustratiepunten",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
+                                                                            true);
+        }
+
+        [Test]
         public void VisibleProperties_WithoutChildIllustrationPointNodes_ExpectedAttributesValues()
         {
             // Setup
             var faultTree = new FaultTreeIllustrationPointProperties(
                 new IllustrationPointNode(
-                    new TestFaultTreeIllustrationPoint()), "N");
+                    new TestFaultTreeIllustrationPoint()), "N", "Regular");
 
             // Call
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
@@ -230,14 +291,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var faultTreeProperties = new FaultTreeIllustrationPointProperties(
                 new IllustrationPointNode(
-                    new TestFaultTreeIllustrationPoint("VeryImportant")),
-                "NotImportant");
+                    new TestFaultTreeIllustrationPoint("Point Name")),
+                "Wind", "ClosingSit");
 
             // Call
             string toString = faultTreeProperties.ToString();
 
             // Assert
-            Assert.AreEqual(toString, "VeryImportant");
+            Assert.AreEqual(toString, "Point Name");
         }
     }
 }
