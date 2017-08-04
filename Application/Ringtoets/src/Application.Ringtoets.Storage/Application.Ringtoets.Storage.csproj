@@ -86,6 +86,7 @@
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensions.cs" />
+    <Compile Include="Create\StructuresOutputCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\BackgroundDataCreateExtensions.cs" />

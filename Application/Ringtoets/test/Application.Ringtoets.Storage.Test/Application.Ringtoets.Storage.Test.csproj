@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensionsTest.cs" />
+    <Compile Include="Create\StructuresOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
