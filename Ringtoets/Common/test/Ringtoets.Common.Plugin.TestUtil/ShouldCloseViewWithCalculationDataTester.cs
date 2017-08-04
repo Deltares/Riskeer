@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Service.Test
+namespace Ringtoets.Common.Plugin.TestUtil
 {
     /// <summary>
     /// Class for testing <see cref="PerformShouldCloseViewWithCalculationDataMethod"/>.

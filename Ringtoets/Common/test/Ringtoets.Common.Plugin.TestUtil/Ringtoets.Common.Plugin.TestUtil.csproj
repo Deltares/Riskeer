@@ -7,8 +7,8 @@
     <ProjectGuid>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Common.Service.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Common.Service.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Common.Plugin.TestUtil</RootNamespace>
+    <AssemblyName>Ringtoets.Common.Plugin.TestUtil</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

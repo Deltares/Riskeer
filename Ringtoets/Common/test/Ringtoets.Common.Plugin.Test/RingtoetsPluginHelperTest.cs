@@ -22,6 +22,7 @@
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Plugin;
+using Ringtoets.Common.Plugin.TestUtil;
 
 namespace Ringtoets.Common.Service.Test
 {
