@@ -206,8 +206,8 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             AssertStochastEntities(generalResult.Stochasts.ToArray(), entity.StochastEntities.ToArray());
 
-            AssertITopLevelIllustrationPointEntities(generalResult.TopLevelIllustrationPoints.ToArray(),
-                                                     entity.TopLevelSubMechanismIllustrationPointEntities.ToArray());
+            AssertTopLevelIllustrationPointEntities(generalResult.TopLevelIllustrationPoints.ToArray(),
+                                                    entity.TopLevelSubMechanismIllustrationPointEntities.ToArray());
         }
 
         private static void AssertGeneralResultFaultTreeIllustrationPointEntity(
@@ -218,8 +218,8 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             AssertStochastEntities(generalResult.Stochasts.ToArray(), entity.StochastEntities.ToArray());
 
-            AssertITopLevelIllustrationPointEntities(generalResult.TopLevelIllustrationPoints.ToArray(),
-                                                     entity.TopLevelFaultTreeIllustrationPointEntities.ToArray());
+            AssertTopLevelIllustrationPointEntities(generalResult.TopLevelIllustrationPoints.ToArray(),
+                                                    entity.TopLevelFaultTreeIllustrationPointEntities.ToArray());
         }
 
         private static void AssertWindDirection(WindDirection expectedWindDirection,
@@ -251,7 +251,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             Assert.AreEqual(expectedOrder, stochastEntity.Order);
         }
 
-        private static void AssertITopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
+        private static void AssertTopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint[] illustrationPoints,
             TopLevelSubMechanismIllustrationPointEntity[] illustrationPointEntities)
             where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
@@ -260,13 +260,13 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             for (var i = 0; i < illustrationPoints.Length; i++)
             {
-                AssertITopLevelIllustrationPointEntity(illustrationPoints[i],
-                                                       illustrationPointEntities[i],
-                                                       i);
+                AssertTopLevelIllustrationPointEntity(illustrationPoints[i],
+                                                      illustrationPointEntities[i],
+                                                      i);
             }
         }
 
-        private static void AssertITopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
+        private static void AssertTopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint illustrationPoint,
             TopLevelSubMechanismIllustrationPointEntity illustrationPointEntity,
             int expectedOrder)
@@ -284,7 +284,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             Assert.AreEqual(expectedOrder, illustrationPointEntity.Order);
         }
 
-        private static void AssertITopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
+        private static void AssertTopLevelIllustrationPointEntities<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint[] illustrationPoints,
             TopLevelFaultTreeIllustrationPointEntity[] illustrationPointEntities)
             where TTopLevelIllustrationPoint : TopLevelIllustrationPointBase
@@ -293,13 +293,13 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
 
             for (var i = 0; i < illustrationPoints.Length; i++)
             {
-                AssertITopLevelIllustrationPointEntity(illustrationPoints[i],
-                                                       illustrationPointEntities[i],
-                                                       i);
+                AssertTopLevelIllustrationPointEntity(illustrationPoints[i],
+                                                      illustrationPointEntities[i],
+                                                      i);
             }
         }
 
-        private static void AssertITopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
+        private static void AssertTopLevelIllustrationPointEntity<TTopLevelIllustrationPoint>(
             TTopLevelIllustrationPoint illustrationPoint,
             TopLevelFaultTreeIllustrationPointEntity illustrationPointEntity,
             int expectedOrder)

@@ -65,7 +65,8 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             TestHelper.AssertAreEqualButNotSame(illustrationPoint.ClosingSituation, entity.ClosingSituation);
             TestHelper.AssertAreEqualButNotSame(windDirection.Name, entity.WindDirectionName);
             Assert.AreEqual(windDirection.Angle, entity.WindDirectionAngle, windDirection.Angle.GetAccuracy());
-            CollectionAssert.IsEmpty(illustrationPoint.FaultTreeNodeRoot.Children);
+            CollectionAssert.IsEmpty(entity.FaultTreeIllustrationPointEntity.SubMechanismIllustrationPointEntities);
+            CollectionAssert.IsEmpty(entity.FaultTreeIllustrationPointEntity.FaultTreeIllustrationPointEntity1);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -105,11 +106,14 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             var expectedIllustrationPoint = new TestSubMechanismIllustrationPoint();
             for (var i = 0; i < 2; i++)
             {
-                SubMechanismIllustrationPointEntity firstIllustrationPointEntity = subMechanismIllustrationPointEntities[i];
-                Assert.AreEqual(expectedIllustrationPoint.Name, firstIllustrationPointEntity.Name);
-                Assert.AreEqual(expectedIllustrationPoint.Beta, firstIllustrationPointEntity.Beta, expectedIllustrationPoint.Beta.GetAccuracy());
-                Assert.AreEqual(expectedIllustrationPoint.IllustrationPointResults.Count(), firstIllustrationPointEntity.IllustrationPointResultEntities.Count);
-                Assert.AreEqual(i, firstIllustrationPointEntity.Order);
+                SubMechanismIllustrationPointEntity illustrationPointEntity = subMechanismIllustrationPointEntities[i];
+                Assert.AreEqual(expectedIllustrationPoint.Name, illustrationPointEntity.Name);
+                Assert.AreEqual(expectedIllustrationPoint.Beta, illustrationPointEntity.Beta, expectedIllustrationPoint.Beta.GetAccuracy());
+                Assert.AreEqual(expectedIllustrationPoint.IllustrationPointResults.Count(),
+                                illustrationPointEntity.IllustrationPointResultEntities.Count);
+                Assert.AreEqual(expectedIllustrationPoint.Stochasts.Count(),
+                                illustrationPointEntity.IllustrationPointResultEntities.Count);
+                Assert.AreEqual(i, illustrationPointEntity.Order);
             }
         }
     }

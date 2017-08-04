@@ -28,7 +28,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -311,44 +311,14 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsTrue(calculation.HasOutput);
-            Assert.IsFalse(calculation.Output.HasGeneralResult);
-        }
-
-        [Test]
-        public void Read_ValidEntityWithOutputAndGeneralResult_ReturnCalculationWithOutputAndGeneralResult()
-        {
-            // Setup
-            var random = new Random(678);
-            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
-            {
-                GoverningWindDirectionName = "name",
-                GoverningWindDirectionAngle = random.NextDouble()
-            };
-            var entity = new ClosingStructuresCalculationEntity
-            {
-                ClosingStructuresOutputEntities =
-                {
-                    new ClosingStructuresOutputEntity
-                    {
-                        GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
-                    }
-                }
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(calculation.HasOutput);
-            Assert.IsTrue(calculation.Output.HasGeneralResult);
-
-            WindDirection windDirection = calculation.Output.GeneralResult.GoverningWindDirection;
-            Assert.AreEqual(generalResultEntity.GoverningWindDirectionName, windDirection.Name);
-            Assert.AreEqual(generalResultEntity.GoverningWindDirectionAngle, windDirection.Angle,
-                            windDirection.Angle.GetAccuracy());
+            StructuresOutput calculationOutput = calculation.Output;
+            ProbabilityAssessmentOutput actualProbabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
+            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredProbability);
+            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredReliability);
+            Assert.IsNaN(actualProbabilityAssessmentOutput.Probability);
+            Assert.IsNaN(actualProbabilityAssessmentOutput.Reliability);
+            Assert.IsNaN(actualProbabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsFalse(calculationOutput.HasGeneralResult);
         }
 
         [Test]

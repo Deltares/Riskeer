@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Probability;
@@ -34,29 +35,36 @@ namespace Application.Ringtoets.Storage.Create
     {
         /// <summary>
         /// Creates a <see cref="TOutputEntity"/> based on the information of the 
-        /// <paramref name="calculationOutput"/>.
+        /// <paramref name="structuresOutput"/>.
         /// </summary>
-        /// <param name="calculationOutput">The calculation output to create a database entity for.</param>
+        /// <param name="structuresOutput">The structures output to create a database entity for.</param>
         /// <returns>A new <see cref="TOutputEntity"/>.</returns>
-        public static TOutputEntity Create<TOutputEntity>(this StructuresOutput calculationOutput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/>
+        /// is <c>null.</c></exception>
+        public static TOutputEntity Create<TOutputEntity>(this StructuresOutput structuresOutput)
             where TOutputEntity : IProbabilityAssessmentOutputEntity,
             IHasGeneralResultFaultTreeIllustrationPointEntity,
             new()
         {
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
+            if (structuresOutput == null)
+            {
+                throw new ArgumentNullException(nameof(structuresOutput));
+            }
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = structuresOutput.ProbabilityAssessmentOutput;
             var outputEntity = probabilityAssessmentOutput.Create<TOutputEntity>();
 
-            SetGeneralResult(calculationOutput, outputEntity);
+            SetGeneralResult(structuresOutput, outputEntity);
 
             return outputEntity;
         }
 
-        private static void SetGeneralResult(StructuresOutput calculationOutput, IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity)
+        private static void SetGeneralResult(StructuresOutput structuresOutput, IHasGeneralResultFaultTreeIllustrationPointEntity outputEntity)
         {
-            if (calculationOutput.HasGeneralResult)
+            if (structuresOutput.HasGeneralResult)
             {
                 outputEntity.GeneralResultFaultTreeIllustrationPointEntity =
-                    calculationOutput.GeneralResult
+                    structuresOutput.GeneralResult
                                      .CreateGeneralResultFaultTreeIllustrationPointEntity();
             }
         }

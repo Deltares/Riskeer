@@ -37,6 +37,17 @@ namespace Application.Ringtoets.Storage.Test.Create
     internal class StructuresOutputCreateExtensionsTest
     {
         [Test]
+        public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((StructuresOutput) null).Create<TestStructureOutputEntity>();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("structuresOutput", exception.ParamName);
+        }
+
+        [Test]
         public void Create_CalculationWithOutput_ReturnEntityWithOutput()
         {
             // Setup

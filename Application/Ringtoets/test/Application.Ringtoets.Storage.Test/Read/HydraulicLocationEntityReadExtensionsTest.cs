@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         private static void AssertGeneralResult(GeneralResultSubMechanismIllustrationPointEntity expected,
-                                                                             GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint)
+                                                GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint)
         {
             if (expected == null)
             {
