@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         /// <returns>An output context object.</returns>
         protected abstract TOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation);
 
-        protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
+        protected override bool ShouldCloseMethod(IView view, object o)
         {
             return info.CloseForData(view, o);
         }

@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
         {
-            protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
+            protected override bool ShouldCloseMethod(IView view, object o)
             {
                 using (var plugin = new RingtoetsPlugin())
                 {

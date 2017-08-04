@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class RingtoetsPluginHelperTest : ShouldCloseViewWithCalculationDataTester
     {
-        protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
+        protected override bool ShouldCloseMethod(IView view, object o)
         {
             return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }

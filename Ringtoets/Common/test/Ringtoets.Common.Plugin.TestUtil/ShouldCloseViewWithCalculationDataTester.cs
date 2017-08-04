@@ -33,12 +33,12 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Class for testing <see cref="PerformShouldCloseViewWithCalculationDataMethod"/>.
+    /// Class for testing <see cref="ShouldCloseMethod"/>.
     /// </summary>
     public abstract class ShouldCloseViewWithCalculationDataTester
     {
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
             ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = calculationContext.WrappedData;
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, calculationContext);
+                bool closeForData = ShouldCloseMethod(view, calculationContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
             ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, calculationContext);
+                bool closeForData = ShouldCloseMethod(view, calculationContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
             ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = calculationGroupContext.WrappedData.GetCalculations().First();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, calculationGroupContext);
+                bool closeForData = ShouldCloseMethod(view, calculationGroupContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
             ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, calculationGroupContext);
+                bool closeForData = ShouldCloseMethod(view, calculationGroupContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = failureMechanismContext.WrappedData.Calculations.First();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, failureMechanismContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, failureMechanismContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = failureMechanismContext.WrappedData.Calculations.First();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = failureMechanism.Calculations.First();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, assessmentSectionStub);
+                bool closeForData = ShouldCloseMethod(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -212,7 +212,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void PerformShouldCloseViewWithCalculationDataMethod_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = PerformShouldCloseViewWithCalculationDataMethod(view, assessmentSectionStub);
+                bool closeForData = ShouldCloseMethod(view, assessmentSectionStub);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <param name="view">The view involved.</param>
         /// <param name="o">The object involved.</param>
         /// <returns></returns>
-        protected abstract bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o);
+        protected abstract bool ShouldCloseMethod(IView view, object o);
 
         /// <summary>
         /// Gets a view for testing purposes.
