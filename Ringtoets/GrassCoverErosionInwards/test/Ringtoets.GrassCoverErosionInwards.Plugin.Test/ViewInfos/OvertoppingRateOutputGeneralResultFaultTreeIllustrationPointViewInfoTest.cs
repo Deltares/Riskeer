@@ -19,67 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
+using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest
+    public class OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
+        GrassCoverErosionInwardsOutputViewInfoTestBase<OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView, OvertoppingRateOutputContext>
     {
-        private GrassCoverErosionInwardsPlugin plugin;
-        private ViewInfo info;
-
-        [SetUp]
-        public void SetUp()
+        protected override string ViewName
         {
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView));
+            get
+            {
+                return "Overslagdebiet";
+            }
         }
 
-        [TearDown]
-        public void TearDown()
+        protected override IView GetView()
         {
-            plugin.Dispose();
+            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
-        [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        protected override OvertoppingRateOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
-            // Assert
-            Assert.AreEqual(typeof(OvertoppingRateOutputContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, info.Image);
-        }
-
-        [Test]
-        public void GetViewName_Always_ReturnsOvertoppingRateOutputDisplayName()
-        {
-            // Call
-            string viewName = info.GetViewName(null, null);
-
-            // Assert
-            Assert.AreEqual("Overslagdebiet", viewName);
-        }
-
-        [Test]
-        public void GetViewData_Always_ReturnsWrappedGrassCoverErosionInwardsCalculation()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var context = new OvertoppingRateOutputContext(calculation);
-
-            // Call
-            object viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(calculation, viewData);
+            return new OvertoppingRateOutputContext(calculation);
         }
     }
 }

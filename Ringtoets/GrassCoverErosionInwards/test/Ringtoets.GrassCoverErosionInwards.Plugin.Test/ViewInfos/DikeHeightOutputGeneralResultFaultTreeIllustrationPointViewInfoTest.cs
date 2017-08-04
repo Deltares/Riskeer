@@ -19,67 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
+using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewInfoTest
+    public class DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
+        GrassCoverErosionInwardsOutputViewInfoTestBase<DikeHeightOutputGeneralResultFaultTreeIllustrationPointView, DikeHeightOutputContext>
     {
-        private GrassCoverErosionInwardsPlugin plugin;
-        private ViewInfo info;
-
-        [SetUp]
-        public void SetUp()
+        protected override string ViewName
         {
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DikeHeightOutputGeneralResultFaultTreeIllustrationPointView));
+            get
+            {
+                return "HBN";
+            }
         }
 
-        [TearDown]
-        public void TearDown()
+        protected override IView GetView()
         {
-            plugin.Dispose();
+            return new DikeHeightOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
         }
 
-        [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        protected override DikeHeightOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
-            // Assert
-            Assert.AreEqual(typeof(DikeHeightOutputContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, info.Image);
-        }
-
-        [Test]
-        public void GetViewName_Always_ReturnsDikeHeightOutputDisplayName()
-        {
-            // Call
-            string viewName = info.GetViewName(null, null);
-
-            // Assert
-            Assert.AreEqual("HBN", viewName);
-        }
-
-        [Test]
-        public void GetViewData_Always_ReturnsWrappedGrassCoverErosionInwardsCalculation()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var context = new DikeHeightOutputContext(calculation);
-
-            // Call
-            object viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(calculation, viewData);
+            return new DikeHeightOutputContext(calculation);
         }
     }
 }
