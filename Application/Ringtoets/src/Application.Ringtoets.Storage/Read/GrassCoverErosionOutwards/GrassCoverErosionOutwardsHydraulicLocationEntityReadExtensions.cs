@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
