@@ -34,9 +34,9 @@ namespace Core.Common.Gui.TestUtil
     {
         /// <summary>
         /// Asserts that the given <paramref name="propertyInfos"/> contains a definition for the combination of
-        /// <paramref name="dataObjectType"/> and <paramref name="propertyObjectType"/>. 
+        /// <paramref name="dataObjectType"/> and <paramref name="propertyObjectType"/>.
         /// </summary>
-        /// <param name="propertyInfos">Collection of <see cref="PropertyInfo"/> definitions.</param>
+        /// <param name="propertyInfos">The collection of <see cref="PropertyInfo"/> definitions.</param>
         /// <param name="dataObjectType">The type of the data object for which property info is defined.</param>
         /// <param name="propertyObjectType">The type of the object which shows the data object properties.</param>
         /// <returns>The found property info.</returns>
@@ -56,7 +56,7 @@ namespace Core.Common.Gui.TestUtil
         }
 
         /// <summary>
-        /// Asserts that a view info is defined in the collection of view infos given. 
+        /// Asserts that a view info is defined in the collection of view infos given.
         /// </summary>
         /// <param name="viewInfos">The collection of <see cref="ViewInfo"/> to search in.</param>
         /// <param name="dataType">The type of the data which is passed to the <see cref="ViewInfo"/>.</param>
@@ -65,23 +65,22 @@ namespace Core.Common.Gui.TestUtil
         /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="viewInfos"/> is <c>null</c></item>
-        /// <item>no <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/></item>
-        /// <item>the found <see cref="ViewInfo"/> does not define the expected <paramref name="viewDataType"/> or 
-        /// <paramref name="viewType"/></item>
-        /// </list></exception>
+        /// <item><paramref name="viewInfos"/> is <c>null</c>;</item>
+        /// <item>no <see cref="ViewInfo"/> can be found for the combination of <paramref name="viewDataType"/> and <paramref name="viewType"/>;</item>
+        /// <item>the found <see cref="ViewInfo"/> does not define the expected <paramref name="dataType"/>.</item>
+        /// </list>
+        /// </exception>
         public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
         {
             Assert.NotNull(viewInfos);
-            ViewInfo viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType);
-            Assert.NotNull(viewInfo, "Could not find viewInfo for the dataType {0}", dataType);
-            Assert.AreEqual(viewDataType, viewInfo.ViewDataType);
-            Assert.AreEqual(viewType, viewInfo.ViewType);
+            ViewInfo viewInfo = viewInfos.SingleOrDefault(vi => vi.ViewDataType == viewDataType && vi.ViewType == viewType);
+            Assert.NotNull(viewInfo, "Could not find viewInfo for the combination of viewDataType {0} and viewType {1} ", viewDataType, viewType);
+            Assert.AreEqual(dataType, viewInfo.DataType);
             return viewInfo;
         }
 
         /// <summary>
-        /// Asserts that a view info is defined in the collection of view infos given. 
+        /// Asserts that a view info is defined in the collection of view infos given.
         /// </summary>
         /// <param name="viewInfos">The collection of <see cref="ViewInfo"/> to search in.</param>
         /// <param name="dataType">The type of the data which is passed to the <see cref="ViewInfo"/> and is set on the view.</param>
@@ -89,10 +88,10 @@ namespace Core.Common.Gui.TestUtil
         /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="viewInfos"/> is <c>null</c></item>
-        /// <item>no <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/></item>
-        /// <item>the found <see cref="ViewInfo"/> does not define the expected <paramref name="viewType"/></item>
-        /// </list></exception>
+        /// <item><paramref name="viewInfos"/> is <c>null</c>;</item>
+        /// <item>no <see cref="ViewInfo"/> can be found for the combination of <paramref name="dataType"/> and <paramref name="viewType"/>.</item>
+        /// </list>
+        /// </exception>
         public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewType)
         {
             return AssertViewInfoDefined(viewInfos, dataType, dataType, viewType);
