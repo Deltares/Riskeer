@@ -90,6 +90,9 @@
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsScenariosViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismViewInfoTest.cs" />
+    <Compile Include="ViewInfos\DikeHeightOutputGeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
+    <Compile Include="ViewInfos\OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
+    <Compile Include="ViewInfos\OvertoppingOutputGeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

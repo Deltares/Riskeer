@@ -75,17 +75,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsCalculationOutputDisplayName()
         {
-            // Setup
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint()))
-            {
-                var calculation = new TestStructuresCalculation();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, calculation);
-
-                // Assert
-                Assert.AreEqual("Resultaat", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]
@@ -102,8 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Assert.AreSame(calculation, viewData);
         }
 
-        [Ignore("Just a base class")]
-        public class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
+        public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
         {
             protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)
             {
