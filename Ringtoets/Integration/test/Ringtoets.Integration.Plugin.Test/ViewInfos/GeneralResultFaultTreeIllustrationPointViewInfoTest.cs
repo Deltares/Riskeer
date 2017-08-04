@@ -96,6 +96,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Assert.AreSame(calculation, viewData);
         }
 
+        [Test]
+        public void CreateInstance_Always_CreatesGeneralResultFaultTreeIllustrationPointView()
+        {
+            // Call
+            IView view = info.CreateInstance(null);
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
+        }
+
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester
         {
             protected override bool PerformShouldCloseViewWithCalculationDataMethod(IView view, object o)

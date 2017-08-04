@@ -93,6 +93,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             Assert.AreSame(calculation, viewData);
         }
 
+        [Test]
+        public void CreateInstance_Always_CreatesInstanceOfViewType()
+        {
+            // Call
+            IView view = info.CreateInstance(null);
+
+            // Assert
+            Assert.IsInstanceOf<TView>(view);
+        }
+
         /// <summary>
         /// Gets the name of the view.
         /// </summary>
