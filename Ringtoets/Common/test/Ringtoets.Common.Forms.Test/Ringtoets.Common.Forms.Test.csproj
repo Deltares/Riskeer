@@ -86,6 +86,7 @@
     <Compile Include="PresentationObjects\MapCalculationDataTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
+    <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPointTest.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPointTest.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

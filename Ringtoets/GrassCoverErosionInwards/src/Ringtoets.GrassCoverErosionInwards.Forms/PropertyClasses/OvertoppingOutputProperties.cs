@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -192,7 +193,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point)).ToArray();
+                List<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+                                                                                                                topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
+
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations)).ToArray();
             }
         }
 

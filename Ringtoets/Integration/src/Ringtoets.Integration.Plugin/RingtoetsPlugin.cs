@@ -48,7 +48,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
@@ -330,9 +329,10 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = selected => new TopLevelSubMechanismIllustrationPointProperties(selected.TopLevelSubMechanismIllustrationPoint,
                                                                                                  selected.ClosingSituations)
             };
-            yield return new PropertyInfo<TopLevelFaultTreeIllustrationPoint, TopLevelFaultTreeIllustrationPointProperties>
+            yield return new PropertyInfo<SelectedTopLevelFaultTreeIllustrationPoint, TopLevelFaultTreeIllustrationPointProperties>
             {
-                CreateInstance = point => new TopLevelFaultTreeIllustrationPointProperties(point)
+                CreateInstance = point => new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
+                                                                                           point.ClosingSituations)
             };
         }
 

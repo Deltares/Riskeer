@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 List<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
                                                                                                                 topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
 
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations.Distinct().Count() > 1)).ToArray();
+                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations)).ToArray();
             }
         }
 

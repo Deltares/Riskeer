@@ -25,12 +25,13 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class TopLevelFaultTreeIllustrationPointPropertyInfoTest
+    public class SelectedTopLevelFaultTreeIllustrationPointPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -39,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(TopLevelFaultTreeIllustrationPoint));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(TopLevelFaultTreeIllustrationPointProperties));
         }
 
         [TearDown]
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(TopLevelFaultTreeIllustrationPoint), info.DataType);
+            Assert.AreEqual(typeof(SelectedTopLevelFaultTreeIllustrationPoint), info.DataType);
             Assert.AreEqual(typeof(TopLevelFaultTreeIllustrationPointProperties), info.PropertyObjectType);
         }
 
@@ -65,11 +66,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 "Closing situation",
                 new IllustrationPointNode(new TestIllustrationPoint()));
 
+            var selectedTopLevelFaultTreeIllustrationPoint = new SelectedTopLevelFaultTreeIllustrationPoint(topLevelFaultTreeIllustrationPoint,
+                                                                                                                  Enumerable.Empty<string>());
+
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(topLevelFaultTreeIllustrationPoint);
+            IObjectProperties objectProperties = info.CreateInstance(selectedTopLevelFaultTreeIllustrationPoint);
 
             // Assert
-            Assert.IsInstanceOf<TopLevelFaultTreeIllustrationPointProperties>(objectProperties);
+            Assert.IsInstanceOf<SelectedTopLevelFaultTreeIllustrationPoint>(selectedTopLevelFaultTreeIllustrationPoint);
             Assert.AreSame(topLevelFaultTreeIllustrationPoint, objectProperties.Data);
         }
     }

@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -107,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
-            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First());
+            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new [] {"closing situation"});
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
@@ -115,12 +116,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(factorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
+
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.AlphaValues));
             Assert.AreEqual(5.0, properties.AlphaValues[0].Alpha);
+
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.Durations));
             Assert.AreEqual(10.0, properties.Durations[0].Duration);
+
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.WindDirection, properties.IllustrationPoints[0].WindDirection);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.Reliability, properties.IllustrationPoints[0].Reliability);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, ExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.IllustrationPoints));
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
         }
 

@@ -41,28 +41,33 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TopLevelFaultTreeIllustrationPointProperties : ObjectProperties<TopLevelFaultTreeIllustrationPoint>
     {
-        private readonly bool showClosingSituation;
+        private readonly IEnumerable<string> closingSituations;
 
         /// <summary>
         /// Creates a new instance of <see cref="TopLevelFaultTreeIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="faultTreeData">The data to use for the properties. </param>
+        /// <param name="allClosingSituations">All closing situations in the tree</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public TopLevelFaultTreeIllustrationPointProperties(
-            TopLevelFaultTreeIllustrationPoint faultTreeData, bool hasUniqueClosingSituations = false)
+            TopLevelFaultTreeIllustrationPoint faultTreeData, IEnumerable<string> allClosingSituations)
         {
             if (faultTreeData == null)
             {
                 throw new ArgumentNullException(nameof(faultTreeData));
             }
+            if (allClosingSituations == null)
+            {
+                throw new ArgumentNullException(nameof(allClosingSituations));
+            }
             data = faultTreeData;
-            showClosingSituation = hasUniqueClosingSituations;
+            closingSituations = allClosingSituations;
         }
 
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_Description))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CalculatedProbability
         {
             get
@@ -71,10 +76,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_Description))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble Reliability
         {
             get
@@ -165,7 +170,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return propertyName.Equals(nameof(ClosingSituation)) && showClosingSituation;
+            if (propertyName == nameof(ClosingSituation))
+            {
+                return !(closingSituations.Distinct().Count() < 2);
+            }
+
+            return false;
         }
 
         public override string ToString()

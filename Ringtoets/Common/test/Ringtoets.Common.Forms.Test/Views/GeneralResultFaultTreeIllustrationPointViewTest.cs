@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -288,7 +289,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Then
             Assert.AreNotEqual(0, selectionChangedCount);
-            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(0), view.Selection);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(0), ((SelectedTopLevelFaultTreeIllustrationPoint)view.Selection).TopLevelFaultTreeIllustrationPoint);
 
             mocks.VerifyAll();
         }
@@ -351,7 +352,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Then
             Assert.AreEqual(1, selectionChangedCount);
-            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(1), view.Selection);
+            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(1), ((SelectedTopLevelFaultTreeIllustrationPoint) view.Selection).TopLevelFaultTreeIllustrationPoint);
 
             mocks.VerifyAll();
         }

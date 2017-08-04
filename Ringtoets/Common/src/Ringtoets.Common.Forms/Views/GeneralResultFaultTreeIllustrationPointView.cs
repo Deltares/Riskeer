@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -139,7 +140,11 @@ namespace Ringtoets.Common.Forms.Views
 
         private void OnIllustrationPointsControlSelectionChanged(object sender, EventArgs e)
         {
-            Selection = (illustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
+            var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
+            Selection = selection != null
+                            ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint)selection.Source,
+                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                            : null;
 
             OnSelectionChanged();
         }

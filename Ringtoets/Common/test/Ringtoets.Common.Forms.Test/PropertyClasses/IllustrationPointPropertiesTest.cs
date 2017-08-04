@@ -21,12 +21,14 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
@@ -65,11 +67,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual("NNE", faultTree.WindDirection);
+
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, NoValueRoundedDoubleConverter>(
+                nameof(IllustrationPointProperties.Reliability));
             Assert.AreEqual(3.14, faultTree.Reliability.Value);
+
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, NoProbabilityValueDoubleConverter>(
+                nameof(IllustrationPointProperties.CalculatedProbability));
             Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
             Assert.AreEqual("Illustration Point", faultTree.Name);
 
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, ExpandableArrayConverter>(
+                nameof(IllustrationPointProperties.IllustrationPoints));
             Assert.IsNotNull(faultTree.IllustrationPoints);
             Assert.AreEqual(0, faultTree.IllustrationPoints.Length);
         }
@@ -90,11 +100,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual("N", faultTree.WindDirection);
+
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, NoValueRoundedDoubleConverter>(
+                nameof(IllustrationPointProperties.Reliability));
             Assert.AreEqual(3.14, faultTree.Reliability.Value);
+
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, NoProbabilityValueDoubleConverter>(
+                nameof(IllustrationPointProperties.CalculatedProbability));
             Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
             Assert.AreEqual("Illustration Point", faultTree.Name);
 
+            TestHelper.AssertTypeConverter<IllustrationPointProperties, ExpandableArrayConverter>(
+                nameof(IllustrationPointProperties.IllustrationPoints));
             Assert.IsNotNull(faultTree.IllustrationPoints);
             Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
         }

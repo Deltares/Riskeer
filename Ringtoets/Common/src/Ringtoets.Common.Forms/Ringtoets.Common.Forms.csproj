@@ -74,6 +74,7 @@
     <Compile Include="PresentationObjects\MapCalculationData.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
+    <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

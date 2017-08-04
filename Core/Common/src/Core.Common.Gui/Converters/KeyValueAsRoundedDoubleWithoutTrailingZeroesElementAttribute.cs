@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Converters
             }
 
             var doubleValue = (RoundedDouble) valueProperty;
-            return doubleValue.ToString("0.#####", CultureInfo.GetCultureInfo("nl-NL"));
+            return doubleValue.ToString("0.#####", CultureInfo.CurrentCulture);
         }
     }
 }

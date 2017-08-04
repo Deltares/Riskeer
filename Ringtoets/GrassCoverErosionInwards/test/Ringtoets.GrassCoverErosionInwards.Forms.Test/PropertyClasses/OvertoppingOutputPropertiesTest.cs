@@ -100,7 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
             var expectedFaultTreeIllustrationPointBaseProperty = new[]
             {
-                new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First())
+                new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
+                {
+                    "closing situation"
+                })
             };
 
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
