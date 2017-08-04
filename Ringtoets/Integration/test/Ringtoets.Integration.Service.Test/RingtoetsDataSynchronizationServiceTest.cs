@@ -559,6 +559,9 @@ namespace Ringtoets.Integration.Service.Test
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);
@@ -608,7 +611,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(39, changedObjects.Length);
+            Assert.AreEqual(42, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -659,6 +662,9 @@ namespace Ringtoets.Integration.Service.Test
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);
@@ -705,7 +711,7 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(39, changedObjects.Length);
+            Assert.AreEqual(42, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -756,6 +762,9 @@ namespace Ringtoets.Integration.Service.Test
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.CalculationsGroup);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.Contains(changedObjects, macrostabilityOutwardsFailureMechanism);

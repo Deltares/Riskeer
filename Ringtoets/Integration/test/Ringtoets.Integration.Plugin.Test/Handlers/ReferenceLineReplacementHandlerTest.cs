@@ -154,7 +154,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Replace(assessmentSection, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(39, observables.Length);
+            Assert.AreEqual(42, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -245,6 +245,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.CalculationsGroup);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacrostabilityOutwardsFailureMechanism macrostabilityOutwardsFailureMechanism = assessmentSection.MacrostabilityOutwards;
             CollectionAssert.IsEmpty(macrostabilityOutwardsFailureMechanism.Sections);

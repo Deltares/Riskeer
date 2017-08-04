@@ -41,6 +41,8 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 using Ringtoets.Revetment.Data;
@@ -628,6 +630,12 @@ namespace Ringtoets.Integration.Service
             if (pipingFailureMechanism != null)
             {
                 return PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism);
+            }
+
+            var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
+            if (macroStabilityInwardsFailureMechanism != null)
+            {
+                return MacroStabilityInwardsDataSynchronizationService.ClearReferenceLineDependentData(macroStabilityInwardsFailureMechanism);
             }
 
             var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
