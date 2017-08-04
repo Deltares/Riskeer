@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
@@ -32,9 +33,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class OvertoppingRateOutputTest
     {
         [Test]
-        [TestCase(double.NaN, 0.8457)]
-        [TestCase(0.654, double.NaN)]
-        public void Constructor_ValidInputWithGeneralResultNull_ExpectedProperties(double targetProbability, double calculatedProbability)
+        [TestCase(double.NaN, 0.8457, true)]
+        [TestCase(0.654, double.NaN, false)]
+        public void Constructor_ValidInputWithGeneralResultNull_ExpectedProperties(
+            double targetProbability,
+            double calculatedProbability,
+            bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(32);
@@ -43,39 +47,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
-            // Call
-            var output = new OvertoppingRateOutput(overtoppingRate,
-                                                   targetProbability,
-                                                   targetReliability,
-                                                   calculatedProbability,
-                                                   calculatedReliability,
-                                                   convergence,
-                                                   null);
-
-            // Assert
-            Assert.IsInstanceOf<HydraulicLoadsOutput>(output);
-            Assert.AreEqual(overtoppingRate, output.OvertoppingRate, output.OvertoppingRate.GetAccuracy());
-            Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsFalse(output.HasGeneralResult);
-            Assert.IsNull(output.GeneralResult);
-        }
-
-        [Test]
-        [TestCase(double.NaN, 0.8457)]
-        [TestCase(0.654, double.NaN)]
-        public void Constructor_ValidInputWithGeneralResult_ExpectedProperties(double targetProbability, double calculatedProbability)
-        {
-            // Setup
-            var random = new Random(32);
-            double overtoppingRate = random.NextDouble();
-            double targetReliability = random.NextDouble();
-            double calculatedReliability = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
 
             // Call
             var output = new OvertoppingRateOutput(overtoppingRate,
@@ -94,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            Assert.IsTrue(output.HasGeneralResult);
+            Assert.AreEqual(withIllustrationPoints, output.HasGeneralResult);
             Assert.AreSame(generalResult, output.GeneralResult);
         }
     }

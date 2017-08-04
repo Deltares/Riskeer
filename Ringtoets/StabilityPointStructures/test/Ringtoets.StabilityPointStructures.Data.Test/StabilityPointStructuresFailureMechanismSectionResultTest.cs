@@ -22,10 +22,8 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -65,22 +63,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN(bool withIllustrationPoints)
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                                  : null;
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(probabilityAssessmentOutput, generalResult)
+                    Output = new TestStructuresOutput(double.NaN)
                 }
             };
 
@@ -92,23 +84,17 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability(bool withIllustrationPoints)
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
 
             const double probability = 0.65;
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                                  : null;
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
-                    Output = new StructuresOutput(probabilityAssessmentOutput, generalResult)
+                    Output = new TestStructuresOutput(probability)
                 }
             };
 

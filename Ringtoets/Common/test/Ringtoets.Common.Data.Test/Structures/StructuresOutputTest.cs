@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -31,17 +32,10 @@ namespace Ringtoets.Common.Data.Test.Structures
     public class StructuresOutputTest
     {
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException(bool withIllustrationPoints)
+        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException()
         {
-            // Setup
-            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
-                                                                            ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                            : null;
-
             // Call
-            TestDelegate call = () => new StructuresOutput(null, generalResult);
+            TestDelegate call = () => new StructuresOutput(null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,34 +43,24 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResultNulls_ReturnsExpectedProperties()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResult_ReturnsExpectedProperties(
+            bool withIllustrationPoints)
         {
             // Setup
             var output = new TestProbabilityAssessmentOutput();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
+                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
+                                                                                  : null;
 
             // Call
-            var structuresOutput = new StructuresOutput(output, null);
+            var structuresOutput = new StructuresOutput(output, generalResult);
 
             // Assert
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
-            Assert.IsFalse(structuresOutput.HasGeneralResult);
-            Assert.IsNull(structuresOutput.GeneralResult);
-        }
-
-        [Test]
-        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResult_SetExpectedProperties()
-        {
-            // Setup
-            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
-
-            // Call
-            var structuresOutput = new StructuresOutput(probabilityAssessmentOutput, generalResult);
-
-            // Assert
-            Assert.AreSame(probabilityAssessmentOutput, structuresOutput.ProbabilityAssessmentOutput);
+            Assert.AreEqual(withIllustrationPoints, structuresOutput.HasGeneralResult);
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);
-            Assert.IsTrue(structuresOutput.HasGeneralResult);
         }
     }
 }

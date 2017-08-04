@@ -72,27 +72,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithResultAndWithoutGeneralResult_ReturnsExpectedValues()
-        {
-            // Setup
-            const double result = 9.5;
-
-            // Call
-            var output = new TestHydraulicBoundaryLocationOutput(result, null);
-
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationOutput>(output);
-            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
-            Assert.IsNull(output.GeneralResult);
-            Assert.IsNaN(output.TargetProbability);
-            Assert.IsNaN(output.TargetReliability);
-            Assert.IsNaN(output.CalculatedProbability);
-            Assert.IsNaN(output.CalculatedReliability);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged,
-                            output.CalculationConvergence);
-        }
-
-        [Test]
         public void TestHydraulicBoundaryLocationOutput_WithGeneralResultAndResult_ReturnsExpectedValues()
         {
             // Setup
@@ -106,24 +85,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsInstanceOf<HydraulicBoundaryLocationOutput>(output);
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.AreSame(generalResult, output.GeneralResult);
-            Assert.IsNaN(output.TargetProbability);
-            Assert.IsNaN(output.TargetReliability);
-            Assert.IsNaN(output.CalculatedProbability);
-            Assert.IsNaN(output.CalculatedReliability);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged,
-                            output.CalculationConvergence);
-        }
-
-        [Test]
-        public void TestHydraulicBoundaryLocationOutput_WithGeneralResultNull_ReturnsExpectedValues()
-        {
-            // Call
-            var output = new TestHydraulicBoundaryLocationOutput(null);
-
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationOutput>(output);
-            Assert.IsNull(output.GeneralResult);
-            Assert.IsNaN(output.Result);
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
             Assert.IsNaN(output.CalculatedProbability);

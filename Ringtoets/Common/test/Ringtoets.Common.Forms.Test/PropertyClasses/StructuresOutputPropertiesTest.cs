@@ -53,16 +53,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string resultCategoryName = "\tResultaat";
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_StructuresOutput_ExpectedValues(bool withIllustrationPoints)
+        public void Constructor_StructuresOutput_ExpectedValues()
         {
             // Setup
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                                  : null;
-
-            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), generalResult);
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
 
             // Call
             var properties = new StructuresOutputProperties(structuresOutput);
@@ -122,11 +116,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.AlphaValues));
-            Assert.AreEqual(5.0, properties.AlphaValues[0].Alpha);
-
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.Durations));
-            Assert.AreEqual(10.0, properties.Durations[0].Duration);
+            int nrOfExpectedStochasts = generalResult.Stochasts.Count();
+            Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
+            Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
+            Stochast stochast = generalResult.Stochasts.First();
+            Assert.AreEqual(stochast.Alpha, properties.AlphaValues[0].Alpha);
+            Assert.AreEqual(stochast.Duration, properties.Durations[0].Duration);
 
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.WindDirection, properties.IllustrationPoints[0].WindDirection);
             Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.Reliability, properties.IllustrationPoints[0].Reliability);

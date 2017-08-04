@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="isOvertoppingDominant">The value indicating whether overtopping was dominant in the calculation.</param>
         /// <param name="probabilityAssessmentOutput">The probabilistic assessment output.</param>
         /// <param name="generalResult">The general result of this output with the fault tree 
-        /// illustration points. </param>
+        /// illustration points.</param>
         public OvertoppingOutput(double waveHeight, bool isOvertoppingDominant, ProbabilityAssessmentOutput probabilityAssessmentOutput,
                                  GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {

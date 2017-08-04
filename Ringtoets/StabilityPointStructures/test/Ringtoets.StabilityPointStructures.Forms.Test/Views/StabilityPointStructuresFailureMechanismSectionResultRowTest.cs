@@ -24,9 +24,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
@@ -74,20 +73,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [Combinatorial]
-        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(
-            [Values(CalculationScenarioStatus.Failed, CalculationScenarioStatus.NotCalculated)] CalculationScenarioStatus status,
-            [Values(true, false)] bool withIllustrationPoints)
+        [TestCase(CalculationScenarioStatus.Failed)]
+        [TestCase(CalculationScenarioStatus.NotCalculated)]
+        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
-                                                                               ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                               : null;
             if (status == CalculationScenarioStatus.Failed)
             {
-                var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, double.NaN, 1.0, 1.0);
-                calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
+                calculation.Output = new TestStructuresOutput(double.NaN);
             }
 
             FailureMechanismSection section = CreateSection();
@@ -106,18 +100,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA(bool withIllustrationPoints)
+        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.9, 1.0, 0.95, 1.0, 1.0);
-            TestGeneralResultFaultTreeIllustrationPoint generalResult = withIllustrationPoints
-                                                                               ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                               : null;
+            const double probability = 0.95;
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = new StructuresOutput(probabilityAssessmentOutput, generalResult)
+                Output = new TestStructuresOutput(probability)
             };
 
             FailureMechanismSection section = CreateSection();
@@ -132,7 +121,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(probabilityAssessmentOutput.Probability, assessmentLayerTwoA);
+            Assert.AreEqual(probability, assessmentLayerTwoA);
         }
 
         [Test]

@@ -23,9 +23,7 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -48,26 +46,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ParameteredConstructor_DefaultValues(bool withIllustrationPoints)
+        public void ParameteredConstructor_DefaultValues()
         {
             // Setup
             const double waveHeight = 3.2934;
             const double dikeHeight = 7.3892;
-            const double requiredProbability = 0.2;
-            const double requiredReliability = 0.3;
-            const double probability = 0.4;
-            const double reliability = 0.1;
-            const double factorOfSafety = 0.7;
             const double overtoppingRate = 0.9;
 
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
-                                                                                  ? new TestGeneralResultFaultTreeIllustrationPoint()
-                                                                                  : null;
-            
-            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, generalResult);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
+
+            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, null);
             var dikeHeightOutput = new TestDikeHeightOutput(dikeHeight);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(overtoppingRate);
 
@@ -80,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
             Assert.AreSame(probabilityAssessmentOutput, output.OvertoppingOutput.ProbabilityAssessmentOutput);
-            Assert.AreSame(generalResult, output.OvertoppingOutput.GeneralResult);
+            Assert.IsNull(output.OvertoppingOutput.GeneralResult);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);
             Assert.AreSame(overtoppingRateOutput, output.OvertoppingRateOutput);
         }

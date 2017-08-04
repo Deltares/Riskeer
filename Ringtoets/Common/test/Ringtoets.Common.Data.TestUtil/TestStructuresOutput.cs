@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -36,6 +37,16 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         public TestStructuresOutput()
             : this(null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestStructuresOutput"/>.
+        /// </summary>
+        /// <param name="probability">The probability of failure.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting 
+        /// <paramref name="probability"/> that falls  outside the [0.0, 1.0] range 
+        /// and isn't <see cref="double.NaN"/>.</exception>
+        public TestStructuresOutput(double probability)
+            : base(new ProbabilityAssessmentOutput(0, 0, probability, 0, 0), null) {}
 
         /// <summary>
         /// Creates new instance of <see cref="TestStructuresOutput"/>.

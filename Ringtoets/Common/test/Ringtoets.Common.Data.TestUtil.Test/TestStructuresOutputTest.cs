@@ -71,5 +71,28 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreSame(generalResult, output.GeneralResult);
             Assert.IsTrue(output.HasGeneralResult);
         }
+
+        [Test]
+        public void ProbabilityConstructor_SetExpectedValues()
+        {
+            // Setup
+            const double probability = 0.5;
+
+            // Call
+            var output = new TestStructuresOutput(probability);
+
+            // Assert
+            Assert.IsInstanceOf<StructuresOutput>(output);
+
+            ProbabilityAssessmentOutput probabilityAssessmentOutput =
+                output.ProbabilityAssessmentOutput;
+            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(probability, probabilityAssessmentOutput.Probability);
+            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.IsNull(output.GeneralResult);
+            Assert.IsFalse(output.HasGeneralResult);
+        }
     }
 }
