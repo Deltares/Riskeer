@@ -708,14 +708,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static object[] CalculationContextChildNodeObjects(StabilityPointStructuresCalculationContext context)
         {
+            StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
+
             return new object[]
             {
-                context.WrappedData.Comments,
-                new StabilityPointStructuresInputContext(context.WrappedData.InputParameters,
-                                                         context.WrappedData,
+                calculation.Comments,
+                new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                         calculation,
                                                          context.FailureMechanism,
                                                          context.AssessmentSection),
-                new StructuresOutputContext(context.WrappedData)
+                new StructuresOutputContext(calculation)
             };
         }
 

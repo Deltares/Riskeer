@@ -835,17 +835,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static object[] WaveConditionsCalculationContextChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = context.WrappedData;
+
             var childNodes = new List<object>
             {
-                context.WrappedData.Comments,
-                new GrassCoverErosionOutwardsWaveConditionsInputContext(context.WrappedData.InputParameters,
-                                                                        context.WrappedData,
+                calculation.Comments,
+                new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
+                                                                        calculation,
                                                                         context.FailureMechanism)
             };
 
-            if (context.WrappedData.HasOutput)
+            if (calculation.HasOutput)
             {
-                childNodes.Add(context.WrappedData.Output);
+                childNodes.Add(calculation.Output);
             }
             else
             {

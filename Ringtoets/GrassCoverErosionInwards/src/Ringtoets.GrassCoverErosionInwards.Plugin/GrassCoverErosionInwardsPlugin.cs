@@ -850,14 +850,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext context)
         {
+            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
+
             return new object[]
             {
-                context.WrappedData.Comments,
-                new GrassCoverErosionInwardsInputContext(context.WrappedData.InputParameters,
-                                                         context.WrappedData,
+                calculation.Comments,
+                new GrassCoverErosionInwardsInputContext(calculation.InputParameters,
+                                                         calculation,
                                                          context.FailureMechanism,
                                                          context.AssessmentSection),
-                new GrassCoverErosionInwardsOutputContext(context.WrappedData)
+                new GrassCoverErosionInwardsOutputContext(calculation)
             };
         }
 

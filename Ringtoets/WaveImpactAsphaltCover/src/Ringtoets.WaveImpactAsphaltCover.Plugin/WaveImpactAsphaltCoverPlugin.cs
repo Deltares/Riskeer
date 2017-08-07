@@ -538,18 +538,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private static object[] WaveConditionsCalculationContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = context.WrappedData;
+
             var childNodes = new List<object>
             {
-                context.WrappedData.Comments,
-                new WaveImpactAsphaltCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
-                                                                     context.WrappedData,
+                calculation.Comments,
+                new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
+                                                                     calculation,
                                                                      context.FailureMechanism.ForeshoreProfiles,
                                                                      context.AssessmentSection)
             };
 
-            if (context.WrappedData.HasOutput)
+            if (calculation.HasOutput)
             {
-                childNodes.Add(context.WrappedData.Output);
+                childNodes.Add(calculation.Output);
             }
             else
             {

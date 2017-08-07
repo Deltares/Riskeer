@@ -698,14 +698,16 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static object[] CalculationContextChildNodeObjects(ClosingStructuresCalculationContext context)
         {
+            StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
+
             return new object[]
             {
-                context.WrappedData.Comments,
-                new ClosingStructuresInputContext(context.WrappedData.InputParameters,
-                                                  context.WrappedData,
+                calculation.Comments,
+                new ClosingStructuresInputContext(calculation.InputParameters,
+                                                  calculation,
                                                   context.FailureMechanism,
                                                   context.AssessmentSection),
-                new StructuresOutputContext(context.WrappedData)
+                new StructuresOutputContext(calculation)
             };
         }
 

@@ -710,14 +710,16 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static object[] CalculationContextChildNodeObjects(HeightStructuresCalculationContext context)
         {
+            StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
+
             return new object[]
             {
-                context.WrappedData.Comments,
-                new HeightStructuresInputContext(context.WrappedData.InputParameters,
-                                                 context.WrappedData,
+                calculation.Comments,
+                new HeightStructuresInputContext(calculation.InputParameters,
+                                                 calculation,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection),
-                new StructuresOutputContext(context.WrappedData)
+                new StructuresOutputContext(calculation)
             };
         }
 
