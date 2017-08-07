@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             var expectedMessages = new[]
             {
-                "De resultaten van 32 berekeningen zijn verwijderd.",
+                "De resultaten van 36 berekeningen zijn verwijderd.",
                 "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
@@ -271,7 +271,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeNorm(section, norm);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 32 berekeningen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
 
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
 
