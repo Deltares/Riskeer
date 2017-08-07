@@ -34,6 +34,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long GrassCoverErosionInwardsDikeHeightOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
+        public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public double? DikeHeight { get; set; }
         public double? TargetProbability { get; set; }
         public double? TargetReliability { get; set; }
@@ -41,6 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
 
+        public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
     }
 }

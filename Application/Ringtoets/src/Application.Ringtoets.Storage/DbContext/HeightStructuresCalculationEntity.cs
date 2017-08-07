@@ -53,7 +53,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? LevelCrestStructureMean { get; set; }
         public double? LevelCrestStructureStandardDeviation { get; set; }
         public double? DeviationWaveDirection { get; set; }
-        public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HeightStructureEntity HeightStructureEntity { get; set; }
@@ -82,6 +81,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte UseForeshore { get; set; }
         public byte BreakWaterType { get; set; }
         public double? BreakWaterHeight { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
     }

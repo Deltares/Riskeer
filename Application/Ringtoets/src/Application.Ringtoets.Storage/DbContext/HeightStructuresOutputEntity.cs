@@ -35,9 +35,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public long HeightStructuresOutputEntityId { get; set; }
         public long HeightStructuresCalculationEntityId { get; set; }
         public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
+        public virtual HeightStructuresCalculationEntity HeightStructuresCalculationEntity { get; set; }
 
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
-        public virtual HeightStructuresCalculationEntity HeightStructuresCalculationEntity { get; set; }
         public double? RequiredProbability { get; set; }
         public double? RequiredReliability { get; set; }
         public double? Probability { get; set; }

@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertHeightStructuresFailureMechanism(reader);
                     AssertClosingStructuresFailureMechanism(reader);
                     AssertStabilityPointStructuresFailureMechanism(reader);
-
+                    AssertGrassCoverErosionInwardsFailureMechanism(reader);
                     AssertHydraulicBoundaryLocations(reader);
 
                     AssertClosingStructures(reader);
@@ -390,6 +390,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = 0 " +
                 "FROM StabilityPointStructuresCalculationEntity " +
                 "WHERE ShouldIllustrationPointsBeCalculated != 0;";
+            reader.AssertReturnedDataIsValid(validateCalculations);
+        }
+
+        private static void AssertGrassCoverErosionInwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateCalculations =
+                "SELECT COUNT() = 0 " +
+                "FROM GrassCoverErosionInwardsCalculationEntity " +
+                "WHERE ShouldDikeHeightIllustrationPointsBeCalculated != 0 AND " +
+                "ShouldOvertoppingRateIllustrationPointsBeCalculated != 0 AND " +
+                "ShouldOvertoppingOutputIllustrationPointsBeCalculated != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
         }
 

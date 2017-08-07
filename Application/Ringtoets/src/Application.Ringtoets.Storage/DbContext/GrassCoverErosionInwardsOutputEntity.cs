@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
+        public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public int Order { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public double? WaveHeight { get; set; }
@@ -53,6 +54,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? Reliability { get; set; }
         public double? FactorOfSafety { get; set; }
 
+        public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

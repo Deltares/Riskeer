@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class TopLevelSubMechanismIllustrationPointEntity
+    public class TopLevelSubMechanismIllustrationPointEntity
     {
         public long TopLevelSubMechanismIllustrationPointEntityId { get; set; }
         public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }

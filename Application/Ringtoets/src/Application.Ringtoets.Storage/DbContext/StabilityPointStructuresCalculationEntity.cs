@@ -87,7 +87,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? VolumicWeightWater { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public double? DrainCoefficientMean { get; set; }
-        public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
@@ -116,6 +115,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? StormDurationMean { get; set; }
         public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
     }

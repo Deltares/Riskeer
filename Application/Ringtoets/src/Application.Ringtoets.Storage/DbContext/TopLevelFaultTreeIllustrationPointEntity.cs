@@ -30,7 +30,7 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class TopLevelFaultTreeIllustrationPointEntity
+    public class TopLevelFaultTreeIllustrationPointEntity
     {
         public long TopLevelFaultTreeIllustrationPointEntityId { get; set; }
         public long FaultTreeIllustrationPointEntityId { get; set; }
