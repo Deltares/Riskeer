@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForHeightStructuresTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseHeightViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
         {
             protected override ICalculation GetCalculation()
             {
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForClosingStructuresTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseClosingViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
         {
             protected override ICalculation GetCalculation()
             {
@@ -219,7 +219,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStabilityPointStructuresTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
+        public class ShouldCloseStabilityPointViewTester : ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester
         {
             protected override ICalculation GetCalculation()
             {
