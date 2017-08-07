@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private string name;
 
         /// <summary>
-        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile2D"/>, with the given <paramref name="name"/>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile2D"/>, with the given <paramref name="name"/>
         /// and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
@@ -63,6 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
         public string Name
         {
             get

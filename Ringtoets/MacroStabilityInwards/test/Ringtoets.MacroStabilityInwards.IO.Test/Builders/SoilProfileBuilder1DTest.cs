@@ -57,7 +57,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             var builder = new SoilProfileBuilder1D(profileName, bottom, soilProfileId);
             builder.Add(new MacroStabilityInwardsSoilLayer1D(top)
             {
-                IsAquifer = true
+                Properties =
+                {
+                    IsAquifer = true
+                }
             });
 
             // Call
@@ -86,7 +89,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             var builder = new SoilProfileBuilder1D(profileName, bottom, soilProfileId);
             builder.Add(new MacroStabilityInwardsSoilLayer1D(top)
             {
-                IsAquifer = true
+                Properties =
+                {
+                    IsAquifer = true
+                }
             });
             builder.Add(new MacroStabilityInwardsSoilLayer1D(top2));
 

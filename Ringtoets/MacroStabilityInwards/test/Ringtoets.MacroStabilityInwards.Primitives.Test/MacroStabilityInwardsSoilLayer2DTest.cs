@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithoutHoles_ReturnsNewInstance()
+        public void Constructor_WithoutHoles_ThrowsArgumentNullException()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -158,6 +158,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Properties.PopDeviation = layer.Properties.PopDeviation;
                 Properties.PopShift = layer.Properties.PopShift;
             }
+        }
+
+        [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
+
+            // Call
+            bool areEqual = layer.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
         }
 
         [Test]

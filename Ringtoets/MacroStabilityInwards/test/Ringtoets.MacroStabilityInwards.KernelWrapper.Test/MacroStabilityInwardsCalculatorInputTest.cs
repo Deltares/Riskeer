@@ -51,7 +51,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             {
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
-                    IsAquifer = true
+                    Properties =
+                    {
+                        IsAquifer = true
+                    }
                 }
             }, SoilProfileType.SoilProfile1D, 0);
 

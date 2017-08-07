@@ -244,9 +244,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             MacroStabilityInwardsSoilLayer1D macroStabilityInwardsSoilLayer = profile.Layers.First();
 
             Assert.AreEqual(1.1, macroStabilityInwardsSoilLayer.Top);
-            Assert.IsFalse(macroStabilityInwardsSoilLayer.IsAquifer);
-            Assert.IsEmpty(macroStabilityInwardsSoilLayer.MaterialName);
-            Assert.AreEqual(Color.Empty, macroStabilityInwardsSoilLayer.Color);
+            Assert.IsFalse(macroStabilityInwardsSoilLayer.Properties.IsAquifer);
+            Assert.IsEmpty(macroStabilityInwardsSoilLayer.Properties.MaterialName);
+            Assert.AreEqual(Color.Empty, macroStabilityInwardsSoilLayer.Properties.Color);
 
             mocks.VerifyAll();
         }
@@ -297,9 +297,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             MacroStabilityInwardsSoilLayer1D macroStabilityInwardsSoilLayer = profile.Layers.First();
             Assert.AreEqual(1.1, macroStabilityInwardsSoilLayer.Top);
-            Assert.IsTrue(macroStabilityInwardsSoilLayer.IsAquifer);
-            Assert.AreEqual(materialName, macroStabilityInwardsSoilLayer.MaterialName);
-            Assert.AreEqual(color, macroStabilityInwardsSoilLayer.Color);
+            Assert.IsTrue(macroStabilityInwardsSoilLayer.Properties.IsAquifer);
+            Assert.AreEqual(materialName, macroStabilityInwardsSoilLayer.Properties.MaterialName);
+            Assert.AreEqual(color, macroStabilityInwardsSoilLayer.Properties.Color);
 
             mocks.VerifyAll();
         }

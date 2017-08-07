@@ -41,6 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="surfaceLine">The surface line for which determines the top of the <paramref name="soilProfile"/>.</param>
         /// <returns>A new <see cref="SoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/> under the <paramref name="surfaceLine"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)
@@ -54,7 +55,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
             Point2D[] localizedSurfaceLine = surfaceLine.LocalGeometry.ToArray();
 
             IEnumerable<Point2D> surfaceLineGeometry = CreateSurfaceLineAreaToDepth(localizedSurfaceLine, soilProfile.Bottom);
-            IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(l => As2DGeometry(l, soilProfile, localizedSurfaceLine.First().X, localizedSurfaceLine.Last().X));
+            IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(
+                layer => As2DGeometry(
+                    layer, 
+                    soilProfile,
+                    localizedSurfaceLine.First().X,
+                    localizedSurfaceLine.Last().X));
 
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);
         }
@@ -65,6 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="soilProfile">The soil profile containing layers.</param>
         /// <returns>A new <see cref="SoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
             if (soilProfile == null)
@@ -72,12 +79,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            IList<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine = new List<SoilLayerUnderSurfaceLine>();
+            IEnumerable<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
+                layer => new SoilLayerUnderSurfaceLine(
+                    RingToPoints(layer.OuterRing), 
+                    layer.Holes.Select(RingToPoints), 
+                    layer.Properties));
 
-            foreach (var layer in soilProfile.Layers)
-            {
-                layersUnderSurfaceLine.Add(new SoilLayerUnderSurfaceLine(RingToPoints(layer.OuterRing), layer.Holes.Select(RingToPoints), layer.Properties));
-            }
             return new SoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
         }
 
@@ -106,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)
         {
             double top = layer.Top;
-            double bottom = layer.Top - soilProfile.GetLayerThickness(layer);
+            double bottom = top - soilProfile.GetLayerThickness(layer);
 
             return new TempSoilLayerGeometry(new[]
             {
@@ -151,48 +158,5 @@ namespace Ringtoets.MacroStabilityInwards.Data
             public SoilLayerProperties Properties { get; }
             public IEnumerable<Point2D[]> InnerLoops { get; }
         }
-    }
-
-    public class SoilProfileUnderSurfaceLine
-    {
-        public SoilProfileUnderSurfaceLine(IEnumerable<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine)
-        {
-            if (layersUnderSurfaceLine == null)
-            {
-                throw new ArgumentNullException(nameof(layersUnderSurfaceLine));
-            }
-            LayersUnderSurfaceLine = layersUnderSurfaceLine;
-        }
-
-        public IEnumerable<SoilLayerUnderSurfaceLine> LayersUnderSurfaceLine { get; }
-    }
-
-    public class SoilLayerUnderSurfaceLine
-    {
-        public SoilLayerUnderSurfaceLine(Point2D[] outerRing, SoilLayerProperties properties)
-            : this(outerRing, Enumerable.Empty<Point2D[]>(), properties) {}
-
-        public SoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, SoilLayerProperties properties)
-        {
-            if (outerRing == null)
-            {
-                throw new ArgumentNullException(nameof(outerRing));
-            }
-            if (holes == null)
-            {
-                throw new ArgumentNullException(nameof(holes));
-            }
-            if (properties == null)
-            {
-                throw new ArgumentNullException(nameof(properties));
-            }
-            OuterRing = outerRing;
-            Holes = holes;
-            Properties = properties;
-        }
-
-        public Point2D[] OuterRing { get; }
-        public IEnumerable<Point2D[]> Holes { get; }
-        public SoilLayerProperties Properties { get; }
     }
 }

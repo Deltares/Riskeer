@@ -494,6 +494,7 @@ namespace Core.Common.TestUtil
         /// and <paramref name="actual"/> are equal.</param>
         /// <exception cref="AssertionException">Thrown when either:
         /// <list type="bullet">
+        /// <item>Any parameter is <c>null</c>.</item>
         /// <item><paramref name="expected"/> has more or less elements than <paramref name="actual"/>;</item>
         /// <item><paramref name="expected"/> contains an element at a position that is not equal to the 
         /// element in <paramref name="actual"/> at that position.</item>

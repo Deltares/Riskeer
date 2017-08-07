@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -341,8 +340,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(2, profileUnderSurfaceLine.LayersUnderSurfaceLine.Count());
-            CollectionAssert.AreEqual(new [] { outerRingA.Points, outerRingB.Points }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.OuterRing));
-            CollectionAssert.AreEqual(new [] { holesA.Select(h => h.Points), holesB.Select(h => h.Points) }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.Holes));
+            CollectionAssert.AreEqual(new[]
+            {
+                outerRingA.Points,
+                outerRingB.Points
+            }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.OuterRing));
+            CollectionAssert.AreEqual(new[]
+            {
+                holesA.Select(h => h.Points),
+                holesB.Select(h => h.Points)
+            }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.Holes));
         }
 
         private static Ring CreateRing(int seed)

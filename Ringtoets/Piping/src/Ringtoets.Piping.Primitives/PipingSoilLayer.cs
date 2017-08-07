@@ -55,24 +55,24 @@ namespace Ringtoets.Piping.Primitives
         public double Top { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the <see cref="PipingSoilLayer"/> is an aquifer.
+        /// Gets or sets a value indicating whether the <see cref="PipingSoilLayer"/> is an aquifer.
         /// </summary>
         public bool IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the mean of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the deviation of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelDeviation { get; set; }
 
         /// <summary>
-        /// Gets or sets the shift of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// Gets or sets the shift of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelShift { get; set; }
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Primitives
                 return true;
             }
             var other = obj as PipingSoilLayer;
-            return other != null && Equals((PipingSoilLayer) obj);
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()

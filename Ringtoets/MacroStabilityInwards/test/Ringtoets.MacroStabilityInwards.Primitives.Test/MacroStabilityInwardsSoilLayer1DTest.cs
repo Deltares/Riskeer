@@ -45,37 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void MaterialName_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer1D(top);
-
-            // Call
-            TestDelegate test = () => layer.MaterialName = null;
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("A name")]
-        public void MaterialName_NotNullValue_ValueSet(string materialName)
-        {
-            // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer1D(top);
-
-            // Call
-            layer.MaterialName = materialName;
-
-            // Assert
-            Assert.AreEqual(materialName, layer.MaterialName);
-        }
-
-        [Test]
         public void GetHashCode_EqualLayers_AreEqual()
         {
             // Setup
@@ -133,6 +102,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Properties.PopDeviation = layer.Properties.PopDeviation;
                 Properties.PopShift = layer.Properties.PopShift;
             }
+        }
+
+        [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            MacroStabilityInwardsSoilLayer1D layer = CreateRandomLayer(21);
+
+            // Call
+            bool areEqual = layer.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
         }
 
         [Test]

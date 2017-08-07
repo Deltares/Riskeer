@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Primitives
                 return true;
             }
             var other = obj as PipingSurfaceLine;
-            return other != null && Equals((PipingSurfaceLine) obj);
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()

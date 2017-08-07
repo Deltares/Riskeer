@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -37,9 +36,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     public class StochasticSoilModelTest
     {
         [Test]
+        public void Constructor_WithoutName_ExpectedValues()
+        {
+            // Call
+            TestDelegate test = () => new StochasticSoilModel(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase("segmentSoilModelName")]
-        public void Constructor_Always_ExpectedValues(string segmentSoilModelName)
+        public void Constructor_WithName_ExpectedValues(string segmentSoilModelName)
         {
             // Call
             var stochasticSoilModel = new StochasticSoilModel(segmentSoilModelName);
@@ -354,17 +364,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             }, difference.AddedProfiles);
         }
 
-        private static ISoilProfile CreateMacroStabilityInwardsSoilProfile1D(string name)
-        {
-            return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
-            {
-                new MacroStabilityInwardsSoilLayer1D(0.0)
-                {
-                    IsAquifer = true
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
-        }
-
         [Test]
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
@@ -402,7 +401,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCase(null)]
         [TestCase("")]
         [TestCase("some name")]
         public void ToString_WithName_ReturnsName(string name)
@@ -412,6 +410,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call & Assert
             Assert.AreEqual(name, stochasticSoilModel.ToString());
+        }
+
+        private static ISoilProfile CreateMacroStabilityInwardsSoilProfile1D(string name)
+        {
+            return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
+            {
+                new MacroStabilityInwardsSoilLayer1D(0.0)
+                {
+                    Properties =
+                    {
+                        IsAquifer = true
+                    }
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
         }
 
         private class TestSoilProfile : ISoilProfile

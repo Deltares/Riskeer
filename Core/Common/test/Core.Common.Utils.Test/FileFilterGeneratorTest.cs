@@ -131,7 +131,7 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void Equals_DiffentType_ReturnsFalse()
+        public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
             var generator = new FileFilterGenerator("txt", "descriptionA");

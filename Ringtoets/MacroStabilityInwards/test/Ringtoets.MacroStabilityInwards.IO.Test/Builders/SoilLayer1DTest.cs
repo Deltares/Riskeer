@@ -71,9 +71,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
 
             // Assert
             Assert.AreEqual(top, result.Top);
-            Assert.AreEqual(isAquifer.Equals(1.0), result.IsAquifer);
-            Assert.AreEqual(materialName, result.MaterialName);
-            Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Color);
+            Assert.AreEqual(isAquifer.Equals(1.0), result.Properties.IsAquifer);
+            Assert.AreEqual(materialName, result.Properties.MaterialName);
+            Assert.AreEqual(Color.FromArgb(color.ToArgb()), result.Properties.Color);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Builders
             MacroStabilityInwardsSoilLayer1D result = layer.AsMacroStabilityInwardsSoilLayer();
 
             // Assert
-            Assert.IsEmpty(result.MaterialName);
+            Assert.IsEmpty(result.Properties.MaterialName);
         }
     }
 }

@@ -149,8 +149,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }
             layers.Add(new MacroStabilityInwardsSoilLayer1D(-1.0)
             {
-                MaterialName = name,
-                Color = Color.Aquamarine
+                Properties =
+                {
+                    MaterialName = name,
+                    Color = Color.Aquamarine
+                }
             });
 
             var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);

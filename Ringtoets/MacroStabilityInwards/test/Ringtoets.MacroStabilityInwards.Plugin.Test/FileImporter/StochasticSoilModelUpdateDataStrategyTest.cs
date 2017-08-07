@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
@@ -310,7 +311,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void UpdateModelWithImportedData_ProfilesAssignedToCalculationsOneWithNoChangeInProfile_OnlyCalculationWithChangedProfileUpdated()
+        public void UpdateModelWithImportedData_ProfilesAssignedToCalculations1DProfileChanged_OnlyCalculationWithChangedProfileUpdated()
         {
             // Setup
             const string modelsName = "same model";
@@ -324,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             StochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
-            StochasticSoilProfile changedProfile = CloneAndSlightlyModify(readModel.StochasticSoilProfiles.ElementAt(0));
+            StochasticSoilProfile changedProfile = CloneAndSlightlyModify1DProfile(readModel.StochasticSoilProfiles.ElementAt(0));
             readModel.StochasticSoilProfiles[0] = changedProfile;
 
             var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -360,6 +361,68 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             Assert.IsTrue(calculationWithNotUpdatedProfile.HasOutput);
             Assert.AreSame(existingModel.StochasticSoilProfiles[1], calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile);
+
+            CollectionAssert.AreEquivalent(new IObservable[]
+            {
+                targetCollection,
+                firstSoilModel,
+                calculationWithUpdatedProfile,
+                calculationWithUpdatedProfile.InputParameters,
+                calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateModelWithImportedData_ProfilesAssignedToCalculations2DProfileChanged_OnlyCalculationWithChangedProfileUpdated()
+        {
+            // Setup
+            const string modelsName = "same model";
+            StochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            targetCollection.AddRange(new[]
+            {
+                existingModel
+            }, sourceFilePath);
+
+            StochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
+            StochasticSoilProfile changedProfile = CloneAndSlightlyModify2DProfile(readModel.StochasticSoilProfiles.ElementAt(1));
+            readModel.StochasticSoilProfiles[1] = changedProfile;
+
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
+            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
+            calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
+
+            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
+            calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
+            calculationWithUpdatedProfile.Output = new MacroStabilityInwardsOutput();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithUpdatedProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
+
+            var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
+            {
+                readModel
+            }, sourceFilePath).ToArray();
+
+            // Assert
+            StochasticSoilModel firstSoilModel = targetCollection[0];
+            Assert.AreSame(existingModel, firstSoilModel);
+            Assert.AreEqual(2, firstSoilModel.StochasticSoilProfiles.Count);
+            Assert.AreSame(existingModel.StochasticSoilProfiles[0], firstSoilModel.StochasticSoilProfiles[0]);
+            Assert.AreSame(existingModel.StochasticSoilProfiles[1], firstSoilModel.StochasticSoilProfiles[1]);
+
+            Assert.IsFalse(calculationWithUpdatedProfile.HasOutput);
+            Assert.AreSame(existingModel.StochasticSoilProfiles[1], calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile);
+
+            Assert.IsTrue(calculationWithNotUpdatedProfile.HasOutput);
+            Assert.AreSame(existingModel.StochasticSoilProfiles[0], calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile);
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -485,16 +548,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                         SoilProfileType.SoilProfile1D,
                         0)
                 },
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 0)
                 {
-                    SoilProfile = new MacroStabilityInwardsSoilProfile1D(
+                    SoilProfile = new MacroStabilityInwardsSoilProfile2D(
                         "B",
-                        0.0,
                         new[]
                         {
-                            new MacroStabilityInwardsSoilLayer1D(0.0)
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new [] { new Point2D(3,2), new Point2D(4,5) }), Enumerable.Empty<Ring>())
                         },
-                        SoilProfileType.SoilProfile1D,
+                        SoilProfileType.SoilProfile2D,
                         0)
                 }
             });
@@ -521,7 +583,22 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             return model;
         }
 
-        private static StochasticSoilProfile CloneAndSlightlyModify(StochasticSoilProfile profile)
+        private static StochasticSoilProfile CloneAndSlightlyModify2DProfile(StochasticSoilProfile profile)
+        {
+            var soilProfile = (MacroStabilityInwardsSoilProfile2D) profile.SoilProfile;
+            return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
+            {
+                SoilProfile = new MacroStabilityInwardsSoilProfile2D(
+                    soilProfile.Name,
+                    soilProfile.Layers.Select(s => new MacroStabilityInwardsSoilLayer2D(
+                        new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
+                        s.Holes)),
+                    soilProfile.SoilProfileType,
+                    soilProfile.MacroStabilityInwardsSoilProfileId)
+            };
+        }
+
+        private static StochasticSoilProfile CloneAndSlightlyModify1DProfile(StochasticSoilProfile profile)
         {
             var soilProfile = (MacroStabilityInwardsSoilProfile1D) profile.SoilProfile;
             return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)

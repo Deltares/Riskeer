@@ -50,9 +50,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         {
             return new MacroStabilityInwardsSoilLayer1D(Top)
             {
-                IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
-                MaterialName = MaterialName ?? string.Empty,
-                Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
+                Properties =
+                {
+                    IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
+                    MaterialName = MaterialName ?? string.Empty,
+                    Color = SoilLayerColorConversionHelper.ColorFromNullableDouble(Color)
+                }
             };
         }
     }

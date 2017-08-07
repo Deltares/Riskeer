@@ -176,6 +176,19 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_OtherType_ReturnsFalse()
+        {
+            // Setup
+            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            bool areEqual = stochasticProfile.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup

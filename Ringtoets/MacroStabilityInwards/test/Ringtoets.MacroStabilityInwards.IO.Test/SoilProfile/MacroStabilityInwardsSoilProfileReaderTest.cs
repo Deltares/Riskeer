@@ -298,7 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 Assert.AreEqual("Profile", profile.Name);
                 const int expectedNumberOfLayers = 3;
                 Assert.AreEqual(expectedNumberOfLayers, profile.Layers.Count());
-                CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers), profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers), profile.Layers.Select(l => l.Properties.IsAquifer));
             }
         }
 
@@ -343,13 +343,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                     false,
                     false,
                     true
-                }, profile.Layers.Select(l => l.IsAquifer));
+                }, profile.Layers.Select(l => l.Properties.IsAquifer));
                 CollectionAssert.AreEqual(new[]
                 {
                     Color.FromArgb(128, 255, 128),
                     Color.FromArgb(255, 0, 0),
                     Color.FromArgb(70, 130, 180)
-                }, profile.Layers.Select(l => l.Color));
+                }, profile.Layers.Select(l => l.Properties.Color));
             }
         }
 
@@ -370,13 +370,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                     true,
                     false,
                     false
-                }, profile.Layers.Select(l => l.IsAquifer));
+                }, profile.Layers.Select(l => l.Properties.IsAquifer));
                 CollectionAssert.AreEqual(new[]
                 {
                     Color.FromArgb(70, 130, 180),
                     Color.FromArgb(255, 0, 0),
                     Color.FromArgb(128, 255, 128)
-                }, profile.Layers.Select(l => l.Color));
+                }, profile.Layers.Select(l => l.Properties.Color));
             }
         }
 

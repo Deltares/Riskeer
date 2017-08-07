@@ -97,10 +97,6 @@
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.InputParameterCalculation\Ringtoets.MacroStabilityInwards.InputParameterCalculation.csproj">
-      <Project>{4a6e4b44-316e-4717-bdb1-05a78b734f14}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.InputParameterCalculation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>

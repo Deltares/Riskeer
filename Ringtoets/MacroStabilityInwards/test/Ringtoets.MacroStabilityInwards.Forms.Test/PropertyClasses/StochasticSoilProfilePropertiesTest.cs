@@ -72,7 +72,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 new MacroStabilityInwardsSoilLayer1D(-2),
                 new MacroStabilityInwardsSoilLayer1D(-4)
                 {
-                    IsAquifer = true
+                    Properties =
+                    {
+                        IsAquifer = true
+                    }
                 }
             };
 

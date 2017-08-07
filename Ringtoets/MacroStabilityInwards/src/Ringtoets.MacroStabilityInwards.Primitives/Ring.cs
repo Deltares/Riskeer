@@ -35,6 +35,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Creates a new instance of <see cref="Ring"/>.
         /// </summary>
         /// <param name="points">The points that form the ring.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="points"/> contains less than 2 unique points.</exception>
         /// <remarks>While a ring is defined to be closed line, it's not required
         /// that the given <paramref name="points"/>' first point and last point
         /// are equal.</remarks>
@@ -85,8 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Validates the points collection.
         /// </summary>
         /// <param name="points">The points to validate.</param>
-        /// <exception cref="ArgumentNullException">Thrown when points is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when points contains less than 2 unique points.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="points"/> contains less than 2 unique points.</exception>
         private void ValidateAndTrimPoints(IEnumerable<Point2D> points)
         {
             if (points == null)
@@ -95,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
             if (points.Distinct().Count() < 2)
             {
-                throw new ArgumentException($@"Need at least two points to define a {typeof(Ring).Name}.", nameof(points));
+                throw new ArgumentException($@"Need at least two distinct points to define a {typeof(Ring).Name}.", nameof(points));
             }
         }
     }

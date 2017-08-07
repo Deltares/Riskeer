@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         }
 
         [Test]
-        public void Equals_DiffentType_ReturnsFalse()
+        public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
             const string windDirectionName = "SSE";

@@ -148,10 +148,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
             MacroStabilityInwardsSoilLayer1D soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
-            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
+            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.Properties.MaterialName}",
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = soilLayer.Color,
+                                                 FillColor = soilLayer.Properties.Color,
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

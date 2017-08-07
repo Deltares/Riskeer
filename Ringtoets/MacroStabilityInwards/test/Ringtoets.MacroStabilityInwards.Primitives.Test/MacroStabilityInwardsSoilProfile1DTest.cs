@@ -72,7 +72,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
-
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
@@ -108,7 +107,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             {
                 equivalentLayers.Add(new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
-                    IsAquifer = i == 0
+                    Properties =
+                    {
+                        IsAquifer = i == 0
+                    }
                 });
             }
 
@@ -359,9 +361,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                MaterialName = GetRandomName(random),
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                IsAquifer = random.NextBoolean()
+                Properties =
+                {
+                    MaterialName = GetRandomName(random),
+                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                    IsAquifer = random.NextBoolean()
+                }
             };
         }
 

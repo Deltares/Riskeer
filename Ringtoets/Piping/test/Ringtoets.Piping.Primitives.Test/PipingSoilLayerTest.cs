@@ -103,6 +103,19 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            PipingSoilLayer layer = CreateRandomLayer(21);
+
+            // Call
+            bool areEqual = layer.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup

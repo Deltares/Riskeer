@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Data
                 return true;
             }
             var other = obj as StochasticSoilProfile;
-            return other != null && Equals((StochasticSoilProfile) obj);
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()

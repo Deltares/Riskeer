@@ -38,8 +38,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">Name of the segment soil model.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is
+        /// <c>null</c>.</exception>
         public StochasticSoilModel(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
             Name = name;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<StochasticSoilProfile>();

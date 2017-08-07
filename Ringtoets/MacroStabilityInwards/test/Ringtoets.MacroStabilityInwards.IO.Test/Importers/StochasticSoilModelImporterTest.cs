@@ -881,7 +881,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             CollectionAssert.AreEqual(expectedLayerTops, profile.Layers.Select(l => l.Top));
             int expectedNumberOfLayers = expectedLayerTops.Length;
             CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers),
-                                      profile.Layers.Select(l => l.IsAquifer));
+                                      profile.Layers.Select(l => l.Properties.IsAquifer));
 
             Assert.AreEqual(7, progress);
         }
@@ -949,20 +949,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                 false
             };
             CollectionAssert.AreEqual(expectedIsAquiferValues,
-                                      profile.Layers.Select(l => l.IsAquifer));
+                                      profile.Layers.Select(l => l.Properties.IsAquifer));
             CollectionAssert.AreEqual(expectedLayerTops, profile.Layers.Select(l => l.Top));
-            var expectedBelowPhreaticLevelValues = new[]
-            {
-                27.27,
-                28.28,
-                29.29,
-                30.3,
-                33.33,
-                35.35,
-                37.37,
-                39.39,
-                40.4
-            };
 
             Assert.AreEqual(7, progress);
         }

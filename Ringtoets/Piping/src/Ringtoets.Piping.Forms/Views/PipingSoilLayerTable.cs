@@ -96,19 +96,19 @@ namespace Ringtoets.Piping.Forms.Views
             public bool IsAquifer { get; }
 
             /// <summary>
-            /// Gets the mean of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+            /// Gets the mean of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
             /// [kN/m³]
             /// </summary>
             public RoundedDouble BelowPhreaticLevelMean { get; }
 
             /// <summary>
-            /// Gets the deviation of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+            /// Gets the deviation of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
             /// [kN/m³]
             /// </summary>
             public RoundedDouble BelowPhreaticLevelDeviation { get; }
 
             /// <summary>
-            /// Gets the shift of the distrubtion for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+            /// Gets the shift of the distribution for the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
             /// [kN/m³]
             /// </summary>
             public RoundedDouble BelowPhreaticLevelShift { get; }

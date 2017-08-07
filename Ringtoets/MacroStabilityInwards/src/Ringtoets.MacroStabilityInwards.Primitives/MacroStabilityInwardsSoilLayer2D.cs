@@ -26,8 +26,7 @@ using System.Linq;
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
-    /// necessary input for executing a macro stability inwards calculation.
+    /// This class represents a 2D layer that was imported from D-Soil Model.
     /// </summary>
     public class MacroStabilityInwardsSoilLayer2D
     {

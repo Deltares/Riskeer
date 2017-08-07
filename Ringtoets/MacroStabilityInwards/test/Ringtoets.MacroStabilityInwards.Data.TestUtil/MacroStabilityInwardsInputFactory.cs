@@ -52,11 +52,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(thicknessCoverageLayer)
                     {
-                        IsAquifer = false
+                        Properties =
+                        {
+                            IsAquifer = false
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
@@ -87,7 +93,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
@@ -119,15 +128,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
                     {
-                        IsAquifer = false
+                        Properties =
+                        {
+                            IsAquifer = false
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine)
                     {
-                        IsAquifer = false
+                        Properties =
+                        {
+                            IsAquifer = false
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
@@ -158,15 +176,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(4.3)
                     {
-                        IsAquifer = false
+                        Properties =
+                        {
+                            IsAquifer = false
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(3.3)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(1.1)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };

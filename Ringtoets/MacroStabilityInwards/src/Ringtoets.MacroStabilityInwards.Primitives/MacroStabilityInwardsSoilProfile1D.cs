@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private string name;
 
         /// <summary>
-        /// Creates a new instance ofL <see cref="MacroStabilityInwardsSoilProfile1D"/>, with the given <paramref name="name"/>, 
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile1D"/>, with the given <paramref name="name"/>, 
         /// <paramref name="bottom"/> and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
@@ -45,7 +45,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="sourceProfileType">The type of soil profile used as data source
         /// to build this instance.</param>
         /// <param name="soilProfileId">Identifier of the profile.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
+        /// <exception cref="ArgumentException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="layers"/> contains no layers</item>
+        /// <item><paramref name="layers"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> less than
+        /// <see cref="Bottom"/></item>
+        /// </list>
+        /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilProfile1D(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer1D> layers, SoilProfileType sourceProfileType, long soilProfileId)
@@ -70,6 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
         public string Name
         {
             get

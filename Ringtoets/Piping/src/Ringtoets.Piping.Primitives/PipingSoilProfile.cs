@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Primitives
         private PipingSoilLayer[] layers;
 
         /// <summary>
-        /// Creates a new instance ofL <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
+        /// Creates a new instance of <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Primitives
                 return true;
             }
             var other = obj as PipingSoilProfile;
-            return other!= null && Equals((PipingSoilProfile)obj);
+            return other!= null && Equals(other);
         }
 
         public override int GetHashCode()

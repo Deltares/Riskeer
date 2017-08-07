@@ -76,8 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void MaterialName_Null_ThrowsArgumentNullException()
         {
             // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer1D(top);
+            var layer = new SoilLayerProperties();
 
             // Call
             TestDelegate test = () => layer.MaterialName = null;
@@ -93,8 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void MaterialName_NotNullValue_ValueSet(string materialName)
         {
             // Setup
-            double top = new Random(22).NextDouble();
-            var layer = new MacroStabilityInwardsSoilLayer1D(top);
+            var layer = new SoilLayerProperties();
 
             // Call
             layer.MaterialName = materialName;
@@ -117,6 +115,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Call & Assert
             Assert.AreEqual(propertiesA.GetHashCode(), propertiesB.GetHashCode());
             Assert.AreEqual(propertiesB.GetHashCode(), propertiesA.GetHashCode());
+        }
+
+        [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            SoilLayerProperties layer = CreateRandomProperties(21);
+
+            // Call
+            bool areEqual = layer.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
         }
 
         [Test]
@@ -169,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (ShearStrengthModel) 9));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.IsAquifer));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color == Color.Aqua ? Color.Bisque : Color.Aqua));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
@@ -197,6 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             SoilLayerProperties propertiesA = CreateRandomProperties(21);
             SoilLayerProperties propertiesB = CreateRandomProperties(21);
             SoilLayerProperties propertiesC = CreateRandomProperties(73);
+            SoilLayerProperties propertiesD = CreateRandomProperties(21);
 
             return new[]
             {
@@ -208,13 +220,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 {
                     TestName = "Equals_LayerALayerB_True"
                 },
+                new TestCaseData(propertiesB, propertiesD, true)
+                {
+                    TestName = "Equals_LayerBLayerD_True"
+                },
+                new TestCaseData(propertiesA, propertiesD, true)
+                {
+                    TestName = "Equals_LayerALayerD_True"
+                },
                 new TestCaseData(propertiesB, propertiesC, false)
                 {
                     TestName = "Equals_LayerBLayerC_False"
                 },
-                new TestCaseData(propertiesC, propertiesC, true)
+                new TestCaseData(propertiesA, propertiesC, false)
                 {
-                    TestName = "Equals_LayerCLayerC_True"
+                    TestName = "Equals_LayerALayerC_False"
                 }
             };
         }

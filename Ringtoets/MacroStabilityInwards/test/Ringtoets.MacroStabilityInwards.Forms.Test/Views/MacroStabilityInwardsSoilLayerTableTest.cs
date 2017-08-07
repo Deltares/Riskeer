@@ -155,10 +155,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     MacroStabilityInwardsSoilLayer1D soilLayer = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
-                    AssertColumnValueEqual(soilLayer.MaterialName, rowCells[nameColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayer.Color, rowCells[colorColumnIndex].Value);
                     AssertColumnValueEqual(soilLayer.Top, rowCells[topColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Properties.MaterialName, rowCells[nameColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Properties.Color, rowCells[colorColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Properties.IsAquifer, rowCells[isAquiferColumnIndex].Value);
                 }
             }
         }
@@ -183,9 +183,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                MaterialName = $"{random.NextDouble()}",
-                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                IsAquifer = random.NextBoolean()
+                Properties =
+                {
+                    MaterialName = $"{random.NextDouble()}",
+                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                    IsAquifer = random.NextBoolean()
+                }
             };
         }
     }

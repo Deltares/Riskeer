@@ -160,6 +160,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        public void Equals_OtherType_ReturnsFalse()
+        {
+            // Setup
+            var stochasticProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            bool areEqual = stochasticProfile.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -201,9 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("some name")]
-        public void ToString_WithProfile_ReturnsToStringResultOfProfile(string name)
+        public void ToString_WithProfile_ReturnsToStringResultOfProfile()
         {
             // Setup
             var profile = new TestSoilProfile();
@@ -245,6 +256,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
             var profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
             var profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
+            var profileG = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 25);
+            var profileH = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25);
 
             return new[]
             {
@@ -256,9 +269,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 {
                     TestName = "Equals_ProfileBProfileC_False"
                 },
+                new TestCaseData(profileA, profileC, false)
+                {
+                    TestName = "Equals_ProfileAProfileC_False"
+                },
                 new TestCaseData(profileE, profileF, true)
                 {
                     TestName = "Equals_DifferentIds_True"
+                },
+                new TestCaseData(profileE, profileG, false)
+                {
+                    TestName = "Equals_DifferentTypes_False"
+                },
+                new TestCaseData(profileE, profileH, false)
+                {
+                    TestName = "Equals_DifferentProbability_False"
                 }
             };
         }

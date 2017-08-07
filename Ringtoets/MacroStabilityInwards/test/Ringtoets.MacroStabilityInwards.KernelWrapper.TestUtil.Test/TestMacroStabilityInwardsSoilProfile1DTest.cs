@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
-    public class TestMacroStabilityInwardsSoilProfileTest
+    public class TestMacroStabilityInwardsSoilProfile1DTest
     {
         [Test]
         public void DefaultConstructor_ExpectedPropertiesSet()
@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             CollectionAssert.AreEquivalent(new[]
             {
                 true
-            }, profile.Layers.Select(l => l.IsAquifer));
+            }, profile.Layers.Select(l => l.Properties.IsAquifer));
             CollectionAssert.AreEquivalent(new[]
             {
                 0.0
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             CollectionAssert.AreEquivalent(new[]
             {
                 true
-            }, profile.Layers.Select(l => l.IsAquifer));
+            }, profile.Layers.Select(l => l.Properties.IsAquifer));
             CollectionAssert.AreEquivalent(new[]
             {
                 0.0
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             CollectionAssert.AreEquivalent(new[]
             {
                 true
-            }, profile.Layers.Select(l => l.IsAquifer));
+            }, profile.Layers.Select(l => l.Properties.IsAquifer));
             CollectionAssert.AreEquivalent(new[]
             {
                 0.0

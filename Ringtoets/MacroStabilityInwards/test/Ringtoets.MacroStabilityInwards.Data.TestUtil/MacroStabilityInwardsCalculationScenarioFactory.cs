@@ -139,11 +139,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(top)
                     {
-                        IsAquifer = false
+                        Properties =
+                        {
+                            IsAquifer = false
+                        }
                     },
                     new MacroStabilityInwardsSoilLayer1D(top / 2)
                     {
-                        IsAquifer = true
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };

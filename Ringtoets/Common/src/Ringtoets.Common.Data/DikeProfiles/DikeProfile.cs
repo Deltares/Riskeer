@@ -219,7 +219,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 return true;
             }
             var other = obj as DikeProfile;
-            return other != null && Equals((DikeProfile) obj);
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()

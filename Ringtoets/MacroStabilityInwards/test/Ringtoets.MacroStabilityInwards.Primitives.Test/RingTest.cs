@@ -43,26 +43,28 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithEmptyPoints_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new Ring(Enumerable.Empty<Point2D>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("points", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithSingleUniquePoint_ThrowsArgumentException([Range(0, 4)] int times)
+        public void Constructor_WithoutAtLeastTwoDistinctPoints_ThrowsArgumentException([Range(0, 4)] int times)
         {
             // Call
             TestDelegate test = () => new Ring(Enumerable.Repeat(new Point2D(3, 2), times));
 
             // Assert
-            const string expectedMessage = "Need at least two points to define a Ring.";
+            const string expectedMessage = "Need at least two distinct points to define a Ring.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
+        }
+
+        [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            Ring layer = CreateRing();
+
+            // Call
+            bool areEqual = layer.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
         }
 
         [Test]
@@ -112,6 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Ring ringA = CreateRandomRing(21);
             Ring ringB = CreateRandomRing(21);
             Ring ringC = CreateRandomRing(73);
+            Ring ringD = CreateRandomRing(21);
 
             return new[]
             {
@@ -123,13 +126,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 {
                     TestName = "Equals_RingARingB_True"
                 },
+                new TestCaseData(ringB, ringD, true)
+                {
+                    TestName = "Equals_RingBRingD_True"
+                },
+                new TestCaseData(ringA, ringD, true)
+                {
+                    TestName = "Equals_RingARingD_True"
+                },
                 new TestCaseData(ringB, ringC, false)
                 {
                     TestName = "Equals_RingBRingC_False"
                 },
-                new TestCaseData(ringC, ringC, true)
+                new TestCaseData(ringA, ringC, false)
                 {
-                    TestName = "Equals_RingCRingC_True"
+                    TestName = "Equals_RingARingC_False"
                 }
             };
         }

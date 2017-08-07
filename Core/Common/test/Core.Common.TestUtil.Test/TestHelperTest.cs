@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Windows.Forms;
 using Core.Common.TestUtil.Test.Properties;
@@ -1084,24 +1085,12 @@ namespace Core.Common.TestUtil.Test
         public void AssertCollectionsAreEqual_ExpectedCollectionNull_ThrowsException()
         {
             // Setup
-            var objectA = new object();
-            var objectB = new object();
-            var objectC = new object();
-            var objectD = new object();
-
             var mocks = new MockRepository();
             var comparer = mocks.Stub<IEqualityComparer<object>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(null,
-                                                                          new[]
-                                                                          {
-                                                                              objectA,
-                                                                              objectB,
-                                                                              objectC,
-                                                                              objectD
-                                                                          }, comparer);
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(null, Enumerable.Empty<object>(), comparer);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -1112,23 +1101,12 @@ namespace Core.Common.TestUtil.Test
         public void AssertCollectionsAreEqual_ActualCollectionNull_ThrowsException()
         {
             // Setup
-            var objectA = new object();
-            var objectB = new object();
-            var objectC = new object();
-            var objectD = new object();
-
             var mocks = new MockRepository();
             var comparer = mocks.Stub<IEqualityComparer<object>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
-            {
-                objectA,
-                objectB,
-                objectC,
-                objectD
-            }, null, comparer);
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(Enumerable.Empty<object>(), null, comparer);
 
             // Assert
             Assert.Throws<AssertionException>(test);

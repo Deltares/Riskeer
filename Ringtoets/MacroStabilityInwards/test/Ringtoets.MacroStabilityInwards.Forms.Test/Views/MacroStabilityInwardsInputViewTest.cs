@@ -822,7 +822,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
             Assert.AreEqual(soilProfile.Name, soilProfileChartData.Name);
 
-            string[] soilLayers = soilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
+            string[] soilLayers = soilProfile.Layers.Select((l, i) => $"{i + 1} {l.Properties.MaterialName}").Reverse().ToArray();
 
             for (var i = 0; i < expectedLayerCount; i++)
             {

@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
         private static void AssertLayer(bool aquifer, double top, MacroStabilityInwardsSoilLayer1D soilLayer)
         {
-            Assert.AreEqual(aquifer, soilLayer.IsAquifer);
+            Assert.AreEqual(aquifer, soilLayer.Properties.IsAquifer);
             Assert.AreEqual(top, soilLayer.Top);
         }
     }
