@@ -60,8 +60,21 @@ namespace Ringtoets.Common.Data.Contribution
         public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution, double norm)
         {
             Norm = norm;
+            SignalingNorm = norm;
+            LowerLimitNorm = norm;
+
             UpdateContributions(failureMechanisms, otherContribution);
         }
+
+        /// <summary>
+        /// Gets the signaling norm which has been defined on the assessment section.
+        /// </summary>
+        public double SignalingNorm { get; }
+
+        /// <summary>
+        /// Gets the lower limit norm which has been defined on the assessment section.
+        /// </summary>
+        public double LowerLimitNorm { get; }
 
         /// <summary>
         /// Gets or sets the norm which has been defined on the assessment section.

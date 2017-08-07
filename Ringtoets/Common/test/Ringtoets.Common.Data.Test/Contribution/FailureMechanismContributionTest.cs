@@ -35,12 +35,12 @@ namespace Ringtoets.Common.Data.Test.Contribution
     [TestFixture]
     public class FailureMechanismContributionTest
     {
-        private MockRepository mockRepository;
+        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
+            mocks = new MockRepository();
         }
 
         [Test]
@@ -139,6 +139,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.IsTrue(otherFailureMechanismItem.IsAlwaysRelevant);
             Assert.IsTrue(otherFailureMechanismItem.IsRelevant);
             Assert.AreEqual(norm, result.Norm);
+            Assert.AreEqual(norm, result.SignalingNorm);
+            Assert.AreEqual(norm, result.LowerLimitNorm);
         }
 
         [Test]
@@ -162,7 +164,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             {
                 string name = string.Format(namePrefixFormat, i);
                 int contribution = random.Next(1, 100);
-                var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
+                var failureMechanism = mocks.StrictMock<IFailureMechanism>();
                 failureMechanism.Expect(fm => fm.Name).Return(name);
                 failureMechanism.Expect(fm => fm.Contribution).Return(contribution).Repeat.Twice();
 
@@ -174,7 +176,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             failureMechanismNames.Add("Overig");
             failureMechanismContributions.Add(otherContribution);
 
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             // Call
             var result = new FailureMechanismContribution(failureMechanisms, otherContribution, norm);
@@ -188,7 +190,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             IEnumerable<bool> expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
                                                                    .Concat(Enumerable.Repeat(true, 1));
             CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -267,7 +269,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
             const double contribution3 = 23.45;
             const double contribution4 = 67.89;
 
-            var mocks = new MockRepository();
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Contribution = contribution1;
             failureMechanism1.Stub(fm => fm.Name).Return(name1);
@@ -368,9 +369,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             const double norm = 1.0 / 20000;
             const double newNorm = 1.0 / 30000;
 
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
 
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var failureMechanismContribution = new FailureMechanismContribution(new[]
             {
@@ -382,7 +383,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.AreEqual(Enumerable.Repeat(newNorm, 2), failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
