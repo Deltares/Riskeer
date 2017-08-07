@@ -43,12 +43,14 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using PipingStochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
+using StochasticSoilModel = Ringtoets.MacroStabilityInwards.Data.StochasticSoilModel;
 
 namespace Ringtoets.Integration.Service.Test
 {
@@ -107,10 +109,14 @@ namespace Ringtoets.Integration.Service.Test
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
+            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            macroStabilityInwardsFailureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
+
             var failureMechanisms = new List<IFailureMechanism>
             {
                 TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations(),
                 TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations(),
+                macroStabilityInwardsFailureMechanism,
                 pipingFailureMechanism
             };
 
@@ -205,6 +211,13 @@ namespace Ringtoets.Integration.Service.Test
                                                             .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
+            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                            .Cast<MacroStabilityInwardsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                            .Cast<MacroStabilityInwardsCalculation>()
+                                                            .Select(c => c.InputParameters)
+                                                            .Where(i => i.HydraulicBoundaryLocation != null));
 
             // Call
             IEnumerable<IObservable> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
@@ -228,7 +241,8 @@ namespace Ringtoets.Integration.Service.Test
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-
+            Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
@@ -1445,6 +1459,26 @@ namespace Ringtoets.Integration.Service.Test
                 yield return stochasticSoilModel;
             }
             foreach (PipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
+            {
+                yield return surfaceLine;
+            }
+        }
+
+        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
+        {
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<MacroStabilityInwardsFailureMechanism>(failureMechanism))
+            {
+                yield return failureMechanismObject;
+            }
+            foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+            {
+                yield return calculationBase;
+            }
+            foreach (StochasticSoilModel stochasticSoilModel in failureMechanism.StochasticSoilModels)
+            {
+                yield return stochasticSoilModel;
+            }
+            foreach (MacroStabilityInwardsSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
             {
                 yield return surfaceLine;
             }

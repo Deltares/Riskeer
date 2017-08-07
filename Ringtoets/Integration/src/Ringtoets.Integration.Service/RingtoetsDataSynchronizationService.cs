@@ -86,6 +86,7 @@ namespace Ringtoets.Integration.Service
                 var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
 
                 if (pipingFailureMechanism != null)
                 {
@@ -118,6 +119,10 @@ namespace Ringtoets.Integration.Service
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
+                }
+                if (macroStabilityInwardsFailureMechanism != null)
+                {
+                    changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
                 }
             }
 
@@ -165,6 +170,7 @@ namespace Ringtoets.Integration.Service
                 var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
 
                 if (pipingFailureMechanism != null)
                 {
@@ -197,6 +203,10 @@ namespace Ringtoets.Integration.Service
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
+                }
+                if (macroStabilityInwardsFailureMechanism != null)
+                {
+                    changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(macroStabilityInwardsFailureMechanism));
                 }
             }
 

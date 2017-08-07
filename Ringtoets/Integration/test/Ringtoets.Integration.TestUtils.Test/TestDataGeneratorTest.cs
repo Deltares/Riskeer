@@ -33,6 +33,8 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -96,7 +98,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             Assert.AreEqual(AssessmentSectionComposition.Dike, assessmentSection.Composition);
             AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(assessmentSection);
             Assert.True(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.All(loc => !(loc.DesignWaterLevelCalculation.HasOutput
-                                                                                                          && loc.WaveHeightCalculation.HasOutput)));
+                                                                                                            && loc.WaveHeightCalculation.HasOutput)));
             Assert.True(assessmentSection.DuneErosion.DuneLocations.All(dl => dl.Output == null));
         }
 
@@ -173,6 +175,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             var containsStabilityStoneCoverFailureMechanism = false;
             var containsWaveImpactAsphaltCoverFailureMechanism = false;
             var containsDuneErosionFailureMechanism = false;
+            var containsMacroStabilityInwardsFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -185,6 +188,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
 
                 if (closingStructuresFailureMechanism != null)
                 {
@@ -255,6 +259,15 @@ namespace Ringtoets.Integration.TestUtils.Test
                 {
                     containsDuneErosionFailureMechanism = true;
                 }
+
+                if (macroStabilityInwardsFailureMechanism != null)
+                {
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasStochasticSoilModels(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(macroStabilityInwardsFailureMechanism);
+                    containsMacroStabilityInwardsFailureMechanism = true;
+                }
             }
 
             Assert.IsTrue(containsClosingStructuresFailureMechanism);
@@ -266,6 +279,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             Assert.IsTrue(containsStabilityStoneCoverFailureMechanism);
             Assert.IsTrue(containsWaveImpactAsphaltCoverFailureMechanism);
             Assert.IsTrue(containsDuneErosionFailureMechanism);
+            Assert.IsTrue(containsMacroStabilityInwardsFailureMechanism);
         }
 
         private static void AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(IAssessmentSection assessmentSection)
@@ -279,6 +293,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             var containsStabilityStoneCoverFailureMechanism = false;
             var containsWaveImpactAsphaltCoverFailureMechanism = false;
             var containsDuneErosionFailureMechanism = false;
+            var containsMacroStabilityInwardsFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -291,6 +306,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
 
                 if (closingStructuresFailureMechanism != null)
                 {
@@ -353,6 +369,14 @@ namespace Ringtoets.Integration.TestUtils.Test
                 {
                     containsDuneErosionFailureMechanism = true;
                 }
+
+                if (macroStabilityInwardsFailureMechanism != null)
+                {
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasStochasticSoilModels(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(macroStabilityInwardsFailureMechanism);
+                    containsMacroStabilityInwardsFailureMechanism = true;
+                }
             }
 
             Assert.IsTrue(containsClosingStructuresFailureMechanism);
@@ -364,6 +388,7 @@ namespace Ringtoets.Integration.TestUtils.Test
             Assert.IsTrue(containsWaveImpactAsphaltCoverFailureMechanism);
             Assert.IsTrue(containsDuneErosionFailureMechanism);
             Assert.IsTrue(containsGrassCoverErosionInwardsFailureMechanism);
+            Assert.IsTrue(containsMacroStabilityInwardsFailureMechanism);
         }
 
         #region Grass Cover Erosion Inwards

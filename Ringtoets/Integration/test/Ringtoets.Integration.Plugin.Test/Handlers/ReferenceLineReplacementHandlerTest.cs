@@ -319,7 +319,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 112;
+            const int expectedNumberOfRemovedInstances = 128;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -343,7 +343,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_CalledSecondTimeAfterReplaceAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 112;
+            const int expectedNumberOfRemovedInstances = 128;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
