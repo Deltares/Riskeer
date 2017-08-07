@@ -61,6 +61,7 @@ namespace Ringtoets.Common.Data.Contribution
             Norm = defaultNorm;
             SignalingNorm = defaultNorm;
             LowerLimitNorm = defaultNorm;
+            NormType = NormType.LowerLimit;
 
             UpdateContributions(failureMechanisms, otherContribution);
         }
@@ -94,6 +95,11 @@ namespace Ringtoets.Common.Data.Contribution
                 distribution.ForEachElementDo(d => d.Norm = norm);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the norm type which has been defined on the assessment section.
+        /// </summary>
+        public NormType NormType { get; set; }
 
         /// <summary>
         /// Gets the distribution of failure mechanism contributions.

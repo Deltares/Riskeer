@@ -645,6 +645,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ondergrens.
+        /// </summary>
+        public static string NormType_LowerLimit_DisplayName {
+            get {
+                return ResourceManager.GetString("NormType_LowerLimit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signaleringswaarde.
+        /// </summary>
+        public static string NormType_Signaling_DisplayName {
+            get {
+                return ResourceManager.GetString("NormType_Signaling_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik {0} liggen..
         /// </summary>
         public static string Orientation_Value_needs_to_be_in_Range_0_ {

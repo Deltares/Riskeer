@@ -49,6 +49,7 @@
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
     <Compile Include="Comment.cs" />
+    <Compile Include="Contribution\NormType.cs" />
     <Compile Include="DikeProfiles\BreakWater.cs" />
     <Compile Include="DikeProfiles\BreakWaterType.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />

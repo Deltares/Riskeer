@@ -366,4 +366,10 @@
   <data name="MechanismSurfaceLineBase_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_" xml:space="preserve">
     <value>De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.</value>
   </data>
+  <data name="NormType_LowerLimit_DisplayName" xml:space="preserve">
+    <value>Ondergrens</value>
+  </data>
+  <data name="NormType_Signaling_DisplayName" xml:space="preserve">
+    <value>Signaleringswaarde</value>
+  </data>
 </root>

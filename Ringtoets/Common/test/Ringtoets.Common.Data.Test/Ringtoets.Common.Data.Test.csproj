@@ -63,6 +63,7 @@
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfigurationTest.cs" />
     <Compile Include="AssessmentSection\WMTSBackgroundDataConfigurationTest.cs" />
     <Compile Include="CommentTest.cs" />
+    <Compile Include="Contribution\NormTypeTest.cs" />
     <Compile Include="DikeProfiles\BreakWaterTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
     <Compile Include="DikeProfiles\BreakWaterTypeTest.cs" />

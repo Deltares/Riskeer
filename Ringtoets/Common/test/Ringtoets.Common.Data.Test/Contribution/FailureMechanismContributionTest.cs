@@ -115,6 +115,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(norm, result.Norm);
             Assert.AreEqual(norm, result.SignalingNorm);
             Assert.AreEqual(norm, result.LowerLimitNorm);
+            Assert.AreEqual(NormType.LowerLimit, result.NormType);
         }
 
         [Test]
