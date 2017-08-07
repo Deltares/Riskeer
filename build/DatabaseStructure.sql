@@ -1468,7 +1468,15 @@ CREATE TABLE 'BackgroundDataMetaEntity'
 
 CREATE TABLE 'GrassCoverErosionInwardsOvertoppingRateOutputEntity'
 (
-	', 3 = CalculationConverged
+	'GrassCoverErosionInwardsOvertoppingRateOutputEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'GrassCoverErosionInwardsOutputEntityId' INTEGER NOT NULL,
+	'GeneralResultFaultTreeIllustrationPointEntityId' INTEGER,
+	'OvertoppingRate' REAL,
+	'TargetProbability' REAL,
+	'TargetReliability' REAL,
+	'CalculatedProbability' REAL,
+	'CalculatedReliability' REAL,
+	'CalculationConvergence' TINYINT (1) NOT NULL, -- Enum: 1 = NotCalculated, 2 = CalculationNotConverged, 3 = CalculationConverged
 	CONSTRAINT 'FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_GeneralResultFaultTreeIllustrationPointEntity' FOREIGN KEY ('GeneralResultFaultTreeIllustrationPointEntityId') REFERENCES 'GeneralResultFaultTreeIllustrationPointEntity' ('GeneralResultFaultTreeIllustrationPointEntityId') ON DELETE Set Null ON UPDATE Cascade,
 	CONSTRAINT 'FK_GrassCoverErosionInwardsOvertoppingRateOutputEntity_GrassCoverErosionInwardsOutputEntity' FOREIGN KEY ('GrassCoverErosionInwardsOutputEntityId') REFERENCES 'GrassCoverErosionInwardsOutputEntity' ('GrassCoverErosionInwardsOutputEntityId') ON DELETE Cascade ON UPDATE Cascade,
 	CONSTRAINT 'U_GrassCoverErosionInwardsOutputEntity' UNIQUE ('GrassCoverErosionInwardsOutputEntityId')
