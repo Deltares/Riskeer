@@ -26,8 +26,10 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
@@ -69,6 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(probabilityAssessmentOutput.Reliability, entity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
+            AssertGeneralResult(overtoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
             Assert.AreEqual(dikeHeightOutput.DikeHeight, dikeHeightEntity.DikeHeight, dikeHeightOutput.DikeHeight.GetAccuracy());
@@ -108,6 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.Reliability);
             Assert.IsNull(entity.RequiredProbability);
             Assert.IsNull(entity.RequiredReliability);
+            AssertGeneralResult(overtoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
             Assert.IsNull(dikeHeightEntity.DikeHeight);
@@ -130,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_DikeHeightOutputIsNull_NoDikeHeightOutputEntityCreated()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput, null),
                                                             null, overtoppingRateOutput);
@@ -146,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_OvertoppingRateOutputIsNull_NoOvertoppingRateOutputEntityCreated()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN, CalculationConvergence.CalculatedConverged);
             var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput, null),
                                                             dikeHeightOutput, null);
@@ -156,6 +160,44 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsFalse(entity.GrassCoverErosionInwardsOvertoppingRateOutputEntities.Any());
+        }
+
+        [Test]
+        public void Create_WithGeneralResult_ReturnsGrassCoverErosionInwardsOutputEntityWithGeneralResultEntity()
+        {
+            // Setup
+            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(double.NaN,
+                                                                                  true,
+                                                                                  new TestProbabilityAssessmentOutput(),
+                                                                                  new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                            null,
+                                                            null);
+
+            // Call
+            GrassCoverErosionInwardsOutputEntity entity = output.Create();
+
+            // Assert
+            AssertGeneralResult(output.OvertoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+        }
+
+        private static void AssertGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
+                                                GeneralResultFaultTreeIllustrationPointEntity entity)
+        {
+            if (generalResult == null)
+            {
+                Assert.IsNull(entity);
+                return;
+            }
+
+            Assert.IsNotNull(entity);
+            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
+            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
+            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
+                            governingWindDirection.Angle.GetAccuracy());
+
+            Assert.AreEqual(generalResult.Stochasts.Count(), entity.StochastEntities.Count);
+            Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(),
+                            entity.TopLevelFaultTreeIllustrationPointEntities.Count);
         }
     }
 }

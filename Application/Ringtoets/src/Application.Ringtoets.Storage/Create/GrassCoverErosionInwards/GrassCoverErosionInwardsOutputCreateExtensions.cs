@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -40,15 +41,17 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// <returns>A new <see cref="GrassCoverErosionInwardsOutputEntity"/>.</returns>
         internal static GrassCoverErosionInwardsOutputEntity Create(this GrassCoverErosionInwardsOutput output)
         {
+            OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                IsOvertoppingDominant = Convert.ToByte(output.OvertoppingOutput.IsOvertoppingDominant),
-                WaveHeight = output.OvertoppingOutput.WaveHeight.ToNaNAsNull(),
-                RequiredProbability = output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
-                RequiredReliability = output.OvertoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
-                Probability = output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
-                Reliability = output.OvertoppingOutput.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
-                FactorOfSafety = output.OvertoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull()
+                IsOvertoppingDominant = Convert.ToByte(overtoppingOutput.IsOvertoppingDominant),
+                WaveHeight = overtoppingOutput.WaveHeight.ToNaNAsNull(),
+                RequiredProbability = overtoppingOutput.ProbabilityAssessmentOutput.RequiredProbability.ToNaNAsNull(),
+                RequiredReliability = overtoppingOutput.ProbabilityAssessmentOutput.RequiredReliability.ToNaNAsNull(),
+                Probability = overtoppingOutput.ProbabilityAssessmentOutput.Probability.ToNaNAsNull(),
+                Reliability = overtoppingOutput.ProbabilityAssessmentOutput.Reliability.ToNaNAsNull(),
+                FactorOfSafety = overtoppingOutput.ProbabilityAssessmentOutput.FactorOfSafety.ToNaNAsNull(),
+                GeneralResultFaultTreeIllustrationPointEntity = overtoppingOutput.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
             };
 
             AddEntityForDikeHeightOutput(entity, output.DikeHeightOutput);

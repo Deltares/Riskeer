@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -63,7 +64,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 CalculatedReliability = double.IsNaN(output.CalculatedReliability)
                                             ? (double?) null
                                             : output.CalculatedReliability,
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = (byte) output.CalculationConvergence,
+                GeneralResultFaultTreeIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
             };
         }
     }
