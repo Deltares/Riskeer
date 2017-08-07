@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.TestUtil
     {
         public ObservableTestAssessmentSectionStub()
         {
-            FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 1.0 / 300000);
+            FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0);
             BackgroundData = new BackgroundData(new WmtsBackgroundDataConfiguration())
             {
                 Name = "Background data"

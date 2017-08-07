@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             const int returnPeriod = 30000;
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1, 1.0 / returnPeriod);
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1);
 
             // Call
             var properties = new FailureMechanismContributionProperties(
@@ -426,7 +426,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 200);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1);
 
             var properties = new FailureMechanismContributionProperties(
                 contribution,
@@ -487,7 +487,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private static FailureMechanismContribution CreateFailureMechanismContribution()
         {
-            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), new Random(21).Next(0, 100), 0);
+            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), new Random(21).Next(0, 100));
         }
     }
 }

@@ -85,7 +85,10 @@ namespace Ringtoets.Common.Data.TestUtil
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(a => a.Id).Return("21");
             assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                       failureMechanisms, 1, 0.5));
+                                                                                       failureMechanisms, 1)
+                                                                                   {
+                                                                                       Norm = 0.5
+                                                                                   });
             assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
 
             if (addBoundaryDatabase)

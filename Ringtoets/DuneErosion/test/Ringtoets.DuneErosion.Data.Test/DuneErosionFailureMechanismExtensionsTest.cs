@@ -60,9 +60,12 @@ namespace Ringtoets.DuneErosion.Data.Test
                 failureMechanism
             });
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, norm));
+                                                                               {
+                                                                                   failureMechanism
+                                                                               }, 1)
+                                                                               {
+                                                                                   Norm = norm
+                                                                               });
             mocks.ReplayAll();
 
             // Call

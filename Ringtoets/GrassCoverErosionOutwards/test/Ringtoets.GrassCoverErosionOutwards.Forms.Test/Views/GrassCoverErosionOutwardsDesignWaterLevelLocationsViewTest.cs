@@ -399,7 +399,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(ass => ass.Id).Return(string.Empty);
             assessmentSectionStub.Stub(ass => ass.FailureMechanismContribution)
-                                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+                                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
             assessmentSectionStub.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSectionStub.Stub(a => a.Detach(null)).IgnoreArguments();
 

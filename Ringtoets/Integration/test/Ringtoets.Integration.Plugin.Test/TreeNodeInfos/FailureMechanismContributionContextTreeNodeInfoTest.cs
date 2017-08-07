@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 1.0 / 150000);
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);

@@ -34,6 +34,8 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
+        private const double defaultNorm = 1.0 / 30000;
+
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
         private double norm;
@@ -46,7 +48,6 @@ namespace Ringtoets.Common.Data.Contribution
         /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
         /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
         /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
-        /// <param name="norm">The norm defined on the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
@@ -55,13 +56,11 @@ namespace Ringtoets.Common.Data.Contribution
         /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="norm"/> 
-        /// is not in the interval [0.0, 1.0] or is <see cref="double.NaN"/>.</exception>
-        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution, double norm)
+        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution)
         {
-            Norm = norm;
-            SignalingNorm = norm;
-            LowerLimitNorm = norm;
+            Norm = defaultNorm;
+            SignalingNorm = defaultNorm;
+            LowerLimitNorm = defaultNorm;
 
             UpdateContributions(failureMechanisms, otherContribution);
         }

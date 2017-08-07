@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1);
 
             // Call
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1);
 
             // Call
             TestDelegate call = () => new FailureMechanismContributionContext(contribution, null);

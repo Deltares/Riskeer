@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 plugin.Gui = gui;
 
                 IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1, 1.0 / 200);
+                var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1);
                 var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
 
                 PropertyInfo info = GetInfo(plugin);

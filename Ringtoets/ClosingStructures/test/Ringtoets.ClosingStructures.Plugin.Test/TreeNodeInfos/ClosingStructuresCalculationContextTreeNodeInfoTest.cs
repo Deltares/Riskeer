@@ -938,7 +938,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
 
             var initialOutput = new TestStructuresOutput();
             var calculation = new TestClosingStructuresCalculation

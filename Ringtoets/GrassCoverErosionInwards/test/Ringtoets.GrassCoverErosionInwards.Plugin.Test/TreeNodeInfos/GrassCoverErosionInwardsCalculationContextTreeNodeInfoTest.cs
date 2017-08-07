@@ -846,7 +846,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }
             };
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
 
             var initialOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
                                                                    new TestDikeHeightOutput(double.NaN),

@@ -137,8 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 int returnPeriod = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
-                string expectedReturnPeriodLabel = string.Format("Norm: 1 / {0}",
-                                                                 returnPeriod.ToString(CultureInfo.CurrentCulture));
+                string expectedReturnPeriodLabel = $"Norm: 1 / {returnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
             mocks.VerifyAll();
@@ -202,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, otherContribution, 0.01);
+            }, otherContribution);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -250,11 +249,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0 / initialReturnPeriod);
+            }, random.Next(0, 100))
+            {
+                Norm = 1.0 / initialReturnPeriod
+            };
+
             var newContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0 / newReturnPeriod);
+            }, random.Next(0, 100))
+            {
+                Norm = 1.0 / newReturnPeriod
+            };
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -266,8 +272,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                string initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                    initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string initialReturnPeriodLabelText = $"Norm: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
@@ -275,8 +280,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                string newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string newReturnPeriodLabelText = $"Norm: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
@@ -301,7 +305,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100), 1.0 / initialReturnPeriod);
+            }, random.Next(0, 100))
+            {
+                Norm = 1.0 / initialReturnPeriod
+            };
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -313,8 +320,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                string initialReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                    initialReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string initialReturnPeriodLabelText = $"Norm: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
@@ -322,8 +328,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 contribution.NotifyObservers();
 
                 // Assert
-                string newReturnPeriodLabelText = string.Format("Norm: 1 / {0}",
-                                                                newReturnPeriod.ToString(CultureInfo.CurrentCulture));
+                string newReturnPeriodLabelText = $"Norm: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
@@ -353,7 +358,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 1.0 / 500);
+                }, 100);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -389,7 +394,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100, 1.0 / 500);
+                }, 100);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -428,7 +433,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanismStub
-                }, 100.0 - contribution, norm);
+                }, 100.0 - contribution)
+                {
+                    Norm = norm
+                };
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -472,7 +480,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
 
                 // Assert
-                string expectedLabelValue = string.Format("Trajecttype: {0}", expectedDisplayText);
+                string expectedLabelValue = $"Trajecttype: {expectedDisplayText}";
                 Assert.AreEqual(expectedLabelValue, compositionLabel.Text);
             }
             mocks.VerifyAll();
@@ -515,7 +523,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
 
                 string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
-                string newCompositionValue = string.Format("Trajecttype: {0}", compositionDisplayName);
+                string newCompositionValue = $"Trajecttype: {compositionDisplayName}";
                 Assert.AreEqual(newCompositionValue, compositionLabel.Text);
             }
             mocks.VerifyAll();
@@ -540,7 +548,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
 
                 // When
                 view.Data = contribution;
@@ -582,7 +590,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     failureMechanism
                 };
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
 
                 // When
                 view.Data = contribution;
@@ -641,7 +649,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
 
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
@@ -707,7 +715,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 failureMechanism
             };
-            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
 
             using (var view = new FailureMechanismContributionView(viewCommands))
             {
@@ -740,7 +748,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 1.0 / 30000);
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
 
                 // Precondition:
                 FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();

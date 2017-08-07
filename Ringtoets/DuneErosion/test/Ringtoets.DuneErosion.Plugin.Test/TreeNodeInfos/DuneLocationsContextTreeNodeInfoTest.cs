@@ -417,7 +417,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .Return(new FailureMechanismContribution(new[]
                                  {
                                      failureMechanism
-                                 }, 1, 1.0 / 200));
+                                 }, 1));
                 var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();

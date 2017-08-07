@@ -86,11 +86,9 @@ namespace Ringtoets.Integration.Data
             DuneErosion = new DuneErosionFailureMechanism();
             TechnicalInnovation = new TechnicalInnovationFailureMechanism();
 
-            const double norm = 1.0 / 30000;
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
-                                                                            otherContribution,
-                                                                            norm);
+                                                                            otherContribution);
             ChangeComposition(composition);
         }
 

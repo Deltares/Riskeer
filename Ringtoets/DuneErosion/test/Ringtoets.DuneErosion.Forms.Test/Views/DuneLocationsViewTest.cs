@@ -358,7 +358,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(ass => ass.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+                             .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = Path.Combine(testDataPath, "complete.sqlite")
