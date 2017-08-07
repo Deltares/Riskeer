@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -70,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -92,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -114,28 +113,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.TargetReliability);
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
-            Assert.AreEqual((byte)output.CalculationConvergence, entity.CalculationConvergence);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
-        }
-
-        private static void AssertGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
-                                                GeneralResultFaultTreeIllustrationPointEntity entity)
-        {
-            if (generalResult == null)
-            {
-                Assert.IsNull(entity);
-                return;
-            }
-
-            Assert.IsNotNull(entity);
-            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-
-            Assert.AreEqual(generalResult.Stochasts.Count(), entity.StochastEntities.Count);
-            Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(),
-                            entity.TopLevelFaultTreeIllustrationPointEntities.Count);
+            Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
     }
 }

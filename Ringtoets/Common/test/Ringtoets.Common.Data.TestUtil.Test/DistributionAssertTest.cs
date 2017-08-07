@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class DistributionAssertTest
     {
         [Test]
-        [TestCaseSource("IdenticalDistributionProperties")]
+        [TestCaseSource(nameof(IdenticalDistributionProperties))]
         public void AreDistributionPropertiesEqual_IdenticalDistributionProperties_DoesNotThrowException(IDistribution distributionOne,
                                                                                                          IDistribution distributionTwo)
         {
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("IdenticalLogNormalDistributionProperties")]
+        [TestCaseSource(nameof(IdenticalLogNormalDistributionProperties))]
         public void AreDistributionPropertiesEqual_IdenticalLogNormalDistributionProperties_DoesNotThrowException(LogNormalDistribution distributionOne,
                                                                                                                   LogNormalDistribution distributionTwo)
         {
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("IdenticalTruncatedNormalDistributionProperties")]
+        [TestCaseSource(nameof(IdenticalTruncatedNormalDistributionProperties))]
         public void AreDistributionPropertiesEqual_IdenticalTruncatedNormalDistributionProperties_DoesNotThrowException(TruncatedNormalDistribution distributionOne,
                                                                                                                         TruncatedNormalDistribution distributionTwo)
         {
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("IdenticalVariationCoefficientDistributionProperties")]
+        [TestCaseSource(nameof(IdenticalVariationCoefficientDistributionProperties))]
         public void AreDistributionPropertiesEqual_IdenticalVariationCoefficientDistributionProperties_DoesNotThrowException(IVariationCoefficientDistribution distributionOne,
                                                                                                                              IVariationCoefficientDistribution distributionTwo)
         {
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentDistributionProperties")]
+        [TestCaseSource(nameof(DifferentDistributionProperties))]
         public void AreDistributionPropertiesEqual_DifferentDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
                                                                                                             IDistribution distributionTwo)
         {
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentLogNormalDistributionProperties")]
+        [TestCaseSource(nameof(DifferentLogNormalDistributionProperties))]
         public void AreDistributionPropertiesEqual_DifferentLogNormalDistributionProperties_ThrowsAssertionException(LogNormalDistribution distributionOne,
                                                                                                                      LogNormalDistribution distributionTwo)
         {
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentTruncatedNormalDistributionProperties")]
+        [TestCaseSource(nameof(DifferentTruncatedNormalDistributionProperties))]
         public void AreDistributionPropertiesEqual_DifferentTruncatedNormalDistributionProperties_DoesNotThrowException(TruncatedNormalDistribution distributionOne,
                                                                                                                         TruncatedNormalDistribution distributionTwo)
         {
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentVariationCoefficientDistributionProperties")]
+        [TestCaseSource(nameof(DifferentVariationCoefficientDistributionProperties))]
         public void AreDistributionPropertiesEqual_DifferentVariationCoefficientDistributionProperties_ThrowsAssertionException(IVariationCoefficientDistribution distributionOne,
                                                                                                                                 IVariationCoefficientDistribution distributionTwo)
         {

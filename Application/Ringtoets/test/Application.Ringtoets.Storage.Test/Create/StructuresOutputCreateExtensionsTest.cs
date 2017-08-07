@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.TestUtil;
+using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using NUnit.Framework;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -73,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
                             probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -97,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.Probability);
             Assert.IsNull(entity.RequiredReliability);
             Assert.IsNull(entity.RequiredProbability);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -120,27 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
                             probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
-            AssertGeneralResult(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
-        }
-
-        private static void AssertGeneralResult(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
-                                                GeneralResultFaultTreeIllustrationPointEntity entity)
-        {
-            if (generalResult == null)
-            {
-                Assert.IsNull(entity);
-                return;
-            }
-
-            Assert.IsNotNull(entity);
-            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-
-            Assert.AreEqual(generalResult.Stochasts.Count(), entity.StochastEntities.Count);
-            Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(),
-                            entity.TopLevelFaultTreeIllustrationPointEntities.Count);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         private class TestStructureOutputEntity : IProbabilityAssessmentOutputEntity,
