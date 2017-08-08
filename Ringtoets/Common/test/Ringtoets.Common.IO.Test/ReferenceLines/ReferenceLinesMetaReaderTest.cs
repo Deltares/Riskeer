@@ -241,7 +241,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             ReferenceLineMeta referenceLineMeta = referenceLineMetas.First();
             Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
             Assert.IsNull(referenceLineMeta.SignalingValue);
-            Assert.IsNull(referenceLineMeta.LowerLimitValue);
+            Assert.AreEqual(0, referenceLineMeta.LowerLimitValue);
         }
 
         [Test]

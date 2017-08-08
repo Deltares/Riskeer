@@ -68,12 +68,11 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCase(1234)]
-        [TestCase(null)]
-        public void SetLowerLimitValue_ExpectedValue(int? lowerLimitValue)
+        public void SetLowerLimitValue_ExpectedValue()
         {
             // Setup
             var referenceLine = new ReferenceLineMeta();
+            const int lowerLimitValue = 1234;
 
             // Call
             referenceLine.LowerLimitValue = lowerLimitValue;

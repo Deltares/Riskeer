@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test
         public void Constructor_WithParentAndReferenceLineMetas_ShowsExpectedGrid(
             [Values("", "10")] string assessmentSectionId,
             [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? signalingValue,
-            [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? lowerLimitValue)
+            [Values(int.MinValue, -1, 0, 1, int.MaxValue)] int lowerLimitValue)
         {
             // Setup
             var referenceLineMetas = new[]
@@ -196,8 +196,8 @@ namespace Ringtoets.Integration.Forms.Test
 
                     object currentLowerLimitValue = dataGridView[lowerLimitValueColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentLowerLimitValue);
-                    string expectedLowerLimitValue = lowerLimitValue.HasValue && lowerLimitValue.Value > 0
-                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue.Value)
+                    string expectedLowerLimitValue = lowerLimitValue > 0
+                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue)
                                                          : string.Empty;
                     Assert.AreEqual(expectedLowerLimitValue, currentLowerLimitValue.ToString());
                 }

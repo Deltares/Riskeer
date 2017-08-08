@@ -33,6 +33,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Commands;
@@ -474,7 +475,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    Norm = useSignalingValue ? 1.0 / 3000 : 1.0 / 1000
+                    LowerLimitNorm = 1.0 / 1000,
+                    SignalingNorm = 1.0 / 3000,
+                    NormativeNorm = useSignalingValue ? NormType.Signaling : NormType.LowerLimit
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
@@ -505,7 +508,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    Norm = 1.0 / 300
+                    LowerLimitNorm = 1.0 / 100,
+                    SignalingNorm = 1.0 / 300,
+                    NormativeNorm = NormType.Signaling
                 },
                 ReferenceLine = referenceLine,
                 GrassCoverErosionInwards =
@@ -542,7 +547,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    Norm = 1.0 / 300
+                    LowerLimitNorm = 1.0 / 100,
+                    SignalingNorm = 1.0 / 300,
+                    NormativeNorm = NormType.Signaling
                 },
                 ReferenceLine = new ReferenceLine()
             };
@@ -563,7 +570,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.FailureMechanismContribution.Norm, actual.FailureMechanismContribution.Norm);
+            Assert.AreEqual(expected.FailureMechanismContribution.LowerLimitNorm, actual.FailureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(expected.FailureMechanismContribution.SignalingNorm, actual.FailureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(expected.FailureMechanismContribution.NormativeNorm, actual.FailureMechanismContribution.NormativeNorm);
             Assert.AreEqual(expected.Composition, actual.Composition);
 
             Assert.AreEqual(expected.GrassCoverErosionInwards.GeneralInput.N, actual.GrassCoverErosionInwards.GeneralInput.N);

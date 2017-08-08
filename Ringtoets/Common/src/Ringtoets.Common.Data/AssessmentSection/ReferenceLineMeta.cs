@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the lower limit of the assessment section.
         /// </summary>
-        public int? LowerLimitValue { get; set; }
+        public int LowerLimitValue { get; set; }
 
         /// <summary>
         /// Gets the reference line.

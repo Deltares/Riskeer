@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -63,24 +64,23 @@ namespace Ringtoets.Integration.Forms
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
 
         /// <summary>
-        /// Gets the norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// Gets the lower limit norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
         /// </summary>
-        public double SelectedNorm { get; private set; }
+        public double SelectedLowerLimitNorm { get; private set; }
+
+        /// <summary>
+        /// Gets the signaling norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// </summary>
+        public double SelectedSignalingNorm { get; private set; }
+
+        /// <summary>
+        /// Gets the norm type from the dialog.
+        /// </summary>
+        public NormType SelectedNormativeNorm { get; private set; }
 
         protected override Button GetCancelButton()
         {
             return Cancel;
-        }
-
-        private int? GetSelectedLimitReturnPeriod()
-        {
-            ReferenceLineMetaSelectionRow selectedRow = GetSelectedReferenceLineMetaSelectionRow();
-            if (selectedRow == null)
-            {
-                return null;
-            }
-
-            return SignallingValueRadioButton.Checked ? selectedRow.SignalingReturnPeriod : selectedRow.LowerLimitValueReturnPeriod;
         }
 
         private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
@@ -106,11 +106,22 @@ namespace Ringtoets.Integration.Forms
             {
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
 
-                int? returnPeriod = GetSelectedLimitReturnPeriod();
-                SelectedNorm = returnPeriod.HasValue && returnPeriod.Value != 0
-                                   ? 1.0 / returnPeriod.Value
-                                   : double.NaN;
+                SelectedNormativeNorm = SignallingValueRadioButton.Checked
+                                            ? NormType.Signaling
+                                            : NormType.LowerLimit;
+
+                double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.LowerLimitValueReturnPeriod);
+
+                SelectedLowerLimitNorm = lowerLimitNormValue;
+                SelectedSignalingNorm = referenceLineMetaSelectionRow.SignalingReturnPeriod.HasValue
+                                            ? GetNormValue(referenceLineMetaSelectionRow.SignalingReturnPeriod.Value)
+                                            : lowerLimitNormValue;
             }
+        }
+
+        private static double GetNormValue(int value)
+        {
+            return 1.0 / value;
         }
 
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
@@ -212,7 +223,7 @@ namespace Ringtoets.Integration.Forms
             public string SignalingValue { get; }
             public int? SignalingReturnPeriod { get; }
             public string LowerLimitValue { get; }
-            public int? LowerLimitValueReturnPeriod { get; }
+            public int LowerLimitValueReturnPeriod { get; }
             public ReferenceLineMeta ReferenceLineMeta { get; }
 
             private static string GetNormValue(int? returnPeriod)

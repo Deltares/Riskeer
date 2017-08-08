@@ -28,6 +28,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
@@ -107,7 +108,8 @@ namespace Ringtoets.Integration.Forms.Commands
                 }
 
                 ReferenceLineMeta selectedItem = dialog.SelectedReferenceLineMeta;
-                return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedNorm);
+                return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedLowerLimitNorm,
+                                                                             dialog.SelectedSignalingNorm, dialog.SelectedNormativeNorm);
             }
         }
 
@@ -164,7 +166,8 @@ namespace Ringtoets.Integration.Forms.Commands
             return duneAssessmentSection;
         }
 
-        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, double norm)
+        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, double lowerLimitNorm,
+            double signalingNorm, NormType normativeNorm)
         {
             AssessmentSection assessmentSection;
             AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
@@ -192,18 +195,23 @@ namespace Ringtoets.Integration.Forms.Commands
                 assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
             }
 
+            TrySetNormValue(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm);
+            TrySetNormValue(() => assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm);
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeNorm;
+
+            return assessmentSection;
+        }
+
+        private static void TrySetNormValue(Action setValue)
+        {
             try
             {
-                if (!double.IsNaN(norm))
-                {
-                    assessmentSection.FailureMechanismContribution.Norm = norm;
-                }
+                setValue();
             }
             catch (ArgumentOutOfRangeException exception)
             {
-                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm), exception);
+                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, exception.ActualValue), exception);
             }
-            return assessmentSection;
         }
 
         #endregion
