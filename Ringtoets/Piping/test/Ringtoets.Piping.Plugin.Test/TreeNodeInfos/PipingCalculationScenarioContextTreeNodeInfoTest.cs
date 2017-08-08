@@ -363,7 +363,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                     pipingFailureMechanism,
                                                                     assessmentSection);
 
-                var menuBuilder = mocks.Stub<IContextMenuBuilder>();
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);

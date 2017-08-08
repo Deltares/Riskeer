@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var mocks = new MockRepository();
 
-                var menuBuilder = mocks.Stub<IContextMenuBuilder>();
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
 

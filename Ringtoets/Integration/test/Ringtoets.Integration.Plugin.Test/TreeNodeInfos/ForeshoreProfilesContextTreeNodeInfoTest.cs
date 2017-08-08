@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var emptyCollection = new ForeshoreProfileCollection();
                 var context = new ForeshoreProfilesContext(emptyCollection, failureMechanism, assessmentSection);
 
-                var contextMenuBuilder = mocks.Stub<IContextMenuBuilder>();
+                var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
                     contextMenuBuilder.Expect(b => b.AddImportItem()).Return(contextMenuBuilder);
