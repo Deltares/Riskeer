@@ -553,7 +553,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -627,7 +627,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(0.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -724,7 +724,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(-1.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         #endregion
@@ -741,7 +741,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -754,7 +754,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -767,7 +767,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -819,7 +819,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.1);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -919,7 +919,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(level);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -932,7 +932,7 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(-1.0);
 
             // Assert
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         #endregion

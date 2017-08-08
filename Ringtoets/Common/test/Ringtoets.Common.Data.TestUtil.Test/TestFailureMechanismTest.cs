@@ -39,8 +39,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var failureMechanism = new TestFailureMechanism();
 
             // Assert
-            Assert.IsEmpty(failureMechanism.Calculations);
-            Assert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             Assert.AreEqual("Test failure mechanism", failureMechanism.Name);
             Assert.AreEqual("TFM", failureMechanism.Code);
         }
@@ -56,8 +56,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var failureMechanism = new TestFailureMechanism(testName, testCode);
 
             // Assert
-            Assert.IsEmpty(failureMechanism.Calculations);
-            Assert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             Assert.AreEqual(testName, failureMechanism.Name);
             Assert.AreEqual(testCode, failureMechanism.Code);
         }
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.AreSame(testCalculations, failureMechanism.Calculations);
-            Assert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             Assert.AreEqual("Test failure mechanism", failureMechanism.Name);
             Assert.AreEqual("TFM", failureMechanism.Code);
         }

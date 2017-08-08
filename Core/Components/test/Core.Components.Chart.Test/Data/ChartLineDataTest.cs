@@ -39,7 +39,7 @@ namespace Core.Components.Chart.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.IsInstanceOf<PointBasedChartData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
@@ -100,7 +100,7 @@ namespace Core.Components.Chart.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.IsInstanceOf<PointBasedChartData>(data);
             Assert.AreSame(style, data.Style);
         }

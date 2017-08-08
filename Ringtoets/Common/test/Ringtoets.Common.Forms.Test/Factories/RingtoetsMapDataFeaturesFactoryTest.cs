@@ -469,7 +469,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 SimpleStructuresInput, StructureBase>(null);
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -480,7 +480,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 <SimpleStructuresInput, StructureBase>(Enumerable.Empty<SimpleStructuresCalculation>());
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -545,7 +545,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(null);
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -556,7 +556,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 new MapCalculationData[0]);
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -602,7 +602,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateDikeProfilesFeatures(null);
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -613,7 +613,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 Enumerable.Empty<DikeProfile>());
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -697,7 +697,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(null);
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -708,7 +708,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsEmpty(features);
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]

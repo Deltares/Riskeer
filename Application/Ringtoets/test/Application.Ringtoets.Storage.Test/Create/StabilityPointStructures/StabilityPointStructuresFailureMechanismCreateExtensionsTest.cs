@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+            CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
 
             StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
                 entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
@@ -234,7 +234,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.StabilityPointStructureEntities);
+            CollectionAssert.IsEmpty(entity.StabilityPointStructureEntities);
 
             StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
                 entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();

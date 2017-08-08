@@ -385,7 +385,7 @@ namespace Core.Common.Gui.Test
                 gui.Dispose();
 
                 // Assert
-                Assert.IsEmpty(gui.ViewHost.ToolViews);
+                CollectionAssert.IsEmpty(gui.ViewHost.ToolViews);
                 Assert.IsTrue(toolView.IsDisposed);
             }
             mocks.VerifyAll();
@@ -413,7 +413,7 @@ namespace Core.Common.Gui.Test
                 gui.Dispose();
 
                 // Assert
-                Assert.IsEmpty(gui.ViewHost.DocumentViews);
+                CollectionAssert.IsEmpty(gui.ViewHost.DocumentViews);
                 Assert.IsNull(gui.DocumentViewController);
                 Assert.IsTrue(documentView.IsDisposed);
             }

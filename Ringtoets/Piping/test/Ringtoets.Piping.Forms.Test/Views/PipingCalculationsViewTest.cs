@@ -818,7 +818,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 button.Click();
 
                 // Then
-                Assert.IsEmpty(pipingCalculationsView.PipingFailureMechanism.Calculations);
+                CollectionAssert.IsEmpty(pipingCalculationsView.PipingFailureMechanism.Calculations);
             }
         }
 

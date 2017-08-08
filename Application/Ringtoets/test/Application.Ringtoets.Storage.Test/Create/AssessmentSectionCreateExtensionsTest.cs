@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
-            Assert.IsEmpty(entity.HydraulicLocationEntities);
+            CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 

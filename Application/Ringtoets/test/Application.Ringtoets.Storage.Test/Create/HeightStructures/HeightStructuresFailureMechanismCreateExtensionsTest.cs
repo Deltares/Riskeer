@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]
@@ -178,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+            CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
 
             HeightStructuresFailureMechanismMetaEntity metaEntity =
                 entity.HeightStructuresFailureMechanismMetaEntities.Single();

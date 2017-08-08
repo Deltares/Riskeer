@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
             IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints =
                 Enumerable.Empty<TopLevelIllustrationPointBase>();
-            
+
             // Call
             var generalResult = new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
                                                                                  stochasts,

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
@@ -85,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(1, splitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<IllustrationPointsControl>(splitContainerPanel1Controls[0]);
                 Control.ControlCollection splitContainerPanel2Controls = splitContainer.Panel2.Controls;
-                Assert.IsEmpty(splitContainerPanel2Controls);
+                CollectionAssert.IsEmpty(splitContainerPanel2Controls);
             }
         }
 
@@ -377,7 +376,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                          Enumerable.Empty<Stochast>(),
-                                                                         new List<TopLevelFaultTreeIllustrationPoint>
+                                                                         new []
                                                                          {
                                                                              topLevelFaultTreeIllustrationPoint1,
                                                                              topLevelFaultTreeIllustrationPoint2

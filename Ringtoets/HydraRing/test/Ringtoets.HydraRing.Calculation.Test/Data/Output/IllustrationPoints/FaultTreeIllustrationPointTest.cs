@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
             // Assert
             Assert.IsInstanceOf<IIllustrationPoint>(illustrationPoint);
             Assert.AreEqual(name, illustrationPoint.Name);
-            Assert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
             Assert.AreEqual(beta, illustrationPoint.Beta);
             Assert.AreEqual(combinationType, illustrationPoint.CombinationType);
             Assert.AreSame(stochasts, illustrationPoint.Stochasts);

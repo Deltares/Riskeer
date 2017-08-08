@@ -421,7 +421,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 Tuple.Create(string.Format(format, testName4), LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -553,7 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -628,7 +628,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]

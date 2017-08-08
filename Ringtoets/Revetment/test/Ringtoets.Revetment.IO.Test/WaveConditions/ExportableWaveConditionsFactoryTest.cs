@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                                                                                          Enumerable.Empty<WaveConditionsOutput>());
 
             // Assert
-            Assert.IsEmpty(exportableWaveConditionsCollection);
+            CollectionAssert.IsEmpty(exportableWaveConditionsCollection);
         }
 
         [Test]

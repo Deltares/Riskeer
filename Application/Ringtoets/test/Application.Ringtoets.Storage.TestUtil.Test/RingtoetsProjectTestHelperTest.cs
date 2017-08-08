@@ -290,7 +290,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         {
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
 
-            Assert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
             List<DuneLocation> duneLocations = failureMechanism.DuneLocations;
 

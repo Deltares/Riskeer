@@ -796,7 +796,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
-                Assert.IsEmpty(result.Items);
+                CollectionAssert.IsEmpty(result.Items);
             }
             mocks.VerifyAll();
         }

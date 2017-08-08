@@ -39,7 +39,7 @@ namespace Core.Components.Chart.Test.Data
             // Assert
             Assert.IsInstanceOf<ChartData>(data);
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
         }
 
         [Test]

@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(isAquiferColumnIndex + 1));
 
-                Assert.IsEmpty(table.Rows);
+                CollectionAssert.IsEmpty(table.Rows);
             }
         }
 

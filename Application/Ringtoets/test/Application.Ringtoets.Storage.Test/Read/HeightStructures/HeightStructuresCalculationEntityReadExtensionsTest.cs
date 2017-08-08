@@ -131,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);
             AssertRoundedDouble(entity.DeviationWaveDirection, input.DeviationWaveDirection);
 
-            Assert.IsEmpty(input.ForeshoreGeometry);
+            CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.Structure);

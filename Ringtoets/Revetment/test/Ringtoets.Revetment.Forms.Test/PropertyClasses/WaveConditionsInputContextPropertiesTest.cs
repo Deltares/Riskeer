@@ -182,7 +182,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(foreshoreProfileOrientation, properties.Orientation.Value, properties.Orientation.GetAccuracy());
             Assert.AreEqual(BreakWaterType.Dam, properties.BreakWater.BreakWaterType);
             Assert.AreEqual(damHeight, properties.BreakWater.BreakWaterHeight.Value, properties.BreakWater.BreakWaterHeight.GetAccuracy());
-            Assert.IsEmpty(properties.ForeshoreGeometry.Coordinates);
+            CollectionAssert.IsEmpty(properties.ForeshoreGeometry.Coordinates);
         }
 
         [Test]

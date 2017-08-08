@@ -41,7 +41,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.IsFalse(data.ShowLabels);
             Assert.IsNull(data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);

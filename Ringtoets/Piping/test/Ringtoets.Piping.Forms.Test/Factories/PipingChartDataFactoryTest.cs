@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             ChartPointData data = PipingChartDataFactory.CreateEntryPointChartData();
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Intredepunt", data.Name);
             AssertEqualStyle(data.Style, Color.Gold, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             ChartPointData data = PipingChartDataFactory.CreateExitPointChartData();
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Uittredepunt", data.Name);
             AssertEqualStyle(data.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
         }
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
 
             // Assert
-            Assert.IsEmpty(data.Areas);
+            CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
             AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
         }

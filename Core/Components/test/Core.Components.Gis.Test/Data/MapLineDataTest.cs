@@ -44,7 +44,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
@@ -105,7 +105,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.AreEqual("test data", data.Name);
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreSame(style, data.Style);
         }

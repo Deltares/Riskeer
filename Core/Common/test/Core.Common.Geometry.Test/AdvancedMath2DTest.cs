@@ -49,7 +49,7 @@ namespace Core.Common.Geometry.Test
             IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB);
 
             // Assert
-            Assert.IsEmpty(intersections);
+            CollectionAssert.IsEmpty(intersections);
         }
 
         [Test]

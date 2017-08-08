@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]

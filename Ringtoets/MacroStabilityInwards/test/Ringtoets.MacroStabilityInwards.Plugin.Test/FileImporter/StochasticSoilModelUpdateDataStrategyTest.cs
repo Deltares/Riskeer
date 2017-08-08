@@ -157,8 +157,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");
 
             // Assert
-            Assert.IsEmpty(targetCollection);
-            Assert.IsEmpty(affectedObjects);
+            CollectionAssert.IsEmpty(targetCollection);
+            CollectionAssert.IsEmpty(affectedObjects);
         }
 
         [Test]

@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(location.Orientation, entity.Orientation, location.Orientation.GetAccuracy());
             Assert.AreEqual(location.D50, entity.D50, location.D50.GetAccuracy());
-            Assert.IsEmpty(entity.DuneLocationOutputEntities);
+            CollectionAssert.IsEmpty(entity.DuneLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.IsNull(entity.Offset);
             Assert.IsNull(entity.Orientation);
             Assert.IsNull(entity.D50);
-            Assert.IsEmpty(entity.DuneLocationOutputEntities);
+            CollectionAssert.IsEmpty(entity.DuneLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 

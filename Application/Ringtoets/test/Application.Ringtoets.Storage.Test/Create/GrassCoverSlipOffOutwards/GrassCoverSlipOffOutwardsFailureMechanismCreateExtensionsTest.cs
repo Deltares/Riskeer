@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffOutwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]

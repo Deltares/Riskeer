@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToByte(shouldWaveHeightIllustrationPointsBeCalculated), entity.ShouldWaveHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
-            Assert.IsEmpty(entity.HydraulicLocationOutputEntities);
+            CollectionAssert.IsEmpty(entity.HydraulicLocationOutputEntities);
         }
 
         [Test]

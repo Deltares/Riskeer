@@ -147,7 +147,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     Assert.AreEqual("CoordinateSystem", mapLayerCoordinateSystemColumn.DataPropertyName);
                     Assert.IsTrue(mapLayerCoordinateSystemColumn.ReadOnly);
 
-                    Assert.IsEmpty(dataGridViewControl.Rows);
+                    CollectionAssert.IsEmpty(dataGridViewControl.Rows);
 
                     Label urlLocationLabel = form.Controls.Find("urlLocationLabel", true).OfType<Label>().First();
                     Assert.AreEqual("Locatie (URL)", urlLocationLabel.Text);
@@ -347,7 +347,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     Assert.AreSame(urlLocations.SelectedItem, firstWmtsConnectionInfo);
 
                     DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                    Assert.IsEmpty(dataGridViewControl.Rows);
+                    CollectionAssert.IsEmpty(dataGridViewControl.Rows);
                 }
             }
         }
@@ -396,7 +396,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                     Assert.AreSame(urlLocations.SelectedItem, secondWmtsConnectionInfo);
 
                     DataGridViewControl dataGridViewControl = form.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                    Assert.IsEmpty(dataGridViewControl.Rows);
+                    CollectionAssert.IsEmpty(dataGridViewControl.Rows);
                 }
             }
         }

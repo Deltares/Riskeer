@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             Assert.AreEqual("Illustration Point", illustrationPoint.Name);
             Assert.AreEqual(3.14, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
 
-            Assert.IsNotEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsNotEmpty(illustrationPoint.Stochasts);
             Assert.AreEqual("Stochast A", illustrationPoint.Stochasts.First().Name);
             Assert.AreEqual(3.0, illustrationPoint.Stochasts.First().Duration);
             Assert.AreEqual(0.5, illustrationPoint.Stochasts.First().Alpha);

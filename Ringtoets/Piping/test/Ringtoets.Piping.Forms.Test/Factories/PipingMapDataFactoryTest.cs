@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             MapLineData data = PipingMapDataFactory.CreateSurfaceLinesMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Profielschematisaties", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             MapLineData data = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Stochastische ondergrondmodellen", data.Name);
             AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);

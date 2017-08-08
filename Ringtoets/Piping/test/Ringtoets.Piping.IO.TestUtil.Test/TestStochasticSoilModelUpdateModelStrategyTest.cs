@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
             Assert.IsTrue(strategy.Updated);
             CollectionAssert.AreEqual(readModels, strategy.ReadModels);
             Assert.AreEqual(filePath, strategy.FilePath);
-            Assert.IsEmpty(strategy.UpdatedInstances);
+            CollectionAssert.IsEmpty(strategy.UpdatedInstances);
         }
 
         [Test]

@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapLineData data = RingtoetsMapDataFactory.CreateReferenceLineMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Referentielijn", data.Name);
             AssertEqualStyle(data.Style, Color.Red, 3, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapLineData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Vakindeling", data.Name);
             AssertEqualStyle(data.Style, Color.Khaki, 3, LineDashStyle.Dot);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Vakindeling (startpunten)", data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Vakindeling (eindpunten)", data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapPointData data = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Hydraulische randvoorwaarden", data.Name);
             Assert.IsTrue(data.ShowLabels);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapLineData data = RingtoetsMapDataFactory.CreateDikeProfileMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Dijkprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.SaddleBrown, 2, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapLineData data = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Voorlandprofielen", data.Name);
             AssertEqualStyle(data.Style, Color.DarkOrange, 2, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapPointData data = RingtoetsMapDataFactory.CreateStructuresMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Kunstwerken", data.Name);
             AssertEqualStyle(data.Style, Color.DarkSeaGreen, 15, PointSymbol.Square);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapLineData data = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             // Assert
-            Assert.IsEmpty(data.Features);
+            CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Berekeningen", data.Name);
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
         }

@@ -85,25 +85,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.AlphaValues));
-            Assert.IsNotEmpty(subMechanismProperties.AlphaValues);
+            CollectionAssert.IsNotEmpty(subMechanismProperties.AlphaValues);
             Assert.AreEqual(1, subMechanismProperties.AlphaValues.Length);
             Assert.AreEqual(4.5, subMechanismProperties.AlphaValues.First().Alpha);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Durations));
-            Assert.IsNotEmpty(subMechanismProperties.Durations);
+            CollectionAssert.IsNotEmpty(subMechanismProperties.Durations);
             Assert.AreEqual(1, subMechanismProperties.Durations.Length);
             Assert.AreEqual(2.0, subMechanismProperties.Durations.First().Duration);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.SubMechanismStochasts));
-            Assert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
+            CollectionAssert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
             Assert.AreEqual(1, subMechanismProperties.SubMechanismStochasts.Length);
             Assert.AreEqual(0.1, subMechanismProperties.SubMechanismStochasts.First().Realization);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));
-            Assert.IsEmpty(subMechanismProperties.IllustrationPoints);
+            CollectionAssert.IsEmpty(subMechanismProperties.IllustrationPoints);
             Assert.AreEqual(0, subMechanismProperties.IllustrationPoints.Length);
         }
 

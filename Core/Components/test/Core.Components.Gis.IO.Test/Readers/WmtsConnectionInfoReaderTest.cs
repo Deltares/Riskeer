@@ -98,7 +98,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             IEnumerable<WmtsConnectionInfo> readInfos = reader.ReadWmtsConnectionInfos(filePath);
 
             // Assert
-            Assert.IsEmpty(readInfos);
+            CollectionAssert.IsEmpty(readInfos);
         }
 
         [Test]

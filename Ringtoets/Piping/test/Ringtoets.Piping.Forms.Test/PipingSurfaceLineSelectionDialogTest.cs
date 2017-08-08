@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test
                 {
                     // Assert
                     Assert.IsInstanceOf<SelectionDialogBase<PipingSurfaceLine>>(dialog);
-                    Assert.IsEmpty(dialog.SelectedItems);
+                    CollectionAssert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
                 }
             }
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();

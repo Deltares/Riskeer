@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Test
             {
                 // Assert
                 Assert.IsInstanceOf<SelectionDialogBase<StructureBase>>(dialog);
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
                 Assert.AreEqual("Selecteer kunstwerken", dialog.Text);
             }
         }
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();

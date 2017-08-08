@@ -733,7 +733,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 button.Click();
 
                 // Then
-                Assert.IsEmpty(macroStabilityInwardsCalculationsView.MacroStabilityInwardsFailureMechanism.Calculations);
+                CollectionAssert.IsEmpty(macroStabilityInwardsCalculationsView.MacroStabilityInwardsFailureMechanism.Calculations);
             }
         }
 

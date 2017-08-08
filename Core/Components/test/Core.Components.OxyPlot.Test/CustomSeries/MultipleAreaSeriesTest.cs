@@ -40,7 +40,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             Assert.AreEqual(OxyColors.Fuchsia, series.Fill);
             Assert.AreEqual(OxyColors.Fuchsia, series.Color);
             Assert.AreEqual(0, series.StrokeThickness);
-            Assert.IsEmpty(series.Areas);
+            CollectionAssert.IsEmpty(series.Areas);
         }
 
         [Test]

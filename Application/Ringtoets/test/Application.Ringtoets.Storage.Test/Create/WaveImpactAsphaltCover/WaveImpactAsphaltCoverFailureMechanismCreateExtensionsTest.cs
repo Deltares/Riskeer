@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]
@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+            CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
 
             WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity =
                entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();

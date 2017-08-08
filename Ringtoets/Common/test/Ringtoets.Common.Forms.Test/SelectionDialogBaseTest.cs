@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Close();
 
                 // Then
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
             }
         }
 
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Forms.Test
                 cancelButton.Click();
 
                 // Then
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
             }
         }
 
@@ -297,7 +297,7 @@ namespace Ringtoets.Common.Forms.Test
 
                 // Assert
                 Assert.IsFalse(button.Enabled);
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
             }
         }
 

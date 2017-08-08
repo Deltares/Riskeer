@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateLowerRevetmentBoundaryChartData(lineColor);
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens bekleding", data.Name);
             AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(lineColor);
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens bekleding", data.Name);
             AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
@@ -73,7 +73,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateRevetmentChartData(lineColor);
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bekleding", data.Name);
             AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Solid);
         }
@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData(lineColor);
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Hulplijn bekleding", data.Name);
             AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Dash);
         }
@@ -100,7 +100,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartData();
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens waterstanden", data.Name);
             AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
@@ -112,7 +112,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartData();
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens waterstanden", data.Name);
             AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
@@ -138,7 +138,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData(designWaterLevelName);
 
             // Assert
-            Assert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual(designWaterLevelName, data.Name);
             AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid);
         }
@@ -150,7 +150,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             ChartMultipleLineData data = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
 
             // Assert
-            Assert.IsEmpty(data.Lines);
+            CollectionAssert.IsEmpty(data.Lines);
             Assert.AreEqual("Waterstanden in berekening", data.Name);
             AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, ChartLineDashStyle.DashDotDot);
         }

@@ -540,7 +540,7 @@ namespace Ringtoets.Piping.Service.Test
             IEnumerable<IObservable> affected = PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
 
             // Assert
-            Assert.IsEmpty(affected);
+            CollectionAssert.IsEmpty(affected);
         }
 
         [Test]
@@ -671,7 +671,7 @@ namespace Ringtoets.Piping.Service.Test
             IEnumerable<IObservable> affected = PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
 
             // Assert
-            Assert.IsEmpty(affected);
+            CollectionAssert.IsEmpty(affected);
         }
 
         [Test]

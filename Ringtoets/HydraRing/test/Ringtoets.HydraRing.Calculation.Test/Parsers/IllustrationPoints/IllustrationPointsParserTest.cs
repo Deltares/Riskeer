@@ -216,7 +216,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             {
                 Tuple.Create("Faalkans kunstwerk gegeven erosie bodem", -1.0, 4383.0, -7.94268)
             }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
-            Assert.IsEmpty(subMechanismIllustrationPoint.Results);
+            CollectionAssert.IsEmpty(subMechanismIllustrationPoint.Results);
 
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
             Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
@@ -259,7 +259,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             ICollection<SubMechanismIllustrationPoint> subMechanisms = new List<SubMechanismIllustrationPoint>();
             GetAllNodes(illustrationPointNodes.Values.ElementAt(4), faultTrees, subMechanisms);
 
-            Assert.IsEmpty(faultTrees);
+            CollectionAssert.IsEmpty(faultTrees);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.Single();
             Assert.AreEqual(5.30273, subMechanismIllustrationPoint.Beta);
             Assert.AreEqual("Reference water level", subMechanismIllustrationPoint.Name);

@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex + 1));
 
-                Assert.IsEmpty(table.Rows);
+                CollectionAssert.IsEmpty(table.Rows);
             }
         }
 

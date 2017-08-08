@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test
                 {
                     // Assert
                     Assert.IsInstanceOf<SelectionDialogBase<HydraulicBoundaryLocation>>(dialog);
-                    Assert.IsEmpty(dialog.SelectedItems);
+                    CollectionAssert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer hydraulische randvoorwaardenlocaties", dialog.Text);
                 }
             }
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.IsEmpty(dialog.SelectedItems);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 DataGridView dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();

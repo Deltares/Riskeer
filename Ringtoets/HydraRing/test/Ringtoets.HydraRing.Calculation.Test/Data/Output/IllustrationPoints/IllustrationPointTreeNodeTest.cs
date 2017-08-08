@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
 
             // Assert
             Assert.AreSame(data, node.Data);
-            Assert.IsEmpty(node.Children);
+            CollectionAssert.IsEmpty(node.Children);
             mocks.VerifyAll();
         }
 

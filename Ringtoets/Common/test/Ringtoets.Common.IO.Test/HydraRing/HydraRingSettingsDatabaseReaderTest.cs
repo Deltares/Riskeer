@@ -392,7 +392,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 IEnumerable<long> locations = reader.ReadExcludedLocations();
 
                 // Assert
-                Assert.IsEmpty(locations);
+                CollectionAssert.IsEmpty(locations);
             }
         }
     }

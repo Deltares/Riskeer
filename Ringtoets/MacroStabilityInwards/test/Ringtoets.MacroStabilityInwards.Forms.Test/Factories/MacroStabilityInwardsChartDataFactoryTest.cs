@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
 
             // Assert
-            Assert.IsEmpty(data.Areas);
+            CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
             AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
         }

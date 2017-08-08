@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Assert
-            Assert.IsEmpty(profile.Geometry);
+            CollectionAssert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
             Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             ForeshoreProfile profile = new TestForeshoreProfile(true);
 
             // Assert
-            Assert.IsEmpty(profile.Geometry);
+            CollectionAssert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
             Assert.AreEqual("name", profile.Name);
             Assert.IsTrue(profile.HasBreakWater);
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             ForeshoreProfile profile = new TestForeshoreProfile(id);
 
             // Assert
-            Assert.IsEmpty(profile.Geometry);
+            CollectionAssert.IsEmpty(profile.Geometry);
             Assert.AreEqual(id, profile.Id);
             Assert.AreEqual("name", profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             ForeshoreProfile profile = new TestForeshoreProfile(name, id);
 
             // Assert
-            Assert.IsEmpty(profile.Geometry);
+            CollectionAssert.IsEmpty(profile.Geometry);
             Assert.AreEqual(id, profile.Id);
             Assert.AreEqual(name, profile.Name);
             Assert.IsFalse(profile.HasBreakWater);
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             ForeshoreProfile profile = new TestForeshoreProfile(breakWater);
 
             // Assert
-            Assert.IsEmpty(profile.Geometry);
+            CollectionAssert.IsEmpty(profile.Geometry);
             Assert.AreEqual("id", profile.Id);
             Assert.AreEqual("name", profile.Name);
             Assert.AreSame(breakWater, profile.BreakWater);

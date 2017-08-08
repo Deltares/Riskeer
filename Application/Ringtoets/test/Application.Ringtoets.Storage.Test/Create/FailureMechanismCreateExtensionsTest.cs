@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             failureMechanism.AddEntitiesForFailureMechanismSections(new PersistenceRegistry(), failureMechanismEntity);
 
             // Assert
-            Assert.IsEmpty(failureMechanismEntity.FailureMechanismSectionEntities);
+            CollectionAssert.IsEmpty(failureMechanismEntity.FailureMechanismSectionEntities);
         }
 
         [Test]

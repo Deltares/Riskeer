@@ -68,12 +68,12 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]
@@ -286,8 +286,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.StochasticSoilModels);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingFailureMechanismMetaEntity[] pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
             PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
@@ -564,7 +564,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
             Assert.IsNull(failureMechanism.DikeProfiles.SourcePath);
@@ -735,7 +735,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
@@ -983,7 +983,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1145,7 +1145,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1311,7 +1311,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1505,7 +1505,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
-            Assert.IsEmpty(failureMechanism.HeightStructures);
+            CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
         }
 
         #endregion
@@ -1542,7 +1542,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1794,7 +1794,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }

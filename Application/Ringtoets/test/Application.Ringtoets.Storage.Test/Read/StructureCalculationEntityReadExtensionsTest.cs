@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertRoundedDouble(entity.WidthFlowAperturesStandardDeviation, inputToUpdate.WidthFlowApertures.StandardDeviation);
             AssertRoundedDouble(entity.StormDurationMean, inputToUpdate.StormDuration.Mean);
 
-            Assert.IsEmpty(inputToUpdate.ForeshoreGeometry);
+            CollectionAssert.IsEmpty(inputToUpdate.ForeshoreGeometry);
             Assert.IsNull(inputToUpdate.ForeshoreProfile);
             Assert.IsNull(inputToUpdate.HydraulicBoundaryLocation);
             Assert.IsNull(inputToUpdate.Structure);

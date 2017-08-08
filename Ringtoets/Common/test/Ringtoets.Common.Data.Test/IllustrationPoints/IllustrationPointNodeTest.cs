@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             Assert.AreSame(data, treeNode.Data);
-            Assert.IsEmpty(treeNode.Children);
+            CollectionAssert.IsEmpty(treeNode.Children);
         }
 
         [Test]

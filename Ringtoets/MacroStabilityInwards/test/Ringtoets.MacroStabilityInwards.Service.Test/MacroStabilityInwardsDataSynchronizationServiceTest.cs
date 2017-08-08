@@ -540,7 +540,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             IEnumerable<IObservable> affected = MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
 
             // Assert
-            Assert.IsEmpty(affected);
+            CollectionAssert.IsEmpty(affected);
         }
 
         [Test]
@@ -671,7 +671,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             IEnumerable<IObservable> affected = MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
 
             // Assert
-            Assert.IsEmpty(affected);
+            CollectionAssert.IsEmpty(affected);
         }
 
         [Test]

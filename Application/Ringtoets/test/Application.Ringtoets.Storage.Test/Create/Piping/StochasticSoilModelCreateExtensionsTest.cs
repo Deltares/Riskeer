@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(order, entity.Order);
-            Assert.IsEmpty(entity.StochasticSoilProfileEntities);
+            CollectionAssert.IsEmpty(entity.StochasticSoilProfileEntities);
         }
 
         [Test]

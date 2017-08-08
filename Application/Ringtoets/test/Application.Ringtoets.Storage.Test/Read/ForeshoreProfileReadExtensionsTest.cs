@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(foreshoreProfile.X0);
             Assert.IsNull(foreshoreProfile.BreakWater);
             Assert.IsFalse(foreshoreProfile.HasBreakWater);
-            Assert.IsEmpty(foreshoreProfile.Geometry);
+            CollectionAssert.IsEmpty(foreshoreProfile.Geometry);
         }
 
         [Test]

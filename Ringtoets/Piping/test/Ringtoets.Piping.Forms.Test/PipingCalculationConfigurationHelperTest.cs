@@ -436,7 +436,7 @@ namespace Ringtoets.Piping.Forms.Test
                 Tuple.Create(string.Format(format, testName4), LogLevelConstant.Warn)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -569,7 +569,7 @@ namespace Ringtoets.Piping.Forms.Test
                               testName),
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]
@@ -645,7 +645,7 @@ namespace Ringtoets.Piping.Forms.Test
                               testName),
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            Assert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result);
         }
 
         [Test]

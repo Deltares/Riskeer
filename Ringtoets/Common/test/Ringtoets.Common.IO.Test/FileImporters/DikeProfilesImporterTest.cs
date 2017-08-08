@@ -238,7 +238,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                            "ID 'profiel005' ligt niet op de referentielijn.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(importResult);
-            Assert.IsEmpty(dikeProfiles);
+            CollectionAssert.IsEmpty(dikeProfiles);
         }
 
         [Test]

@@ -322,7 +322,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     });
 
                     Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
-                    Assert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
+                    CollectionAssert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                 }
             }
             mocks.VerifyAll();

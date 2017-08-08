@@ -82,11 +82,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
             Assert.AreEqual("closing situation", faultTree.ClosingSituation);
 
-            Assert.IsNotEmpty(faultTree.AlphaValues);
+            CollectionAssert.IsNotEmpty(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
             Assert.AreEqual(2.5, faultTree.AlphaValues.First().Alpha);
 
-            Assert.IsNotEmpty(faultTree.Durations);
+            CollectionAssert.IsNotEmpty(faultTree.Durations);
             Assert.AreEqual(1, faultTree.Durations.Length);
             Assert.AreEqual(10.0, faultTree.Durations.First().Duration);
 
