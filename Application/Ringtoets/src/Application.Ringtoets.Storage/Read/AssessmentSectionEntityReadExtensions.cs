@@ -60,7 +60,8 @@ namespace Application.Ringtoets.Storage.Read
                 },
                 FailureMechanismContribution =
                 {
-                    Norm = entity.Norm
+                    LowerLimitNorm = entity.Norm,
+                    SignalingNorm = entity.Norm
                 }
             };
 

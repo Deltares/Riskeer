@@ -173,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
                 Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
             });
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
@@ -257,7 +257,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
 
@@ -363,7 +363,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -462,7 +462,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -531,7 +531,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
 
             mockRepository.VerifyAll(); // No update observer expected.
         }
@@ -574,7 +574,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             mockRepository.VerifyAll();
         }
     }

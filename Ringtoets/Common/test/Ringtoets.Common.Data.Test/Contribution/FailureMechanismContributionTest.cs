@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(norm, result.Norm);
             Assert.AreEqual(norm, result.SignalingNorm);
             Assert.AreEqual(norm, result.LowerLimitNorm);
-            Assert.AreEqual(NormType.LowerLimit, result.NormType);
+            Assert.AreEqual(NormType.LowerLimit, result.NormativeNorm);
         }
 
         [Test]
@@ -436,6 +436,30 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             const string expectedMessage = "De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+
+        [Test]
+        [TestCase(NormType.Signaling, 0.01)]
+        [TestCase(NormType.LowerLimit, 0.1)]
+        public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormType normType, double expectedNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            int contribution = random.Next(1, 100);
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution)
+            {
+                LowerLimitNorm = 0.1,
+                SignalingNorm = 0.01,
+                NormativeNorm = normType
+            };
+
+            // Call
+            double norm = failureMechanismContribution.Norm;
+
+            // Assert
+            Assert.AreEqual(expectedNorm, norm);
+
         }
 
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)

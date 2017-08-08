@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Create
                 Name = section.Name.DeepClone(),
                 Composition = (byte) section.Composition,
                 Comments = section.Comments.Body.DeepClone(),
-                Norm = section.FailureMechanismContribution.Norm,
+                Norm = section.FailureMechanismContribution.LowerLimitNorm,
                 Order = order
             };
 

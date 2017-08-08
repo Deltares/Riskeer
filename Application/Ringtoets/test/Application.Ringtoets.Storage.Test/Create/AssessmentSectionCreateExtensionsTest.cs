@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 },
                 FailureMechanismContribution =
                 {
-                    Norm = norm
+                    LowerLimitNorm = norm
                 },
                 BackgroundData =
                 {

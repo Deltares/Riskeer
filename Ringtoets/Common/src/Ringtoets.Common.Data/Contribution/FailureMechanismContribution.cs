@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Data.Contribution
             Norm = defaultNorm;
             signalingNorm = defaultNorm;
             lowerLimitNorm = defaultNorm;
-            NormType = NormType.LowerLimit;
+            NormativeNorm = NormType.LowerLimit;
 
             UpdateContributions(failureMechanisms, otherContribution);
         }
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Data.Contribution
         }
 
         /// <summary>
-        /// Gets or sets the norm which has been defined on the assessment section.
+        /// Gets the norm which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
         /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
@@ -133,7 +133,9 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return norm;
+                return NormativeNorm == NormType.LowerLimit
+                           ? LowerLimitNorm
+                           : SignalingNorm;
             }
             set
             {
@@ -147,7 +149,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm type which has been defined on the assessment section.
         /// </summary>
-        public NormType NormType { get; set; }
+        public NormType NormativeNorm { get; set; }
 
         /// <summary>
         /// Gets the distribution of failure mechanism contributions.

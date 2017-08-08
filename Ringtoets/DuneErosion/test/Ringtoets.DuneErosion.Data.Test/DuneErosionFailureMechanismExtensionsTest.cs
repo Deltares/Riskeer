@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                                                                                    failureMechanism
                                                                                }, 1)
                                                                                {
-                                                                                   Norm = norm
+                                                                                   LowerLimitNorm = norm
                                                                                });
             mocks.ReplayAll();
 

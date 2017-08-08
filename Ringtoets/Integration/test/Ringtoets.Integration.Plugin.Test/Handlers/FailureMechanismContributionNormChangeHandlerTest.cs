@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             const double norm = 1.0 / 1000;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.Norm = norm);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = norm);
 
             // Assert
             var expectedMessages = new[]
@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
 
-            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -209,12 +209,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             const double newNormValue = 0.01234;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.Norm = newNormValue);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = newNormValue);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
 
-            Assert.AreEqual(newNormValue, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(newNormValue, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
                                                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
@@ -251,12 +251,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             const double norm = 1.0 / 1000;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.Norm = norm);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = norm);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
 
-            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");

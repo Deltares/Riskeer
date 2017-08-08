@@ -156,11 +156,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.NormType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public NormType NormType
+        public NormType NormativeNorm
         {
             get
             {
-                return data.NormType;
+                return data.NormativeNorm;
             }
         }
     }

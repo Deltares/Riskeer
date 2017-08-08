@@ -196,9 +196,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.",
                                                                             true);
 
-            PropertyDescriptor normTypeProperty = dynamicProperties[4];
-            Assert.IsInstanceOf<EnumTypeConverter>(normTypeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normTypeProperty,
+            PropertyDescriptor normativeNormProperty = dynamicProperties[4];
+            Assert.IsInstanceOf<EnumTypeConverter>(normativeNormProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,
                                                                             "Norm van het dijktraject",
                                                                             "De kans die wordt gebruikt als de norm van het dijktraject.",
@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
             Assert.AreEqual(expectedLowerLimitNorm, properties.LowerLimitNorm);
             Assert.AreEqual(expectedSignalingNorm, properties.SignalingNorm);
-            Assert.AreEqual(contribution.NormType, properties.NormType);
+            Assert.AreEqual(contribution.NormativeNorm, properties.NormativeNorm);
             mocks.VerifyAll();
         }
 
@@ -274,8 +274,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             properties.ReturnPeriod = newReturnPeriod;
 
             // Then
-            Assert.AreEqual(newReturnPeriod, properties.ReturnPeriod);
-            Assert.AreEqual(1.0 / newReturnPeriod, failureMechanismContribution.Norm);
+            Assert.AreEqual(30000, properties.ReturnPeriod);
+            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
             mocks.VerifyAll();
         }
 

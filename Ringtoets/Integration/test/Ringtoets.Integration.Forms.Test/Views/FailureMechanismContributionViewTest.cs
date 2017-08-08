@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100))
             {
-                Norm = 1.0 / initialReturnPeriod
+                LowerLimitNorm = 1.0 / initialReturnPeriod
             };
 
             var newContribution = new FailureMechanismContribution(new[]
@@ -259,7 +259,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100))
             {
-                Norm = 1.0 / newReturnPeriod
+                LowerLimitNorm = 1.0 / newReturnPeriod
             };
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100))
             {
-                Norm = 1.0 / initialReturnPeriod
+                LowerLimitNorm = 1.0 / initialReturnPeriod
             };
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
-                contribution.Norm = 1.0 / newReturnPeriod;
+                contribution.LowerLimitNorm = 1.0 / newReturnPeriod;
                 contribution.NotifyObservers();
 
                 // Assert
