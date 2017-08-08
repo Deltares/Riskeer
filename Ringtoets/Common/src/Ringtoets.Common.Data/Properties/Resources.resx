@@ -375,4 +375,7 @@
   <data name="Norm_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde van de norm moet in het bereik {0} liggen.</value>
   </data>
+  <data name="FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm" xml:space="preserve">
+    <value>De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.</value>
+  </data>
 </root>

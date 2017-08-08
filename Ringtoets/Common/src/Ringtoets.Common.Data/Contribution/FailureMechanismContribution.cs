@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -36,13 +35,14 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
-        private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
-
         private const double defaultNorm = 1.0 / 30000;
+        private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
         private double norm;
+        private double lowerLimitNorm;
+        private double signalingNorm;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 
@@ -63,8 +63,8 @@ namespace Ringtoets.Common.Data.Contribution
         public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution)
         {
             Norm = defaultNorm;
-            SignalingNorm = defaultNorm;
-            LowerLimitNorm = defaultNorm;
+            signalingNorm = defaultNorm;
+            lowerLimitNorm = defaultNorm;
             NormType = NormType.LowerLimit;
 
             UpdateContributions(failureMechanisms, otherContribution);
@@ -73,12 +73,56 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets the signaling norm which has been defined on the assessment section.
         /// </summary>
-        public double SignalingNorm { get; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// <list type="bullet">
+        /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The new value is larger than the <see cref="LowerLimitNorm"/>.</item>
+        /// </list></exception>
+        public double SignalingNorm
+        {
+            get
+            {
+                return signalingNorm;
+            }
+            set
+            {
+                ValidateNorm(value);
+
+                if (value > lowerLimitNorm)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
+                }
+
+                signalingNorm = value;
+            }
+        }
 
         /// <summary>
         /// Gets the lower limit norm which has been defined on the assessment section.
         /// </summary>
-        public double LowerLimitNorm { get; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// <list type="bullet">
+        /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The new value is smaller than the <see cref="SignalingNorm"/>.</item>
+        /// </list></exception>
+        public double LowerLimitNorm
+        {
+            get
+            {
+                return lowerLimitNorm;
+            }
+            set
+            {
+                ValidateNorm(value);
+
+                if (value < signalingNorm)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
+                }
+
+                lowerLimitNorm = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the norm which has been defined on the assessment section.
@@ -93,12 +137,7 @@ namespace Ringtoets.Common.Data.Contribution
             }
             set
             {
-                if (!normValidityRange.InRange(value))
-                {
-                    string message = string.Format(Resources.Norm_should_be_in_Range_0_,
-                                                   normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
+                ValidateNorm(value);
 
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);
@@ -146,6 +185,22 @@ namespace Ringtoets.Common.Data.Contribution
             distribution.Clear();
             newFailureMechanisms.ForEachElementDo(AddContributionItem);
             AddOtherContributionItem(otherContribution);
+        }
+
+        /// <summary>
+        /// Validates the norm value;
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
+        /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
+        private static void ValidateNorm(double value)
+        {
+            if (!normValidityRange.InRange(value))
+            {
+                string message = string.Format(Resources.Norm_should_be_in_Range_0_,
+                                               normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                throw new ArgumentOutOfRangeException(nameof(value), message);
+            }
         }
 
         /// <summary>

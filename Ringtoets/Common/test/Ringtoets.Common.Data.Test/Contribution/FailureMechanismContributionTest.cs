@@ -314,11 +314,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCase(double.MaxValue)]
-        [TestCase(double.MinValue)]
-        [TestCase(0.1 + 1e-6)]
-        [TestCase(0.000001 - 1e-6)]
-        [TestCase(double.NaN)]
+        [TestCaseSource(nameof(GetInvalidValues),
+            new object[]
+            {
+                "Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
+            })]
         [SetCulture("nl-NL")]
         public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
         {
@@ -362,10 +362,100 @@ namespace Ringtoets.Common.Data.Test.Contribution
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetInvalidValues),
+            new object[]
+            {
+                "Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem"
+            })]
+        [SetCulture("nl-NL")]
+        public void LowerLimitNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            int contribution = random.Next(1, 100);
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution);
+
+            // Call
+            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = newNorm;
+
+            // Assert
+            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInvalidValues),
+            new object[]
+            {
+                "SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
+            })]
+        [SetCulture("nl-NL")]
+        public void SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            int contribution = random.Next(1, 100);
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution);
+
+            // Call
+            TestDelegate test = () => failureMechanismContribution.SignalingNorm = newNorm;
+
+            // Assert
+            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void SignalingNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var random = new Random(21);
+            int contribution = random.Next(1, 100);
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution);
+
+            // Call
+            TestDelegate test = () => failureMechanismContribution.SignalingNorm = 0.1;
+
+            // Assert
+            const string expectedMessage = "De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void LowerLimitNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var random = new Random(21);
+            int contribution = random.Next(1, 100);
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution);
+
+            // Call
+            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = 0.000001;
+
+            // Assert
+            const string expectedMessage = "De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
         {
             double expectedProbabilitySpace = 100.0 / (norm * newOtherContribution);
             Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidValues(string name)
+        {
+            yield return new TestCaseData(double.MaxValue)
+                .SetName($"{name} maxValue");
+            yield return new TestCaseData(double.MinValue)
+                .SetName($"{name} minValue");
+            yield return new TestCaseData(double.NaN)
+                .SetName($"{name} NaN");
+            yield return new TestCaseData(0.1 + 1e-6)
+                .SetName($"{name} minimum boundary");
+            yield return new TestCaseData(0.000001 - 1e-6)
+                .SetName($"{name} maximum boundary");
         }
     }
 }

@@ -470,6 +470,16 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens..
+        /// </summary>
+        public static string FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLi" +
+                        "mitNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen bijdrageoverzicht maken zonder toetsspoor..
         /// </summary>
         public static string FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {
