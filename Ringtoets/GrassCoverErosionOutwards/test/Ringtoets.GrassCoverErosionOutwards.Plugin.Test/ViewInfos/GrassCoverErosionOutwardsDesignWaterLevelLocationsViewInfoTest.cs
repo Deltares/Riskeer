@@ -96,8 +96,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var gui = mockRepository.Stub<IGui>();
-            var windows = mockRepository.Stub<IMainWindow>();
-            gui.Stub(gs => gs.MainWindow).Return(windows);
+            var window = mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(window);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -129,8 +129,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var gui = mockRepository.Stub<IGui>();
-            var windows = mockRepository.Stub<IMainWindow>();
-            gui.Stub(gs => gs.MainWindow).Return(windows);
+            var window = mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(window);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
