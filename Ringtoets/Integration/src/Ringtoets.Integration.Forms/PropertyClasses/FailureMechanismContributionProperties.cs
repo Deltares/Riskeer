@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -81,6 +83,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             this.assessmentSection = assessmentSection;
         }
 
+        [PropertyOrder(1)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_Composition_DisplayName))]
@@ -106,6 +109,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_Description))]
@@ -120,6 +124,43 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 double newNormValue = 1.0 / Convert.ToInt32(value);
 
                 PropertyChangeHelper.ChangePropertyAndNotify(() => assessmentSection.FailureMechanismContribution.Norm = newNormValue, normChangeHandler);
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
+        public string LowerLimitNorm
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.LowerLimitNorm);
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
+        public string SignalingNorm
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.SignalingNorm);
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.NormType_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public NormType NormType
+        {
+            get
+            {
+                return data.NormType;
             }
         }
     }

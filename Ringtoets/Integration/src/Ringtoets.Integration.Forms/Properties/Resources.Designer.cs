@@ -580,12 +580,48 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden..
+        /// </summary>
+        public static string LowerLimitNorm_Description {
+            get {
+                return ResourceManager.GetString("LowerLimitNorm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        /// </summary>
+        public static string LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Map {
             get {
                 object obj = ResourceManager.GetObject("Map", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kans die wordt gebruikt als de norm van het dijktraject..
+        /// </summary>
+        public static string NormType_Description {
+            get {
+                return ResourceManager.GetString("NormType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norm van het dijktraject.
+        /// </summary>
+        public static string NormType_DisplayName {
+            get {
+                return ResourceManager.GetString("NormType_DisplayName", resourceCulture);
             }
         }
         
@@ -676,6 +712,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
             get {
                 return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_FilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M..
+        /// </summary>
+        public static string SignalingNorm_Description {
+            get {
+                return ResourceManager.GetString("SignalingNorm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signaleringswaarde [1/jaar].
+        /// </summary>
+        public static string SignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
             }
         }
         

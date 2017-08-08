@@ -27,12 +27,14 @@ using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -45,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     public class FailureMechanismContributionPropertiesTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_WithoutFailureMechanismContribution_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -68,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -92,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutFailureMechanismContributionNormChangeHandler_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismContributionNormChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -116,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutAssessmentSectionCompositionChangeHandler_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionCompositionChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -164,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
 
@@ -179,6 +181,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "Norm (terugkeertijd) [jaar]",
                                                                             "Terugkeertijd van de norm, gelijk aan 1/norm.");
+
+            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
+                                                                            expectedCategory,
+                                                                            "Ondergrens [1/jaar]",
+                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.",
+                                                                            true);
+
+            PropertyDescriptor signalingNormProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
+                                                                            expectedCategory,
+                                                                            "Signaleringswaarde [1/jaar]",
+                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.",
+                                                                            true);
+
+            PropertyDescriptor normTypeProperty = dynamicProperties[4];
+            Assert.IsInstanceOf<EnumTypeConverter>(normTypeProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normTypeProperty,
+                                                                            expectedCategory,
+                                                                            "Norm van het dijktraject",
+                                                                            "De kans die wordt gebruikt als de norm van het dijktraject.",
+                                                                            true);
         }
 
         [Test]
@@ -193,7 +217,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
-            const int returnPeriod = 30000;
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1);
 
             // Call
@@ -204,8 +227,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 assessmentSectionChangeHandler);
 
             // Assert
-            Assert.AreEqual(returnPeriod, properties.ReturnPeriod);
+            string expectedLowerLimitNorm = ProbabilityFormattingHelper.Format(contribution.LowerLimitNorm);
+            string expectedSignalingNorm = ProbabilityFormattingHelper.Format(contribution.SignalingNorm);
+
             Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(expectedLowerLimitNorm, properties.LowerLimitNorm);
+            Assert.AreEqual(expectedSignalingNorm, properties.SignalingNorm);
+            Assert.AreEqual(contribution.NormType, properties.NormType);
             mocks.VerifyAll();
         }
 
@@ -378,7 +406,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const int returnPeriod = 200;
-            const double norm = 1.0 / returnPeriod;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 

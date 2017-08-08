@@ -324,4 +324,22 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="BackgroundDataProperties_Wmts_Category" xml:space="preserve">
     <value>WMTS</value>
   </data>
+  <data name="LowerLimitNorm_Description" xml:space="preserve">
+    <value>Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.</value>
+  </data>
+  <data name="LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Ondergrens [1/jaar]</value>
+  </data>
+  <data name="NormType_Description" xml:space="preserve">
+    <value>De kans die wordt gebruikt als de norm van het dijktraject.</value>
+  </data>
+  <data name="NormType_DisplayName" xml:space="preserve">
+    <value>Norm van het dijktraject</value>
+  </data>
+  <data name="SignalingNorm_Description" xml:space="preserve">
+    <value>Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.</value>
+  </data>
+  <data name="SignalingNorm_DisplayName" xml:space="preserve">
+    <value>Signaleringswaarde [1/jaar]</value>
+  </data>
 </root>
