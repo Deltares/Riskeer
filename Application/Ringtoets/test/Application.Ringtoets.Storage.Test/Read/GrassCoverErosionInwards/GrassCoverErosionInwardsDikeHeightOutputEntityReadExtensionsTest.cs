@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -36,11 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         [Test]
         public void Read_EntityNull_ThrowArgumentNullException()
         {
-            // Setup
-            GrassCoverErosionInwardsDikeHeightOutputEntity entity = null;
-
             // Call
-            TestDelegate test = () => entity.Read();
+            TestDelegate test = () => ((GrassCoverErosionInwardsDikeHeightOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -78,6 +76,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
+                                                              output.GeneralResult);
         }
 
         [Test]
@@ -101,6 +101,41 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
+            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
+                                                              output.GeneralResult);
+        }
+
+        [Test]
+        public void Read_WithGeneralResultEntity_ReturnsDikeHeightOutputWithGeneralResult()
+        {
+            // Setup
+            var random = new Random(22);
+
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = random.NextDouble()
+            };
+
+            var convergence = random.NextEnumValue<CalculationConvergence>();
+            var entity = new GrassCoverErosionInwardsDikeHeightOutputEntity
+            {
+                CalculationConvergence = (byte) convergence,
+                GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
+            };
+
+            // Call
+            DikeHeightOutput output = entity.Read();
+
+            // Assert
+            Assert.IsNaN(output.DikeHeight);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.TargetReliability);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.CalculatedReliability);
+            Assert.AreEqual(convergence, output.CalculationConvergence);
+            GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity,
+                                                              output.GeneralResult);
         }
     }
 }

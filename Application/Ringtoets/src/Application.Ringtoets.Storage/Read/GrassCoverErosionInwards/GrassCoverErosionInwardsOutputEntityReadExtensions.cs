@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -40,8 +41,14 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsOutputEntity"/>
         /// to create <see cref="GeneralGrassCoverErosionInwardsInput"/> for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
+        /// is <c>null</c>.</exception>
         internal static GrassCoverErosionInwardsOutput Read(this GrassCoverErosionInwardsOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             return new GrassCoverErosionInwardsOutput(GetOvertoppingOutput(entity),
                                                       GetDikeHeightOutput(entity),
                                                       GetOvertoppingRateOutput(entity));
@@ -52,7 +59,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new OvertoppingOutput(entity.WaveHeight.ToNullAsNaN(),
                                          Convert.ToBoolean(entity.IsOvertoppingDominant),
                                          ReadProbabilityAssessmentOutput(entity),
-                                         null);
+                                         entity.GeneralResultFaultTreeIllustrationPointEntity?.Read());
         }
 
         private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)

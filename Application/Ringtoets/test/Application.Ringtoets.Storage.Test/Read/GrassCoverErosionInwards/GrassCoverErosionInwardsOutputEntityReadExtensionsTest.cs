@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -31,6 +32,17 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
     [TestFixture]
     public class GrassCoverErosionInwardsOutputEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((GrassCoverErosionInwardsOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
         [Test]
         public void Read_ValidEntity_ReturnGrassCoverErosionInwardsOutput()
         {
@@ -76,7 +88,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 RequiredProbability = null,
                 RequiredReliability = null,
                 Reliability = null,
-                FactorOfSafety = null
+                FactorOfSafety = null,
+                GeneralResultFaultTreeIllustrationPointEntity = null
             };
 
             // Call
@@ -95,6 +108,48 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(probabilityAssessmentOutput.RequiredProbability);
             Assert.IsNaN(probabilityAssessmentOutput.Reliability);
             Assert.IsNaN(probabilityAssessmentOutput.RequiredReliability);
+            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity, overtoppingOutput.GeneralResult);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithGeneralResultEntity_ReturnsGrassCoverErosionInwardsOutputWithGeneralResult()
+        {
+            // Setup
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionAngle = 10,
+                GoverningWindDirectionName = "SSE"
+            };
+            var entity = new GrassCoverErosionInwardsOutputEntity
+            {
+                WaveHeight = null,
+                IsOvertoppingDominant = Convert.ToByte(true),
+                Probability = null,
+                RequiredProbability = null,
+                RequiredReliability = null,
+                Reliability = null,
+                FactorOfSafety = null,
+                GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
+            };
+
+            // Call
+            GrassCoverErosionInwardsOutput output = entity.Read();
+
+            // Assert
+            OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
+            ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
+
+            Assert.IsNaN(overtoppingOutput.WaveHeight);
+            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
+            Assert.IsNull(output.DikeHeightOutput);
+            Assert.IsNull(output.OvertoppingRateOutput);
+            Assert.IsNaN(probabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsNaN(probabilityAssessmentOutput.Probability);
+            Assert.IsNaN(probabilityAssessmentOutput.RequiredProbability);
+            Assert.IsNaN(probabilityAssessmentOutput.Reliability);
+            Assert.IsNaN(probabilityAssessmentOutput.RequiredReliability);
+
+            GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity, overtoppingOutput.GeneralResult);
         }
 
         [Test]

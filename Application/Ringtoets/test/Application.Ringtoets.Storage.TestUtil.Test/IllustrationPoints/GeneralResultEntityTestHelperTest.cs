@@ -91,6 +91,122 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.IllustrationPoints
             Assert.Throws<AssertionException>(call);
         }
 
+        [Test]
+        public void AssertGeneralResult_WithNullArguments_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate call = () => GeneralResultEntityTestHelper.AssertGeneralResult(null, null);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void AssertGeneralResult_WithExpectedProperties_DoesNotThrowException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = 30
+            };
+            generalResultEntity.StochastEntities.Add(new StochastEntity());
+            generalResultEntity.TopLevelFaultTreeIllustrationPointEntities.Add(new TopLevelFaultTreeIllustrationPointEntity());
+
+            var governingWindDirection = new WindDirection(generalResultEntity.GoverningWindDirectionName,
+                                                           generalResultEntity.GoverningWindDirectionAngle);
+            var stochast = new Stochast("Stochast", random.NextDouble(), random.NextDouble());
+            var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                            string.Empty,
+                                                                                            new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
+
+            var generalResult = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                governingWindDirection, new[]
+                {
+                    stochast
+                }, new[]
+                {
+                    topLevelFaultTreeIllustrationPoint
+                });
+
+            // Call
+            TestDelegate call = () => GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity, generalResult);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetDifferentGeneralResultProperties))]
+        public void AssertGeneralResult_DifferentPropertyValues_ThrowsAssertionException(GeneralResultFaultTreeIllustrationPointEntity generalResultEntity,
+                                                                                         GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            // Call
+            TestDelegate call = () => GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity, generalResult);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        #region TestData GeneralResult
+
+        private static IEnumerable<TestCaseData> GetDifferentGeneralResultProperties()
+        {
+            var generalResultEntity = new GeneralResultFaultTreeIllustrationPointEntity
+            {
+                GoverningWindDirectionName = "SSE",
+                GoverningWindDirectionAngle = 30
+            };
+            var baseLineGoverningWindDirection = new WindDirection(generalResultEntity.GoverningWindDirectionName,
+                                                                   generalResultEntity.GoverningWindDirectionAngle);
+
+            yield return new TestCaseData(null, new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                              baseLineGoverningWindDirection,
+                                              Enumerable.Empty<Stochast>(),
+                                              Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()))
+                .SetName("GeneralResultNotNullWhenExpectedNull");
+            yield return new TestCaseData(generalResultEntity, null).SetName("GeneralResultNullWhenExpectedNotNull");
+
+            yield return new TestCaseData(generalResultEntity,
+                                          new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection("DifferentName",
+                                                                                                                  baseLineGoverningWindDirection.Angle),
+                                                                                                Enumerable.Empty<Stochast>(),
+                                                                                                Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()))
+                .SetName("GeneralResultDoesNotMatchWindDirectionName");
+
+            yield return new TestCaseData(generalResultEntity,
+                                          new GeneralResult<TopLevelFaultTreeIllustrationPoint>(new WindDirection(baseLineGoverningWindDirection.Name,
+                                                                                                                  10),
+                                                                                                Enumerable.Empty<Stochast>(),
+                                                                                                Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()))
+                .SetName("GeneralResultDoesNotMatchWindDirectionAngle");
+
+            yield return new TestCaseData(generalResultEntity,
+                                          new GeneralResult<TopLevelFaultTreeIllustrationPoint>(baseLineGoverningWindDirection,
+                                                                                                new[]
+                                                                                                {
+                                                                                                    new Stochast("Wrong item", double.NaN, double.NaN)
+                                                                                                }, Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>()))
+                .SetName("GeneralResultDoesNotMatchStochastCount");
+            yield return new TestCaseData(generalResultEntity,
+                                          new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                                              baseLineGoverningWindDirection,
+                                              Enumerable.Empty<Stochast>(),
+                                              new[]
+                                              {
+                                                  new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                         string.Empty,
+                                                                                         new IllustrationPointNode(new TestFaultTreeIllustrationPoint()))
+                                              }))
+                .SetName("GeneralResultDoesNotMatchTopLevelIllustrationPointCount");
+        }
+
+        #endregion
+
+        #region TestData GeneralResultEntity
+
         private static IEnumerable<TestCaseData> GetDifferentGeneralResultEntityProperties()
         {
             var governingWindDirection = new WindDirection("SSE", 50);
@@ -98,8 +214,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.IllustrationPoints
                                                                                       Enumerable.Empty<Stochast>(),
                                                                                       Enumerable.Empty<TopLevelFaultTreeIllustrationPoint>());
 
-            yield return new TestCaseData(null, new GeneralResultFaultTreeIllustrationPointEntity()).SetName("EntityNotNull");
-            yield return new TestCaseData(new TestGeneralResultFaultTreeIllustrationPoint(), null).SetName("EntityNull");
+            yield return new TestCaseData(null, new GeneralResultFaultTreeIllustrationPointEntity()).SetName("EntityNotNullWhenExpectedNull");
+            yield return new TestCaseData(new TestGeneralResultFaultTreeIllustrationPoint(), null).SetName("EntityNullWhenExpectedNotNull");
 
             GeneralResultFaultTreeIllustrationPointEntity generalResultEntityWrongStochastCount =
                 GetBaseLineGeneralResultEntity(governingWindDirection);
@@ -135,5 +251,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.IllustrationPoints
                 GoverningWindDirectionAngle = windDirection.Angle
             };
         }
+
+        #endregion
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -54,7 +55,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                              entity.CalculatedProbability.ToNullAsNaN(),
                                              entity.CalculatedReliability.ToNullAsNaN(),
                                              (CalculationConvergence) entity.CalculationConvergence,
-                                             null);
+                                             entity.GeneralResultFaultTreeIllustrationPointEntity?.Read());
         }
     }
 }
