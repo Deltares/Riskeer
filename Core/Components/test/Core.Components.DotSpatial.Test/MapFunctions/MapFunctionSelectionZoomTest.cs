@@ -49,11 +49,11 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
+            var map = mockingRepository.Stub<IMap>();
             mockingRepository.ReplayAll();
 
             // Call
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(map);
 
             // Assert
             Assert.IsInstanceOf<MapFunctionZoom>(mapFunction);
@@ -66,17 +66,17 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnMouseDown_Always_SetsMapBusy()
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.MapFrame = mockingRepository.Stub<IMapFrame>();
+            var map = mockingRepository.Stub<IMap>();
+            map.MapFrame = mockingRepository.Stub<IMapFrame>();
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(map);
 
             // Call
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0), mapMock));
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0), map));
 
             // Assert
-            Assert.IsTrue(mapMock.IsBusy);
+            Assert.IsTrue(map.IsBusy);
             mockingRepository.VerifyAll();
         }
 
@@ -93,19 +93,19 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             int my = Math.Max(Math.Max(startPointY, 0), endPointY);
             var expectedRectangle = new Rectangle(x, y, mx - x, my - y);
 
-            var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.Stub(e => e.PixelToProj(Arg<Point>.Is.Anything)).Return(null);
-            mapMock.Expect(e => e.Invalidate(Arg<Rectangle>.Matches(m => m.Equals(expectedRectangle))));
+            var map = mockingRepository.Stub<IMap>();
+            map.Stub(e => e.PixelToProj(Arg<Point>.Is.Anything)).Return(null);
+            map.Expect(e => e.Invalidate(Arg<Rectangle>.Matches(m => m.Equals(expectedRectangle))));
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
+            var mapFunction = new MapFunctionSelectionZoom(map);
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), map));
 
             // Call
-            mapFunction.DoMouseMove(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 0, endPointX, endPointY, 0), mapMock));
+            mapFunction.DoMouseMove(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 0, endPointX, endPointY, 0), map));
 
             // Assert
-            Assert.IsTrue(mapMock.IsBusy);
+            Assert.IsTrue(map.IsBusy);
             mockingRepository.VerifyAll();
         }
 
@@ -113,20 +113,20 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnMouseDown_NotZoomedSameLocation_DoesNotZoom()
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
+            var map = mockingRepository.Stub<IMap>();
             mockingRepository.ReplayAll();
 
             const int startPointX = 0;
             const int startPointY = 0;
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
+            var mapFunction = new MapFunctionSelectionZoom(map);
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), map));
 
             // Call
-            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 0, startPointX, startPointY, 0), mapMock));
+            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 0, startPointX, startPointY, 0), map));
 
             // Assert
-            Assert.IsNull(mapMock.ViewExtents);
-            Assert.IsFalse(mapMock.IsBusy);
+            Assert.IsNull(map.ViewExtents);
+            Assert.IsFalse(map.IsBusy);
             mockingRepository.VerifyAll();
         }
 
@@ -142,23 +142,23 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             double geoEndPointX = endPointX;
             double geoEndPointY = endPointY;
 
-            var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
-            mapMock.Expect(e => e.PixelToProj(new Point(endPointX, endPointY))).Return(new Coordinate(geoEndPointX, geoEndPointY));
-            mapMock.Expect(e => e.Invalidate());
+            var map = mockingRepository.Stub<IMap>();
+            map.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
+            map.Expect(e => e.PixelToProj(new Point(endPointX, endPointY))).Return(new Coordinate(geoEndPointX, geoEndPointY));
+            map.Expect(e => e.Invalidate());
             mockingRepository.ReplayAll();
 
             Extent expectedExtend = new Envelope(geoStartPointX, geoEndPointX, geoStartPointY, geoEndPointY).ToExtent();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
+            var mapFunction = new MapFunctionSelectionZoom(map);
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), map));
 
             // Call
-            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, endPointX, endPointY, 0), mapMock));
+            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, endPointX, endPointY, 0), map));
 
             // Assert
-            Assert.AreEqual(expectedExtend, mapMock.ViewExtents);
-            Assert.IsFalse(mapMock.IsBusy);
+            Assert.AreEqual(expectedExtend, map.ViewExtents);
+            Assert.IsFalse(map.IsBusy);
             mockingRepository.VerifyAll();
         }
 
@@ -168,25 +168,25 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnMouseUp_NotDragging_ResetExtents(int startPointX, int startPointY)
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
+            var map = mockingRepository.Stub<IMap>();
             var mapFrame = mockingRepository.Stub<IMapFrame>();
-            mapMock.MapFrame = mapFrame;
+            map.MapFrame = mapFrame;
 
             double geoStartPointX = startPointX;
             double geoStartPointY = startPointY;
 
-            mapMock.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
-            mapMock.Expect(e => e.Invalidate());
+            map.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
+            map.Expect(e => e.Invalidate());
             mapFrame.Expect(e => e.ResetExtents());
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(map);
 
             // Call
-            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), mapMock));
+            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startPointX, startPointY, 0), map));
 
             // Assert
-            Assert.IsFalse(mapMock.IsBusy);
+            Assert.IsFalse(map.IsBusy);
             mockingRepository.VerifyAll();
         }
 
@@ -194,13 +194,13 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnDraw_NotDragging_NoDrawing()
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
+            var map = mockingRepository.Stub<IMap>();
             var mapFrame = mockingRepository.Stub<IMapFrame>();
             var inGraphics = mockingRepository.Stub<Graphics>();
             inGraphics.Expect(e => e.DrawRectangle(new Pen(Color.Empty), 0, 0, 0, 0)).IgnoreArguments().Repeat.Never();
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(map);
 
             var clipRectangle = new Rectangle(0, 0, 0, 0);
 
@@ -222,7 +222,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             rectangleFromPoints.Width -= 1;
             rectangleFromPoints.Height -= 1;
 
-            var mapMock = mockingRepository.Stub<IMap>();
+            var map = mockingRepository.Stub<IMap>();
             var mapFrame = mockingRepository.Stub<IMapFrame>();
             var inGraphics = mockingRepository.Stub<Graphics>();
 
@@ -231,11 +231,11 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
+            var mapFunction = new MapFunctionSelectionZoom(map);
 
             var clipRectangle = new Rectangle(0, 0, 0, 0);
 
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startX, startY, 0), mapMock));
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, startX, startY, 0), map));
 
             // Call
             mapFunction.Draw(new MapDrawArgs(inGraphics, clipRectangle, mapFrame));
@@ -248,19 +248,19 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnMouseMove_DraggingWithMiddleMouseButtonDown_DoesNotPan()
         {
             // Setup
-            var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.MapFrame = mockingRepository.Stub<IMapFrame>();
+            var map = mockingRepository.Stub<IMap>();
+            map.MapFrame = mockingRepository.Stub<IMapFrame>();
             mockingRepository.ReplayAll();
 
-            var mapFunction = new MapFunctionSelectionZoom(mapMock);
-            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 10, 10, 0), mapMock));
+            var mapFunction = new MapFunctionSelectionZoom(map);
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 10, 10, 0), map));
 
             // Call
-            Rectangle view = mapMock.MapFrame.View;
-            mapFunction.DoMouseMove(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 20, 20, 0), mapMock));
+            Rectangle view = map.MapFrame.View;
+            mapFunction.DoMouseMove(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 20, 20, 0), map));
 
             // Assert
-            Assert.AreEqual(view, mapMock.MapFrame.View);
+            Assert.AreEqual(view, map.MapFrame.View);
             mockingRepository.VerifyAll();
         }
     }

@@ -311,13 +311,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-            var viewMock = mocks.StrictMock<MacroStabilityInwardsFailureMechanismResultView>();
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            var view = mocks.StrictMock<MacroStabilityInwardsFailureMechanismResultView>();
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

@@ -146,14 +146,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.SemiProbabilisticOutput = null;
-            validMacroStabilityInwardsCalculation.Attach(observerMock);
+            validMacroStabilityInwardsCalculation.Attach(observer);
 
             var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
 

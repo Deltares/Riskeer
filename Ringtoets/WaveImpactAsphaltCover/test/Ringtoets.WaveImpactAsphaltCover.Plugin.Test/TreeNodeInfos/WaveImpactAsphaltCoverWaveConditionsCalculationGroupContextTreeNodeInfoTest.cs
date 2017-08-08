@@ -1218,8 +1218,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
-                observerMock.Expect(o => o.UpdateObserver());
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
@@ -1233,7 +1233,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;
@@ -1282,7 +1282,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
+                var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
@@ -1296,7 +1296,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;

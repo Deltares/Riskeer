@@ -35,14 +35,14 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distribution = mocks.StrictMock<IDistribution>();
             mocks.ReplayAll();
 
             // Call
-            var designVariable = new SimpleDesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distribution);
 
             // Assert
-            Assert.AreSame(distributionMock, designVariable.Distribution);
+            Assert.AreSame(distribution, designVariable.Distribution);
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 
@@ -66,10 +66,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var mocks = new MockRepository();
-            var distributionMock = mocks.StrictMock<IDistribution>();
+            var distribution = mocks.StrictMock<IDistribution>();
             mocks.ReplayAll();
 
-            var designVariable = new SimpleDesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distribution);
 
             // Call
             TestDelegate call = () => designVariable.Distribution = null;

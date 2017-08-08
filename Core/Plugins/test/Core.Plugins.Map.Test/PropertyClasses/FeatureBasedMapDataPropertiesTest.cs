@@ -142,8 +142,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var mapPointData = new MapPointData("Test")
@@ -151,7 +151,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = true
             };
 
-            mapPointData.Attach(observerMock);
+            mapPointData.Attach(observer);
 
             var properties = new TestFeatureBasedMapDataProperties
             {

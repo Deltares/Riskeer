@@ -134,8 +134,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var mapPolygonData = new MapPolygonData("Test", new PolygonStyle
@@ -145,7 +145,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 StrokeThickness = 3
             });
 
-            mapPolygonData.Attach(observerMock);
+            mapPolygonData.Attach(observer);
 
             var properties = new MapPolygonDataProperties
             {

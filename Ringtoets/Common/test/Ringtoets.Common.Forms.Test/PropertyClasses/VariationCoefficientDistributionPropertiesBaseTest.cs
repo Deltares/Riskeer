@@ -215,14 +215,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var observerableMock = mocks.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers());
+            var observerable = mocks.StrictMock<IObservable>();
+            observerable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var newMeanValue = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerableMock
+                observerable
             });
 
             var properties = new SimpleDistributionProperties(
@@ -267,14 +267,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var distribution = mocks.Stub<IVariationCoefficientDistribution>();
-            var observerableMock = mocks.StrictMock<IObservable>();
-            observerableMock.Expect(o => o.NotifyObservers());
+            var observerable = mocks.StrictMock<IObservable>();
+            observerable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
             var newCoefficientOfVariation = new RoundedDouble(3, 20);
             var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
             {
-                observerableMock
+                observerable
             });
 
             var properties = new SimpleDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, distribution, handler)

@@ -233,14 +233,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
+            var observable = mocks.StrictMock<IObservable>();
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<MacroStabilityInwardsFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -273,15 +273,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<MacroStabilityInwardsFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();

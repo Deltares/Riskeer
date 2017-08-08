@@ -304,16 +304,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingStructureResultView>();
+            var view = mocks.StrictMock<PipingStructureResultView>();
             var failureMechanism = new PipingStructureFailureMechanism();
             var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

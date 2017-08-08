@@ -54,12 +54,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var calculationGroup = new CalculationGroup();
 
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationGroupContextProperties
             {
-                Data = new TestCalculationGroupContext(calculationGroup, failureMechanismMock)
+                Data = new TestCalculationGroupContext(calculationGroup, failureMechanism)
             };
 
             // Call & Assert
@@ -74,11 +74,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
+            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             calculationGroup.Attach(projectObserver);
 
@@ -103,12 +103,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var calculationGroup = new CalculationGroup("A", nameIsEditable);
 
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationGroupContextProperties
             {
-                Data = new TestCalculationGroupContext(calculationGroup, failureMechanismMock)
+                Data = new TestCalculationGroupContext(calculationGroup, failureMechanism)
             };
 
             string propertyName = nameof(CalculationGroupContextProperties.Name);

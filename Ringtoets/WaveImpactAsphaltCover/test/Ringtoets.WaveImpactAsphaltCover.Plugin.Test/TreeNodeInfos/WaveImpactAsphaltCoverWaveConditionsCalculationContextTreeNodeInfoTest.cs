@@ -403,31 +403,31 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -527,7 +527,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -536,7 +536,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -583,7 +583,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -592,7 +592,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -644,7 +644,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -653,7 +653,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -965,7 +965,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -974,7 +974,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1028,7 +1028,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1037,7 +1037,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1084,7 +1084,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1093,7 +1093,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1145,7 +1145,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1154,7 +1154,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1206,19 +1206,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var mainWindow = mocks.Stub<IMainWindow>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
                                                              viewCommands,
                                                              context,
                                                              treeViewControl);
-                var observerMock = mocks.StrictMock<IObserver>();
-                observerMock.Expect(o => o.UpdateObserver());
-                calculation.Attach(observerMock);
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                calculation.Attach(observer);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 int nrOfCalculators = calculation.InputParameters.WaterLevels.Count();
@@ -1276,7 +1276,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1285,7 +1285,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1327,7 +1327,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1336,7 +1336,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -1381,7 +1381,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                              importHandler,
                                                              exportHandler,
                                                              updateHandler,
@@ -1390,7 +1390,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                              treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 

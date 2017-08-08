@@ -154,8 +154,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 5;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             Color color = Color.AliceBlue;
@@ -168,7 +168,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 StrokeThickness = 1
             });
 
-            mapPointData.Attach(observerMock);
+            mapPointData.Attach(observer);
 
             var properties = new MapPointDataProperties
             {

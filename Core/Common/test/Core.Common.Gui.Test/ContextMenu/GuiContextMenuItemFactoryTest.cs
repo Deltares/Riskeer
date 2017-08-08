@@ -46,18 +46,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithoutApplicationFeatureCommandHandler_ThrowsArgumentNullException()
         {
             // Setup
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(null,
-                                                                    importCommandHandlerMock,
-                                                                    exportCommandHandlerMock,
-                                                                    updateCommandHandlerMock,
-                                                                    viewCommandsMock,
+                                                                    importCommandHandler,
+                                                                    exportCommandHandler,
+                                                                    updateCommandHandler,
+                                                                    viewCommands,
                                                                     new object());
 
             // Assert
@@ -73,17 +73,17 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
                                                                     null,
-                                                                    exportCommandHandlerMock,
-                                                                    updateCommandHandlerMock,
-                                                                    viewCommandsMock,
+                                                                    exportCommandHandler,
+                                                                    updateCommandHandler,
+                                                                    viewCommands,
                                                                     null);
 
             // Assert
@@ -99,17 +99,17 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandlerMock,
+                                                                    importCommandHandler,
                                                                     null,
-                                                                    updateCommandHandlerMock,
-                                                                    viewCommandsMock,
+                                                                    updateCommandHandler,
+                                                                    viewCommands,
                                                                     null);
 
             // Assert
@@ -125,17 +125,17 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandlerMock,
-                                                                    exportCommandHandlerMock,
+                                                                    importCommandHandler,
+                                                                    exportCommandHandler,
                                                                     null,
-                                                                    viewCommandsMock,
+                                                                    viewCommands,
                                                                     null);
 
             // Assert
@@ -151,16 +151,16 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandlerMock,
-                                                                    exportCommandHandlerMock,
-                                                                    updateCommandHandlerMock,
+                                                                    importCommandHandler,
+                                                                    exportCommandHandler,
+                                                                    updateCommandHandler,
                                                                     null,
                                                                     null);
 
@@ -177,18 +177,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandlerMock,
-                                                                    exportCommandHandlerMock,
-                                                                    updateCommandHandlerMock,
-                                                                    viewCommandsMock,
+                                                                    importCommandHandler,
+                                                                    exportCommandHandler,
+                                                                    updateCommandHandler,
+                                                                    viewCommands,
                                                                     new object());
 
             // Assert
@@ -202,18 +202,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new GuiContextMenuItemFactory(applicationFeatureCommandHandler,
-                                                                    importCommandHandlerMock,
-                                                                    exportCommandHandlerMock,
-                                                                    updateCommandHandlerMock,
-                                                                    viewCommandsMock,
+                                                                    importCommandHandler,
+                                                                    exportCommandHandler,
+                                                                    updateCommandHandler,
+                                                                    viewCommands,
                                                                     null);
 
             // Assert
@@ -228,20 +228,20 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateOpenItem_NoDataAvailableForView_MenuItemIsDisabled()
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(false);
+            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(false);
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -261,21 +261,21 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateOpenItem_HasViewForData_MenuItemEnabledAndCausesViewToOpenWhenClicked()
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(true);
-            viewCommandsMock.Expect(ch => ch.OpenView(nodeData));
+            viewCommands.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(true);
+            viewCommands.Expect(ch => ch.OpenView(nodeData));
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -297,25 +297,25 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateExportItem_Always_ItemWithPropertiesSet(bool hasExportersForNodeData)
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            exportCommandHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
+            exportCommandHandler.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
             if (hasExportersForNodeData)
             {
-                exportCommandHandlerMock.Expect(ch => ch.ExportFrom(nodeData));
+                exportCommandHandler.Expect(ch => ch.ExportFrom(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -337,25 +337,25 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateImportItem_Always_ItemWithPropertiesSet(bool canImportOn)
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            importCommandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
+            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
             if (canImportOn)
             {
-                importCommandHandlerMock.Expect(ch => ch.ImportOn(nodeData));
+                importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -377,25 +377,25 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateUpdateItem_Always_ItemWithPropertiesSet(bool canUpdateOn)
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            updateCommandHandlerMock.Expect(ch => ch.CanUpdateOn(nodeData)).Return(canUpdateOn);
+            updateCommandHandler.Expect(ch => ch.CanUpdateOn(nodeData)).Return(canUpdateOn);
             if (canUpdateOn)
             {
-                updateCommandHandlerMock.Expect(ch => ch.UpdateOn(nodeData));
+                updateCommandHandler.Expect(ch => ch.UpdateOn(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -421,20 +421,20 @@ namespace Core.Common.Gui.Test.ContextMenu
             const string toolTip = "Import tooltip";
             Image image = Resources.ImportIcon;
 
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -453,20 +453,20 @@ namespace Core.Common.Gui.Test.ContextMenu
             const string text = "Import";
             Image image = Resources.ImportIcon;
 
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -485,20 +485,20 @@ namespace Core.Common.Gui.Test.ContextMenu
             const string text = "Import";
             const string toolTip = "Import tooltip";
 
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -520,25 +520,25 @@ namespace Core.Common.Gui.Test.ContextMenu
             const string toolTip = "Import tooltip";
             Image image = Resources.ImportIcon;
 
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            importCommandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
+            importCommandHandler.Expect(ch => ch.CanImportOn(nodeData)).Return(canImportOn);
             if (canImportOn)
             {
-                importCommandHandlerMock.Expect(ch => ch.ImportOn(nodeData));
+                importCommandHandler.Expect(ch => ch.ImportOn(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             // Call
@@ -560,23 +560,23 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreatePropertiesItem_Always_ItemWithPropertiesSet(bool hasPropertyInfoForNodeData)
         {
             // Setup
-            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.StrictMock<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var commandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
+            commandHandler.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
             if (hasPropertyInfoForNodeData)
             {
-                commandHandlerMock.Expect(ch => ch.ShowPropertiesForSelection());
+                commandHandler.Expect(ch => ch.ShowPropertiesForSelection());
             }
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,
-                                                                   importCommandHandlerMock,
-                                                                   exportCommandHandlerMock,
-                                                                   updateCommandHandlerMock,
-                                                                   viewCommandsMock,
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandler,
+                                                                   importCommandHandler,
+                                                                   exportCommandHandler,
+                                                                   updateCommandHandler,
+                                                                   viewCommands,
                                                                    nodeData);
 
             mocks.ReplayAll();

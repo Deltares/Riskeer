@@ -418,11 +418,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var dataMock = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
-                dataMock.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
+                var data = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
+                data.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(dataMock, assessmentSection);
+                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(data, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);

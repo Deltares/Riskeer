@@ -298,20 +298,20 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(mapPointData);
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
-            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
-            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.Stub<IViewCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
                 var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandlerMock,
-                                                     exportCommandHandlerMock,
-                                                     updateCommandHandlerMock,
-                                                     viewCommandsMock,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
                                                      mapDataCollection,
                                                      treeViewControl);
 
@@ -361,19 +361,19 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(pointData);
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
-            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
-            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.Stub<IViewCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandlerMock,
-                                                     exportCommandHandlerMock,
-                                                     updateCommandHandlerMock,
-                                                     viewCommandsMock,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
                                                      mapDataCollection,
                                                      treeViewControl);
 
@@ -433,19 +433,19 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(lineData);
 
             var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
-            importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
-            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandlerMock = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsMock = mocks.Stub<IViewCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandlerMock,
-                                                     exportCommandHandlerMock,
-                                                     updateCommandHandlerMock,
-                                                     viewCommandsMock,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
                                                      mapDataCollection,
                                                      treeViewControl);
 

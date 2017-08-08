@@ -1530,7 +1530,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var group = new CalculationGroup();
@@ -1542,12 +1542,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                               failureMechanism,
                                                                               assessmentSection);
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
@@ -1600,7 +1600,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var group = new CalculationGroup();
@@ -1613,13 +1613,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                               assessmentSection);
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             group.Children.Add(calculation);
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));

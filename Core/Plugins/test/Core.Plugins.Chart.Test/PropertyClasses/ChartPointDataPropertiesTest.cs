@@ -143,8 +143,8 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 5;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var chartPointData = new ChartPointData("Test", new ChartPointStyle
@@ -156,7 +156,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                 Symbol = ChartPointSymbol.Circle
             });
 
-            chartPointData.Attach(observerMock);
+            chartPointData.Attach(observer);
 
             var properties = new ChartPointDataProperties
             {

@@ -275,12 +275,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var context = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             var mocks = new MockRepository();
-            var viewMock = mocks.StrictMock<HeightStructuresFailureMechanismResultView>();
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            var view = mocks.StrictMock<HeightStructuresFailureMechanismResultView>();
+            view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

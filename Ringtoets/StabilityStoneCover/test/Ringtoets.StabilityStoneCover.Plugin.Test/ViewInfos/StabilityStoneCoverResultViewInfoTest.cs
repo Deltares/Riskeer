@@ -304,16 +304,16 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<StabilityStoneCoverResultView>();
+            var view = mocks.StrictMock<StabilityStoneCoverResultView>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

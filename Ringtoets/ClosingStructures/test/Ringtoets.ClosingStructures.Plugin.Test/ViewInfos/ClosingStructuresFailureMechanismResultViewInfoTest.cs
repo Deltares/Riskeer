@@ -81,11 +81,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var viewMock = mocks.StrictMock<ClosingStructuresFailureMechanismResultView>();
+            var view = mocks.StrictMock<ClosingStructuresFailureMechanismResultView>();
             mocks.ReplayAll();
 
             // Call
-            string viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
+            string viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);

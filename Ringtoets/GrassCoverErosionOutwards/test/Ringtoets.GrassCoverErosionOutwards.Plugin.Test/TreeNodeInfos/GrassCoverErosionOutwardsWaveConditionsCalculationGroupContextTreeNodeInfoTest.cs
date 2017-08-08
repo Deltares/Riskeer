@@ -1525,8 +1525,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
-                observerMock.Expect(o => o.UpdateObserver());
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -1541,7 +1541,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;

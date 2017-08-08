@@ -305,19 +305,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<MacroStabilityInwardsCalculationsView>();
+            var view = mocks.StrictMock<MacroStabilityInwardsCalculationsView>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismMock = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
-            var calculationsGroupMock = mocks.StrictMock<CalculationGroup>();
-            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationsGroupMock, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), failureMechanismMock, assessmentSection);
+            var failureMechanism = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
+            var calculationsGroup = mocks.StrictMock<CalculationGroup>();
+            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationsGroup, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), failureMechanism, assessmentSection);
 
-            viewMock.Expect(v => v.AssessmentSection = assessmentSection);
-            viewMock.Expect(v => v.MacroStabilityInwardsFailureMechanism = failureMechanismMock);
+            view.Expect(v => v.AssessmentSection = assessmentSection);
+            view.Expect(v => v.MacroStabilityInwardsFailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, calculationGroupContext);
+            info.AfterCreate(view, calculationGroupContext);
 
             // Assert
             mocks.VerifyAll();

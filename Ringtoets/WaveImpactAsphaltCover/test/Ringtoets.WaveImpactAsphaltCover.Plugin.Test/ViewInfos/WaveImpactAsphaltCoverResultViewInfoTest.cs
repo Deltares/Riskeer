@@ -301,16 +301,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<WaveImpactAsphaltCoverFailureMechanismResultView>();
+            var view = mocks.StrictMock<WaveImpactAsphaltCoverFailureMechanismResultView>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

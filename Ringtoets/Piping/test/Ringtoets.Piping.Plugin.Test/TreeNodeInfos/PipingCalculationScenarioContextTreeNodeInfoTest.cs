@@ -363,29 +363,29 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                     pipingFailureMechanism,
                                                                     assessmentSection);
 
-                var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
+                var menuBuilder = mocks.Stub<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
-                    menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                    menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

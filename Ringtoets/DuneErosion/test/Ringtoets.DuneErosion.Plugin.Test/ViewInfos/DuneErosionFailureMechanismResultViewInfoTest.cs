@@ -304,16 +304,16 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<DuneErosionFailureMechanismResultView>();
+            var view = mocks.StrictMock<DuneErosionFailureMechanismResultView>();
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

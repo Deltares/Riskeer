@@ -104,17 +104,17 @@ namespace Ringtoets.Common.Data.Test.Calculation
         {
             // Setup
             var mockingRepository = new MockRepository();
-            var calculationMock = mockingRepository.StrictMock<ICalculation>();
+            var calculation = mockingRepository.StrictMock<ICalculation>();
             mockingRepository.ReplayAll();
 
             var group = new CalculationGroup();
 
             // Call
-            group.Children.Add(calculationMock);
+            group.Children.Add(calculation);
 
             // Assert
             Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.Contains(group.Children, calculationMock);
+            CollectionAssert.Contains(group.Children, calculation);
             mockingRepository.VerifyAll();
         }
 
@@ -123,18 +123,18 @@ namespace Ringtoets.Common.Data.Test.Calculation
         {
             // Setup
             var mockingRepository = new MockRepository();
-            var calculationMock = mockingRepository.StrictMock<ICalculation>();
+            var calculation = mockingRepository.StrictMock<ICalculation>();
             mockingRepository.ReplayAll();
 
             var group = new CalculationGroup();
-            group.Children.Add(calculationMock);
+            group.Children.Add(calculation);
 
             // Call
-            group.Children.Remove(calculationMock);
+            group.Children.Remove(calculation);
 
             // Assert
             Assert.AreEqual(0, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, calculationMock);
+            CollectionAssert.DoesNotContain(group.Children, calculation);
             mockingRepository.VerifyAll();
         }
 
@@ -145,23 +145,23 @@ namespace Ringtoets.Common.Data.Test.Calculation
         {
             // Setup
             var mockingRepository = new MockRepository();
-            var calculationMock = mockingRepository.StrictMock<ICalculation>();
-            var calculationMockToInsert = mockingRepository.StrictMock<ICalculation>();
+            var calculation = mockingRepository.StrictMock<ICalculation>();
+            var calculationToInsert = mockingRepository.StrictMock<ICalculation>();
             mockingRepository.ReplayAll();
 
             var group = new CalculationGroup();
-            group.Children.Add(calculationMock);
+            group.Children.Add(calculation);
 
             // Call
-            group.Children.Insert(index, calculationMockToInsert);
+            group.Children.Insert(index, calculationToInsert);
 
             // Assert
             Assert.AreEqual(2, group.Children.Count);
-            Assert.AreSame(calculationMockToInsert, group.Children[index]);
+            Assert.AreSame(calculationToInsert, group.Children[index]);
             CollectionAssert.AreEquivalent(new[]
             {
-                calculationMockToInsert,
-                calculationMock
+                calculationToInsert,
+                calculation
             }, group.Children, "Already existing items should have remained in collection and new item should be added.");
             mockingRepository.VerifyAll();
         }

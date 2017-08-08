@@ -305,19 +305,19 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingCalculationsView>();
+            var view = mocks.StrictMock<PipingCalculationsView>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var pipingCalculationsGroupMock = mocks.StrictMock<CalculationGroup>();
-            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<PipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSection);
+            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingCalculationsGroup = mocks.StrictMock<CalculationGroup>();
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroup, Enumerable.Empty<PipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanism, assessmentSection);
 
-            viewMock.Expect(v => v.AssessmentSection = assessmentSection);
-            viewMock.Expect(v => v.PipingFailureMechanism = pipingFailureMechanismMock);
+            view.Expect(v => v.AssessmentSection = assessmentSection);
+            view.Expect(v => v.PipingFailureMechanism = pipingFailureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, pipingCalculationGroupContext);
+            info.AfterCreate(view, pipingCalculationGroupContext);
 
             // Assert
             mocks.VerifyAll();

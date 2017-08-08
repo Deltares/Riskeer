@@ -1207,8 +1207,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
-                observerMock.Expect(o => o.UpdateObserver());
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
@@ -1223,7 +1223,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;
@@ -1273,7 +1273,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var observerMock = mocks.StrictMock<IObserver>();
+                var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
@@ -1288,7 +1288,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;

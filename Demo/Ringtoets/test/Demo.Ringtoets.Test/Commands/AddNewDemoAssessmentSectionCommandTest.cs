@@ -83,14 +83,14 @@ namespace Demo.Ringtoets.Test.Commands
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
 
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             var command = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
-            project.Attach(observerMock);
+            project.Attach(observer);
 
             // Call
             command.Execute();

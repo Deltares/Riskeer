@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationItemMock = mocks.StrictMock<ICalculationBase>();
+            var calculationItem = mocks.StrictMock<ICalculationBase>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var childCalculation = new GrassCoverErosionInwardsCalculation();
 
             group.Children.Add(childGroup);
-            group.Children.Add(calculationItemMock);
+            group.Children.Add(calculationItem);
             group.Children.Add(childCalculation);
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
@@ -180,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
-            Assert.AreSame(calculationItemMock, children[1]);
+            Assert.AreSame(calculationItem, children[1]);
             var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSection, calculationContext.AssessmentSection);
@@ -197,35 +197,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
                 mocks.ReplayAll();
 
@@ -311,32 +311,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                          assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
-                    menuBuilderMock.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                    menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                    menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
-                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
 
@@ -1127,18 +1127,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var importHandlerMock = mocks.Stub<IImportCommandHandler>();
-            var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
-            var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommandsHandlerMock = mocks.Stub<IViewCommands>();
+            var importHandler = mocks.Stub<IImportCommandHandler>();
+            var exportHandler = mocks.Stub<IExportCommandHandler>();
+            var updateHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommandsHandler = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                                                         importHandlerMock,
-                                                         exportHandlerMock,
-                                                         updateHandlerMock,
-                                                         viewCommandsHandlerMock,
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommandsHandler,
                                                          nodeData,
                                                          treeViewControl);
                 gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
@@ -1495,8 +1495,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Name = "Nieuwe map"
             };
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1506,7 +1506,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 group.Children.Add(calculationGroup);
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1541,8 +1541,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Name = "Nieuwe berekening"
             };
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1552,7 +1552,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 group.Children.Add(calculationItem);
-                nodeData.Attach(observerMock);
+                nodeData.Attach(observer);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
@@ -1772,7 +1772,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var group = new CalculationGroup();
@@ -1784,12 +1784,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
@@ -1805,7 +1805,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
@@ -1818,13 +1818,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                      assessmentSection);
             var calculation = new GrassCoverErosionInwardsCalculation();
 
-            observerMock.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
             group.Children.Add(calculation);
             parentGroup.Children.Add(group);
-            parentNodeData.Attach(observerMock);
+            parentNodeData.Attach(observer);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));

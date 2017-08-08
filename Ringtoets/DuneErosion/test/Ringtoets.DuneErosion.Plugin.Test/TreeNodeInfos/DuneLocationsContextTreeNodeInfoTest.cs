@@ -426,8 +426,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                var observerMock = mocks.StrictMock<IObserver>();
-                observerMock.Expect(o => o.UpdateObserver());
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
 
                 int nrOfCalculators = failureMechanism.DuneLocations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
@@ -437,7 +437,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
-                failureMechanism.DuneLocations.Attach(observerMock);
+                failureMechanism.DuneLocations.Attach(observer);
 
                 plugin.Gui = gui;
                 plugin.Activate();

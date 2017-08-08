@@ -93,12 +93,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
@@ -117,13 +117,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var counter = 0;
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => counter++);
 
             // Call
@@ -140,9 +140,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutputMock
+                    calculationWithOutput
                 }
             };
 
@@ -171,9 +171,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithoutOutputMock.Expect(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithoutOutputMock
+                    calculationWithoutOutput
                 }
             };
 
@@ -205,11 +205,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
             calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutputMock.Stub(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
             calculationWithOutputMock1.Expect(c => c.ClearOutput());
             calculationWithOutputMock1.Expect(c => c.NotifyObservers());
@@ -237,7 +237,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                         Children =
                         {
                             calculationWithOutputMock2,
-                            calculationWithoutOutputMock
+                            calculationWithoutOutput
                         }
                     }
                 }
@@ -261,11 +261,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
             calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutputMock.Stub(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
@@ -286,7 +286,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                         Children =
                         {
                             calculationWithOutputMock2,
-                            calculationWithoutOutputMock
+                            calculationWithoutOutput
                         }
                     }
                 }
@@ -306,18 +306,18 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
-                calculationWithOutputMock
+                calculationWithOutput
             });
 
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -333,17 +333,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
-            calculationWithoutOutputMock.Expect(c => c.HasOutput).Return(false);
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
-                calculationWithoutOutputMock
+                calculationWithoutOutput
             });
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
@@ -361,11 +361,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
             calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutputMock.Stub(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
             calculationWithOutputMock1.Expect(c => c.ClearOutput());
             calculationWithOutputMock1.Expect(c => c.NotifyObservers());
@@ -376,7 +376,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculationWithOutputMock1,
                 calculationWithOutputMock2,
-                calculationWithoutOutputMock
+                calculationWithoutOutput
             });
 
             mocks.ReplayAll();
@@ -404,18 +404,18 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithOutputMock1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutputMock2 = mocks.StrictMock<ICalculation>();
-            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutputMock1.Stub(c => c.HasOutput).Return(true);
             calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
-            calculationWithoutOutputMock.Stub(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
                 calculationWithOutputMock1,
                 calculationWithOutputMock2,
-                calculationWithoutOutputMock
+                calculationWithoutOutput
             });
 
             mocks.ReplayAll();
@@ -427,7 +427,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickCancel();
             };
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanismMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism);
 
             // Call
             toolStripItem.PerformClick();
@@ -443,14 +443,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>())
             {
                 IsRelevant = isRelevant
             };
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null);
@@ -471,14 +471,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.NotifyObservers());
-            failureMechanismMock.Expect(fm => fm.IsRelevant).Return(isRelevant);
-            failureMechanismMock.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(!isRelevant);
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.NotifyObservers());
+            failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
+            failureMechanism.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(!isRelevant);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var actionCounter = 0;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
 
@@ -495,14 +495,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Assert
             Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
@@ -518,14 +518,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Expect(c => c.HasOutput).Return(false);
+            calculationWithOutput.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Assert
             Assert.AreEqual("&Wis uitvoer...", toolStripItem.Text);
@@ -542,11 +542,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var messageBoxText = "";
             var messageBoxTitle = "";
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Stub(c => c.HasOutput).Return(true);
-            calculationWithOutputMock.Expect(c => c.ClearOutput());
-            calculationWithOutputMock.Expect(c => c.NotifyObservers());
+            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
+            calculationWithOutput.Expect(c => c.ClearOutput());
+            calculationWithOutput.Expect(c => c.NotifyObservers());
 
             mocks.ReplayAll();
 
@@ -559,7 +559,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickOk();
             };
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Call
             toolStripItem.PerformClick();
@@ -575,9 +575,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             var mocks = new MockRepository();
-            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutputMock.Stub(c => c.HasOutput).Return(true);
+            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
@@ -588,7 +588,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickCancel();
             };
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Call
             toolStripItem.PerformClick();
@@ -846,12 +846,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => null);
@@ -870,12 +870,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             const string errorMessage = "Additional check failed.";
 
@@ -896,12 +896,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             var counter = 0;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => null);
@@ -924,11 +924,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, null, c => null);
@@ -947,11 +947,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             const string errorMessage = "Additional check failed.";
 
@@ -972,11 +972,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             var counter = 0;
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, calc => counter++, c => null);
@@ -1288,7 +1288,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -1296,7 +1296,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1314,12 +1314,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1337,7 +1337,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -1346,7 +1346,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1366,11 +1366,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1390,16 +1390,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = mocks.StrictMock<ICalculation>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var counter = 0;
             var failureMechanism = new TestFailureMechanism(new[]
             {
-                calculationMock
+                calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => null);
 
             // Call
@@ -1419,7 +1419,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -1427,7 +1427,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
@@ -1448,11 +1448,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null);
@@ -1470,7 +1470,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -1479,7 +1479,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1502,11 +1502,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1529,16 +1529,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculationMock = mocks.StrictMock<ICalculation>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var calculation = mocks.StrictMock<ICalculation>();
             mocks.ReplayAll();
 
             var counter = 0;
             var failureMechanism = new TestFailureMechanism(new[]
             {
-                calculationMock
+                calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
                 failureMechanismContext,

@@ -311,13 +311,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            var view = mocks.StrictMock<PipingFailureMechanismResultView>();
+            view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

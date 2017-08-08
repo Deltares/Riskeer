@@ -122,8 +122,8 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var chartLineData = new ChartMultipleLineData("Test", new ChartLineStyle
@@ -133,7 +133,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                 DashStyle = ChartLineDashStyle.Solid
             });
 
-            chartLineData.Attach(observerMock);
+            chartLineData.Attach(observer);
 
             var properties = new ChartMultipleLineDataProperties
             {

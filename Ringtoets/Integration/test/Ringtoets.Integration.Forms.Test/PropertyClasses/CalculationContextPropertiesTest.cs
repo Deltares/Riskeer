@@ -56,12 +56,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationContextProperties
             {
-                Data = new TestCalculationContext(calculation, failureMechanismMock)
+                Data = new TestCalculationContext(calculation, failureMechanism)
             };
 
             // Call & Assert
@@ -76,11 +76,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var testCalculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             calculation.Attach(projectObserver);
 
@@ -104,11 +104,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             const int numberOfChangedProperties = 1;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+            var testCalculationContext = new TestCalculationContext(calculation, failureMechanism);
 
             calculation.Attach(projectObserver);
 

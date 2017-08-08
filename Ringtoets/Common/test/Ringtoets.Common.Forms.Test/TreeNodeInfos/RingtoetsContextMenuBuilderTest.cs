@@ -496,12 +496,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(cmb => cmb.AddCollapseAllItem());
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilder.Expect(cmb => cmb.AddCollapseAllItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(menuBuilderMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(menuBuilder);
 
             // Call
             ringtoetsContextMenuBuilder.AddCollapseAllItem();

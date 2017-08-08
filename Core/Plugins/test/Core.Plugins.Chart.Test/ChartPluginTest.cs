@@ -129,7 +129,7 @@ namespace Core.Plugins.Chart.Test
                 var plugin = new ChartPlugin();
                 var testChartView = new TestChartView();
                 var chart = new ChartControl();
-                IView viewMock = visible ? (IView) testChartView : new TestView();
+                IView view = visible ? (IView) testChartView : new TestView();
 
                 testChartView.Data = chart;
 
@@ -138,7 +138,7 @@ namespace Core.Plugins.Chart.Test
                 gui.Run();
 
                 // When
-                gui.ViewHost.AddDocumentView(viewMock);
+                gui.ViewHost.AddDocumentView(view);
 
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);

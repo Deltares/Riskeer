@@ -330,14 +330,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
+            var observable = mocks.StrictMock<IObservable>();
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -370,15 +370,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, double>(
                 failureMechanism,
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var roundedValue = (RoundedDouble) value;
 
             var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
+            var observable = mocks.StrictMock<IObservable>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
@@ -420,7 +420,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 roundedValue,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             mocks.ReplayAll();
@@ -451,15 +451,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             mocks.ReplayAll();

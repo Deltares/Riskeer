@@ -69,12 +69,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var comment = new Comment();
-            var viewMock = mocks.StrictMock<CommentView>();
+            var view = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
 
             // Call
-            string viewName = info.GetViewName(viewMock, comment);
+            string viewName = info.GetViewName(view, comment);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);

@@ -277,12 +277,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                                                           failureMechanism);
 
             var mocks = new MockRepository();
-            var viewMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismResultView>();
-            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+            var view = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismResultView>();
+            view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
             // Call
-            info.AfterCreate(viewMock, context);
+            info.AfterCreate(view, context);
 
             // Assert
             mocks.VerifyAll();

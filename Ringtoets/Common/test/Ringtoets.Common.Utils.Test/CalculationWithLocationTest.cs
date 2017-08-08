@@ -49,11 +49,11 @@ namespace Ringtoets.Common.Utils.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.Stub<ICalculation>();
+            var calculation = mocks.Stub<ICalculation>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new CalculationWithLocation(calculationMock, null);
+            TestDelegate test = () => new CalculationWithLocation(calculation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,16 +66,16 @@ namespace Ringtoets.Common.Utils.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationMock = mocks.Stub<ICalculation>();
+            var calculation = mocks.Stub<ICalculation>();
             mocks.ReplayAll();
 
             var location = new Point2D(0, 0);
 
             // Call
-            var calculationWithLocation = new CalculationWithLocation(calculationMock, location);
+            var calculationWithLocation = new CalculationWithLocation(calculation, location);
 
             // Assert
-            Assert.AreSame(calculationMock, calculationWithLocation.Calculation);
+            Assert.AreSame(calculation, calculationWithLocation.Calculation);
             Assert.AreSame(location, calculationWithLocation.Location);
             mocks.VerifyAll();
         }

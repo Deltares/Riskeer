@@ -100,12 +100,12 @@ namespace Core.Common.Controls.TreeView.Test
             treeNode.Stub(tn => tn.Bounds).Return(new Rectangle(0, 0, 50, targetHeight));
 
             var nodePoint = new Point(0, 10);
-            var graphicsMock = mocks.Stub<Graphics>();
+            var graphics = mocks.Stub<Graphics>();
 
             var treeView = mocks.Stub<WinFormsTreeView>();
             treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
             treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
+            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
             mocks.ReplayAll();
 
             var ddh = new DragDropHandler();
@@ -141,12 +141,12 @@ namespace Core.Common.Controls.TreeView.Test
 
             var nodePoint = new Point(0, 10);
 
-            var graphicsMock = mocks.Stub<Graphics>();
+            var graphics = mocks.Stub<Graphics>();
 
             var treeView = mocks.Stub<WinFormsTreeView>();
             treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
             treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
+            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
             mocks.ReplayAll();
 
             var ddh = new DragDropHandler();
@@ -178,12 +178,12 @@ namespace Core.Common.Controls.TreeView.Test
 
             var nodePoint = new Point(0, 10);
 
-            var graphicsMock = mocks.Stub<Graphics>();
+            var graphics = mocks.Stub<Graphics>();
 
             var treeView = mocks.Stub<WinFormsTreeView>();
             treeView.Stub(tv => tv.PointToClient(Point.Empty)).IgnoreArguments().Return(nodePoint);
             treeView.Stub(tv => tv.GetNodeAt(nodePoint)).Return(treeNode);
-            treeView.Stub(tv => tv.CreateGraphics()).Return(graphicsMock);
+            treeView.Stub(tv => tv.CreateGraphics()).Return(graphics);
             mocks.ReplayAll();
 
             var ddh = new DragDropHandler();

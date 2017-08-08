@@ -418,11 +418,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-                dataMock.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
+                var data = mocks.StrictMock<PipingFailureMechanism>();
+                data.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismContext(data, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);

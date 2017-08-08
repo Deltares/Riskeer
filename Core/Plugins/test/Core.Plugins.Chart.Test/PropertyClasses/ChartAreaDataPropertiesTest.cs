@@ -121,8 +121,8 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             // Setup
             const int numberOfChangedProperties = 3;
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle
@@ -132,7 +132,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                 StrokeThickness = 3
             });
 
-            chartAreaData.Attach(observerMock);
+            chartAreaData.Attach(observer);
 
             var properties = new ChartAreaDataProperties
             {

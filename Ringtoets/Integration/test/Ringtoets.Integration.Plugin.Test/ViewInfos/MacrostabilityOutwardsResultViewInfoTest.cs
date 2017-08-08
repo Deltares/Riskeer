@@ -86,12 +86,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MacrostabilityOutwardsFailureMechanism();
-            var viewMock = mocks.StrictMock<MacrostabilityOutwardsResultView>();
+            var view = mocks.StrictMock<MacrostabilityOutwardsResultView>();
 
             mocks.ReplayAll();
 
             // Call
-            string viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
+            string viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);

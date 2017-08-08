@@ -60,14 +60,14 @@ namespace Core.Common.Gui.Test
             var data = new object();
 
             var mocks = new MockRepository();
-            var commandsMock = mocks.StrictMock<IViewCommands>();
-            commandsMock.Expect(c => c.OpenView(data));
+            var commands = mocks.StrictMock<IViewCommands>();
+            commands.Expect(c => c.OpenView(data));
             mocks.ReplayAll();
 
             IViewCommands originalValue = ViewPropertyEditor.ViewCommands;
             try
             {
-                ViewPropertyEditor.ViewCommands = commandsMock;
+                ViewPropertyEditor.ViewCommands = commands;
 
                 // Call
                 editor.EditValue(null, null, data);

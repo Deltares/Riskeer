@@ -148,14 +148,14 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
             validPipingCalculation.SemiProbabilisticOutput = null;
-            validPipingCalculation.Attach(observerMock);
+            validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
 

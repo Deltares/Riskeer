@@ -71,13 +71,13 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             const int numberOfChangedProperties = 1;
 
             var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             var chartData = new TestChartData("Test");
 
-            chartData.Attach(observerMock);
+            chartData.Attach(observer);
 
             var properties = new TestChartDataProperties
             {

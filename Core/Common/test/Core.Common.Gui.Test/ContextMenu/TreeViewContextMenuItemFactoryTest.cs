@@ -89,20 +89,20 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateDeleteItem_DependingOnCanRemoveNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var nodeData = new object();
 
-            treeViewControlMock.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(canDelete);
+            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(canDelete);
 
             if (canDelete)
             {
-                treeViewControlMock.Expect(tvc => tvc.TryRemoveNodeForData(nodeData));
+                treeViewControl.Expect(tvc => tvc.TryRemoveNodeForData(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControlMock);
+            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
 
             // Call
             ToolStripItem item = factory.CreateDeleteItem();
@@ -124,17 +124,17 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var nodeData = new object();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete).Repeat.AtLeastOnce();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            treeViewControl.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete).Repeat.AtLeastOnce();
 
             if (canDelete)
             {
-                treeViewControlMock.Expect(tvc => tvc.TryRemoveChildNodesOfData(nodeData));
+                treeViewControl.Expect(tvc => tvc.TryRemoveChildNodesOfData(nodeData));
             }
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControlMock);
+            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControl);
 
             // Call
             ToolStripItem item = factory.CreateDeleteChildrenItem();
@@ -158,18 +158,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
-            treeViewControlMock.Expect(tvc => tvc.CanRenameNodeForData(dataObject)).Return(canRename);
+            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(dataObject)).Return(canRename);
 
             if (canRename)
             {
-                treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(dataObject));
+                treeViewControl.Expect(tvc => tvc.TryRenameNodeForData(dataObject));
             }
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControlMock);
+            var factory = new TreeViewContextMenuItemFactory(dataObject, treeViewControl);
 
             // Call
             ToolStripItem item = factory.CreateRenameItem();

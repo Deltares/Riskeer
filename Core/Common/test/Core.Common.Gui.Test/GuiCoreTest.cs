@@ -202,15 +202,15 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var pluginMock = mocks.Stub<PluginBase>();
-            pluginMock.Expect(p => p.Deactivate());
-            pluginMock.Expect(p => p.Dispose());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Expect(p => p.Deactivate());
+            plugin.Expect(p => p.Dispose());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(pluginMock);
+                gui.Plugins.Add(plugin);
 
                 // Call
                 TestDelegate test = () => gui.SetProject(null, null);
@@ -229,14 +229,14 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var pluginMock = mocks.Stub<PluginBase>();
-            pluginMock.Expect(p => p.Deactivate());
-            pluginMock.Expect(p => p.Dispose());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Expect(p => p.Deactivate());
+            plugin.Expect(p => p.Dispose());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-            gui.Plugins.Add(pluginMock);
+            gui.Plugins.Add(plugin);
 
             // Call
             gui.Dispose();
@@ -254,14 +254,14 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var pluginMock = mocks.Stub<PluginBase>();
-            pluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
-            pluginMock.Expect(p => p.Dispose());
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
+            plugin.Expect(p => p.Dispose());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-            gui.Plugins.Add(pluginMock);
+            gui.Plugins.Add(plugin);
 
             // Call
             Action call = () => gui.Dispose();
