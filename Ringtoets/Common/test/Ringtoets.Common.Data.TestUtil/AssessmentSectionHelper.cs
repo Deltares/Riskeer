@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Data.TestUtil
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
                                                                                    failureMechanisms, 1)
                                                                                {
-                                                                                   Norm = 0.5
+                                                                                   Norm = 0.1
                                                                                });
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
 

@@ -132,9 +132,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        [TestCase(0.1 + 1e-6)]
+        [TestCase(0.000001 - 1e-6)]
+        [TestCase(double.NaN)]
         [SetCulture("nl-NL")]
-        public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(
-            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double invalidNorm)
+        public void ChangeNorm_InvalidNorm_ThrowArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -144,7 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestDelegate call = () => handler.ChangeNorm(assessmentSection, invalidNorm);
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,000001, 0,1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -229,7 +233,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> affectedObjects = null;
 
-            const double newNormValue = 0.1234;
+            const double newNormValue = 0.01234;
 
             // Call
             Action call = () => affectedObjects = handler.ChangeNorm(section, newNormValue);

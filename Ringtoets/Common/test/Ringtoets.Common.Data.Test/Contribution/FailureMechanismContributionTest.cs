@@ -314,9 +314,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
+        [TestCase(double.MaxValue)]
+        [TestCase(double.MinValue)]
+        [TestCase(0.1 + 1e-6)]
+        [TestCase(0.000001 - 1e-6)]
+        [TestCase(double.NaN)]
         [SetCulture("nl-NL")]
-        public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(
-            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)] double newNorm)
+        public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
         {
             // Setup
             var random = new Random(21);
@@ -327,17 +331,19 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.Norm = newNorm;
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,000001, 0,1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
-        public void Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem()
+        [TestCase(0.000001)]
+        [TestCase(0.1)]
+        [TestCase(1.0 / 30000)]
+        public void Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem(double newNorm)
         {
             // Setup
             var random = new Random(21);
             int otherContribution = random.Next(1, 100);
-            const double newNorm = 1.0 / 30000;
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
 

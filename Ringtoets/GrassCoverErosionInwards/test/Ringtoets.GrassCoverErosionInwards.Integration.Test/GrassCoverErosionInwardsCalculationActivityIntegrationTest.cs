@@ -781,7 +781,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 FailureMechanismContribution =
                 {
-                    Norm = 1
+                    Norm = 0.1
                 }
             };
             ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -1216,7 +1216,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 FailureMechanismContribution =
                 {
-                    Norm = 1
+                    Norm = 0.1
                 }
             };
             ImportHydraulicBoundaryDatabase(assessmentSection);

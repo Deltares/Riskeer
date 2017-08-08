@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -34,6 +36,8 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
+        private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
+
         private const double defaultNorm = 1.0 / 30000;
 
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
@@ -80,7 +84,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// Gets or sets the norm which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
-        /// the interval [0.0, 1.0] or is <see cref="double.NaN"/>.</exception>
+        /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
         public double Norm
         {
             get
@@ -89,7 +93,12 @@ namespace Ringtoets.Common.Data.Contribution
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, nameof(value));
+                if (!normValidityRange.InRange(value))
+                {
+                    string message = string.Format(Resources.Probability_Must_be_in_Range_0_,
+                                                   normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
 
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);

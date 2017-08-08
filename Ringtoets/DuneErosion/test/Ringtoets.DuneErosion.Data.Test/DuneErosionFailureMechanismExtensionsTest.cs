@@ -44,7 +44,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         [Test]
         [TestCase(0, 0.005, 0)]
         [TestCase(10, 0.005, 0.0005375)]
-        [TestCase(10, 0, 0)]
+        [TestCase(10, 0.01, 0.001075)]
         public void GetMechanismSpecificNorm_WithValidData_ReturnMechanismSpecificNorm(double contribution, double norm, double expectedNorm)
         {
             // Setup
