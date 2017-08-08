@@ -65,14 +65,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(double.NaN, 0.8457)]
-        [TestCase(0.654, double.NaN)]
-        public void Constructor_ValidInputWithGeneralResult_ExpectedProperties(double targetProbability, double calculatedProbability)
+        public void Constructor_ValidInputWithGeneralResult_ExpectedProperties()
         {
             // Setup
             var random = new Random(32);
             double dikeHeight = random.NextDouble();
+            double targetProbability = random.NextDouble();
             double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
