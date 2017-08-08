@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 new IllustrationPointNode(new TestIllustrationPoint()));
 
             var selectedTopLevelFaultTreeIllustrationPoint = new SelectedTopLevelFaultTreeIllustrationPoint(topLevelFaultTreeIllustrationPoint,
-                                                                                                                  Enumerable.Empty<string>());
+                                                                                                            Enumerable.Empty<string>());
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(selectedTopLevelFaultTreeIllustrationPoint);
