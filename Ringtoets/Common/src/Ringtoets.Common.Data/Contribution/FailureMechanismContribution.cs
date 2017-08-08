@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 if (!normValidityRange.InRange(value))
                 {
-                    string message = string.Format(Resources.Probability_Must_be_in_Range_0_,
+                    string message = string.Format(Resources.Norm_should_be_in_Range_0_,
                                                    normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }

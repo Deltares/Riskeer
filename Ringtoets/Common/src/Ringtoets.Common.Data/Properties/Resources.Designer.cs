@@ -645,6 +645,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde van de norm moet in het bereik {0} liggen..
+        /// </summary>
+        public static string Norm_should_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("Norm_should_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrens.
         /// </summary>
         public static string NormType_LowerLimit_DisplayName {

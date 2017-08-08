@@ -331,7 +331,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.Norm = newNorm;
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,000001, 0,1] liggen.";
+            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 

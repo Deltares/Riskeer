@@ -372,4 +372,7 @@
   <data name="NormType_Signaling_DisplayName" xml:space="preserve">
     <value>Signaleringswaarde</value>
   </data>
+  <data name="Norm_should_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde van de norm moet in het bereik {0} liggen.</value>
+  </data>
 </root>
