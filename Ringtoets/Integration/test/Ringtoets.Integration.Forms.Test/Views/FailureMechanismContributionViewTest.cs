@@ -345,7 +345,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = 100;
@@ -382,7 +382,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = 0;
@@ -421,7 +421,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = contribution;

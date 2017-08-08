@@ -130,7 +130,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilderMethods()
         {
             // Setup
-            var menuBuilder= mocksRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);

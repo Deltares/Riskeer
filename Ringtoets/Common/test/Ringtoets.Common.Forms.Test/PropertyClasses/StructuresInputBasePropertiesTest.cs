@@ -695,7 +695,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 6;
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
 
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
 

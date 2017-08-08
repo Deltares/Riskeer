@@ -62,9 +62,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
-            var serviceProvider= mockRepository.Stub<IServiceProvider>();
-            var service= mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.Stub<IServiceProvider>();
+            var service = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
             descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
@@ -89,9 +89,9 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new StructureEditor<TestStructure>();
             var someValue = new object();
-            var serviceProvider= mockRepository.Stub<IServiceProvider>();
-            var service= mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.Stub<IServiceProvider>();
+            var service = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
             descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();

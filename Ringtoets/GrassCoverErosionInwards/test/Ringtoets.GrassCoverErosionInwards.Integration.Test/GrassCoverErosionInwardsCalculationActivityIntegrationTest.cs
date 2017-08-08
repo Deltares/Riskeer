@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculator = new TestOvertoppingCalculator
@@ -451,7 +451,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -831,7 +831,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -883,7 +883,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1266,7 +1266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1318,7 +1318,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();

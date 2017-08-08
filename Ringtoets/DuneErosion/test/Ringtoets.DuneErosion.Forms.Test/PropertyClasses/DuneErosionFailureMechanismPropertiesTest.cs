@@ -234,7 +234,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable= mockRepository.StrictMock<IObservable>();
+            var observable = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -265,7 +265,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable= mockRepository.StrictMock<IObservable>();
+            var observable = mockRepository.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mockRepository.ReplayAll();
 

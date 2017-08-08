@@ -37,10 +37,10 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var input= mockRepository.Stub<ICalculationInput>();
-            var calculation= mockRepository.Stub<ICalculation>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var input = mockRepository.Stub<ICalculationInput>();
+            var calculation = mockRepository.Stub<ICalculation>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
@@ -60,9 +60,9 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var input= mockRepository.Stub<ICalculationInput>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var input = mockRepository.Stub<ICalculationInput>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call

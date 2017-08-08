@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
@@ -93,9 +93,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var gui= mockRepository.Stub<IGui>();
-            var windows= mockRepository.Stub<IMainWindow>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var gui = mockRepository.Stub<IGui>();
+            var windows = mockRepository.Stub<IMainWindow>();
             gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -125,9 +125,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsExpectedProperties()
         {
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var gui= mockRepository.Stub<IGui>();
-            var windows= mockRepository.Stub<IMainWindow>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var gui = mockRepository.Stub<IGui>();
+            var windows = mockRepository.Stub<IMainWindow>();
             gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())

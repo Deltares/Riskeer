@@ -70,9 +70,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProvider= mockRepository.StrictMock<IServiceProvider>();
-            var service= mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.StrictMock<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.StrictMock<IServiceProvider>();
+            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.StrictMock<ITypeDescriptorContext>();
             serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
             descriptorContext.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
@@ -118,9 +118,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProvider= mockRepository.StrictMock<IServiceProvider>();
-            var service= mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.StrictMock<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.StrictMock<IServiceProvider>();
+            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.StrictMock<ITypeDescriptorContext>();
             serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
             service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
             service.Expect(s => s.CloseDropDown()).IgnoreArguments();

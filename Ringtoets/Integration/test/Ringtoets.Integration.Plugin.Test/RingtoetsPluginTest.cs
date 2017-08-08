@@ -563,9 +563,9 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow= mockRepository.StrictMock<IMainWindow>();
-            var documentViewController= mockRepository.StrictMock<IDocumentViewController>();
-            var gui= mockRepository.StrictMock<IGui>();
+            var mainWindow = mockRepository.StrictMock<IMainWindow>();
+            var documentViewController = mockRepository.StrictMock<IDocumentViewController>();
+            var gui = mockRepository.StrictMock<IGui>();
             gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.AtLeastOnce();
             gui.Expect(g => g.DocumentViewController).Return(documentViewController);
             gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();

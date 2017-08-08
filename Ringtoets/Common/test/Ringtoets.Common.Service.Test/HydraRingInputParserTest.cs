@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var foreshore= mockRepository.Stub<IUseForeshore>();
+            var foreshore = mockRepository.Stub<IUseForeshore>();
             foreshore.UseForeshore = true;
 
             var pointOne = new Point2D(1, 1);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var foreshore= mockRepository.Stub<IUseForeshore>();
+            var foreshore = mockRepository.Stub<IUseForeshore>();
             foreshore.UseForeshore = false;
             mockRepository.ReplayAll();
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test
             double breakWaterHeight = random.NextDouble();
 
             var mockRepository = new MockRepository();
-            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
             breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater(breakWaterType, breakWaterHeight);
             breakWater.Stub(call => call.BreakWater).Return(expectedBreakWater);
@@ -116,7 +116,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
             breakWater.UseBreakWater = false;
             mockRepository.ReplayAll();
 

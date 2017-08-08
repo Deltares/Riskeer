@@ -348,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const int numberOfChangedProperties = 3;
             var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
             var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
@@ -378,7 +378,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculationInput = new GrassCoverErosionInwardsInput();

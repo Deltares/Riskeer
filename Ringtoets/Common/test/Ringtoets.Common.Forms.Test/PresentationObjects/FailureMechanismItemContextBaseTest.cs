@@ -41,9 +41,9 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var observable= mockRepository.Stub<IObservable>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var observable = mockRepository.Stub<IObservable>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
@@ -62,8 +62,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var observable= mockRepository.Stub<IObservable>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var observable = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
             // Call
@@ -80,8 +80,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable= mockRepository.Stub<IObservable>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var observable = mockRepository.Stub<IObservable>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
@@ -101,9 +101,9 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
-            var observable= mockRepository.Stub<IObservable>();
-            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var observable = mockRepository.Stub<IObservable>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;

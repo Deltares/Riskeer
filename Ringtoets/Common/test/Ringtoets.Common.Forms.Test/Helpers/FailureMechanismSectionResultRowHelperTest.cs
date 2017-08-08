@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation= mockRepository.Stub<ICalculation>();
+            var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
             // Call

@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var command= mockRepository.StrictMock<ICommand>();
+            var command = mockRepository.StrictMock<ICommand>();
             command.Expect(c => c.Execute());
             mockRepository.ReplayAll();
 

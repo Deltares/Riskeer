@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelName);
 
             var mockRepository = new MockRepository();
-            var stochasticSoilProfileProbability= mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
+            var stochasticSoilProfileProbability = mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
             mockRepository.ReplayAll();
 
             // Call

@@ -203,7 +203,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mockRepository = new MockRepository();
 
-            var menuBuilder= mockRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);

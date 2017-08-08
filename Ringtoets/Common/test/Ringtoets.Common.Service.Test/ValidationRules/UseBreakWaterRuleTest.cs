@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void Validate_ValidBreakWaterHeight_NoErrorMessage(BreakWaterType type)
         {
             // Setup
-            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
             breakWater.UseBreakWater = true;
             breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, 5.0));
             mockRepository.ReplayAll();
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
             [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double height)
         {
             // Setup
-            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
             breakWater.UseBreakWater = false;
             breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, height));
             mockRepository.ReplayAll();
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
             [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double height)
         {
             // Setup
-            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            var breakWater = mockRepository.Stub<IUseBreakWater>();
             breakWater.UseBreakWater = true;
             breakWater.Stub(call => breakWater.BreakWater).Return(new BreakWater(type, height));
             mockRepository.ReplayAll();

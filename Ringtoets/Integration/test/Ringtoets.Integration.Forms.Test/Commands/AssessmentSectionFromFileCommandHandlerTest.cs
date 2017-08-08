@@ -49,8 +49,8 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IProjectOwner>();
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.StrictMock<IProjectOwner>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
@@ -67,8 +67,8 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IWin32Window>();
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
@@ -85,8 +85,8 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IWin32Window>();
-            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
+            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var projectOwner = mockRepository.StrictMock<IProjectOwner>();
             mockRepository.ReplayAll();
 
             // Call
@@ -103,9 +103,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IWin32Window>();
-            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var projectOwner = mockRepository.StrictMock<IProjectOwner>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
@@ -122,9 +122,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IWin32Window>();
-            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var projectOwner = mockRepository.StrictMock<IProjectOwner>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
@@ -147,9 +147,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.StrictMock<IWin32Window>();
-            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var projectOwner = mockRepository.StrictMock<IProjectOwner>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
@@ -181,11 +181,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
@@ -212,11 +212,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
@@ -250,11 +250,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
@@ -295,11 +295,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
@@ -330,11 +330,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
@@ -370,11 +370,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
@@ -410,11 +410,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog= mockRepository.Stub<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             var project = new RingtoetsProject();
-            var projectOwner= mockRepository.Stub<IProjectOwner>();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 

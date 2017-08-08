@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Service.Test
         public void ParameteredConstructor_DesignWaterLevelCalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationMessageProvider= mockRepository.Stub<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);

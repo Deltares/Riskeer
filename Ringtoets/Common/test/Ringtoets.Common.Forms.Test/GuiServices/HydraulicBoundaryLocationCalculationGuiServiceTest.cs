@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
             const string databasePath = "Does not exist";
 
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             // Setup
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -236,7 +236,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
@@ -286,7 +286,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath)).Return(new TestDesignWaterLevelCalculator());
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);
             mockRepository.ReplayAll();
@@ -343,7 +343,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
             const string databasePath = "Does not exist";
 
@@ -368,7 +368,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
@@ -396,7 +396,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             const string databasePath = "Does not exist";
@@ -421,7 +421,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -450,7 +450,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -483,7 +483,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
@@ -532,7 +532,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider= mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath)).Return(new TestWaveHeightCalculator());
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(string.Empty);

@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 

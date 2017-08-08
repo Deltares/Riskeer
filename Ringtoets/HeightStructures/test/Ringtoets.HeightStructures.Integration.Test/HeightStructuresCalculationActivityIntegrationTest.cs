@@ -205,7 +205,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observer= mockRepository.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>

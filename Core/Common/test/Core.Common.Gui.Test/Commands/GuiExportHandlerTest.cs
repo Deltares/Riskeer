@@ -125,7 +125,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter= mockRepository.StrictMock<IFileExporter>();
+            var exporter = mockRepository.StrictMock<IFileExporter>();
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -157,7 +157,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter= mockRepository.StrictMock<IFileExporter>();
+            var exporter = mockRepository.StrictMock<IFileExporter>();
 
             exporter.Stub(e => e.Export()).Return(true);
 
@@ -207,7 +207,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporter= mockRepository.StrictMock<IFileExporter>();
+            var exporter = mockRepository.StrictMock<IFileExporter>();
 
             exporter.Stub(e => e.Export()).Return(false);
 

@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mockRepository.ReplayAll();
 
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
 
             mockRepository.ReplayAll();
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
 
             mockRepository.ReplayAll();

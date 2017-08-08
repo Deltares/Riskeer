@@ -255,7 +255,7 @@ namespace Application.Ringtoets.Storage.Test
             string projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
-            var project= mockRepository.StrictMock<RingtoetsProject>();
+            var project = mockRepository.StrictMock<RingtoetsProject>();
             project.Description = "<some description>";
 
             // Precondition
@@ -509,7 +509,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var project= mockRepository.StrictMock<RingtoetsProject>();
+            var project = mockRepository.StrictMock<RingtoetsProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));

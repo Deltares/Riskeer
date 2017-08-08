@@ -336,7 +336,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var mockRepository = new MockRepository();
-            var guiService= mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             var observer = mockRepository.StrictMock<IObserver>();
             assessmentSection.HydraulicBoundaryDatabase.Attach(observer);

@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             }, failureMechanism);
 
             var mockRepository = new MockRepository();
-            var menuBuilder= mockRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 

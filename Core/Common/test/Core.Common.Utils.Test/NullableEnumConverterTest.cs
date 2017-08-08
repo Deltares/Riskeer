@@ -230,7 +230,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var typeDescriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            var typeDescriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
             mockRepository.ReplayAll();
 
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));

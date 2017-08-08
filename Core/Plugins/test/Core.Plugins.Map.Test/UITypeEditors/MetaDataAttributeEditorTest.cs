@@ -55,9 +55,9 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             var someValue = new object();
 
             var mockRepository = new MockRepository();
-            var serviceProvider= mockRepository.Stub<IServiceProvider>();
-            var service= mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.Stub<IServiceProvider>();
+            var service = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
             descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
@@ -83,9 +83,9 @@ namespace Core.Plugins.Map.Test.UITypeEditors
             var editor = new MetaDataAttributeEditor();
             var someValue = new object();
             var mockRepository = new MockRepository();
-            var serviceProvider= mockRepository.Stub<IServiceProvider>();
-            var service= mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            var serviceProvider = mockRepository.Stub<IServiceProvider>();
+            var service = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
             descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
