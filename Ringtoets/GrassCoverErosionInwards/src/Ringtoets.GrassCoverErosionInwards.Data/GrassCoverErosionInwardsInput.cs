@@ -36,14 +36,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// Class that holds all grass cover erosion inwards calculation specific input parameters.
     /// </summary>
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput, IUseBreakWater,
-                                                 IUseForeshore
+                                                 IUseForeshore, ICloneable
     {
         private const int orientationNumberOfDecimals = 2;
 
         private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
                                                                                                          new RoundedDouble(orientationNumberOfDecimals, 360));
 
-        private readonly LogNormalDistribution criticalFlowRate;
+        private LogNormalDistribution criticalFlowRate;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
         private DikeProfile dikeProfile;
@@ -248,6 +248,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 SetDefaultDikeProfileProperties();
             }
+        }
+
+        public object Clone()
+        {
+            var clone = (GrassCoverErosionInwardsInput) MemberwiseClone();
+
+            clone.criticalFlowRate = (LogNormalDistribution) CriticalFlowRate.Clone();
+            clone.BreakWater = (BreakWater) BreakWater.Clone();
+
+            return clone;
         }
 
         private void SetDefaultDikeProfileProperties()

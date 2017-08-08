@@ -144,6 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
+            Assert.IsInstanceOf<ICloneable>(input);
 
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);
@@ -358,6 +359,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             AssertDikeProfileInput(newDikeProfile, input);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new TestDikeProfile(),
+                Orientation = random.NextRoundedDouble(),
+                DikeHeight = random.NextRoundedDouble(),
+                CriticalFlowRate = new LogNormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
+                OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
+                ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean(),
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                UseBreakWater = random.NextBoolean(),
+                BreakWater =
+                {
+                    Type = random.NextEnumValue<BreakWaterType>(),
+                    Height = random.NextRoundedDouble()
+                },
+                UseForeshore = random.NextBoolean()
+            };
+
+            // Call
+            object clone = grassCoverErosionInwardsInput.Clone();
+
+            // Assert
+            Assert.AreNotSame(grassCoverErosionInwardsInput, clone);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsInput>(clone);
+
+            var clonedGrassCoverErosionInwardsInput = (GrassCoverErosionInwardsInput) clone;
+            Assert.AreSame(grassCoverErosionInwardsInput.DikeProfile, clonedGrassCoverErosionInwardsInput.DikeProfile);
+            Assert.AreEqual(grassCoverErosionInwardsInput.Orientation, clonedGrassCoverErosionInwardsInput.Orientation);
+            Assert.AreEqual(grassCoverErosionInwardsInput.DikeHeight, clonedGrassCoverErosionInwardsInput.DikeHeight);
+            Assert.AreNotSame(grassCoverErosionInwardsInput.CriticalFlowRate, clonedGrassCoverErosionInwardsInput.CriticalFlowRate);
+            Assert.AreEqual(grassCoverErosionInwardsInput.CriticalFlowRate, clonedGrassCoverErosionInwardsInput.CriticalFlowRate);
+            Assert.AreSame(grassCoverErosionInwardsInput.HydraulicBoundaryLocation, clonedGrassCoverErosionInwardsInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(grassCoverErosionInwardsInput.DikeHeightCalculationType, clonedGrassCoverErosionInwardsInput.DikeHeightCalculationType);
+            Assert.AreEqual(grassCoverErosionInwardsInput.OvertoppingRateCalculationType, clonedGrassCoverErosionInwardsInput.OvertoppingRateCalculationType);
+            Assert.AreEqual(grassCoverErosionInwardsInput.ShouldDikeHeightIllustrationPointsBeCalculated, clonedGrassCoverErosionInwardsInput.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(grassCoverErosionInwardsInput.ShouldOvertoppingRateIllustrationPointsBeCalculated, clonedGrassCoverErosionInwardsInput.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            Assert.AreEqual(grassCoverErosionInwardsInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated, clonedGrassCoverErosionInwardsInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(grassCoverErosionInwardsInput.UseBreakWater, clonedGrassCoverErosionInwardsInput.UseBreakWater);
+            Assert.AreNotSame(grassCoverErosionInwardsInput.BreakWater, clonedGrassCoverErosionInwardsInput.BreakWater);
+            Assert.AreEqual(grassCoverErosionInwardsInput.BreakWater, clonedGrassCoverErosionInwardsInput.BreakWater);
+            Assert.AreEqual(grassCoverErosionInwardsInput.UseForeshore, clonedGrassCoverErosionInwardsInput.UseForeshore);
         }
 
         private static void AssertDikeProfileInput(DikeProfile expectedDikeProfile, GrassCoverErosionInwardsInput input)
