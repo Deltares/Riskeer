@@ -378,7 +378,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
         {
             // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculationInput = new GrassCoverErosionInwardsInput();
@@ -387,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var inputContext = new GrassCoverErosionInwardsInputContext(calculationInput,
                                                                         calculation,
                                                                         failureMechanism,
-                                                                        assessmentSectionStub);
+                                                                        assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;

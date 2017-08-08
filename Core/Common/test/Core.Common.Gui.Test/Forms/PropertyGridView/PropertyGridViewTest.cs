@@ -49,11 +49,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         {
             // Setup
             var mockRepository = new MockRepository();
-            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            var propertyResolver= mockRepository.Stub<IPropertyResolver>();
             mockRepository.ReplayAll();
 
             // Call
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
             {
                 // Assert
                 Assert.IsInstanceOf<PropertyGrid>(propertyGridView);
@@ -74,11 +74,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         {
             // Setup
             var mockRepository = new MockRepository();
-            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            var propertyResolver= mockRepository.Stub<IPropertyResolver>();
             mockRepository.ReplayAll();
 
             using (var form = new Form())
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
             {
                 form.Controls.Add(propertyGridView);
 
@@ -160,11 +160,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var observerable = new SimpleObservable();
 
             var mockRepository = new MockRepository();
-            var objectPropertiesStub = mockRepository.Stub<IObjectProperties>();
-            objectPropertiesStub.Data = observerable;
+            var objectProperties= mockRepository.Stub<IObjectProperties>();
+            objectProperties.Data = observerable;
 
             var propertyResolverMock = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolverMock.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectPropertiesStub));
+            propertyResolverMock.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
             mockRepository.ReplayAll();
 
             using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverMock))
@@ -184,13 +184,13 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         {
             // Setup
             var mockRepository = new MockRepository();
-            var propertyResolverStub = mockRepository.Stub<IPropertyResolver>();
+            var propertyResolver= mockRepository.Stub<IPropertyResolver>();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate call = () =>
             {
-                using (var control = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolverStub))
+                using (var control = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
                 {
                     control.Dispose();
                 }

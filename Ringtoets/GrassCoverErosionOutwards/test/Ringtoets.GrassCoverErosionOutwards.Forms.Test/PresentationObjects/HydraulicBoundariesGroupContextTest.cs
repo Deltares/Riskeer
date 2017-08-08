@@ -39,18 +39,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionStub);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -59,11 +59,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundariesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSectionStub);
+            TestDelegate call = () => new HydraulicBoundariesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

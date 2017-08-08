@@ -65,15 +65,15 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new HydraulicBoundaryLocationEditor();
             var someValue = new object();
-            var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
-            var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProviderStub.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceStub);
-            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
+            var serviceProvider= mockRepository.Stub<IServiceProvider>();
+            var service= mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
+            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
             // Call
-            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -92,15 +92,15 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new HydraulicBoundaryLocationEditor();
             var someValue = new object();
-            var serviceProviderStub = mockRepository.Stub<IServiceProvider>();
-            var serviceStub = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProviderStub.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceStub);
-            descriptorContextStub.Stub(c => c.Instance).Return(propertyBag);
+            var serviceProvider= mockRepository.Stub<IServiceProvider>();
+            var service= mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
+            serviceProvider.Stub(p => p.GetService(null)).IgnoreArguments().Return(service);
+            descriptorContext.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
             // Call
-            object result = editor.EditValue(descriptorContextStub, serviceProviderStub, someValue);
+            object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, result);

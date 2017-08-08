@@ -316,7 +316,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -324,7 +324,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(null,
                                                                                                                 failureMechanism,
-                                                                                                                assessmentSectionStub,
+                                                                                                                assessmentSection,
                                                                                                                 validFilePath);
 
             // Assert
@@ -338,7 +338,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
@@ -346,7 +346,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                                 null,
-                                                                                                                assessmentSectionStub,
+                                                                                                                assessmentSection,
                                                                                                                 validFilePath);
 
             // Assert

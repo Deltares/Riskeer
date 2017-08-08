@@ -443,12 +443,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(null,
-                                                                                                 assessmentSectionStub,
+                                                                                                 assessmentSection,
                                                                                                  failureMechanism.GeneralInput,
                                                                                                  failureMechanism.Contribution,
                                                                                                  string.Empty);
@@ -486,12 +486,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                                 assessmentSectionStub,
+                                                                                                 assessmentSection,
                                                                                                  null,
                                                                                                  failureMechanism.Contribution,
                                                                                                  string.Empty);

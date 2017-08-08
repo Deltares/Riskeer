@@ -38,18 +38,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSectionStub);
+            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<DuneLocation>>>(context);
             Assert.AreSame(failureMechanism.DuneLocations, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -58,11 +58,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocation>(), null, assessmentSectionStub);
+            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocation>(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

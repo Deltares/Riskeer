@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Call
                 object locations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightLocationsContext(
                                                         expectedLocations,
-                                                        assessmentSectionStub,
+                                                        assessmentSection,
                                                         new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
@@ -93,10 +93,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var guiStub = mockRepository.Stub<IGui>();
-            var windowsStub = mockRepository.Stub<IMainWindow>();
-            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var gui= mockRepository.Stub<IGui>();
+            var windows= mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -106,17 +106,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var data = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionStub,
+                    assessmentSection,
                     grassCoverErosionOutwardsFailureMechanism);
 
-                plugin.Gui = guiStub;
+                plugin.Gui = gui;
                 plugin.Activate();
 
                 // Call
                 var view = info.CreateInstance(data) as GrassCoverErosionOutwardsWaveHeightLocationsView;
 
                 // Assert
-                Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
             mockRepository.VerifyAll();
         }
@@ -125,10 +125,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsExpectedProperties()
         {
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var guiStub = mockRepository.Stub<IGui>();
-            var windowsStub = mockRepository.Stub<IMainWindow>();
-            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var gui= mockRepository.Stub<IGui>();
+            var windows= mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -137,12 +137,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var data = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionStub,
+                    assessmentSection,
                     failureMechanism);
-                plugin.Gui = guiStub;
+                plugin.Gui = gui;
                 plugin.Activate();
 
-                using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(assessmentSectionStub))
+                using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(assessmentSection))
                 {
                     info.AfterCreate(view, data);
 

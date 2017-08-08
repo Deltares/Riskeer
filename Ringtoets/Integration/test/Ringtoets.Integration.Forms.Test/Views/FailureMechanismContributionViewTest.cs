@@ -345,11 +345,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
-            failureMechanismStub.Stub(fm => fm.Name).Return("A");
-            failureMechanismStub.Stub(fm => fm.Code).Return("C");
-            failureMechanismStub.Contribution = 100;
-            failureMechanismStub.IsRelevant = isFailureMechanismRelevant;
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Contribution = 100;
+            failureMechanism.IsRelevant = isFailureMechanismRelevant;
             mockRepository.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(viewCommands))
@@ -357,7 +357,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
                 {
-                    failureMechanismStub
+                    failureMechanism
                 }, 100);
 
                 view.Data = contributionData;
@@ -382,10 +382,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
-            failureMechanismStub.Stub(fm => fm.Name).Return("A");
-            failureMechanismStub.Stub(fm => fm.Code).Return("C");
-            failureMechanismStub.Contribution = 0;
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Contribution = 0;
             mockRepository.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(viewCommands))
@@ -393,7 +393,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
                 {
-                    failureMechanismStub
+                    failureMechanism
                 }, 100);
 
                 view.Data = contributionData;
@@ -421,10 +421,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
-            failureMechanismStub.Stub(fm => fm.Name).Return("A");
-            failureMechanismStub.Stub(fm => fm.Code).Return("C");
-            failureMechanismStub.Contribution = contribution;
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Contribution = contribution;
             mockRepository.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(viewCommands))
@@ -432,7 +432,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
                 {
-                    failureMechanismStub
+                    failureMechanism
                 }, 100.0 - contribution)
                 {
                     Norm = norm
@@ -449,7 +449,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
                 Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
-                string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
+                string expectedTextValue = new FailureMechanismContributionItem(failureMechanism, norm)
                     .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
             }

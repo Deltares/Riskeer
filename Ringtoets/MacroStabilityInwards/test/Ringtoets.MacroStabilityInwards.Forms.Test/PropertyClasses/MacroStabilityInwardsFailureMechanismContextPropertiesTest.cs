@@ -86,13 +86,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>>();
             mockRepository.ReplayAll();
 
             // Call
             var properties = new MacroStabilityInwardsFailureMechanismContextProperties(
-                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert
@@ -117,14 +117,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>>();
 
             mockRepository.ReplayAll();
 
             // Call
             var properties = new MacroStabilityInwardsFailureMechanismContextProperties(
-                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert
@@ -181,14 +181,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism>>();
 
             mockRepository.ReplayAll();
 
             // Call
             var properties = new MacroStabilityInwardsFailureMechanismContextProperties(
-                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert

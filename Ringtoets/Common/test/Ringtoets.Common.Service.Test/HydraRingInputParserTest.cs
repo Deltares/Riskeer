@@ -40,12 +40,12 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var foreshoreStub = mockRepository.Stub<IUseForeshore>();
-            foreshoreStub.UseForeshore = true;
+            var foreshore= mockRepository.Stub<IUseForeshore>();
+            foreshore.UseForeshore = true;
 
             var pointOne = new Point2D(1, 1);
             var pointTwo = new Point2D(2, 2);
-            foreshoreStub.Stub(call => call.ForeshoreGeometry).Return(new RoundedPoint2DCollection(2, new[]
+            foreshore.Stub(call => call.ForeshoreGeometry).Return(new RoundedPoint2DCollection(2, new[]
             {
                 pointOne,
                 pointTwo
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshoreStub);
+            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
             // Assert 
             HydraRingForelandPoint[] actualForelandPoints = parsedForeshore.ToArray();
@@ -70,12 +70,12 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var foreshoreStub = mockRepository.Stub<IUseForeshore>();
-            foreshoreStub.UseForeshore = false;
+            var foreshore= mockRepository.Stub<IUseForeshore>();
+            foreshore.UseForeshore = false;
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshoreStub);
+            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshore);
 
             // Assert 
             CollectionAssert.IsEmpty(parsedForeshore);
@@ -93,14 +93,14 @@ namespace Ringtoets.Common.Service.Test
             double breakWaterHeight = random.NextDouble();
 
             var mockRepository = new MockRepository();
-            var breakWaterStub = mockRepository.Stub<IUseBreakWater>();
-            breakWaterStub.UseBreakWater = true;
+            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            breakWater.UseBreakWater = true;
             var expectedBreakWater = new BreakWater(breakWaterType, breakWaterHeight);
-            breakWaterStub.Stub(call => call.BreakWater).Return(expectedBreakWater);
+            breakWater.Stub(call => call.BreakWater).Return(expectedBreakWater);
             mockRepository.ReplayAll();
 
             // Call
-            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWaterStub);
+            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert 
             Assert.AreEqual((int) expectedBreakWater.Type, parsedBreakWater.Type);
@@ -116,12 +116,12 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var breakWaterStub = mockRepository.Stub<IUseBreakWater>();
-            breakWaterStub.UseBreakWater = false;
+            var breakWater= mockRepository.Stub<IUseBreakWater>();
+            breakWater.UseBreakWater = false;
             mockRepository.ReplayAll();
 
             // Call
-            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWaterStub);
+            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWater);
 
             // Assert
             Assert.IsNull(parsedBreakWater);

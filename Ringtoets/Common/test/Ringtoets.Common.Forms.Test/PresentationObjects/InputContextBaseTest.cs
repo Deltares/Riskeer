@@ -37,21 +37,21 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var inputStub = mockRepository.Stub<ICalculationInput>();
-            var calculationStub = mockRepository.Stub<ICalculation>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var input= mockRepository.Stub<ICalculationInput>();
+            var calculation= mockRepository.Stub<ICalculation>();
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, calculationStub, failureMechanismStub, assessmentSectionStub);
+            var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<ICalculationInput, IFailureMechanism>>(context);
-            Assert.AreSame(inputStub, context.WrappedData);
-            Assert.AreSame(calculationStub, context.Calculation);
-            Assert.AreSame(failureMechanismStub, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(input, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -60,13 +60,13 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var inputStub = mockRepository.Stub<ICalculationInput>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var input= mockRepository.Stub<ICalculationInput>();
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, null, failureMechanismStub, assessmentSectionStub);
+            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Call
                 object locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                                                         expectedLocations,
-                                                        assessmentSectionStub,
+                                                        assessmentSection,
                                                         new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
@@ -94,10 +94,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var guiStub = mockRepository.Stub<IGui>();
-            var windowsStub = mockRepository.Stub<IMainWindow>();
-            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var gui= mockRepository.Stub<IGui>();
+            var windows= mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -107,17 +107,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionStub,
+                    assessmentSection,
                     grassCoverErosionOutwardsFailureMechanism);
 
-                plugin.Gui = guiStub;
+                plugin.Gui = gui;
                 plugin.Activate();
 
                 // Call
                 var view = info.CreateInstance(data) as GrassCoverErosionOutwardsDesignWaterLevelLocationsView;
 
                 // Assert
-                Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
             mockRepository.VerifyAll();
         }
@@ -127,10 +127,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var guiStub = mockRepository.Stub<IGui>();
-            var windowsStub = mockRepository.Stub<IMainWindow>();
-            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var gui= mockRepository.Stub<IGui>();
+            var windows= mockRepository.Stub<IMainWindow>();
+            gui.Stub(gs => gs.MainWindow).Return(windows);
             mockRepository.ReplayAll();
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -140,13 +140,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionStub,
+                    assessmentSection,
                     grassCoverErosionOutwardsFailureMechanism);
 
-                plugin.Gui = guiStub;
+                plugin.Gui = gui;
                 plugin.Activate();
 
-                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(assessmentSectionStub))
+                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(assessmentSection))
                 {
                     // Call
                     info.AfterCreate(view, data);

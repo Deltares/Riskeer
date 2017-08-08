@@ -41,19 +41,19 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var observableStub = mockRepository.Stub<IObservable>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var observable= mockRepository.Stub<IObservable>();
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
+            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
-            Assert.AreSame(observableStub, context.WrappedData);
-            Assert.AreSame(failureMechanismStub, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(observable, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -62,12 +62,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var observableStub = mockRepository.Stub<IObservable>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var observable= mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, null, assessmentSectionStub);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,12 +80,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observableStub = mockRepository.Stub<IObservable>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            var observable= mockRepository.Stub<IObservable>();
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, null);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,14 +101,14 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var observableStub = mockRepository.Stub<IObservable>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var observable= mockRepository.Stub<IObservable>();
+            var failureMechanism= mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
+            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, assessmentSection);
 
             // Call
             IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;

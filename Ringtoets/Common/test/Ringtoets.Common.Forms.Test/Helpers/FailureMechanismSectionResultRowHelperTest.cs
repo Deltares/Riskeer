@@ -40,13 +40,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculationStub = mockRepository.Stub<ICalculation>();
+            var calculation= mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(null,
                                                                                                          AssessmentLayerOneState.Sufficient,
-                                                                                                         0.0, calculationStub);
+                                                                                                         0.0,
+                                                                                                         calculation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

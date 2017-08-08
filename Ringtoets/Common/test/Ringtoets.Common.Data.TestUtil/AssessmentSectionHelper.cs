@@ -82,21 +82,21 @@ namespace Ringtoets.Common.Data.TestUtil
                                                             failureMechanism
                                                         };
 
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Stub(a => a.Id).Return("21");
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                       failureMechanisms, 1)
-                                                                                   {
-                                                                                       Norm = 0.5
-                                                                                   });
-            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.Id).Return("21");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                   failureMechanisms, 1)
+                                                                               {
+                                                                                   Norm = 0.5
+                                                                               });
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
 
             if (addBoundaryDatabase)
             {
-                assessmentSectionStub.HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
+                assessmentSection.HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
             }
 
-            return assessmentSectionStub;
+            return assessmentSection;
         }
 
         private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath = null)

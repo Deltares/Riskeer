@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Service.Test
         public void ParameteredConstructor_DesignWaterLevelCalculationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            var calculationMessageProvider= mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate call = () => new DesignWaterLevelCalculationActivity(null,
                                                                               validFilePath,
                                                                               1,
-                                                                              calculationMessageProviderStub);
+                                                                              calculationMessageProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

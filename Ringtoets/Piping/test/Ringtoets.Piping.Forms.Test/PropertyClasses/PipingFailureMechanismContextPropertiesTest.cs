@@ -88,13 +88,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mockRepository.ReplayAll();
 
             // Call
             var properties = new PipingFailureMechanismContextProperties(
-                new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert
@@ -135,14 +135,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
 
             mockRepository.ReplayAll();
 
             // Call
             var properties = new PipingFailureMechanismContextProperties(
-                new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert
@@ -278,14 +278,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
 
             mockRepository.ReplayAll();
 
             // Call
             var properties = new PipingFailureMechanismContextProperties(
-                new PipingFailureMechanismContext(failureMechanism, assessmentSectionStub),
+                new PipingFailureMechanismContext(failureMechanism, assessmentSection),
                 handler);
 
             // Assert

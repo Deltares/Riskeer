@@ -230,13 +230,13 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var typeDescriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
+            var typeDescriptorContext= mockRepository.Stub<ITypeDescriptorContext>();
             mockRepository.ReplayAll();
 
             var converter = new NullableEnumConverter(typeof(SimpleEnum?));
 
             // Call
-            TypeConverter.StandardValuesCollection result = converter.GetStandardValues(typeDescriptorContextStub);
+            TypeConverter.StandardValuesCollection result = converter.GetStandardValues(typeDescriptorContext);
 
             // Assert
             Assert.IsNotNull(result);

@@ -314,7 +314,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -322,7 +322,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 null,
-                assessmentSectionStub,
+                assessmentSection,
                 failureMechanism.GeneralInput,
                 validFilePath);
 
@@ -356,7 +356,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
@@ -364,7 +364,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(
                 calculation,
-                assessmentSectionStub,
+                assessmentSection,
                 null,
                 validFilePath);
 

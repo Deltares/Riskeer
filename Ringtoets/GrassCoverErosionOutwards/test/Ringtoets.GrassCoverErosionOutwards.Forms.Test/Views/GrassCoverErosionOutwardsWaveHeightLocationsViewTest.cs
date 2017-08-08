@@ -396,13 +396,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeightsSelectionNotChanged(bool isSuccessful)
         {
             // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSectionStub.Stub(ass => ass.Id).Return(string.Empty);
-            assessmentSectionStub.Stub(ass => ass.FailureMechanismContribution)
-                                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
-            assessmentSectionStub.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSectionStub.Stub(a => a.Detach(null)).IgnoreArguments();
+            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.Stub(ass => ass.Id).Return(string.Empty);
+            assessmentSection.Stub(ass => ass.FailureMechanismContribution)
+                             .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
@@ -424,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSectionStub);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
             DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
