@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +33,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 {
@@ -88,7 +88,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                         StandardDeviation = (RoundedDouble) 5.5
                     },
                     UseBreakWater = true,
-                    UseForeshore = false
+                    UseForeshore = false,
+                    ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean()
                 },
                 Output = null
             };
@@ -117,6 +120,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(Convert.ToByte(input.OvertoppingRateCalculationType), entity.OvertoppingRateCalculationType);
             Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
+
+            Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightIllustrationPointsBeCalculated),
+                            entity.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated),
+                            entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingRateIllustrationPointsBeCalculated),
+                            entity.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 
             Assert.IsFalse(entity.GrassCoverErosionInwardsOutputEntities.Any());
         }
@@ -237,9 +247,16 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_CalculationWithOutput_ReturnEntity()
         {
             // Setup
+            var random = new Random(456);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                                              random.NextDouble(), random.NextDouble(),
+                                                                              random.NextDouble());
+            var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, probabilityAssessmentOutput, null);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
+
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = new TestGrassCoverErosionInwardsOutput()
+                Output = output
             };
 
             var registry = new PersistenceRegistry();
@@ -248,7 +265,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.GrassCoverErosionInwardsOutputEntities.Count);
+            GrassCoverErosionInwardsOutputEntity outputEntity = entity.GrassCoverErosionInwardsOutputEntities.Single();
+            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, outputEntity.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
+            Assert.AreEqual(probabilityAssessmentOutput.Probability, outputEntity.Probability);
+            Assert.AreEqual(probabilityAssessmentOutput.Reliability, outputEntity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, outputEntity.RequiredProbability);
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, outputEntity.RequiredReliability);
+            GeneralResultEntityTestHelper.AssertGeneralResultEntity(overtoppingOutput.GeneralResult, outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }
     }
 }
