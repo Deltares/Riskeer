@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -61,17 +62,22 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
         {
             // Setup
+            var mocks = new MockRepository();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
 
+            structuresCalculation.Stub(c => c.Output).Return(structuresOutput);
+
+            mocks.ReplayAll();
+
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(new TestStructuresCalculation
-            {
-                Output = structuresOutput
-            }));
+            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(objectProperties);
             Assert.AreSame(structuresOutput, objectProperties.Data);
+
+            mocks.VerifyAll();
         }
     }
 }

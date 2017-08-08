@@ -24,6 +24,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -86,14 +87,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedStructuresCalculation()
         {
             // Setup
-            var calculation = new TestStructuresCalculation();
-            var context = new StructuresOutputContext(calculation);
+            var mocks = new MockRepository();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
+
+            mocks.ReplayAll();
 
             // Call
-            object viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation));
 
             // Assert
-            Assert.AreSame(calculation, viewData);
+            Assert.AreSame(structuresCalculation, viewData);
+
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -35,15 +35,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var structuresCalculationStub = mocks.Stub<IStructuresCalculation>();
+            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             mocks.ReplayAll();
 
             // Call
-            var structuresOutputContext = new StructuresOutputContext(structuresCalculationStub);
+            var structuresOutputContext = new StructuresOutputContext(structuresCalculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
-            Assert.AreSame(structuresCalculationStub, structuresOutputContext.WrappedData);
+            Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
             mocks.VerifyAll();
         }
     }

@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -99,10 +100,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
+            var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new StructuresOutputContext(new TestStructuresCalculation()));
+            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -112,13 +114,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
+            var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
+            structuresCalculation.Stub(c => c.HasOutput).Return(true);
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new StructuresOutputContext(new TestStructuresCalculation
-            {
-                Output = new TestStructuresOutput()
-            }));
+            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
