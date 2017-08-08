@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -44,25 +45,25 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int illustrationPointPropertyIndex = 4;
 
         [Test]
-        public void Constructor_IllustrationPointNodeNull_ThrowsException()
+        public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new IllustrationPointProperties(null, "Point name A", "Closing Situation");
 
             // Assert
-            const string expectedMessage = "Value cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("illustrationPointNode", paramName);
         }
 
         [Test]
-        public void Constructor_WindDirectionNull_ThrowsException()
+        public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), null, "Closing Situation");
 
             // Assert
-            const string expectedMessage = "Value cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("windDirection", paramName);
         }
 
         [Test]
@@ -72,15 +73,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), "SE", null);
 
             // Assert
-            const string expectedMessage = "Value cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("closingSituation", paramName);
         }
 
         [Test]
         public void Constructor_FaultTreeIllustrationPointWithoutChildren_CorrectValues()
         {
             // Call
-            var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), "NNE", "closing situation");
+            var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault Tree AAA",
+                                                                                                                     3.14,
+                                                                                                                     Enumerable.Empty<Stochast>(),
+                                                                                                                     CombinationType.And)), "NNE", "closing situation");
 
             // Assert
             Assert.AreEqual("NNE", faultTree.WindDirection);
@@ -105,11 +109,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_FaultTreeIllustrationPointWithChildren_CorrectValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
+            var illustrationPointNode = new IllustrationPointNode(new SubMechanismIllustrationPoint("NNE",
+                                                                                                    3.14,
+                                                                                                    Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                                                    Enumerable.Empty<IllustrationPointResult>()));
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault Tree A",
+                                                                         3.14,
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         CombinationType.And)),
+                new IllustrationPointNode(new SubMechanismIllustrationPoint("Sub Mechanism B",
+                                                                            4.2,
+                                                                            Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                            Enumerable.Empty<IllustrationPointResult>()))
             });
 
             // Call
@@ -207,6 +220,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
+
             // Call
             var faultTree = new IllustrationPointProperties(illustrationPointNode, "N", "Closing Situation");
 

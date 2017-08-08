@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
-            var expectedFaultTreeIllustrationPointBaseProperty = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
+            var expectedFaultTreeIllustrationPointProperties = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
             {
                 "closing situation"
             });
@@ -118,21 +118,30 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(StructuresOutputProperties.AlphaValues));
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.Durations));
+
             int nrOfExpectedStochasts = generalResult.Stochasts.Count();
             Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
             Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
-            Stochast stochast = generalResult.Stochasts.First();
-            Assert.AreEqual(stochast.Alpha, properties.AlphaValues[0].Alpha);
-            Assert.AreEqual(stochast.Duration, properties.Durations[0].Duration);
 
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.WindDirection, properties.IllustrationPoints[0].WindDirection);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.Reliability, properties.IllustrationPoints[0].Reliability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
+            foreach (Stochast stochast in generalResult.Stochasts)
+            {
+                Assert.AreEqual(stochast.Alpha, properties.AlphaValues[0].Alpha);
+                Assert.AreEqual(stochast.Duration, properties.Durations[0].Duration);
+            }
 
             TestHelper.AssertTypeConverter<StructuresOutputProperties, ExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.IllustrationPoints));
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty.IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
+
+            int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
+            Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
+
+            foreach (TopLevelFaultTreeIllustrationPointProperties topLevelFaultTreeIllustrationPointProperties in properties.IllustrationPoints)
+            {
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.WindDirection, topLevelFaultTreeIllustrationPointProperties.WindDirection);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.Reliability, topLevelFaultTreeIllustrationPointProperties.Reliability);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.CalculatedProbability, expectedFaultTreeIllustrationPointProperties.CalculatedProbability);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.ClosingSituation, topLevelFaultTreeIllustrationPointProperties.ClosingSituation);
+            }
         }
 
         [Test]

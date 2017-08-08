@@ -41,13 +41,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TopLevelFaultTreeIllustrationPointProperties : ObjectProperties<TopLevelFaultTreeIllustrationPoint>
     {
-        private readonly IEnumerable<string> closingSituations;
+        private readonly bool areClosingSituationsSame;
 
         /// <summary>
         /// Creates a new instance of <see cref="TopLevelFaultTreeIllustrationPointProperties"/>.
         /// </summary>
-        /// <param name="faultTreeData">The data to use for the properties. </param>
-        /// <param name="allClosingSituations">All closing situations in the tree</param>
+        /// <param name="faultTreeData">The data to use for the properties.</param>
+        /// <param name="allClosingSituations">All closing situations in the tree.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public TopLevelFaultTreeIllustrationPointProperties(
             TopLevelFaultTreeIllustrationPoint faultTreeData, IEnumerable<string> allClosingSituations)
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(allClosingSituations));
             }
             data = faultTreeData;
-            closingSituations = allClosingSituations;
+            areClosingSituationsSame = allClosingSituations.Distinct().Count() < 2;
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     {
                         points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode,
                                                                             WindDirection,
-                                                                            AreClosingSituationsSame() ? string.Empty : ClosingSituation));
+                                                                            areClosingSituationsSame ? string.Empty : ClosingSituation));
                         continue;
                     }
 
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     {
                         points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode,
                                                                                WindDirection,
-                                                                               AreClosingSituationsSame() ? string.Empty : ClosingSituation));
+                                                                               areClosingSituationsSame ? string.Empty : ClosingSituation));
                         continue;
                     }
 
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (propertyName == nameof(ClosingSituation))
             {
-                return !AreClosingSituationsSame();
+                return !areClosingSituationsSame;
             }
 
             return false;
@@ -185,11 +185,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public override string ToString()
         {
             return $"{WindDirection}";
-        }
-
-        private bool AreClosingSituationsSame()
-        {
-            return closingSituations.Distinct().Count() < 2;
         }
     }
 }

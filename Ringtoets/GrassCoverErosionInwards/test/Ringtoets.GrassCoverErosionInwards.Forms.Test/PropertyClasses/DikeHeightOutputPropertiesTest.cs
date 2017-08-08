@@ -22,11 +22,13 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -92,13 +94,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var dikeHeightConvergence = random.NextEnumValue<CalculationConvergence>();
 
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var expectedFaultTreeIllustrationPointBaseProperty = new[]
+            var expectedFaultTreeIllustrationPointProperties = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
             {
-                new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
-                {
-                    "closing situation"
-                })
-            };
+                "closing situation"
+            });
 
             var dikeHeightOutput = new DikeHeightOutput(dikeHeight,
                                                         dikeHeightTargetProbability,
@@ -130,13 +129,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
-            Assert.AreEqual(generalResult.Stochasts, properties.AlphaValues);
-            Assert.AreEqual(generalResult.Stochasts, properties.Durations);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].WindDirection, properties.IllustrationPoints[0].WindDirection);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].Reliability, properties.IllustrationPoints[0].Reliability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].CalculatedProbability, properties.IllustrationPoints[0].CalculatedProbability);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].ClosingSituation, properties.IllustrationPoints[0].ClosingSituation);
-            Assert.AreEqual(expectedFaultTreeIllustrationPointBaseProperty[0].IllustrationPoints, properties.IllustrationPoints[0].IllustrationPoints);
+
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.Durations));
+
+            int nrOfExpectedStochasts = generalResult.Stochasts.Count();
+            Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
+            Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
+
+            foreach (Stochast stochast in generalResult.Stochasts)
+            {
+                Assert.AreEqual(stochast.Alpha, properties.AlphaValues[0].Alpha);
+                Assert.AreEqual(stochast.Duration, properties.Durations[0].Duration);
+            }
+
+            TestHelper.AssertTypeConverter<StructuresOutputProperties, ExpandableArrayConverter>(
+                nameof(StructuresOutputProperties.IllustrationPoints));
+
+            int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
+            Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
+
+            foreach (TopLevelFaultTreeIllustrationPointProperties topLevelFaultTreeIllustrationPointProperties in properties.IllustrationPoints)
+            {
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.WindDirection, topLevelFaultTreeIllustrationPointProperties.WindDirection);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.Reliability, topLevelFaultTreeIllustrationPointProperties.Reliability);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.CalculatedProbability, expectedFaultTreeIllustrationPointProperties.CalculatedProbability);
+                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.ClosingSituation, topLevelFaultTreeIllustrationPointProperties.ClosingSituation);
+            }
         }
 
         [Test]

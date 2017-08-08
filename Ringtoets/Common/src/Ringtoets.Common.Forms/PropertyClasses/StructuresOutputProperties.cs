@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult.GoverningWindDirection.Name;
+                return data.GeneralResult?.GoverningWindDirection.Name;
             }
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult.Stochasts.ToArray();
+                return data.GeneralResult?.Stochasts.ToArray();
             }
         }
 
@@ -91,11 +91,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.GeneralResult.Stochasts.ToArray();
+                return data.GeneralResult?.Stochasts.ToArray();
             }
         }
 
-        [ReadOnly(true)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]

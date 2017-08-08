@@ -47,6 +47,39 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
+        public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(null, "Point name A", "Closing Situation");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("illustrationPointNode", paramName);
+        }
+
+        [Test]
+        public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), null, "Closing Situation");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("windDirection", paramName);
+        }
+
+        [Test]
+        public void Constructor_ClosingSituationNull_ThrowsException()
+        {
+            // Call
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "SE", null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("closingSituation", paramName);
+        }
+
+        [Test]
         public void Constructor_InvalidIllustrationPointType_ThrowsArgumentException()
         {
             // Call
@@ -60,46 +93,59 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_FaultTreeIllustrationPoint_CorrectValues()
+        public void Constructor_SubMechanismIllustrationPoint_CorrectValues()
         {
             // Call
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(
-                                                                                         new TestSubMechanismIllustrationPoint(new[]
-                                                                                         {
-                                                                                             new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
-                                                                                         })),
-                                                                                     "N", "closing situation");
+            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("Submechanism A",
+                                                                                  5.4,
+                                                                                  new[]
+                                                                                  {
+                                                                                      new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
+                                                                                  },
+                                                                                  Enumerable.Empty<IllustrationPointResult>());
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(subMechanismIllustrationPoint),
+                                                                                     "N",
+                                                                                     "closing situation");
 
             // Assert
             Assert.AreEqual("N", subMechanismProperties.WindDirection);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, NoValueRoundedDoubleConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Reliability));
-            Assert.AreEqual(3.14, subMechanismProperties.Reliability.Value);
+            Assert.AreEqual(5.4, subMechanismProperties.Reliability.Value);
             Assert.AreEqual(5, subMechanismProperties.Reliability.NumberOfDecimalPlaces);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, NoProbabilityValueDoubleConverter>(
                 nameof(SubMechanismIllustrationPointProperties.CalculatedProbability));
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), subMechanismProperties.CalculatedProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(5.4), subMechanismProperties.CalculatedProbability);
             Assert.AreEqual("closing situation", subMechanismProperties.ClosingSituation);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.AlphaValues));
             CollectionAssert.IsNotEmpty(subMechanismProperties.AlphaValues);
             Assert.AreEqual(1, subMechanismProperties.AlphaValues.Length);
-            Assert.AreEqual(4.5, subMechanismProperties.AlphaValues.First().Alpha);
+            foreach (SubMechanismIllustrationPointStochast alphaValue in subMechanismProperties.AlphaValues)
+            {
+                Assert.AreEqual(4.5, alphaValue.Alpha);
+            }
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Durations));
             CollectionAssert.IsNotEmpty(subMechanismProperties.Durations);
             Assert.AreEqual(1, subMechanismProperties.Durations.Length);
-            Assert.AreEqual(2.0, subMechanismProperties.Durations.First().Duration);
+            foreach (SubMechanismIllustrationPointStochast duration in subMechanismProperties.Durations)
+            {
+                Assert.AreEqual(2.0, duration.Duration);
+            }
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.SubMechanismStochasts));
             CollectionAssert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
             Assert.AreEqual(1, subMechanismProperties.SubMechanismStochasts.Length);
-            Assert.AreEqual(0.1, subMechanismProperties.SubMechanismStochasts.First().Realization);
+            foreach (SubMechanismIllustrationPointStochast realization in subMechanismProperties.SubMechanismStochasts)
+            {
+                Assert.AreEqual(0.1, realization.Realization);
+            }
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));

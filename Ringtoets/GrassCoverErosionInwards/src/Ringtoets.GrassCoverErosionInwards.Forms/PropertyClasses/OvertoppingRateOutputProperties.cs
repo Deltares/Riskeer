@@ -186,8 +186,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                List<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
-                                                                                                                topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
+                IEnumerable<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+                                                                                                                       topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
 
                 return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations)).ToArray();
             }

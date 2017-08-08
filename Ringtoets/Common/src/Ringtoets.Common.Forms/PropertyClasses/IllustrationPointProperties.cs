@@ -36,7 +36,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base properties for the child Illustration Points in a tree.
+    /// Properties for the illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class IllustrationPointProperties : ObjectProperties<IllustrationPointNode>
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
-        /// <param name="illustrationPointNode">The data to use for the properties. </param>
+        /// <param name="illustrationPointNode">The data to use for the properties.</param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="ClosingSituation"/> property will not be visible.</param>

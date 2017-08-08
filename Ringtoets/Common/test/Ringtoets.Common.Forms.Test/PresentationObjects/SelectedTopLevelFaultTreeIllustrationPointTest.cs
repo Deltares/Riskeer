@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SelectedTopLevelFaultTreeIllustrationPoint(CreateTopLevelSubMechanismIllustrationPoint(),
+            TestDelegate call = () => new SelectedTopLevelFaultTreeIllustrationPoint(CreateTopLevelFaultTreeIllustrationPoint(),
                                                                                      null);
 
             // Assert
@@ -60,19 +60,19 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup
-            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = CreateTopLevelSubMechanismIllustrationPoint();
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = CreateTopLevelFaultTreeIllustrationPoint();
             IEnumerable<string> closingSituations = Enumerable.Empty<string>();
 
             // Call
             var selectedTopLevelFaultTreeIllustrationPoint = new SelectedTopLevelFaultTreeIllustrationPoint(topLevelFaultTreeIllustrationPoint,
-                                                                                                               closingSituations);
+                                                                                                            closingSituations);
 
             // Assert
             Assert.AreSame(topLevelFaultTreeIllustrationPoint, selectedTopLevelFaultTreeIllustrationPoint.TopLevelFaultTreeIllustrationPoint);
             Assert.AreSame(closingSituations, selectedTopLevelFaultTreeIllustrationPoint.ClosingSituations);
         }
 
-        private static TopLevelFaultTreeIllustrationPoint CreateTopLevelSubMechanismIllustrationPoint()
+        private static TopLevelFaultTreeIllustrationPoint CreateTopLevelFaultTreeIllustrationPoint()
         {
             return new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                           "Closing situation",

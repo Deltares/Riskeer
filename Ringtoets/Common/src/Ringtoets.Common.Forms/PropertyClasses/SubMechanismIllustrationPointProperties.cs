@@ -36,6 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class SubMechanismIllustrationPointProperties : IllustrationPointProperties
     {
+        private readonly SubMechanismIllustrationPoint subMechanismIllustrationPoint;
+
         /// <summary>
         /// Creates a new instance of <see cref="SubMechanismIllustrationPointProperties"/>.
         /// </summary>
@@ -44,14 +46,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointNode"/> is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
         public SubMechanismIllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
         {
-            if (!(data.Data is SubMechanismIllustrationPoint))
+            var illustrationPoint = data.Data as SubMechanismIllustrationPoint;
+            if (illustrationPoint == null)
             {
-                throw new ArgumentException("illustrationPointNode type has to be SubMechanismIllustrationPoint");
+                throw new ArgumentException($"{nameof(illustrationPointNode)} type has to be {nameof(SubMechanismIllustrationPoint)}");
             }
+
+            subMechanismIllustrationPoint = illustrationPoint;
         }
 
         [PropertyOrder(4)]
@@ -64,7 +69,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
+                return subMechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -78,7 +83,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
+                return subMechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -92,7 +97,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((SubMechanismIllustrationPoint) data.Data).Stochasts.ToArray();
+                return subMechanismIllustrationPoint.Stochasts.ToArray();
             }
         }
     }

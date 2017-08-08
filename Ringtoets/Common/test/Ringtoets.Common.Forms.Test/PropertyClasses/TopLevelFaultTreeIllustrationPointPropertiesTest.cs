@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int illustrationPointPropertyIndex = 6;
 
         [Test]
-        public void Constructor_FaultTreeNull_ThrowsException()
+        public void Constructor_FaultTreeNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(null, new[]
@@ -53,12 +53,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Assert
-            const string expectedMessage = "Value cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("faultTreeData", paramName);
         }
 
         [Test]
-        public void Constructor_ClosingSituationsNull_ThrowsException()
+        public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var topLevel = new TopLevelFaultTreeIllustrationPoint(
@@ -70,8 +70,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(topLevel, null);
 
             // Assert
-            const string expectedMessage = "Value cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("allClosingSituations", paramName);
         }
 
         [Test]
@@ -81,10 +81,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var topLevel = new TopLevelFaultTreeIllustrationPoint(
                 new WindDirection("N", 5.0),
                 "closing situation",
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint(new[]
-                {
-                    new Stochast("Stochast A", 2.5, 5.5)
-                })));
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault Tree A",
+                                                                         3.14,
+                                                                         new[]
+                                                                         {
+                                                                             new Stochast("Stochast A", 2.5, 5.5)
+                                                                         },
+                                                                         CombinationType.And)));
 
             topLevel.FaultTreeNodeRoot.SetChildren(new[]
             {
@@ -116,13 +119,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(TopLevelFaultTreeIllustrationPointProperties.AlphaValues));
             Assert.IsNotNull(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            Assert.AreEqual(5.5, faultTree.AlphaValues[0].Alpha);
+            foreach (Stochast alpha in faultTree.AlphaValues)
+            {
+                Assert.AreEqual(5.5, alpha.Alpha);
+            }
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.Durations));
             Assert.IsNotNull(faultTree.Durations);
             Assert.AreEqual(1, faultTree.Durations.Length);
-            Assert.AreEqual(2.5, faultTree.Durations[0].Duration);
+            foreach (Stochast duration in faultTree.Durations)
+            {
+                Assert.AreEqual(2.5, duration.Duration);
+            }
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.IllustrationPoints));
@@ -131,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_NoUniqueClosingSituations_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_UniqueClosingSituations_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var topLevel = new TopLevelFaultTreeIllustrationPoint(
@@ -195,7 +204,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_UniqueClosingSituations_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_NoUniqueClosingSituations_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var topLevel = new TopLevelFaultTreeIllustrationPoint(
@@ -275,10 +284,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 "closing situation",
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
-            var topLevelFaultTreeProperties = new TopLevelFaultTreeIllustrationPointProperties(topLevelFaultTreeIllustrationPoint, new[]
-            {
-                "closing situation"
-            });
+            var topLevelFaultTreeProperties = new TopLevelFaultTreeIllustrationPointProperties(topLevelFaultTreeIllustrationPoint, new string[0]);
 
             // Call
             string toString = topLevelFaultTreeProperties.ToString();

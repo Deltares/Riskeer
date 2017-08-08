@@ -26,19 +26,18 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Class that represents a top level sub mechanism illustration point together 
-    /// with all the calculated closing situations that are present.
+    /// Class that represents a selected top level fault tree illustration point.
     /// </summary>
     public class SelectedTopLevelFaultTreeIllustrationPoint
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectedTopLevelFaultTreeIllustrationPoint"/>.
         /// </summary>
-        /// <param name="topLevelFaultTreeIllustrationPoint">The top level sub mechanism illustration point.</param>
+        /// <param name="topLevelFaultTreeIllustrationPoint">The top level fault tree illustration point.</param>
         /// <param name="closingSituations">The closing situations that are present.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SelectedTopLevelFaultTreeIllustrationPoint(TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint,
-                                                             IEnumerable<string> closingSituations)
+                                                          IEnumerable<string> closingSituations)
         {
             if (topLevelFaultTreeIllustrationPoint == null)
             {

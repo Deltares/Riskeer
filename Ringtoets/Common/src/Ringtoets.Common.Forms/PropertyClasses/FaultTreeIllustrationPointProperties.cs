@@ -36,6 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FaultTreeIllustrationPointProperties : IllustrationPointProperties
     {
+        private readonly FaultTreeIllustrationPoint faultTreeIllustrationPoint;
+
         /// <summary>
         /// Creates a new instance of <see cref="FaultTreeIllustrationPointProperties"/>.
         /// </summary>
@@ -44,14 +46,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the illustration point node is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointNode"/> is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
         public FaultTreeIllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
         {
-            if (!(data.Data is FaultTreeIllustrationPoint))
+            var illustrationPoint = data.Data as FaultTreeIllustrationPoint;
+            if (illustrationPoint == null)
             {
-                throw new ArgumentException("illustrationPointNode type has to be FaultTreeIllustrationPoint");
+                throw new ArgumentException($"{nameof(illustrationPointNode)} type has to be {nameof(FaultTreeIllustrationPoint)}");
             }
+
+            faultTreeIllustrationPoint = illustrationPoint;
         }
 
         [PropertyOrder(4)]
@@ -64,7 +69,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+                return faultTreeIllustrationPoint.Stochasts.ToArray();
             }
         }
 
@@ -78,7 +83,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return ((FaultTreeIllustrationPoint) data.Data).Stochasts.ToArray();
+                return faultTreeIllustrationPoint.Stochasts.ToArray();
             }
         }
     }

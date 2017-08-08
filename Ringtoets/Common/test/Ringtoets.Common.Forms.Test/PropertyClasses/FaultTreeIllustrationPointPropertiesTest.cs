@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -45,15 +44,46 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
         [Test]
-        public void Constructor_InvalidIllustrationPointType_ThrowsArgumentException()
+        public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
-            // Setup
-            const string expectedMessage = "illustrationPointNode type has to be FaultTreeIllustrationPoint";
-
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", "Regular");
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(null, "Point name A", "Closing Situation");
 
             // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("illustrationPointNode", paramName);
+        }
+
+        [Test]
+        public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), null, "Closing Situation");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("windDirection", paramName);
+        }
+
+        [Test]
+        public void Constructor_ClosingSituationNull_ThrowsException()
+        {
+            // Call
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), "SE", null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("closingSituation", paramName);
+        }
+
+        [Test]
+        public void Constructor_InvalidIllustrationPointType_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), "N", "Regular");
+
+            // Assert
+            const string expectedMessage = "illustrationPointNode type has to be FaultTreeIllustrationPoint";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
@@ -61,42 +91,59 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_FaultTreeIllustrationPoint_ReturnsExpectedValues()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint(new[]
-            {
-                new Stochast("Stochast A", 10.0, 2.5)
-            }));
-            var illustrationPointNodeChild = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
-            illustrationPointNode.SetChildren(new[]
+            var stochast = new Stochast("Stochast A", 10.0, 2.5);
+            var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree Test",
+                                                                                                 1.5,
+                                                                                                 new[]
+                                                                                                 {
+                                                                                                     stochast
+                                                                                                 },
+                                                                                                 CombinationType.And));
+            var illustrationPointNodeChild = new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree child",
+                                                                                                      3.5,
+                                                                                                      new Stochast[0],
+                                                                                                      CombinationType.Or));
+            var illustrationPointNodeChildren = new[]
             {
                 illustrationPointNodeChild,
                 illustrationPointNodeChild
-            });
+            };
+            illustrationPointNode.SetChildren(illustrationPointNodeChildren);
 
             // Call
             var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "NNE", "closing situation");
 
             // Assert
             Assert.AreEqual("NNE", faultTree.WindDirection);
-            Assert.AreEqual(3.14, faultTree.Reliability.Value);
+            Assert.AreEqual(1.5, faultTree.Reliability.Value);
             Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.CalculatedProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(1.5), faultTree.CalculatedProbability);
             Assert.AreEqual("closing situation", faultTree.ClosingSituation);
 
             CollectionAssert.IsNotEmpty(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            Assert.AreEqual(2.5, faultTree.AlphaValues.First().Alpha);
+            foreach (Stochast alphaValue in faultTree.AlphaValues)
+            {
+                Assert.AreEqual(2.5, alphaValue.Alpha);
+            }
 
             CollectionAssert.IsNotEmpty(faultTree.Durations);
             Assert.AreEqual(1, faultTree.Durations.Length);
-            Assert.AreEqual(10.0, faultTree.Durations.First().Duration);
+            foreach (Stochast duration in faultTree.Durations)
+            {
+                Assert.AreEqual(10.0, duration.Duration);
+            }
 
             Assert.IsNotNull(faultTree.IllustrationPoints);
             Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
-            Assert.AreEqual("NNE", faultTree.IllustrationPoints[0].WindDirection);
-            Assert.AreEqual("closing situation", faultTree.IllustrationPoints[0].ClosingSituation);
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.14), faultTree.IllustrationPoints[0].CalculatedProbability);
-            Assert.AreEqual(3.14, faultTree.IllustrationPoints[0].Reliability);
-            Assert.AreEqual(0, faultTree.IllustrationPoints[0].IllustrationPoints.Length);
+            foreach (IllustrationPointProperties illustrationPointProperties in faultTree.IllustrationPoints)
+            {
+                Assert.AreEqual("NNE", illustrationPointProperties.WindDirection);
+                Assert.AreEqual("closing situation", illustrationPointProperties.ClosingSituation);
+                Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.5), illustrationPointProperties.CalculatedProbability);
+                Assert.AreEqual(3.5, illustrationPointProperties.Reliability);
+                Assert.AreEqual(0, illustrationPointProperties.IllustrationPoints.Length);
+            }
         }
 
         [Test]
