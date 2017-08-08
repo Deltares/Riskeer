@@ -56,7 +56,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(14);
-            bool flagValue = random.NextBoolean();
             var breakWaterType = random.NextEnumValue<BreakWaterType>();
             var dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
             var overtoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
@@ -69,13 +68,16 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 Orientation = 5.6,
                 CriticalFlowRateMean = 3.4,
                 CriticalFlowRateStandardDeviation = 1.2,
-                UseForeshore = Convert.ToByte(flagValue),
+                UseForeshore = Convert.ToByte(random.NextBoolean()),
                 DikeHeight = 2.3,
-                UseBreakWater = Convert.ToByte(flagValue),
+                UseBreakWater = Convert.ToByte(random.NextBoolean()),
                 BreakWaterType = Convert.ToByte(breakWaterType),
                 BreakWaterHeight = 5.7,
                 DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType),
-                OvertoppingRateCalculationType = Convert.ToByte(overtoppingRateCalculationType)
+                OvertoppingRateCalculationType = Convert.ToByte(overtoppingRateCalculationType),
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
+                ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
             };
 
             var collector = new ReadConversionCollector();
@@ -91,13 +93,19 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entity.Orientation, input.Orientation.Value);
             Assert.AreEqual(entity.CriticalFlowRateMean, input.CriticalFlowRate.Mean.Value);
             Assert.AreEqual(entity.CriticalFlowRateStandardDeviation, input.CriticalFlowRate.StandardDeviation.Value);
-            Assert.AreEqual(flagValue, input.UseForeshore);
+            AssertBoolean(entity.UseForeshore, input.UseForeshore);
             Assert.AreEqual(entity.DikeHeight, input.DikeHeight.Value);
-            Assert.AreEqual(flagValue, input.UseBreakWater);
+            AssertBoolean(entity.UseBreakWater, input.UseBreakWater);
             Assert.AreEqual(breakWaterType, input.BreakWater.Type);
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
             Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
             Assert.AreEqual(overtoppingRateCalculationType, input.OvertoppingRateCalculationType);
+            AssertBoolean(entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
+                          input.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            AssertBoolean(entity.ShouldDikeHeightIllustrationPointsBeCalculated,
+                          input.ShouldDikeHeightIllustrationPointsBeCalculated);
+            AssertBoolean(entity.ShouldOvertoppingRateIllustrationPointsBeCalculated,
+                          input.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 
             Assert.IsNull(input.DikeProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);
@@ -292,6 +300,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.AreSame(calculation, returnedCalculation);
+        }
+
+        private static void AssertBoolean(byte expectedByte, bool actual)
+        {
+            Assert.AreEqual(Convert.ToBoolean(expectedByte), actual);
         }
     }
 }
