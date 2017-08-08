@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -569,7 +568,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null),
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -579,7 +578,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 },
-                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null),
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
@@ -618,7 +617,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var subCalculation = new GrassCoverErosionInwardsCalculation();
             var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
             {
-                Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), null),
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };

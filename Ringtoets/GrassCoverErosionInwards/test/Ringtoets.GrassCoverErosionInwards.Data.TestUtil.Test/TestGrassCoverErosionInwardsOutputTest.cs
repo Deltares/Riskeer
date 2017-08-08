@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 {
@@ -35,13 +35,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsOutput>(output);
-            OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
-
-            Assert.AreEqual(1.0, overtoppingOutput.WaveHeight.Value);
-            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
-            Assert.IsInstanceOf<ProbabilityAssessmentOutput>(overtoppingOutput.ProbabilityAssessmentOutput);
+            Assert.IsInstanceOf<TestOvertoppingOutput>(output.OvertoppingOutput);
+            Assert.AreEqual(0, output.OvertoppingOutput.ProbabilityAssessmentOutput.Probability);
             Assert.IsInstanceOf<TestDikeHeightOutput>(output.DikeHeightOutput);
+            Assert.AreEqual((RoundedDouble) 0, output.DikeHeightOutput.DikeHeight);
             Assert.IsInstanceOf<TestOvertoppingRateOutput>(output.OvertoppingRateOutput);
+            Assert.AreEqual((RoundedDouble) 0, output.OvertoppingRateOutput.OvertoppingRate);
         }
     }
 }

@@ -115,6 +115,10 @@
       <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.TestUtil\Ringtoets.GrassCoverErosionInwards.Data.TestUtil.csproj">
+      <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>

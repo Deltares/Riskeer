@@ -143,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_NoGeneralResult_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           probabilityAssessmentOutput,
@@ -221,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           probabilityAssessmentOutput,

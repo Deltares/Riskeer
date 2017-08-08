@@ -345,8 +345,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
+                                                                new TestDikeHeightOutput(double.NaN),
+                                                                new TestOvertoppingRateOutput(double.NaN))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -460,8 +460,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var failedCalculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
+                                                                new TestDikeHeightOutput(double.NaN),
+                                                                new TestOvertoppingRateOutput(double.NaN))
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -515,8 +515,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
+                                                                new TestDikeHeightOutput(double.NaN),
+                                                                new TestOvertoppingRateOutput(double.NaN))
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)

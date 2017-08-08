@@ -27,7 +27,6 @@ using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -136,9 +135,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
+            var overtoppingOutput = new OvertoppingOutput(1, true, probabilityAssessmentOutput, null);
             var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput, null),
-                                                            null, overtoppingRateOutput);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, overtoppingRateOutput);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -152,9 +151,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
+            var overtoppingOutput = new OvertoppingOutput(1, true, probabilityAssessmentOutput, null);
             var dikeHeightOutput = new TestDikeHeightOutput(double.NaN, CalculationConvergence.CalculatedConverged);
-            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1, true, probabilityAssessmentOutput, null),
-                                                            dikeHeightOutput, null);
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, null);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
@@ -167,12 +166,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithGeneralResult_ReturnsGrassCoverErosionInwardsOutputEntityWithGeneralResultEntity()
         {
             // Setup
-            var output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(double.NaN,
-                                                                                  true,
-                                                                                  new TestProbabilityAssessmentOutput(),
-                                                                                  new TestGeneralResultFaultTreeIllustrationPoint()),
-                                                            null,
-                                                            null);
+            var overtoppingOutput = new OvertoppingOutput(double.NaN,
+                                                          true,
+                                                          new TestProbabilityAssessmentOutput(),
+                                                          new TestGeneralResultFaultTreeIllustrationPoint());
+
+            var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
             // Call
             GrassCoverErosionInwardsOutputEntity entity = output.Create();

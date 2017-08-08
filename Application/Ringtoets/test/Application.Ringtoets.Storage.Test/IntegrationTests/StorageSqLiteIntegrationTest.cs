@@ -1495,14 +1495,18 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput,
                                                                  GrassCoverErosionInwardsOutput actualOutput)
         {
-            OvertoppingOutput expectedOvertoppingOutput = expectedOutput.OvertoppingOutput;
-            OvertoppingOutput actualOvertoppingOutput = actualOutput.OvertoppingOutput;
-
-            Assert.AreEqual(expectedOvertoppingOutput.WaveHeight, actualOvertoppingOutput.WaveHeight);
-            Assert.AreEqual(expectedOvertoppingOutput.IsOvertoppingDominant, actualOvertoppingOutput.IsOvertoppingDominant);
-            AssertProbabilityAssessmentOutput(expectedOvertoppingOutput.ProbabilityAssessmentOutput, actualOvertoppingOutput.ProbabilityAssessmentOutput);
+            AssertOvertoppingOutput(expectedOutput.OvertoppingOutput, actualOutput.OvertoppingOutput);
             AssertDikeHeightOutput(expectedOutput.DikeHeightOutput, actualOutput.DikeHeightOutput);
             AssertOvertoppingRateOutput(expectedOutput.OvertoppingRateOutput, actualOutput.OvertoppingRateOutput);
+        }
+
+        private static void AssertOvertoppingOutput(OvertoppingOutput expectedOutput,
+                                                    OvertoppingOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
+            Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
+
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
         }
 
         private static void AssertDikeHeightOutput(DikeHeightOutput expectedOutput,

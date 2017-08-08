@@ -81,8 +81,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             if (status == CalculationScenarioStatus.Failed)
             {
                 calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                        new TestDikeHeightOutput(0),
-                                                                        new TestOvertoppingRateOutput(0));
+                                                                        new TestDikeHeightOutput(double.NaN),
+                                                                        new TestOvertoppingRateOutput(double.NaN));
             }
 
             FailureMechanismSection section = CreateSection();

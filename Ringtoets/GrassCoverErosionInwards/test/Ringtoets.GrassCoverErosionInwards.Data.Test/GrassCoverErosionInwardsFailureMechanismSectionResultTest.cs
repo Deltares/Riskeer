@@ -22,7 +22,6 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -86,12 +85,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             FailureMechanismSection section = CreateSection();
 
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput, null),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }
@@ -111,12 +109,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             FailureMechanismSection section = CreateSection();
 
             const double probability = 0.65;
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(1.0, false, probabilityAssessmentOutput, null),
+                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(probability),
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 }

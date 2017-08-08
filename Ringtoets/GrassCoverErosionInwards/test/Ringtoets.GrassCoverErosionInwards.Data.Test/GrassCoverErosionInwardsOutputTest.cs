@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -49,15 +48,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ParameteredConstructor_DefaultValues()
         {
             // Setup
-            const double waveHeight = 3.2934;
-            const double dikeHeight = 7.3892;
-            const double overtoppingRate = 0.9;
-
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
-
-            var overtoppingOutput = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, null);
-            var dikeHeightOutput = new TestDikeHeightOutput(dikeHeight);
-            var overtoppingRateOutput = new TestOvertoppingRateOutput(overtoppingRate);
+            var overtoppingOutput = new TestOvertoppingOutput(double.NaN);
+            var dikeHeightOutput = new TestDikeHeightOutput(double.NaN);
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(double.NaN);
 
             // Call
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, dikeHeightOutput, overtoppingRateOutput);
@@ -67,8 +60,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<Observable>(output);
 
             Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
-            Assert.AreSame(probabilityAssessmentOutput, output.OvertoppingOutput.ProbabilityAssessmentOutput);
-            Assert.IsNull(output.OvertoppingOutput.GeneralResult);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);
             Assert.AreSame(overtoppingRateOutput, output.OvertoppingRateOutput);
         }
