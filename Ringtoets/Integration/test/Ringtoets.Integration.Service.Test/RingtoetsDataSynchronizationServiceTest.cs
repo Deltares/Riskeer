@@ -50,7 +50,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using PipingStochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
-using StochasticSoilModel = Ringtoets.MacroStabilityInwards.Data.StochasticSoilModel;
+using MacroStabilityInwardsStochasticSoilModel = Ringtoets.MacroStabilityInwards.Data.StochasticSoilModel;
 
 namespace Ringtoets.Integration.Service.Test
 {
@@ -106,20 +106,9 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithFailureMechanisms_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
-
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            macroStabilityInwardsFailureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
-
-            var failureMechanisms = new List<IFailureMechanism>
-            {
-                TestDataGenerator.GetClosingStructuresFailureMechanismWithAllCalculationConfigurations(),
-                TestDataGenerator.GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations(),
-                macroStabilityInwardsFailureMechanism,
-                pipingFailureMechanism
-            };
-
+            IEnumerable<IFailureMechanism> failureMechanisms = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
+                                                                                .GetFailureMechanisms()
+                                                                                .ToList();
             IEnumerable<ICalculation> expectedAffectedItems = failureMechanisms
                 .SelectMany(f => f.Calculations)
                 .Where(c => c.HasOutput)
@@ -242,7 +231,7 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
-                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
@@ -1474,7 +1463,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 yield return calculationBase;
             }
-            foreach (StochasticSoilModel stochasticSoilModel in failureMechanism.StochasticSoilModels)
+            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in failureMechanism.StochasticSoilModels)
             {
                 yield return stochasticSoilModel;
             }
