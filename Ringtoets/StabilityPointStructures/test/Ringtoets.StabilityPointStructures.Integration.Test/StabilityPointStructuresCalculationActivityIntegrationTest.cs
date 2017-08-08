@@ -210,8 +210,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath))
@@ -242,7 +242,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
@@ -268,8 +268,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
@@ -304,7 +304,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 

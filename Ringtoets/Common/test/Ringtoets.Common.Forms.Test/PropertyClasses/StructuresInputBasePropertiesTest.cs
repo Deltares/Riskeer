@@ -695,9 +695,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 6;
-            var observerMock = mockRepository.StrictMock<IObserver>();
+            var observer= mockRepository.StrictMock<IObserver>();
 
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
 
             mockRepository.ReplayAll();
 
@@ -723,7 +723,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     .ConstructionProperties(),
                 new ObservablePropertyChangeHandler(inputContext.Calculation, calculation.InputParameters));
 
-            inputContext.Attach(observerMock);
+            inputContext.Attach(observer);
 
             var random = new Random(100);
             double newStructureNormalOrientation = random.NextDouble();

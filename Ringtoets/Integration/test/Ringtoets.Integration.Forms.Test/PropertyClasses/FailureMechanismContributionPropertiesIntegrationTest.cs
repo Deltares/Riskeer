@@ -105,8 +105,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observer);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
@@ -215,8 +215,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             var calculationObserver = mockRepository.StrictMock<IObserver>(); // No update observers expected.
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observer);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(calculationObserver);
@@ -306,8 +306,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observer);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
@@ -408,8 +408,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
             pipingCalculationObserver.Expect(o => o.UpdateObserver());
@@ -424,7 +424,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observer);
 
             emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
@@ -496,15 +496,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
 
             var viewCommands = mockRepository.Stub<IViewCommands>();
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observer);
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);

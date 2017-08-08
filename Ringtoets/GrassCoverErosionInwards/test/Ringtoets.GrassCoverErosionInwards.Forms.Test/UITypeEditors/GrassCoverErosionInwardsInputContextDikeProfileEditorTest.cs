@@ -70,18 +70,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
-            var serviceMock = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContextMock = mockRepository.StrictMock<ITypeDescriptorContext>();
-            serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
-            serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            var serviceProvider= mockRepository.StrictMock<IServiceProvider>();
+            var service= mockRepository.StrictMock<IWindowsFormsEditorService>();
+            var descriptorContext= mockRepository.StrictMock<ITypeDescriptorContext>();
+            serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
+            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
+            descriptorContext.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
             mockRepository.ReplayAll();
 
             var someValue = new object();
 
             // Call
-            object result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
+            object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(someValue, result);
@@ -118,19 +118,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             var editor = new GrassCoverErosionInwardsInputContextDikeProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
-            var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
-            var serviceMock = mockRepository.StrictMock<IWindowsFormsEditorService>();
-            var descriptorContextMock = mockRepository.StrictMock<ITypeDescriptorContext>();
-            serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
-            serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            serviceMock.Expect(s => s.CloseDropDown()).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            var serviceProvider= mockRepository.StrictMock<IServiceProvider>();
+            var service= mockRepository.StrictMock<IWindowsFormsEditorService>();
+            var descriptorContext= mockRepository.StrictMock<ITypeDescriptorContext>();
+            serviceProvider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
+            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
+            service.Expect(s => s.CloseDropDown()).IgnoreArguments();
+            descriptorContext.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
             mockRepository.ReplayAll();
 
             var someValue = new object();
 
             // Call
-            object result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
+            object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
             Assert.AreSame(dikeProfile, result);

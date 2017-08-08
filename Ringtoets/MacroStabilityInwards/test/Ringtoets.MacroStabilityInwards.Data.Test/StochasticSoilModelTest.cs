@@ -86,16 +86,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var stochasticSoilModel = new StochasticSoilModel(expectedSegmentSoilModelName);
 
             var mockRepository = new MockRepository();
-            var stochasticSoilProfileProbabilityMock = mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
+            var stochasticSoilProfileProbability= mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
             mockRepository.ReplayAll();
 
             // Call
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfileProbabilityMock);
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfileProbability);
 
             // Assert
             Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.Name);
             Assert.AreEqual(1, stochasticSoilModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(stochasticSoilProfileProbability, stochasticSoilModel.StochasticSoilProfiles[0]);
             mockRepository.VerifyAll();
         }
 

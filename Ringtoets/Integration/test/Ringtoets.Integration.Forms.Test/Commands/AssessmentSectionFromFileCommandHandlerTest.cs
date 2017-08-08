@@ -49,12 +49,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IProjectOwner>();
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog= mockRepository.StrictMock<IProjectOwner>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(null, parentDialogMock, viewControllerMock);
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(null, parentDialog, viewController);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -67,12 +67,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog= mockRepository.StrictMock<IWin32Window>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, null, viewControllerMock);
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialog, null, viewController);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -85,12 +85,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
-            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var parentDialog= mockRepository.StrictMock<IWin32Window>();
+            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, null);
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -103,14 +103,14 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
-            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog= mockRepository.StrictMock<IWin32Window>();
+            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionFromFileCommandHandler>(assessmentSectionFromFileCommandHandler);
@@ -122,13 +122,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
-            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog= mockRepository.StrictMock<IWin32Window>();
+            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
 
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathToNonExistingFolder);
@@ -147,13 +147,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
-            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog= mockRepository.StrictMock<IWin32Window>();
+            var projectOwner= mockRepository.StrictMock<IProjectOwner>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
 
             string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
@@ -185,11 +185,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
@@ -216,12 +216,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
 
@@ -254,12 +254,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFile =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
@@ -299,11 +299,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
@@ -334,11 +334,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
@@ -374,12 +374,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
 
@@ -414,12 +414,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var project = new RingtoetsProject();
             var projectOwner= mockRepository.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController= mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
             string pathValidFolder = Path.Combine(testDataPath, "ShapeWithoutPoints");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
 

@@ -107,18 +107,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var mocksRepository = new MockRepository();
 
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder= mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;

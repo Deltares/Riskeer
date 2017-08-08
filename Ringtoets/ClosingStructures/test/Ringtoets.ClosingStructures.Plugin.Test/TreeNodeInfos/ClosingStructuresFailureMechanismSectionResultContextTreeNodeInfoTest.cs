@@ -120,9 +120,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             }, failureMechanism);
 
             var mockRepository = new MockRepository();
-            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            var menuBuilder= mockRepository.StrictMock<IContextMenuBuilder>();
+            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -130,7 +130,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 using (var treeViewControl = new TreeViewControl())
                 {
                     var gui = mockRepository.Stub<IGui>();
-                    gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilderMock);
+                    gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);
 
                     mockRepository.ReplayAll();
 

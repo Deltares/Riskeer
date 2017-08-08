@@ -243,7 +243,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observableMock = mockRepository.StrictMock<IObservable>();
+            var observable= mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -253,7 +253,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
@@ -275,8 +275,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable= mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
 
             mockRepository.ReplayAll();
 
@@ -286,7 +286,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                 value,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);

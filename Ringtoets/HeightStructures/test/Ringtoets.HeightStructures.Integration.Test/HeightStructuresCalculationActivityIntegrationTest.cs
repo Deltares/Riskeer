@@ -205,8 +205,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
@@ -235,7 +235,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
@@ -261,8 +261,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -296,7 +296,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 

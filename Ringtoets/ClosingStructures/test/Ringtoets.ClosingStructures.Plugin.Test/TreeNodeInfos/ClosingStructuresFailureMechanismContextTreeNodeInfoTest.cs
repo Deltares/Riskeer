@@ -200,29 +200,29 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder= mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -246,20 +246,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder= mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
@@ -365,15 +365,15 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
+            var viewCommands= mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
@@ -400,15 +400,15 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-            var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
+            var viewCommands= mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommandsMock.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 

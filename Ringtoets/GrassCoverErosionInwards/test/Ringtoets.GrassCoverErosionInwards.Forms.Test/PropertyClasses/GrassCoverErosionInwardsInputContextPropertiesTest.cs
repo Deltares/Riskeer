@@ -348,8 +348,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const int numberOfChangedProperties = 3;
             var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
             var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput
@@ -359,7 +359,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
-            inputContext.Attach(observerMock);
+            inputContext.Attach(observer);
 
             // Call
             properties.ShouldDikeHeightIllustrationPointsBeCalculated = true;

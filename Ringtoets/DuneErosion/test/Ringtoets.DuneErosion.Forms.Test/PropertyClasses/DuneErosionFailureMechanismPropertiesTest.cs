@@ -234,7 +234,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observableMock = mockRepository.StrictMock<IObservable>();
+            var observable= mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -243,7 +243,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 (RoundedDouble) newLengthEffect,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
@@ -265,8 +265,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable= mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
             mockRepository.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -275,7 +275,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 (RoundedDouble) newLengthEffect,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);

@@ -255,11 +255,11 @@ namespace Application.Ringtoets.Storage.Test
             string projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<RingtoetsProject>();
-            projectMock.Description = "<some description>";
+            var project= mockRepository.StrictMock<RingtoetsProject>();
+            project.Description = "<some description>";
 
             // Precondition
-            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, projectMock);
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, project);
 
             // Call
             IProject loadedProject = storage.LoadProject(tempRingtoetsFile);
@@ -267,7 +267,7 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             Assert.IsInstanceOf<RingtoetsProject>(loadedProject);
             Assert.AreEqual(projectName, loadedProject.Name);
-            Assert.AreEqual(projectMock.Description, loadedProject.Description);
+            Assert.AreEqual(project.Description, loadedProject.Description);
         }
 
         [Test]
@@ -509,17 +509,17 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<RingtoetsProject>();
+            var project= mockRepository.StrictMock<RingtoetsProject>();
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
             string tempRingtoetsFile = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
 
             // Precondition, required to set the connection string
-            storage.StageProject(projectMock);
+            storage.StageProject(project);
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
             Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
-            storage.StageProject(projectMock);
+            storage.StageProject(project);
 
             // Call
             bool hasChanges = storage.HasStagedProjectChanges(tempRingtoetsFile);

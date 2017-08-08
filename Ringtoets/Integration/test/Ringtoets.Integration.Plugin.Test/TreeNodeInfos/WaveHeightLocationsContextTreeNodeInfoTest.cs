@@ -129,15 +129,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
-            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+            var menuBuilder= mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
             {
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
             var nodeData = new WaveHeightLocationsContext(assessmentSection);
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())

@@ -404,7 +404,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService= mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             var observer = mockRepository.StrictMock<IObserver>();
 
@@ -415,7 +415,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ICalculationMessageProvider messageProvider = null;
             HydraulicBoundaryLocation[] calculatedLocations = null;
-            guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, 1, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]).ToArray();
@@ -433,7 +433,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             locations.Attach(observer);
 
-            view.CalculationGuiService = guiServiceMock;
+            view.CalculationGuiService = guiService;
             view.FailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 10

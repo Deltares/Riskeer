@@ -271,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var observableMock = mockRepository.StrictMock<IObservable>();
+            var observable= mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -280,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 newLengthEffect,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(
@@ -303,8 +303,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void LengthEffect_SetValidValue_UpdateDataAndNotifyObservers(int newLengthEffect)
         {
             // Setup
-            var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
+            var observable= mockRepository.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
@@ -316,7 +316,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 newLengthEffect,
                 new[]
                 {
-                    observableMock
+                    observable
                 });
 
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties(

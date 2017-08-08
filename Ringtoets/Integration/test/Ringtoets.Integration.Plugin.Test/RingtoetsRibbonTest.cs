@@ -52,13 +52,13 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var commandMock = mockRepository.StrictMock<ICommand>();
-            commandMock.Expect(c => c.Execute());
+            var command= mockRepository.StrictMock<ICommand>();
+            command.Expect(c => c.Execute());
             mockRepository.ReplayAll();
 
             var ribbon = new RingtoetsRibbon
             {
-                AddAssessmentSectionButtonCommand = commandMock
+                AddAssessmentSectionButtonCommand = command
             };
 
             var addAssessmentSectionButton = ribbon.GetRibbonControl().FindName("AddAssessmentSectionButton") as Button;

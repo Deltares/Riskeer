@@ -125,7 +125,7 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporterMock = mockRepository.StrictMock<IFileExporter>();
+            var exporter= mockRepository.StrictMock<IFileExporter>();
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -139,7 +139,7 @@ namespace Core.Common.Gui.Test.Commands
                 new ExportInfo<int>
                 {
                     FileFilterGenerator = new FileFilterGenerator(),
-                    CreateFileExporter = (o, s) => exporterMock
+                    CreateFileExporter = (o, s) => exporter
                 }
             });
 
@@ -157,9 +157,9 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporterMock = mockRepository.StrictMock<IFileExporter>();
+            var exporter= mockRepository.StrictMock<IFileExporter>();
 
-            exporterMock.Stub(e => e.Export()).Return(true);
+            exporter.Stub(e => e.Export()).Return(true);
 
             mockRepository.ReplayAll();
 
@@ -183,7 +183,7 @@ namespace Core.Common.Gui.Test.Commands
                     {
                         Assert.AreEqual(expectedData, data);
                         Assert.AreEqual(targetExportFileName, filePath);
-                        return exporterMock;
+                        return exporter;
                     }
                 }
             });
@@ -207,9 +207,9 @@ namespace Core.Common.Gui.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporterMock = mockRepository.StrictMock<IFileExporter>();
+            var exporter= mockRepository.StrictMock<IFileExporter>();
 
-            exporterMock.Stub(e => e.Export()).Return(false);
+            exporter.Stub(e => e.Export()).Return(false);
 
             mockRepository.ReplayAll();
 
@@ -227,7 +227,7 @@ namespace Core.Common.Gui.Test.Commands
                 {
                     Name = exportInfoName,
                     FileFilterGenerator = new FileFilterGenerator(),
-                    CreateFileExporter = (data, filePath) => exporterMock
+                    CreateFileExporter = (data, filePath) => exporter
                 }
             });
 

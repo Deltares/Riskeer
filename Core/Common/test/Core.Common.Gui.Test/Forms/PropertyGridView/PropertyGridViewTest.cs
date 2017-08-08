@@ -104,12 +104,12 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var dataObject = new object();
 
             var mockRepository = new MockRepository();
-            var propertyResolverMock = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolverMock.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
-            propertyResolverMock.Expect(prs => prs.GetObjectProperties(null)).Return(null);
+            var propertyResolver= mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
+            propertyResolver.Expect(prs => prs.GetObjectProperties(null)).Return(null);
             mockRepository.ReplayAll();
 
-            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverMock))
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
                 propertyGridView.Data = dataObject;
 
@@ -132,11 +132,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var dataObject = new object();
 
             var mockRepository = new MockRepository();
-            var propertyResolverMock = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolverMock.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
+            var propertyResolver= mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(null);
             mockRepository.ReplayAll();
 
-            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverMock))
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
                 propertyGridView.Data = dataObject;
 
@@ -163,11 +163,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var objectProperties= mockRepository.Stub<IObjectProperties>();
             objectProperties.Data = observerable;
 
-            var propertyResolverMock = mockRepository.StrictMock<IPropertyResolver>();
-            propertyResolverMock.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
+            var propertyResolver= mockRepository.StrictMock<IPropertyResolver>();
+            propertyResolver.Expect(prs => prs.GetObjectProperties(dataObject)).Return(new DynamicPropertyBag(objectProperties));
             mockRepository.ReplayAll();
 
-            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolverMock))
+            using (var propertyGridView = new TestGuiPropertyGridView(propertyResolver))
             {
                 // When
                 propertyGridView.Data = dataObject;

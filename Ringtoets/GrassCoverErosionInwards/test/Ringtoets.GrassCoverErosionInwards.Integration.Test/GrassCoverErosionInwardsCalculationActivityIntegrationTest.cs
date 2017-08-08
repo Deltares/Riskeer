@@ -404,8 +404,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculator = new TestOvertoppingCalculator
             {
@@ -429,7 +429,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -451,8 +451,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
@@ -471,7 +471,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -831,8 +831,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -858,7 +858,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -883,8 +883,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
@@ -905,7 +905,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -1266,8 +1266,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1293,7 +1293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
@@ -1318,8 +1318,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observer= mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(new TestOvertoppingCalculator());
@@ -1340,7 +1340,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            calculation.Attach(observerMock);
+            calculation.Attach(observer);
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 

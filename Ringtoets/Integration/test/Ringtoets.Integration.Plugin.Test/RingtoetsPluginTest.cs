@@ -563,18 +563,18 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindowMock = mockRepository.StrictMock<IMainWindow>();
-            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Expect(g => g.MainWindow).Return(mainWindowMock).Repeat.AtLeastOnce();
-            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var mainWindow= mockRepository.StrictMock<IMainWindow>();
+            var documentViewController= mockRepository.StrictMock<IDocumentViewController>();
+            var gui= mockRepository.StrictMock<IGui>();
+            gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.AtLeastOnce();
+            gui.Expect(g => g.DocumentViewController).Return(documentViewController);
+            gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mockRepository.ReplayAll();
 
             using (var plugin = new RingtoetsPlugin())
             {
-                plugin.Gui = guiMock;
+                plugin.Gui = gui;
 
                 // Call
                 plugin.Activate();

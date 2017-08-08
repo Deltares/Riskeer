@@ -98,9 +98,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
+            var observer= mockRepository.StrictMock<IObserver>();
             const int numberOfChangedProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var input = new WaveConditionsInput();
@@ -109,7 +109,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 Data = input
             };
 
-            input.Attach(observerMock);
+            input.Attach(observer);
 
             // Call
             properties.UseForeshore = false;
