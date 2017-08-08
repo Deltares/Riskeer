@@ -102,11 +102,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
-            var expectedFaultTreeIllustrationPointProperties = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
-            {
-                "closing situation"
-            });
-
             Assert.AreEqual(ProbabilityFormattingHelper.Format(requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), properties.Probability);
@@ -135,13 +130,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
             Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
 
-            foreach (TopLevelFaultTreeIllustrationPointProperties topLevelFaultTreeIllustrationPointProperties in properties.IllustrationPoints)
-            {
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.WindDirection, topLevelFaultTreeIllustrationPointProperties.WindDirection);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.Reliability, topLevelFaultTreeIllustrationPointProperties.Reliability);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.CalculatedProbability, expectedFaultTreeIllustrationPointProperties.CalculatedProbability);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.ClosingSituation, topLevelFaultTreeIllustrationPointProperties.ClosingSituation);
-            }
+            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
+        }
+
+
+        [Test]
+        public void IllustrationPoints_HasGeneralResultFalse_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
+        {
+            // Setup
+            var structuresOutput = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+            var properties = new StructuresOutputProperties(structuresOutput);
+
+            // Call
+            TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
+
+            // Assert
+            Assert.IsEmpty(illustrationPoints);
+
         }
 
         [Test]

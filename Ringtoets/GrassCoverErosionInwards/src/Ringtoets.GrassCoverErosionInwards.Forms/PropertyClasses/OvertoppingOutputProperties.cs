@@ -144,41 +144,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_GoverningWindDirection_Description))]
         public string WindDirection
         {
             get
             {
-                return data.GeneralResult.GoverningWindDirection.Name;
+                return data.GeneralResult?.GoverningWindDirection.Name;
             }
         }
 
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
         public Stochast[] AlphaValues
         {
             get
             {
-                return data.GeneralResult.Stochasts.ToArray();
+                return data.GeneralResult?.Stochasts.ToArray();
             }
         }
 
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_Durations_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
         public Stochast[] Durations
         {
             get
             {
-                return data.GeneralResult.Stochasts.ToArray();
+                return data.GeneralResult?.Stochasts.ToArray();
             }
         }
 
@@ -188,15 +188,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(TopLevelFaultTreeIllustrationPointProperties.WindDirection), "")]
         public TopLevelFaultTreeIllustrationPointProperties[] IllustrationPoints
         {
             get
             {
-                IEnumerable<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
-                                                                                                                       topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
+                if (!data.HasGeneralResult)
+                {
+                    return new TopLevelFaultTreeIllustrationPointProperties[0];
+                }
 
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations)).ToArray();
+                IEnumerable<string> listOfClosingSituations = data.GeneralResult
+                                                                  .TopLevelIllustrationPoints
+                                                                  .Select(point => point.ClosingSituation);
+
+                return data.GeneralResult
+                           .TopLevelIllustrationPoints
+                           .Select(point =>
+                                       new TopLevelFaultTreeIllustrationPointProperties(
+                                           point, listOfClosingSituations)).ToArray();
             }
         }
 

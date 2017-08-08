@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// A simple sub mechanism illustration point that can be used for testing.
+    /// A simple fault tree illustration point that can be used for testing.
     /// </summary>
     public class TestFaultTreeIllustrationPoint : FaultTreeIllustrationPoint
     {

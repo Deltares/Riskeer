@@ -57,8 +57,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_GoverningWindDirection_Description))]
         public string WindDirection
         {
             get
@@ -69,8 +69,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
         public Stochast[] AlphaValues
@@ -83,8 +83,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints), 2, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
         public Stochast[] Durations
@@ -104,10 +104,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                List<string> listOfClosingSituations = data.GeneralResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
-                                                                                                                topLevelFaultTreeIllustrationPoint.ClosingSituation).ToList();
+                if (!data.HasGeneralResult)
+                {
+                    return new TopLevelFaultTreeIllustrationPointProperties[0];
+                }
 
-                return data.GeneralResult.TopLevelIllustrationPoints.Select(point => new TopLevelFaultTreeIllustrationPointProperties(point, listOfClosingSituations)).ToArray();
+                IEnumerable<string> listOfClosingSituations = data.GeneralResult
+                                                                  .TopLevelIllustrationPoints
+                                                                  .Select(point => point.ClosingSituation);
+
+                return data.GeneralResult
+                           .TopLevelIllustrationPoints
+                           .Select(point =>
+                                       new TopLevelFaultTreeIllustrationPointProperties(
+                                           point, listOfClosingSituations)).ToArray();
             }
         }
 

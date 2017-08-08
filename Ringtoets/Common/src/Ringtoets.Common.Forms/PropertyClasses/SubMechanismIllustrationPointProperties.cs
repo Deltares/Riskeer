@@ -61,8 +61,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Alpha))]
         public SubMechanismIllustrationPointStochast[] AlphaValues
@@ -75,8 +75,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Durations_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Duration))]
         public SubMechanismIllustrationPointStochast[] Durations

@@ -999,28 +999,22 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Categories_IllustrationPoints" xml:space="preserve">
     <value>Illustratiepunten</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Durations_Description" xml:space="preserve">
+  <data name="IllustrationPoint_Durations_Description" xml:space="preserve">
     <value>Tijdsduren waarop de stochasten betrekking hebben.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Durations_DisplayName" xml:space="preserve">
+  <data name="IllustrationPoint_Durations_DisplayName" xml:space="preserve">
     <value>Tijdsduren [min]</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_GoverningWindDirection_Description" xml:space="preserve">
+  <data name="IllustrationPoint_GoverningWindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName" xml:space="preserve">
+  <data name="IllustrationPoint_GoverningWindDirection_DisplayName" xml:space="preserve">
     <value>Maatgevende windrichting</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_IllustrationPoints_Description" xml:space="preserve">
-    <value>De lijst van illustratiepunten voor de berekening.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_IllustrationPoints_DisplayName" xml:space="preserve">
-    <value>Illustratiepunten</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_AlphaValues_Description" xml:space="preserve">
+  <data name="IllustrationPoint_AlphaValues_Description" xml:space="preserve">
     <value>Berekende invloedscoëfficiënten voor alle beschouwde stochasten.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_AlphaValues_DisplayName" xml:space="preserve">
+  <data name="IllustrationPoint_AlphaValues_DisplayName" xml:space="preserve">
     <value>Alfa's [-]</value>
   </data>
   <data name="IllustrationPoint_ClosingSituation_Description" xml:space="preserve">

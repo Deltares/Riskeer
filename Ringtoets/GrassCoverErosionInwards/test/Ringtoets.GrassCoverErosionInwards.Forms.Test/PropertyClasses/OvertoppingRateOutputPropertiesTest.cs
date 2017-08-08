@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
+        public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
             var random = new Random();
@@ -94,10 +94,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
 
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var expectedFaultTreeIllustrationPointProperties = new TopLevelFaultTreeIllustrationPointProperties(generalResult.TopLevelIllustrationPoints.First(), new[]
-            {
-                "closing situation"
-            });
 
             var overtoppingRateOutput = new OvertoppingRateOutput(overtoppingRate,
                                                                   overtoppingRateTargetProbability,
@@ -151,13 +147,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             int nrOfExpectedTopLevelIllustrationPoints = generalResult.TopLevelIllustrationPoints.Count();
             Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
 
-            foreach (TopLevelFaultTreeIllustrationPointProperties topLevelFaultTreeIllustrationPointProperties in properties.IllustrationPoints)
-            {
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.WindDirection, topLevelFaultTreeIllustrationPointProperties.WindDirection);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.Reliability, topLevelFaultTreeIllustrationPointProperties.Reliability);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.CalculatedProbability, expectedFaultTreeIllustrationPointProperties.CalculatedProbability);
-                Assert.AreEqual(expectedFaultTreeIllustrationPointProperties.ClosingSituation, topLevelFaultTreeIllustrationPointProperties.ClosingSituation);
-            }
+            CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
+        }
+
+        [Test]
+        public void IllustrationPoints_HasGeneralResultFalse_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
+        {
+            // Setup
+            var overtoppingRateOutput = new TestOvertoppingRateOutput(0.5);
+            var properties = new OvertoppingRateOutputProperties(overtoppingRateOutput);
+
+            // Call
+            TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
+
+            // Assert
+            Assert.IsEmpty(illustrationPoints);
+
         }
 
         [Test]

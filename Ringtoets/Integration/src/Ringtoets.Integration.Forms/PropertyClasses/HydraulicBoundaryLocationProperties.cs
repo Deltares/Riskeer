@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -146,8 +147,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_GoverningWindDirection_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_GoverningWindDirection_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_GoverningWindDirection_Description))]
         public string GoverningWindDirection
         {
             get
@@ -159,8 +160,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_AlphaValues_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_AlphaValues_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Alpha))]
         public Stochast[] AlphaValues
@@ -174,8 +175,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Durations_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_Durations_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(Stochast.Name), nameof(Stochast.Duration))]
         public Stochast[] Durations
@@ -189,8 +190,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_IllustrationPoints_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public IEnumerable<TopLevelSubMechanismIllustrationPointProperties> IllustrationPoints
         {
