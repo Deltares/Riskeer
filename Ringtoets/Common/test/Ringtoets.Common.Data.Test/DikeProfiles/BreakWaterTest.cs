@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
@@ -39,6 +41,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             var breakWater = new BreakWater(type, height);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(breakWater);
             Assert.AreEqual(type, breakWater.Type);
             Assert.AreEqual(height, breakWater.Height, 1e-6);
             Assert.AreEqual(2, breakWater.Height.NumberOfDecimalPlaces);
@@ -225,6 +228,22 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var breakWater = new BreakWater(random.NextEnumValue<BreakWaterType>(), random.NextDouble());
+
+            // Call
+            object clone = breakWater.Clone();
+
+            // Assert
+            Assert.AreNotSame(breakWater, clone);
+            Assert.IsInstanceOf<BreakWater>(clone);
+            Assert.AreEqual(breakWater, (BreakWater) clone);
         }
     }
 }

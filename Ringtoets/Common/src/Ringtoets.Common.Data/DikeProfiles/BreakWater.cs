@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.DikeProfiles
@@ -26,7 +27,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Container for break water related data.
     /// </summary>
-    public class BreakWater
+    public class BreakWater : ICloneable
     {
         private RoundedDouble height;
 
@@ -85,6 +86,11 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 int hashCode = height.GetHashCode();
                 return (hashCode * 397) ^ (int) Type;
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         private bool Equals(BreakWater other)

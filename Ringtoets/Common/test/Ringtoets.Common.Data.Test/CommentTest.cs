@@ -39,18 +39,24 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
-        public void Clone_ReturnExpectedClone()
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var comment = new Comment();
+            const string body = "Random body";
+            var comment = new Comment
+            {
+                Body = body
+            };
 
             // Call
-            var clone = comment.Clone() as Comment;
+            object clone = comment.Clone();
 
             // Assert
-            Assert.IsNotNull(clone);
             Assert.AreNotSame(comment, clone);
-            Assert.AreEqual(comment.Body, clone.Body);
+            Assert.IsInstanceOf<Comment>(clone);
+
+            var clonedComment = (Comment) clone;
+            Assert.AreEqual(body, clonedComment.Body);
         }
     }
 }

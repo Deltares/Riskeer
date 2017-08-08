@@ -22,7 +22,6 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probability;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -45,10 +44,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
         /// </summary>
-        public GrassCoverErosionInwardsInput InputParameters { get; private set; }
+        public GrassCoverErosionInwardsInput InputParameters { get; }
 
         /// <summary>
-        /// Gets or sets <see cref="ProbabilityAssessmentOutput"/>, which contains the results of a probabilistic calculation.
+        /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a probabilistic calculation.
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 

@@ -140,11 +140,6 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -159,7 +154,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 return false;
             }
-            return Equals((LogNormalDistribution)obj);
+            return Equals((LogNormalDistribution) obj);
         }
 
         public override int GetHashCode()
@@ -171,6 +166,11 @@ namespace Ringtoets.Common.Data.Probabilistics
                 hashCode = (hashCode * 397) ^ Shift.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         private bool Equals(LogNormalDistribution other)
