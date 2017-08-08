@@ -376,6 +376,59 @@ namespace Core.Common.Geometry.Test
             }, points);
         }
 
+        [Test]
+        public void CompleteLineToPolygon_WithoutLine_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => AdvancedMath2D.CompleteLineToPolygon(null, double.NaN).ToArray();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("line", exception.ParamName);
+        }
+
+        [Test]
+        public void CompleteLineToPolygon_LineWithLessThanTwoPoints_ThrowsArgumentNullException([Range(0,1)] int pointCount)
+        {
+            // Setup
+            IEnumerable<Point2D> points = Enumerable.Repeat(new Point2D(3, 2), pointCount);
+
+            // Call
+            TestDelegate test = () => AdvancedMath2D.CompleteLineToPolygon(points, double.NaN).ToArray();
+
+            // Assert
+            const string message = "The line needs to have at least two points to be able to create a complete polygon.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.AreEqual("line", exception.ParamName);
+        }
+
+
+        [Test]
+        [TestCase(3)]
+        [TestCase(0)]
+        [TestCase(-9)]
+        [TestCase(double.NaN)]
+        public void CompleteLineToPolygon_LineWithTwoPoints_TwoPointsAtBottomLevelAdded(double completingPointsLevel)
+        {
+            // Setup
+            var random = new Random(21);
+            int firstPointX = random.Next();
+            int lastPointX = random.Next();
+            var points = new []
+            {
+                new Point2D(firstPointX, random.Next()), 
+                new Point2D(random.Next(), random.Next()), 
+                new Point2D(lastPointX, random.Next()), 
+            };
+            
+            // Call
+            Point2D[] pointsOfPolygon = AdvancedMath2D.CompleteLineToPolygon(points, completingPointsLevel).ToArray();
+
+            // Assert
+            Assert.AreEqual(new Point2D(lastPointX, completingPointsLevel), pointsOfPolygon.ElementAt(3));
+            Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon.ElementAt(4));
+        }
+
         private static double[] ThreeRandomXCoordinates()
         {
             var random = new Random(21);

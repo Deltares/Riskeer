@@ -277,14 +277,10 @@ namespace Ringtoets.Piping.Forms.Factories
 
             double topLevel = soilLayer.Top;
             double bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
-            double surfaceLineLowestPointY = surfaceLineAsPolygon.Select(p => p.Y).Min();
 
-            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY, bottomLevel) - 1;
+            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineAsPolygon.Select(p => p.Y).Min(), bottomLevel) - 1;
 
-            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.Last().X, closingSurfaceLineToPolygonBottomLevel));
-            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.First().X, closingSurfaceLineToPolygonBottomLevel));
-
-            return surfaceLineAsPolygon.ToArray();
+            return AdvancedMath2D.CompleteLineToPolygon(surfaceLineLocalGeometry, closingSurfaceLineToPolygonBottomLevel).ToArray();
         }
 
         private static Point2D[] CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)

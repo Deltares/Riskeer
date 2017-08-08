@@ -59,6 +59,38 @@ namespace Core.Common.Geometry
         }
 
         /// <summary>
+        /// Completes a line shape so that it becomes a polygon by adding two bottom points to the shape.
+        /// The location of the bottom points are determined by the <paramref name="line"/>'s first and 
+        /// last points' x-coordinate and by <paramref name="completingPointsLevel"/> for the y-coordinate.
+        /// </summary>
+        /// <param name="line">The line to complete.</param>
+        /// <param name="completingPointsLevel">The level at which to place the points completing the polygon.</param>
+        /// <returns>A new collection of <see cref="Point2D"/>, with the line's point and
+        /// the two new bottom points.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="line"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="line"/> contains
+        /// less than 2 points.</exception>
+        public static IEnumerable<Point2D> CompleteLineToPolygon(IEnumerable<Point2D> line, double completingPointsLevel)
+        {
+            if (line == null)
+            {
+                throw new ArgumentNullException(nameof(line));
+            }
+            if (line.Count() < 2)
+            {
+                throw new ArgumentException(@"The line needs to have at least two points to be able to create a complete polygon.", nameof(line));
+            }
+
+            foreach (Point2D point in line)
+            {
+                yield return point;
+            }
+            yield return new Point2D(line.Last().X, completingPointsLevel);
+            yield return new Point2D(line.First().X, completingPointsLevel);
+        }
+
+        /// <summary>
         /// Transforms X coordinates in a 2D X, Y plane using:
         /// - A reference point as starting point of the line.
         /// - An offset at which the reference coincides with the X axis.

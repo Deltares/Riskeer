@@ -54,10 +54,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             Point2D[] localizedSurfaceLine = surfaceLine.LocalGeometry.ToArray();
 
-            IEnumerable<Point2D> surfaceLineGeometry = CreateSurfaceLineAreaToDepth(localizedSurfaceLine, soilProfile.Bottom);
+            double geometryBottom = Math.Min(soilProfile.Bottom, localizedSurfaceLine.Min(p => p.Y)) - 1;
+            IEnumerable<Point2D> surfaceLineGeometry = AdvancedMath2D.CompleteLineToPolygon(localizedSurfaceLine, geometryBottom);
             IEnumerable<TempSoilLayerGeometry> layerGeometries = soilProfile.Layers.Select(
                 layer => As2DGeometry(
-                    layer, 
+                    layer,
                     soilProfile,
                     localizedSurfaceLine.First().X,
                     localizedSurfaceLine.Last().X));
@@ -81,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             IEnumerable<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
                 layer => new SoilLayerUnderSurfaceLine(
-                    RingToPoints(layer.OuterRing), 
-                    layer.Holes.Select(RingToPoints), 
+                    RingToPoints(layer.OuterRing),
+                    layer.Holes.Select(RingToPoints),
                     layer.Properties));
 
             return new SoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
@@ -101,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             foreach (TempSoilLayerGeometry layer in layerGeometries)
             {
-                foreach (Point2D[] soilLayerArea in CreateSoilLayerAreas(surfaceLineGeometryArray, layer.OuterLoop))
+                foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
                     collection.Add(new SoilLayerUnderSurfaceLine(soilLayerArea, layer.Properties));
                 }
@@ -122,22 +123,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 new Point2D(maxX, bottom),
                 new Point2D(minX, bottom)
             }, layer.Properties);
-        }
-
-        private static IEnumerable<Point2D> CreateSurfaceLineAreaToDepth(Point2D[] localizedSurfaceLine, double soilProfileBottom)
-        {
-            foreach (Point2D point in localizedSurfaceLine)
-            {
-                yield return point;
-            }
-            double geometryBottom = Math.Min(soilProfileBottom, localizedSurfaceLine.Min(p => p.Y)) - 1;
-            yield return new Point2D(localizedSurfaceLine.Last().X, geometryBottom);
-            yield return new Point2D(localizedSurfaceLine.First().X, geometryBottom);
-        }
-
-        private static IEnumerable<Point2D[]> CreateSoilLayerAreas(IEnumerable<Point2D> surfaceLineGeometry, IEnumerable<Point2D> soilLayerGeometry)
-        {
-            return GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometry, soilLayerGeometry);
         }
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(IEnumerable<Point2D> surfaceLineGeometry, IEnumerable<Point2D> soilLayerGeometry)
