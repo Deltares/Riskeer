@@ -28,7 +28,7 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -40,11 +40,48 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// value of the <see cref="FailureMechanismContribution"/> of an <see cref="IAssessmentSection"/>
     /// and clearing all data dependent on the original norm value.
     /// </summary>
-    public class FailureMechanismContributionNormChangeHandler : IFailureMechanismContributionNormChangeHandler
+    public class FailureMechanismContributionNormChangeHandler : IObservablePropertyChangeHandler
     {
+        private readonly IAssessmentSection assessmentSection;
         private readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismContributionNormChangeHandler));
 
-        public bool ConfirmNormChange()
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismContributionNormChangeHandler"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessmentSection to change the contribution norm for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public FailureMechanismContributionNormChangeHandler(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+            this.assessmentSection = assessmentSection;
+        }
+
+        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation(SetObservablePropertyValueDelegate setValue)
+        {
+            if (setValue == null)
+            {
+                throw new ArgumentNullException(nameof(setValue));
+            }
+
+            var affectedObjects = new List<IObservable>();
+
+            if (ConfirmPropertyChange())
+            {
+                setValue();
+
+                affectedObjects.AddRange(ClearAllNormDependentCalculationOutput());
+                affectedObjects.Add(assessmentSection.FailureMechanismContribution);
+                affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
+            }
+
+            return affectedObjects;
+        }
+
+        private static bool ConfirmPropertyChange()
         {
             DialogResult result = MessageBox.Show(Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
@@ -52,26 +89,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> ChangeNorm(IAssessmentSection assessmentSection, double newNormValue)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            var changedObjects = new List<IObservable>();
-            if (!assessmentSection.FailureMechanismContribution.Norm.Equals(newNormValue))
-            {
-                assessmentSection.FailureMechanismContribution.Norm = newNormValue;
-
-                changedObjects.AddRange(ClearAllNormDependentCalculationOutput(assessmentSection));
-                changedObjects.Add(assessmentSection.FailureMechanismContribution);
-                changedObjects.AddRange(assessmentSection.GetFailureMechanisms());
-            }
-            return changedObjects;
-        }
-
-        private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput(IAssessmentSection assessmentSection)
+        private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput()
         {
             List<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
             if (affectedObjects.Count > 0)
@@ -82,12 +100,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationOutput(assessmentSection));
+                affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationOutput());
             }
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
+        private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationOutput()
         {
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
                 assessmentSection.HydraulicBoundaryDatabase, assessmentSection);

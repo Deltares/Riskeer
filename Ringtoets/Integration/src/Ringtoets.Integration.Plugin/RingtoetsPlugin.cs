@@ -297,7 +297,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new FailureMechanismContributionProperties(
                     context.WrappedData,
                     context.Parent,
-                    new FailureMechanismContributionNormChangeHandler(),
+                    new FailureMechanismContributionNormChangeHandler(context.Parent),
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();

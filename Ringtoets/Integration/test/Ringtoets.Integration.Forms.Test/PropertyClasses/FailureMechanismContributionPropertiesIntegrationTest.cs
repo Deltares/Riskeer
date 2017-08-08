@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
@@ -338,7 +338,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
@@ -437,7 +437,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
@@ -513,7 +513,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition
@@ -561,7 +561,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new FailureMechanismContributionProperties(
                 failureMechanismContribution,
                 assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(),
+                new FailureMechanismContributionNormChangeHandler(assessmentSection),
                 new AssessmentSectionCompositionChangeHandler(viewCommands));
 
             // Precondition

@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
     /// <summary>
     /// Interface for an object that can properly handle data model changes due
-    /// to a change of a calculation input property.
+    /// to a change of an observable property.
     /// </summary>
     public interface IObservablePropertyChangeHandler
     {
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// the confirmation is obtained, after which the property is set if confirmation is given. If no confirmation
         /// was required, the value will be set for the property.
         /// </summary>
-        /// <returns>All objects that are affected by setting the calculation input property.</returns>
+        /// <returns>All objects that are affected by setting the property.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="setValue"/> is <c>null</c>.</exception>
         /// <exception cref="Exception">Thrown when calling <paramref name="setValue"/> results in an exception being
         /// thrown.</exception>

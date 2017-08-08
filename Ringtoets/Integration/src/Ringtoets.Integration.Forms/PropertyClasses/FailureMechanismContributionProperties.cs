@@ -23,12 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -39,8 +40,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismContributionProperties : ObjectProperties<FailureMechanismContribution>
     {
-        private static readonly Range<int> returnPeriodValidityRange = new Range<int>(100, 1000000);
-        private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
+        private readonly IObservablePropertyChangeHandler normChangeHandler;
         private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
         private readonly IAssessmentSection assessmentSection;
 
@@ -49,13 +49,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// </summary>
         /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> for which the properties are shown.</param>
         /// <param name="assessmentSection">The assessment section for which the <see cref="IAssessmentSection.FailureMechanismContribution"/> properties are shown.</param>
-        /// <param name="normChangeHandler">The <see cref="IFailureMechanismContributionNormChangeHandler"/> for when the norm changes.</param>
+        /// <param name="normChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the norm changes.</param>
         /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the composition changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismContributionProperties(
             FailureMechanismContribution failureMechanismContribution,
             IAssessmentSection assessmentSection,
-            IFailureMechanismContributionNormChangeHandler normChangeHandler,
+            IObservablePropertyChangeHandler normChangeHandler,
             IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
         {
             if (failureMechanismContribution == null)
@@ -117,22 +117,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
-                if (!returnPeriodValidityRange.InRange(value))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                                                          string.Format(Resources.FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_,
-                                                                        returnPeriodValidityRange));
-                }
+                double newNormValue = 1.0 / Convert.ToInt32(value);
 
-                if (value != 0 && normChangeHandler.ConfirmNormChange())
-                {
-                    double newNormValue = 1.0 / Convert.ToInt32(value);
-                    IEnumerable<IObservable> changedObjects = normChangeHandler.ChangeNorm(assessmentSection, newNormValue);
-                    foreach (IObservable changedObject in changedObjects)
-                    {
-                        changedObject.NotifyObservers();
-                    }
-                }
+                PropertyChangeHelper.ChangePropertyAndNotify(() => assessmentSection.FailureMechanismContribution.Norm = newNormValue, normChangeHandler);
             }
         }
     }
