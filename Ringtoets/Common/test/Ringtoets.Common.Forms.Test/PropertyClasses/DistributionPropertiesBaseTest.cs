@@ -218,7 +218,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newMeanValue = new RoundedDouble(3, 20);
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observerable
             });
@@ -273,7 +273,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var newStandardDeviationValue = new RoundedDouble(3, 20);
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observerable
             });

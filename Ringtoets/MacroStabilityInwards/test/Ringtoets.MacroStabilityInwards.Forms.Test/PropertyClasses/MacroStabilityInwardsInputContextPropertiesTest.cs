@@ -485,7 +485,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -525,7 +525,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -615,7 +615,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -707,7 +707,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
@@ -811,7 +811,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
@@ -865,7 +865,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1294,7 +1294,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1470,7 +1470,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });

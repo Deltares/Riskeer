@@ -849,7 +849,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             var newExitPointL = (RoundedDouble) newExitPoint;
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -895,7 +895,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -941,7 +941,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var entryPointL = (RoundedDouble) (-15.0);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -986,7 +986,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var exitPointL = (RoundedDouble) 10.0;
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1025,7 +1025,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1065,7 +1065,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1155,7 +1155,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1247,7 +1247,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new PipingInputContextProperties(context, handler);
 
@@ -1351,7 +1351,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new PipingInputContextProperties(context, handler);
 
@@ -1405,7 +1405,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -1877,7 +1877,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
@@ -2053,7 +2053,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism,
                                                  assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });

@@ -194,7 +194,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });

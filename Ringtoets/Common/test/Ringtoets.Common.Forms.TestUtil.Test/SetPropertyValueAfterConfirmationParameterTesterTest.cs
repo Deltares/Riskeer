@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
     [TestFixture]
-    public class CalculationInputSetPropertyValueAfterConfirmationParameterTesterTest
+    public class SetPropertyValueAfterConfirmationParameterTesterTest
     {
         [Test]
         public void Constructructed_Always_PropertiesSet()
@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
             // Call
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
+            var tester = new SetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
 
             // Assert
             Assert.IsInstanceOf<IObservablePropertyChangeHandler>(tester);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
             var called = 0;
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
+            var tester = new SetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
 
             // Call
             IEnumerable<IObservable> affectedObjects = tester.SetPropertyValueAfterConfirmation(() => called++);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             // Setup
             IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();
 
-            var tester = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
+            var tester = new SetPropertyValueAfterConfirmationParameterTester(returnedAffectedObjects);
 
             var expectedException = new Exception();
 

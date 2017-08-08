@@ -597,7 +597,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, calculation, new ForeshoreProfile[0], locations);
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new TestWaveConditionsInputContextProperties(inputContext, customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
@@ -658,7 +658,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                                                              new ForeshoreProfile[0],
                                                              new HydraulicBoundaryLocation[0]);
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });

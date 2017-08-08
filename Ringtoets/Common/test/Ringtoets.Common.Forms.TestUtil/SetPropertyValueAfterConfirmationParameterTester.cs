@@ -29,13 +29,13 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// This class can be used in tests to verify that the correct arguments 
     /// are passed to the <see cref="IObservablePropertyChangeHandler.SetPropertyValueAfterConfirmation"/> method.
     /// </summary>
-    public class CalculationInputSetPropertyValueAfterConfirmationParameterTester : IObservablePropertyChangeHandler
+    public class SetPropertyValueAfterConfirmationParameterTester : IObservablePropertyChangeHandler
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationInputSetPropertyValueAfterConfirmationParameterTester"/>.
+        /// Creates a new instance of <see cref="SetPropertyValueAfterConfirmationParameterTester"/>.
         /// </summary>
         /// <param name="returnedAffectedObjects">The affected object that are returned by <see cref="SetPropertyValueAfterConfirmation"/>.</param>
-        public CalculationInputSetPropertyValueAfterConfirmationParameterTester(IEnumerable<IObservable> returnedAffectedObjects)
+        public SetPropertyValueAfterConfirmationParameterTester(IEnumerable<IObservable> returnedAffectedObjects)
         {
             ReturnedAffectedObjects = returnedAffectedObjects;
         }

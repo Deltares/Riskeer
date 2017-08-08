@@ -319,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
                     observable
@@ -346,7 +346,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(
                 new[]
                 {
                     observable

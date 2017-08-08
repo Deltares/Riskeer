@@ -296,7 +296,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             var newStructure = new TestHeightStructure();
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
@@ -335,7 +335,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             input.ForeshoreProfile = new TestForeshoreProfile();
             input.Structure = new TestHeightStructure();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });

@@ -1453,7 +1453,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1482,7 +1482,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1509,7 +1509,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1541,7 +1541,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const int overflow = 1;
             string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1570,7 +1570,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1597,7 +1597,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call
@@ -1624,7 +1624,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         assessmentSection);
 
             var newStructure = new TestStabilityPointStructure();
-            var handler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
@@ -1811,7 +1811,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             input.ForeshoreProfile = new TestForeshoreProfile();
             input.Structure = new TestStabilityPointStructure();
 
-            var customHandler = new CalculationInputSetPropertyValueAfterConfirmationParameterTester(new[]
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
