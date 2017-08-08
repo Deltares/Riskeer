@@ -19,16 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.Data
 {
     /// <summary>
     /// This class represents a comment on some subject.
     /// </summary>
-    public class Comment
+    public class Comment : ICloneable
     {
         /// <summary>
         /// Gets or sets the comment body.
         /// </summary>
         public string Body { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

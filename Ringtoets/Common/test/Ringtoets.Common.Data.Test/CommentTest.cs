@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Data.Test
@@ -33,7 +34,23 @@ namespace Ringtoets.Common.Data.Test
             var comment = new Comment();
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(comment);
             Assert.IsNull(comment.Body);
+        }
+
+        [Test]
+        public void Clone_ReturnExpectedClone()
+        {
+            // Setup
+            var comment = new Comment();
+
+            // Call
+            var clone = comment.Clone() as Comment;
+
+            // Assert
+            Assert.IsNotNull(clone);
+            Assert.AreNotSame(comment, clone);
+            Assert.AreEqual(comment.Body, clone.Body);
         }
     }
 }
