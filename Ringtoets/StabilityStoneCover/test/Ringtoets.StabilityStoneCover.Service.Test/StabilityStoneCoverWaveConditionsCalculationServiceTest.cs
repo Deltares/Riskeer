@@ -314,14 +314,14 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(null,
-                                                                                                          assessmentSectionStub,
+                                                                                                          assessmentSection,
                                                                                                           failureMechanism.GeneralInput,
                                                                                                           validFilePath);
 
@@ -354,14 +354,14 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
 
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                          assessmentSectionStub,
+                                                                                                          assessmentSection,
                                                                                                           null,
                                                                                                           validFilePath);
 

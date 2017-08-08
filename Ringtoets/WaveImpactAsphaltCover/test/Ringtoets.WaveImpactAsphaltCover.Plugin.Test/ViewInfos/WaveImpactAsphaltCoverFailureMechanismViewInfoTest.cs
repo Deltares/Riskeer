@@ -67,11 +67,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void GetViewName_WithWaveImpactAsphaltCoverFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSectionStub);
+            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
             {

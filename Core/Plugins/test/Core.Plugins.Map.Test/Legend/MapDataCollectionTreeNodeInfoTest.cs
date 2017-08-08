@@ -297,7 +297,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(mapPointData);
 
-            var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
             importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
             var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
@@ -307,7 +307,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                var builder = new ContextMenuBuilder(applicationFeatureCommandsStub,
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                      importCommandHandlerMock,
                                                      exportCommandHandlerMock,
                                                      updateCommandHandlerMock,
@@ -360,7 +360,7 @@ namespace Core.Plugins.Map.Test.Legend
             var mapDataCollection = new MapDataCollection("test data");
             mapDataCollection.Add(pointData);
 
-            var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
             importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
             var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
@@ -369,7 +369,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommandsStub,
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                      importCommandHandlerMock,
                                                      exportCommandHandlerMock,
                                                      updateCommandHandlerMock,
@@ -432,7 +432,7 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(pointData);
             mapDataCollection.Add(lineData);
 
-            var applicationFeatureCommandsStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
             importCommandHandlerMock.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
             var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
@@ -441,7 +441,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var builder = new ContextMenuBuilder(applicationFeatureCommandsStub,
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
                                                      importCommandHandlerMock,
                                                      exportCommandHandlerMock,
                                                      updateCommandHandlerMock,

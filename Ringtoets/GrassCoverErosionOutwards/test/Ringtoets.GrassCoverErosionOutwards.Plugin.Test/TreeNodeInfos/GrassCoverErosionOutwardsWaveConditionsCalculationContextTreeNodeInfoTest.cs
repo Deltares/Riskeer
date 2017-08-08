@@ -880,7 +880,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -893,19 +893,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                          failureMechanism,
-                                                                                         assessmentSectionStub);
+                                                                                         assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var guiStub = mocks.Stub<IGui>();
-                guiStub.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                guiStub.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
-                plugin.Gui = guiStub;
+                plugin.Gui = gui;
 
                 TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
@@ -931,7 +931,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
             var calculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -946,7 +946,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                          failureMechanism,
-                                                                                         assessmentSectionStub);
+                                                                                         assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);

@@ -97,22 +97,22 @@ namespace Core.Common.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectThrowsStorageException_AbortSaveAndReturnFalse));
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var projectStub = mocks.Stub<IProject>();
+                var project = mocks.Stub<IProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
 
                 const string exceptionMessage = "<some descriptive exception message>";
 
                 var projectStorage = mocks.StrictMock<IStoreProject>();
                 projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
-                projectStorage.Expect(ps => ps.StageProject(projectStub));
-                projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath)).
-                               Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
+                projectStorage.Expect(ps => ps.StageProject(project));
+                projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath))
+                              .Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
                 var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
-                projectOwner.Stub(po => po.Project).Return(projectStub);
+                projectOwner.Stub(po => po.Project).Return(project);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -155,11 +155,11 @@ namespace Core.Common.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var projectStub = mocks.Stub<IProject>();
+                var project = mocks.Stub<IProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
 
                 var projectStorage = mocks.Stub<IStoreProject>();
-                projectStorage.Expect(ps => ps.StageProject(projectStub));
+                projectStorage.Expect(ps => ps.StageProject(project));
                 projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
                 projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath));
 
@@ -167,7 +167,7 @@ namespace Core.Common.Gui.Test.Commands
 
                 var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
-                projectOwner.Stub(po => po.Project).Return(projectStub);
+                projectOwner.Stub(po => po.Project).Return(project);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -840,21 +840,21 @@ namespace Core.Common.Gui.Test.Commands
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
-            var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            projectOwnerStub.Stub(po => po.Project).Return(project);
-            projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.ProjectFilePath).Return("");
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
-                                                                   $"Sla wijzigingen in het project op: {projectName}?")).
-                          Return(OptionalStepResult.Cancel);
+                                                                   $"Sla wijzigingen in het project op: {projectName}?"))
+                         .Return(OptionalStepResult.Cancel);
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
                 projectStorage,
                 projectMigrator,
                 projectFactory,
-                projectOwnerStub,
+                projectOwner,
                 inquiryHelper,
                 mainWindowController);
 
@@ -887,9 +887,9 @@ namespace Core.Common.Gui.Test.Commands
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
-            var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            projectOwnerStub.Stub(po => po.Project).Return(project);
-            projectOwnerStub.Stub(po => po.ProjectFilePath).Return("");
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.ProjectFilePath).Return("");
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
@@ -901,7 +901,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectStorage,
                 projectMigrator,
                 projectFactory,
-                projectOwnerStub,
+                projectOwner,
                 inquiryHelper,
                 mainWindowController);
 
@@ -938,9 +938,9 @@ namespace Core.Common.Gui.Test.Commands
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
-                var projectOwnerStub = mocks.Stub<IProjectOwner>();
-                projectOwnerStub.Stub(po => po.Project).Return(project);
-                projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+                var projectOwner = mocks.Stub<IProjectOwner>();
+                projectOwner.Stub(po => po.Project).Return(project);
+                projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
                 inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
@@ -952,7 +952,7 @@ namespace Core.Common.Gui.Test.Commands
                     projectStorage,
                     projectMigrator,
                     projectFactory,
-                    projectOwnerStub,
+                    projectOwner,
                     inquiryHelper,
                     mainWindowController);
 
@@ -996,10 +996,10 @@ namespace Core.Common.Gui.Test.Commands
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
-            var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            projectOwnerStub.Stub(po => po.Project).Return(project);
-            projectOwnerStub.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
-            projectOwnerStub.Expect(po => po.SetProject(project, someValidFilePath));
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
+            projectOwner.Expect(po => po.SetProject(project, someValidFilePath));
 
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
@@ -1013,7 +1013,7 @@ namespace Core.Common.Gui.Test.Commands
                 projectStorage,
                 projectMigrator,
                 projectFactory,
-                projectOwnerStub,
+                projectOwner,
                 inquiryHelper,
                 mainWindowController);
 

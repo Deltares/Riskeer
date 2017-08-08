@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -54,14 +54,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSectionStub);
+            var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsContext<MacroStabilityInwardsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.MacroStabilityInwardsCalculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailableMacroStabilityInwardsSurfaceLines);
             CollectionAssert.AreEqual(stochasticSoilModels, context.AvailableStochasticSoilModels);
             mocks.VerifyAll();
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculationInput = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSectionStub);
+            TestDelegate call = () => new MacroStabilityInwardsInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

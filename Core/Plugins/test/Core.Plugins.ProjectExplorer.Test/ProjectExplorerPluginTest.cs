@@ -74,23 +74,23 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
+            var gui = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
-            guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
+            gui.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.Project).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
             {
-                Gui = guiStub
+                Gui = gui
             })
             {
                 // Call
@@ -107,23 +107,23 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
+            var gui = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
-            guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
+            gui.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.Project).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
             {
-                Gui = guiStub
+                Gui = gui
             })
             {
                 plugin.Activate();
@@ -145,24 +145,24 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
+            var gui = mocks.Stub<IGui>();
             var viewHost = mocks.Stub<IViewHost>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
             viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
-            guiStub.Stub(g => g.ViewHost).Return(viewHost);
-            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Stub(g => g.Project).Return(mocks.Stub<IProject>());
+            gui.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.Project).Return(mocks.Stub<IProject>());
 
-            guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
             {
-                Gui = guiStub
+                Gui = gui
             })
             {
                 plugin.Activate();
@@ -224,20 +224,20 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
+            var gui = mocks.Stub<IGui>();
             var viewHost = mocks.StrictMock<IViewHost>();
             var initialProjectMock = mocks.Stub<IProject>();
             var newProjectMock = mocks.Stub<IProject>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.GetTreeNodeInfos()).Return(new[]
+            gui.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.GetTreeNodeInfos()).Return(new[]
             {
                 new TreeNodeInfo
                 {
                     TagType = typeof(IProject)
                 }
             });
-            guiStub.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Stub(g => g.ViewHost).Return(viewHost);
 
             // Activate
             var toolViews = new List<IView>();
@@ -248,16 +248,16 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Dispose
             viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Is.NotNull));
 
-            guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiStub.Expect(g => g.Project).Return(initialProjectMock);
-            guiStub.Expect(g => g.Project).Return(newProjectMock);
+            gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.Project).Return(initialProjectMock);
+            gui.Expect(g => g.Project).Return(newProjectMock);
 
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerPlugin
             {
-                Gui = guiStub
+                Gui = gui
             })
             {
                 plugin.Activate();
@@ -267,7 +267,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.AreSame(initialProjectMock, toolViews[0].Data);
 
                 // Call
-                guiStub.Raise(s => s.ProjectOpened += null, newProjectMock);
+                gui.Raise(s => s.ProjectOpened += null, newProjectMock);
 
                 // Assert
                 Assert.AreSame(newProjectMock, toolViews[0].Data);

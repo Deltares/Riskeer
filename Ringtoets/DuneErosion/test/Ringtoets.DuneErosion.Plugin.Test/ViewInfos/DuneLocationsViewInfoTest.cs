@@ -167,10 +167,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var windowsStub = mocks.Stub<IMainWindow>();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var window = mocks.Stub<IMainWindow>();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(gs => gs.MainWindow).Return(window);
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -178,9 +178,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var data = new DuneLocationsContext(
                 new ObservableList<DuneLocation>(),
                 failureMechanism,
-                assessmentSectionStub);
+                assessmentSection);
 
-            plugin.Gui = guiStub;
+            plugin.Gui = gui;
             plugin.Activate();
 
             using (var view = new DuneLocationsView())
@@ -189,7 +189,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 info.AfterCreate(view, data);
 
                 // Assert
-                Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
             }

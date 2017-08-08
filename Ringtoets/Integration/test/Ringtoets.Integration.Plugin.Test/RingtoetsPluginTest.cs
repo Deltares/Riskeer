@@ -460,18 +460,18 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             using (var plugin = new RingtoetsPlugin())
             {
                 // Call
-                IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSectionStub);
+                IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSection);
 
                 // Assert
                 CollectionAssert.AreEqual(new object[]
                 {
-                    assessmentSectionStub.FailureMechanismContribution
+                    assessmentSection.FailureMechanismContribution
                 }, childrenWithViewDefinitions);
             }
             mocks.VerifyAll();

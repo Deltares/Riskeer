@@ -330,13 +330,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
             var view = new GrassCoverErosionInwardsScenariosView();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSectionStub);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 
@@ -352,13 +352,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
             var view = new GrassCoverErosionInwardsScenariosView();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 

@@ -67,11 +67,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void GetViewName_WithStabilityStoneCoverFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSectionStub);
+            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
             using (var view = new StabilityStoneCoverFailureMechanismView())
             {

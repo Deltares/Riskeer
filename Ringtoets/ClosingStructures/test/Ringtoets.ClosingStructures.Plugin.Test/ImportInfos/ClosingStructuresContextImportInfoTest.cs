@@ -114,12 +114,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            assessmentSectionStub.ReferenceLine = new ReferenceLine();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -139,11 +139,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
+            var context = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -163,13 +163,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            assessmentSectionStub.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSectionStub);
+            var importTarget = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

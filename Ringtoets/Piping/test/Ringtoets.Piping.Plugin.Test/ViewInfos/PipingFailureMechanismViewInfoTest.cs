@@ -67,11 +67,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewName_WithPipingFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionStub);
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             using (var view = new PipingFailureMechanismView())
             {

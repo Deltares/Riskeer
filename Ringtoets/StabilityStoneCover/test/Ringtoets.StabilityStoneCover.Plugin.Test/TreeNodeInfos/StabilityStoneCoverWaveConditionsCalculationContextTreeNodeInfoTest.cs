@@ -898,7 +898,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
             var calculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -913,7 +913,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                    failureMechanism,
-                                                                                   assessmentSectionStub);
+                                                                                   assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);

@@ -422,10 +422,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
-                var mainWindowStub = mocks.Stub<IMainWindow>();
+                var mainWindow = mocks.Stub<IMainWindow>();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(g => g.MainWindow).Return(mainWindowStub);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 var observerMock = mocks.StrictMock<IObserver>();
                 observerMock.Expect(o => o.UpdateObserver());
 

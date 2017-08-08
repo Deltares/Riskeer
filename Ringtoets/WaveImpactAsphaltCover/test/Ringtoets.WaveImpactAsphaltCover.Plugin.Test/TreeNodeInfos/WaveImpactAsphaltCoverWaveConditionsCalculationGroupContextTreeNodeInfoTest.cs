@@ -1273,8 +1273,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
@@ -1285,7 +1285,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var observerMock = mocks.StrictMock<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                                failureMechanism,
-                                                                                               assessmentSectionStub);
+                                                                                               assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -1449,7 +1449,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -1468,7 +1468,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 },
                 failureMechanism,
-                assessmentSectionStub);
+                assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1499,7 +1499,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -1519,7 +1519,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 },
                 failureMechanism,
-                assessmentSectionStub);
+                assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);

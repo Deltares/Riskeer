@@ -181,7 +181,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var viewController = mocks.Stub<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
 
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -197,11 +197,11 @@ namespace Core.Plugins.ProjectExplorer.Test
                 controller.ToggleView();
 
                 // Call
-                controller.Update(projectStub);
+                controller.Update(project);
 
                 // Assert
                 Assert.AreEqual(1, toolViewList.Count);
-                Assert.AreSame(projectStub, toolViewList[0].Data);
+                Assert.AreSame(project, toolViewList[0].Data);
             }
             mocks.VerifyAll();
         }

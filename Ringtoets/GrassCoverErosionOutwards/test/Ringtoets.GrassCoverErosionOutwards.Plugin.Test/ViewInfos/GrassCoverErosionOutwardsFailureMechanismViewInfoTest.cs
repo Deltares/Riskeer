@@ -67,11 +67,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void GetViewName_WithGrassCoverErosionOutwardsFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(grassCoverErosionOutwardsFailureMechanism, assessmentSectionStub);
+            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(grassCoverErosionOutwardsFailureMechanism, assessmentSection);
 
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView())
             {

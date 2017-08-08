@@ -791,7 +791,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -804,7 +804,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
-                                                                   assessmentSectionStub);
+                                                                   assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
@@ -841,7 +841,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
             var calculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -856,7 +856,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
                                                                    failureMechanism,
-                                                                   assessmentSectionStub);
+                                                                   assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);

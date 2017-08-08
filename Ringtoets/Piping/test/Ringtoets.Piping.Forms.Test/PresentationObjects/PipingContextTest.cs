@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             PipingSurfaceLine[] surfaceLines =
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilModels, failureMechanism, assessmentSectionStub);
+            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                            "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                                 null,
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
-                                                                                assessmentSectionStub);
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 null,
                                                                                 new PipingFailureMechanism(),
-                                                                                assessmentSectionStub);
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 null,
-                                                                                assessmentSectionStub);
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

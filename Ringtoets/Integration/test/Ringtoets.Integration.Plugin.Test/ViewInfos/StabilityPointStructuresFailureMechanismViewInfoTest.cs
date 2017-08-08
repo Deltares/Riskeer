@@ -67,11 +67,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_WithTestFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>())
             {

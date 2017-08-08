@@ -428,7 +428,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
@@ -436,7 +436,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
                                                          updateHandler,
@@ -923,7 +923,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
@@ -931,7 +931,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
                                                          updateHandler,
@@ -1072,7 +1072,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandler = mocks.Stub<IImportCommandHandler>();
             var exportHandler = mocks.Stub<IExportCommandHandler>();
             var updateHandler = mocks.Stub<IUpdateCommandHandler>();
@@ -1080,7 +1080,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
                                                          updateHandler,
@@ -1126,7 +1126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.Stub<IImportCommandHandler>();
             var exportHandlerMock = mocks.Stub<IExportCommandHandler>();
             var updateHandlerMock = mocks.Stub<IUpdateCommandHandler>();
@@ -1134,7 +1134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                          importHandlerMock,
                                                          exportHandlerMock,
                                                          updateHandlerMock,
@@ -1351,11 +1351,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
@@ -1392,7 +1392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var mainWindowStub = mocks.Stub<IMainWindow>();
+            var mainWindow = mocks.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -1417,11 +1417,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
-            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+            var hydraulicBoundaryDatabase = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
@@ -1433,7 +1433,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mainWindowStub);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();

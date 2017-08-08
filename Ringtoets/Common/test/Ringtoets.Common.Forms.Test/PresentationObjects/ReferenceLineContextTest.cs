@@ -35,19 +35,19 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLine = new ReferenceLine();
 
-            assessmentSectionStub.ReferenceLine = referenceLine;
+            assessmentSection.ReferenceLine = referenceLine;
 
             // Call
-            var referenceLineContext = new ReferenceLineContext(assessmentSectionStub);
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(referenceLineContext);
-            Assert.AreSame(assessmentSectionStub, referenceLineContext.WrappedData);
+            Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);
             mocks.VerifyAll();
         }
     }

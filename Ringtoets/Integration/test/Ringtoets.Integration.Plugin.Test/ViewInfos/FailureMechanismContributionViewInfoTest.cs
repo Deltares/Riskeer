@@ -219,9 +219,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabaseOrFailureMechanisms(mocks);
             assessmentSectionStub.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
 
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
-                ringtoetsPlugin.Gui = guiStub;
+                ringtoetsPlugin.Gui = gui;
 
                 // Call
                 info.AfterCreate(view, context);

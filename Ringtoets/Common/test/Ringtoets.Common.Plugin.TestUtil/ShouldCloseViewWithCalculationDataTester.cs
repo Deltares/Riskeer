@@ -186,11 +186,11 @@ namespace Ringtoets.Common.Plugin.TestUtil
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             IFailureMechanism failureMechanism = GetFailureMechanismContextWithCalculation().WrappedData;
 
-            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = failureMechanism.Calculations.First();
 
                 // Call
-                bool closeForData = ShouldCloseMethod(view, assessmentSectionStub);
+                bool closeForData = ShouldCloseMethod(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -216,11 +216,11 @@ namespace Ringtoets.Common.Plugin.TestUtil
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             IFailureMechanism failureMechanism = GetFailureMechanismContextWithCalculation().WrappedData;
 
-            assessmentSectionStub.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
                 view.Data = GetCalculation();
 
                 // Call
-                bool closeForData = ShouldCloseMethod(view, assessmentSectionStub);
+                bool closeForData = ShouldCloseMethod(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);

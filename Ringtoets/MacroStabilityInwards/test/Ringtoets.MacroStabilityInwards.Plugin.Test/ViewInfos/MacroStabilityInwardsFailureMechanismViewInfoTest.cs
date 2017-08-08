@@ -67,11 +67,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewName_WithMacroStabilityInwardsFailureMechanism_ReturnsNameOfFailureMechanism()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSectionStub);
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsFailureMechanismView())
             {

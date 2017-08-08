@@ -38,14 +38,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionStub);
+            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -61,13 +61,13 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionStub);
+            TestDelegate call = () => new ClosingStructuresCalculationActivity(null, "", failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,14 +80,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionStub);
+            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,13 +100,13 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", null, assessmentSectionStub);
+            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

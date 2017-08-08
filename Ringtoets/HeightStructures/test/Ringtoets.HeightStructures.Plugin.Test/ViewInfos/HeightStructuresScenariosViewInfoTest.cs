@@ -351,12 +351,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var view = new HeightStructuresScenariosView();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 

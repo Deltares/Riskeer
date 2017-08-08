@@ -348,13 +348,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
             var view = new StabilityPointStructuresScenariosView();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 
@@ -370,13 +370,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
             var view = new StabilityPointStructuresScenariosView();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionStub);
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             view.Data = failureMechanism.CalculationsGroup;
 

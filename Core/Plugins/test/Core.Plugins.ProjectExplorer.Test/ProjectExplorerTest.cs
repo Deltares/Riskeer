@@ -86,7 +86,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
 
@@ -103,10 +103,10 @@ namespace Core.Plugins.ProjectExplorer.Test
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
 
                 // Call
-                explorer.Data = projectStub;
+                explorer.Data = project;
 
                 // Assert
-                Assert.AreSame(projectStub, treeViewControl.Data);
+                Assert.AreSame(project, treeViewControl.Data);
             }
             mocks.VerifyAll();
         }
@@ -117,9 +117,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
 
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(project));
 
             mocks.ReplayAll();
 
@@ -140,13 +140,13 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
-                Data = projectStub
+                Data = project
             })
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
 
                 // Call
-                treeViewControl.TryRemoveNodeForData(projectStub);
+                treeViewControl.TryRemoveNodeForData(project);
             }
             // Assert
             mocks.VerifyAll();
@@ -160,7 +160,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
             const string stringA = "testA";
 
             mocks.ReplayAll();
@@ -186,7 +186,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
-                Data = projectStub
+                Data = project
             })
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
@@ -218,7 +218,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(a => a.OpenViewForSelection());
 
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
 
@@ -232,7 +232,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
-                Data = projectStub
+                Data = project
             })
             {
                 var form = new Form
@@ -247,7 +247,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 TypeUtils.GetField<TreeView>(treeViewControl, "treeView").Name = treeIdentifier;
 
                 // Precondition
-                Assert.AreSame(treeViewControl.SelectedData, projectStub);
+                Assert.AreSame(treeViewControl.SelectedData, project);
 
                 var tester = new TreeViewTester(treeIdentifier);
 
@@ -265,7 +265,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var projectStub = mocks.Stub<IProject>();
+            var project = mocks.Stub<IProject>();
 
             mocks.ReplayAll();
 
@@ -291,7 +291,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
-                Data = projectStub
+                Data = project
             })
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");

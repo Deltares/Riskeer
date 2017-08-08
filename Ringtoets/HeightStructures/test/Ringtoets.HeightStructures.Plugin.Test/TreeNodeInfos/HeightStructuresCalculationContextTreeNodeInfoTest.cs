@@ -1013,7 +1013,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             // Given
             var calculationObserver = mocks.StrictMock<IObserver>();
             var calculationInputObserver = mocks.StrictMock<IObserver>();
-            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestHeightStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
@@ -1028,7 +1028,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var nodeData = new HeightStructuresCalculationContext(calculation,
                                                                   failureMechanism,
-                                                                  assessmentSectionStub);
+                                                                  assessmentSection);
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);

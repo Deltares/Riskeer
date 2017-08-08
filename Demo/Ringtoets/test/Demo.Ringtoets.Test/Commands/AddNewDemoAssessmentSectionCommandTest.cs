@@ -80,8 +80,8 @@ namespace Demo.Ringtoets.Test.Commands
             var project = new RingtoetsProject();
 
             var mocks = new MockRepository();
-            var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            projectOwnerStub.Stub(po => po.Project).Return(project);
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
@@ -89,7 +89,7 @@ namespace Demo.Ringtoets.Test.Commands
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var command = new AddNewDemoAssessmentSectionCommand(projectOwnerStub, viewCommands);
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
             project.Attach(observerMock);
 
             // Call

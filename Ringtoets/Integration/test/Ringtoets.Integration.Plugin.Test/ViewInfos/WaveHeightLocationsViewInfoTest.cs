@@ -151,12 +151,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-            guiStub.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+            gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
 
             mocks.ReplayAll();
 
@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
-                ringtoetsPlugin.Gui = guiStub;
+                ringtoetsPlugin.Gui = gui;
                 ringtoetsPlugin.Activate();
 
                 // Call
