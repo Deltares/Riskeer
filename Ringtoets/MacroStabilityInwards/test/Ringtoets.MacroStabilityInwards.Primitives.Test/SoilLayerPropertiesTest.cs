@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color == Color.Aqua ? Color.Bisque : Color.Aqua));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));

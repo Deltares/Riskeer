@@ -229,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             return string.Equals(materialName, other.materialName, StringComparison.InvariantCulture)
                    && IsAquifer == other.IsAquifer
-                   && Color.Equals(other.Color)
+                   && Color.ToArgb().Equals(other.Color.ToArgb())
                    && UsePop == other.UsePop
                    && ShearStrengthModel == other.ShearStrengthModel
                    && AbovePhreaticLevelMean.Equals(other.AbovePhreaticLevelMean)

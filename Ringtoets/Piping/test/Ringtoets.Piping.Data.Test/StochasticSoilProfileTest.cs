@@ -230,12 +230,12 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ToString_WithNullName_ReturnsStringEmpty()
+        public void ToString_WithProfile_ReturnsToStringResultOfProfile()
         {
             // Setup
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(null, 0.0, new[]
+                SoilProfile = new PipingSoilProfile("randomName", 0.0, new[]
                 {
                     new PipingSoilLayer(0.0)
                 }, SoilProfileType.SoilProfile1D, 0)
@@ -245,29 +245,9 @@ namespace Ringtoets.Piping.Data.Test
             string text = stochasticSoilProfile.ToString();
 
             // Assert
-            Assert.IsEmpty(text);
+            Assert.AreEqual(stochasticSoilProfile.SoilProfile.ToString(), text);
         }
 
-        [Test]
-        [TestCase("")]
-        [TestCase("some name")]
-        public void ToString_WithName_ReturnsName(string name)
-        {
-            // Setup
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(name, 0.0, new[]
-                {
-                    new PipingSoilLayer(0.0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-
-            // Call
-            string text = stochasticSoilProfile.ToString();
-
-            // Assert
-            Assert.AreEqual(name, text);
-        }
 
         private class TestStochasticSoilProfile : StochasticSoilProfile
         {
@@ -312,6 +292,7 @@ namespace Ringtoets.Piping.Data.Test
             StochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
+            StochasticSoilProfile profileD = CreateRandomStochasticProfile(21);
             var profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
             var profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
 
@@ -321,9 +302,21 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     TestName = "Equals_ProfileAProfileB_True"
                 },
+                new TestCaseData(profileB, profileD, true)
+                {
+                    TestName = "Equals_ProfileBProfileD_True"
+                },
+                new TestCaseData(profileA, profileD, true)
+                {
+                    TestName = "Equals_ProfileAProfileD_True"
+                },
                 new TestCaseData(profileB, profileC, false)
                 {
                     TestName = "Equals_ProfileBProfileC_False"
+                },
+                new TestCaseData(profileA, profileC, false)
+                {
+                    TestName = "Equals_ProfileAProfileC_False"
                 },
                 new TestCaseData(profileE, profileF, true)
                 {
