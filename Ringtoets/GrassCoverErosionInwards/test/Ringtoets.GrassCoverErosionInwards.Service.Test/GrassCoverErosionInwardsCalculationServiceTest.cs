@@ -57,9 +57,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -100,9 +100,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           invalidFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       invalidFilePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = true;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -144,9 +144,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             string invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           invalidFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       invalidFilePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -163,7 +163,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -186,9 +186,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -205,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -231,9 +231,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -243,7 +243,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -266,9 +266,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -290,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -316,9 +316,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -340,7 +340,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -368,9 +368,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -380,7 +380,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -402,9 +402,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -421,7 +421,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -443,7 +443,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
@@ -486,7 +486,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
@@ -530,9 +530,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 IllustrationPointsResult = new TestGeneralResult()
             });
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             mockRepository.ReplayAll();
 
             DikeProfile dikeProfile = GetDikeProfile();
@@ -541,7 +541,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType,
@@ -556,7 +556,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                           assessmentSectionStub,
+                                                                           assessmentSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
                                                                            validFile);
@@ -626,9 +626,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -646,7 +646,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
@@ -658,7 +658,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -700,9 +700,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 EndInFailure = true
@@ -719,7 +719,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
@@ -731,7 +731,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -771,9 +771,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -799,7 +799,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
                 // Call
                 service.Calculate(calculation,
-                                  assessmentSectionStub,
+                                  assessmentSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                   grassCoverErosionInwardsFailureMechanism.Contribution,
                                   validFile);
@@ -821,9 +821,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -860,7 +860,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
                 // Call
                 service.Calculate(calculation,
-                                  assessmentSectionStub,
+                                  assessmentSection,
                                   failureMechanism.GeneralInput,
                                   failureMechanism.Contribution,
                                   validFile);
@@ -883,9 +883,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator();
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -923,7 +923,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
                 // Call
                 service.Calculate(calculation,
-                                  assessmentSectionStub,
+                                  assessmentSection,
                                   failureMechanism.GeneralInput,
                                   failureMechanism.Contribution,
                                   validFile);
@@ -942,9 +942,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -960,7 +960,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile
                 }
             };
@@ -975,7 +975,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
+                                                                                   assessmentSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -1015,9 +1015,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 EndInFailure = true
@@ -1032,7 +1032,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile
                 }
             };
@@ -1047,7 +1047,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
+                                                                                   assessmentSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -1087,9 +1087,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1105,7 +1105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile
                 }
             };
@@ -1120,7 +1120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     try
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
+                                                                                   assessmentSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
                                                                                    validFile);
@@ -1163,9 +1163,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1183,7 +1183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
@@ -1195,7 +1195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1235,8 +1235,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
+                                                                                                       validFile);
 
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1254,7 +1254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
@@ -1266,7 +1266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1306,9 +1306,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1326,7 +1326,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
@@ -1338,7 +1338,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1378,9 +1378,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -1400,7 +1400,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
@@ -1412,7 +1412,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1452,8 +1452,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository,
+                                                                                                       validFile);
 
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -1472,7 +1472,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
@@ -1484,7 +1484,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1524,9 +1524,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var overtoppingCalculator = new TestOvertoppingCalculator();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -1544,7 +1544,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
@@ -1556,7 +1556,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Action call = () =>
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
+                                                                               assessmentSection,
                                                                                failureMechanism.GeneralInput,
                                                                                failureMechanism.Contribution,
                                                                                validFile);
@@ -1595,9 +1595,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsParserErrorMessage = parserError
@@ -1623,7 +1623,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -1677,9 +1677,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsParserErrorMessage = parserError
@@ -1706,7 +1706,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -1759,9 +1759,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1787,7 +1787,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -1841,9 +1841,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1870,7 +1870,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -1923,9 +1923,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -1951,7 +1951,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -2005,9 +2005,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             const string parserError = "Parser error message";
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2034,7 +2034,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -2086,9 +2086,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = TestGeneralResult.CreateGeneralResultWithSubMechanismIllustrationPoints()
@@ -2113,7 +2113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -2170,9 +2170,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2197,7 +2197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);
@@ -2254,9 +2254,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFile);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
                 IllustrationPointsResult = new TestGeneralResult()
@@ -2281,7 +2281,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
-                                                                                               assessmentSectionStub,
+                                                                                               assessmentSection,
                                                                                                failureMechanism.GeneralInput,
                                                                                                failureMechanism.Contribution,
                                                                                                validFile);

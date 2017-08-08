@@ -1034,18 +1034,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionStub);
+                                                                 assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1109,19 +1109,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionStub);
+                                                                 assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1289,7 +1289,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                      {
                                                                          Geometry =
                                                                          {
-                                                                             new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                             new Point2D(0.0, 0.0),
+                                                                             new Point2D(5.0, 0.0)
                                                                          }
                                                                      }
                                                                  },
@@ -1401,7 +1402,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                      {
                                                                          Geometry =
                                                                          {
-                                                                             new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                             new Point2D(0.0, 0.0),
+                                                                             new Point2D(5.0, 0.0)
                                                                          }
                                                                      }
                                                                  },
@@ -1593,19 +1595,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionStub);
+                                                                 assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1690,19 +1692,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionStub);
+                                                                 assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1806,19 +1808,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanism,
-                                                                 assessmentSectionStub);
+                                                                 assessmentSection);
                 var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                        Enumerable.Empty<PipingSurfaceLine>(),
                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                        pipingFailureMechanism,
-                                                                       assessmentSectionStub);
+                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 

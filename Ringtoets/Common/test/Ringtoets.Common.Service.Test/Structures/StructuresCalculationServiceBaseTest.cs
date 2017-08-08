@@ -97,17 +97,17 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(), mocks);
             mocks.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var calculation = new TestStructuresCalculation();
 
             var isValid = true;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -128,19 +128,19 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 new TestFailureMechanism(),
                 mocks);
             mocks.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var calculation = new TestStructuresCalculation();
 
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -161,11 +161,11 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 new TestFailureMechanism(), mocks);
             mocks.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var calculation = new TestStructuresCalculation
             {
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -207,9 +207,9 @@ namespace Ringtoets.Common.Service.Test.Structures
             }));
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -224,7 +224,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -252,9 +252,9 @@ namespace Ringtoets.Common.Service.Test.Structures
             }));
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -271,7 +271,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -299,9 +299,9 @@ namespace Ringtoets.Common.Service.Test.Structures
             }));
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mocks.ReplayAll();
 
             const string name = "<a very nice name>";
@@ -319,7 +319,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var isValid = false;
 
             // Call
-            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = TestStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

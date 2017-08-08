@@ -155,12 +155,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(stabilityStoneCoverFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(stabilityStoneCoverFailureMechanism,
+                                                                                                                              mockRepository);
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
                                                                                     validFilePath,
                                                                                     stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSectionStub);
+                                                                                    assessmentSection);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var calculator = new TestWaveConditionsCosineCalculator();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath))
@@ -188,7 +188,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                 assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
                                                                                  input.WaterLevels.ElementAt(waterLevelIndex++),
@@ -205,7 +205,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                 assessmentSection.FailureMechanismContribution.Norm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
                                                                                  input.WaterLevels.ElementAt(waterLevelIndex++),

@@ -316,7 +316,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -338,7 +338,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection= mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
@@ -388,8 +388,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Twice();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                              mockRepository);
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
@@ -402,7 +402,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               grassCoverErosionOutwardsFailureMechanism,
-                                                                                                              assessmentSectionStub,
+                                                                                                              assessmentSection,
                                                                                                               validFilePath);
 
                 // Assert
@@ -445,8 +445,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Twice();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                              mockRepository);
             mockRepository.ReplayAll();
 
             switch (calculationType)
@@ -469,7 +469,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               grassCoverErosionOutwardsFailureMechanism,
-                                                                                                              assessmentSectionStub,
+                                                                                                              assessmentSection,
                                                                                                               validFilePath);
 
                 // Assert
@@ -510,8 +510,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(waveConditionsCosineCalculator).Repeat.Times(3);
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                              mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -519,7 +519,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
-                                                                                          assessmentSectionStub,
+                                                                                          assessmentSection,
                                                                                           validFilePath);
 
                 // Assert
@@ -532,7 +532,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     GeneralGrassCoverErosionOutwardsInput generalInput = grassCoverErosionOutwardsFailureMechanism.GeneralInput;
 
                     double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                        assessmentSectionStub.FailureMechanismContribution.Norm,
+                        assessmentSection.FailureMechanismContribution.Norm,
                         grassCoverErosionOutwardsFailureMechanism.Contribution,
                         grassCoverErosionOutwardsFailureMechanism.GeneralInput.N);
 
@@ -566,7 +566,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 grassCoverErosionOutwardsFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -578,7 +578,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
                                                                                     grassCoverErosionOutwardsFailureMechanism,
-                                                                                    assessmentSectionStub,
+                                                                                    assessmentSection,
                                                                                     validFilePath);
 
                 // Assert
@@ -601,8 +601,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(waveConditionsCosineCalculator);
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                              mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -613,7 +613,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
                                                                                     grassCoverErosionOutwardsFailureMechanism,
-                                                                                    assessmentSectionStub,
+                                                                                    assessmentSection,
                                                                                     validFilePath);
 
                 // Assert
@@ -636,8 +636,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
-                                                                                                                                  mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                              mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -645,7 +645,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                           grassCoverErosionOutwardsFailureMechanism,
-                                                                                          assessmentSectionStub,
+                                                                                          assessmentSection,
                                                                                           validFilePath);
 
                 // Assert
@@ -681,8 +681,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                              .Return(calculatorThatFails)
                              .Repeat
                              .Times(3);
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
@@ -698,7 +698,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     {
                         new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                   failureMechanism,
-                                                                                                  assessmentSectionStub,
+                                                                                                  assessmentSection,
                                                                                                   validFilePath);
                     }
                     catch (HydraRingCalculationException e)
@@ -774,8 +774,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Twice();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
@@ -787,7 +787,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                               failureMechanism,
-                                                                                              assessmentSectionStub,
+                                                                                              assessmentSection,
                                                                                               validFilePath);
                 };
 
@@ -823,7 +823,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.Items.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
-                double targetNorm = CalculateTargetNorm(assessmentSectionStub.FailureMechanismContribution.Norm,
+                double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.Norm,
                                                         failureMechanismContribution,
                                                         failureMechanism.GeneralInput.N);
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,

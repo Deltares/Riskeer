@@ -856,18 +856,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     failureMechanism, mocks);
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
-                                                                                assessmentSectionStub);
+                                                                                assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
-                                                                                      assessmentSectionStub);
+                                                                                      assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -931,19 +931,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     failureMechanism, mocks);
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
-                                                                                assessmentSectionStub);
+                                                                                assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
-                                                                                      assessmentSectionStub);
+                                                                                      assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1111,7 +1111,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                     {
                                                                                         Geometry =
                                                                                         {
-                                                                                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                                            new Point2D(0.0, 0.0),
+                                                                                            new Point2D(5.0, 0.0)
                                                                                         }
                                                                                     }
                                                                                 },
@@ -1223,7 +1224,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                     {
                                                                                         Geometry =
                                                                                         {
-                                                                                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                                            new Point2D(0.0, 0.0),
+                                                                                            new Point2D(5.0, 0.0)
                                                                                         }
                                                                                     }
                                                                                 },

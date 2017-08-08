@@ -36,7 +36,7 @@ namespace Core.Components.BruTile.TestUtil
     /// </summary>
     public class TestWmtsTileSource : HttpTileSource
     {
-        private static byte[] pngTileDataStub;
+        private static byte[] pngTileData;
 
         /// <summary>
         /// Create a new instance of <see cref="TestWmtsTileSource"/> suitable to work for
@@ -62,15 +62,15 @@ namespace Core.Components.BruTile.TestUtil
 
         private static byte[] GetStubTile(Uri url)
         {
-            if (pngTileDataStub == null)
+            if (pngTileData == null)
             {
                 using (var stream = new MemoryStream())
                 {
                     Resources.stubTile.Save(stream, ImageFormat.Png);
-                    pngTileDataStub = stream.ToArray();
+                    pngTileData = stream.ToArray();
                 }
             }
-            return pngTileDataStub;
+            return pngTileData;
         }
 
         private class RequestStub : IRequest

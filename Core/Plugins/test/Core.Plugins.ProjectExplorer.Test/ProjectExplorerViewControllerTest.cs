@@ -218,7 +218,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
 
-            var projectStub = mocks.StrictMock<IProject>();
+            var project = mocks.StrictMock<IProject>();
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
@@ -226,7 +226,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             using (var controller = new ProjectExplorerViewController(viewCommands, viewController, treeNodeInfos))
             {
                 // Call
-                controller.Update(projectStub);
+                controller.Update(project);
             }
             // Assert
             mocks.VerifyAll();

@@ -71,11 +71,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var isValid = false;
 
             // Call 
-            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -130,11 +130,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -151,7 +151,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var isValid = false;
 
             // Call 
-            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -193,11 +193,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -214,7 +214,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var isValid = false;
 
             // Call 
-            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -251,11 +251,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -270,7 +270,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Call
             var isValid = false;
-            TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             const string expectedMessage = "The value of argument 'input' (9001) is invalid for Enum type 'ClosingStructureInflowModelType'.";
@@ -289,10 +289,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -311,7 +311,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -339,8 +339,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
@@ -361,7 +361,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 TestDelegate call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
                                                             failureMechanism.GeneralInput.N,
-                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                             failureMechanism.Contribution,
                                                             validFilePath);
 
@@ -384,8 +384,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -397,7 +397,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -412,7 +412,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
                                                                     failureMechanism.GeneralInput.N,
-                                                                    assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
                                                                     failureMechanism.Contribution,
                                                                     validFilePath);
 
@@ -465,8 +465,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -478,7 +478,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.LowSill
                 }
             };
@@ -494,7 +494,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
                                                                     failureMechanism.GeneralInput.N,
-                                                                    assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
                                                                     failureMechanism.Contribution,
                                                                     validFilePath);
 
@@ -546,8 +546,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
@@ -558,7 +558,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
                 }
             };
@@ -574,7 +574,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
                                                                     failureMechanism.GeneralInput.N,
-                                                                    assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                    assessmentSection.FailureMechanismContribution.Norm,
                                                                     failureMechanism.Contribution,
                                                                     validFilePath);
 
@@ -629,8 +629,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath))
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
@@ -640,7 +640,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = inflowModelType,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
@@ -669,7 +669,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
                                                                                         failureMechanism.GeneralInput,
                                                                                         failureMechanism.GeneralInput.N,
-                                                                                        assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                        assessmentSection.FailureMechanismContribution.Norm,
                                                                                         failureMechanism.Contribution,
                                                                                         validFilePath);
 
@@ -700,8 +700,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
@@ -716,7 +716,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -732,7 +732,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
                                                                             failureMechanism.GeneralInput.N,
-                                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                             failureMechanism.Contribution,
                                                                             validFilePath);
                     }
@@ -770,8 +770,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = true
@@ -785,7 +785,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -801,7 +801,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
                                                                             failureMechanism.GeneralInput.N,
-                                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                             failureMechanism.Contribution,
                                                                             validFilePath);
                     }
@@ -839,8 +839,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = false,
@@ -855,7 +855,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -872,7 +872,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
                                                                             failureMechanism.GeneralInput.N,
-                                                                            assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                            assessmentSection.FailureMechanismContribution.Norm,
                                                                             failureMechanism.Contribution,
                                                                             validFilePath);
                     }

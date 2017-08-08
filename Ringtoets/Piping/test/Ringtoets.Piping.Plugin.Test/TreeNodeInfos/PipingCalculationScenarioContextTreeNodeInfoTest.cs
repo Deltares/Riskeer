@@ -812,13 +812,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                                                     pipingFailureMechanism,
-                                                                                    assessmentSectionStub);
+                                                                                    assessmentSection);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();
 
@@ -924,14 +924,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     pipingFailureMechanism, mocks);
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                                                     pipingFailureMechanism,
-                                                                                    assessmentSectionStub);
+                                                                                    assessmentSection);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();
 

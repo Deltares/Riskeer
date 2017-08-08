@@ -32,41 +32,41 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new PipingProfilePropertyCalculatorStub();
+            var pipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
 
             // Assert
-            Assert.IsNull(stub.SoilProfile);
-            Assert.IsNull(stub.SurfaceLine);
-            Assert.AreEqual(0, stub.ExitPointX);
+            Assert.IsNull(pipingProfilePropertyCalculator.SoilProfile);
+            Assert.IsNull(pipingProfilePropertyCalculator.SurfaceLine);
+            Assert.AreEqual(0, pipingProfilePropertyCalculator.ExitPointX);
 
-            Assert.AreEqual(0, stub.BottomAquitardLayerAboveExitPointZ);
+            Assert.AreEqual(0, pipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ);
         }
 
         [Test]
         public void Validate_Always_EmptyListValidatedTrue()
         {
             // Setup
-            var stub = new PipingProfilePropertyCalculatorStub();
+            var pipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
 
             // Call
-            List<string> result = stub.Validate();
+            List<string> result = pipingProfilePropertyCalculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);
-            Assert.IsTrue(stub.Validated);
+            Assert.IsTrue(pipingProfilePropertyCalculator.Validated);
         }
 
         [Test]
         public void Calculate_Always_CalculatedTrue()
         {
             // Setup
-            var stub = new PipingProfilePropertyCalculatorStub();
+            var pipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
 
             // Call
-            stub.Calculate();
+            pipingProfilePropertyCalculator.Calculate();
 
             // Assert
-            Assert.IsTrue(stub.Calculated);
+            Assert.IsTrue(pipingProfilePropertyCalculator.Calculated);
         }
     }
 }

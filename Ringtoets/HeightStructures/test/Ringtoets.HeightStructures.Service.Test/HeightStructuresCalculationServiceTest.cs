@@ -68,10 +68,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             const string expectedValidationMessage = "Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.";
@@ -90,7 +90,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -112,11 +112,11 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                       mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = $"Validatie mislukt: De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
@@ -136,7 +136,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -159,10 +159,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = $"Validatie mislukt: De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
@@ -184,7 +184,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -208,10 +208,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = $"Validatie mislukt: De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
@@ -233,7 +233,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -256,10 +256,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = $"Validatie mislukt: De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
@@ -279,7 +279,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -303,10 +303,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -323,7 +323,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -344,10 +344,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -362,7 +362,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -392,7 +392,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
@@ -403,7 +403,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = true,
                     UseForeshore = true
@@ -431,7 +431,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                        failureMechanism.GeneralInput,
                                                                                        failureMechanism.GeneralInput.N,
-                                                                                       assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                       assessmentSection.FailureMechanismContribution.Norm,
                                                                                        failureMechanism.Contribution,
                                                                                        validFilePath);
 
@@ -466,7 +466,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath))
@@ -477,7 +477,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseBreakWater = false,
                     UseForeshore = true
@@ -490,7 +490,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                        failureMechanism.GeneralInput,
                                                                                        failureMechanism.GeneralInput.N,
-                                                                                       assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                                       assessmentSection.FailureMechanismContribution.Norm,
                                                                                        failureMechanism.Contribution,
                                                                                        validFilePath);
 
@@ -518,7 +518,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -530,7 +530,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -545,7 +545,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
                                                                    failureMechanism.GeneralInput.N,
-                                                                   assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                   assessmentSection.FailureMechanismContribution.Norm,
                                                                    failureMechanism.Contribution,
                                                                    validFilePath);
 
@@ -595,8 +595,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -612,7 +612,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -628,7 +628,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.GeneralInput.N,
-                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
                                                                            failureMechanism.Contribution,
                                                                            validFilePath);
                     }
@@ -666,8 +666,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -682,7 +682,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -698,7 +698,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.GeneralInput.N,
-                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
                                                                            failureMechanism.Contribution,
                                                                            validFilePath);
                     }
@@ -736,8 +736,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             }));
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                           mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresOvertoppingCalculationInput>
             {
@@ -752,7 +752,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -769,7 +769,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.GeneralInput.N,
-                                                                           assessmentSectionStub.FailureMechanismContribution.Norm,
+                                                                           assessmentSection.FailureMechanismContribution.Norm,
                                                                            failureMechanism.Contribution,
                                                                            validFilePath);
                     }

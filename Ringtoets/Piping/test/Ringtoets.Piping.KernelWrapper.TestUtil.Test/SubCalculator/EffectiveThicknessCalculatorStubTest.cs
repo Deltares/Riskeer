@@ -31,26 +31,26 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new EffectiveThicknessCalculatorStub();
+            var effectiveThicknessCalculator = new EffectiveThicknessCalculatorStub();
 
             // Assert
-            Assert.AreEqual(0, stub.ExitPointXCoordinate);
-            Assert.AreEqual(0, stub.PhreaticLevel);
-            Assert.IsNull(stub.SoilProfile);
-            Assert.IsNull(stub.SurfaceLine);
-            Assert.AreEqual(0, stub.VolumicWeightOfWater);
+            Assert.AreEqual(0, effectiveThicknessCalculator.ExitPointXCoordinate);
+            Assert.AreEqual(0, effectiveThicknessCalculator.PhreaticLevel);
+            Assert.IsNull(effectiveThicknessCalculator.SoilProfile);
+            Assert.IsNull(effectiveThicknessCalculator.SurfaceLine);
+            Assert.AreEqual(0, effectiveThicknessCalculator.VolumicWeightOfWater);
 
-            Assert.AreEqual(0.1, stub.EffectiveHeight);
+            Assert.AreEqual(0.1, effectiveThicknessCalculator.EffectiveHeight);
         }
 
         [Test]
         public void Calculate_Always_DoesNotThrow()
         {
             // Setup
-            var stub = new EffectiveThicknessCalculatorStub();
+            var effectiveThicknessCalculator = new EffectiveThicknessCalculatorStub();
 
             // Call
-            TestDelegate call = () => stub.Calculate();
+            TestDelegate call = () => effectiveThicknessCalculator.Calculate();
 
             // Assert
             Assert.DoesNotThrow(call);

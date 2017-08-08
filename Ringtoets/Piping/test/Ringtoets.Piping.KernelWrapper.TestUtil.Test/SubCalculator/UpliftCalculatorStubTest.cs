@@ -32,47 +32,47 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new UpliftCalculatorStub();
+            var upliftCalculator = new UpliftCalculatorStub();
 
             // Assert
-            Assert.AreEqual(0, stub.EffectiveStress);
-            Assert.AreEqual(0, stub.HExit);
-            Assert.AreEqual(0, stub.HRiver);
-            Assert.AreEqual(0, stub.ModelFactorUplift);
-            Assert.AreEqual(0, stub.PhiExit);
-            Assert.AreEqual(0, stub.PhiPolder);
-            Assert.AreEqual(0, stub.RExit);
-            Assert.AreEqual(0, stub.VolumetricWeightOfWater);
+            Assert.AreEqual(0, upliftCalculator.EffectiveStress);
+            Assert.AreEqual(0, upliftCalculator.HExit);
+            Assert.AreEqual(0, upliftCalculator.HRiver);
+            Assert.AreEqual(0, upliftCalculator.ModelFactorUplift);
+            Assert.AreEqual(0, upliftCalculator.PhiExit);
+            Assert.AreEqual(0, upliftCalculator.PhiPolder);
+            Assert.AreEqual(0, upliftCalculator.RExit);
+            Assert.AreEqual(0, upliftCalculator.VolumetricWeightOfWater);
 
-            Assert.AreEqual(0, stub.FoSu);
-            Assert.AreEqual(0, stub.Zu);
+            Assert.AreEqual(0, upliftCalculator.FoSu);
+            Assert.AreEqual(0, upliftCalculator.Zu);
         }
 
         [Test]
         public void Validate_Always_EmptyListValidatedTrue()
         {
             // Setup
-            var stub = new UpliftCalculatorStub();
+            var upliftCalculator = new UpliftCalculatorStub();
 
             // Call
-            List<string> result = stub.Validate();
+            List<string> result = upliftCalculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);
-            Assert.IsTrue(stub.Validated);
+            Assert.IsTrue(upliftCalculator.Validated);
         }
 
         [Test]
         public void Calculate_Always_CalculatedTrue()
         {
             // Setup
-            var stub = new UpliftCalculatorStub();
+            var upliftCalculator = new UpliftCalculatorStub();
 
             // Call
-            stub.Calculate();
+            upliftCalculator.Calculate();
 
             // Assert
-            Assert.IsTrue(stub.Calculated);
+            Assert.IsTrue(upliftCalculator.Calculated);
         }
     }
 }

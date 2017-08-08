@@ -32,59 +32,59 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new SellmeijerCalculatorStub();
+            var sellmeijerCalculator = new SellmeijerCalculatorStub();
 
             // Assert
-            Assert.AreEqual(0, stub.BeddingAngle);
-            Assert.AreEqual(0, stub.D70);
-            Assert.AreEqual(0, stub.D70Mean);
-            Assert.AreEqual(0, stub.DAquifer);
-            Assert.AreEqual(0, stub.DTotal);
-            Assert.AreEqual(0, stub.DarcyPermeability);
-            Assert.AreEqual(0, stub.GammaSubParticles);
-            Assert.AreEqual(0, stub.Gravity);
-            Assert.AreEqual(0, stub.HExit);
-            Assert.AreEqual(0, stub.HRiver);
-            Assert.AreEqual(0, stub.KinematicViscosityWater);
-            Assert.AreEqual(0, stub.ModelFactorPiping);
-            Assert.AreEqual(0, stub.Rc);
-            Assert.AreEqual(0, stub.SeepageLength);
-            Assert.AreEqual(0, stub.VolumetricWeightOfWater);
-            Assert.AreEqual(0, stub.WhitesDragCoefficient);
-            Assert.AreEqual(0, stub.BottomLevelAquitardAboveExitPointZ);
+            Assert.AreEqual(0, sellmeijerCalculator.BeddingAngle);
+            Assert.AreEqual(0, sellmeijerCalculator.D70);
+            Assert.AreEqual(0, sellmeijerCalculator.D70Mean);
+            Assert.AreEqual(0, sellmeijerCalculator.DAquifer);
+            Assert.AreEqual(0, sellmeijerCalculator.DTotal);
+            Assert.AreEqual(0, sellmeijerCalculator.DarcyPermeability);
+            Assert.AreEqual(0, sellmeijerCalculator.GammaSubParticles);
+            Assert.AreEqual(0, sellmeijerCalculator.Gravity);
+            Assert.AreEqual(0, sellmeijerCalculator.HExit);
+            Assert.AreEqual(0, sellmeijerCalculator.HRiver);
+            Assert.AreEqual(0, sellmeijerCalculator.KinematicViscosityWater);
+            Assert.AreEqual(0, sellmeijerCalculator.ModelFactorPiping);
+            Assert.AreEqual(0, sellmeijerCalculator.Rc);
+            Assert.AreEqual(0, sellmeijerCalculator.SeepageLength);
+            Assert.AreEqual(0, sellmeijerCalculator.VolumetricWeightOfWater);
+            Assert.AreEqual(0, sellmeijerCalculator.WhitesDragCoefficient);
+            Assert.AreEqual(0, sellmeijerCalculator.BottomLevelAquitardAboveExitPointZ);
 
-            Assert.AreEqual(0, stub.CreepCoefficient);
-            Assert.AreEqual(0, stub.CriticalFall);
-            Assert.AreEqual(0, stub.ReducedFall);
-            Assert.AreEqual(0, stub.FoSp);
-            Assert.AreEqual(0, stub.Zp);
+            Assert.AreEqual(0, sellmeijerCalculator.CreepCoefficient);
+            Assert.AreEqual(0, sellmeijerCalculator.CriticalFall);
+            Assert.AreEqual(0, sellmeijerCalculator.ReducedFall);
+            Assert.AreEqual(0, sellmeijerCalculator.FoSp);
+            Assert.AreEqual(0, sellmeijerCalculator.Zp);
         }
 
         [Test]
         public void Validate_Always_EmptyListValidatedTrue()
         {
             // Setup
-            var stub = new SellmeijerCalculatorStub();
+            var sellmeijerCalculator = new SellmeijerCalculatorStub();
 
             // Call
-            List<string> result = stub.Validate();
+            List<string> result = sellmeijerCalculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);
-            Assert.IsTrue(stub.Validated);
+            Assert.IsTrue(sellmeijerCalculator.Validated);
         }
 
         [Test]
         public void Calculate_Always_CalculatedTrue()
         {
             // Setup
-            var stub = new SellmeijerCalculatorStub();
+            var sellmeijerCalculator = new SellmeijerCalculatorStub();
 
             // Call
-            stub.Calculate();
+            sellmeijerCalculator.Calculate();
 
             // Assert
-            Assert.IsTrue(stub.Calculated);
+            Assert.IsTrue(sellmeijerCalculator.Calculated);
         }
     }
 }

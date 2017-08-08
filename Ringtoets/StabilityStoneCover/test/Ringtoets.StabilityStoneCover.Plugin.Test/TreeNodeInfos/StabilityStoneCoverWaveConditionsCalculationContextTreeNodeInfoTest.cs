@@ -981,7 +981,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -1002,7 +1002,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
-                                                                                  assessmentSectionStub);
+                                                                                  assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1216,14 +1216,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             string validHydroDatabasePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
-                                                                                  assessmentSectionStub);
+                                                                                  assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {

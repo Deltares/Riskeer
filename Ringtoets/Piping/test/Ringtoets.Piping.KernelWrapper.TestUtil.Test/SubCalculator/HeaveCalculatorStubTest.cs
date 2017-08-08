@@ -32,46 +32,46 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var stub = new HeaveCalculatorStub();
+            var heaveCalculator = new HeaveCalculatorStub();
 
             // Assert
-            Assert.AreEqual(0, stub.DTotal);
-            Assert.AreEqual(0, stub.HExit);
-            Assert.AreEqual(0, stub.Ich);
-            Assert.AreEqual(0, stub.PhiExit);
-            Assert.AreEqual(0, stub.PhiPolder);
-            Assert.AreEqual(0, stub.RExit);
+            Assert.AreEqual(0, heaveCalculator.DTotal);
+            Assert.AreEqual(0, heaveCalculator.HExit);
+            Assert.AreEqual(0, heaveCalculator.Ich);
+            Assert.AreEqual(0, heaveCalculator.PhiExit);
+            Assert.AreEqual(0, heaveCalculator.PhiPolder);
+            Assert.AreEqual(0, heaveCalculator.RExit);
 
-            Assert.AreEqual(0, stub.Gradient);
-            Assert.AreEqual(0, stub.FoSh);
-            Assert.AreEqual(0, stub.Zh);
+            Assert.AreEqual(0, heaveCalculator.Gradient);
+            Assert.AreEqual(0, heaveCalculator.FoSh);
+            Assert.AreEqual(0, heaveCalculator.Zh);
         }
 
         [Test]
         public void Validate_Always_EmptyListValidatedTrue()
         {
             // Setup
-            var stub = new HeaveCalculatorStub();
+            var heaveCalculator = new HeaveCalculatorStub();
 
             // Call
-            List<string> result = stub.Validate();
+            List<string> result = heaveCalculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);
-            Assert.IsTrue(stub.Validated);
+            Assert.IsTrue(heaveCalculator.Validated);
         }
 
         [Test]
         public void Calculate_Always_CalculatedTrue()
         {
             // Setup
-            var stub = new HeaveCalculatorStub();
+            var heaveCalculator = new HeaveCalculatorStub();
 
             // Call
-            stub.Calculate();
+            heaveCalculator.Calculate();
 
             // Assert
-            Assert.IsTrue(stub.Calculated);
+            Assert.IsTrue(heaveCalculator.Calculated);
         }
     }
 }
