@@ -72,6 +72,8 @@
     <Compile Include="PipingSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PipingProbabilityAssessmentInputTest.cs" />
+    <Compile Include="SoilProfile\PipingStochasticSoilModelTest.cs" />
+    <Compile Include="SoilProfile\PipingStochasticSoilProfileTest.cs" />
     <Compile Include="StochasticSoilModelCollectionTest.cs" />
     <Compile Include="StochasticSoilModelExtensionsTest.cs" />
     <Compile Include="StochasticSoilModelTest.cs" />

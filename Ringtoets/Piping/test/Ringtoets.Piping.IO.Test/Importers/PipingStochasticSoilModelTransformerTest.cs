@@ -19,21 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives
-{
-    /// <summary>
-    /// Defines the various types of soil profiles.
-    /// </summary>
-    public enum SoilProfileType
-    {
-        /// <summary>
-        /// One dimensional soil profile.
-        /// </summary>
-        SoilProfile1D = 1,
+using NUnit.Framework;
+using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Primitives;
 
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
+namespace Ringtoets.Piping.IO.Test.Importers
+{
+    [TestFixture]
+    public class PipingStochasticSoilModelTransformerTest
+    {
+        [Test]
+        public void Constructor_ValidProperties_ExpectedValues()
+        {
+            // Call
+            var transformer = new PipingStochasticSoilModelTransformer();
+
+            // Assert
+            Assert.IsInstanceOf<IStochasticSoilModelTransformer<PipingStochasticSoilModel>>(transformer);
+        }
     }
 }

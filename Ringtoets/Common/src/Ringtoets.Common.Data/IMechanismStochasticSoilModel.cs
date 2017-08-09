@@ -19,21 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives
+namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Defines the various types of soil profiles.
+    /// Interface for a mechanism specific stochastic soil model.
     /// </summary>
-    public enum SoilProfileType
-    {
-        /// <summary>
-        /// One dimensional soil profile.
-        /// </summary>
-        SoilProfile1D = 1,
-
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
-    }
+    public interface IMechanismStochasticSoilModel {}
 }

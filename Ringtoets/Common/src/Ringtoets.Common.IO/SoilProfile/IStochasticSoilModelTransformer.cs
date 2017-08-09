@@ -19,21 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives
+using Ringtoets.Common.Data;
+using Ringtoets.Common.IO.Exceptions;
+
+namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Defines the various types of soil profiles.
+    /// Interface for transforming generic stochastic soil models into mechanism specific stochastic soil models.
     /// </summary>
-    public enum SoilProfileType
+    /// <typeparam name="T">The type of the mechanism specific stochastic soil model.</typeparam>
+    public interface IStochasticSoilModelTransformer<out T> where T : IMechanismStochasticSoilModel
     {
         /// <summary>
-        /// One dimensional soil profile.
+        /// Transforms the generic <paramref name="stochasticSoilModel"/> into a mechanism specific 
+        /// stochastic soil model of type <typeparamref name="T"/>.
         /// </summary>
-        SoilProfile1D = 1,
-
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
+        /// <param name="stochasticSoilModel">The stochastic soil model to use in the transformation.</param>
+        /// <returns>A new <typeparamref name="T"/> based on the given data.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
+        T Transform(StochasticSoilModel stochasticSoilModel);
     }
 }

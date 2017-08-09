@@ -19,21 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives
+using Ringtoets.Piping.Primitives;
+
+namespace Ringtoets.Piping.Data.TestUtil
 {
     /// <summary>
-    /// Defines the various types of soil profiles.
+    /// Factory to create simple <see cref="PipingSoilProfile"/> instances that can be used for testing.
     /// </summary>
-    public enum SoilProfileType
+    public static class PipingSoilProfileTestFactory
     {
         /// <summary>
-        /// One dimensional soil profile.
+        /// Creates a new instance of <see cref="PipingSoilProfile"/> with arbitrary values.
         /// </summary>
-        SoilProfile1D = 1,
-
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
+        /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
+        public static PipingSoilProfile CreatePipingSoilProfile()
+        {
+            return new PipingSoilProfile("name", 0.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+            }, SoilProfileType.SoilProfile1D, 0L);
+        }
     }
 }

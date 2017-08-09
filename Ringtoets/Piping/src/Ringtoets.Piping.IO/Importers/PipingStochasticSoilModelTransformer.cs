@@ -19,21 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Primitives
+using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Piping.Primitives;
+
+namespace Ringtoets.Piping.IO.Importers
 {
     /// <summary>
-    /// Defines the various types of soil profiles.
+    /// Transforms generic <see cref="StochasticSoilModel"/> into <see cref="PipingStochasticSoilModel"/>.
     /// </summary>
-    public enum SoilProfileType
+    public class PipingStochasticSoilModelTransformer : IStochasticSoilModelTransformer<PipingStochasticSoilModel>
     {
-        /// <summary>
-        /// One dimensional soil profile.
-        /// </summary>
-        SoilProfile1D = 1,
-
-        /// <summary>
-        /// Two dimensional soil profile.
-        /// </summary>
-        SoilProfile2D = 2
+        public PipingStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
+        {
+            return null;
+        }
     }
 }
