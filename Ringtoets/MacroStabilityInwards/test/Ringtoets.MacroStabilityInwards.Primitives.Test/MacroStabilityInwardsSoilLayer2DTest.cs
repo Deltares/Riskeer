@@ -204,6 +204,44 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
             MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
             MacroStabilityInwardsSoilLayer2D layerC = CreateRandomLayer(73);
+            MacroStabilityInwardsSoilLayer2D layerD = CreateRandomLayer(21);
+
+            var layerE = new MacroStabilityInwardsSoilLayer2D(
+                CreateRandomRing(new Random(21)),
+                new [] { CreateRandomRing(new Random(22))})
+            {
+                Properties =
+                {
+                    Color = Color.Blue
+                }
+            };
+            var layerF = new MacroStabilityInwardsSoilLayer2D(
+                CreateRandomRing(new Random(31)),
+                new [] { CreateRandomRing(new Random(22))})
+            {
+                Properties =
+                {
+                    Color = Color.Blue
+                }
+            };
+            var layerG = new MacroStabilityInwardsSoilLayer2D(
+                CreateRandomRing(new Random(21)),
+                new[] { CreateRandomRing(new Random(32)) })
+            {
+                Properties =
+                {
+                    Color = Color.Blue
+                }
+            };
+            var layerH = new MacroStabilityInwardsSoilLayer2D(
+                CreateRandomRing(new Random(21)),
+                new[] { CreateRandomRing(new Random(22)) })
+            {
+                Properties =
+                {
+                    Color = Color.Gold
+                }
+            };
 
             return new[]
             {
@@ -215,13 +253,37 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 {
                     TestName = "Equals_LayerALayerB_True"
                 },
+                new TestCaseData(layerB, layerD, true)
+                {
+                    TestName = "Equals_LayerALayerD_True"
+                },
+                new TestCaseData(layerA, layerD, true)
+                {
+                    TestName = "Equals_LayerALayerD_True"
+                },
                 new TestCaseData(layerB, layerC, false)
                 {
                     TestName = "Equals_LayerBLayerC_False"
                 },
+                new TestCaseData(layerA, layerC, false)
+                {
+                    TestName = "Equals_LayerALayerC_False"
+                },
                 new TestCaseData(layerC, layerC, true)
                 {
                     TestName = "Equals_LayerCLayerC_True"
+                },
+                new TestCaseData(layerE, layerF, false)
+                {
+                    TestName = "Equals_DifferentOuterRing_False"
+                },
+                new TestCaseData(layerE, layerG, false)
+                {
+                    TestName = "Equals_DifferentHoles_False"
+                },
+                new TestCaseData(layerE, layerH, false)
+                {
+                    TestName = "Equals_DifferentProperties_False"
                 }
             };
         }
@@ -229,17 +291,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
             {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            }), new[]
-            {
-                new Ring(new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble()),
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                })
+                CreateRandomRing(random)
             })
             {
                 Properties =
@@ -247,6 +301,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }
             };
+        }
+
+        private static Ring CreateRandomRing(Random random)
+        {
+            return new Ring(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
         }
     }
 }

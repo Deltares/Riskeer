@@ -65,7 +65,7 @@ namespace Core.Common.Geometry
         /// </summary>
         /// <param name="line">The line to complete.</param>
         /// <param name="completingPointsLevel">The level at which to place the points completing the polygon.</param>
-        /// <returns>A new collection of <see cref="Point2D"/>, with the line's point and
+        /// <returns>A new collection of <see cref="Point2D"/>, with the line's points and
         /// the two new bottom points.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="line"/> is <c>null</c>.
         /// </exception>

@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Call
             var outerRing = new Point2D[0];
-            var holes = Enumerable.Empty<Point2D[]>();
+            IEnumerable<Point2D[]> holes = Enumerable.Empty<Point2D[]>();
             var properties = new SoilLayerProperties();
 
             // Setup

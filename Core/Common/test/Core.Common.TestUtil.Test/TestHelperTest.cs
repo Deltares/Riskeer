@@ -1116,26 +1116,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void AssertCollectionsAreEqual_ComparerNull_ThrowsException()
         {
-            // Setup
-            var objectA = new object();
-            var objectB = new object();
-            var objectC = new object();
-            var objectD = new object();
-
             // Call
-            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(new[]
-            {
-                objectA,
-                objectB,
-                objectC,
-                objectD
-            }, new[]
-            {
-                objectA,
-                objectB,
-                objectC,
-                objectD
-            }, null);
+            TestDelegate test = () => TestHelper.AssertCollectionsAreEqual(Enumerable.Empty<object>(), Enumerable.Empty<object>(), null);
 
             // Assert
             Assert.Throws<AssertionException>(test);

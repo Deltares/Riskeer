@@ -254,16 +254,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             StochasticSoilProfile profileA = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileB = CreateRandomStochasticProfile(21);
             StochasticSoilProfile profileC = CreateRandomStochasticProfile(73);
+            StochasticSoilProfile profileD = CreateRandomStochasticProfile(21);
             var profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
             var profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
             var profileG = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 25);
             var profileH = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25);
+            var profileI = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25)
+            {
+                SoilProfile = CreateRandomProfile(new Random(12))
+            };
+            var profileJ = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25)
+            {
+                SoilProfile = CreateRandomProfile(new Random(32))
+            };
 
             return new[]
             {
                 new TestCaseData(profileA, profileB, true)
                 {
                     TestName = "Equals_ProfileAProfileB_True"
+                },
+                new TestCaseData(profileB, profileD, true)
+                {
+                    TestName = "Equals_ProfileBProfileD_True"
+                },
+                new TestCaseData(profileA, profileD, true)
+                {
+                    TestName = "Equals_ProfileAProfileD_True"
                 },
                 new TestCaseData(profileB, profileC, false)
                 {
@@ -284,6 +301,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new TestCaseData(profileE, profileH, false)
                 {
                     TestName = "Equals_DifferentProbability_False"
+                },
+                new TestCaseData(profileI, profileJ, false)
+                {
+                    TestName = "Equals_DifferentProfile_False"
                 }
             };
         }

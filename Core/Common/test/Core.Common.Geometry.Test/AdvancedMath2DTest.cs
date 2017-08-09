@@ -388,7 +388,7 @@ namespace Core.Common.Geometry.Test
         }
 
         [Test]
-        public void CompleteLineToPolygon_LineWithLessThanTwoPoints_ThrowsArgumentNullException([Range(0,1)] int pointCount)
+        public void CompleteLineToPolygon_LineWithLessThanTwoPoints_ThrowsArgumentNullException([Range(0, 1)] int pointCount)
         {
             // Setup
             IEnumerable<Point2D> points = Enumerable.Repeat(new Point2D(3, 2), pointCount);
@@ -402,7 +402,6 @@ namespace Core.Common.Geometry.Test
             Assert.AreEqual("line", exception.ParamName);
         }
 
-
         [Test]
         [TestCase(3)]
         [TestCase(0)]
@@ -414,19 +413,20 @@ namespace Core.Common.Geometry.Test
             var random = new Random(21);
             int firstPointX = random.Next();
             int lastPointX = random.Next();
-            var points = new []
+            var points = new[]
             {
-                new Point2D(firstPointX, random.Next()), 
-                new Point2D(random.Next(), random.Next()), 
-                new Point2D(lastPointX, random.Next()), 
+                new Point2D(firstPointX, random.Next()),
+                new Point2D(random.Next(), random.Next()),
+                new Point2D(lastPointX, random.Next())
             };
-            
+
             // Call
             Point2D[] pointsOfPolygon = AdvancedMath2D.CompleteLineToPolygon(points, completingPointsLevel).ToArray();
 
             // Assert
-            Assert.AreEqual(new Point2D(lastPointX, completingPointsLevel), pointsOfPolygon.ElementAt(3));
-            Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon.ElementAt(4));
+            Assert.AreEqual(points, pointsOfPolygon.Take(3));
+            Assert.AreEqual(new Point2D(lastPointX, completingPointsLevel), pointsOfPolygon[3]);
+            Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon[4]);
         }
 
         private static double[] ThreeRandomXCoordinates()

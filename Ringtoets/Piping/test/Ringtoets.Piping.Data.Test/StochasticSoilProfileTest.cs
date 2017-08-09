@@ -248,7 +248,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(stochasticSoilProfile.SoilProfile.ToString(), text);
         }
 
-
         private class TestStochasticSoilProfile : StochasticSoilProfile
         {
             public TestStochasticSoilProfile(StochasticSoilProfile profile)
@@ -295,6 +294,16 @@ namespace Ringtoets.Piping.Data.Test
             StochasticSoilProfile profileD = CreateRandomStochasticProfile(21);
             var profileE = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 25);
             var profileF = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 45);
+            var profileG = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 25);
+            var profileH = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25);
+            var profileI = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25)
+            {
+                SoilProfile = CreateRandomProfile(new Random(12))
+            };
+            var profileJ = new StochasticSoilProfile(0.15, SoilProfileType.SoilProfile1D, 25)
+            {
+                SoilProfile = CreateRandomProfile(new Random(32))
+            };
 
             return new[]
             {
@@ -321,6 +330,18 @@ namespace Ringtoets.Piping.Data.Test
                 new TestCaseData(profileE, profileF, true)
                 {
                     TestName = "Equals_DifferentIds_True"
+                },
+                new TestCaseData(profileE, profileG, false)
+                {
+                    TestName = "Equals_DifferentTypes_False"
+                },
+                new TestCaseData(profileE, profileH, false)
+                {
+                    TestName = "Equals_DifferentProbability_False"
+                },
+                new TestCaseData(profileI, profileJ, false)
+                {
+                    TestName = "Equals_DifferentProfile_False"
                 }
             };
         }

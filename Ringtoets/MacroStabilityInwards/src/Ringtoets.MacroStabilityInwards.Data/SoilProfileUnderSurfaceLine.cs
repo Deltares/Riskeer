@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// A soil profile for which it's soil layers have been adapted using a surface line.
+    /// A soil profile for which its soil layers have been adapted using a surface line.
     /// </summary>
     public class SoilProfileUnderSurfaceLine
     {
@@ -33,6 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Creates a new instance of <see cref="SoilProfileUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="layersUnderSurfaceLine">The layers in the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layersUnderSurfaceLine"/>
+        /// is <c>null</c>.</exception>
         public SoilProfileUnderSurfaceLine(IEnumerable<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine)
         {
             if (layersUnderSurfaceLine == null)
