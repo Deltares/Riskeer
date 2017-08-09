@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                           IStochasticSoilModelUpdateModelStrategy
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
+        /// Creates a new instance of <see cref="StochasticSoilModelReplaceDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the models are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>

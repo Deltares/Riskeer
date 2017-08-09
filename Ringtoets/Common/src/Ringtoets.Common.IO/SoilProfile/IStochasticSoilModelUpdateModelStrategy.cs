@@ -22,16 +22,16 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new stochastic soil models
     /// have been imported.
     /// </summary>
-    public interface IStochasticSoilModelUpdateModelStrategy
+    public interface IStochasticSoilModelUpdateModelStrategy<in T> where T : IMechanismStochasticSoilModel
     {
         /// <summary>
         /// Updates the stochastic soil models using the <paramref name="stochasticSoilModels"/>.
@@ -43,6 +43,6 @@ namespace Ringtoets.Piping.IO.Importers
         /// <see cref="UpdateDataException.InnerException"/> is set with the more detailed
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
-        IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath);
+        IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<T> stochasticSoilModels, string sourceFilePath);
     }
 }

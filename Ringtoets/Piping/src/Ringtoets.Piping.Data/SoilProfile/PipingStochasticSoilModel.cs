@@ -23,9 +23,8 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Ringtoets.Piping.Primitives
+namespace Ringtoets.Piping.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a piping specific stochastic soil model which consists out of a 

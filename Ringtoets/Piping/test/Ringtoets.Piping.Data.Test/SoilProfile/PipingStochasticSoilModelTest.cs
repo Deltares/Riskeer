@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Ringtoets.Piping.Data.Test.SoilProfile
 {

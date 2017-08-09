@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Ringtoets.Piping.IO.Importers
 {
