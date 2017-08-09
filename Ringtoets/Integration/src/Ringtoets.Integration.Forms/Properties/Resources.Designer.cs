@@ -424,24 +424,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terugkeertijd van de norm, gelijk aan 1/norm..
-        /// </summary>
-        public static string FailureMechanismContribution_ReturnPeriod_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_ReturnPeriod_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Norm (terugkeertijd) [jaar].
-        /// </summary>
-        public static string FailureMechanismContribution_ReturnPeriod_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_ReturnPeriod_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de &apos;Norm (terugkeertijd)&apos; moet in het bereik {0} liggen..
         /// </summary>
         public static string FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_ {

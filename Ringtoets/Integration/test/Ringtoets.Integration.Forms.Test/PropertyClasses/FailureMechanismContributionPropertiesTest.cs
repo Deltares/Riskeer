@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
@@ -36,10 +36,10 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.TestUtils;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string expectedCategory = "Algemeen";
 
@@ -176,33 +176,24 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Trajecttype",
                                                                             "Selecteer het type traject, bepalend voor de faalkansbegroting.");
 
-            PropertyDescriptor returnPeriodProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(returnPeriodProperty,
-                                                                            expectedCategory,
-                                                                            "Norm (terugkeertijd) [jaar]",
-                                                                            "Terugkeertijd van de norm, gelijk aan 1/norm.");
-
-            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[2];
+            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
                                                                             expectedCategory,
                                                                             "Ondergrens [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.",
-                                                                            true);
+                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
 
-            PropertyDescriptor signalingNormProperty = dynamicProperties[3];
+            PropertyDescriptor signalingNormProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
                                                                             expectedCategory,
                                                                             "Signaleringswaarde [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.",
-                                                                            true);
+                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
 
-            PropertyDescriptor normativeNormProperty = dynamicProperties[4];
+            PropertyDescriptor normativeNormProperty = dynamicProperties[3];
             Assert.IsInstanceOf<EnumTypeConverter>(normativeNormProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,
                                                                             "Norm van het dijktraject",
-                                                                            "De kans die wordt gebruikt als de norm van het dijktraject.",
-                                                                            true);
+                                                                            "De kans die wordt gebruikt als de norm van het dijktraject.");
         }
 
         [Test]
@@ -238,85 +229,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenReturnPeriod_WhenConfirmingReturnPeriodValueChange_ThenReturnPeriodSetAndNotifiesObserver()
+        public void LowerLimitNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-
-            var normChangeHandler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
-
-            var mocks = new MockRepository();
-            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
-            var observer = mocks.StrictMock<IObserver>();
-            failureMechanismContribution.Attach(observer);
-
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
-            var properties = new FailureMechanismContributionProperties(
-                failureMechanismContribution,
-                assessmentSection,
-                normChangeHandler,
-                compositionChangeHandler);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-                messageBox.ClickOk();
-            };
-
-            // When
-            const int newReturnPeriod = 200;
-            properties.ReturnPeriod = newReturnPeriod;
-
-            // Then
-            Assert.AreEqual(30000, properties.ReturnPeriod);
-            Assert.AreEqual(1.0 / 30000, failureMechanismContribution.Norm);
-            mocks.VerifyAll();
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = 0.01.ToString(CultureInfo.CurrentCulture));
         }
 
         [Test]
-        public void GivenReturnPeriod_WhenCancelingReturnPeriodValueChange_ThenDataSameObserversNotNotified()
+        public void SignalingNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            int originalReturnPeriod = Convert.ToInt32(1 / failureMechanismContribution.Norm);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = 0.00001.ToString(CultureInfo.CurrentCulture));
+        }
 
-            var normChangeHandler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
-
-            var mocks = new MockRepository();
-            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mocks.ReplayAll();
-
-            var observer = mocks.StrictMock<IObserver>();
-            failureMechanismContribution.Attach(observer);
-            mocks.ReplayAll();
-
-            var properties = new FailureMechanismContributionProperties(
-                failureMechanismContribution,
-                assessmentSection,
-                normChangeHandler,
-                compositionChangeHandler);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var messageBox = new MessageBoxTester(wnd);
-                messageBox.ClickCancel();
-            };
-
-            // When
-            const int newReturnPeriod = 200;
-            properties.ReturnPeriod = newReturnPeriod;
-
-            // Then
-            Assert.AreEqual(originalReturnPeriod, properties.ReturnPeriod);
-            Assert.AreEqual(1.0 / originalReturnPeriod, failureMechanismContribution.Norm);
-            mocks.VerifyAll();
+        [Test]
+        public void NormativeNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.NormativeNorm = NormType.Signaling);
         }
 
         [Test]
@@ -402,82 +329,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ReturnPeriod_ValueChanges_NotifiesChangedObjectsInAssessmentSection()
-        {
-            // Setup
-            const int returnPeriod = 200;
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var mocks = new MockRepository();
-            var observable1 = mocks.StrictMock<IObservable>();
-            observable1.Expect(o => o.NotifyObservers());
-            var observable2 = mocks.StrictMock<IObservable>();
-            observable2.Expect(o => o.NotifyObservers());
-
-            var normChangeHandler = mocks.StrictMock<IObservablePropertyChangeHandler>();
-            normChangeHandler.Expect(h => h.SetPropertyValueAfterConfirmation(null)).IgnoreArguments()
-                             .Return(new[]
-                             {
-                                 observable1,
-                                 observable2
-                             });
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            var properties = new FailureMechanismContributionProperties(
-                assessmentSection.FailureMechanismContribution,
-                assessmentSection,
-                normChangeHandler,
-                new AssessmentSectionCompositionChangeHandler(viewCommands));
-
-            // Call
-            properties.ReturnPeriod = returnPeriod;
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(int.MinValue)]
-        [TestCase(int.MaxValue)]
-        [TestCase(9)]
-        [TestCase(1000001)]
-        [TestCase(0)]
-        [SetCulture("nl-NL")]
-        public void ReturnPeriod_InvalidValue_ThrowsArgumentOutOfRangeException(int invalidReturnPeriod)
-        {
-            // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-            var contribution = new FailureMechanismContribution(failureMechanisms, 1.1);
-
-            var properties = new FailureMechanismContributionProperties(
-                contribution,
-                assessmentSection,
-                new FailureMechanismContributionNormChangeHandler(assessmentSection),
-                new AssessmentSectionCompositionChangeHandler(viewCommands));
-
-            // Call
-            TestDelegate call = () => properties.ReturnPeriod = invalidReturnPeriod;
-
-            // Assert
-            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
         [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
         [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
@@ -517,6 +368,37 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             properties.AssessmentSectionComposition = newComposition;
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(Action<FailureMechanismContributionProperties> setProperty)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            var mocks = new MockRepository();
+            var compositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                handler,
+                compositionChangeHandler);
+
+            // Call
+            setProperty(properties);
+
+            // Assert
+            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
 

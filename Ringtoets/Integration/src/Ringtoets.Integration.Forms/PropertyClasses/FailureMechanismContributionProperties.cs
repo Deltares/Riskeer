@@ -111,24 +111,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismContribution_ReturnPeriod_Description))]
-        public int ReturnPeriod
-        {
-            get
-            {
-                return Convert.ToInt32(1.0 / data.Norm);
-            }
-            set
-            {
-                double newNormValue = 1.0 / Convert.ToInt32(value);
-
-                PropertyChangeHelper.ChangePropertyAndNotify(() => assessmentSection.FailureMechanismContribution.Norm = newNormValue, normChangeHandler);
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
         public string LowerLimitNorm
@@ -136,6 +118,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return ProbabilityFormattingHelper.Format(data.LowerLimitNorm);
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = double.Parse(value), normChangeHandler);
             }
         }
 
@@ -149,6 +135,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return ProbabilityFormattingHelper.Format(data.SignalingNorm);
             }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = double.Parse(value), normChangeHandler);
+            }
         }
 
         [PropertyOrder(4)]
@@ -161,6 +151,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data.NormativeNorm;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.NormativeNorm = value, normChangeHandler);
             }
         }
     }

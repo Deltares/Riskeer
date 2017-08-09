@@ -276,12 +276,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContribution_Composition_DisplayName" xml:space="preserve">
     <value>Trajecttype</value>
   </data>
-  <data name="FailureMechanismContribution_ReturnPeriod_Description" xml:space="preserve">
-    <value>Terugkeertijd van de norm, gelijk aan 1/norm.</value>
-  </data>
-  <data name="FailureMechanismContribution_ReturnPeriod_DisplayName" xml:space="preserve">
-    <value>Norm (terugkeertijd) [jaar]</value>
-  </data>
   <data name="FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor de 'Norm (terugkeertijd)' moet in het bereik {0} liggen.</value>
   </data>
