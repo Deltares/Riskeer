@@ -119,19 +119,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(TopLevelFaultTreeIllustrationPointProperties.AlphaValues));
             Assert.IsNotNull(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            foreach (Stochast alpha in faultTree.AlphaValues)
-            {
-                Assert.AreEqual(5.5, alpha.Alpha);
-            }
+            Assert.AreEqual(5.5, faultTree.AlphaValues[0].Alpha);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.Durations));
             Assert.IsNotNull(faultTree.Durations);
             Assert.AreEqual(1, faultTree.Durations.Length);
-            foreach (Stochast duration in faultTree.Durations)
-            {
-                Assert.AreEqual(2.5, duration.Duration);
-            }
+            Assert.AreEqual(2.5, faultTree.Durations[0].Duration);
 
             TestHelper.AssertTypeConverter<TopLevelFaultTreeIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(TopLevelFaultTreeIllustrationPointProperties.IllustrationPoints));

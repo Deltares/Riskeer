@@ -132,12 +132,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             int nrOfExpectedStochasts = generalResult.Stochasts.Count();
             Assert.AreEqual(nrOfExpectedStochasts, properties.AlphaValues.Length);
             Assert.AreEqual(nrOfExpectedStochasts, properties.Durations.Length);
-
-            foreach (Stochast stochast in generalResult.Stochasts)
-            {
-                Assert.AreEqual(stochast.Alpha, properties.AlphaValues[0].Alpha);
-                Assert.AreEqual(stochast.Duration, properties.Durations[0].Duration);
-            }
+            Stochast expectedStochast = generalResult.Stochasts.First();
+            Assert.AreEqual(expectedStochast.Alpha, properties.AlphaValues[0].Alpha);
+            Assert.AreEqual(expectedStochast.Duration, properties.Durations[0].Duration);
 
             TestHelper.AssertTypeConverter<StructuresOutputProperties, ExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.IllustrationPoints));
@@ -149,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void IllustrationPoints_HasGeneralResultFalse_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
+        public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
         {
             // Setup
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
@@ -160,7 +157,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsEmpty(illustrationPoints);
-
         }
 
         [Test]

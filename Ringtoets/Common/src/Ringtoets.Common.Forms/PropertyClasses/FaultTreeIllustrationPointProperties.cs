@@ -46,7 +46,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointNode"/> is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="IllustrationPointNode.Data"/> property of <paramref name="illustrationPointNode"/>
+        /// is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
         public FaultTreeIllustrationPointProperties(
             IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
         {

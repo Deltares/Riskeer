@@ -50,7 +50,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPointProperties(null, "Point name A", "Closing Situation");
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(null,
+                                                                                  "Point name A",
+                                                                                  "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -61,7 +63,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), null, "Closing Situation");
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                                                                                  null,
+                                                                                  "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,10 +73,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ClosingSituationNull_ThrowsException()
+        public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "SE", null);
+            TestDelegate test = () => new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                                                                                  "SE",
+                                                                                  null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -124,28 +130,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(SubMechanismIllustrationPointProperties.AlphaValues));
             CollectionAssert.IsNotEmpty(subMechanismProperties.AlphaValues);
             Assert.AreEqual(1, subMechanismProperties.AlphaValues.Length);
-            foreach (SubMechanismIllustrationPointStochast alphaValue in subMechanismProperties.AlphaValues)
-            {
-                Assert.AreEqual(4.5, alphaValue.Alpha);
-            }
+            Assert.AreEqual(4.5, subMechanismProperties.AlphaValues[0].Alpha);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Durations));
             CollectionAssert.IsNotEmpty(subMechanismProperties.Durations);
             Assert.AreEqual(1, subMechanismProperties.Durations.Length);
-            foreach (SubMechanismIllustrationPointStochast duration in subMechanismProperties.Durations)
-            {
-                Assert.AreEqual(2.0, duration.Duration);
-            }
+            Assert.AreEqual(2.0, subMechanismProperties.Durations[0].Duration);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.SubMechanismStochasts));
             CollectionAssert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
             Assert.AreEqual(1, subMechanismProperties.SubMechanismStochasts.Length);
-            foreach (SubMechanismIllustrationPointStochast realization in subMechanismProperties.SubMechanismStochasts)
-            {
-                Assert.AreEqual(0.1, realization.Realization);
-            }
+            Assert.AreEqual(0.1, subMechanismProperties.SubMechanismStochasts[0].Realization);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));
@@ -157,7 +154,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WithSubMechanismIllustrationPoint_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", "Regular");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                                                                                     "N",
+                                                                                     "Regular");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
@@ -217,7 +216,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HiddenClosingSituation_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()), "N", string.Empty);
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                                                                                     "N",
+                                                                                     string.Empty);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
@@ -270,9 +271,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("Relevant")),
-                "NotRelevant", "ClosingSit");
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(new TestSubMechanismIllustrationPoint("Relevant")),
+                                                                                     "NotRelevant",
+                                                                                     "ClosingSit");
 
             // Call
             string toString = subMechanismProperties.ToString();

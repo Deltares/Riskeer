@@ -58,7 +58,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), null, "Closing Situation");
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                                                                               null,
+                                                                               "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,10 +68,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ClosingSituationNull_ThrowsException()
+        public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()), "SE", null);
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                                                                               "SE",
+                                                                               null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -80,7 +84,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_InvalidIllustrationPointType_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), "N", "Regular");
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()),
+                                                                               "N",
+                                                                               "Regular");
 
             // Assert
             const string expectedMessage = "illustrationPointNode type has to be FaultTreeIllustrationPoint";
@@ -122,17 +128,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             CollectionAssert.IsNotEmpty(faultTree.AlphaValues);
             Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            foreach (Stochast alphaValue in faultTree.AlphaValues)
-            {
-                Assert.AreEqual(2.5, alphaValue.Alpha);
-            }
+            Assert.AreEqual(2.5, faultTree.AlphaValues[0].Alpha);
 
             CollectionAssert.IsNotEmpty(faultTree.Durations);
             Assert.AreEqual(1, faultTree.Durations.Length);
-            foreach (Stochast duration in faultTree.Durations)
-            {
-                Assert.AreEqual(10.0, duration.Duration);
-            }
+            Assert.AreEqual(10.0, faultTree.Durations[0].Duration);
 
             Assert.IsNotNull(faultTree.IllustrationPoints);
             Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
@@ -279,9 +279,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void VisibleProperties_WithoutChildIllustrationPointNodes_ExpectedAttributesValues()
         {
             // Setup
-            var faultTree = new FaultTreeIllustrationPointProperties(
-                new IllustrationPointNode(
-                    new TestFaultTreeIllustrationPoint()), "N", "Regular");
+            var faultTree = new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                                                                     "N",
+                                                                     "Regular");
 
             // Call
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);

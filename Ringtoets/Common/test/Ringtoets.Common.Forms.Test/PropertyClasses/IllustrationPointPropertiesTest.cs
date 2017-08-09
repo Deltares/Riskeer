@@ -59,7 +59,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_WindDirectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), null, "Closing Situation");
+            TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()),
+                                                                      null,
+                                                                      "Closing Situation");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -67,10 +69,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ClosingSituationNull_ThrowsException()
+        public void Constructor_ClosingSituationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()), "SE", null);
+            TestDelegate test = () => new IllustrationPointProperties(new IllustrationPointNode(new TestIllustrationPoint()),
+                                                                      "SE",
+                                                                      null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -84,7 +88,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault Tree AAA",
                                                                                                                      3.14,
                                                                                                                      Enumerable.Empty<Stochast>(),
-                                                                                                                     CombinationType.And)), "NNE", "closing situation");
+                                                                                                                     CombinationType.And)),
+                                                            "NNE",
+                                                            "closing situation");
 
             // Assert
             Assert.AreEqual("NNE", faultTree.WindDirection);
@@ -152,7 +158,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var faultTree = new IllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint("ImportantName")),
-                                                            "NotImportant", "Closing Situation");
+                                                            "NotImportant",
+                                                            "Closing Situation");
 
             // Call
             string toString = faultTree.ToString();

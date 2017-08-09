@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -70,42 +69,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                     nameof(IllustrationPoints), propertyIndexes.IllustrationPointsIndex
                 }
             };
-        }
-
-        public class ConstructionProperties
-        {
-            public int IdIndex { get; set; } = 1;
-            public int NameIndex { get; set; } = 2;
-            public int LocationIndex { get; set; } = 3;
-            public int GoverningWindDirectionIndex { get; set; } = 4;
-            public int StochastsIndex { get; set; } = 5;
-            public int DurationsIndex { get; set; } = 6;
-            public int IllustrationPointsIndex { get; set; } = 7;
-        }
-
-        [DynamicPropertyOrderEvaluationMethod]
-        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
-        {
-            int propertyIndex;
-
-            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
-
-            return propertyIndex;
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            bool hasGeneralIllustrationPointsResult = GetGeneralResult() != null;
-            if (propertyName == nameof(GoverningWindDirection)
-                || propertyName == nameof(AlphaValues)
-                || propertyName == nameof(Durations)
-                || propertyName == nameof(IllustrationPoints))
-            {
-                return hasGeneralIllustrationPointsResult;
-            }
-
-            return true;
         }
 
         [DynamicPropertyOrder]
@@ -207,6 +170,36 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
+        {
+            int propertyIndex;
+
+            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
+
+            return propertyIndex;
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            bool hasGeneralIllustrationPointsResult = GetGeneralResult() != null;
+            if (propertyName == nameof(GoverningWindDirection)
+                || propertyName == nameof(AlphaValues)
+                || propertyName == nameof(Durations)
+                || propertyName == nameof(IllustrationPoints))
+            {
+                return hasGeneralIllustrationPointsResult;
+            }
+
+            return true;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} {Location}";
+        }
+
         /// <summary>
         /// Gets the general result with the illustration points result.
         /// </summary>
@@ -214,9 +207,15 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// otherwise.</returns>
         protected abstract GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult();
 
-        public override string ToString()
+        public class ConstructionProperties
         {
-            return $"{Name} {Location}";
+            public int IdIndex { get; set; } = 1;
+            public int NameIndex { get; set; } = 2;
+            public int LocationIndex { get; set; } = 3;
+            public int GoverningWindDirectionIndex { get; set; } = 4;
+            public int StochastsIndex { get; set; } = 5;
+            public int DurationsIndex { get; set; } = 6;
+            public int IllustrationPointsIndex { get; set; } = 7;
         }
     }
 }
