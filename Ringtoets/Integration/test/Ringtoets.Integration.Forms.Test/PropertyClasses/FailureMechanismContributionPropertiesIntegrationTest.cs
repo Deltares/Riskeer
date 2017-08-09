@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
@@ -52,8 +53,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
 
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
-        private const string newLowerLimitNorm = "0.01";
-        private const string newSignalingNorm = "0.000001";
+        private readonly string newLowerLimitNorm = 0.01.ToString(CultureInfo.CurrentCulture);
+        private readonly string newSignalingNorm = 0.000001.ToString(CultureInfo.CurrentCulture);
         private const NormType newNormativeNorm = NormType.Signaling;
 
         #region AllDataAndOutputSet
