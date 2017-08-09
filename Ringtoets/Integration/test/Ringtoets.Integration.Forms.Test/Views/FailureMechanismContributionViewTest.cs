@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 int returnPeriod = Convert.ToInt32(1.0 / failureMechanismContribution.Norm);
-                string expectedReturnPeriodLabel = $"Norm: 1 / {returnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                string expectedReturnPeriodLabel = $"Norm van het dijktraject: 1 / {returnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
             mocks.VerifyAll();
@@ -272,7 +272,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                string initialReturnPeriodLabelText = $"Norm: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                string initialReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
-                string newReturnPeriodLabelText = $"Norm: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                string newReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
@@ -320,7 +320,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
 
                 // Precondition
-                string initialReturnPeriodLabelText = $"Norm: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                string initialReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
 
                 // Call
@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 contribution.NotifyObservers();
 
                 // Assert
-                string newReturnPeriodLabelText = $"Norm: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                string newReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 

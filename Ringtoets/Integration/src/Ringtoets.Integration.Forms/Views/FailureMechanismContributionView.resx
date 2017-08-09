@@ -136,7 +136,7 @@
     <value>10</value>
   </data>
   <data name="returnPeriodLabel.Text" xml:space="preserve">
-    <value>Norm: 1 / jaar</value>
+    <value>Norm van het dijktraject: 1 / jaar</value>
   </data>
   <data name="&gt;&gt;returnPeriodLabel.Name" xml:space="preserve">
     <value>returnPeriodLabel</value>
@@ -229,7 +229,7 @@
     <value>probabilityDistributionGrid</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.4.1.7305, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=17.2.1.11030, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>$this</value>
@@ -237,9 +237,9 @@
   <data name="&gt;&gt;probabilityDistributionGrid.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>750, 420</value>
   </data>

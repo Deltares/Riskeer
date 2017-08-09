@@ -453,7 +453,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Norm: 1 / {0}.
+        ///   Looks up a localized string similar to Norm van het dijktraject: 1 / {0}.
         /// </summary>
         public static string FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_ {
             get {

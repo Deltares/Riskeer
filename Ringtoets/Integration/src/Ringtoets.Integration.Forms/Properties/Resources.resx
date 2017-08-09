@@ -280,7 +280,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>De waarde voor de 'Norm (terugkeertijd)' moet in het bereik {0} liggen.</value>
   </data>
   <data name="FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_" xml:space="preserve">
-    <value>Norm: 1 / {0}</value>
+    <value>Norm van het dijktraject: 1 / {0}</value>
   </data>
   <data name="FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_" xml:space="preserve">
     <value>Trajecttype: {0}</value>
