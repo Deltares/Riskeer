@@ -144,15 +144,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var referenceDistribution = new NormalDistribution(random.Next(1, 16))
+            var distribution = new NormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
-            };
-            var distribution = new NormalDistribution(referenceDistribution.Mean.NumberOfDecimalPlaces)
-            {
-                Mean = referenceDistribution.Mean,
-                StandardDeviation = referenceDistribution.StandardDeviation
             };
 
             // Call
@@ -161,7 +156,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreNotSame(distribution, clone);
             Assert.IsInstanceOf<NormalDistribution>(clone);
-            DistributionAssert.AreEqual(referenceDistribution, (NormalDistribution) clone);
+            DistributionAssert.AreEqual(distribution, (NormalDistribution) clone);
         }
 
         [Test]

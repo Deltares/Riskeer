@@ -173,13 +173,11 @@ namespace Ringtoets.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble());
 
             // Call
             object clone = probabilityAssessmentOutput.Clone();
@@ -189,11 +187,11 @@ namespace Ringtoets.Common.Data.Test.Probability
             Assert.IsInstanceOf<ProbabilityAssessmentOutput>(clone);
 
             var clonedProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) clone;
-            Assert.AreEqual(requiredProbability, clonedProbabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(requiredReliability, clonedProbabilityAssessmentOutput.RequiredReliability, clonedProbabilityAssessmentOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(probability, clonedProbabilityAssessmentOutput.Probability);
-            Assert.AreEqual(reliability, clonedProbabilityAssessmentOutput.Reliability, clonedProbabilityAssessmentOutput.Reliability.GetAccuracy());
-            Assert.AreEqual(factorOfSafety, clonedProbabilityAssessmentOutput.FactorOfSafety, clonedProbabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, clonedProbabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, clonedProbabilityAssessmentOutput.RequiredReliability);
+            Assert.AreEqual(probabilityAssessmentOutput.Probability, clonedProbabilityAssessmentOutput.Probability);
+            Assert.AreEqual(probabilityAssessmentOutput.Reliability, clonedProbabilityAssessmentOutput.Reliability);
+            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, clonedProbabilityAssessmentOutput.FactorOfSafety);
         }
     }
 }

@@ -87,19 +87,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var referenceDistribution = new TruncatedNormalDistribution(random.Next(1, 16))
+            var distribution = new TruncatedNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble(),
                 LowerBoundary = random.NextRoundedDouble(),
                 UpperBoundary = random.NextRoundedDouble()
-            };
-            var distribution = new TruncatedNormalDistribution(referenceDistribution.Mean.NumberOfDecimalPlaces)
-            {
-                Mean = referenceDistribution.Mean,
-                StandardDeviation = referenceDistribution.StandardDeviation,
-                LowerBoundary = referenceDistribution.LowerBoundary,
-                UpperBoundary = referenceDistribution.UpperBoundary
             };
 
             // Call
@@ -108,7 +101,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.IsInstanceOf<TruncatedNormalDistribution>(clone);
             Assert.AreNotSame(distribution, clone);
-            DistributionAssert.AreEqual(referenceDistribution, (TruncatedNormalDistribution) clone);
+            DistributionAssert.AreEqual(distribution, (TruncatedNormalDistribution) clone);
         }
     }
 }

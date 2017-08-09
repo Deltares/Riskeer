@@ -235,8 +235,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Setup
             var random = new Random(21);
-            var referenceBreakWater = new BreakWater(random.NextEnumValue<BreakWaterType>(), random.NextDouble());
-            var breakWater = new BreakWater(referenceBreakWater.Type, referenceBreakWater.Height);
+            var breakWater = new BreakWater(random.NextEnumValue<BreakWaterType>(), random.NextDouble());
 
             // Call
             object clone = breakWater.Clone();
@@ -244,7 +243,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             // Assert
             Assert.AreNotSame(breakWater, clone);
             Assert.IsInstanceOf<BreakWater>(clone);
-            Assert.AreEqual(referenceBreakWater, (BreakWater) clone);
+
+            var clonedBreakWater = (BreakWater) clone;
+            Assert.AreEqual(breakWater.Type, clonedBreakWater.Type);
+            Assert.AreEqual(breakWater.Height, clonedBreakWater.Height);
         }
     }
 }
