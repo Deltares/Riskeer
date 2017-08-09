@@ -40,9 +40,9 @@ namespace Ringtoets.Common.Data.Contribution
 
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
-        private double norm;
         private double lowerLimitNorm;
         private double signalingNorm;
+        private NormType normativeNorm;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 
@@ -62,7 +62,6 @@ namespace Ringtoets.Common.Data.Contribution
         /// </exception>
         public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution)
         {
-            Norm = defaultNorm;
             signalingNorm = defaultNorm;
             lowerLimitNorm = defaultNorm;
             NormativeNorm = NormType.LowerLimit;
@@ -94,6 +93,7 @@ namespace Ringtoets.Common.Data.Contribution
                 }
 
                 signalingNorm = value;
+                SetDistribution();
             }
         }
 
@@ -121,6 +121,7 @@ namespace Ringtoets.Common.Data.Contribution
                 }
 
                 lowerLimitNorm = value;
+                SetDistribution();
             }
         }
 
@@ -133,23 +134,27 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return NormativeNorm == NormType.LowerLimit
+                return normativeNorm == NormType.LowerLimit
                            ? LowerLimitNorm
                            : SignalingNorm;
-            }
-            set
-            {
-                ValidateNorm(value);
-
-                norm = value;
-                distribution.ForEachElementDo(d => d.Norm = norm);
             }
         }
 
         /// <summary>
         /// Gets or sets the norm type which has been defined on the assessment section.
         /// </summary>
-        public NormType NormativeNorm { get; set; }
+        public NormType NormativeNorm
+        {
+            get
+            {
+                return normativeNorm;
+            }
+            set
+            {
+                normativeNorm = value;
+                SetDistribution();
+            }
+        }
 
         /// <summary>
         /// Gets the distribution of failure mechanism contributions.
@@ -189,6 +194,11 @@ namespace Ringtoets.Common.Data.Contribution
             AddOtherContributionItem(otherContribution);
         }
 
+        private void SetDistribution()
+        {
+            distribution.ForEachElementDo(d => d.Norm = Norm);
+        }
+
         /// <summary>
         /// Validates the norm value;
         /// </summary>
@@ -212,7 +222,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         private void AddContributionItem(IFailureMechanism failureMechanism)
         {
-            distribution.Add(new FailureMechanismContributionItem(failureMechanism, norm));
+            distribution.Add(new FailureMechanismContributionItem(failureMechanism, Norm));
         }
 
         /// <summary>
@@ -224,7 +234,7 @@ namespace Ringtoets.Common.Data.Contribution
         private void AddOtherContributionItem(double otherContribution)
         {
             otherFailureMechanism.Contribution = otherContribution;
-            var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, norm, true);
+            var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, Norm, true);
             distribution.Add(otherContributionItem);
         }
     }

@@ -314,40 +314,16 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidValues),
-            new object[]
-            {
-                "Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
-            })]
-        [SetCulture("nl-NL")]
-        public void Norm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void LowerLimitNorm_WhenUpdatedAndNormativeNormLowerLimit_NormUpdatedForEachFailureMechanismContributionItem()
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution);
-
-            // Call
-            TestDelegate test = () => failureMechanismContribution.Norm = newNorm;
-
-            // Assert
-            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(0.000001)]
-        [TestCase(0.1)]
-        [TestCase(1.0 / 30000)]
-        public void Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem(double newNorm)
-        {
-            // Setup
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
+            const double newNorm = 0.1;
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-
             mocks.ReplayAll();
+
+            var random = new Random(21);
+            int otherContribution = random.Next(1, 100);
 
             var failureMechanismContribution = new FailureMechanismContribution(new[]
             {
@@ -355,10 +331,127 @@ namespace Ringtoets.Common.Data.Test.Contribution
             }, otherContribution);
 
             // Call
-            failureMechanismContribution.Norm = newNorm;
+            failureMechanismContribution.LowerLimitNorm = newNorm;
 
             // Assert
-            Assert.AreEqual(Enumerable.Repeat(newNorm, 2), failureMechanismContribution.Distribution.Select(d => d.Norm));
+            CollectionAssert.AreEqual(Enumerable.Repeat(newNorm, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void LowerLimitNorm_WhenUpdatedAndNormativeNormNotLowerLimit_NormNotUpdatedForEachFailureMechanismContributionItem()
+        {
+            // Setup
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            int otherContribution = random.Next(1, 100);
+
+            var failureMechanismContribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution)
+            {
+                NormativeNorm = NormType.Signaling
+            };
+
+            double originalNorm = failureMechanismContribution.Norm;
+
+            // Call
+            failureMechanismContribution.LowerLimitNorm = 0.1;
+
+            // Assert
+            CollectionAssert.AreEqual(Enumerable.Repeat(originalNorm, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void SignalingNorm_WhenUpdatedAndNormativeNormSignaling_NormUpdatedForEachFailureMechanismContributionItem()
+        {
+            // Setup
+            const double newNorm = 0.000001;
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            int otherContribution = random.Next(1, 100);
+
+            var failureMechanismContribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution)
+            {
+                NormativeNorm = NormType.Signaling
+            };
+
+            // Call
+            failureMechanismContribution.SignalingNorm = newNorm;
+
+            // Assert
+            CollectionAssert.AreEqual(Enumerable.Repeat(newNorm, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void SignalingNorm_WhenUpdatedAndNormativeNormNotSignaling_NormNotUpdatedForEachFailureMechanismContributionItem()
+        {
+            // Setup
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            int otherContribution = random.Next(1, 100);
+
+            var failureMechanismContribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution);
+
+            double originalNorm = failureMechanismContribution.Norm;
+
+            // Call
+            failureMechanismContribution.SignalingNorm = 0.000001;
+
+            // Assert
+            CollectionAssert.AreEqual(Enumerable.Repeat(originalNorm, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NormativeNorm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem()
+        {
+            // Setup
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            int otherContribution = random.Next(1, 100);
+
+            var failureMechanismContribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution)
+            {
+                LowerLimitNorm = 0.1,
+                SignalingNorm = 0.001
+            };
+
+            // Precondition
+            CollectionAssert.AreEqual(Enumerable.Repeat(0.1, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
+
+            // Call
+            failureMechanismContribution.NormativeNorm = NormType.Signaling;
+
+            // Assert
+            CollectionAssert.AreEqual(Enumerable.Repeat(0.001, 2),
+                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
             mocks.VerifyAll();
         }
 

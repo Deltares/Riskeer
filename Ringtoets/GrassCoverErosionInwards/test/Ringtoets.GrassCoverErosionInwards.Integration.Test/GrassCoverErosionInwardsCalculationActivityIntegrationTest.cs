@@ -777,13 +777,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             calculatorFactory.Expect(cf => cf.CreateDikeHeightCalculator(testDataPath)).Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    Norm = 0.1
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
             AddSectionToAssessmentSection(assessmentSection);
 
@@ -1212,13 +1206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             calculatorFactory.Expect(cf => cf.CreateOvertoppingRateCalculator(testDataPath)).Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                FailureMechanismContribution =
-                {
-                    Norm = 0.1
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
             AddSectionToAssessmentSection(assessmentSection);
 

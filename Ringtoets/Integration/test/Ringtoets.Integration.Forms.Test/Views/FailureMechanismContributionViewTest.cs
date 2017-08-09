@@ -415,7 +415,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             const double contribution = 25.0;
-            const double norm = 1.0 / 500;
+            const double norm = 1.0 / 30000;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -433,10 +433,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanism
-                }, 100.0 - contribution)
-                {
-                    Norm = norm
-                };
+                }, 100.0 - contribution);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;

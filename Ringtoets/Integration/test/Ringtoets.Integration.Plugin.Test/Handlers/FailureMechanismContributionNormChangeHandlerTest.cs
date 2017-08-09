@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.Norm = 0.1);
+            handler.SetPropertyValueAfterConfirmation(() => { });
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
