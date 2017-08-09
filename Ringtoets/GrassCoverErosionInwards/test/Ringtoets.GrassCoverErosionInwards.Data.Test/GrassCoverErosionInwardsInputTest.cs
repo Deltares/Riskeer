@@ -367,8 +367,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var random = new Random(21);
             var dikeProfile = new TestDikeProfile();
-            var orientation = new RoundedDouble(2, random.NextDouble());
-            var dikeHeight = new RoundedDouble(2, random.NextDouble());
+            RoundedDouble orientation = random.NextRoundedDouble();
+            RoundedDouble dikeHeight = random.NextRoundedDouble();
             var criticalFlowRate = new LogNormalDistribution(4)
             {
                 Mean = random.NextRoundedDouble(),
@@ -414,8 +414,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var clonedGrassCoverErosionInwardsInput = (GrassCoverErosionInwardsInput) clone;
             Assert.AreSame(dikeProfile, clonedGrassCoverErosionInwardsInput.DikeProfile);
-            Assert.AreEqual(orientation, clonedGrassCoverErosionInwardsInput.Orientation);
-            Assert.AreEqual(dikeHeight, clonedGrassCoverErosionInwardsInput.DikeHeight);
+            Assert.AreEqual(orientation, clonedGrassCoverErosionInwardsInput.Orientation, clonedGrassCoverErosionInwardsInput.Orientation.GetAccuracy());
+            Assert.AreEqual(dikeHeight, clonedGrassCoverErosionInwardsInput.DikeHeight, clonedGrassCoverErosionInwardsInput.DikeHeight.GetAccuracy());
             Assert.AreNotSame(grassCoverErosionInwardsInput.CriticalFlowRate, clonedGrassCoverErosionInwardsInput.CriticalFlowRate);
             Assert.AreEqual(criticalFlowRate, clonedGrassCoverErosionInwardsInput.CriticalFlowRate);
             Assert.AreSame(hydraulicBoundaryLocation, clonedGrassCoverErosionInwardsInput.HydraulicBoundaryLocation);
