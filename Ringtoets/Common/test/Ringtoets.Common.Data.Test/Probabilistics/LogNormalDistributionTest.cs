@@ -223,22 +223,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var distribution = new LogNormalDistribution(random.Next(1, 16))
+            var referenceDistribution = new LogNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
+            };
+            var distribution = new LogNormalDistribution(referenceDistribution.Mean.NumberOfDecimalPlaces)
+            {
+                Mean = referenceDistribution.Mean,
+                StandardDeviation = referenceDistribution.StandardDeviation
             };
 
             // Call
             object clone = distribution.Clone();
 
             // Assert
+            Assert.AreNotSame(distribution, clone);
             Assert.IsInstanceOf<LogNormalDistribution>(clone);
-            var clonedDistribution = (LogNormalDistribution) clone;
-            Assert.AreNotSame(distribution, clonedDistribution);
-            Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
-            Assert.AreNotSame(distribution.StandardDeviation, clonedDistribution.StandardDeviation);
-            DistributionAssert.AreEqual(distribution, clonedDistribution);
+            DistributionAssert.AreEqual(referenceDistribution, (LogNormalDistribution) clone);
         }
 
         [Test]

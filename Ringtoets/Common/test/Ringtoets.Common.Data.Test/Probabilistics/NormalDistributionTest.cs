@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class NomalDistributionTest
+    public class NormalDistributionTest
     {
         private static IEnumerable<TestCaseData> DistributionCombinations
         {
@@ -144,22 +144,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var distribution = new NormalDistribution(random.Next(1, 16))
+            var referenceDistribution = new NormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
+            };
+            var distribution = new NormalDistribution(referenceDistribution.Mean.NumberOfDecimalPlaces)
+            {
+                Mean = referenceDistribution.Mean,
+                StandardDeviation = referenceDistribution.StandardDeviation
             };
 
             // Call
             object clone = distribution.Clone();
 
             // Assert
+            Assert.AreNotSame(distribution, clone);
             Assert.IsInstanceOf<NormalDistribution>(clone);
-            var clonedDistribution = (NormalDistribution) clone;
-            Assert.AreNotSame(distribution, clonedDistribution);
-            Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
-            Assert.AreNotSame(distribution.StandardDeviation, clonedDistribution.StandardDeviation);
-            DistributionAssert.AreEqual(distribution, clonedDistribution);
+            DistributionAssert.AreEqual(referenceDistribution, (NormalDistribution) clone);
         }
 
         [Test]

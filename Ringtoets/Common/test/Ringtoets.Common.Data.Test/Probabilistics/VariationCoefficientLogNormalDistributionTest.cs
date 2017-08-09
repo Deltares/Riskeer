@@ -171,22 +171,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var distribution = new VariationCoefficientLogNormalDistribution(random.Next(1, 16))
+            var referenceDistribution = new VariationCoefficientLogNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 CoefficientOfVariation = random.NextRoundedDouble()
+            };
+            var distribution = new VariationCoefficientLogNormalDistribution(referenceDistribution.Mean.NumberOfDecimalPlaces)
+            {
+                Mean = referenceDistribution.Mean,
+                CoefficientOfVariation = referenceDistribution.CoefficientOfVariation
             };
 
             // Call
             object clone = distribution.Clone();
 
             // Assert
+            Assert.AreNotSame(distribution, clone);
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistribution>(clone);
-            var clonedDistribution = (VariationCoefficientLogNormalDistribution) clone;
-            Assert.AreNotSame(distribution, clonedDistribution);
-            Assert.AreNotSame(distribution.Mean, clonedDistribution.Mean);
-            Assert.AreNotSame(distribution.CoefficientOfVariation, clonedDistribution.CoefficientOfVariation);
-            DistributionAssert.AreEqual(distribution, clonedDistribution);
+            DistributionAssert.AreEqual(referenceDistribution, (VariationCoefficientLogNormalDistribution) clone);
         }
 
         [Test]
