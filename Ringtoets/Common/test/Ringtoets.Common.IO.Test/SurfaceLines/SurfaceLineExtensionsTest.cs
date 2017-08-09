@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 
 namespace Ringtoets.Common.IO.Test.SurfaceLines
@@ -137,7 +138,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -200,7 +201,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
     }

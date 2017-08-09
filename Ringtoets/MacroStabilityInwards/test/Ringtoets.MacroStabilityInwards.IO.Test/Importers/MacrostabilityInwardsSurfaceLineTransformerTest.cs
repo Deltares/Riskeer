@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -152,7 +153,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -185,7 +186,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -229,7 +230,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 
             // Assert
             string message = $"Karakteristieke punten definitie voor profielschematisatie '{locationName}' is verplicht.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
             Assert.IsNull(result);
         }
@@ -379,7 +380,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
             TestDelegate test = () => transformer.Transform(surfaceLine, characteristicPoints);
 
             // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             string message = $"Profielschematisatie '{locationName}' kan niet gebruikt worden. " +
                              $"De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als \'{changedCharacteristicPointName}\' in te stellen. " +
                              "Dit karakteristieke punt is verplicht.";

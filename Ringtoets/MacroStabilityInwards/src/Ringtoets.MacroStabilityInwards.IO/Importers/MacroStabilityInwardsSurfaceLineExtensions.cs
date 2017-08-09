@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using log4net;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -44,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The surface line to set the characteristic points for.</param>
         /// <param name="characteristicPoints">The characteristic points to set, if the collection is valid.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        /// <exception cref="SurfaceLineTransformException">Thrown when a mandatory characteristic point is not
+        /// <exception cref="ImportedDataTransformException">Thrown when a mandatory characteristic point is not
         /// present or not on the given <paramref name="surfaceLine"/>.</exception>
         public static void SetCharacteristicPoints(this MacroStabilityInwardsSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
@@ -55,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
             if (characteristicPoints == null)
             {
-                throw new SurfaceLineTransformException($"Karakteristieke punten definitie voor profielschematisatie '{surfaceLine.Name}' is verplicht.");
+                throw new ImportedDataTransformException($"Karakteristieke punten definitie voor profielschematisatie '{surfaceLine.Name}' is verplicht.");
             }
 
             surfaceLine.TrySetSurfaceLevelOutside(characteristicPoints.SurfaceLevelOutside);
@@ -169,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
         /// <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/>.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
         private static void TrySetSurfaceLevelInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
@@ -194,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
         /// <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelOutside"/>.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
         private static void TrySetSurfaceLevelOutside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
@@ -219,7 +220,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
         /// <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/>.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
         private static void TrySetDikeTopAtPolder(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
@@ -332,7 +333,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
         /// <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/>.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
         private static void TrySetDikeToeAtRiver(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
@@ -357,7 +358,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
         /// <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/> for.</param>
         /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/>.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
         /// not on the <paramref name="surfaceLine"/>.</exception>
         private static void TrySetDikeToeAtPolder(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
         {
@@ -387,10 +388,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             return string.Format(MacroStabilityInwardsIOResources.MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined, surfaceLineName);
         }
 
-        private static SurfaceLineTransformException CreateMandatoryCharacteristicPointException(string exceptionMessage, string surfaceLineName)
+        private static ImportedDataTransformException CreateMandatoryCharacteristicPointException(string exceptionMessage, string surfaceLineName)
         {
             string message = string.Format(MacroStabilityInwardsIOResources.SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandatory, surfaceLineName, exceptionMessage);
-            return new SurfaceLineTransformException(message);
+            return new ImportedDataTransformException(message);
         }
     }
 }

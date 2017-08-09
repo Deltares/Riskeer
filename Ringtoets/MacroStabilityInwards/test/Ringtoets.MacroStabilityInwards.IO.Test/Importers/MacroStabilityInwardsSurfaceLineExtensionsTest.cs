@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -190,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             TestDelegate test = () => surfaceLine.SetCharacteristicPoints(null);
 
             // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Karakteristieke punten definitie voor profielschematisatie '{name}' is verplicht.", exception.Message);
         }
 
@@ -236,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. Karakteristiek punt \'{pointDescription}\' is niet gedefiniëerd. Dit karakteristieke punt is verplicht.";
             Assert.AreEqual(message, exception.Message);
         }
@@ -262,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. " +
                              $"De geometrie bevat geen punt op locatie {changedPoint} om als \'{pointDescription}\' in te stellen. " +
                              "Dit karakteristieke punt is verplicht.";

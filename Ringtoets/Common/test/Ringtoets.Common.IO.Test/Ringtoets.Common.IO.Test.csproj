@@ -142,7 +142,7 @@
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterConfigurationTest.cs" />
-    <Compile Include="SurfaceLines\SurfaceLineTransformExceptionTest.cs" />
+    <Compile Include="Exceptions\ImportedDataTransformExceptionTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLineExtensionsTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvImporterTest.cs" />
     <Compile Include="SurfaceLines\SurfaceLinesCsvReaderTest.cs" />

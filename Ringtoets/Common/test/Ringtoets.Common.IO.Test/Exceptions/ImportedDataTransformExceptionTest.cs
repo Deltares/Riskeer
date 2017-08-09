@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 
-namespace Ringtoets.Common.IO.Test.SurfaceLines
+namespace Ringtoets.Common.IO.Test.Exceptions
 {
     [TestFixture]
-    public class SurfaceLineTransformExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<LineParseException, Exception> {}
+    public class ImportedDataTransformExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<ImportedDataTransformException, Exception> {}
 }

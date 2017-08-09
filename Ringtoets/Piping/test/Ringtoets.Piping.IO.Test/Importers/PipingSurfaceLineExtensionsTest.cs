@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
@@ -176,7 +177,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             TestDelegate test = () => surfaceLine.SetCharacteristicPoints(points);
 
             // Assert
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{name}'.", exception.Message);
         }
 

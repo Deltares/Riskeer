@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
@@ -110,7 +111,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -143,7 +144,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string message = $"Profielschematisatie {surfaceLineName} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -222,7 +223,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             string message = $"Het uittredepunt moet landwaarts van het intredepunt liggen voor locatie '{locationName}'.";
-            var exception = Assert.Throws<SurfaceLineTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual(message, exception.Message);
         }
 

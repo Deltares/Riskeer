@@ -30,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -102,7 +103,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 transformedSurfaceLines = GetTransformedSurfaceLines(importSurfaceLinesResult.Items, importCharacteristicPointsResult.Items).ToArray();
             }
-            catch (SurfaceLineTransformException e)
+            catch (ImportedDataTransformException e)
             {
                 Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                 e.Message);
@@ -153,7 +154,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="characteristicPointsCollection">The characteristic points to use in the 
         /// transformation.</param>
         /// <returns>Returns a collection of mechanism specific surface lines.</returns>
-        /// <exception cref="SurfaceLineTransformException">Thrown when transforming a surface
+        /// <exception cref="ImportedDataTransformException">Thrown when transforming a surface
         /// line with characteristic points failed.</exception>
         private IEnumerable<T> GetTransformedSurfaceLines(ICollection<SurfaceLine> surfaceLines, ICollection<CharacteristicPoints> characteristicPointsCollection)
         {

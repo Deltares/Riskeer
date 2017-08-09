@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using log4net;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// <param name="surfaceLine">The surface line to set the characteristic points for.</param>
         /// <param name="characteristicPoints">The characteristic points to set, if the collection is valid.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        /// <exception cref="SurfaceLineTransformException">Thrown when <paramref name="characteristicPoints"/> defines
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="characteristicPoints"/> defines
         /// a dike toe at polder side in front of the dike toe at river side.</exception>
         public static void SetCharacteristicPoints(this PipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
@@ -209,7 +210,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// </summary>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="characteristicPoints">The characteristic points (possibly) containing the dike toes.</param>
-        /// <exception cref="SurfaceLineTransformException">Thrown when the dike toes are not in the right order.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when the dike toes are not in the right order.</exception>
         private static void ValidateDikeToesInOrder(this PipingSurfaceLine surfaceLine, CharacteristicPoints characteristicPoints)
         {
             if (characteristicPoints.DikeToeAtRiver != null && characteristicPoints.DikeToeAtPolder != null)
@@ -220,7 +221,7 @@ namespace Ringtoets.Piping.IO.Importers
                 if (localDikeToeAtPolder.X <= localDikeToeAtRiver.X)
                 {
                     string message = string.Format(Resources.SurfaceLinesCsvImporter_CheckCharacteristicPoints_EntryPointL_greater_or_equal_to_ExitPointL_for_0_, characteristicPoints.Name);
-                    throw new SurfaceLineTransformException(message);
+                    throw new ImportedDataTransformException(message);
                 }
             }
         }

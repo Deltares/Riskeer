@@ -34,6 +34,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SurfaceLines;
 
@@ -1092,7 +1093,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             // Setup
             const string exceptionMessage = "This is exceptional";
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            transformer.Expect(t => t.Transform(Arg<SurfaceLine>.Is.Anything, Arg<CharacteristicPoints>.Is.Anything)).Throw(new SurfaceLineTransformException(exceptionMessage));
+            transformer.Expect(t => t.Transform(Arg<SurfaceLine>.Is.Anything, Arg<CharacteristicPoints>.Is.Anything)).Throw(new ImportedDataTransformException(exceptionMessage));
             mocks.ReplayAll();
 
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";

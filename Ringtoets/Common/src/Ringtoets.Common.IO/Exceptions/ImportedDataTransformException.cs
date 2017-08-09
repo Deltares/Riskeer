@@ -22,38 +22,38 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Common.IO.SurfaceLines
+namespace Ringtoets.Common.IO.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when transforming a generic surface line to a mechanism
-    /// specific surface line fails.
+    /// The exception that is thrown when transforming imported data to specific data fails.
     /// </summary>
-    public class SurfaceLineTransformException : Exception
+    [Serializable]
+    public class ImportedDataTransformException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SurfaceLineTransformException"/> class.
+        /// Initializes a new instance of the <see cref="ImportedDataTransformException"/> class.
         /// </summary>
-        public SurfaceLineTransformException() {}
+        public ImportedDataTransformException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SurfaceLineTransformException"/> class
+        /// Initializes a new instance of the <see cref="ImportedDataTransformException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public SurfaceLineTransformException(string message) : base(message) {}
+        public ImportedDataTransformException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SurfaceLineTransformException"/> class
+        /// Initializes a new instance of the <see cref="ImportedDataTransformException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
-        /// or a null reference if no inner exception is specified.</param>
-        public SurfaceLineTransformException(string message, Exception inner) : base(message, inner) {}
+        /// or a <c>null</c> reference if no inner exception is specified.</param>
+        public ImportedDataTransformException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="SurfaceLineTransformException"/> with
+        /// Initializes a new instance of <see cref="ImportedDataTransformException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected SurfaceLineTransformException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected ImportedDataTransformException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

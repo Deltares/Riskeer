@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.IO.Exceptions;
 
 namespace Ringtoets.Common.IO.SurfaceLines
 {
@@ -36,7 +37,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <param name="surfaceLine">The surface line to use in the transformation.</param>
         /// <param name="characteristicPoints">The characteristic points to use in the transformation.</param>
         /// <returns>A new <typeparamref name="T"/> based on the given data.</returns>
-        /// <exception cref="SurfaceLineTransformException">Thrown when transformation would not result
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
         T Transform(SurfaceLine surfaceLine, CharacteristicPoints characteristicPoints);
     }

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SurfaceLines
@@ -52,7 +53,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
         /// <returns>A new <see cref="ReferenceLineIntersectionResult"/> with a type of intersection and
         /// possibly an intersection point, if there was only one found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="SurfaceLineTransformException">Thrown when the surface line:
+        /// <exception cref="ImportedDataTransformException">Thrown when the surface line:
         /// <list type="bullet">
         /// <item>has no intersections with the reference line;</item>
         /// <item>has more than one intersection with the reference line.</item>
@@ -76,12 +77,12 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_,
                                                surfaceLine.Name,
                                                Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coordinates_being_local_coordinate_system);
-                throw new SurfaceLineTransformException(message);
+                throw new ImportedDataTransformException(message);
             }
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
                 string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
-                throw new SurfaceLineTransformException(message);
+                throw new ImportedDataTransformException(message);
             }
 
             return result.IntersectionPoint;
