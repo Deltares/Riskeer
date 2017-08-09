@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="PipingCalculationScenarioFactoryTest.cs" />
     <Compile Include="PipingInputFactoryTest.cs" />
+    <Compile Include="PipingSoilProfileTestFactoryTest.cs" />
     <Compile Include="PipingTestDataGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segment2DLoopCollectionHelperTest.cs" />
