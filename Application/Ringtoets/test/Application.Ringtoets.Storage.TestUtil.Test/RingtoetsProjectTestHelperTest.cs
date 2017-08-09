@@ -151,10 +151,21 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            Assert.AreEqual(2, firstCalculationGroup.Children.Count);
 
             var calculationWithOutput = (GrassCoverErosionInwardsCalculation) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
+            GrassCoverErosionInwardsOutput calculationOutput = calculationWithOutput.Output;
+            Assert.IsFalse(calculationOutput.OvertoppingOutput.HasGeneralResult);
+            Assert.IsFalse(calculationOutput.DikeHeightOutput.HasGeneralResult);
+            Assert.IsFalse(calculationOutput.OvertoppingRateOutput.HasGeneralResult);
+
+            var calculationOutputWithGeneralResult = (GrassCoverErosionInwardsCalculation) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationOutputWithGeneralResult.HasOutput);
+            GrassCoverErosionInwardsOutput outputCalculationWithGeneralResult = calculationOutputWithGeneralResult.Output;
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.OvertoppingOutput.GeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.DikeHeightOutput.GeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.OvertoppingRateOutput.GeneralResult);
 
             var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);

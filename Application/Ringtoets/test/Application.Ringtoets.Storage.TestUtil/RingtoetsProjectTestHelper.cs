@@ -1143,6 +1143,41 @@ namespace Application.Ringtoets.Storage.TestUtil
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), null),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
+                    },
+                    new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 1"
+                        },
+                        InputParameters =
+                        {
+                            DikeProfile = dikeProfile1,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
+                            Orientation = dikeProfile1.Orientation,
+                            CriticalFlowRate =
+                            {
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
+                            },
+                            DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                            OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                            ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true
+                        },
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, new ProbabilityAssessmentOutput(0.004, 0.95, 0.00003, 1.1, 4.5), GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()))
                     }
                 }
             });

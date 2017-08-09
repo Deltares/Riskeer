@@ -1507,6 +1507,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
 
             AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);
         }
 
         private static void AssertDikeHeightOutput(DikeHeightOutput expectedOutput,
@@ -1538,6 +1539,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.TargetReliability, actualOutput.TargetReliability);
             Assert.AreEqual(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(expectedOutput.GeneralResult, actualOutput.GeneralResult);
         }
 
         #endregion
