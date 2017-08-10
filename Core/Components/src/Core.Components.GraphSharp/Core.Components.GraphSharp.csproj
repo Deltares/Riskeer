@@ -69,6 +69,10 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Data\PointedTreeEdge.cs" />
+    <Compile Include="Data\PointedTreeGraph.cs" />
+    <Compile Include="Data\PointedTreeElementVertex.cs" />
+    <Compile Include="Data\PointedTreeVertexType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

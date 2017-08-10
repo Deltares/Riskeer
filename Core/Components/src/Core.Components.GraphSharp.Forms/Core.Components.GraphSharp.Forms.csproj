@@ -79,6 +79,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Layout\PointedTreeGraphLayout.cs" />
     <Compile Include="PointedTreeGraphControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +95,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
+      <Project>{32358941-77c5-48a7-ad8b-dfb4f23b12a5}</Project>
+      <Name>Core.Components.GraphSharp</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
       <Project>{dbf5a590-2a11-4eb4-a8cc-f3036475e4d5}</Project>
       <Name>Core.Components.PointedTree.Forms</Name>
