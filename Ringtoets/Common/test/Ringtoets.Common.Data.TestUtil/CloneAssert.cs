@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
@@ -116,6 +117,20 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             AreClones((Stochast) original, clone);
             Assert.AreEqual(original.Realization, clone.Realization);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(TopLevelIllustrationPointBase original, TopLevelIllustrationPointBase clone)
+        {
+            CoreCloneAssert.AreClones(original.WindDirection, clone.WindDirection, AreClones);
+            Assert.AreEqual(original.ClosingSituation, clone.ClosingSituation);
         }
     }
 }

@@ -23,6 +23,8 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -64,8 +66,23 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var topLevelIllustrationPoint = new TestTopLevelIllustrationPointBase(windDirection, closingSituation);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(topLevelIllustrationPoint);
             Assert.AreSame(windDirection, topLevelIllustrationPoint.WindDirection);
             Assert.AreEqual(closingSituation, topLevelIllustrationPoint.ClosingSituation);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new TestTopLevelIllustrationPointBase(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                 "Random closing situation");
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
 
         private class TestTopLevelIllustrationPointBase : TopLevelIllustrationPointBase

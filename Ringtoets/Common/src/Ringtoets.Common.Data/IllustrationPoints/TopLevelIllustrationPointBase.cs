@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// A base class for combinations of wind direction, closing situations 
     /// and illustration points.
     /// </summary>
-    public abstract class TopLevelIllustrationPointBase
+    public abstract class TopLevelIllustrationPointBase : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="TopLevelIllustrationPointBase"/>.
@@ -54,11 +54,20 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the wind direction.
         /// </summary>
-        public WindDirection WindDirection { get; }
+        public WindDirection WindDirection { get; private set; }
 
         /// <summary>
         /// Gets the closing situation.
         /// </summary>
         public string ClosingSituation { get; }
+
+        public object Clone()
+        {
+            var clone = (TopLevelIllustrationPointBase) MemberwiseClone();
+
+            clone.WindDirection = (WindDirection) WindDirection.Clone();
+
+            return clone;
+        }
     }
 }
