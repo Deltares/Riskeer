@@ -50,6 +50,7 @@
     <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />
+    <Compile Include="Importers\PipingSoilLayerTransformer.cs" />
     <Compile Include="Importers\PipingSoilProfileTransformer.cs" />
     <Compile Include="Importers\PipingStochasticSoilModelTransformer.cs" />
     <Compile Include="Importers\PipingStochasticSoilProfileTransformer.cs" />

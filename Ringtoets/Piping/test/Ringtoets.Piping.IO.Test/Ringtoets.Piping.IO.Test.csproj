@@ -78,6 +78,7 @@
     <Compile Include="Configurations\PipingCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="Importers\PipingSoilLayerTransformerTest.cs" />
     <Compile Include="Importers\PipingSoilProfileTransformerTest.cs" />
     <Compile Include="Importers\PipingStochasticSoilModelTransformerTest.cs" />
     <Compile Include="Importers\PipingStochasticSoilProfileTransformerTest.cs" />
