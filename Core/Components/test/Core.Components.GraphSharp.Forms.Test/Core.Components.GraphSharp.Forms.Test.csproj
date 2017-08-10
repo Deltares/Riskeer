@@ -45,11 +45,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="PointedTreeGraphControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,14 @@
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
       <Project>{32358941-77c5-48a7-ad8b-dfb4f23b12a5}</Project>
       <Name>Core.Components.GraphSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
+      <Project>{DBF5A590-2A11-4EB4-A8CC-F3036475E4D5}</Project>
+      <Name>Core.Components.PointedTree.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
+      <Name>Core.Components.PointedTree</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
