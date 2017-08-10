@@ -26,6 +26,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -100,6 +102,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsTrue(output.HasGeneralResult);
             Assert.AreSame(generalResult, output.GeneralResult);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new OvertoppingRateOutput(random.NextDouble(),
+                                                     random.NextDouble(),
+                                                     random.NextDouble(),
+                                                     random.NextDouble(),
+                                                     random.NextDouble(),
+                                                     random.NextEnumValue<CalculationConvergence>(),
+                                                     null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                CustomCloneAssert.AreClones(o, c);
+                Assert.AreEqual(o.OvertoppingRate, c.OvertoppingRate);
+            });
         }
     }
 }
