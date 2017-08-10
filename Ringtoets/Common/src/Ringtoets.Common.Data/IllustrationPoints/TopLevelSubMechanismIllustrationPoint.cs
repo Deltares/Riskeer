@@ -52,6 +52,15 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the sub mechanism illustration point.
         /// </summary>
-        public SubMechanismIllustrationPoint SubMechanismIllustrationPoint { get; }
+        public SubMechanismIllustrationPoint SubMechanismIllustrationPoint { get; private set; }
+
+        public override object Clone()
+        {
+            var clone = (TopLevelSubMechanismIllustrationPoint) base.Clone();
+
+            clone.SubMechanismIllustrationPoint = (SubMechanismIllustrationPoint) SubMechanismIllustrationPoint.Clone();
+
+            return clone;
+        }
     }
 }

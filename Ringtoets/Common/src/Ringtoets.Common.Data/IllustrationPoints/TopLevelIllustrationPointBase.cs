@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </summary>
         public string ClosingSituation { get; }
 
-        public object Clone()
+        public virtual object Clone()
         {
             var clone = (TopLevelIllustrationPointBase) MemberwiseClone();
 

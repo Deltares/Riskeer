@@ -141,6 +141,20 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(TopLevelSubMechanismIllustrationPoint original, TopLevelSubMechanismIllustrationPoint clone)
+        {
+            AreClones((TopLevelIllustrationPointBase)original, clone);
+            CoreCloneAssert.AreClones(original.SubMechanismIllustrationPoint, clone.SubMechanismIllustrationPoint, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(IllustrationPointResult original, IllustrationPointResult clone)
         {
             Assert.AreEqual(original.Description, clone.Description);
