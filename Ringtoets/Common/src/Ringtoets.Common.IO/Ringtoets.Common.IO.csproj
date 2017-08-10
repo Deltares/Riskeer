@@ -146,6 +146,7 @@
     <Compile Include="Exceptions\SoilProfileReadException.cs" />
     <Compile Include="SoilProfile\StochasticSoilModel.cs" />
     <Compile Include="Exceptions\StochasticSoilModelException.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelImporter.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelImporterConfiguration.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfile.cs" />

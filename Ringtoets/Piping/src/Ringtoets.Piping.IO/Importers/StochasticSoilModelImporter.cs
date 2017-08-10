@@ -33,8 +33,8 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.IO.Importers
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor),
+                                                   RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsPipingDataResources.StochasticSoilModelCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor);
             Log.Info(message);
         }
 

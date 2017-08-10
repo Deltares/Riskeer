@@ -24,7 +24,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -59,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            return new MapLineData(PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
+            return new MapLineData(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.FromArgb(70, Color.SaddleBrown),

@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -31,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
     {
         public StochasticSoilModelCollection() : base(model => model.Name,
-                                                      Resources.StochasticSoilModelCollection_TypeDescriptor,
+                                                      RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                                       Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

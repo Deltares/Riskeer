@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.Piping.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -31,7 +32,7 @@ namespace Ringtoets.Piping.Data
     public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
     {
         public StochasticSoilModelCollection() : base(model => model.Name,
-                                                      Resources.StochasticSoilModelCollection_TypeDescriptor,
+                                                      RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                                       Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

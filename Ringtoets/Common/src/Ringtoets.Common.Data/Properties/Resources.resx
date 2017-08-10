@@ -378,4 +378,7 @@
   <data name="FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm" xml:space="preserve">
     <value>De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.</value>
   </data>
+  <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
+    <value>Stochastische ondergrondmodellen</value>
+  </data>
 </root>

@@ -54,7 +54,6 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
 using MacroStabilityInwardsFormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin
@@ -107,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
             {
-                Name = MacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
@@ -158,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
             {
-                Name = MacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
@@ -286,7 +285,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
             {
-                Text = stochasticSoilModelContext => MacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
                                                               ? Color.FromKnownColor(KnownColor.ControlText)

@@ -817,6 +817,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stochastische ondergrondmodellen.
+        /// </summary>
+        public static string StochasticSoilModelCollection_TypeDescriptor {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelCollection_TypeDescriptor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken.
         /// </summary>
         public static string StructureCollection_TypeDescriptor {

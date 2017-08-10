@@ -24,7 +24,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using DataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -59,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            return new MapLineData(DataResources.StochasticSoilModelCollection_TypeDescriptor,
+            return new MapLineData(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                                    new LineStyle
                                    {
                                        Color = Color.FromArgb(70, Color.SaddleBrown),

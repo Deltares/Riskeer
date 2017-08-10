@@ -33,8 +33,8 @@ using Ringtoets.MacroStabilityInwards.IO.Exceptions;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsMacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             catch (UpdateDataException e)
             {
                 string message = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(
-                                                   RingtoetsMacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor),
+                                                   RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor),
                                                e.Message);
                 Log.Error(message, e);
                 return false;
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            string message = messageProvider.GetCancelledLogMessageText(RingtoetsMacroStabilityInwardsDataResources.StochasticSoilModelCollection_TypeDescriptor);
+            string message = messageProvider.GetCancelledLogMessageText(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor);
             Log.Info(message);
         }
 

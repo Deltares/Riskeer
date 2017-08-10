@@ -56,7 +56,6 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
@@ -109,7 +108,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ImportInfo<StochasticSoilModelCollectionContext>
             {
-                Name = PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
@@ -160,7 +159,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new UpdateInfo<StochasticSoilModelCollectionContext>
             {
-                Name = PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
@@ -285,7 +284,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
             {
-                Text = stochasticSoilModelContext => PipingDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any()
                                                               ? Color.FromKnownColor(KnownColor.ControlText)
