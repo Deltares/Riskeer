@@ -20,49 +20,43 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Importers
 {
     [TestFixture]
-    public class PipingStochasticSoilModelTransformerTest
+    public class PipingSoilProfileTransformerTest
     {
         [Test]
-        public void Constructor_ValidProperties_ExpectedValues()
+        public void Transform_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            var transformer = new PipingStochasticSoilModelTransformer();
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(null);
 
             // Assert
-            Assert.IsInstanceOf<IStochasticSoilModelTransformer<PipingStochasticSoilModel>>(transformer);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
         [Test]
-        [TestCaseSource(nameof(InvalidFailureMechanismTypes))]
-        public void Transform_InvalidFailureMechanismType_ReturnsNull(FailureMechanismType failureMechanismType)
+        public void Transform_InvalidSoilProfile_ReturnsNull()
         {
             // Setup
-            var transformer = new PipingStochasticSoilModelTransformer();
-            var soilModel = new StochasticSoilModel("some name", failureMechanismType);
+            var invalidType = new TestSoilProfile();
 
             // Call
-            PipingStochasticSoilModel transformed = transformer.Transform(soilModel);
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(invalidType);
 
             // Assert
             Assert.IsNull(transformed);
         }
 
-        private static IEnumerable<FailureMechanismType> InvalidFailureMechanismTypes()
+        private class TestSoilProfile : ISoilProfile
         {
-            return Enum.GetValues(typeof(FailureMechanismType))
-                       .Cast<FailureMechanismType>()
-                       .Where(t => t != FailureMechanismType.Piping);
+            public string Name { get; }
         }
     }
 }

@@ -35,7 +35,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// stochastic soil model of type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="stochasticSoilModel">The stochastic soil model to use in the transformation.</param>
-        /// <returns>A new <typeparamref name="T"/> based on the given data.</returns>
+        /// <returns>A new <typeparamref name="T"/> based on the given data, or <c>null</c> when 
+        /// <paramref name="stochasticSoilModel"/> is not of a type that can be transformed to 
+        /// the mechanism specific <typeparamref name="T"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
         T Transform(StochasticSoilModel stochasticSoilModel);
