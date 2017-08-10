@@ -23,6 +23,8 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -53,9 +55,24 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var illustrationPoint = new TestIllustrationPointBase(name, beta);
             
             // Assert
+            Assert.IsInstanceOf<ICloneable>(illustrationPoint);
             Assert.AreEqual(name, illustrationPoint.Name);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
             Assert.AreEqual(5, illustrationPoint.Beta.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new TestIllustrationPointBase("Random name", random.NextDouble());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
 
         private class TestIllustrationPointBase : IllustrationPointBase

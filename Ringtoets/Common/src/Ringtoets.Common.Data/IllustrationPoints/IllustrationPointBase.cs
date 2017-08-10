@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// <summary>
     /// Base class for illustration point elements.
     /// </summary>
-    public abstract class IllustrationPointBase
+    public abstract class IllustrationPointBase : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointBase"/>.
@@ -56,5 +56,10 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Gets the beta value that was realized.
         /// </summary>
         public RoundedDouble Beta { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
