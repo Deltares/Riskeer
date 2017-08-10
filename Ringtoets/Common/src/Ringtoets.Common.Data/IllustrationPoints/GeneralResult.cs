@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -29,7 +30,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// </summary>
     /// <typeparam name="T">The type of <see cref="TopLevelIllustrationPointBase"/>
     /// that the general result holds.</typeparam>
-    public class GeneralResult<T>
+    public class GeneralResult<T> : ICloneable
         where T : TopLevelIllustrationPointBase
     {
         /// <summary>
@@ -66,16 +67,27 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the governing wind direction.
         /// </summary>
-        public WindDirection GoverningWindDirection { get; }
+        public WindDirection GoverningWindDirection { get; private set; }
 
         /// <summary>
         /// Gets the general alpha values.
         /// </summary>
-        public IEnumerable<Stochast> Stochasts { get; }
+        public IEnumerable<Stochast> Stochasts { get; private set; }
 
         /// <summary>
         /// Gets the collection of illustration points for every combination of a wind direction and a closing situation.
         /// </summary>
-        public IEnumerable<T> TopLevelIllustrationPoints { get; }
+        public IEnumerable<T> TopLevelIllustrationPoints { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (GeneralResult<T>) MemberwiseClone();
+
+            clone.GoverningWindDirection = (WindDirection) GoverningWindDirection.Clone();
+            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone());
+            clone.TopLevelIllustrationPoints = TopLevelIllustrationPoints.Select(s => (T) s.Clone());
+
+            return clone;
+        }
     }
 }

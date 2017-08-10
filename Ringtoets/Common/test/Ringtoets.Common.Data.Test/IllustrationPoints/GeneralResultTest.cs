@@ -25,6 +25,8 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -94,9 +96,38 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                  topLevelIllustrationPoints);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(generalResult);
             Assert.AreSame(windDirection, generalResult.GoverningWindDirection);
             Assert.AreSame(topLevelIllustrationPoints, generalResult.TopLevelIllustrationPoints);
             Assert.AreSame(stochasts, generalResult.Stochasts);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new GeneralResult<TopLevelIllustrationPointBase>(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                            new[]
+                                                                            {
+                                                                                new Stochast("Random name 1",
+                                                                                             random.NextDouble(),
+                                                                                             random.NextDouble()),
+                                                                                new Stochast("Random name 2",
+                                                                                             random.NextDouble(),
+                                                                                             random.NextDouble())
+                                                                            },
+                                                                            new[]
+                                                                            {
+                                                                                new TestTopLevelIllustrationPoint(),
+                                                                                new TestTopLevelIllustrationPoint()
+                                                                            });
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }
