@@ -36,43 +36,64 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var mocks = new MockRepository();
             var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
             // Call
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, strategy);
+            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, strategy);
 
             // Assert
             Assert.AreSame(transformer, configuration.Transformer);
+            Assert.AreSame(filter, configuration.MechanismFilter);
             Assert.AreSame(strategy, configuration.UpdateStrategy);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_TransformerNull_ThrowsArgumentNullException()
         {
             // Call
             var mocks = new MockRepository();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
-            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, strategy);
+            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("transformer", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
+        [Test]
+        public void Constructor_FilterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            var mocks = new MockRepository();
+            var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
+            mocks.ReplayAll();
+
+            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("filter", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
             // Call
             var mocks = new MockRepository();
             var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             mocks.ReplayAll();
 
-            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null);
+            TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

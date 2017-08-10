@@ -54,11 +54,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var updateStrategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
             string filePath = string.Empty;
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, updateStrategy);
+            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
             TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -77,11 +78,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var updateStrategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
             var collection = new TestStochasticSoilModelCollection();
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, updateStrategy);
+            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
             TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -99,12 +101,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Setup
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var updateStrategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
             var collection = new TestStochasticSoilModelCollection();
             string filePath = string.Empty;
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, updateStrategy);
+            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
             TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -145,12 +148,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
+            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var updateStrategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
             var collection = new TestStochasticSoilModelCollection();
             string filePath = string.Empty;
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, updateStrategy);
+            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
 
             // Call
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(

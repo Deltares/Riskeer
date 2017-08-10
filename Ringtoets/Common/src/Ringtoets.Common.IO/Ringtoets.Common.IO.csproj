@@ -119,6 +119,7 @@
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
     <Compile Include="SoilProfile\ISoilProfile.cs" />
+    <Compile Include="SoilProfile\IStochasticSoilModelMechanismFilter.cs" />
     <Compile Include="SoilProfile\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
     <Compile Include="SoilProfile\Schema\FailureMechanismType.cs" />

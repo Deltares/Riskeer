@@ -80,6 +80,7 @@
     <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="Importers\PipingSoilLayerTransformerTest.cs" />
     <Compile Include="Importers\PipingSoilProfileTransformerTest.cs" />
+    <Compile Include="Importers\PipingStochasticSoilModelFilterTest.cs" />
     <Compile Include="Importers\PipingStochasticSoilModelTransformerTest.cs" />
     <Compile Include="Importers\PipingStochasticSoilProfileTransformerTest.cs" />
     <Compile Include="Importers\PipingSurfaceLineTransformerTest.cs" />

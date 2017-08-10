@@ -34,15 +34,21 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Creates a new instance of <see cref="StochasticSoilModelImporterConfiguration{T}"/>.
         /// </summary>
         /// <param name="transformer">The transformer to use in this configuration.</param>
+        /// <param name="mechanismFilter">The failure mechanism filter.</param>
         /// <param name="updateStrategy">The strategy to use in this configuration.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="transformer"/>
         /// or <paramref name="updateStrategy"/> is <c>null</c>.</exception>
         public StochasticSoilModelImporterConfiguration(IStochasticSoilModelTransformer<T> transformer,
+                                                        IStochasticSoilModelMechanismFilter mechanismFilter,
                                                         IStochasticSoilModelUpdateModelStrategy<T> updateStrategy)
         {
             if (transformer == null)
             {
                 throw new ArgumentNullException(nameof(transformer));
+            }
+            if (mechanismFilter == null)
+            {
+                throw new ArgumentNullException(nameof(mechanismFilter));
             }
             if (updateStrategy == null)
             {
@@ -50,6 +56,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             Transformer = transformer;
+            MechanismFilter = mechanismFilter;
             UpdateStrategy = updateStrategy;
         }
 
@@ -58,6 +65,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// specific stochastic soil models.
         /// </summary>
         public IStochasticSoilModelTransformer<T> Transformer { get; }
+
+        /// <summary>
+        /// Gets the failure mechanism filter to verify the the stochastic soil model is valid 
+        /// for the failure mechanism.
+        /// </summary>
+        public IStochasticSoilModelMechanismFilter MechanismFilter { get; }
 
         /// <summary>
         /// Gets the strategy for updating the data model with the mechanism specific stochastic 
