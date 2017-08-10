@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Data.Test
@@ -42,20 +43,19 @@ namespace Ringtoets.Common.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var comment = new Comment
+            var original = new Comment
             {
                 Body = "Random body"
             };
 
             // Call
-            object clone = comment.Clone();
+            object clone = original.Clone();
 
             // Assert
-            Assert.AreNotSame(comment, clone);
-            Assert.IsInstanceOf<Comment>(clone);
-
-            var cloneComment = (Comment) clone;
-            Assert.AreEqual(comment.Body, cloneComment.Body);
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                Assert.AreEqual(o.Body, c.Body);
+            });
         }
     }
 }

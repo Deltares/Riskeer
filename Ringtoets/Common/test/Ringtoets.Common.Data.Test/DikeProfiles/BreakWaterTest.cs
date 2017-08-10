@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -235,18 +236,17 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
         {
             // Setup
             var random = new Random(21);
-            var breakWater = new BreakWater(random.NextEnumValue<BreakWaterType>(), random.NextDouble());
+            var original = new BreakWater(random.NextEnumValue<BreakWaterType>(), random.NextDouble());
 
             // Call
-            object clone = breakWater.Clone();
+            object clone = original.Clone();
 
             // Assert
-            Assert.AreNotSame(breakWater, clone);
-            Assert.IsInstanceOf<BreakWater>(clone);
-
-            var clonedBreakWater = (BreakWater) clone;
-            Assert.AreEqual(breakWater.Type, clonedBreakWater.Type);
-            Assert.AreEqual(breakWater.Height, clonedBreakWater.Height);
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                Assert.AreEqual(o.Type, c.Type);
+                Assert.AreEqual(o.Height, c.Height);
+            });
         }
     }
 }

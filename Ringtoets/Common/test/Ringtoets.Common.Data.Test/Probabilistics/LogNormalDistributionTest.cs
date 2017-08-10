@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -223,19 +224,17 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         {
             // Setup
             var random = new Random(21);
-            var distribution = new LogNormalDistribution(random.Next(1, 16))
+            var original = new LogNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
             };
 
             // Call
-            object clone = distribution.Clone();
+            object clone = original.Clone();
 
             // Assert
-            Assert.AreNotSame(distribution, clone);
-            Assert.IsInstanceOf<LogNormalDistribution>(clone);
-            DistributionAssert.AreEqual(distribution, (LogNormalDistribution) clone);
+            CloneAssert.AreClones(original, clone, DistributionAssert.AreEqual);
         }
 
         [Test]
