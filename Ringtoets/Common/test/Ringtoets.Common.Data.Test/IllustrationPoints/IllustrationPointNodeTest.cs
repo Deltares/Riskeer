@@ -26,6 +26,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -50,21 +52,22 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var data = new TestIllustrationPoint();
 
             // Call
-            var treeNode = new IllustrationPointNode(data);
+            var illustrationPointNode = new IllustrationPointNode(data);
 
             // Assert
-            Assert.AreSame(data, treeNode.Data);
-            CollectionAssert.IsEmpty(treeNode.Children);
+            Assert.IsInstanceOf<ICloneable>(illustrationPointNode);
+            Assert.AreSame(data, illustrationPointNode.Data);
+            CollectionAssert.IsEmpty(illustrationPointNode.Children);
         }
 
         [Test]
         public void SetChildren_ChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
-            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var illustrationPointNode = new IllustrationPointNode(new TestIllustrationPoint());
 
             // Call
-            TestDelegate call = () => treeNode.SetChildren(null);
+            TestDelegate call = () => illustrationPointNode.SetChildren(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,17 +80,17 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void SetChildren_InvalidNrOfChildren_ThrowsInvalidArgumentException(int nrOfChildren)
         {
             // Setup
-            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var illustrationPointNode = new IllustrationPointNode(new TestIllustrationPoint());
             var childrenToBeAttached = new IllustrationPointNode[nrOfChildren];
 
             // Call
-            TestDelegate call = () => treeNode.SetChildren(childrenToBeAttached);
+            TestDelegate call = () => illustrationPointNode.SetChildren(childrenToBeAttached);
 
             // Assert
             const string expectedMessage = "Een illustratiepunt node in de foutenboom moet 0 of 2 onderliggende nodes hebben.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             Assert.AreEqual("children", exception.ParamName);
-            CollectionAssert.IsEmpty(treeNode.Children);
+            CollectionAssert.IsEmpty(illustrationPointNode.Children);
         }
 
         [Test]
@@ -96,16 +99,35 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void SetChildren_ValidNrOfChildren_ReturnsExpectedProperties(int nrOfChildren)
         {
             // Setup
-            var treeNode = new IllustrationPointNode(new TestIllustrationPoint());
+            var illustrationPointNode = new IllustrationPointNode(new TestIllustrationPoint());
             var childrenToBeAdded = new IllustrationPointNode[nrOfChildren];
 
             // Call
-            treeNode.SetChildren(childrenToBeAdded);
+            illustrationPointNode.SetChildren(childrenToBeAdded);
 
             // Assert
-            IEnumerable<IllustrationPointNode> addedChildren = treeNode.Children;
+            IEnumerable<IllustrationPointNode> addedChildren = illustrationPointNode.Children;
             Assert.AreSame(childrenToBeAdded, addedChildren);
             Assert.AreEqual(nrOfChildren, addedChildren.Count());
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new IllustrationPointNode(new TestIllustrationPoint());
+
+            original.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestIllustrationPoint()),
+                new IllustrationPointNode(new TestIllustrationPoint())
+            });
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

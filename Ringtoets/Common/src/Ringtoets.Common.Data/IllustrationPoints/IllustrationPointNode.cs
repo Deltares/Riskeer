@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// A node with attached illustration point data that is part of a tree. Multiple
     /// nodes form the tree structure describing how the illustration points are related.
     /// </summary>
-    public class IllustrationPointNode
+    public class IllustrationPointNode : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointNode"/>.
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the attached illustration point data to this node.
         /// </summary>
-        public IllustrationPointBase Data { get; }
+        public IllustrationPointBase Data { get; private set; }
 
         /// <summary>
         /// Gets the attached child nodes of this node.
@@ -80,6 +80,16 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                                             nameof(children));
             }
             Children = children;
+        }
+
+        public object Clone()
+        {
+            var clone = (IllustrationPointNode) MemberwiseClone();
+
+            clone.Data = (IllustrationPointBase) Data.Clone();
+            clone.Children = Children.Select(c => (IllustrationPointNode) c.Clone());
+
+            return clone;
         }
     }
 }
