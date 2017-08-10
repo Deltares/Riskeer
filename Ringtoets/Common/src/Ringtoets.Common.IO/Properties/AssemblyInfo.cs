@@ -27,3 +27,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Ringtoets.Common.IO")]
 [assembly: Guid("a5cefa3a-677c-4bd0-85a7-08657cfe6c70")]
 [assembly: InternalsVisibleTo("Ringtoets.Common.IO.Test")]
+[assembly: InternalsVisibleTo("Ringtoets.Common.IO.TestUtil")]

@@ -20,12 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 using SoilLayer1D = Ringtoets.Common.IO.SoilProfile.SoilLayer1D;
+using SoilLayer2D = Ringtoets.Common.IO.SoilProfile.SoilLayer2D;
 
 namespace Ringtoets.Piping.IO.Importers
 {
@@ -62,6 +67,56 @@ namespace Ringtoets.Piping.IO.Importers
             SetOptionalStochasticParameters(pipingSoilLayer, soilLayer);
 
             return pipingSoilLayer;
+        }
+
+        public static IEnumerable<PipingSoilLayer> Transform(SoilLayer2D soilLayer, double atX, out double bottom)
+        {
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+
+            ValidateStochasticParametersForPiping(soilLayer);
+
+            bottom = double.MaxValue;
+
+            if (soilLayer.OuterLoop == null)
+            {
+                return Enumerable.Empty<PipingSoilLayer>();
+            }
+
+            double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop, atX).ToArray();
+
+            if (!outerLoopIntersectionHeights.Any())
+            {
+                return Enumerable.Empty<PipingSoilLayer>();
+            }
+
+            var soilLayers = new Collection<PipingSoilLayer>();
+            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
+            IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
+            IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
+
+            double currentBottom = outerLoopIntersectionHeightPairs.First().Item1;
+            var heights = new List<double>();
+            heights.AddRange(innerLoopIntersectionHeightPairs.Where(p => p.Item1 >= currentBottom).Select(p => p.Item1));
+            heights.AddRange(outerLoopIntersectionHeightPairs.Select(p => p.Item2));
+
+            foreach (double height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
+            {
+                var pipingSoilLayer = new PipingSoilLayer(height)
+                {
+                    IsAquifer = soilLayer.IsAquifer,
+                    MaterialName = soilLayer.MaterialName,
+                    Color = soilLayer.Color
+                };
+
+                SetOptionalStochasticParameters(pipingSoilLayer, soilLayer);
+
+                soilLayers.Add(pipingSoilLayer);
+            }
+            bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
+            return soilLayers;
         }
 
         /// <summary>
@@ -121,6 +176,82 @@ namespace Ringtoets.Piping.IO.Importers
                                                              Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                              incorrectDistibutionParameter));
             }
+        }
+
+        private static bool HeightInInnerLoop(Tuple<double, double> tuple, double height)
+        {
+            return height <= tuple.Item2 && height > tuple.Item1;
+        }
+
+        private static bool BottomInInnerLoop(Tuple<double, double> tuple, double height)
+        {
+            return height < tuple.Item2 && height >= tuple.Item1;
+        }
+
+        private static double EnsureBottomOutsideInnerLoop(IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs, double bottom)
+        {
+            double newBottom = bottom;
+            List<Tuple<double, double>> heightPairArray = innerLoopIntersectionHeightPairs.ToList();
+            Tuple<double, double> overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
+
+            while (overlappingInnerLoop != null)
+            {
+                newBottom = overlappingInnerLoop.Item2;
+                overlappingInnerLoop = heightPairArray.FirstOrDefault(t => BottomInInnerLoop(t, newBottom));
+            }
+            return newBottom;
+        }
+
+        private static IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<IEnumerable<double>> innerLoopsIntersectionPoints)
+        {
+            var result = new Collection<Tuple<double, double>>();
+            foreach (IEnumerable<double> innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
+            {
+                foreach (Tuple<double, double> tuple in GetOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints))
+                {
+                    result.Add(tuple);
+                }
+            }
+            return result;
+        }
+
+        private static Collection<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<double> innerLoopIntersectionPoints)
+        {
+            var result = new Collection<Tuple<double, double>>();
+            List<double> orderedHeights = innerLoopIntersectionPoints.OrderBy(v => v).ToList();
+            for (var i = 0; i < orderedHeights.Count; i = i + 2)
+            {
+                double first = orderedHeights[i];
+                double second = orderedHeights[i + 1];
+                result.Add(Tuple.Create(first, second));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="Collection{T}"/> of heights where the <paramref name="loop"/> intersects the 
+        /// vertical line at <paramref name="atX"/>.
+        /// </summary>
+        /// <param name="loop">The sequence of <see cref="Segment2D"/> which together create a loop.</param>
+        /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
+        /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
+        /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when a segment is vertical at <see cref="atX"/> and thus
+        /// no deterministic intersection points can be determined.</exception>
+        private static IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
+        {
+            Segment2D[] segment2Ds = loop.ToArray();
+            if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
+            {
+                string message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
+                throw new ImportedDataTransformException(message);
+            }
+            return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
+        }
+
+        private static bool IsVerticalAtX(Segment2D segment, double atX)
+        {
+            return segment.FirstPoint.X.Equals(atX) && segment.IsVertical();
         }
     }
 }

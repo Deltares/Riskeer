@@ -22,13 +22,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 using SoilLayer1D = Ringtoets.Common.IO.SoilProfile.SoilLayer1D;
+using SoilLayer2D = Ringtoets.Common.IO.SoilProfile.SoilLayer2D;
 
 namespace Ringtoets.Piping.IO.Test.Importers
 {
@@ -36,7 +40,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
     public class PipingSoilLayerTransformerTest
     {
         [Test]
-        public void Transform_SoilLayer1DNull_ThrowsArgumentNullException()
+        public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => PipingSoilLayerTransformer.Transform(null);
@@ -47,7 +51,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_PropertiesSetWithCorrectDistributionsAndDifferentLayerParameters_ExpectedProperties()
+        public void SoilLayer1DTransform_PropertiesSetWithCorrectDistributionsAndDifferentLayerParameters_ExpectedProperties()
         {
             // Setup
             var random = new Random(22);
@@ -109,7 +113,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
         {
             // Setup
             var layer = new SoilLayer1D(0.0)
@@ -127,14 +131,125 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributions))]
-        public void Transform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
+        public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
+            // Setup
+            double bottom;
+
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(null, 0, out bottom);
 
             // Assert
-            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_SoilLayer2DNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            double bottom;
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = PipingSoilLayerTransformer.Transform(layer, 0.0, out bottom);
+
+            // Assert
+            CollectionAssert.IsEmpty(result);
+            Assert.AreEqual(double.MaxValue, bottom);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_EmptySoilLayer2D_ReturnsEmptyCollectionWithMaxValueBottom()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            double bottom;
+
+            // Call
+            IEnumerable<PipingSoilLayer> pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, 0.0, out bottom);
+
+            // Assert
+            CollectionAssert.IsEmpty(pipingSoilLayers);
+            Assert.AreEqual(double.MaxValue, bottom);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_PropertiesSetWithDifferentLayerParameters_ExpectedProperties()
+        {
+            // Setup
+            var random = new Random(22);
+            double y1 = random.NextDouble();
+            double y2 = y1 + random.NextDouble();
+            const double x1 = 1.0;
+            const double x2 = 1.1;
+            const double x3 = 1.2;
+            const string materialName = "materialX";
+            Color color = Color.DarkSeaGreen;
+            double bottom;
+
+            bool isAquifer = random.NextBoolean();
+            const int logNormalDistribution = 3;
+            const int logNormalShift = 0;
+
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelDeviation = random.NextDouble();
+
+            double diameterD70Mean = random.NextDouble();
+            double diameterD70CoefficientOfVariation = random.NextDouble();
+
+            double permeabilityMean = random.NextDouble();
+            double permeabilityCoefficientOfVariation = random.NextDouble();
+
+            var outerLoop = new List<Segment2D>
+            {
+                new Segment2D(new Point2D(x1, y1),
+                              new Point2D(x3, y1)),
+                new Segment2D(new Point2D(x3, y1),
+                              new Point2D(x3, y2)),
+                new Segment2D(new Point2D(x3, y2),
+                              new Point2D(x1, y2)),
+                new Segment2D(new Point2D(x1, y1),
+                              new Point2D(x1, y2))
+            };
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(Enumerable.Empty<Segment2D[]>(),
+                                                                         outerLoop);
+            layer.MaterialName = materialName;
+            layer.IsAquifer = isAquifer;
+            layer.Color = color;
+            layer.BelowPhreaticLevelDistribution = logNormalDistribution;
+            layer.BelowPhreaticLevelShift = logNormalShift;
+            layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
+            layer.BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation;
+            layer.DiameterD70Distribution = logNormalDistribution;
+            layer.DiameterD70Shift = logNormalShift;
+            layer.DiameterD70Mean = diameterD70Mean;
+            layer.DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation;
+            layer.PermeabilityDistribution = logNormalDistribution;
+            layer.PermeabilityShift = logNormalShift;
+            layer.PermeabilityMean = permeabilityMean;
+            layer.PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, x2, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(y1, bottom, 1e-6);
+            PipingSoilLayer resultLayer = pipingSoilLayers.First();
+            Assert.AreEqual(y2, resultLayer.Top, 1e-6);
+            Assert.AreEqual(isAquifer, resultLayer.IsAquifer);
+            Assert.AreEqual(materialName, resultLayer.MaterialName);
+            Assert.AreEqual(color, resultLayer.Color);
+
+            Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(diameterD70Mean, resultLayer.DiameterD70Mean);
+            Assert.AreEqual(diameterD70CoefficientOfVariation, resultLayer.DiameterD70CoefficientOfVariation);
+            Assert.AreEqual(permeabilityMean, resultLayer.PermeabilityMean);
+            Assert.AreEqual(permeabilityCoefficientOfVariation, resultLayer.PermeabilityCoefficientOfVariation);
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions()
