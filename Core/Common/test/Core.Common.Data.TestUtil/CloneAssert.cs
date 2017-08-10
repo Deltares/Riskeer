@@ -64,6 +64,20 @@ namespace Core.Common.Data.TestUtil
             typeSpecificAsserts(original, (T) clone);
         }
 
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones. Some general clone assertions are performed, followed by the type specific
+        /// assertions on a per element basis (provided via <paramref name="typeSpecificAsserts"/>).
+        /// </summary>
+        /// <typeparam name="T">The type of the objects in the enumerations to assert.</typeparam>
+        /// <param name="original">The original enumeration.</param>
+        /// <param name="clone">The cloned enumeration.</param>
+        /// <param name="typeSpecificAsserts">The action for performing the <typeparamref name="T"/>
+        /// specific assertions on a per element basis.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeSpecificAsserts"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones<T>(IEnumerable<T> original, object clone, Action<T, T> typeSpecificAsserts)
         {
             if (typeSpecificAsserts == null)
