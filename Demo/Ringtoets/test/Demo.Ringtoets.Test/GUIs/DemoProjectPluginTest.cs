@@ -26,6 +26,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
+using Core.Components.PointedTree.Data;
 using Core.Components.Stack.Data;
 using Demo.Ringtoets.GUIs;
 using Demo.Ringtoets.Views;
@@ -69,22 +70,27 @@ namespace Demo.Ringtoets.Test.GUIs
                 ViewInfo[] views = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, views.Length);
+                Assert.AreEqual(4, views.Length);
 
                 ViewInfo chartViewInfo = views[0];
                 Assert.AreEqual(typeof(ChartDataCollection), chartViewInfo.DataType);
                 Assert.AreEqual(typeof(ChartDataView), chartViewInfo.ViewType);
-                Assert.AreEqual("Diagram", chartViewInfo.GetViewName(new ChartDataView(), null));
+                Assert.AreEqual("Diagram", chartViewInfo.GetViewName(null, null));
 
                 ViewInfo mapViewInfo = views[1];
                 Assert.AreEqual(typeof(MapData), mapViewInfo.DataType);
                 Assert.AreEqual(typeof(MapDataView), mapViewInfo.ViewType);
-                Assert.AreEqual("Kaart", mapViewInfo.GetViewName(new MapDataView(), null));
+                Assert.AreEqual("Kaart", mapViewInfo.GetViewName(null, null));
 
                 ViewInfo stackChartViewInfo = views[2];
                 Assert.AreEqual(typeof(StackChartData), stackChartViewInfo.DataType);
                 Assert.AreEqual(typeof(StackChartDataView), stackChartViewInfo.ViewType);
-                Assert.AreEqual("Diagram", stackChartViewInfo.GetViewName(new StackChartDataView(), null));
+                Assert.AreEqual("Diagram", stackChartViewInfo.GetViewName(null, null));
+
+                ViewInfo pointedTreeGraphViewInfo = views[3];
+                Assert.AreEqual(typeof(GraphNode), pointedTreeGraphViewInfo.DataType);
+                Assert.AreEqual(typeof(PointedTreeGraphView), pointedTreeGraphViewInfo.ViewType);
+                Assert.AreEqual("Foutenboom", pointedTreeGraphViewInfo.GetViewName(null, null));
             }
         }
     }

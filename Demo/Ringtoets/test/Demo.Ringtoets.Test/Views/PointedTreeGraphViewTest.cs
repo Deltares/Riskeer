@@ -19,61 +19,65 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.Forms;
-using Core.Components.Stack.Data;
+using Core.Components.GraphSharp.Forms;
+using Core.Components.PointedTree.Data;
 using Demo.Ringtoets.Views;
 using NUnit.Framework;
 
 namespace Demo.Ringtoets.Test.Views
 {
     [TestFixture]
-    public class StackChartDataViewTest
+    public class PointedTreeGraphViewTest
     {
         [Test]
-        public void DefaultConstructor_Always_AddsChartControl()
+        [Apartment(ApartmentState.STA)]
+        public void DefaultConstructor_Always_AddsPointedTreeGraphControl()
         {
             // Call
-            using (var chartView = new StackChartDataView())
+            using (var view = new PointedTreeGraphView())
             {
                 // Assert
-                Assert.AreEqual(1, chartView.Controls.Count);
-                object chartObject = chartView.Controls[0];
-                Assert.IsInstanceOf<StackChartControl>(chartObject);
+                Assert.AreEqual(1, view.Controls.Count);
+                object control = view.Controls[0];
+                Assert.IsInstanceOf<PointedTreeGraphControl>(control);
 
-                var chart = (StackChartControl) chartObject;
-                Assert.AreEqual(DockStyle.Fill, chart.Dock);
+                var pointedTreeGraph = (PointedTreeGraphControl) control;
+                Assert.AreEqual(DockStyle.Fill, pointedTreeGraph.Dock);
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Data_SetToObject_DoesNotThrow()
         {
             // Setup
-            using (var chartView = new StackChartDataView())
+            using (var view = new PointedTreeGraphView())
             {
                 // Call
-                TestDelegate testDelegate = () => chartView.Data = new object();
+                TestDelegate testDelegate = () => view.Data = new object();
 
                 // Assert
                 Assert.DoesNotThrow(testDelegate);
-                Assert.IsNull(chartView.Data);
+                Assert.IsNull(view.Data);
             }
         }
 
         [Test]
-        public void Data_SetToStackChartData_DataSet()
+        [Apartment(ApartmentState.STA)]
+        public void Data_SetToGraphNode_DataSet()
         {
             // Setup
-            using (var chartView = new StackChartDataView())
+            using (var view = new PointedTreeGraphView())
             {
-                var stackChartData = new StackChartData();
+                var graphNode = new GraphNode("Root node", new GraphNode[0], false);
 
                 // Call
-                chartView.Data = stackChartData;
+                view.Data = graphNode;
 
                 // Assert
-                Assert.AreSame(stackChartData, chartView.Data);
+                Assert.AreSame(graphNode, view.Data);
             }
         }
     }

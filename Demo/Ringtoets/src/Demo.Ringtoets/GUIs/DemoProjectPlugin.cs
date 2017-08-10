@@ -24,7 +24,9 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Gis.Data;
+using Core.Components.PointedTree.Data;
 using Core.Components.Stack.Data;
+using Demo.Ringtoets.Properties;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
@@ -63,6 +65,12 @@ namespace Demo.Ringtoets.GUIs
             {
                 Image = CoreCommonGuiResources.DocumentHS,
                 GetViewName = (v, o) => ChartResources.OxyPlotPlugin_GetViewInfos_Diagram
+            };
+
+            yield return new ViewInfo<GraphNode, PointedTreeGraphView>
+            {
+                Image = Resources.FaultTreeIcon,
+                GetViewName = (v, o) => Resources.General_FaultTree
             };
         }
     }

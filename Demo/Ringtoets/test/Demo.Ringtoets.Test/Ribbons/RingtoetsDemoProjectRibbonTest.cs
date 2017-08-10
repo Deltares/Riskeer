@@ -128,5 +128,30 @@ namespace Demo.Ringtoets.Test.Ribbons
             // Assert
             mocks.VerifyAll();
         }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void OpenPointedTreeGraphViewButton_OnClick_ExecutesOpenPointedTreeGraphViewCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewCommands);
+            var button = ribbon.GetRibbonControl().FindName("OpenPointedTreeGraphViewButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have an open pointed tree graph view button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
     }
 }

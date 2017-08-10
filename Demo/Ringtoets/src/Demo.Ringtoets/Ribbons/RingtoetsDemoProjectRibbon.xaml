@@ -49,8 +49,11 @@ All rights reserved.
                 <fluent:Button x:Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Chart}" fluent:KeyTip.Keys="C">
-                <fluent:Button x:Name="OpenChartViewButton"  Header="{x:Static resx:Resources.General_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
-                <fluent:Button x:Name="OpenStackChartViewButton"  Header="{x:Static resx:Resources.Column_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ColumnChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenStackChartView_Click" fluent:KeyTip.Keys="O"/>
+                <fluent:Button x:Name="OpenChartViewButton" Header="{x:Static resx:Resources.General_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
+                <fluent:Button x:Name="OpenStackChartViewButton" Header="{x:Static resx:Resources.Column_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ColumnChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenStackChartView_Click" fluent:KeyTip.Keys="O"/>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_FaultTree}" fluent:KeyTip.Keys="F">
+                <fluent:Button x:Name="OpenPointedTreeGraphViewButton" Header="{x:Static resx:Resources.General_FaultTree}" ToolTip="{x:Static resx:Resources.OpenFaultTree_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.FaultTreeIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="OpenPointedTreeGraphViewButton_OnClick" fluent:KeyTip.Keys="B"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

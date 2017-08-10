@@ -62,24 +62,6 @@ namespace Demo.Ringtoets.Test.Views
         }
 
         [Test]
-        public void Data_SetToNull_MapControlNotUpdated()
-        {
-            // Setup
-            using (var mapView = new MapDataView())
-            {
-                var map = (MapControl) mapView.Controls[0];
-                MapDataCollection mapData = map.Data;
-
-                // Call
-                TestDelegate testDelegate = () => mapView.Data = null;
-
-                // Assert
-                Assert.DoesNotThrow(testDelegate);
-                Assert.AreSame(mapData, map.Data);
-            }
-        }
-
-        [Test]
         public void Data_SetToObject_DoesNotThrow()
         {
             // Setup

@@ -48,24 +48,6 @@ namespace Demo.Ringtoets.Test.Views
         }
 
         [Test]
-        public void Data_SetToNull_ChartControlNotUpdated()
-        {
-            // Setup
-            using (var chartView = new ChartDataView())
-            {
-                var chart = (ChartControl) chartView.Controls[0];
-                ChartDataCollection chartData = chart.Data;
-
-                // Call
-                TestDelegate testDelegate = () => chartView.Data = null;
-
-                // Assert
-                Assert.DoesNotThrow(testDelegate);
-                Assert.AreSame(chartData, chart.Data);
-            }
-        }
-
-        [Test]
         public void Data_SetToObject_DoesNotThrow()
         {
             // Setup

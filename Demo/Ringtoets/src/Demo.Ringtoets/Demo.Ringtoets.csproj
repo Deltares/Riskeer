@@ -54,6 +54,7 @@
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
+    <Compile Include="Commands\OpenPointedTreeGraphViewCommand.cs" />
     <Compile Include="Commands\OpenStackChartViewCommand.cs" />
     <Compile Include="GUIs\DemoProjectPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,12 @@
     </Compile>
     <Compile Include="Views\MapDataView.Designer.cs">
       <DependentUpon>MapDataView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PointedTreeGraphView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PointedTreeGraphView.Designer.cs">
+      <DependentUpon>PointedTreeGraphView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StackChartDataView.cs">
       <SubType>UserControl</SubType>
@@ -130,9 +137,24 @@
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj">
+      <Project>{4e575459-ad64-4f5f-b313-9f8e0ec8c03f}</Project>
+      <Name>Core.Components.GraphSharp.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
+      <Project>{dbf5a590-2a11-4eb4-a8cc-f3036475e4d5}</Project>
+      <Name>Core.Components.PointedTree.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
+      <Name>Core.Components.PointedTree</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
@@ -235,6 +257,9 @@
     <EmbeddedResource Include="Views\MapDataView.resx">
       <DependentUpon>MapDataView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PointedTreeGraphView.resx">
+      <DependentUpon>PointedTreeGraphView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\StackChartDataView.resx">
       <DependentUpon>StackChartDataView.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,6 +301,7 @@
   <ItemGroup>
     <None Include="Resources\chart_bar.png" />
     <Content Include="Resources\chart_line.png" />
+    <None Include="Resources\chart_organisation.png" />
     <Content Include="Resources\folder-horizontal.png" />
     <Content Include="Resources\folder-horizontal_large.png" />
   </ItemGroup>

@@ -140,6 +140,16 @@ namespace Demo.Ringtoets.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap FaultTreeIcon {
+            get {
+                object obj = ResourceManager.GetObject("FaultTreeIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap FolderIcon {
             get {
                 object obj = ResourceManager.GetObject("FolderIcon", resourceCulture);
@@ -163,6 +173,15 @@ namespace Demo.Ringtoets.Properties {
         public static string General_Chart {
             get {
                 return ResourceManager.GetString("General_Chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foutenboom.
+        /// </summary>
+        public static string General_FaultTree {
+            get {
+                return ResourceManager.GetString("General_FaultTree", resourceCulture);
             }
         }
         
@@ -254,6 +273,15 @@ namespace Demo.Ringtoets.Properties {
         public static string OpenChartViewCommand_Execute_Points_two {
             get {
                 return ResourceManager.GetString("OpenChartViewCommand_Execute_Points_two", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open een documentvenster met een foutenboom..
+        /// </summary>
+        public static string OpenFaultTree_ToolTip {
+            get {
+                return ResourceManager.GetString("OpenFaultTree_ToolTip", resourceCulture);
             }
         }
         
