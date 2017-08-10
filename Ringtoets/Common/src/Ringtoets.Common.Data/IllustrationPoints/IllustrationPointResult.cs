@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// <summary>
     /// An output variable for an illustration point.
     /// </summary>
-    public class IllustrationPointResult
+    public class IllustrationPointResult : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointResult"/>.
@@ -56,5 +56,10 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Gets the value of the illustration point result.
         /// </summary>
         public RoundedDouble Value { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

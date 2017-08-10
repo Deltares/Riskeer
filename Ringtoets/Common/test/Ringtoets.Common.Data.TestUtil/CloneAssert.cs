@@ -132,5 +132,19 @@ namespace Ringtoets.Common.Data.TestUtil
             CoreCloneAssert.AreClones(original.WindDirection, clone.WindDirection, AreClones);
             Assert.AreEqual(original.ClosingSituation, clone.ClosingSituation);
         }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(IllustrationPointResult original, IllustrationPointResult clone)
+        {
+            Assert.AreEqual(original.Description, clone.Description);
+            Assert.AreEqual(original.Value, clone.Value);
+        }
     }
 }
