@@ -21,11 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {

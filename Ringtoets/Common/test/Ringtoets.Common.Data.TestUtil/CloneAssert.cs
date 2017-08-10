@@ -20,64 +20,27 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class to assert clones of specific objects.
+    /// Class that defines methods for asserting whether two objects are clones.
     /// </summary>
-    public static class CloneAssert
+    public class CloneAssert
     {
         /// <summary>
-        /// Determines if the actual object is a clone of the expected <see cref="NormalDistribution"/>.
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
         /// </summary>
-        /// <param name="expected">The expected <see cref="NormalDistribution"/>.</param>
-        /// <param name="actualObject">The actual object.</param>
-        /// <exception cref="AssertionException">Thrown when the provided parameters are no clones.</exception>
-        public static void AreClones(NormalDistribution expected, object actualObject)
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(BreakWater original, BreakWater clone)
         {
-            Assert.AreNotSame(expected, actualObject);
-            Assert.IsInstanceOf<NormalDistribution>(actualObject);
-
-            var actual = (NormalDistribution) actualObject;
-            Assert.AreEqual(expected.Mean, actual.Mean);
-            Assert.AreEqual(expected.StandardDeviation, actual.StandardDeviation);
-        }
-
-        /// <summary>
-        /// Determines if the actual object is a clone of the expected <see cref="LogNormalDistribution"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="LogNormalDistribution"/>.</param>
-        /// <param name="actualObject">The actual object.</param>
-        /// <exception cref="AssertionException">Thrown when the provided parameters are no clones.</exception>
-        public static void AreClones(LogNormalDistribution expected, object actualObject)
-        {
-            Assert.AreNotSame(expected, actualObject);
-            Assert.IsInstanceOf<LogNormalDistribution>(actualObject);
-
-            var actual = (LogNormalDistribution) actualObject;
-            Assert.AreEqual(expected.Mean, actual.Mean);
-            Assert.AreEqual(expected.StandardDeviation, actual.StandardDeviation);
-            Assert.AreEqual(expected.Shift, actual.Shift);
-        }
-
-        /// <summary>
-        /// Determines if the actual object is a clone of the expected <see cref="TruncatedNormalDistribution"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="TruncatedNormalDistribution"/>.</param>
-        /// <param name="actualObject">The actual object.</param>
-        /// <exception cref="AssertionException">Thrown when the provided parameters are no clones.</exception>
-        public static void AreClones(TruncatedNormalDistribution expected, object actualObject)
-        {
-            Assert.AreNotSame(expected, actualObject);
-            Assert.IsInstanceOf<TruncatedNormalDistribution>(actualObject);
-
-            var actual = (TruncatedNormalDistribution) actualObject;
-            Assert.AreEqual(expected.Mean, actual.Mean);
-            Assert.AreEqual(expected.StandardDeviation, actual.StandardDeviation);
-            Assert.AreEqual(expected.LowerBoundary, actual.LowerBoundary);
-            Assert.AreEqual(expected.UpperBoundary, actual.UpperBoundary);
+            Assert.AreEqual(original.Type, clone.Type);
+            Assert.AreEqual(original.Height, clone.Height);
         }
     }
 }

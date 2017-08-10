@@ -56,6 +56,7 @@
     <Compile Include="AssessmentSectionHelper.cs" />
     <Compile Include="BackgroundDataTestHelper.cs" />
     <Compile Include="CalculationType.cs" />
+    <Compile Include="CloneAssert.cs" />
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
     <Compile Include="ForeshoreProfilePermutationHelper.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactory.cs" />

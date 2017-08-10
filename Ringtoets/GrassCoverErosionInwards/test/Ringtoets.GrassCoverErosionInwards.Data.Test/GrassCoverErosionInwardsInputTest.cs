@@ -25,13 +25,14 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -401,8 +402,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreSame(o.DikeProfile, c.DikeProfile);
                 Assert.AreEqual(o.Orientation, c.Orientation);
                 Assert.AreEqual(o.DikeHeight, c.DikeHeight);
-                Assert.AreNotSame(o.CriticalFlowRate, c.CriticalFlowRate);
-                Assert.AreEqual(o.CriticalFlowRate, c.CriticalFlowRate);
+                CloneAssert.AreClones(o.CriticalFlowRate, c.CriticalFlowRate, DistributionAssert.AreEqual);
                 Assert.AreSame(o.HydraulicBoundaryLocation, c.HydraulicBoundaryLocation);
                 Assert.AreEqual(o.DikeHeightCalculationType, c.DikeHeightCalculationType);
                 Assert.AreEqual(o.OvertoppingRateCalculationType, c.OvertoppingRateCalculationType);
@@ -410,8 +410,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreEqual(o.ShouldOvertoppingRateIllustrationPointsBeCalculated, c.ShouldOvertoppingRateIllustrationPointsBeCalculated);
                 Assert.AreEqual(o.ShouldOvertoppingOutputIllustrationPointsBeCalculated, c.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
                 Assert.AreEqual(o.UseBreakWater, c.UseBreakWater);
-                Assert.AreNotSame(o.BreakWater, c.BreakWater);
-                Assert.AreEqual(o.BreakWater, c.BreakWater);
+                CloneAssert.AreClones(o.BreakWater, c.BreakWater, CustomCloneAssert.AreClones);
                 Assert.AreEqual(o.UseForeshore, c.UseForeshore);
             });
         }
