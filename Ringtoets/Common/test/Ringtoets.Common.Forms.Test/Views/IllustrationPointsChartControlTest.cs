@@ -26,8 +26,10 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using Core.Components.OxyPlot.Forms;
 using Core.Components.Stack.Data;
 using Core.Components.Stack.Forms;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -55,12 +57,30 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStackChartControlWithoutData_WhenDataNotNull_ThenStackChartControlUpdated()
+        public void IllustrationPointsControl_Always_SetsCorrectVerticalAxisTitle()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var illustrationPointsControl = new IllustrationPointsControl())
+            {
+                form.Controls.Add(illustrationPointsControl);
+
+                // Call
+                form.Show();
+
+                // Assert
+                var stackChartControl = (StackChartControl) new ControlTester("stackChartControl").TheObject;
+                Assert.AreEqual("Alpha^2", stackChartControl.VerticalAxisTitle);
+            }
+        }
+
+        [Test]
+        public void GivenIllustrationPointsChartControlWithoutData_WhenDataNotNull_ThenStackChartControlUpdated()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl();
             IllustrationPointControlItem[] illustrationPointControlItems = GetControlItems().ToArray();
-            
+
             // When
             chartControl.Data = illustrationPointControlItems;
 
@@ -103,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStackChartControlWithData_WhenClosingSituationsAreDifferent_StackChartControlDisplaysClosingSituation()
+        public void GivenIllustrationPointsChartControlWithData_WhenClosingSituationsAreDifferent_StackChartControlDisplaysClosingSituation()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl();
@@ -112,17 +132,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             const string closingSituationRegular = "Regular";
             const string closingSituationOpen = "Open";
 
-            var controlItems =new []
+            var controlItems = new[]
             {
-                 new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "SE",
                                                  closingSituationOpen,
-                                                 Enumerable.Empty<Stochast>(), 
+                                                 Enumerable.Empty<Stochast>(),
                                                  random.NextRoundedDouble()),
                 new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "NE",
                                                  closingSituationRegular,
-                                                 Enumerable.Empty<Stochast>(), 
+                                                 Enumerable.Empty<Stochast>(),
                                                  random.NextRoundedDouble())
             };
 
@@ -142,7 +162,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStackChartControlWithData_WhenDataSetToNull_ThenStackChartControlUpdated()
+        public void GivenIllustrationPointsChartControlWithData_WhenDataSetToNull_ThenStackChartControlUpdated()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl
@@ -160,7 +180,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStackChartControlWithData_WhenDataSetToOther_ThenStackChartControlUpdated()
+        public void GivenIllustrationPointsChartControlWithData_WhenDataSetToOther_ThenStackChartControlUpdated()
         {
             // Given
             var chartControl = new IllustrationPointsChartControl

@@ -93,6 +93,18 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        public string VerticalAxisTitle
+        {
+            get
+            {
+                return plotView.VerticalAxisTitle;
+            }
+            set
+            {
+                plotView.VerticalAxisTitle = value;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             plotView.Dispose();

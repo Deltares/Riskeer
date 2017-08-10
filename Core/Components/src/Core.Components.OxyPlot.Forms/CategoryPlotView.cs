@@ -34,6 +34,7 @@ namespace Core.Components.OxyPlot.Forms
     internal sealed class CategoryPlotView : PlotView
     {
         private readonly CategoryAxis categoryAxis;
+        private readonly LinearAxis linearAxis;
 
         /// <summary>
         /// Creates a new <see cref="CategoryPlotView"/>.
@@ -41,6 +42,7 @@ namespace Core.Components.OxyPlot.Forms
         public CategoryPlotView()
         {
             Dock = DockStyle.Fill;
+
             categoryAxis = new CategoryAxis
             {
                 MinorStep = 1,
@@ -50,20 +52,22 @@ namespace Core.Components.OxyPlot.Forms
                 IsZoomEnabled = false
             };
 
+            linearAxis = new LinearAxis
+            {
+                AbsoluteMinimum = 0,
+                AbsoluteMaximum = 1,
+                MaximumPadding = 0.06,
+                MinimumPadding = 0,
+                IsPanEnabled = false,
+                IsZoomEnabled = false
+            };
+
             Model = new PlotModel
             {
                 Axes =
                 {
                     categoryAxis,
-                    new LinearAxis
-                    {
-                        AbsoluteMinimum = 0,
-                        AbsoluteMaximum = 1,
-                        MaximumPadding = 0.06,
-                        MinimumPadding = 0,
-                        IsPanEnabled = false,
-                        IsZoomEnabled = false
-                    }
+                    linearAxis
                 },
                 LegendBorderThickness = 0,
                 LegendOrientation = LegendOrientation.Horizontal,
@@ -84,6 +88,22 @@ namespace Core.Components.OxyPlot.Forms
             set
             {
                 Model.Title = value;
+                InvalidatePlot(false);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the title of the vertical axis of the plot view.
+        /// </summary>
+        public string VerticalAxisTitle
+        {
+            get
+            {
+                return linearAxis.Title;
+            }
+            set
+            {
+                linearAxis.Title = value;
                 InvalidatePlot(false);
             }
         }

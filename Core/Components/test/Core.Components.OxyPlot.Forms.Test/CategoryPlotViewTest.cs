@@ -42,12 +42,15 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsInstanceOf<PlotView>(plotView);
             Assert.AreEqual(DockStyle.Fill, plotView.Dock);
 
+            Assert.IsNull(plotView.ModelTitle);
+            Assert.IsNull(plotView.VerticalAxisTitle);
+
             PlotModel plotModel = plotView.Model;
 
             ElementCollection<Axis> axes = plotModel.Axes;
             Assert.AreEqual(2, axes.Count);
 
-            CategoryAxis categoryAxis = axes.OfType<CategoryAxis>().First();
+            Axis categoryAxis = axes.First(ax => ax.GetType() == typeof(CategoryAxis));
             Assert.AreEqual(1, categoryAxis.MinorStep);
             Assert.AreEqual(90, categoryAxis.Angle);
 
@@ -55,10 +58,11 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.IsFalse(categoryAxis.IsPanEnabled);
             Assert.IsFalse(categoryAxis.IsZoomEnabled);
 
-            LinearAxis linearAxis = axes.OfType<LinearAxis>().First();
+            Axis linearAxis = axes.First(ax => ax.GetType() == typeof(LinearAxis));
             Assert.AreEqual(0, linearAxis.MinimumPadding);
             Assert.IsFalse(linearAxis.IsPanEnabled);
             Assert.IsFalse(linearAxis.IsZoomEnabled);
+            Assert.IsNull(linearAxis.Title);
 
             Assert.AreEqual(0, plotModel.LegendBorderThickness);
             Assert.AreEqual(LegendOrientation.Horizontal, plotModel.LegendOrientation);
@@ -87,7 +91,37 @@ namespace Core.Components.OxyPlot.Forms.Test
                 view.ModelTitle = newTitle;
 
                 // Assert
-                Assert.AreEqual(view.ModelTitle, newTitle);
+                Assert.AreEqual(newTitle, view.Model.Title);
+                Assert.AreEqual(1, invalidated);
+            }
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase("  ")]
+        public void VerticalAxisTitle_AlwaysSetsNewVerticalAxisTitleToModelAndInvalidatesView(string newTitle)
+        {
+            // Setup 
+            using (var form = new Form())
+            using (var view = new CategoryPlotView())
+            {
+                form.Controls.Add(view);
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
+
+                form.Show();
+
+                // Call
+                view.VerticalAxisTitle = newTitle;
+
+                // Assert
+                PlotModel plotModel = view.Model;
+
+                ElementCollection<Axis> axes = plotModel.Axes;
+                var categoryAxis = (LinearAxis) axes.First(ax => ax.GetType() == typeof(LinearAxis));
+                Assert.AreEqual(newTitle, categoryAxis.Title);
                 Assert.AreEqual(1, invalidated);
             }
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -57,6 +58,7 @@ namespace Ringtoets.Common.Forms.Views
             // stackChartControl
             // 
             this.stackChartControl.ChartTitle = null;
+            this.stackChartControl.VerticalAxisTitle = Resources.IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle;
             this.stackChartControl.Data = null;
             this.stackChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.stackChartControl.Location = new System.Drawing.Point(0, 0);

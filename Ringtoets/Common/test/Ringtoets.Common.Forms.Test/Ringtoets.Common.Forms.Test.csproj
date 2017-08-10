@@ -192,6 +192,10 @@
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
       <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>
       <Name>Core.Components.Stack.Forms</Name>

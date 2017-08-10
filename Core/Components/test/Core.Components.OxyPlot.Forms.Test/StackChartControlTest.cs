@@ -261,7 +261,35 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.ChartTitle = newTitle;
 
                 // Assert
-                Assert.AreEqual(chart.ChartTitle, newTitle);
+                Assert.AreEqual(newTitle, view.ModelTitle);
+                Assert.AreEqual(1, invalidated);
+            }
+        }
+
+        [Test]
+        [TestCase("Title")]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void SetVerticalAxisTitle_Always_SetsVerticalAxisTitleToModelAndViewInvalidated(string newTitle)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var chart = new StackChartControl();
+                CategoryPlotView view = chart.Controls.OfType<CategoryPlotView>().Single();
+                form.Controls.Add(chart);
+
+                form.Show();
+
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
+
+                // Call
+                chart.VerticalAxisTitle = newTitle;
+
+                // Assert
+                Assert.AreEqual(newTitle, view.VerticalAxisTitle);
                 Assert.AreEqual(1, invalidated);
             }
         }
