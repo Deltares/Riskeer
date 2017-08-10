@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.TestUtil
 {
@@ -41,6 +42,23 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             Assert.AreEqual(original.Type, clone.Type);
             Assert.AreEqual(original.Height, clone.Height);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ProbabilityAssessmentOutput original, ProbabilityAssessmentOutput clone)
+        {
+            Assert.AreEqual(original.RequiredProbability, clone.RequiredProbability);
+            Assert.AreEqual(original.RequiredReliability, clone.RequiredReliability);
+            Assert.AreEqual(original.Probability, clone.Probability);
+            Assert.AreEqual(original.Reliability, clone.Reliability);
+            Assert.AreEqual(original.FactorOfSafety, clone.FactorOfSafety);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class contains the result of an overtopping calculation.
     /// </summary>
-    public class OvertoppingOutput
+    public class OvertoppingOutput : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="OvertoppingOutput"/>.
@@ -66,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the probabilistic assessment output.
         /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
+        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
 
         public bool HasWaveHeight
         {
@@ -91,5 +91,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
         public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
+
+        public object Clone()
+        {
+            var clone = (OvertoppingOutput) MemberwiseClone();
+
+            clone.ProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) ProbabilityAssessmentOutput.Clone();
+
+            return clone;
+        }
     }
 }

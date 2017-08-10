@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Probability
 {
@@ -184,14 +185,7 @@ namespace Ringtoets.Common.Data.Test.Probability
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                Assert.AreEqual(o.RequiredProbability, c.RequiredProbability);
-                Assert.AreEqual(o.RequiredReliability, c.RequiredReliability);
-                Assert.AreEqual(o.Probability, c.Probability);
-                Assert.AreEqual(o.Reliability, c.Reliability);
-                Assert.AreEqual(o.FactorOfSafety, c.FactorOfSafety);
-            });
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
     }
 }

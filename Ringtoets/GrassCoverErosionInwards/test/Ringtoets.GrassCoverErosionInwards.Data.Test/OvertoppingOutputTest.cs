@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -34,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ValidInputWithGeneralResultNull_ReturnsExpectedProperties(bool withIllustrationPoints)
+        public void Constructor_ValidInput_ReturnsExpectedProperties(bool withIllustrationPoints)
         {
             // Setup
             const double waveHeight = 3.2934;
@@ -58,6 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var output = new OvertoppingOutput(waveHeight, true, probabilityAssessmentOutput, generalResult);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(output);
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.IsTrue(output.IsOvertoppingDominant);
@@ -94,6 +98,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsFalse(hasWaveHeight);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new OvertoppingOutput(random.NextDouble(), random.NextBoolean(), new TestProbabilityAssessmentOutput(), null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                Assert.AreEqual(o.WaveHeight, c.WaveHeight);
+                Assert.AreEqual(o.IsOvertoppingDominant, c.IsOvertoppingDominant);
+                CloneAssert.AreClones(o.ProbabilityAssessmentOutput, c.ProbabilityAssessmentOutput, CustomCloneAssert.AreClones);
+            });
         }
     }
 }
