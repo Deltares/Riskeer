@@ -156,7 +156,10 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             return new SoilProfile2D(properties.ProfileId,
                                      properties.ProfileName,
-                                     soilLayers);
+                                     soilLayers)
+            {
+                IntersectionX = properties.IntersectionX
+            };
         }
 
         /// <summary>
@@ -262,7 +265,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     ProfileName = reader.Read<string>(SoilProfileTableDefinitions.ProfileName);
 
                     readColumn = SoilProfileTableDefinitions.IntersectionX;
-                    IntersectionX = reader.ReadOrDefault<double?>(readColumn);
+                    IntersectionX = reader.ReadOrDefault<double?>(readColumn) ?? double.NaN;
 
                     readColumn = SoilProfileTableDefinitions.LayerCount;
                     LayerCount = reader.Read<long>(readColumn);
@@ -282,7 +285,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// <summary>
             /// The 1d intersection of the profile.
             /// </summary>
-            public double? IntersectionX { get; }
+            public double IntersectionX { get; }
 
             /// <summary>
             /// The name of the profile to read.

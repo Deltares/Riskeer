@@ -127,8 +127,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual("Profile", result[0].Name);
-            Assert.AreEqual(3, result[0].Layers.Count());
+
+            SoilProfile2D soilProfile2D = result[0];
+            Assert.AreEqual(1, soilProfile2D.Id);
+            Assert.AreEqual("Profile", soilProfile2D.Name);
+            Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
+            Assert.AreEqual(3, soilProfile2D.Layers.Count());
         }
     }
 }

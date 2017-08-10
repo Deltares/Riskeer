@@ -46,6 +46,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(id, soilProfile2D.Id);
             Assert.AreEqual(name, soilProfile2D.Name);
             CollectionAssert.AreEqual(soilLayer2Ds, soilProfile2D.Layers);
+            Assert.IsNaN(soilProfile2D.IntersectionX);
         }
     }
 }

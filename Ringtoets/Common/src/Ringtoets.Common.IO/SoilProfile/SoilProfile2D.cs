@@ -39,6 +39,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             Id = id;
             Name = name;
             Layers = layers;
+            IntersectionX = double.NaN;
         }
 
         /// <summary>
@@ -52,5 +53,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public IEnumerable<SoilLayer2D> Layers { get; }
 
         public string Name { get; }
+
+        /// <summary>
+        /// The 1d intersection of the profile.
+        /// </summary>
+        public double IntersectionX { get; set; }
     }
 }
