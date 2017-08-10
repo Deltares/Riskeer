@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// <summary>
     /// A wind direction.
     /// </summary>
-    public sealed class WindDirection
+    public sealed class WindDirection : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="WindDirection"/>.
@@ -56,5 +56,10 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Gets the angle of the wind direction.
         /// </summary>
         public RoundedDouble Angle { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
