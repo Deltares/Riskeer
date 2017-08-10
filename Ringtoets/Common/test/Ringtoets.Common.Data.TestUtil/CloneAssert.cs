@@ -88,5 +88,20 @@ namespace Ringtoets.Common.Data.TestUtil
             Assert.AreEqual(original.Name, clone.Name);
             Assert.AreEqual(original.Angle, clone.Angle);
         }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(Stochast original, Stochast clone)
+        {
+            Assert.AreEqual(original.Name, clone.Name);
+            Assert.AreEqual(original.Alpha, clone.Alpha);
+            Assert.AreEqual(original.Duration, clone.Duration);
+        }
     }
 }

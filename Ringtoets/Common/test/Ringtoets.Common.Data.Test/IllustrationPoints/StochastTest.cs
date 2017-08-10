@@ -23,6 +23,8 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -59,11 +61,26 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var stochast = new Stochast(name, duration, alpha);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(stochast);
             Assert.AreEqual(name, stochast.Name);
             Assert.AreEqual(duration, stochast.Duration, stochast.Duration.GetAccuracy());
             Assert.AreEqual(1, stochast.Duration.NumberOfDecimalPlaces);
             Assert.AreEqual(alpha, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(5, stochast.Alpha.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new Stochast("Random name", random.NextDouble(), random.NextDouble());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

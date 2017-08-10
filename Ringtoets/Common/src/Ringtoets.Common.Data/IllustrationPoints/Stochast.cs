@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     /// <summary>
     /// Container alpha value definitions.
     /// </summary>
-    public class Stochast
+    public class Stochast : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="Stochast"/>.
@@ -62,5 +62,10 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Gets the alpha value of the stochast.
         /// </summary>
         public RoundedDouble Alpha { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
