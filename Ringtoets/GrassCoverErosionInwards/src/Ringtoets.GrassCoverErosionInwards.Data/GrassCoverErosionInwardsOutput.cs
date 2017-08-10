@@ -28,7 +28,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// The overall result of a grass cover erosion inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
+    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
@@ -54,16 +54,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the overtopping output.
         /// </summary>
-        public OvertoppingOutput OvertoppingOutput { get; }
+        public OvertoppingOutput OvertoppingOutput { get; private set; }
 
         /// <summary>
         /// Gets the dike height output.
         /// </summary>
-        public DikeHeightOutput DikeHeightOutput { get; }
+        public DikeHeightOutput DikeHeightOutput { get; private set; }
 
         /// <summary>
         /// Gets the overtopping rate output.
         /// </summary>
-        public OvertoppingRateOutput OvertoppingRateOutput { get; }
+        public OvertoppingRateOutput OvertoppingRateOutput { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (GrassCoverErosionInwardsOutput) MemberwiseClone();
+
+            clone.OvertoppingOutput = (OvertoppingOutput) OvertoppingOutput.Clone();
+            clone.DikeHeightOutput = (DikeHeightOutput) DikeHeightOutput.Clone();
+            clone.OvertoppingRateOutput = (OvertoppingRateOutput) OvertoppingRateOutput.Clone();
+
+            return clone;
+        }
     }
 }

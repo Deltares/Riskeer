@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -111,12 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                Assert.AreEqual(o.WaveHeight, c.WaveHeight);
-                Assert.AreEqual(o.IsOvertoppingDominant, c.IsOvertoppingDominant);
-                CloneAssert.AreClones(o.ProbabilityAssessmentOutput, c.ProbabilityAssessmentOutput, CustomCloneAssert.AreClones);
-            });
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
     }
 }

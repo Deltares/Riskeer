@@ -24,6 +24,8 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -62,6 +64,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);
             Assert.AreSame(overtoppingRateOutput, output.OvertoppingRateOutput);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                              new TestDikeHeightOutput(random.NextDouble()),
+                                                              new TestOvertoppingRateOutput(random.NextDouble()));
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                CloneAssert.AreClones(o.OvertoppingOutput, c.OvertoppingOutput, CustomCloneAssert.AreClones);
+                CloneAssert.AreClones(o.DikeHeightOutput, c.DikeHeightOutput, CustomCloneAssert.AreClones);
+                CloneAssert.AreClones(o.OvertoppingRateOutput, c.OvertoppingRateOutput, CustomCloneAssert.AreClones);
+            });
         }
     }
 }

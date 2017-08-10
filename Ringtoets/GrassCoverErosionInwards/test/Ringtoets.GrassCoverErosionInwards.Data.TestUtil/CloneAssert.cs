@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using BaseCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
@@ -36,6 +38,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(OvertoppingOutput original, OvertoppingOutput clone)
+        {
+            Assert.AreEqual(original.WaveHeight, clone.WaveHeight);
+            Assert.AreEqual(original.IsOvertoppingDominant, clone.IsOvertoppingDominant);
+            BaseCloneAssert.AreClones(original.ProbabilityAssessmentOutput, clone.ProbabilityAssessmentOutput, CommonCloneAssert.AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(HydraulicLoadsOutput original, HydraulicLoadsOutput clone)
         {
             Assert.AreEqual(original.TargetProbability, clone.TargetProbability);
@@ -43,6 +60,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             Assert.AreEqual(original.CalculatedProbability, clone.CalculatedProbability);
             Assert.AreEqual(original.CalculatedReliability, clone.CalculatedReliability);
             Assert.AreEqual(original.CalculationConvergence, clone.CalculationConvergence);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(DikeHeightOutput original, DikeHeightOutput clone)
+        {
+            AreClones((HydraulicLoadsOutput) original, clone);
+            Assert.AreEqual(original.DikeHeight, clone.DikeHeight);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(OvertoppingRateOutput original, OvertoppingRateOutput clone)
+        {
+            AreClones((HydraulicLoadsOutput) original, clone);
+            Assert.AreEqual(original.OvertoppingRate, clone.OvertoppingRate);
         }
     }
 }
