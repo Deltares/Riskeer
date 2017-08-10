@@ -172,6 +172,8 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(SubMechanismIllustrationPoint original, SubMechanismIllustrationPoint clone)
         {
             AreClones((IllustrationPointBase) original, clone);
+            CoreCloneAssert.AreClones(original.Stochasts, clone.Stochasts, AreClones);
+            CoreCloneAssert.AreClones(original.IllustrationPointResults, clone.IllustrationPointResults, AreClones);
         }
     }
 }

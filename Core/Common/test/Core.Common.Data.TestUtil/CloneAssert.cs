@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Core.Common.Data.TestUtil
@@ -60,6 +62,42 @@ namespace Core.Common.Data.TestUtil
             Assert.AreNotSame(original, clone);
 
             typeSpecificAsserts(original, (T) clone);
+        }
+
+        public static void AreClones<T>(IEnumerable<T> original, object clone, Action<T, T> typeSpecificAsserts)
+        {
+            if (typeSpecificAsserts == null)
+            {
+                throw new ArgumentNullException(nameof(typeSpecificAsserts));
+            }
+
+            if (original == null && clone == null)
+            {
+                return;
+            }
+
+            Assert.IsNotNull(original);
+            Assert.IsInstanceOf<IEnumerable<T>>(clone);
+            Assert.AreNotSame(original, clone);
+
+            CollectionAssert.AreEqual(original, (IEnumerable<T>) clone, new AreClonesComparer<T>(typeSpecificAsserts));
+        }
+
+        private class AreClonesComparer<T> : IComparer
+        {
+            private readonly Action<T, T> typeSpecificAsserts;
+
+            public AreClonesComparer(Action<T, T> typeSpecificAsserts)
+            {
+                this.typeSpecificAsserts = typeSpecificAsserts;
+            }
+
+            public int Compare(object x, object y)
+            {
+                AreClones((T) x, y, typeSpecificAsserts);
+
+                return 0;
+            }
         }
     }
 }
