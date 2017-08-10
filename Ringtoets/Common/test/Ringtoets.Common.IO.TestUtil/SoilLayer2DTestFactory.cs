@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoops"/> 
         /// or <paramref name="outerLoop"/> do not form a loop.</exception>
-        public static SoilLayer2D CreateSoilLayer2D(IEnumerable<Segment2D[]> innerLoops, IEnumerable<Segment2D> outerLoop)
+        public static SoilLayer2D CreateSoilLayer2D(IEnumerable<IEnumerable<Segment2D>> innerLoops, IEnumerable<Segment2D> outerLoop)
         {
             if (innerLoops == null)
             {
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 OuterLoop = outerLoop
             };
 
-            foreach (Segment2D[] innerLoop in innerLoops)
+            foreach (IEnumerable<Segment2D> innerLoop in innerLoops)
             {
                 soilLayer2D.AddInnerLoop(innerLoop);
             }

@@ -27,7 +27,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
@@ -130,33 +132,29 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectLogNormalDistributions))]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer1D))]
         public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
-            // Setup
-            double bottom;
-
             // Call
-            TestDelegate test = () => PipingSoilLayerTransformer.Transform(null, 0, out bottom);
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("soilLayer", exception.ParamName);
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
         }
 
         [Test]
         public void SoilLayer2DTransform_SoilLayer2DNull_ThrowsArgumentNullException()
         {
             // Setup
-            var layer = new SoilLayer2D();
             double bottom;
 
             // Call
-            IEnumerable<PipingSoilLayer> result = PipingSoilLayerTransformer.Transform(layer, 0.0, out bottom);
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(null, 0.0, out bottom);
 
             // Assert
-            CollectionAssert.IsEmpty(result);
-            Assert.AreEqual(double.MaxValue, bottom);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilLayer", exception.ParamName);
         }
 
         [Test]
@@ -213,8 +211,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
                               new Point2D(x1, y2))
             };
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(Enumerable.Empty<Segment2D[]>(),
-                                                                         outerLoop);
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                Enumerable.Empty<IEnumerable<Segment2D>>(),
+                outerLoop);
             layer.MaterialName = materialName;
             layer.IsAquifer = isAquifer;
             layer.Color = color;
@@ -252,55 +251,631 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(permeabilityCoefficientOfVariation, resultLayer.PermeabilityCoefficientOfVariation);
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions()
+        [Test]
+        public void SoilLayer2DTransform_WithOuterLoopNotIntersectingX_ReturnsEmptyCollectionWithMaxValueBottom()
         {
-            const string testNameFormat = "Transform_Incorrect{0}{{1}}_ThrowsImportedDataTransformException";
+            // Setup
+            var random = new Random(22);
+            double y1 = random.NextDouble();
+            double y2 = random.NextDouble();
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new List<Segment2D[]>(),
+                new List<Segment2D>
+                {
+                    new Segment2D(new Point2D(1.0, y1),
+                                  new Point2D(1.2, y2)),
+                    new Segment2D(new Point2D(1.2, y2),
+                                  new Point2D(1.0, y1))
+                });
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 0.0, out bottom).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(pipingSoilLayers);
+            Assert.AreEqual(double.MaxValue, bottom);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_WithOuterLoopIntersectingX_ReturnsBottomAndLayerWithTop()
+        {
+            // Setup
+            double expectedZ = new Random(22).NextDouble();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new List<Segment2D[]>(),
+                new List<Segment2D>
+                {
+                    new Segment2D(new Point2D(-0.1, expectedZ),
+                                  new Point2D(0.1, expectedZ)),
+                    new Segment2D(new Point2D(-0.1, expectedZ),
+                                  new Point2D(0.1, expectedZ))
+                });
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 0.0, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(expectedZ, bottom);
+            Assert.AreEqual(expectedZ, pipingSoilLayers[0].Top);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopComplex_ReturnsTwoLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "..8.7...",
+                            "..5.6...",
+                            "..4..3..",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new List<Segment2D[]>(), outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(1.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                2.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopInnerLoopSimple_ReturnsTwoLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "..4..3.."));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "...12...",
+                            "........",
+                            "........",
+                            "...43...",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                1.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopInnerLoopComplex_ReturnsThreeLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "..4..3.."));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "...1.2..",
+                            "...87...",
+                            "...56...",
+                            "...4.3..",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                3.0,
+                1.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopMultipleInnerLoops_ReturnsThreeLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "..4..3.."));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "...12...",
+                            "...43...",
+                            "........",
+                            "........",
+                            "........"));
+
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "...12...",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop,
+                innerLoop2
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                3.0,
+                1.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopOverlappingInnerLoop_ReturnsOneLayer()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            ".4....3.",
+                            "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "........",
+                            "........",
+                            "...12...",
+                            "........",
+                            "...43..."));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(2.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_Outer_LoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            ".4....3.",
+                            "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "...12...",
+                            "........",
+                            "...43...",
+                            "........",
+                            "........"));
+
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "........",
+                            "...12...",
+                            "........",
+                            "........",
+                            "...43..."));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop,
+                innerLoop2
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(4.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            ".4....3.",
+                            "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "........",
+                            "...12...",
+                            "........",
+                            "...43...",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(3.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                1.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString
+            (string.Join(Environment.NewLine,
+                         "6",
+                         "........",
+                         "..1..2..",
+                         "........",
+                         "........",
+                         ".4....3.",
+                         "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "...43...",
+                            "........",
+                            "...12...",
+                            "........",
+                            "........",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(1.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                3.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            ".4....3.",
+                            "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "...43...",
+                            "........",
+                            "...12...",
+                            "........",
+                            "........",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(1.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                3.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopVerticalAtX_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const double atX = 2.0;
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "..4..3.."));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                Enumerable.Empty<Segment2D[]>(), outerLoop);
+
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {atX}.", exception.Message);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_InnerLoopVerticalAtX_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const double atX = 3.0;
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "........",
+                            "........",
+                            "..4..3.."));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "...1.2..",
+                            "........",
+                            "........",
+                            "...4.3..",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            {
+                innerLoop
+            }, outerLoop);
+
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, atX, out bottom);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {atX}.", exception.Message);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var layer = new SoilLayer2D
+            {
+                BelowPhreaticLevelDistribution = -1
+            };
+
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Setup
+            double bottom;
+
+            // Call
+            TestDelegate test = () => PipingSoilLayerTransformer.Transform(layer, 0, out bottom);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
+        {
+            return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer2D()
+        {
+            return IncorrectLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
             const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
-            yield return new TestCaseData(
-                new SoilLayer1D(0.0)
-                {
-                    BelowPhreaticLevelDistribution = validDistribution,
-                    DiameterD70Distribution = -1,
-                    DiameterD70Shift = validShift,
-                    PermeabilityDistribution = validDistribution,
-                    PermeabilityShift = validShift
-                }, "Korrelgrootte"
-            ).SetName(string.Format(testNameFormat, "Distribution"));
+            SoilLayerBase invalidDiameterD70Distribution = soilLayer();
+            invalidDiameterD70Distribution.BelowPhreaticLevelDistribution = validDistribution;
+            invalidDiameterD70Distribution.DiameterD70Distribution = -1;
+            invalidDiameterD70Distribution.DiameterD70Shift = validShift;
+            invalidDiameterD70Distribution.PermeabilityDistribution = validDistribution;
+            invalidDiameterD70Distribution.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(
-                new SoilLayer1D(0.0)
-                {
-                    BelowPhreaticLevelDistribution = validDistribution,
-                    DiameterD70Distribution = validDistribution,
-                    DiameterD70Shift = -1,
-                    PermeabilityDistribution = validDistribution,
-                    PermeabilityShift = validShift
-                }, "Korrelgrootte"
-            ).SetName(string.Format(testNameFormat, "Shift"));
+            yield return new TestCaseData(invalidDiameterD70Distribution, "Korrelgrootte"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
-            yield return new TestCaseData(
-                new SoilLayer1D(0.0)
-                {
-                    BelowPhreaticLevelDistribution = validDistribution,
-                    DiameterD70Distribution = validDistribution,
-                    DiameterD70Shift = validShift,
-                    PermeabilityDistribution = -1,
-                    PermeabilityShift = validShift
-                }, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, "Distribution"));
+            SoilLayerBase invalidDiameterD70Shift = soilLayer();
+            invalidDiameterD70Shift.BelowPhreaticLevelDistribution = validDistribution;
+            invalidDiameterD70Shift.DiameterD70Distribution = validDistribution;
+            invalidDiameterD70Shift.DiameterD70Shift = -1;
+            invalidDiameterD70Shift.PermeabilityDistribution = validDistribution;
+            invalidDiameterD70Shift.PermeabilityShift = validShift;
 
-            yield return new TestCaseData(
-                new SoilLayer1D(0.0)
-                {
-                    BelowPhreaticLevelDistribution = validDistribution,
-                    DiameterD70Distribution = validDistribution,
-                    DiameterD70Shift = validShift,
-                    PermeabilityDistribution = validDistribution,
-                    PermeabilityShift = -1
-                }, "Doorlatendheid"
-            ).SetName(string.Format(testNameFormat, "Shift"));
+            yield return new TestCaseData(invalidDiameterD70Shift, "Korrelgrootte"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidPermeabilityDistribution = soilLayer();
+            invalidPermeabilityDistribution.BelowPhreaticLevelDistribution = validDistribution;
+            invalidPermeabilityDistribution.DiameterD70Distribution = validDistribution;
+            invalidPermeabilityDistribution.DiameterD70Shift = validShift;
+            invalidPermeabilityDistribution.PermeabilityDistribution = -1;
+            invalidPermeabilityDistribution.PermeabilityShift = validShift;
+
+            yield return new TestCaseData(invalidPermeabilityDistribution, "Doorlatendheid"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidPermeabilityShift = soilLayer();
+            invalidPermeabilityShift.BelowPhreaticLevelDistribution = validDistribution;
+            invalidPermeabilityShift.DiameterD70Distribution = validDistribution;
+            invalidPermeabilityShift.DiameterD70Shift = validShift;
+            invalidPermeabilityShift.PermeabilityDistribution = validDistribution;
+            invalidPermeabilityShift.PermeabilityShift = -1;
+
+            yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
         }
     }
 }
