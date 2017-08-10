@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("filter", exception.ParamName);
+            Assert.AreEqual("mechanismFilter", exception.ParamName);
             mocks.VerifyAll();
         }
 
