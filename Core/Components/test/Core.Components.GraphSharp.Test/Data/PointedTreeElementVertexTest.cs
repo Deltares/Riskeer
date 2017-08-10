@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Windows.Media;
+using Core.Components.GraphSharp.Data;
 using NUnit.Framework;
 
 namespace Core.Components.GraphSharp.Test.Data
@@ -26,6 +29,61 @@ namespace Core.Components.GraphSharp.Test.Data
     [TestFixture]
     public class PointedTreeElementVertexTest
     {
-        
+        [Test]
+        public void Constructor_ContentNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PointedTreeElementVertex(null, new SolidColorBrush(Colors.Gray), new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.Diamond, false);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("content", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FillColorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PointedTreeElementVertex("test", null, new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.Diamond, false);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("fillColor", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_LineColorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Gray), null, 3, PointedTreeVertexType.Diamond, false);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("lineColor", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            const string content = "test";
+            var fillColor = new SolidColorBrush(Colors.Blue);
+            var lineColor = new SolidColorBrush(Colors.Gray);
+            const int lineWidth = 3;
+            const PointedTreeVertexType type = PointedTreeVertexType.Diamond;
+            const bool isSelectable = false;
+
+            // Call
+            var vertex = new PointedTreeElementVertex(content, fillColor, lineColor, lineWidth, type, isSelectable);
+
+            // Assert
+            Assert.AreEqual(content, vertex.Content);
+            Assert.AreEqual(fillColor, vertex.FillColor);
+            Assert.AreEqual(lineColor, vertex.LineColor);
+            Assert.AreEqual(lineWidth, vertex.LineWidth);
+            Assert.AreEqual(type, vertex.Type);
+            Assert.AreEqual(isSelectable, vertex.IsSelectable);
+            Assert.IsFalse(vertex.IsSelected);
+        }
     }
 }

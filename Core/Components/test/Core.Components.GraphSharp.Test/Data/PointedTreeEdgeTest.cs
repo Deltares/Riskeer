@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Media;
 using Core.Components.GraphSharp.Data;
 using NUnit.Framework;
 using QuickGraph;
@@ -32,8 +33,8 @@ namespace Core.Components.GraphSharp.Test.Data
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var source = new PointedTreeElementVertex();
-            var target = new PointedTreeElementVertex();
+            var source = new TestVertex();
+            var target = new TestVertex();
 
             // Call
             var edge = new PointedTreeEdge(source, target);
@@ -42,6 +43,13 @@ namespace Core.Components.GraphSharp.Test.Data
             Assert.IsInstanceOf<Edge<PointedTreeElementVertex>>(edge);
             Assert.AreSame(source, edge.Source);
             Assert.AreSame(target, edge.Target);
+        }
+
+        private class TestVertex : PointedTreeElementVertex
+        {
+            public TestVertex() : base("test", new SolidColorBrush(Colors.Gray),
+                                       new SolidColorBrush(Colors.Black), 2,
+                                       PointedTreeVertexType.Rectangle, false) {}
         }
     }
 }

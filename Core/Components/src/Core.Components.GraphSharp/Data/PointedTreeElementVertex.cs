@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Windows.Media;
 using GraphSharp.Controls;
 
 namespace Core.Components.GraphSharp.Data
@@ -28,5 +30,72 @@ namespace Core.Components.GraphSharp.Data
     /// </summary>
     public class PointedTreeElementVertex
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="PointedTreeElementVertex"/>.
+        /// </summary>
+        /// <param name="content">The content of the vertex.</param>
+        /// <param name="fillColor">The fill color of the vertex.</param>
+        /// <param name="lineColor">The line color of the vertex.</param>
+        /// <param name="lineWidth">The line width of the vertex.</param>
+        /// <param name="type">The type of the vertex.</param>
+        /// <param name="isSelectable">Indicator whether the vertex is selectable.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>
+        /// <paramref name="fillColor"/> or <paramref name="lineColor"/> is <c>null</c>.</exception>
+        public PointedTreeElementVertex(string content, Brush fillColor, Brush lineColor, int lineWidth, PointedTreeVertexType type, bool isSelectable)
+        {
+            if (content == null)
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
+            if (fillColor == null)
+            {
+                throw new ArgumentNullException(nameof(fillColor));
+            }
+            if (lineColor == null)
+            {
+                throw new ArgumentNullException(nameof(lineColor));
+            }
+            Content = content;
+            FillColor = fillColor;
+            LineColor = lineColor;
+            LineWidth = lineWidth;
+            Type = type;
+            IsSelectable = isSelectable;
+        }
+
+        /// <summary>
+        /// Gets the content of the vertex.
+        /// </summary>
+        public string Content { get; }
+
+        /// <summary>
+        /// Gets the fill color of the vertex.
+        /// </summary>
+        public Brush FillColor { get; }
+
+        /// <summary>
+        /// Gets the line color of the vertex.
+        /// </summary>
+        public Brush LineColor { get; }
+
+        /// <summary>
+        /// Gets the line widht of the vertex.
+        /// </summary>
+        public int LineWidth { get;}
+
+        /// <summary>
+        /// Gets the type of the vertex.
+        /// </summary>
+        public PointedTreeVertexType Type { get; }
+
+        /// <summary>
+        /// Gets whether the vertex is selectable.
+        /// </summary>
+        public bool IsSelectable { get; }
+
+        /// <summary>
+        /// Gets whether the vertex is selected.
+        /// </summary>
+        public bool IsSelected { get; set; }
     }
 }
