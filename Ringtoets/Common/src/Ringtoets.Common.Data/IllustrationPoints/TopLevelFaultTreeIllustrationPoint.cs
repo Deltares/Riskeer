@@ -51,8 +51,17 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Gets the root of the illustration points of the fault tree. 
+        /// Gets the root of the illustration points of the fault tree.
         /// </summary>
-        public IllustrationPointNode FaultTreeNodeRoot { get; }
+        public IllustrationPointNode FaultTreeNodeRoot { get; private set; }
+
+        public override object Clone()
+        {
+            var clone = (TopLevelFaultTreeIllustrationPoint) base.Clone();
+
+            clone.FaultTreeNodeRoot = (IllustrationPointNode) FaultTreeNodeRoot.Clone();
+
+            return clone;
+        }
     }
 }

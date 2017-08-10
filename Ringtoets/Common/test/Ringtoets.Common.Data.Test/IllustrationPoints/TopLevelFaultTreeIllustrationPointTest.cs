@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -71,10 +73,32 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             Assert.IsInstanceOf<TopLevelIllustrationPointBase>(illustrationPoint);
-
             Assert.AreSame(windDirection, illustrationPoint.WindDirection);
             Assert.AreEqual(closingSituation, illustrationPoint.ClosingSituation);
             Assert.AreSame(faultTreeNode, illustrationPoint.FaultTreeNodeRoot);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var faultTreeNodeRoot = new IllustrationPointNode(new TestIllustrationPoint());
+
+            faultTreeNodeRoot.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestIllustrationPoint()),
+                new IllustrationPointNode(new TestIllustrationPoint())
+            });
+
+            var original = new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                  "Random closing situation",
+                                                                  faultTreeNodeRoot);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }
