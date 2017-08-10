@@ -25,6 +25,8 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -104,11 +106,43 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             Assert.IsInstanceOf<IllustrationPointBase>(illustrationPoint);
-
             Assert.AreEqual(name, illustrationPoint.Name);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
             Assert.AreSame(stochasts, illustrationPoint.Stochasts);
             Assert.AreSame(illustrationPointResults, illustrationPoint.IllustrationPointResults);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new SubMechanismIllustrationPoint("Random name",
+                                                             random.NextDouble(),
+                                                             new[]
+                                                             {
+                                                                 new SubMechanismIllustrationPointStochast("Random name 1",
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextDouble()),
+                                                                 new SubMechanismIllustrationPointStochast("Random name 2",
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextDouble())
+                                                             },
+                                                             new[]
+                                                             {
+                                                                 new IllustrationPointResult("Random description 1",
+                                                                                             random.NextDouble()),
+                                                                 new IllustrationPointResult("Random description 2",
+                                                                                             random.NextDouble())
+                                                             });
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

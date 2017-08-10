@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </summary>
         public RoundedDouble Beta { get; }
 
-        public object Clone()
+        public virtual object Clone()
         {
             return MemberwiseClone();
         }

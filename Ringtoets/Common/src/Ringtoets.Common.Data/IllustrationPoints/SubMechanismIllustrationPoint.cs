@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -65,11 +66,21 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that belong to this sub mechanism illustration point.
         /// </summary>
-        public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; }
+        public IEnumerable<SubMechanismIllustrationPointStochast> Stochasts { get; private set; }
 
         /// <summary>
         /// Gets the output variables.
         /// </summary>
-        public IEnumerable<IllustrationPointResult> IllustrationPointResults { get; }
+        public IEnumerable<IllustrationPointResult> IllustrationPointResults { get; private set; }
+
+        public override object Clone()
+        {
+            var clone = (SubMechanismIllustrationPoint) base.Clone();
+
+            clone.Stochasts = Stochasts.Select(s => (SubMechanismIllustrationPointStochast) s.Clone());
+            clone.IllustrationPointResults = IllustrationPointResults.Select(r => (IllustrationPointResult) r.Clone());
+
+            return clone;
+        }
     }
 }
