@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -58,11 +59,20 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets the stochasts that belong to this illustration point.
         /// </summary>
-        public IEnumerable<Stochast> Stochasts { get; }
+        public IEnumerable<Stochast> Stochasts { get; private set; }
 
         /// <summary>
         /// Gets the combination type corresponding to this illustration point.
         /// </summary>
         public CombinationType CombinationType { get; }
+
+        public override object Clone()
+        {
+            var clone = (FaultTreeIllustrationPoint) base.Clone();
+
+            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone());
+
+            return clone;
+        }
     }
 }
