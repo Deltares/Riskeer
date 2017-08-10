@@ -21,10 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
@@ -242,7 +243,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, TestUtil.CloneAssert.AreClones);
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
     }
 }

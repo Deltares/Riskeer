@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test
 {
@@ -52,10 +53,7 @@ namespace Ringtoets.Common.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                Assert.AreEqual(o.Body, c.Body);
-            });
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
     }
 }

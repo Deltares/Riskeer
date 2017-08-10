@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -29,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
+    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
@@ -44,14 +45,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
         /// </summary>
-        public GrassCoverErosionInwardsInput InputParameters { get; }
+        public GrassCoverErosionInwardsInput InputParameters { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a probabilistic calculation.
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public string Name { get; set; }
 
@@ -75,6 +76,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public void ClearOutput()
         {
             Output = null;
+        }
+
+        public object Clone()
+        {
+            var clone = (GrassCoverErosionInwardsCalculation) MemberwiseClone();
+
+            clone.Comments = (Comment) Comments.Clone();
+            clone.InputParameters = (GrassCoverErosionInwardsInput) InputParameters.Clone();
+            clone.Output = (GrassCoverErosionInwardsOutput) Output.Clone();
+
+            return clone;
         }
     }
 }

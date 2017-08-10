@@ -19,10 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -38,6 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<ICloneable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
@@ -125,6 +134,57 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsTrue(calculationHasOutput);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new TestDikeProfile(),
+                    Orientation = random.NextRoundedDouble(),
+                    DikeHeight = random.NextRoundedDouble(),
+                    CriticalFlowRate = new LogNormalDistribution
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
+                    },
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
+                    OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
+                    ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                    UseBreakWater = random.NextBoolean(),
+                    BreakWater =
+                    {
+                        Type = random.NextEnumValue<BreakWaterType>(),
+                        Height = random.NextRoundedDouble()
+                    },
+                    UseForeshore = random.NextBoolean()
+                },
+                Comments =
+                {
+                    Body = "Random body"
+                },
+                Output = new TestGrassCoverErosionInwardsOutput()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                Assert.AreEqual(o.Name, c.Name);
+                CloneAssert.AreClones(o.Comments, c.Comments, CommonCloneAssert.AreClones);
+                CloneAssert.AreClones(o.InputParameters, c.InputParameters, CustomCloneAssert.AreClones);
+                CloneAssert.AreClones(o.Output, c.Output, CustomCloneAssert.AreClones);
+            });
         }
     }
 }

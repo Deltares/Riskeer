@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -397,22 +397,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                Assert.AreSame(o.DikeProfile, c.DikeProfile);
-                Assert.AreEqual(o.Orientation, c.Orientation);
-                Assert.AreEqual(o.DikeHeight, c.DikeHeight);
-                CloneAssert.AreClones(o.CriticalFlowRate, c.CriticalFlowRate, DistributionAssert.AreEqual);
-                Assert.AreSame(o.HydraulicBoundaryLocation, c.HydraulicBoundaryLocation);
-                Assert.AreEqual(o.DikeHeightCalculationType, c.DikeHeightCalculationType);
-                Assert.AreEqual(o.OvertoppingRateCalculationType, c.OvertoppingRateCalculationType);
-                Assert.AreEqual(o.ShouldDikeHeightIllustrationPointsBeCalculated, c.ShouldDikeHeightIllustrationPointsBeCalculated);
-                Assert.AreEqual(o.ShouldOvertoppingRateIllustrationPointsBeCalculated, c.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-                Assert.AreEqual(o.ShouldOvertoppingOutputIllustrationPointsBeCalculated, c.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-                Assert.AreEqual(o.UseBreakWater, c.UseBreakWater);
-                CloneAssert.AreClones(o.BreakWater, c.BreakWater, CustomCloneAssert.AreClones);
-                Assert.AreEqual(o.UseForeshore, c.UseForeshore);
-            });
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
 
         private static void AssertDikeProfileInput(DikeProfile expectedDikeProfile, GrassCoverErosionInwardsInput input)

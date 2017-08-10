@@ -79,12 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                CloneAssert.AreClones(o.OvertoppingOutput, c.OvertoppingOutput, CustomCloneAssert.AreClones);
-                CloneAssert.AreClones(o.DikeHeightOutput, c.DikeHeightOutput, CustomCloneAssert.AreClones);
-                CloneAssert.AreClones(o.OvertoppingRateOutput, c.OvertoppingRateOutput, CustomCloneAssert.AreClones);
-            });
+            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
     }
 }
