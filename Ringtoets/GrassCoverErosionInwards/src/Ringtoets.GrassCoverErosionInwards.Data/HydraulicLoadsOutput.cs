@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Base class for the result of a hydraulic loads calculation.
     /// </summary>
-    public abstract class HydraulicLoadsOutput
+    public abstract class HydraulicLoadsOutput : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
@@ -104,5 +104,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
         public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -108,6 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       null);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(output);
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -138,6 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       generalResult);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(output);
             Assert.AreEqual(targetProbability, output.TargetProbability);
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
@@ -145,6 +148,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsTrue(output.HasGeneralResult);
             Assert.AreSame(generalResult, output.GeneralResult);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new TestHydraulicLoadsOutput(random.NextDouble(),
+                                                        random.NextDouble(),
+                                                        random.NextDouble(),
+                                                        random.NextDouble(),
+                                                        random.NextEnumValue<CalculationConvergence>(),
+                                                        null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CloneAssert.AreClones(original, clone, (o, c) =>
+            {
+                Assert.AreEqual(o.TargetProbability, c.TargetProbability);
+                Assert.AreEqual(o.TargetReliability, c.TargetReliability);
+                Assert.AreEqual(o.CalculatedProbability, c.CalculatedProbability);
+                Assert.AreEqual(o.CalculatedReliability, c.CalculatedReliability);
+                Assert.AreEqual(o.CalculationConvergence, c.CalculationConvergence);
+            });
         }
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
