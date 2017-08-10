@@ -22,8 +22,10 @@
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using Core.Components.GraphSharp.Forms.Layout;
 using Core.Components.PointedTree.Forms;
 using NUnit.Framework;
+using WPFExtensions.Controls;
 
 namespace Core.Components.GraphSharp.Forms.Test
 {
@@ -44,7 +46,10 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Assert.IsNull(graphControl.Data);
 
                 Assert.AreEqual(1, graphControl.Controls.Count);
-                Assert.IsInstanceOf<ElementHost>(graphControl.Controls[0]);
+
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                Assert.IsInstanceOf<PointedTreeGraphLayout>(zoomControl.Content);
             }
         }
     }

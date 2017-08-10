@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using Core.Components.GraphSharp.Data;
+using GraphSharp.Algorithms.Layout;
+using GraphSharp.Algorithms.Layout.Simple.Tree;
+using GraphSharp.Algorithms.OverlapRemoval;
 using GraphSharp.Controls;
 
 namespace Core.Components.GraphSharp.Forms.Layout
@@ -27,5 +30,28 @@ namespace Core.Components.GraphSharp.Forms.Layout
     /// <summary>
     /// Custom <see cref="GraphLayout{TVertex,TEdge,TGraph}"/> to use in the <see cref="PointedTreeGraphControl"/>.
     /// </summary>
-    public class PointedTreeGraphLayout : GraphLayout<PointedTreeElementVertex, PointedTreeEdge, PointedTreeGraph> {}
+    public class PointedTreeGraphLayout : GraphLayout<PointedTreeElementVertex, PointedTreeEdge, PointedTreeGraph>
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="PointedTreeGraphLayout"/>.
+        /// </summary>
+        public PointedTreeGraphLayout()
+        {
+            HighlightAlgorithmType = "FSA";
+            LayoutAlgorithmType = "Tree";
+            OverlapRemovalAlgorithmType = "FSA";
+            OverlapRemovalConstraint = AlgorithmConstraints.Must;
+            OverlapRemovalParameters = new OverlapRemovalParameters
+            {
+                HorizontalGap = 10,
+                VerticalGap = 10
+            };
+            LayoutParameters = new SimpleTreeLayoutParameters
+            {
+                VertexGap = 10,
+                Direction = LayoutDirection.TopToBottom,
+                SpanningTreeGeneration = SpanningTreeGeneration.DFS
+            };
+        }
+    }
 }

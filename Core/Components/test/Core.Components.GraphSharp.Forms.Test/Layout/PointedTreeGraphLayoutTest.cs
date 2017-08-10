@@ -22,6 +22,8 @@
 using System.Threading;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
+using GraphSharp.Algorithms.Layout;
+using GraphSharp.Algorithms.Layout.Simple.Tree;
 using GraphSharp.Controls;
 using NUnit.Framework;
 
@@ -39,6 +41,15 @@ namespace Core.Components.GraphSharp.Forms.Test.Layout
 
             // Assert
             Assert.IsInstanceOf<GraphLayout<PointedTreeElementVertex, PointedTreeEdge, PointedTreeGraph>>(layout);
+            Assert.AreEqual("Tree", layout.LayoutAlgorithmType);
+            Assert.AreEqual("FSA", layout.OverlapRemovalAlgorithmType);
+            Assert.AreEqual(AlgorithmConstraints.Must, layout.OverlapRemovalConstraint);
+            Assert.AreEqual(10, layout.OverlapRemovalParameters.HorizontalGap);
+            Assert.AreEqual(10, layout.OverlapRemovalParameters.VerticalGap);
+            var layoutParamaters = (SimpleTreeLayoutParameters) layout.LayoutParameters;
+            Assert.AreEqual(10, layoutParamaters.VertexGap);
+            Assert.AreEqual(LayoutDirection.TopToBottom, layoutParamaters.Direction);
+            Assert.AreEqual(SpanningTreeGeneration.DFS, layoutParamaters.SpanningTreeGeneration);
         }
     }
 }

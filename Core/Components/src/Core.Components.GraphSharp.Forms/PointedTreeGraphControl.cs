@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Components.GraphSharp.Forms.Layout;
 using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
+using WPFExtensions.Controls;
 
 namespace Core.Components.GraphSharp.Forms
 {
@@ -30,11 +32,32 @@ namespace Core.Components.GraphSharp.Forms
     /// </summary>
     public partial class PointedTreeGraphControl : UserControl, IPointedTreeGraphControl
     {
+        private ZoomControl zoomControl;
+        private PointedTreeGraphLayout graphLayout;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PointedTreeGraphControl"/>.
+        /// </summary>
         public PointedTreeGraphControl()
         {
             InitializeComponent();
+            InitializeGraph();
         }
 
         public GraphNode Data { get; set; }
+
+        private void InitializeGraph()
+        {
+            zoomControl = new ZoomControl
+            {
+                Mode = ZoomControlModes.Original,
+                ModifierMode = ZoomViewModifierMode.None
+            };
+
+            graphLayout = new PointedTreeGraphLayout();
+
+            zoomControl.Content = graphLayout;
+            wpfElementHost.Child = zoomControl;
+        }
     }
 }
