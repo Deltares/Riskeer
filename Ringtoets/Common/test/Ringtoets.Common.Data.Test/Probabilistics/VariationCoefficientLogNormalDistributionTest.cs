@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreClones(original, clone, DistributionAssert.AreEqual);
         }
 
         [Test]

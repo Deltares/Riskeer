@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using BaseCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         {
             Assert.AreEqual(original.WaveHeight, clone.WaveHeight);
             Assert.AreEqual(original.IsOvertoppingDominant, clone.IsOvertoppingDominant);
-            BaseCloneAssert.AreClones(original.ProbabilityAssessmentOutput, clone.ProbabilityAssessmentOutput, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original.ProbabilityAssessmentOutput, clone.ProbabilityAssessmentOutput, CommonCloneAssert.AreClones);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             Assert.AreSame(original.DikeProfile, clone.DikeProfile);
             Assert.AreEqual(original.Orientation, clone.Orientation);
             Assert.AreEqual(original.DikeHeight, clone.DikeHeight);
-            BaseCloneAssert.AreClones(original.CriticalFlowRate, clone.CriticalFlowRate, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreClones(original.CriticalFlowRate, clone.CriticalFlowRate, DistributionAssert.AreEqual);
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
             Assert.AreEqual(original.DikeHeightCalculationType, clone.DikeHeightCalculationType);
             Assert.AreEqual(original.OvertoppingRateCalculationType, clone.OvertoppingRateCalculationType);
@@ -104,15 +104,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             Assert.AreEqual(original.ShouldOvertoppingRateIllustrationPointsBeCalculated, clone.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.AreEqual(original.ShouldOvertoppingOutputIllustrationPointsBeCalculated, clone.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(original.UseBreakWater, clone.UseBreakWater);
-            BaseCloneAssert.AreClones(original.BreakWater, clone.BreakWater, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original.BreakWater, clone.BreakWater, CommonCloneAssert.AreClones);
             Assert.AreEqual(original.UseForeshore, clone.UseForeshore);
         }
 
-        public static void AreClones(GrassCoverErosionInwardsOutput o, GrassCoverErosionInwardsOutput c)
+        public static void AreClones(GrassCoverErosionInwardsOutput original, GrassCoverErosionInwardsOutput clone)
         {
-            BaseCloneAssert.AreClones(o.OvertoppingOutput, c.OvertoppingOutput, AreClones);
-            BaseCloneAssert.AreClones(o.DikeHeightOutput, c.DikeHeightOutput, AreClones);
-            BaseCloneAssert.AreClones(o.OvertoppingRateOutput, c.OvertoppingRateOutput, AreClones);
+            CoreCloneAssert.AreClones(original.OvertoppingOutput, clone.OvertoppingOutput, AreClones);
+            CoreCloneAssert.AreClones(original.DikeHeightOutput, clone.DikeHeightOutput, AreClones);
+            CoreCloneAssert.AreClones(original.OvertoppingRateOutput, clone.OvertoppingRateOutput, AreClones);
+        }
+
+        public static void AreClones(GrassCoverErosionInwardsCalculation original, GrassCoverErosionInwardsCalculation clone)
+        {
+            Assert.AreEqual(original.Name, clone.Name);
+            CoreCloneAssert.AreClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original.InputParameters, clone.InputParameters, AreClones);
+            CoreCloneAssert.AreClones(original.Output, clone.Output, AreClones);
         }
     }
 }

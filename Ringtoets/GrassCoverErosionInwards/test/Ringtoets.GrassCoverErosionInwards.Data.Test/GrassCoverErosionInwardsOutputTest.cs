@@ -24,8 +24,8 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var random = new Random(21);
@@ -79,7 +79,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+                                                              null,
+                                                              null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
     }
 }

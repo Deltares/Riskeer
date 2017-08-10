@@ -24,8 +24,8 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
@@ -243,7 +243,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

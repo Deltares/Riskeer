@@ -21,8 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test
 {
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

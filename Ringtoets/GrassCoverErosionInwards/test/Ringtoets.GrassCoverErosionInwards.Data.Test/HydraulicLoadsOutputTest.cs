@@ -26,8 +26,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var random = new Random(21);
@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput

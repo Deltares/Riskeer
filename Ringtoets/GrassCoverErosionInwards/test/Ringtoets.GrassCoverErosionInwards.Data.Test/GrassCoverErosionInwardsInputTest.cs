@@ -31,8 +31,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -364,13 +364,40 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
+            GrassCoverErosionInwardsInput original = CreateRandomInputWithoutProfileAndLocation();
+
+            original.DikeProfile = new TestDikeProfile();
+            original.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            GrassCoverErosionInwardsInput original = CreateRandomInputWithoutProfileAndLocation();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static GrassCoverErosionInwardsInput CreateRandomInputWithoutProfileAndLocation()
+        {
             var random = new Random(21);
-            var original = new GrassCoverErosionInwardsInput
+
+            return new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new TestDikeProfile(),
                 Orientation = random.NextRoundedDouble(),
                 DikeHeight = random.NextRoundedDouble(),
                 CriticalFlowRate = new LogNormalDistribution
@@ -378,7 +405,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 },
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
                 OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
                 ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
@@ -392,12 +418,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 },
                 UseForeshore = random.NextBoolean()
             };
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CloneAssert.AreClones(original, clone, CustomCloneAssert.AreClones);
         }
 
         private static void AssertDikeProfileInput(DikeProfile expectedDikeProfile, GrassCoverErosionInwardsInput input)

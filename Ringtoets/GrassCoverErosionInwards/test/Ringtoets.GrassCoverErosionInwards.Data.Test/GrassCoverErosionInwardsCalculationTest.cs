@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
-using CloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
-using CustomCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
+using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -137,11 +137,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
+            GrassCoverErosionInwardsCalculation original = CreateRandomCalculationWithoutOutput();
+
+            original.Output = new TestGrassCoverErosionInwardsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculation original = CreateRandomCalculationWithoutOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static GrassCoverErosionInwardsCalculation CreateRandomCalculationWithoutOutput()
+        {
             var random = new Random(21);
-            var original = new GrassCoverErosionInwardsCalculation
+
+            return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -170,21 +197,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Comments =
                 {
                     Body = "Random body"
-                },
-                Output = new TestGrassCoverErosionInwardsOutput()
+                }
             };
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CloneAssert.AreClones(original, clone, (o, c) =>
-            {
-                Assert.AreEqual(o.Name, c.Name);
-                CloneAssert.AreClones(o.Comments, c.Comments, CommonCloneAssert.AreClones);
-                CloneAssert.AreClones(o.InputParameters, c.InputParameters, CustomCloneAssert.AreClones);
-                CloneAssert.AreClones(o.Output, c.Output, CustomCloneAssert.AreClones);
-            });
         }
     }
 }
