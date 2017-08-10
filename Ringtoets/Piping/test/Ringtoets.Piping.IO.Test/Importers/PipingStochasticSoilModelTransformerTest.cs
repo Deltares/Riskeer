@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -45,17 +46,19 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(InvalidFailureMechanismTypes))]
-        public void Transform_InvalidFailureMechanismType_ReturnsNull(FailureMechanismType failureMechanismType)
+        public void Transform_InvalidFailureMechanismType_ThrowsImportedDataTransformException(FailureMechanismType failureMechanismType)
         {
             // Setup
             var transformer = new PipingStochasticSoilModelTransformer();
             var soilModel = new StochasticSoilModel("some name", failureMechanismType);
 
             // Call
-            PipingStochasticSoilModel transformed = transformer.Transform(soilModel);
+            TestDelegate test = () => transformer.Transform(soilModel);
 
             // Assert
-            Assert.IsNull(transformed);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Stochastic soil model of failure mechanism type '{failureMechanismType}' is not supported." +
+                            $"Only '{FailureMechanismType.Piping}' is supported.", exception.Message);
         }
 
         private static IEnumerable<FailureMechanismType> InvalidFailureMechanismTypes()
