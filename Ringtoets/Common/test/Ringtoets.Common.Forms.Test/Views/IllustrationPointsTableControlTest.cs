@@ -267,8 +267,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             dataGridViewControl.AddCurrentRowChangedHandler((sender, args) => eventThrown = true);
 
             // Call
-            dataGridViewControl.SetCurrentCell(dataGridView.Rows[0].Cells[1]);
             control.ResetLastSelectedRow();
+            dataGridViewControl.SetCurrentCell(dataGridView.Rows[0].Cells[1]);
 
             // Assert
             Assert.IsTrue(eventThrown);

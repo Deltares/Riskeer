@@ -309,16 +309,7 @@ namespace Core.Common.Controls.DataGrid
         /// will clear the grid view.</remarks>
         public void SetDataSource(IList dataSource)
         {
-            var handler = (EventHandler) RowChanged?.Clone();
-            RemoveCurrentRowChangedHandler(handler);
-
             dataGridView.DataSource = dataSource;
-
-            AddCurrentRowChangedHandler(handler);
-            if (dataSource != null && dataSource.Count != 0)
-            {
-                RowChanged?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         /// <summary>
@@ -501,6 +492,7 @@ namespace Core.Common.Controls.DataGrid
             if (CurrentRow == null)
             {
                 RowChanged.Invoke(o, eventArgs);
+                LastSelectedRow = -1;
                 return;
             }
 

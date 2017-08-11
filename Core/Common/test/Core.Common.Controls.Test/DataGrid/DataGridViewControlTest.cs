@@ -1812,7 +1812,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentCellChangedHandler_SelectedCellInNewRow_ExecuteEventHandler()
+        public void CurrentRowChangedHandler_SelectedCellInNewRow_ExecuteEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1842,7 +1842,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentCellChangedHandler_FirstSelection_ExecuteEventHandler()
+        public void CurrentRowChangedHandler_FirstSelection_ExecuteEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1874,7 +1874,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentCellChangedHandler_SelectCellInSameRow_SkipEventHandler()
+        public void CurrentRowChangedHandler_SelectCellInSameRow_SkipEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1908,6 +1908,80 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsFalse(handlerExecuted);
+            }
+        }
+
+        [Test]
+        public void CurrentRowChangedHandler_SetCurrentCellToNull_ResetsLastSelectedRow()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 2.5), "hello world"),
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 8.3), "test")
+                });
+
+                control.AddCurrentRowChangedHandler((sender, args) =>
+                {
+                    var i = 0;
+                });
+
+                // Precondition
+                control.SetCurrentCell(control.GetCell(0, 0));
+                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                Assert.AreEqual(0, control.LastSelectedRow);
+
+                // Call
+                control.SetCurrentCell(null);
+
+                // Assert
+                Assert.AreEqual(-1, control.LastSelectedRow);
+            }
+        }
+
+        [Test]
+        public void CurrentRowChangedHandler_SetHandlerToNull_DoesNothing()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 2.5), "hello world"),
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 8.3), "test")
+                });
+
+                control.AddCurrentRowChangedHandler(null);
+
+                // Precondition
+                control.SetCurrentCell(control.GetCell(0, 0));
+                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                Assert.AreEqual(-1, control.LastSelectedRow);
+
+                // Call
+                control.SetCurrentCell(null);
+
+                // Assert
+                Assert.AreEqual(-1, control.LastSelectedRow);
+                Assert.IsNull(control.CurrentRow);
             }
         }
 
