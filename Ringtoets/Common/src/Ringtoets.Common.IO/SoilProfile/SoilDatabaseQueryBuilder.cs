@@ -83,6 +83,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
+        /// Returns the query to get the amount of <see cref="StochasticSoilModel"/> 
+        /// that can be read from the database.
+        /// </summary>
+        /// <returns>The query to get the amount of <see cref="StochasticSoilModel"/> 
+        /// from the database.</returns>
+        public static string GetStochasticSoilModelOfMechanismCountQuery()
+        {
+            return $"SELECT COUNT() AS {StochasticSoilModelTableDefinitions.Count} " +
+                $"FROM {StochasticSoilModelTableDefinitions.TableName} SSM " +
+                $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                $"INNER JOIN {MechanismTableDefinitions.TableName} M USING({MechanismTableDefinitions.MechanismId});";
+        }
+
+        /// <summary>
         /// Returns the SQL query to execute to check if the probabilities of the stochastic
         /// soil profiles are valid.
         /// </summary>

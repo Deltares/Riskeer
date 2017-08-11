@@ -62,6 +62,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         public bool HasNext { get; private set; }
 
         /// <summary>
+        /// Gets the amount of <see cref="StochasticSoilModel"/> that can be read from the database.
+        /// </summary>
+        public int StochasticSoilModelCount { get; private set; }
+
+        /// <summary>
         /// Validates the database.
         /// </summary>
         /// <exception cref="CriticalFileReadException">Thrown when: 
@@ -281,16 +286,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// models from the database failed.</exception>
         private void CreateDataReader()
         {
+            string stochasticSoilModelCount = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismCountQuery();
             string stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelPerMechanismQuery();
             try
             {
-                dataReader = CreateDataReader(stochasticSoilModelSegmentsQuery);
+                dataReader = CreateDataReader(stochasticSoilModelCount + stochasticSoilModelSegmentsQuery);
             }
             catch (SQLiteException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }
+
+            StochasticSoilModelCount = ReadStochasticSoilModelCount();
+            dataReader.NextResult();
         }
 
         /// <summary>
@@ -374,6 +383,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             return soilProfileId == Convert.DBNull
                        ? (long?) null
                        : Convert.ToInt64(soilProfileId);
+        }
+
+        private int ReadStochasticSoilModelCount()
+        {
+            return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[StochasticSoilModelTableDefinitions.Count]);
         }
 
         /// <summary>

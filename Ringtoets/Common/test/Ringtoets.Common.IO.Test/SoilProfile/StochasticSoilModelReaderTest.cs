@@ -228,12 +228,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();
+                int nrOfModels = reader.StochasticSoilModelCount;
 
                 // Call
                 StochasticSoilModel model = reader.ReadStochasticSoilModel();
 
                 // Assert
                 Assert.IsNull(model);
+                Assert.AreEqual(0, nrOfModels);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -361,6 +363,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();
+                int nrOfModels = reader.StochasticSoilModelCount;
 
                 while (reader.HasNext)
                 {
@@ -370,6 +373,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 // Assert
                 Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(6, nrOfModels);
             }
 
             var expectedSegmentAndModelNames = new[]

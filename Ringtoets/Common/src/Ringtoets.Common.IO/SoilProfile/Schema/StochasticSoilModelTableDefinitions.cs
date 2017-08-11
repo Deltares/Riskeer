@@ -45,5 +45,10 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// Gets the name of the alias used for identifying if segments are unique.
         /// </summary>
         public const string AreSegmentsUnique = "AreSegmentsUnique";
+
+        /// <summary>
+        /// Gets the name of the alias used for the number of rows that can be read.
+        /// </summary>
+        public const string Count = "nrOfRows";
     }
 }
