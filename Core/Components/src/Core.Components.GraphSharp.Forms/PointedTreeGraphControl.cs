@@ -24,6 +24,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Core.Common.Utils.Extensions;
+using Core.Components.GraphSharp.Converters;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
 using Core.Components.PointedTree.Data;
@@ -95,18 +96,7 @@ namespace Core.Components.GraphSharp.Forms
 
         private void DrawNode(GraphNode node, PointedTreeElementVertex parentVertex = null)
         {
-            var vertex = new PointedTreeElementVertex(node.Title,
-                                                      new SolidColorBrush(Color.FromArgb(node.Style.FillColor.A,
-                                                                                         node.Style.FillColor.R,
-                                                                                         node.Style.FillColor.G,
-                                                                                         node.Style.FillColor.B)),
-                                                      new SolidColorBrush(Color.FromArgb(node.Style.LineColor.A,
-                                                                                         node.Style.LineColor.R,
-                                                                                         node.Style.LineColor.G,
-                                                                                         node.Style.LineColor.B)),
-                                                      node.Style.LineWidth,
-                                                      PointedTreeVertexType.Rectangle,
-                                                      node.IsSelectable);
+            PointedTreeElementVertex vertex = GraphNodeConverter.Convert(node);
 
             graph.AddVertex(vertex);
 

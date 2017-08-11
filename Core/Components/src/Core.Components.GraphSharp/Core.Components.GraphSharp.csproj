@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="WindowsBase" />
     <Reference Include="WPFExtensions, Version=1.0.3437.34043, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\WPFExtensions.1.0.0\lib\WPFExtensions.dll</HintPath>
@@ -71,6 +72,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Converters\GraphNodeConverter.cs" />
     <Compile Include="Data\PointedTreeEdge.cs" />
     <Compile Include="Data\PointedTreeGraph.cs" />
     <Compile Include="Data\PointedTreeElementVertex.cs" />
@@ -82,6 +84,14 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
+      <Name>Core.Components.PointedTree</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

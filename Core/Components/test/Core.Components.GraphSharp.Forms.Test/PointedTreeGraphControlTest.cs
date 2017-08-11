@@ -72,11 +72,11 @@ namespace Core.Components.GraphSharp.Forms.Test
                 var doubleUsedNode = new GraphNode("Double used", new GraphNode[0], false);
                 var node = new GraphNode("Root", new[]
                 {
-                    new GraphNode("Child 1", new []
+                    new GraphNode("Child 1", new[]
                     {
                         doubleUsedNode
-                    }, false), 
-                    new GraphNode("Child 2", new []
+                    }, false),
+                    new GraphNode("Child 2", new[]
                     {
                         doubleUsedNode
                     }, false)
@@ -90,7 +90,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 var zoomControl = (ZoomControl) elementHost.Child;
                 var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
                 PointedTreeGraph graph = graphLayout.Graph;
-                
+
                 Assert.AreEqual(5, graph.VertexCount);
                 Assert.AreEqual(4, graph.EdgeCount);
             }
@@ -111,14 +111,14 @@ namespace Core.Components.GraphSharp.Forms.Test
             })
             {
                 var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl)elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout)zoomControl.Content;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
                 PointedTreeGraph graph = graphLayout.Graph;
 
                 // Precondition
                 Assert.AreEqual(2, graph.VertexCount);
                 Assert.AreEqual(1, graph.EdgeCount);
-                
+
                 // When
                 graphControl.Data = new GraphNode("Double used", new GraphNode[0], false);
 
@@ -143,8 +143,8 @@ namespace Core.Components.GraphSharp.Forms.Test
             })
             {
                 var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl)elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout)zoomControl.Content;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
                 PointedTreeGraph graph = graphLayout.Graph;
 
                 // Precondition

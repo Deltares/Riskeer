@@ -70,6 +70,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="WindowsBase" />
     <Reference Include="WPFExtensions, Version=1.0.3437.34043, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\WPFExtensions.1.0.0\lib\WPFExtensions.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +81,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Converters\GraphNodeConverterTest.cs" />
     <Compile Include="Data\PointedTreeEdgeTest.cs" />
     <Compile Include="Data\PointedTreeGraphTest.cs" />
     <Compile Include="Data\PointedTreeElementVertexTest.cs" />
@@ -91,9 +94,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
       <Project>{32358941-77c5-48a7-ad8b-dfb4f23b12a5}</Project>
       <Name>Core.Components.GraphSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
+      <Name>Core.Components.PointedTree</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

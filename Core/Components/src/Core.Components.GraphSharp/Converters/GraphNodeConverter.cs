@@ -1,0 +1,85 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.ComponentModel;
+using System.Windows.Media;
+using Core.Components.GraphSharp.Data;
+using Core.Components.PointedTree.Data;
+
+namespace Core.Components.GraphSharp.Converters
+{
+    /// <summary>
+    /// Converter to change a <see cref="GraphNode"/> to <see cref="PointedTreeElementVertex"/>.
+    /// </summary>
+    public static class GraphNodeConverter
+    {
+        /// <summary>
+        /// Converts a <see cref="GraphNode"/> to a <see cref="PointedTreeElementVertex"/>.
+        /// </summary>
+        /// <param name="graphNode">The graph node to convert.</param>
+        /// <returns>The created <see cref="PointedTreeElementVertex"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="graphNode"/>
+        /// is <c>null</c>.</exception>
+        public static PointedTreeElementVertex Convert(GraphNode graphNode)
+        {
+            if (graphNode == null)
+            {
+                throw new ArgumentNullException(nameof(graphNode));
+            }
+
+            GraphNodeStyle style = graphNode.Style;
+
+            return new PointedTreeElementVertex(
+                graphNode.Title,
+                ConvertColor(style.FillColor),
+                ConvertColor(style.LineColor),
+                style.LineWidth,
+                ConvertType(style.Shape),
+                graphNode.IsSelectable);
+        }
+
+        private static SolidColorBrush ConvertColor(System.Drawing.Color color)
+        {
+            return new SolidColorBrush(
+                Color.FromArgb(
+                    color.A,
+                    color.R,
+                    color.G,
+                    color.B));
+        }
+
+        private static PointedTreeVertexType ConvertType(GraphNodeShape shape)
+        {
+            switch(shape)
+            {
+                case GraphNodeShape.Rectangle:
+                    return PointedTreeVertexType.Rectangle;
+                case GraphNodeShape.Diamond:
+                    return PointedTreeVertexType.Diamond;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(shape),
+                                                           (int) shape,
+                                                           typeof(GraphNodeShape));
+            }
+        }
+    }
+}
