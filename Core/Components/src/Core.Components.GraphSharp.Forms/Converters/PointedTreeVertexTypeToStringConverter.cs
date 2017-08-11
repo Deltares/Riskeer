@@ -30,6 +30,7 @@ namespace Core.Components.GraphSharp.Forms.Converters
     /// <summary>
     /// Converter to change a <see cref="PointedTreeVertexType"/> instance to a string.
     /// </summary>
+    [ValueConversion(typeof(PointedTreeVertexType), typeof(string))]
     public class PointedTreeVertexTypeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -54,7 +55,7 @@ namespace Core.Components.GraphSharp.Forms.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

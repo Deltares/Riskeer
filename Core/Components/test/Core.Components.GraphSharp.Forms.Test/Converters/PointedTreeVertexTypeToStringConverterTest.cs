@@ -87,7 +87,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
         }
 
         [Test]
-        public void ConvertBack_ThrowNotImplementedException()
+        public void ConvertBack_ThrowNotSupportedException()
         {
             // Setup
             var converter = new PointedTreeVertexTypeToStringConverter();
@@ -96,7 +96,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
             TestDelegate call = () => converter.ConvertBack(string.Empty, typeof(PointedTreeVertexType), null, CultureInfo.InvariantCulture);
 
             // Assert
-            Assert.Throws<NotImplementedException>(call);
+            Assert.Throws<NotSupportedException>(call);
         }
     }
 }
