@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(TopLevelIllustrationPointBase original, TopLevelIllustrationPointBase clone)
         {
-            CoreCloneAssert.AreClones(original.WindDirection, clone.WindDirection, AreClones);
+            CoreCloneAssert.AreObjectClones(original.WindDirection, clone.WindDirection, AreClones);
             Assert.AreEqual(original.ClosingSituation, clone.ClosingSituation);
         }
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(TopLevelSubMechanismIllustrationPoint original, TopLevelSubMechanismIllustrationPoint clone)
         {
             AreClones((TopLevelIllustrationPointBase)original, clone);
-            CoreCloneAssert.AreClones(original.SubMechanismIllustrationPoint, clone.SubMechanismIllustrationPoint, AreClones);
+            CoreCloneAssert.AreObjectClones(original.SubMechanismIllustrationPoint, clone.SubMechanismIllustrationPoint, AreClones);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(TopLevelFaultTreeIllustrationPoint original, TopLevelFaultTreeIllustrationPoint clone)
         {
             AreClones((TopLevelIllustrationPointBase) original, clone);
-            CoreCloneAssert.AreClones(original.FaultTreeNodeRoot, clone.FaultTreeNodeRoot, AreClones);
+            CoreCloneAssert.AreObjectClones(original.FaultTreeNodeRoot, clone.FaultTreeNodeRoot, AreClones);
         }
 
         /// <summary>
@@ -200,8 +200,8 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(SubMechanismIllustrationPoint original, SubMechanismIllustrationPoint clone)
         {
             AreClones((IllustrationPointBase) original, clone);
-            CoreCloneAssert.AreClones(original.Stochasts, clone.Stochasts, AreClones);
-            CoreCloneAssert.AreClones(original.IllustrationPointResults, clone.IllustrationPointResults, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.IllustrationPointResults, clone.IllustrationPointResults, AreClones);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void AreClones(FaultTreeIllustrationPoint original, FaultTreeIllustrationPoint clone)
         {
             AreClones((IllustrationPointBase) original, clone);
-            CoreCloneAssert.AreClones(original.Stochasts, clone.Stochasts, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
             Assert.AreEqual(original.CombinationType, clone.CombinationType);
         }
 
@@ -229,8 +229,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(IllustrationPointNode original, IllustrationPointNode clone)
         {
-            CoreCloneAssert.AreClones(original.Data, clone.Data, AreClones);
-            CoreCloneAssert.AreClones(original.Children, clone.Children, AreClones);
+            CoreCloneAssert.AreObjectClones(original.Data, clone.Data, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Children, clone.Children, AreClones);
         }
 
         /// <summary>
@@ -243,9 +243,9 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(GeneralResult<TopLevelIllustrationPointBase> original, GeneralResult<TopLevelIllustrationPointBase> clone)
         {
-            CoreCloneAssert.AreClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
-            CoreCloneAssert.AreClones(original.Stochasts, clone.Stochasts, AreClones);
-            CoreCloneAssert.AreClones(original.TopLevelIllustrationPoints, clone.TopLevelIllustrationPoints, AreClones);
+            CoreCloneAssert.AreObjectClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.TopLevelIllustrationPoints, clone.TopLevelIllustrationPoints, AreClones);
         }
 
         /// <summary>
@@ -258,9 +258,9 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(GeneralResult<TopLevelFaultTreeIllustrationPoint> original, GeneralResult<TopLevelFaultTreeIllustrationPoint> clone)
         {
-            CoreCloneAssert.AreClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
-            CoreCloneAssert.AreClones(original.Stochasts, clone.Stochasts, AreClones);
-            CoreCloneAssert.AreClones(original.TopLevelIllustrationPoints, clone.TopLevelIllustrationPoints, AreClones);
+            CoreCloneAssert.AreObjectClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.TopLevelIllustrationPoints, clone.TopLevelIllustrationPoints, AreClones);
         }
     }
 }

@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
         private static TestHydraulicLoadsOutput GetRandomHydraulicLoadsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)

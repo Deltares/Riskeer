@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
 
         private class TestTopLevelIllustrationPointBase : TopLevelIllustrationPointBase

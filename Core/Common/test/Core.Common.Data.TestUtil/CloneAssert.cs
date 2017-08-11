@@ -45,7 +45,7 @@ namespace Core.Common.Data.TestUtil
         /// is <c>null</c>.</exception>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones<T>(T original, object clone, Action<T, T> typeSpecificAsserts)
+        public static void AreObjectClones<T>(T original, object clone, Action<T, T> typeSpecificAsserts)
         {
             if (typeSpecificAsserts == null)
             {
@@ -78,7 +78,7 @@ namespace Core.Common.Data.TestUtil
         /// is <c>null</c>.</exception>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones<T>(IEnumerable<T> original, object clone, Action<T, T> typeSpecificAsserts)
+        public static void AreEnumerationClones<T>(IEnumerable<T> original, object clone, Action<T, T> typeSpecificAsserts)
         {
             if (typeSpecificAsserts == null)
             {
@@ -108,7 +108,7 @@ namespace Core.Common.Data.TestUtil
 
             public int Compare(object x, object y)
             {
-                AreClones((T) x, y, typeSpecificAsserts);
+                AreObjectClones((T) x, y, typeSpecificAsserts);
 
                 return 0;
             }

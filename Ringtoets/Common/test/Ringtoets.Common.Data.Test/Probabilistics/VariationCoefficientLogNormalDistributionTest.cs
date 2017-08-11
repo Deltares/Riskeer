@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreClones(original, clone, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original, clone, DistributionAssert.AreEqual);
         }
 
         [Test]

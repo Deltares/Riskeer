@@ -30,152 +30,152 @@ namespace Core.Common.Data.TestUtil.Test
     public class CloneAssertTest
     {
         [Test]
-        public void AreClones_ObjectsWithTypeSpecificAssertsNull_ThrowsArgumentNullException()
+        public void AreObjectClones_TypeSpecificAssertsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(new object(), new object(), null);
+            TestDelegate test = () => CloneAssert.AreObjectClones(new object(), new object(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
-        public void AreClones_OriginalObjectAndClonedObjectBothNull_DoesNotThrow()
+        public void AreObjectClones_OriginalAndCloneBothNull_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones<object>(null, null, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreObjectClones<object>(null, null, (original, clone) => {});
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void AreClones_OriginalObjectNull_ThrowsAssertionException()
+        public void AreObjectClones_OriginalNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones<object>(null, new object(), (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreObjectClones<object>(null, new object(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ClonedObjectNull_ThrowsAssertionException()
+        public void AreObjectClones_CloneNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(new object(), null, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreObjectClones(new object(), null, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ClonedObjectOfOtherDataType_ThrowsAssertionException()
+        public void AreObjectClones_CloneOfOtherDataType_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(1.0, 1, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreObjectClones(1.0, 1, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_OriginalObjectAndClonedObjectAreSame_ThrowsAssertionException()
+        public void AreObjectClones_OriginalAndCloneAreSame_ThrowsAssertionException()
         {
             // Setup
             var o = new object();
 
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(o, o, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreObjectClones(o, o, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ObjectsWithTypeSpecificAsserts_TypeSpecificAssertsCalled()
+        public void AreObjectClones_TypeSpecificAsserts_TypeSpecificAssertsCalled()
         {
             // Setup
             var counter = 0;
 
             // Call
-            CloneAssert.AreClones(new object(), new object(), (original, clone) => counter++);
+            CloneAssert.AreObjectClones(new object(), new object(), (original, clone) => counter++);
 
             // Assert
             Assert.AreEqual(1, counter);
         }
 
         [Test]
-        public void AreClones_EnumerationsWithTypeSpecificAssertsNull_ThrowsArgumentNullException()
+        public void AreEnumerationClones_TypeSpecificAssertsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(Enumerable.Empty<object>(), Enumerable.Empty<object>(), null);
+            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), Enumerable.Empty<object>(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
-        public void AreClones_OriginalEnumerationAndClonedEnumerationBothNull_DoesNotThrow()
+        public void AreEnumerationClones_OriginalAndCloneBothNull_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones<IEnumerable<object>>(null, null, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreEnumerationClones<IEnumerable<object>>(null, null, (original, clone) => {});
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void AreClones_OriginalEnumerationNull_ThrowsAssertionException()
+        public void AreEnumerationClones_OriginalNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones<IEnumerable<object>>(null, Enumerable.Empty<object>(), (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreEnumerationClones<IEnumerable<object>>(null, Enumerable.Empty<object>(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ClonedEnumerationNull_ThrowsAssertionException()
+        public void AreEnumerationClones_CloneNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(Enumerable.Empty<object>(), null, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), null, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ClonedEnumerationOfOtherDataType_ThrowsAssertionException()
+        public void AreEnumerationClones_CloneOfOtherDataType_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreClones<int>(Enumerable.Empty<int>(), Enumerable.Empty<double>(), (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<int>(), Enumerable.Empty<double>(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_OriginalEnumerationAndClonedEnumerationAreSame_ThrowsAssertionException()
+        public void AreEnumerationClones_OriginalAndCloneAreSame_ThrowsAssertionException()
         {
             // Setup
             IEnumerable<object> o = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate test = () => CloneAssert.AreClones(o, o, (original, clone) => {});
+            TestDelegate test = () => CloneAssert.AreEnumerationClones(o, o, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
         }
 
         [Test]
-        public void AreClones_ObjectsWithTypeSpecificAsserts_TypeSpecificAssertsCalledForEachElement()
+        public void AreEnumerationClones_TypeSpecificAsserts_TypeSpecificAssertsCalledForEachElement()
         {
             // Setup
             var counter = 0;
 
             // Call
-            CloneAssert.AreClones<object>(new[]
+            CloneAssert.AreEnumerationClones(new[]
             {
                 new object(),
                 new object()

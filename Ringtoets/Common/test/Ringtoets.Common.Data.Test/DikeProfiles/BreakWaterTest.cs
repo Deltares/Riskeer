@@ -243,7 +243,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreClones(original, clone, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }
