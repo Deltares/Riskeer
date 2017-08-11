@@ -858,4 +858,20 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported" xml:space="preserve">
     <value>Het faalmechanisme '{0}' wordt niet ondersteund.</value>
   </data>
+  <data name="StochasticSoilModelImporter_Reading_database" xml:space="preserve">
+    <value>Inlezen van de D-Soil Model database.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
+    <value>{0} 
+Het bestand wordt overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
+    <value>Inlezen van de stochastische ondergrondmodellen.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
+    <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'.</value>
+  </data>
+  <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
+    <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
+  </data>
 </root>

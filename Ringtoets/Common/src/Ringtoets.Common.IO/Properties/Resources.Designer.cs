@@ -1729,6 +1729,55 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} 
+        ///Het bestand wordt overgeslagen..
+        /// </summary>
+        public static string StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de stochastische ondergrondmodellen..
+        /// </summary>
+        public static string StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_s" +
+                        "oil_models_from_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de D-Soil Model database..
+        /// </summary>
+        public static string StochasticSoilModelImporter_Reading_database {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_Reading_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel &apos;{0}&apos;..
+        /// </summary>
+        public static string StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0 {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stoc" +
+                        "hastic_soil_model_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De som van de kansen van voorkomen in het stochastich ondergrondmodel &apos;{0}&apos; is niet gelijk aan 100%..
+        /// </summary>
+        public static string StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_s" +
+                        "tochastic_soil_model_0_is_not_correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
         /// </summary>
         public static string StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
