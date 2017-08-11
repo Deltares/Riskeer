@@ -116,5 +116,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new OvertoppingOutput(random.NextDouble(),
+                                                 random.NextBoolean(),
+                                                 new TestProbabilityAssessmentOutput(),
+                                                 new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
     }
 }

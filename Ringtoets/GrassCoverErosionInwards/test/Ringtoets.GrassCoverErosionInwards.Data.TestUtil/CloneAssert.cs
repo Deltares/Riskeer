@@ -44,6 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
             Assert.AreEqual(original.WaveHeight, clone.WaveHeight);
             Assert.AreEqual(original.IsOvertoppingDominant, clone.IsOvertoppingDominant);
             CoreCloneAssert.AreClones(original.ProbabilityAssessmentOutput, clone.ProbabilityAssessmentOutput, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreClones(original.GeneralResult, clone.GeneralResult, CommonCloneAssert.AreClones);
         }
 
         /// <summary>

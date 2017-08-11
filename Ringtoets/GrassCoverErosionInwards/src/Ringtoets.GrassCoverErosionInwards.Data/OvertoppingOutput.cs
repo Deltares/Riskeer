@@ -90,13 +90,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
 
         public object Clone()
         {
             var clone = (OvertoppingOutput) MemberwiseClone();
 
             clone.ProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) ProbabilityAssessmentOutput.Clone();
+
+            if (GeneralResult != null)
+            {
+                clone.GeneralResult = (GeneralResult<TopLevelFaultTreeIllustrationPoint>) GeneralResult.Clone();
+            }
 
             return clone;
         }
