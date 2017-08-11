@@ -169,21 +169,42 @@ namespace Core.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void AreEnumerationClones_OriginalAndCloneDifferentLength_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate test = () => CloneAssert.AreEnumerationClones(
+                new[]
+                {
+                    new object(),
+                    new object()
+                }, new[]
+                {
+                    new object()
+                },
+                (original, clone) => {});
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
         public void AreEnumerationClones_TypeSpecificAsserts_TypeSpecificAssertsCalledForEachElement()
         {
             // Setup
             var counter = 0;
 
             // Call
-            CloneAssert.AreEnumerationClones(new[]
-            {
-                new object(),
-                new object()
-            }, new[]
-            {
-                new object(),
-                new object()
-            }, (original, clone) => counter++);
+            CloneAssert.AreEnumerationClones(
+                new[]
+                {
+                    new object(),
+                    new object()
+                }, new[]
+                {
+                    new object(),
+                    new object()
+                },
+                (original, clone) => counter++);
 
             // Assert
             Assert.AreEqual(2, counter);
