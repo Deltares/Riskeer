@@ -52,13 +52,37 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute()
         {
-            var data = new GraphNode("Root node", new []
-            {
-                new GraphNode("First", new GraphNode[0], false),
-                new GraphNode("Second", new GraphNode[0], true),  
-            }, false, new GraphNodeStyle(GraphNodeShape.Diamond, Color.LightBlue, Color.DarkBlue, 3));
+            var diamondStyle = new GraphNodeStyle(GraphNodeShape.Diamond, Color.BlanchedAlmond, Color.Black, 1);
+            var lastNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1);
+            var treeNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
 
-            viewCommands.OpenView(data);
+            var doubleUsedNode = new GraphNode("Double <bold>used</bold>", new[]
+            {
+                new GraphNode("En", new []
+                {
+                    new GraphNode("Child 2", new GraphNode[0], false, lastNodeStyle), 
+                    new GraphNode("Child 3", new GraphNode[0], false, lastNodeStyle), 
+                }, false, diamondStyle),
+                new GraphNode("Child 4", new GraphNode[0], false, lastNodeStyle), 
+            }, false, treeNodeStyle);
+
+            var node = new GraphNode("Root", new[]
+            {
+                new GraphNode("Of", new[]
+                {
+                    doubleUsedNode,
+                    new GraphNode("Child 1", new[]
+                    {
+                        new GraphNode("Of", new[]
+                        {
+                            new GraphNode("Child 5", new GraphNode[0], false, lastNodeStyle),
+                            doubleUsedNode
+                        }, false, diamondStyle),
+                    }, false, treeNodeStyle)
+                }, false, diamondStyle)
+            }, false, treeNodeStyle);
+
+            viewCommands.OpenView(node);
         }
     }
 }
