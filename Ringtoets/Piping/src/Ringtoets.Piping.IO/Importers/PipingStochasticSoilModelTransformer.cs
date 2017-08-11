@@ -39,8 +39,9 @@ namespace Ringtoets.Piping.IO.Importers
         {
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Piping)
             {
-                throw new ImportedDataTransformException($"Stochastic soil model of failure mechanism type '{stochasticSoilModel.FailureMechanismType}' is not supported." +
-                                                         $"Only '{FailureMechanismType.Piping}' is supported.");
+                string message = $"Stochastic soil model of failure mechanism type '{stochasticSoilModel.FailureMechanismType}' is not supported." +
+                                 $"Only stochastic soil model of failure mechanism type '{FailureMechanismType.Piping}' is supported.";
+                throw new ImportedDataTransformException(message);
             }
 
             IEnumerable<PipingStochasticSoilProfile> pipingStochasticSoilProfiles = TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles);

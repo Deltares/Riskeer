@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Importers
@@ -36,9 +38,7 @@ namespace Ringtoets.Piping.IO.Importers
         /// soil profile of type <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
-        /// <returns>A new <see cref="PipingSoilProfile"/> based on the given data, or <c>null</c> when 
-        /// <paramref name="soilProfile"/> is not of a type that can be transformed to 
-        /// the mechanism specific <see cref="PipingSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="PipingSoilProfile"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
@@ -61,12 +61,45 @@ namespace Ringtoets.Piping.IO.Importers
                 return CreatePipingSoilProfile(soilProfile2D);
             }
 
-            return null;
+            string message = $"Soil profile of type '{soilProfile.GetType().Name}' is not supported." +
+                             $"Only soil profiles of type '{nameof(SoilProfile1D)}' or '{nameof(SoilProfile2D)}' are supported.";
+            throw new ImportedDataTransformException(message);
         }
 
+        /// <summary>
+        /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the <paramref name="soilProfile2D"/>.
+        /// </summary>
+        /// <param name="soilProfile2D">The soil profile to use in the transformation.</param>
+        /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The <paramref name="soilProfile2D"/> can not be used to determine intersections with;</item>
+        /// <item>Transforming the <paramref name="soilProfile2D"/> failed.</item>
+        /// </list>
+        /// </exception>
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile2D soilProfile2D)
         {
-            return null;
+            string profileName = soilProfile2D.Name;
+            double intersectionX = soilProfile2D.IntersectionX;
+
+            if (double.IsNaN(intersectionX))
+            {
+                string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, profileName);
+                throw new ImportedDataTransformException(message);
+            }
+
+            var layers = new List<PipingSoilLayer>();
+            double bottom = double.MaxValue;
+            foreach (SoilLayer2D soilLayer2D in soilProfile2D.Layers)
+            {
+                double newBottom;
+
+                layers.AddRange(PipingSoilLayerTransformer.Transform(soilLayer2D, intersectionX, out newBottom));
+
+                bottom = Math.Min(bottom, newBottom);
+            }
+
+            return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D, 0);
         }
 
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile1D soilProfile1D)

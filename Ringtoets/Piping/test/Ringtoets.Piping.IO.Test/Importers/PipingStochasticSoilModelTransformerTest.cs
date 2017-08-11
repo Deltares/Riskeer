@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Stochastic soil model of failure mechanism type '{failureMechanismType}' is not supported." +
-                            $"Only '{FailureMechanismType.Piping}' is supported.", exception.Message);
+                            $"Only stochastic soil model of failure mechanism type '{FailureMechanismType.Piping}' is supported.", exception.Message);
         }
 
         private static IEnumerable<FailureMechanismType> InvalidFailureMechanismTypes()

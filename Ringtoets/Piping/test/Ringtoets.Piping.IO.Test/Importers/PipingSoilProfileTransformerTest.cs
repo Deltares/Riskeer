@@ -20,8 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Primitives;
 
@@ -42,16 +48,328 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_InvalidSoilProfile_ReturnsNull()
+        public void Transform_InvalidSoilProfile_ThrowsImportedDataTransformException()
         {
             // Setup
             var invalidType = new TestSoilProfile();
 
             // Call
-            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(invalidType);
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(invalidType);
 
             // Assert
-            Assert.IsNull(transformed);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Soil profile of type 'TestSoilProfile' is not supported." +
+                            "Only soil profiles of type 'SoilProfile1D' or 'SoilProfile2D' are supported.", exception.Message);
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithoutIntersection_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string name = "name";
+            var profile = new SoilProfile2D(0, name, Enumerable.Empty<SoilLayer2D>());
+
+            // Call
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{name}'.",
+                            exception.Message);
+        }
+
+        [Test]
+        public void Transform_ValidSoilProfile2D_ReturnsExpectedPipingSoilProfile()
+        {
+            // Setup
+            const string name = "name";
+            const double bottom = 0.5;
+            const double intersectionX = 1.0;
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
+                                                                         new List<Segment2D>
+                                                                         {
+                                                                             new Segment2D(new Point2D(1.0, bottom),
+                                                                                           new Point2D(1.2, 1)),
+                                                                             new Segment2D(new Point2D(1.2, 1),
+                                                                                           new Point2D(1.0, bottom))
+                                                                         });
+            var profile = new SoilProfile2D(0, name, new[]
+            {
+                layer
+            })
+            {
+                IntersectionX = intersectionX
+            };
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(name, transformed.Name);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+            Assert.AreEqual(bottom, transformed.Bottom);
+
+            double bottomOut;
+            IEnumerable<PipingSoilLayer> actualPipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, intersectionX, out bottomOut);
+
+            AssertPipingSoilLayers(actualPipingSoilLayers, transformed.Layers);
+        }
+
+        [Test]
+        public void Transform_LayerWithVerticalLineOnXInXml_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            const double atX = 0.0;
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new List<Segment2D[]>(),
+                new List<Segment2D>
+                {
+                    new Segment2D(new Point2D(atX, 0.0),
+                                  new Point2D(atX, 1.0)),
+                    new Segment2D(new Point2D(atX, 1.0),
+                                  new Point2D(0.5, 0.5)),
+                    new Segment2D(new Point2D(0.5, 0.5),
+                                  new Point2D(atX, 0.0))
+                });
+
+            var profile = new SoilProfile2D(0, profileName, new[]
+            {
+                layer
+            })
+            {
+                IntersectionX = atX
+            };
+
+            // Call
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            string message = "Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D " +
+                             $"laag verticaal lopen op de gekozen positie: x = {atX}.";
+            Assert.AreEqual(message, exception.Message);
+        }
+
+        [Test]
+        public void Transform_WithOutLayers_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            var profile = new SoilProfile2D(0, profileName, new[]
+            {
+                new SoilLayer2D()
+            });
+
+            // Call
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.Throws<ImportedDataTransformException>(test);
+        }
+
+        [Test]
+        public void Transform_WithSingleLayerOnlyOuterLoop_ReturnsProfileWithBottomAndALayer()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            var firstPoint = new Point2D(-0.5, 1.0);
+            var secondPoint = new Point2D(0.5, 1.0);
+            var thirdPoint = new Point2D(0.5, -1.0);
+            var fourthPoint = new Point2D(-0.5, -1.0);
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new List<Segment2D[]>(),
+                new List<Segment2D>
+                {
+                    new Segment2D(firstPoint, secondPoint),
+                    new Segment2D(secondPoint, thirdPoint),
+                    new Segment2D(thirdPoint, fourthPoint),
+                    new Segment2D(fourthPoint, firstPoint)
+                });
+            layer.IsAquifer = true;
+
+            var profile = new SoilProfile2D(0, profileName, new[]
+            {
+                layer
+            })
+            {
+                IntersectionX = 0.0
+            };
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(1, transformed.Layers.Count());
+            Assert.AreEqual(1.0, transformed.Layers.ToArray()[0].Top);
+            Assert.AreEqual(-1.0, transformed.Bottom);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+        }
+
+        [Test]
+        public void Transform_WithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            const long pipingSoilProfileId = 1234L;
+
+            var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
+                                            new List<SoilLayer2D>
+                                            {
+                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                    new List<Segment2D[]>(),
+                                                    Segment2DLoopCollectionHelper.CreateFromString(
+                                                        string.Join(Environment.NewLine,
+                                                                    "10",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "1.2",
+                                                                    "4.3",
+                                                                    "..."))),
+                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                    new List<Segment2D[]>(),
+                                                    Segment2DLoopCollectionHelper.CreateFromString(
+                                                        string.Join(Environment.NewLine,
+                                                                    "10",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "4.3",
+                                                                    "...",
+                                                                    "1.2",
+                                                                    "...",
+                                                                    "..."))),
+                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                    new List<Segment2D[]>(),
+                                                    Segment2DLoopCollectionHelper.CreateFromString(
+                                                        string.Join(Environment.NewLine,
+                                                                    "10",
+                                                                    "...",
+                                                                    "1.2",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "4.3",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...",
+                                                                    "...")))
+                                            })
+            {
+                IntersectionX = 1.0
+            };
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(3, transformed.Layers.Count());
+            CollectionAssert.AreEquivalent(new[]
+            {
+                2.0,
+                4.0,
+                8.0
+            }, transformed.Layers.Select(rl => rl.Top));
+            Assert.AreEqual(1.0, transformed.Bottom);
+        }
+
+        [Test]
+        public void Transform_WithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            const long pipingSoilProfileId = 1234L;
+            List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "5",
+                            ".....",
+                            ".4.1.",
+                            ".3.2.",
+                            ".....",
+                            "....."));
+
+            SoilLayer2D soilLayer2D = SoilLayer2DTestFactory.CreateSoilLayer2D(
+                new[]
+                {
+                    loopHole
+                },
+                Segment2DLoopCollectionHelper.CreateFromString(
+                    string.Join(Environment.NewLine,
+                                "5",
+                                "2...3",
+                                ".....",
+                                ".....",
+                                ".....",
+                                "1...4")));
+            soilLayer2D.IsAquifer = true;
+
+            var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
+                                            new List<SoilLayer2D>
+                                            {
+                                                soilLayer2D,
+                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                    new List<Segment2D[]>(),
+                                                    loopHole)
+                                            }
+            )
+            {
+                IntersectionX = 2.0
+            };
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(3, transformed.Layers.Count());
+            CollectionAssert.AreEquivalent(new[]
+            {
+                4.0,
+                3.0,
+                2.0
+            }, transformed.Layers.Select(rl => rl.Top));
+            Assert.AreEqual(0.0, transformed.Bottom);
+        }
+
+        private static void AssertPipingSoilLayers(IEnumerable<PipingSoilLayer> expectedSoilLayer2Ds,
+                                                   IEnumerable<PipingSoilLayer> actualSoilLayer2Ds)
+        {
+            PipingSoilLayer[] expectedSoilLayer2DsArray = expectedSoilLayer2Ds.ToArray();
+            PipingSoilLayer[] actualSoilLayers2DArray = actualSoilLayer2Ds.ToArray();
+            Assert.AreEqual(expectedSoilLayer2DsArray.Length, actualSoilLayers2DArray.Length);
+
+            for (var i = 0; i < expectedSoilLayer2DsArray.Length; i++)
+            {
+                AssertPipingSoilLayer(expectedSoilLayer2DsArray[i], actualSoilLayers2DArray[i]);
+            }
+        }
+
+        private static void AssertPipingSoilLayer(PipingSoilLayer expected, PipingSoilLayer actual)
+        {
+            Assert.AreEqual(expected.Top, actual.Top);
+            Assert.AreEqual(expected.IsAquifer, actual.IsAquifer);
+            Assert.AreEqual(expected.BelowPhreaticLevelMean, actual.BelowPhreaticLevelMean);
+            Assert.AreEqual(expected.BelowPhreaticLevelDeviation, actual.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(expected.BelowPhreaticLevelShift, actual.BelowPhreaticLevelShift);
+            Assert.AreEqual(expected.DiameterD70Mean, actual.DiameterD70Mean);
+            Assert.AreEqual(expected.DiameterD70CoefficientOfVariation, actual.DiameterD70CoefficientOfVariation);
+            Assert.AreEqual(expected.PermeabilityMean, actual.PermeabilityMean);
+            Assert.AreEqual(expected.PermeabilityCoefficientOfVariation, actual.PermeabilityCoefficientOfVariation);
+            Assert.AreEqual(expected.MaterialName, actual.MaterialName);
+            Assert.AreEqual(expected.Color, actual.Color);
         }
 
         private class TestSoilProfile : ISoilProfile
