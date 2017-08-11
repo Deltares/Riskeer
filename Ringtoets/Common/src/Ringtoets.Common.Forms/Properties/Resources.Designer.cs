@@ -1863,7 +1863,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alpha^2.
+        ///   Looks up a localized string similar to Alfa^2.
         /// </summary>
         public static string IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle {
             get {

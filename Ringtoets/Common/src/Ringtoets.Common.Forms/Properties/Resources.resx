@@ -1135,6 +1135,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Waarden in het illustratiepunt</value>
   </data>
   <data name="IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle" xml:space="preserve">
-    <value>Alpha^2</value>
+    <value>Alfa^2</value>
   </data>
 </root>

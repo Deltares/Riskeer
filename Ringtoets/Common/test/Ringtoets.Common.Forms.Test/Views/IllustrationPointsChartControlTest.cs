@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 var stackChartControl = (StackChartControl) new ControlTester("stackChartControl").TheObject;
-                Assert.AreEqual("Alpha^2", stackChartControl.VerticalAxisTitle);
+                Assert.AreEqual("Alfa^2", stackChartControl.VerticalAxisTitle);
             }
         }
 
