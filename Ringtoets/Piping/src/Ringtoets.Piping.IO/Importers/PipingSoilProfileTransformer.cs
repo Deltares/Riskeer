@@ -62,8 +62,10 @@ namespace Ringtoets.Piping.IO.Importers
                 return CreatePipingSoilProfile(soilProfile2D);
             }
 
-            string message = $"Soil profile of type '{soilProfile.GetType().Name}' is not supported." +
-                             $"Only soil profiles of type '{nameof(SoilProfile1D)}' or '{nameof(SoilProfile2D)}' are supported.";
+            string message = string.Format(Resources.PipingSoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+                                           soilProfile.GetType().Name,
+                                           nameof(SoilProfile1D),
+                                           nameof(SoilProfile2D));
             throw new ImportedDataTransformException(message);
         }
 
@@ -85,7 +87,8 @@ namespace Ringtoets.Piping.IO.Importers
 
             if (double.IsNaN(intersectionX))
             {
-                string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, profileName);
+                string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN,
+                                               profileName);
                 throw new ImportedDataTransformException(message);
             }
 

@@ -59,8 +59,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual($"Stochastic soil model of failure mechanism type '{failureMechanismType}' is not supported." +
-                            $"Only stochastic soil model of failure mechanism type '{FailureMechanismType.Piping}' is supported.", exception.Message);
+            Assert.AreEqual($"Het stochastische ondergrondmodel met '{failureMechanismType}' als faalmechanisme type is niet ondersteund. " +
+                            $"Alleen stochastische ondergrondmodellen met 'Piping' als faalmechanisme type zijn ondersteund.", exception.Message);
         }
 
         [Test]
@@ -81,8 +81,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Soil profile of type 'TestSoilProfile' is not supported." +
-                            "Only soil profiles of type 'SoilProfile1D' or 'SoilProfile2D' are supported.", exception.Message);
+            const string message = "De ondergrondschematisatie van het type 'TestSoilProfile' is niet ondersteund. " +
+                                   "Alleen ondergrondschematisaties van het type 'SoilProfile1D' of 'SoilProfile2D' zijn ondersteund.";
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
@@ -153,6 +154,12 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(name, transformed.Name);
             Assert.AreEqual(1, transformed.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(soilModel.Geometry, transformed.Geometry);
+
+            var expectedPipingSoilProfile = new List<PipingStochasticSoilProfile>
+            {
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTransformer.Transform(profile))
+            };
+            AssertPipingStochasticSoilProfiles(expectedPipingSoilProfile, transformed.StochasticSoilProfiles);
         }
 
         [Test]
@@ -209,6 +216,23 @@ namespace Ringtoets.Piping.IO.Test.Importers
             PipingStochasticSoilProfile pipingStochasticSoilProfile1 = transformedStochasticSoilProfiles1[0];
             PipingStochasticSoilProfile pipingStochasticSoilProfile2 = transformedStochasticSoilProfiles2[0];
             Assert.AreSame(pipingStochasticSoilProfile1.SoilProfile, pipingStochasticSoilProfile2.SoilProfile);
+        }
+
+        private static void AssertPipingStochasticSoilProfiles(IList<PipingStochasticSoilProfile> expected,
+                                                               IList<PipingStochasticSoilProfile> actual)
+        {
+            Assert.AreEqual(expected.Count, actual.Count);
+            for (var i = 0; i < expected.Count; i++)
+            {
+                AssertPipingStochasticSoilProfile(expected[i], actual[i]);
+            }
+        }
+
+        private static void AssertPipingStochasticSoilProfile(PipingStochasticSoilProfile expected,
+                                                              PipingStochasticSoilProfile actual)
+        {
+            Assert.AreEqual(expected.Probability, actual.Probability);
+            Assert.AreEqual(expected.SoilProfile, actual.SoilProfile);
         }
 
         private class TestSoilProfile : ISoilProfile

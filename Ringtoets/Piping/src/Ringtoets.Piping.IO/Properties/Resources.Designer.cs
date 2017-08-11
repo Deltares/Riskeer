@@ -244,6 +244,26 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ondergrondschematisatie van het type &apos;{0}&apos; is niet ondersteund. Alleen ondergrondschematisaties van het type &apos;{1}&apos; of &apos;{2}&apos; zijn ondersteund..
+        /// </summary>
+        public static string PipingSoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_" +
+                        "are_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel met &apos;{0}&apos; als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met &apos;{1}&apos; als faalmechanisme type zijn ondersteund..
+        /// </summary>
+        public static string PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported {
+            get {
+                return ResourceManager.GetString("PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_" +
+                        "FailureMechanismType_1_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen ondergrondmodellen lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
         /// </summary>
         public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing {

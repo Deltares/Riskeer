@@ -58,8 +58,9 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Soil profile of type 'TestSoilProfile' is not supported." +
-                            "Only soil profiles of type 'SoilProfile1D' or 'SoilProfile2D' are supported.", exception.Message);
+            const string message = "De ondergrondschematisatie van het type 'TestSoilProfile' is niet ondersteund. " +
+                                   "Alleen ondergrondschematisaties van het type 'SoilProfile1D' of 'SoilProfile2D' zijn ondersteund.";
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
