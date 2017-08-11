@@ -173,7 +173,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
+            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChangedHandler);
             dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
         }
 

@@ -87,6 +87,47 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Data_ValueSet_ResetsLastSelectedRow()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new IllustrationPointsControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var data = new[]
+                {
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                     "SSE",
+                                                     "Regular",
+                                                     Enumerable.Empty<Stochast>(),
+                                                     (RoundedDouble) 3.14),
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                     "NE",
+                                                     "Regular",
+                                                     Enumerable.Empty<Stochast>(),
+                                                     (RoundedDouble) 5.2)
+                };
+
+                control.Data = data;
+
+                var selectionChangedCount = 0;
+                control.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
+
+                // Call
+                control.Data = data;
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]);
+
+                // Assert
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+        }
+
+        [Test]
         public void GivenFullyConfiguredControl_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
@@ -109,7 +150,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
-
+                DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
                 // When
                 EventHelper.RaiseEvent(tableControl, "SelectionChanged");
 

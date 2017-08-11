@@ -55,6 +55,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Control dataGridView = control.Controls[0];
                 Assert.IsInstanceOf<DoubleBufferedDataGridView>(dataGridView);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
+                Assert.AreEqual(-1, control.LastSelectedRow);
             }
         }
 
@@ -1053,7 +1054,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void ClearCurrentCell_Always_SetsCurrentCellToNull()
+        public void ClearCurrentCell_Always_SetsCurrentCellToNullAndResetsLastSelectedRow()
         {
             // Setup
             using (var form = new Form())
@@ -1080,6 +1081,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsNull(dataGridView.CurrentCell);
+                Assert.AreEqual(-1, control.LastSelectedRow);
             }
         }
 
@@ -1286,7 +1288,26 @@ namespace Core.Common.Controls.Test.DataGrid
                 TestRoundedDouble = testRoundedDouble;
             }
 
+            // Property needs to have a setter, otherwise some tests will fail
             public RoundedDouble TestRoundedDouble { get; set; }
+        }
+
+        private class TestDataGridViewMultipleRows
+        {
+            public TestDataGridViewMultipleRows(RoundedDouble testRoundedDouble)
+            {
+                TestRoundedDouble = testRoundedDouble;
+            }
+
+            public TestDataGridViewMultipleRows(RoundedDouble testRoundedDouble, string testString)
+            {
+                TestRoundedDouble = testRoundedDouble;
+                TestString = testString;
+            }
+
+            public RoundedDouble TestRoundedDouble { get; }
+
+            public string TestString { get; }
         }
 
         #region Event handling
@@ -1362,6 +1383,77 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AddCurrentRowChangedHandler_Always_AddsEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                const double initialValue = 25;
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+
+                var gridTester = new ControlTester("dataGridView");
+
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewRow(new RoundedDouble(0, initialValue))
+                });
+
+                var counter = 0;
+                control.AddCurrentRowChangedHandler((sender, args) => counter++);
+
+                // Call
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
+        public void RemoveCurrentRowChangedHandler_Always_RemovesEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                const double initialValue = 25;
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                var gridTester = new ControlTester("dataGridView");
+
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewRow(new RoundedDouble(0, initialValue))
+                });
+
+                var counter = 0;
+
+                EventHandler eventHandler = (sender, args) => counter++;
+                control.AddCurrentRowChangedHandler(eventHandler);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+                Assert.AreEqual(1, counter);
+
+                // Call
+                control.RemoveCurrentRowChangedHandler(eventHandler);
+
+                // Assert
+                gridTester.FireEvent("CurrentCellChanged", new EventArgs());
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
         public void AddCurrentCellChangedHandler_Always_AddsEventHandler()
         {
             // Setup
@@ -1371,7 +1463,16 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
+                const double initialValue = 25;
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+
                 var gridTester = new ControlTester("dataGridView");
+
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewRow(new RoundedDouble(0, initialValue))
+                });
 
                 var counter = 0;
                 control.AddCurrentCellChangedHandler((sender, args) => counter++);
@@ -1394,7 +1495,15 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
+                const double initialValue = 25;
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
                 var gridTester = new ControlTester("dataGridView");
+
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewRow(new RoundedDouble(0, initialValue))
+                });
 
                 var counter = 0;
 
@@ -1699,6 +1808,106 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue(control.IsCurrentCellInEditMode);
                 var combobox = (ComboBox) dataGridView.EditingControl;
                 Assert.IsTrue(combobox.DroppedDown);
+            }
+        }
+
+        [Test]
+        public void CurrentCellChangedHandler_SelectedCellInNewRow_ExecuteEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 2.5), "hello world"),
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 8.3), "test")
+                });
+                control.SetCurrentCell(control.GetCell(0, 0));
+
+                var handlerExecuted = false;
+                control.AddCurrentRowChangedHandler((sender, args) => handlerExecuted = true);
+
+                // Call
+                control.SetCurrentCell(control.GetCell(1, 0));
+
+                // Assert
+                Assert.IsTrue(handlerExecuted);
+            }
+        }
+
+        [Test]
+        public void CurrentCellChangedHandler_FirstSelection_ExecuteEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 2.5), "hello world"),
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 8.3), "test")
+                });
+
+                var handlerExecuted = false;
+                control.AddCurrentRowChangedHandler((sender, args) => handlerExecuted = true);
+
+                // Call
+                control.SetCurrentCell(control.GetCell(0, 0));
+                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.IsTrue(handlerExecuted);
+            }
+        }
+
+        [Test]
+        public void CurrentCellChangedHandler_SelectCellInSameRow_SkipEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 2.5), "hello world"),
+                    new TestDataGridViewMultipleRows(new RoundedDouble(0, 8.3), "test")
+                });
+
+                var handlerExecuted = false;
+                control.AddCurrentRowChangedHandler((sender, args) => handlerExecuted = true);
+
+                // Precondition
+                control.SetCurrentCell(control.GetCell(0, 0));
+                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                Assert.IsTrue(handlerExecuted);
+                handlerExecuted = false;
+
+                // Call
+                control.SetCurrentCell(control.GetCell(0, 1));
+                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.IsFalse(handlerExecuted);
             }
         }
 

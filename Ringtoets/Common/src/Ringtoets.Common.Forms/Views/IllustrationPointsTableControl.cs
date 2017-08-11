@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                         ? CreateRows()
                                                                         : null);
 
-                UpdateClosingStructureVisibility();
+                UpdateClosingSituationVisibility();
             }
         }
 
@@ -80,9 +80,14 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        public void ResetLastSelectedRow()
+        {
+            illustrationPointsDataGridViewControl.ResetLastSelectedRow();
+        }
+
         private void InitializeEventHandlers()
         {
-            illustrationPointsDataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
+            illustrationPointsDataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChangedHandler);
         }
 
         private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
@@ -90,7 +95,7 @@ namespace Ringtoets.Common.Forms.Views
             OnSelectionChanged(e);
         }
 
-        private void UpdateClosingStructureVisibility()
+        private void UpdateClosingSituationVisibility()
         {
             if (data != null)
             {

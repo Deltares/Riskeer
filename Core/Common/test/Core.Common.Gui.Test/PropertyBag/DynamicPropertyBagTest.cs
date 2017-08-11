@@ -549,14 +549,13 @@ namespace Core.Common.Gui.Test.PropertyBag
             public string Name { get; set; }
 
             [Browsable(true)]
-            // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
-            public bool IsNameReadOnly { get; set; }
+            public bool IsNameReadOnly { get; set; } // Property needs to have a setter, otherwise some tests will fail
 
             [Browsable(false)]
             public bool Visible { get; set; }
 
-            [ReadOnly(true)] //one static property
-            public string Description { get; set; }
+            [ReadOnly(true)]
+            public string Description { get; set; } // Property needs to have a setter, otherwise some tests will fail
 
             /// <summary>
             /// Method checks if propertyName property is read-only (setter can be used).

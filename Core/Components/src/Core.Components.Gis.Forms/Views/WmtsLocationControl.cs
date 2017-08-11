@@ -291,7 +291,7 @@ namespace Core.Components.Gis.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
+            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewCurrentCellChangedHandler);
         }
 
         private void OnUrlLocationSelectedValueChanged(object sender, EventArgs e)

@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChanged);
+            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChanged);
             dataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
             dataGridViewControl.AddTextBoxColumn(

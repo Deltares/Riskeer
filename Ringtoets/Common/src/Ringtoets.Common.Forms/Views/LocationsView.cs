@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewOnCurrentCellChangedHandler);
+            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChangedHandler);
             dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
         }
