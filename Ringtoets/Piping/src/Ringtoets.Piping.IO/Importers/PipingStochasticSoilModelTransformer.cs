@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
@@ -48,7 +49,7 @@ namespace Ringtoets.Piping.IO.Importers
 
             var pipingModel = new PipingStochasticSoilModel(stochasticSoilModel.Name);
             pipingModel.Geometry.AddRange(stochasticSoilModel.Geometry);
-            pipingModel.StochasticSoilProfiles.AddRange(pipingStochasticSoilProfiles);
+            pipingModel.StochasticSoilProfiles.AddRange(pipingStochasticSoilProfiles.ToArray());
 
             return pipingModel;
         }

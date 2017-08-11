@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.Importers;
 
@@ -59,6 +61,159 @@ namespace Ringtoets.Piping.IO.Test.Importers
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Stochastic soil model of failure mechanism type '{failureMechanismType}' is not supported." +
                             $"Only stochastic soil model of failure mechanism type '{FailureMechanismType.Piping}' is supported.", exception.Message);
+        }
+
+        [Test]
+        public void Transform_StochasticSoilModelWithInvalidSoilProfile_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var transformer = new PipingStochasticSoilModelTransformer();
+            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Piping)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, new TestSoilProfile())
+                }
+            };
+
+            // Call
+            TestDelegate test = () => transformer.Transform(soilModel);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Soil profile of type 'TestSoilProfile' is not supported." +
+                            "Only soil profiles of type 'SoilProfile1D' or 'SoilProfile2D' are supported.", exception.Message);
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithoutIntersection_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string name = "name";
+            var transformer = new PipingStochasticSoilModelTransformer();
+            var soilModel = new StochasticSoilModel(name, FailureMechanismType.Piping)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, new SoilProfile2D(0, name, Enumerable.Empty<SoilLayer2D>()))
+                }
+            };
+
+            // Call
+            TestDelegate test = () => transformer.Transform(soilModel);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{name}'.",
+                            exception.Message);
+        }
+
+        [Test]
+        public void Transform_ValidStochasticSoilModelWithSoilProfile2D_ReturnsExpectedPipingStochasticSoilModel()
+        {
+            // Setup
+            const string name = "name";
+            const double bottom = 0.5;
+            const double intersectionX = 1.0;
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
+                                                                         new List<Segment2D>
+                                                                         {
+                                                                             new Segment2D(new Point2D(1.0, bottom),
+                                                                                           new Point2D(1.2, 1)),
+                                                                             new Segment2D(new Point2D(1.2, 1),
+                                                                                           new Point2D(1.0, bottom))
+                                                                         });
+            var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
+            {
+                layer
+            })
+            {
+                IntersectionX = intersectionX
+            };
+
+            var transformer = new PipingStochasticSoilModelTransformer();
+            var soilModel = new StochasticSoilModel(name, FailureMechanismType.Piping)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, profile)
+                },
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(0.0, 0.0)
+                }
+            };
+
+            // Call
+            PipingStochasticSoilModel transformed = transformer.Transform(soilModel);
+
+            // Assert
+            Assert.AreEqual(name, transformed.Name);
+            Assert.AreEqual(1, transformed.StochasticSoilProfiles.Count);
+            CollectionAssert.AreEqual(soilModel.Geometry, transformed.Geometry);
+        }
+
+        [Test]
+        public void Transform_ValidTwoStochasticSoilModelWithSameProfile_ReturnsExpectedPipingStochasticSoilModel()
+        {
+            // Setup
+            const string name = "name";
+            const double bottom = 0.5;
+            const double intersectionX = 1.0;
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
+                                                                         new List<Segment2D>
+                                                                         {
+                                                                             new Segment2D(new Point2D(1.0, bottom),
+                                                                                           new Point2D(1.2, 1)),
+                                                                             new Segment2D(new Point2D(1.2, 1),
+                                                                                           new Point2D(1.0, bottom))
+                                                                         });
+            var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
+            {
+                layer
+            })
+            {
+                IntersectionX = intersectionX
+            };
+
+            var transformer = new PipingStochasticSoilModelTransformer();
+            var soilModel1 = new StochasticSoilModel(name, FailureMechanismType.Piping)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, profile)
+                }
+            };
+
+            var soilModel2 = new StochasticSoilModel(name, FailureMechanismType.Piping)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, profile)
+                }
+            };
+
+            // Call
+            PipingStochasticSoilModel transformed1 = transformer.Transform(soilModel1);
+            PipingStochasticSoilModel transformed2 = transformer.Transform(soilModel2);
+
+            // Assert
+            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles1 = transformed1.StochasticSoilProfiles;
+            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles2 = transformed2.StochasticSoilProfiles;
+            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Count);
+            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Count);
+
+            PipingStochasticSoilProfile pipingStochasticSoilProfile1 = transformedStochasticSoilProfiles1[0];
+            PipingStochasticSoilProfile pipingStochasticSoilProfile2 = transformedStochasticSoilProfiles2[0];
+            Assert.AreSame(pipingStochasticSoilProfile1.SoilProfile, pipingStochasticSoilProfile2.SoilProfile);
+        }
+
+        private class TestSoilProfile : ISoilProfile
+        {
+            public string Name { get; }
         }
 
         private static IEnumerable<FailureMechanismType> InvalidFailureMechanismTypes()
