@@ -101,6 +101,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
       <Project>{32358941-77c5-48a7-ad8b-dfb4f23b12a5}</Project>
       <Name>Core.Components.GraphSharp</Name>

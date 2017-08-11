@@ -34,7 +34,7 @@ namespace Core.Components.GraphSharp.Forms.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(string) || value == null)
+            if (value == null)
             {
                 return null;
             }
@@ -46,7 +46,9 @@ namespace Core.Components.GraphSharp.Forms.Converters
                 case PointedTreeVertexType.Diamond:
                     return "Diamond";
                 default:
-                    throw new InvalidEnumArgumentException();
+                    throw new InvalidEnumArgumentException(nameof(value),
+                                                           (int) value,
+                                                           typeof(PointedTreeVertexType));
             }
         }
 

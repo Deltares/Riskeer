@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
+using Core.Common.TestUtil;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Converters;
 using NUnit.Framework;
@@ -55,16 +57,17 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
         }
 
         [Test]
-        public void Convert_TargetTypeNotString_ReturnNull()
+        public void Convert_InvalidPointedTreeVertexType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var converter = new PointedTreeVertexTypeToStringConverter();
 
             // Call
-            object convertedValue = converter.Convert(string.Empty, typeof(object), null, CultureInfo.InvariantCulture);
+            TestDelegate test = () => converter.Convert((PointedTreeVertexType) 99, typeof(string), null, CultureInfo.InvariantCulture);
 
             // Assert
-            Assert.IsNull(convertedValue);
+            const string message = "The value of argument 'value' (99) is invalid for Enum type 'PointedTreeVertexType'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
