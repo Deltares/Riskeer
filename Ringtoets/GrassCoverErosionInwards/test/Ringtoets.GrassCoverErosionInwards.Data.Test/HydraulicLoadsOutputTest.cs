@@ -155,19 +155,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new TestHydraulicLoadsOutput(random.NextDouble(),
-                                                        random.NextDouble(),
-                                                        random.NextDouble(),
-                                                        random.NextDouble(),
-                                                        random.NextEnumValue<CalculationConvergence>(),
-                                                        null);
+            TestHydraulicLoadsOutput original = GetRandomHydraulicLoadsOutput(null);
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            TestHydraulicLoadsOutput original = GetRandomHydraulicLoadsOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static TestHydraulicLoadsOutput GetRandomHydraulicLoadsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new TestHydraulicLoadsOutput(random.NextDouble(),
+                                                random.NextDouble(),
+                                                random.NextDouble(),
+                                                random.NextDouble(),
+                                                random.NextEnumValue<CalculationConvergence>(),
+                                                generalResult);
         }
 
         private class TestHydraulicLoadsOutput : HydraulicLoadsOutput

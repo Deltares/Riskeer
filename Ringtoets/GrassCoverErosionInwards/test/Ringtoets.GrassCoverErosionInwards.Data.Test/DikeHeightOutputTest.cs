@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
@@ -104,20 +105,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new DikeHeightOutput(random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextEnumValue<CalculationConvergence>(),
-                                                null);
+            DikeHeightOutput original = GetRandomDikeHeightOutput(null);
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            DikeHeightOutput original = GetRandomDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static DikeHeightOutput GetRandomDikeHeightOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new DikeHeightOutput(random.NextDouble(),
+                                        random.NextDouble(),
+                                        random.NextDouble(),
+                                        random.NextDouble(),
+                                        random.NextDouble(),
+                                        random.NextEnumValue<CalculationConvergence>(),
+                                        generalResult);
         }
     }
 }

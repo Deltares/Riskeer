@@ -108,20 +108,39 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new OvertoppingRateOutput(random.NextDouble(),
-                                                     random.NextDouble(),
-                                                     random.NextDouble(),
-                                                     random.NextDouble(),
-                                                     random.NextDouble(),
-                                                     random.NextEnumValue<CalculationConvergence>(),
-                                                     null);
+            OvertoppingRateOutput original = GetRandomOvertoppingRateOutput(null);
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            OvertoppingRateOutput original = GetRandomOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static OvertoppingRateOutput GetRandomOvertoppingRateOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new OvertoppingRateOutput(random.NextDouble(),
+                                             random.NextDouble(),
+                                             random.NextDouble(),
+                                             random.NextDouble(),
+                                             random.NextDouble(),
+                                             random.NextEnumValue<CalculationConvergence>(),
+                                             generalResult);
         }
     }
 }
