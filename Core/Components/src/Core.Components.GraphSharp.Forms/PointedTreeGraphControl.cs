@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Windows;
 using System.Windows.Forms;
 using Core.Components.GraphSharp.Forms.Layout;
 using Core.Components.PointedTree.Data;
@@ -57,6 +59,13 @@ namespace Core.Components.GraphSharp.Forms
             graphLayout = new PointedTreeGraphLayout();
 
             zoomControl.Content = graphLayout;
+
+            var myResourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/Core.Components.GraphSharp.Forms;component/Templates/PointedTreeGraphTemplate.xaml", UriKind.Absolute)
+            };
+            zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
+
             wpfElementHost.Child = zoomControl;
         }
     }

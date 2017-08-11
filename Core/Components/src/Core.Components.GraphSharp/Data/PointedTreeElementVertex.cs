@@ -79,7 +79,7 @@ namespace Core.Components.GraphSharp.Data
         public Brush LineColor { get; }
 
         /// <summary>
-        /// Gets the line widht of the vertex.
+        /// Gets the line width of the vertex.
         /// </summary>
         public int LineWidth { get;}
 
