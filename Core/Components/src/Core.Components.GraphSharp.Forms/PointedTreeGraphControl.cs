@@ -22,6 +22,9 @@
 using System;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
+using Core.Common.Utils.Extensions;
+using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
 using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
@@ -36,6 +39,8 @@ namespace Core.Components.GraphSharp.Forms
     {
         private ZoomControl zoomControl;
         private PointedTreeGraphLayout graphLayout;
+        private GraphNode data;
+        private PointedTreeGraph graph;
 
         /// <summary>
         /// Creates a new instance of <see cref="PointedTreeGraphControl"/>.
@@ -46,7 +51,24 @@ namespace Core.Components.GraphSharp.Forms
             InitializeGraph();
         }
 
-        public GraphNode Data { get; set; }
+        public GraphNode Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                graph.Clear();
+
+                data = value;
+
+                if (data != null)
+                {
+                    DrawNode(data);
+                }
+            }
+        }
 
         private void InitializeGraph()
         {
@@ -58,6 +80,9 @@ namespace Core.Components.GraphSharp.Forms
 
             graphLayout = new PointedTreeGraphLayout();
 
+            graph = new PointedTreeGraph();
+            graphLayout.Graph = graph;
+
             zoomControl.Content = graphLayout;
 
             var myResourceDictionary = new ResourceDictionary
@@ -65,8 +90,32 @@ namespace Core.Components.GraphSharp.Forms
                 Source = new Uri("pack://application:,,,/Core.Components.GraphSharp.Forms;component/Templates/PointedTreeGraphTemplate.xaml", UriKind.Absolute)
             };
             zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
-
             wpfElementHost.Child = zoomControl;
+        }
+
+        private void DrawNode(GraphNode node, PointedTreeElementVertex parentVertex = null)
+        {
+            var vertex = new PointedTreeElementVertex(node.Title,
+                                                      new SolidColorBrush(Color.FromArgb(node.Style.FillColor.A,
+                                                                                         node.Style.FillColor.R,
+                                                                                         node.Style.FillColor.G,
+                                                                                         node.Style.FillColor.B)),
+                                                      new SolidColorBrush(Color.FromArgb(node.Style.LineColor.A,
+                                                                                         node.Style.LineColor.R,
+                                                                                         node.Style.LineColor.G,
+                                                                                         node.Style.LineColor.B)),
+                                                      node.Style.LineWidth,
+                                                      PointedTreeVertexType.Rectangle,
+                                                      node.IsSelectable);
+
+            graph.AddVertex(vertex);
+
+            node.ChildNodes.ForEachElementDo(cn => DrawNode(cn, vertex));
+
+            if (parentVertex != null)
+            {
+                graph.AddEdge(new PointedTreeEdge(parentVertex, vertex));
+            }
         }
     }
 }

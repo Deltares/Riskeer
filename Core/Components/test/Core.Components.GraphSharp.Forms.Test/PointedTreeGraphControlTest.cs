@@ -24,7 +24,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
+using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
 using NUnit.Framework;
 using WPFExtensions.Controls;
@@ -32,10 +34,10 @@ using WPFExtensions.Controls;
 namespace Core.Components.GraphSharp.Forms.Test
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class PointedTreeGraphControlTest
     {
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ExptedValues()
         {
             // Call
@@ -56,7 +58,105 @@ namespace Core.Components.GraphSharp.Forms.Test
                 ResourceDictionary templateDictionary = zoomControl.Resources.MergedDictionaries.First();
                 Assert.AreEqual("/Core.Components.GraphSharp.Forms;component/Templates/PointedTreeGraphTemplate.xaml", templateDictionary.Source.AbsolutePath);
 
-                Assert.IsInstanceOf<PointedTreeGraphLayout>(zoomControl.Content);
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
+                Assert.IsInstanceOf<PointedTreeGraph>(graphLayout.Graph);
+            }
+        }
+
+        [Test]
+        public void GivenGraphControlWithoutData_WhenDataSetToGraphNode_ThenGraphControlUpdated()
+        {
+            // Given
+            using (var graphControl = new PointedTreeGraphControl())
+            {
+                var doubleUsedNode = new GraphNode("Double used", new GraphNode[0], false);
+                var node = new GraphNode("Root", new[]
+                {
+                    new GraphNode("Child 1", new []
+                    {
+                        doubleUsedNode
+                    }, false), 
+                    new GraphNode("Child 2", new []
+                    {
+                        doubleUsedNode
+                    }, false)
+                }, false);
+
+                // When
+                graphControl.Data = node;
+
+                // Then
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
+                PointedTreeGraph graph = graphLayout.Graph;
+                
+                Assert.AreEqual(5, graph.VertexCount);
+                Assert.AreEqual(4, graph.EdgeCount);
+            }
+        }
+
+        [Test]
+        public void GivenGraphControlWithData_WhenDataSetToOtherGraphNode_ThenGraphControlUpdated()
+        {
+            // Given
+            var node = new GraphNode("Root", new[]
+            {
+                new GraphNode("Child 1", new GraphNode[0], false)
+            }, false);
+
+            using (var graphControl = new PointedTreeGraphControl
+            {
+                Data = node
+            })
+            {
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl)elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout)zoomControl.Content;
+                PointedTreeGraph graph = graphLayout.Graph;
+
+                // Precondition
+                Assert.AreEqual(2, graph.VertexCount);
+                Assert.AreEqual(1, graph.EdgeCount);
+                
+                // When
+                graphControl.Data = new GraphNode("Double used", new GraphNode[0], false);
+
+                // Then
+                Assert.AreEqual(1, graph.VertexCount);
+                Assert.AreEqual(0, graph.EdgeCount);
+            }
+        }
+
+        [Test]
+        public void GivenGraphControlWithData_WhenDataSetToNull_ThenGraphControlUpdated()
+        {
+            // Given
+            var node = new GraphNode("Root", new[]
+            {
+                new GraphNode("Child 1", new GraphNode[0], false)
+            }, false);
+
+            using (var graphControl = new PointedTreeGraphControl
+            {
+                Data = node
+            })
+            {
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl)elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout)zoomControl.Content;
+                PointedTreeGraph graph = graphLayout.Graph;
+
+                // Precondition
+                Assert.AreEqual(2, graph.VertexCount);
+                Assert.AreEqual(1, graph.EdgeCount);
+
+                // When
+                graphControl.Data = null;
+
+                // Then
+                Assert.AreEqual(0, graph.VertexCount);
+                Assert.AreEqual(0, graph.EdgeCount);
             }
         }
     }
