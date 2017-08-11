@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_LayerWithVerticalLineOnXInXml_ThrowsImportedDataTransformException()
+        public void Transform_SoilProfile2DLayerWithVerticalLineOnXInXml_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_WithOutLayers_ThrowsImportedDataTransformException()
+        public void Transform_SoilProfile2DWithOutLayers_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_WithSingleLayerOnlyOuterLoop_ReturnsProfileWithBottomAndALayer()
+        public void Transform_SoilProfile2DWithSingleLayerOnlyOuterLoop_ReturnsProfileWithBottomAndALayer()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_WithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
+        public void Transform_SoilProfile2DWithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -276,6 +276,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
             Assert.AreEqual(3, transformed.Layers.Count());
             CollectionAssert.AreEquivalent(new[]
             {
@@ -287,7 +288,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_WithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
+        public void Transform_SoilProfile2DWithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -334,6 +335,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
             Assert.AreEqual(3, transformed.Layers.Count());
             CollectionAssert.AreEquivalent(new[]
             {
@@ -342,6 +344,79 @@ namespace Ringtoets.Piping.IO.Test.Importers
                 2.0
             }, transformed.Layers.Select(rl => rl.Top));
             Assert.AreEqual(0.0, transformed.Bottom);
+        }
+
+        [Test]
+        public void Transform_SoilProfile1DWithSingleLayer_ReturnsProfileWithBottomAndALayer()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            var random = new Random(22);
+            double bottom = random.NextDouble();
+            double top = random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
+
+            var profile = new SoilProfile1D(pipingSoilProfileId,
+                                            profileName,
+                                            bottom,
+                                            new[]
+                                            {
+                                                new SoilLayer1D(top)
+                                                {
+                                                    IsAquifer = true
+                                                }
+                                            }
+            );
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, transformed.SoilProfileType);
+
+            PipingSoilLayer[] layers = transformed.Layers.ToArray();
+            Assert.AreEqual(1, layers.Length);
+            Assert.AreEqual(top, layers[0].Top);
+            Assert.AreEqual(bottom, transformed.Bottom);
+        }
+
+        [Test]
+        public void Transform_SoilProfile1DWithMultipleLayers_ReturnsProfileWithBottomAndALayer()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            var random = new Random(22);
+            double bottom = random.NextDouble();
+            double top = bottom + random.NextDouble();
+            double top2 = bottom + random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
+
+            var profile = new SoilProfile1D(pipingSoilProfileId,
+                                            profileName,
+                                            bottom,
+                                            new[]
+                                            {
+                                                new SoilLayer1D(top)
+                                                {
+                                                    IsAquifer = true
+                                                },
+                                                new SoilLayer1D(top2)
+                                            }
+            );
+
+            // Call
+            PipingSoilProfile transformed = PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            Assert.AreEqual(profileName, transformed.Name);
+            Assert.AreEqual(2, transformed.Layers.Count());
+            CollectionAssert.AreEquivalent(new[]
+            {
+                top,
+                top2
+            }, transformed.Layers.Select(l => l.Top));
+            Assert.AreEqual(bottom, transformed.Bottom);
         }
 
         private static void AssertPipingSoilLayers(IEnumerable<PipingSoilLayer> expectedSoilLayer2Ds,

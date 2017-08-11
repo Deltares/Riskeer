@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
@@ -94,7 +95,9 @@ namespace Ringtoets.Piping.IO.Importers
             {
                 double newBottom;
 
-                layers.AddRange(PipingSoilLayerTransformer.Transform(soilLayer2D, intersectionX, out newBottom));
+                layers.AddRange(PipingSoilLayerTransformer.Transform(soilLayer2D,
+                                                                     intersectionX,
+                                                                     out newBottom));
 
                 bottom = Math.Min(bottom, newBottom);
             }
@@ -104,7 +107,13 @@ namespace Ringtoets.Piping.IO.Importers
 
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile1D soilProfile1D)
         {
-            return null;
+            IEnumerable<PipingSoilLayer> layers = soilProfile1D.Layers.Select(PipingSoilLayerTransformer.Transform);
+
+            return new PipingSoilProfile(soilProfile1D.Name,
+                                         soilProfile1D.Bottom,
+                                         layers.ToArray(),
+                                         SoilProfileType.SoilProfile1D,
+                                         0);
         }
     }
 }
