@@ -196,10 +196,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationItem = mocks.StrictMock<ICalculationBase>();
             mocks.ReplayAll();
 
             var childGroup = new CalculationGroup();
+            var calculationItem = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationItem);
@@ -215,11 +215,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
-            Assert.AreSame(calculationItem, children[0]);
+
+            var returnedCalculationContext = (GrassCoverErosionOutwardsWaveConditionsCalculationContext) children[0];
+            Assert.AreSame(calculationItem, returnedCalculationContext.WrappedData);
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationContext.Parent);
+            Assert.AreSame(failureMechanism, returnedCalculationContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, returnedCalculationContext.AssessmentSection);
+
             var returnedCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, returnedCalculationGroupContext.AssessmentSection);
         }
 
         [Test]

@@ -172,10 +172,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationItem = mocks.StrictMock<ICalculationBase>();
             mocks.ReplayAll();
 
             var childGroup = new CalculationGroup();
+            var calculationItem = new StabilityStoneCoverWaveConditionsCalculation();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationItem);
@@ -191,11 +191,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
-            Assert.AreSame(calculationItem, children[0]);
+
+            var returnedCalculationContext = (StabilityStoneCoverWaveConditionsCalculationContext) children[0];
+            Assert.AreSame(calculationItem, returnedCalculationContext.WrappedData);
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationContext.Parent);
+            Assert.AreSame(failureMechanism, returnedCalculationContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, returnedCalculationContext.AssessmentSection);
+
             var returnedCalculationGroupContext = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, returnedCalculationGroupContext.AssessmentSection);
         }
 
         [Test]
