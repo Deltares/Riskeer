@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
@@ -56,7 +57,8 @@ namespace Demo.Ringtoets.Commands
             var lastNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1);
             var treeNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
 
-            var doubleUsedNode = new GraphNode("<text>Double <bold>used</bold></text>", new[]
+            var doubleUsedNode = new GraphNode("<text>Double " + Environment.NewLine +
+                                               "<bold>used</bold></text>", new[]
             {
                 new GraphNode("<text>En</text>", new []
                 {

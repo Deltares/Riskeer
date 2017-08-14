@@ -51,14 +51,14 @@ namespace Core.Components.PointedTree.Test.Data
                 }, true, style)
             };
 
-            const string title = "test";
+            const string content = "test";
             const bool isSelectable = false;
 
             // Call
-            var node = new GraphNode(title, childNodes, isSelectable, style);
+            var node = new GraphNode(content, childNodes, isSelectable, style);
 
             // Assert
-            Assert.AreEqual(title, node.Title);
+            Assert.AreEqual(content, node.Content);
             Assert.AreEqual(isSelectable, node.IsSelectable);
             Assert.AreSame(style, node.Style);
 
@@ -79,14 +79,14 @@ namespace Core.Components.PointedTree.Test.Data
                 }, true)
             };
 
-            const string title = "test";
+            const string content = "test";
             const bool isSelectable = false;
 
             // Call
-            var node = new GraphNode(title, childNodes, isSelectable);
+            var node = new GraphNode(content, childNodes, isSelectable);
 
             // Assert
-            Assert.AreEqual(title, node.Title);
+            Assert.AreEqual(content, node.Content);
             Assert.AreEqual(isSelectable, node.IsSelectable);
             Assert.AreEqual(GraphNodeShape.Rectangle, node.Style.Shape);
             Assert.AreEqual(Color.Gray, node.Style.FillColor);
@@ -98,14 +98,14 @@ namespace Core.Components.PointedTree.Test.Data
         }
 
         [Test]
-        public void Constructor_TitleNull_ThrowsArgumentNullException()
+        public void Constructor_ContentNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new GraphNode(null, new GraphNode[0], false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("title", exception.ParamName);
+            Assert.AreEqual("content", exception.ParamName);
         }
 
         [Test]

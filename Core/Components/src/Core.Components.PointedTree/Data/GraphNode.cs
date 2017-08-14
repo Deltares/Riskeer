@@ -35,28 +35,28 @@ namespace Core.Components.PointedTree.Data
         /// <summary>
         /// Creates a new instance of <see cref="GraphNode"/> with default styling.
         /// </summary>
-        /// <param name="title">The title of the node.</param>
+        /// <param name="content">The content of the node.</param>
         /// <param name="childNodes">The child nodes of the node.</param>
         /// <param name="isSelectable">Indicator whether the node is selectable.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="title"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>
         /// or <paramref name="childNodes"/> is <c>null</c>.</exception>
-        public GraphNode(string title, GraphNode[] childNodes, bool isSelectable)
-            : this(title, childNodes, isSelectable, CreateDefaultGraphNodeStyle()) { }
+        public GraphNode(string content, GraphNode[] childNodes, bool isSelectable)
+            : this(content, childNodes, isSelectable, CreateDefaultGraphNodeStyle()) { }
 
         /// <summary>
         /// Creates a new instance of <see cref="GraphNode"/>.
         /// </summary>
-        /// <param name="title">The title of the node.</param>
+        /// <param name="content">The content of the node.</param>
         /// <param name="childNodes">The child nodes of the node.</param>
         /// <param name="isSelectable">Indicator whether the node is selectable.</param>
         /// <param name="style">The style of the node.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="title"/>,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>,
         /// <paramref name="childNodes"/> or <paramref name="style"/> is <c>null</c>.</exception>
-        public GraphNode(string title, GraphNode[] childNodes, bool isSelectable, GraphNodeStyle style)
+        public GraphNode(string content, GraphNode[] childNodes, bool isSelectable, GraphNodeStyle style)
         {
-            if (title == null)
+            if (content == null)
             {
-                throw new ArgumentNullException(nameof(title));
+                throw new ArgumentNullException(nameof(content));
             }
             if (childNodes == null)
             {
@@ -67,16 +67,16 @@ namespace Core.Components.PointedTree.Data
                 throw new ArgumentNullException(nameof(style));
             }
 
-            Title = title;
+            Content = content;
             this.childNodes = childNodes;
             IsSelectable = isSelectable;
             Style = style;
         }
 
         /// <summary>
-        /// Gets the title of the node.
+        /// Gets the content of the node.
         /// </summary>
-        public string Title { get; }
+        public string Content { get; }
 
         /// <summary>
         /// Gets the child nodes of the node.

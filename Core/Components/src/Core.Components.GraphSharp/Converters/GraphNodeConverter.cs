@@ -51,7 +51,7 @@ namespace Core.Components.GraphSharp.Converters
             GraphNodeStyle style = graphNode.Style;
 
             return new PointedTreeElementVertex(
-                graphNode.Title,
+                graphNode.Content,
                 ConvertColor(style.FillColor),
                 ConvertColor(style.LineColor),
                 style.LineWidth,
