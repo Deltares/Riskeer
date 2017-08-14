@@ -151,6 +151,24 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which duplicates a calculation.
+        /// </summary>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The calculation to duplicate.</param>
+        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddDuplicateCalculationItem<TCalculation, TCalculationContext>(
+            TCalculation calculation,
+            TCalculationContext calculationContext)
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculation : ICalculation, ICloneable
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext));
+            return this;
+        }
+
+        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which validates a calculation.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
