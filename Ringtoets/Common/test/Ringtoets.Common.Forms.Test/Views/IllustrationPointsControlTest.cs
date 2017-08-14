@@ -107,8 +107,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 control.Data = data;
 
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                var selectionChangedCount = 0;
-                dataGridView.CurrentRowChanged += (sender, args) => selectionChangedCount++;
+                var currentRowChangedCount = 0;
+                dataGridView.CurrentRowChanged += (sender, args) => currentRowChangedCount++;
                 dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // Call
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]);
 
                 // Assert
-                Assert.AreEqual(4, selectionChangedCount);
+                Assert.AreEqual(4, currentRowChangedCount);
             }
         }
 

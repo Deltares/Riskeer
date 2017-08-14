@@ -1277,6 +1277,36 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
+        public void GivenFullyConfiguredDataGridView_WhenResetLastSelectedRowAndCellInSameRowSelected_ThenCurrentRowChangedEventFired()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
+                control.SetDataSource(new[]
+                {
+                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "hello world")
+                });
+
+                var counter = 0;
+                control.CurrentRowChanged += (sender, args) => counter++;
+                control.SetCurrentCell(control.GetCell(0, 1));
+
+                // Call
+                control.ResetLastSelectedRow();
+
+                // Assert
+                control.SetCurrentCell(control.GetCell(0, 0));
+                Assert.AreEqual(2, counter);
+            }
+        }
+
         private enum TestEnum
         {
             NoDisplayName,
@@ -1813,22 +1843,18 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
                 control.AddTextBoxColumn("TestString", "Test string header");
                 control.SetDataSource(new[]
                 {
-                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "hello world"),
-                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 8.3), "test")
+                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "hello world")
                 });
 
                 var handlerExecuted = false;
                 control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Call
-                control.SetCurrentCell(control.GetCell(0, 0));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 1));
 
                 // Assert
                 Assert.IsTrue(handlerExecuted);
@@ -1845,8 +1871,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
                 control.AddTextBoxColumn("TestString", "Test string header");
                 control.SetDataSource(new[]
@@ -1858,14 +1882,12 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Precondition
-                control.SetCurrentCell(control.GetCell(0, 0));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 1));
                 Assert.IsTrue(handlerExecuted);
                 handlerExecuted = false;
 
                 // Call
-                control.SetCurrentCell(control.GetCell(0, 1));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 0));
 
                 // Assert
                 Assert.IsFalse(handlerExecuted);
@@ -1882,18 +1904,16 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
+                control.AddTextBoxColumn("TestString", "Test string header");
                 control.SetDataSource(new[]
                 {
-                    new TestDataGridViewRow(new RoundedDouble(0, 2.5))
+                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "hello world")
                 });
 
                 var counter = 0;
                 control.CurrentRowChanged += (sender, args) => counter++;
-                control.SetCurrentCell(control.GetCell(0, 0));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 1));
 
                 // Call
                 control.SetCurrentCell(null);
@@ -1917,8 +1937,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                var gridTester = new ControlTester("dataGridView");
-
                 control.AddTextBoxColumn("TestRoundedDouble", "Test header");
                 control.AddTextBoxColumn("TestString", "Test string header");
                 control.SetDataSource(new[]
@@ -1933,16 +1951,13 @@ namespace Core.Common.Controls.Test.DataGrid
                 }
 
                 // Assert
-                control.SetCurrentCell(control.GetCell(0, 0));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
                 control.SetCurrentCell(control.GetCell(0, 1));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 0));
 
                 // If handler is added again, LastSelectedRow is still -1 so event handler will be executed
                 var handlerExecuted = false;
                 control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
-                control.SetCurrentCell(control.GetCell(0, 0));
-                gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
+                control.SetCurrentCell(control.GetCell(0, 1));
                 Assert.IsTrue(handlerExecuted);
             }
         }
