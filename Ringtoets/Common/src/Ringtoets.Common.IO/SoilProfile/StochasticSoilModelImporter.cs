@@ -167,13 +167,27 @@ namespace Ringtoets.Common.IO.SoilProfile
                     return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
                 }
             }
-            catch (CriticalFileReadException e)
+            catch (Exception e) when (e is StochasticSoilModelException
+                                      || e is CriticalFileReadException)
             {
                 HandleException(e);
             }
             return new ReadResult<StochasticSoilModel>(true);
         }
 
+        /// <summary>
+        /// Reads all stochastic soil models from the <paramref name="stochasticSoilModelReader"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModelReader">The <see cref="StochasticSoilModelReader"/>.</param>
+        /// <returns>Returns a <see cref="ReadResult{T}"/> collection of read stochastic soil models.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
+        /// <exception cref="StochasticSoilModelException">Thrown when:
+        /// <list type="bullet">
+        /// <item>no stochastic soil profiles could be read;</item>
+        /// <item>the read failure mechanism type is not supported.</item>
+        /// </list>
+        /// </exception>
         private ReadResult<StochasticSoilModel> GetStochasticSoilModelReadResult(StochasticSoilModelReader stochasticSoilModelReader)
         {
             int totalNumberOfSteps = stochasticSoilModelReader.StochasticSoilModelCount;
@@ -186,18 +200,11 @@ namespace Ringtoets.Common.IO.SoilProfile
                 {
                     return new ReadResult<StochasticSoilModel>(false);
                 }
-                try
-                {
-                    NotifyProgress(Resources.StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database,
-                                   currentStep++,
-                                   totalNumberOfSteps);
-                    soilModels.Add(stochasticSoilModelReader.ReadStochasticSoilModel());
-                }
-                catch (StochasticSoilModelException e)
-                {
-                    HandleException(e);
-                    return new ReadResult<StochasticSoilModel>(true);
-                }
+
+                NotifyProgress(Resources.StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database,
+                               currentStep++,
+                               totalNumberOfSteps);
+                soilModels.Add(stochasticSoilModelReader.ReadStochasticSoilModel());
             }
 
             return new ReadResult<StochasticSoilModel>(false)
@@ -252,17 +259,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Validate the definition of a <see cref="StochasticSoilModel"/>.
         /// </summary>
         /// <param name="stochasticSoilModel">The <see cref="StochasticSoilModel"/> to validate.</param>
-        /// <returns><c>false</c> when the stochastic soil model does not contain any stochastic soil profiles
-        /// or when a stochastic soil profile does not have a definition for a soil profile; <c>true</c>
-        /// otherwise.</returns>
+        /// <returns><c>false</c> when the sum of the stochastic soil profiles in the stochastic 
+        /// soil model does add up to 100%, <c>true</c> otherwise.</returns>
         private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
         {
-            if (!stochasticSoilModel.StochasticSoilProfiles.Any())
-            {
-                Log.ErrorFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
-                                stochasticSoilModel.Name);
-                return false;
-            }
             if (!IsSumOfAllProbabilitiesEqualToOne(stochasticSoilModel))
             {
                 Log.ErrorFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
