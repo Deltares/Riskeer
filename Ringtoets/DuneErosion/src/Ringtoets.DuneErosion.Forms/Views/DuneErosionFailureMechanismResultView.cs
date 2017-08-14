@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// </summary>
         public DuneErosionFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
@@ -50,7 +50,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             base.Dispose(disposing);
         }

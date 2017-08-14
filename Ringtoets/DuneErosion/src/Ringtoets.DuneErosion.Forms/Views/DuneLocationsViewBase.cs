@@ -49,8 +49,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             InitializeEventHandlers();
         }
 
-        public abstract object Data { get; set; }
-
         public object Selection
         {
             get
@@ -58,6 +56,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 return CreateSelectedItemFromCurrentRow();
             }
         }
+
+        public abstract object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -173,8 +173,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChangedHandler);
-            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
+            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+            dataGridViewControl.CellValueChanged += DataGridViewCellValueChanged;
         }
 
         private void OnSelectionChanged()
@@ -192,7 +192,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
         }
 
-        private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
+        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
         {
             OnSelectionChanged();
         }

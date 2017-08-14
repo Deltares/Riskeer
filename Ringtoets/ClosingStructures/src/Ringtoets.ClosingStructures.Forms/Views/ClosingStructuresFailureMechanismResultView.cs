@@ -47,8 +47,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         public ClosingStructuresFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += OnCellFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -88,8 +88,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
-            DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();

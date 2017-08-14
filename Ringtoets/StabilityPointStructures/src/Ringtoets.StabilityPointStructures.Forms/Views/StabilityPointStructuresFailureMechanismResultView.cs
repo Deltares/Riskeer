@@ -47,8 +47,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         public StabilityPointStructuresFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerErrors);
-            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -88,8 +88,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerErrors);
-            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();

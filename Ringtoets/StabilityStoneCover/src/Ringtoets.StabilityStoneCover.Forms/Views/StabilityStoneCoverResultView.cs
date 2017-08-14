@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// </summary>
         public StabilityStoneCoverResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             base.Dispose(disposing);
         }

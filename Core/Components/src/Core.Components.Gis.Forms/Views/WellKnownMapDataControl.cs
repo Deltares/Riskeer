@@ -83,7 +83,7 @@ namespace Core.Components.Gis.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentCellChangedHandler(DataGridViewCurrentCellChangedHandler);
+            dataGridViewControl.CurrentCellChanged += DataGridViewCurrentCellChangedHandler;
         }
 
         #endregion

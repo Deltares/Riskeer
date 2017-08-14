@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms
 
         private void InitializeEventHandlers()
         {
-            DataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
+            DataGridViewControl.CellValueChanged += DataGridViewCellValueChanged;
         }
 
         private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)

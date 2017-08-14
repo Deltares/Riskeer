@@ -130,14 +130,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SubscribeEvents()
         {
-            probabilityDistributionGrid.AddCellFormattingHandler(ProbabilityDistributionGridOnCellFormatting);
-            probabilityDistributionGrid.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
+            probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void UnsubscribeEvents()
         {
-            probabilityDistributionGrid.RemoveCellFormattingHandler(ProbabilityDistributionGridOnCellFormatting);
-            probabilityDistributionGrid.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            probabilityDistributionGrid.CellFormatting -= ProbabilityDistributionGridOnCellFormatting;
+            probabilityDistributionGrid.CellFormatting -= DisableIrrelevantFieldsFormatting;
         }
 
         private void HandleNewDataSet(FailureMechanismContribution value)

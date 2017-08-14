@@ -131,6 +131,14 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        public object Selection
+        {
+            get
+            {
+                return CreateSelectedItemFromCurrentRow();
+            }
+        }
+
         public object Data
         {
             get
@@ -158,14 +166,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        public object Selection
-        {
-            get
-            {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (disposing)
             {
-                dataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+                dataGridViewControl.CellFormatting -= OnCellFormatting;
 
                 assessmentSectionObserver.Dispose();
                 pipingFailureMechanismObserver.Dispose();
@@ -196,8 +196,8 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChanged);
-            dataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+            dataGridViewControl.CellFormatting += OnCellFormatting;
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.Name),
@@ -576,7 +576,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         #region Event handling
 
-        private void DataGridViewOnCurrentCellChanged(object sender, EventArgs e)
+        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
         {
             OnSelectionChanged();
         }

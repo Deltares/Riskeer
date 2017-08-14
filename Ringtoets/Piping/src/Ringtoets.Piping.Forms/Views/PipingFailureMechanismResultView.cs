@@ -47,8 +47,8 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         public PipingFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
-            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -83,8 +83,8 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(ShowAssessmentLayerTwoAErrors);
-            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+            DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();

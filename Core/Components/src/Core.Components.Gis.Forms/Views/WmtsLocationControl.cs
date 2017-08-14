@@ -219,7 +219,7 @@ namespace Core.Components.Gis.Forms.Views
                                                  true);
         }
 
-        private void DataGridViewCurrentCellChangedHandler(object sender, EventArgs e)
+        private void DataGridViewCurrentRowChangedHandler(object sender, EventArgs e)
         {
             SelectedMapDataChanged?.Invoke(this, e);
         }
@@ -291,7 +291,7 @@ namespace Core.Components.Gis.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewCurrentCellChangedHandler);
+            dataGridViewControl.CurrentRowChanged += DataGridViewCurrentRowChangedHandler;
         }
 
         private void OnUrlLocationSelectedValueChanged(object sender, EventArgs e)

@@ -174,8 +174,8 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.AddCurrentRowChangedHandler(DataGridViewOnCurrentCellChangedHandler);
-            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
+            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+            dataGridViewControl.CellValueChanged += DataGridViewCellValueChanged;
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
         }
 
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void DataGridViewOnCurrentCellChangedHandler(object sender, EventArgs e)
+        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
         {
             updatingControls = true;
 

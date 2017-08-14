@@ -140,7 +140,7 @@ namespace Core.Components.Gis.Forms.Test.Views
             {
                 form.Controls.Add(control);
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", form).TheObject;
-                dataGridViewControl.AddCurrentRowChangedHandler((sender, args) => selectionChanged++);
+                dataGridViewControl.CurrentRowChanged += (sender, args) => selectionChanged++;
                 DataGridViewRow row = dataGridViewControl.GetRowFromIndex(2);
 
                 dataGridViewControl.SetCurrentCell(row.Cells[0]);

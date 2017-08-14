@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             base.Dispose(disposing);
         }

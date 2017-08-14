@@ -33,12 +33,62 @@ namespace Core.Common.Controls.DataGrid
     /// </summary>
     public partial class DataGridViewControl : UserControl
     {
+        private event EventHandler RowChanged;
+
         /// <summary>
         /// Event handler that fires only when a new cell in a
         /// row different from the previously selected row is
         /// selected. Also fires if it's the first selection.
         /// </summary>
-        private event EventHandler RowChanged;
+        public event EventHandler CurrentRowChanged
+        {
+            add
+            {
+                RowChanged += value;
+                dataGridView.CurrentCellChanged += DataGridViewOnCurrentCellChanged;
+            }
+            remove
+            {
+                RowChanged -= value;
+                dataGridView.CurrentCellChanged -= DataGridViewOnCurrentCellChanged;
+            }
+        }
+
+        public event EventHandler CurrentCellChanged
+        {
+            add
+            {
+                dataGridView.CurrentCellChanged += value;
+            }
+            remove
+            {
+                dataGridView.CurrentCellChanged -= value;
+            }
+        }
+
+        public event DataGridViewCellFormattingEventHandler CellFormatting
+        {
+            add
+            {
+                dataGridView.CellFormatting += value;
+            }
+            remove
+            {
+                dataGridView.CellFormatting -= value;
+            }
+        }
+
+        public event DataGridViewCellEventHandler CellValueChanged
+        {
+            add
+            {
+                dataGridView.CellValueChanged += value;
+            }
+            remove
+            {
+                dataGridView.CellValueChanged -= value;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="DataGridViewControl"/>.
@@ -50,7 +100,7 @@ namespace Core.Common.Controls.DataGrid
 
             SubscribeEvents();
 
-            LastSelectedRow = -1;
+            ResetLastSelectedRow();
         }
 
         /// <summary>
@@ -130,16 +180,15 @@ namespace Core.Common.Controls.DataGrid
         /// Integer containing the index of the previously selected
         /// row.
         /// </summary>
-        public int LastSelectedRow { get; private set; }
+        private int LastSelectedRow { get; set; }
 
         /// <summary>
-        /// Clears the current cell and resets the last selected row
-        /// property to -1 (no previously selected row).
+        /// Clears the current cell and resets the last selected row.
         /// </summary>
         public void ClearCurrentCell()
         {
             dataGridView.CurrentCell = null;
-            LastSelectedRow = -1;
+            ResetLastSelectedRow();
         }
 
         /// <summary>
@@ -443,45 +492,6 @@ namespace Core.Common.Controls.DataGrid
         #endregion
 
         #region Event handling
-
-        /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CellFormatting"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void AddCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
-        {
-            dataGridView.CellFormatting += handler;
-        }
-
-        /// <summary>
-        /// Remove a handler from the <see cref="DataGridView.CellFormatting"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to remove.</param>
-        public void RemoveCellFormattingHandler(DataGridViewCellFormattingEventHandler handler)
-        {
-            dataGridView.CellFormatting -= handler;
-        }
-
-        /// <summary>
-        /// Add a handler for the <see cref="RowChanged"/> event. event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void AddCurrentRowChangedHandler(EventHandler handler)
-        {
-            RowChanged += handler;
-            dataGridView.CurrentCellChanged += DataGridViewOnCurrentCellChanged;
-        }
-
-        /// <summary>
-        /// Remove the handler for the <see cref="RowChanged"/> event.
-        /// <param name="handler">The handler to remove.</param>
-        /// </summary>
-        public void RemoveCurrentRowChangedHandler(EventHandler handler)
-        {
-            RowChanged -= handler;
-            dataGridView.CurrentCellChanged -= DataGridViewOnCurrentCellChanged;
-        }
-
         private void DataGridViewOnCurrentCellChanged(object o, EventArgs eventArgs)
         {
             if (RowChanged == null)
@@ -492,7 +502,7 @@ namespace Core.Common.Controls.DataGrid
             if (CurrentRow == null)
             {
                 RowChanged.Invoke(o, eventArgs);
-                LastSelectedRow = -1;
+                ResetLastSelectedRow();
                 return;
             }
 
@@ -503,42 +513,6 @@ namespace Core.Common.Controls.DataGrid
 
             RowChanged.Invoke(o, eventArgs);
             LastSelectedRow = CurrentRow.Index;
-        }
-
-        /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CurrentCellChanged"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void AddCurrentCellChangedHandler(EventHandler handler)
-        {
-            dataGridView.CurrentCellChanged += handler;
-        }
-
-        /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CurrentCellChanged"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void RemoveCurrentCellChangedHandler(EventHandler handler)
-        {
-            dataGridView.CurrentCellChanged -= handler;
-        }
-
-        /// <summary>
-        /// Add a handler for the <see cref="DataGridView.CellValueChanged"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to add.</param>
-        public void AddCellValueChangedHandler(DataGridViewCellEventHandler handler)
-        {
-            dataGridView.CellValueChanged += handler;
-        }
-
-        /// <summary>
-        /// Remove a handler from the <see cref="DataGridView.CellValueChanged"/> event.
-        /// </summary>
-        /// <param name="handler">The handler to remove.</param>
-        public void RemoveCellValueChangedHandler(DataGridViewCellEventHandler handler)
-        {
-            dataGridView.CellValueChanged -= handler;
         }
 
         private void SubscribeEvents()

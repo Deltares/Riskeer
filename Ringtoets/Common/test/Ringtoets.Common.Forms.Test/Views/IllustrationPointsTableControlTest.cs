@@ -264,7 +264,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridViewControl dataGridViewControl = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
             dataGridViewControl.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
             var eventThrown = false;
-            dataGridViewControl.AddCurrentRowChangedHandler((sender, args) => eventThrown = true);
+            dataGridViewControl.CurrentRowChanged += (sender, args) => eventThrown = true;
 
             // Call
             control.ResetLastSelectedRow();

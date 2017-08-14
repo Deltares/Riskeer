@@ -40,7 +40,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanismResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
@@ -50,7 +50,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             base.Dispose(disposing);
         }

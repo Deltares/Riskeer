@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public StrengthStabilityLengthwiseConstructionResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             base.Dispose(disposing);
         }

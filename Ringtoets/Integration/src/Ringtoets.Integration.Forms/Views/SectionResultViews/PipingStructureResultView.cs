@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public PipingStructureResultView()
         {
-            DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.RemoveCellFormattingHandler(OnCellFormatting);
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             base.Dispose(disposing);
         }
