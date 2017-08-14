@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_ValueSet_ResetsLastSelectedRow()
+        public void GivenFullyConfiguredControl_WhenDataIsResetAndCellInSameRowSelected_ThenRowChangedFired()
         {
             // Setup
             using (var form = new Form())
@@ -102,28 +102,22 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                      "SSE",
                                                      "Regular",
                                                      Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 3.14),
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
-                                                     "NE",
-                                                     "Regular",
-                                                     Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 5.2)
+                                                     (RoundedDouble) 3.14)
                 };
-
                 control.Data = data;
 
-                var selectionChangedCount = 0;
-                control.SelectionChanged += (sender, args) => selectionChangedCount++;
-
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
+                var selectionChangedCount = 0;
+                dataGridView.CurrentRowChanged += (sender, args) => selectionChangedCount++;
                 dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // Call
-                control.Data = data;
+                control.Data = null;
+                control.Data = data; // Updating data fires event 2 times, then resets to allow next cell change to fire again
                 dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]);
 
                 // Assert
-                Assert.AreEqual(1, selectionChangedCount);
+                Assert.AreEqual(4, selectionChangedCount);
             }
         }
 

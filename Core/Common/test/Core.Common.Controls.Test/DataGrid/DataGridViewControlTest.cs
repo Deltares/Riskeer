@@ -1053,7 +1053,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void ClearCurrentCell_Always_SetsCurrentCellToNullAndResetsLastSelectedRow()
+        public void ClearCurrentCell_Always_SetsCurrentCellToNullAndAllowsNewEventToFire()
         {
             // Setup
             using (var form = new Form())
@@ -1071,6 +1071,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 dataGridView.CurrentCell = control.GetCell(0, 0);
+                var counter = 0;
+                control.CurrentRowChanged += (sender, args) => counter++;
 
                 // Precondition
                 Assert.IsNotNull(dataGridView.CurrentCell);
@@ -1079,8 +1081,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.ClearCurrentCell();
 
                 // Assert
+                Assert.AreEqual(1, counter);
                 Assert.IsNull(dataGridView.CurrentCell);
-                //Assert.AreEqual(-1, control.LastSelectedRow);
+
+                control.SetCurrentCell(control.GetCell(0, 0));
+                Assert.AreEqual(2, counter);
             }
         }
 
@@ -1307,7 +1312,7 @@ namespace Core.Common.Controls.Test.DataGrid
         #region Event handling
 
         [Test]
-        public void AddCellFormattingHandler_Always_AddsEventHandler()
+        public void CellFormatting_HandlerAdded_AddsEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1340,7 +1345,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RemoveCellFormattingHandler_Always_RemovesEventHandler()
+        public void CellFormatting_HandlerRemoved_RemovesEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1377,7 +1382,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCurrentRowChangedHandler_Always_AddsEventHandler()
+        public void CurrentRowChanged_HandlerAdded_AddsEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1390,7 +1395,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var handlerExecuted = false;
 
                 // Call
-                control.CurrentRowChanged += ((sender, args) => handlerExecuted = true);
+                control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Assert
                 gridTester.FireEvent("CurrentCellChanged", new EventArgs());
@@ -1399,7 +1404,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RemoveCurrentRowChangedHandler_Always_RemovesEventHandler()
+        public void CurrentRowChanged_HandlerRemoved_RemovesEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1412,7 +1417,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var counter = 0;
 
                 EventHandler eventHandler = (sender, args) => counter++;
-                control.CurrentRowChanged += (eventHandler);
+                control.CurrentRowChanged += eventHandler;
 
                 // Precondition
                 Assert.AreEqual(0, counter);
@@ -1420,7 +1425,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(1, counter);
 
                 // Call
-                control.CurrentRowChanged -= (eventHandler);
+                control.CurrentRowChanged -= eventHandler;
 
                 // Assert
                 gridTester.FireEvent("CurrentCellChanged", new EventArgs());
@@ -1429,7 +1434,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCurrentCellChangedHandler_Always_AddsEventHandler()
+        public void CurrentCellChanged_HandlerAdded_AddsEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1452,7 +1457,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RemoveCurrentCellChangedHandler_Always_RemovesEventHandler()
+        public void CurrentCellChanged_HandlerRemoved_RemovesEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1482,7 +1487,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCellValueChangedHandler_Always_AddsEventHandler()
+        public void CellValueChanged_HandlerAdded_AddsEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1516,7 +1521,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RemoveCellValueChangedHandler_Always_RemovesEventHandler()
+        public void CellValueChanged_HandlerRemoved_RemovesEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1769,7 +1774,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentRowChangedHandler_SelectedCellInNewRow_ExecuteEventHandler()
+        public void CurrentRowChanged_SelectedCellInNewRow_ExecuteEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1788,7 +1793,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.SetCurrentCell(control.GetCell(0, 0));
 
                 var handlerExecuted = false;
-                control.CurrentRowChanged += ((sender, args) => handlerExecuted = true);
+                control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Call
                 control.SetCurrentCell(control.GetCell(1, 0));
@@ -1799,7 +1804,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentRowChangedHandler_FirstSelection_ExecuteEventHandler()
+        public void CurrentRowChanged_FirstSelection_ExecuteEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1819,7 +1824,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 var handlerExecuted = false;
-                control.CurrentRowChanged += ((sender, args) => handlerExecuted = true);
+                control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Call
                 control.SetCurrentCell(control.GetCell(0, 0));
@@ -1831,7 +1836,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentRowChangedHandler_SelectCellInSameRow_SkipEventHandler()
+        public void CurrentRowChanged_SelectCellInSameRow_SkipEventHandler()
         {
             // Setup
             using (var form = new Form())
@@ -1850,7 +1855,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 var handlerExecuted = false;
-                control.CurrentRowChanged += ((sender, args) => handlerExecuted = true);
+                control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
 
                 // Precondition
                 control.SetCurrentCell(control.GetCell(0, 0));
@@ -1868,7 +1873,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void CurrentRowChangedHandler_SetCurrentCellToNull_ResetsLastSelectedRow()
+        public void CurrentRowChanged_SetCurrentCellToNull_FiresRowChangedEventAndAllowsNewEventToFire()
         {
             // Setup
             using (var form = new Form())
@@ -1885,25 +1890,25 @@ namespace Core.Common.Controls.Test.DataGrid
                     new TestDataGridViewRow(new RoundedDouble(0, 2.5))
                 });
 
-                control.CurrentRowChanged += ((sender, args) => {});
-
-                // Precondition
+                var counter = 0;
+                control.CurrentRowChanged += (sender, args) => counter++;
                 control.SetCurrentCell(control.GetCell(0, 0));
                 gridTester.FireEvent("CurrentCellChanged", EventArgs.Empty);
-                //Assert.AreEqual(0, control.LastSelectedRow);
 
                 // Call
                 control.SetCurrentCell(null);
 
                 // Assert
-                // Assert.AreEqual(-1, control.LastSelectedRow);
+                Assert.AreEqual(2, counter);
+                control.SetCurrentCell(control.GetCell(0, 0));
+                Assert.AreEqual(3, counter);
             }
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CurrentRowChangedHandler_SetHandlerToNullOrNotSet_DoesNothing(bool setToNull)
+        public void CurrentRowChanged_SetHandlerToNullOrNotSet_DoesNothing(bool setToNull)
         {
             // Setup
             using (var form = new Form())

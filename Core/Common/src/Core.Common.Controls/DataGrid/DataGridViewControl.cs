@@ -33,8 +33,6 @@ namespace Core.Common.Controls.DataGrid
     /// </summary>
     public partial class DataGridViewControl : UserControl
     {
-        private event EventHandler RowChanged;
-
         /// <summary>
         /// Event handler that fires only when a new cell in a
         /// row different from the previously selected row is
@@ -54,6 +52,9 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
+        /// <summary>
+        /// Occurs when the <see cref="DataGrid.CurrentCell"/> property changes.
+        /// </summary>
         public event EventHandler CurrentCellChanged
         {
             add
@@ -66,6 +67,9 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
+        /// <summary>
+        /// Occurs when the contents of a cell need to be formatted for display.
+        /// </summary>
         public event DataGridViewCellFormattingEventHandler CellFormatting
         {
             add
@@ -78,6 +82,9 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
+        /// <summary>
+        /// Occurs when the value of a cell changes.
+        /// </summary>
         public event DataGridViewCellEventHandler CellValueChanged
         {
             add
@@ -89,6 +96,8 @@ namespace Core.Common.Controls.DataGrid
                 dataGridView.CellValueChanged -= value;
             }
         }
+
+        private event EventHandler RowChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="DataGridViewControl"/>.
@@ -175,12 +184,6 @@ namespace Core.Common.Controls.DataGrid
                 return dataGridView.CurrentRow;
             }
         }
-
-        /// <summary>
-        /// Integer containing the index of the previously selected
-        /// row.
-        /// </summary>
-        private int LastSelectedRow { get; set; }
 
         /// <summary>
         /// Clears the current cell and resets the last selected row.
@@ -432,6 +435,12 @@ namespace Core.Common.Controls.DataGrid
             base.OnLoad(e);
         }
 
+        /// <summary>
+        /// Integer containing the index of the previously selected
+        /// row.
+        /// </summary>
+        private int LastSelectedRow { get; set; }
+
         #region Styling
 
         /// <summary>
@@ -492,6 +501,7 @@ namespace Core.Common.Controls.DataGrid
         #endregion
 
         #region Event handling
+
         private void DataGridViewOnCurrentCellChanged(object o, EventArgs eventArgs)
         {
             if (RowChanged == null)
