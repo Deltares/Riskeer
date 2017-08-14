@@ -218,6 +218,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(calculationItem, children[0]);
             var returnedCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
         }
 

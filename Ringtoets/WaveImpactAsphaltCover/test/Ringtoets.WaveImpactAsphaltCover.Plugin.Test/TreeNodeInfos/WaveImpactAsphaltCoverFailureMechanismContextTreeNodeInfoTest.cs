@@ -224,6 +224,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
                 Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+                Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
                 Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
 
                 var outputsFolder = (CategoryTreeFolder) children[2];

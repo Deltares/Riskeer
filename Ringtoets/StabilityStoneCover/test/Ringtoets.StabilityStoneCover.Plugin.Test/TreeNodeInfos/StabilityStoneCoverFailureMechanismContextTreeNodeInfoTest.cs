@@ -207,6 +207,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+            Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
             Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
