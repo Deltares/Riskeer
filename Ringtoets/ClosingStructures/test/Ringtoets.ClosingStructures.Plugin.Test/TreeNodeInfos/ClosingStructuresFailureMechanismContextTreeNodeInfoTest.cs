@@ -149,8 +149,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
-            Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+            Assert.IsNull(calculationsFolder.Parent);
             Assert.AreEqual(failureMechanism, calculationsFolder.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];

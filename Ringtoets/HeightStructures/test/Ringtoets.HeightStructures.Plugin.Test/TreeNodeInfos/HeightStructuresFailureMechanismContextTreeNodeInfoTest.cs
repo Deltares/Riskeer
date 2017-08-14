@@ -150,8 +150,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (HeightStructuresCalculationGroupContext) children[1];
-            Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+            Assert.IsNull(calculationsFolder.Parent);
             Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];

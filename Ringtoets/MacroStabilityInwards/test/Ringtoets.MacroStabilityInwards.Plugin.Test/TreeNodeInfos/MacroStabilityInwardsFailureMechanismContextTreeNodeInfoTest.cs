@@ -177,10 +177,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, comment);
 
             var calculationsFolder = (MacroStabilityInwardsCalculationGroupContext) children[1];
-            Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
-            CollectionAssert.AreEqual(failureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
+            Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+            Assert.IsNull(calculationsFolder.Parent);
             Assert.AreSame(failureMechanism.SurfaceLines, calculationsFolder.AvailableMacroStabilityInwardsSurfaceLines);
-            Assert.AreEqual(failureMechanism.StochasticSoilModels, calculationsFolder.AvailableStochasticSoilModels);
+            Assert.AreSame(failureMechanism.StochasticSoilModels, calculationsFolder.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
