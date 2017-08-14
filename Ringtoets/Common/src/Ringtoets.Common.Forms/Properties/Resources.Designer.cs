@@ -890,6 +890,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CopyHS {
+            get {
+                object obj = ResourceManager.GetObject("CopyHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om bij te werken..
         /// </summary>
         public static string CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip {
@@ -1079,6 +1089,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string DistributionType_TruncatedNormal {
             get {
                 return ResourceManager.GetString("DistributionType_TruncatedNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D&amp;upliceren.
+        /// </summary>
+        public static string Duplicate {
+            get {
+                return ResourceManager.GetString("Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dupliceer deze berekening..
+        /// </summary>
+        public static string Duplicate_ToolTip {
+            get {
+                return ResourceManager.GetString("Duplicate_ToolTip", resourceCulture);
             }
         }
         
@@ -2235,6 +2263,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Ringtoets_Category {
             get {
                 return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kopie van {0}.
+        /// </summary>
+        public static string RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0 {
+            get {
+                return ResourceManager.GetString("RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_" +
+                        "name_0", resourceCulture);
             }
         }
         

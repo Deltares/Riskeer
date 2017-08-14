@@ -375,6 +375,7 @@
     <Resource Include="Resources\MapsIcon.png" />
     <None Include="Resources\update.png" />
     <None Include="Resources\warning.ico" />
+    <None Include="Resources\CopyHS.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />

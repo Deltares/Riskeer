@@ -1137,4 +1137,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle" xml:space="preserve">
     <value>Alfa^2</value>
   </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>D&amp;upliceren</value>
+  </data>
+  <data name="Duplicate_ToolTip" xml:space="preserve">
+    <value>Dupliceer deze berekening.</value>
+  </data>
+  <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CopyHS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0" xml:space="preserve">
+    <value>Kopie van {0}</value>
+  </data>
 </root>

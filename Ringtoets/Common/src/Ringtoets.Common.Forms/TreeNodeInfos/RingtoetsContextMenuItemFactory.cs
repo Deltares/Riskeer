@@ -204,6 +204,38 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of duplicating a calculation.
+        /// </summary>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The calculation to duplicate.</param>
+        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculation, TCalculationContext>(
+            TCalculation calculation,
+            TCalculationContext calculationContext)
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculation : ICalculation, ICloneable
+        {
+            return new StrictContextMenuItem(
+                Resources.Duplicate,
+                Resources.Duplicate_ToolTip,
+                Resources.CopyHS,
+                (o, args) =>
+                {
+                    IList<ICalculationBase> currentChildren = calculationContext.Parent.Children;
+                    int calculationIndex = currentChildren.IndexOf(calculation);
+
+                    var copy = (TCalculation) calculation.Clone();
+                    copy.Name = NamingHelper.GetUniqueName(currentChildren,
+                                                           string.Format(Resources.RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0, calculation.Name),
+                                                           c => c.Name);
+
+                    currentChildren.Insert(calculationIndex + 1, copy);
+                });
+        }
+
+        /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of validating the input of a calculation.
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
