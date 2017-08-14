@@ -875,6 +875,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return builder.AddExportItem()
                           .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, context)
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddCustomItem(updateDikeProfile)
                           .AddSeparator()

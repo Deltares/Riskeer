@@ -56,10 +56,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateDikeProfileIndex = 3;
-        private const int contextMenuValidateIndex = 5;
-        private const int contextMenuCalculateIndex = 6;
-        private const int contextMenuClearIndex = 8;
+        private const int contextMenuDuplicateIndex = 2;
+        private const int contextMenuUpdateDikeProfileIndex = 5;
+        private const int contextMenuValidateIndex = 7;
+        private const int contextMenuCalculateIndex = 8;
+        private const int contextMenuClearIndex = 10;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
@@ -172,6 +173,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -234,7 +237,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer deze berekening.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateDikeProfileIndex,
                                                                   "&Bijwerken dijkprofiel...",

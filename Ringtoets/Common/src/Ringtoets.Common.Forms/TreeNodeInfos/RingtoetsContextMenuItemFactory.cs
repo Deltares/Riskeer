@@ -223,7 +223,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.CopyHS,
                 (o, args) =>
                 {
-                    IList<ICalculationBase> currentChildren = calculationContext.Parent.Children;
+                    CalculationGroup parent = calculationContext.Parent;
+                    IList<ICalculationBase> currentChildren = parent.Children;
                     int calculationIndex = currentChildren.IndexOf(calculation);
 
                     var copy = (TCalculation) calculation.Clone();
@@ -232,6 +233,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                                            c => c.Name);
 
                     currentChildren.Insert(calculationIndex + 1, copy);
+                    parent.NotifyObservers();
                 });
         }
 
