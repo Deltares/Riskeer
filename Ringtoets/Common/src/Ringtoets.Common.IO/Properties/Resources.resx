@@ -874,4 +874,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
     <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
   </data>
+  <data name="StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism" xml:space="preserve">
+    <value>Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme.</value>
+  </data>
 </root>

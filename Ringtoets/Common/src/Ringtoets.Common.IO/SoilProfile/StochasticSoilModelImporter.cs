@@ -90,6 +90,14 @@ namespace Ringtoets.Common.IO.SoilProfile
             Log.Info(message);
         }
 
+        protected override void DoPostImportUpdates()
+        {
+            foreach (IObservable observable in updatedInstances)
+            {
+                observable.NotifyObservers();
+            }
+        }
+
         protected override bool OnImport()
         {
             ReadResult<StochasticSoilModel> importStochasticSoilModelResult = ReadStochasticSoilModels();
@@ -118,6 +126,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             if (!transformedStochasticSoilModels.Items.Any())
             {
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism);
                 return true;
             }
 

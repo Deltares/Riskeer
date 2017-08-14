@@ -1749,6 +1749,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme..
+        /// </summary>
+        public static string StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inlezen van de D-Soil Model database..
         /// </summary>
         public static string StochasticSoilModelImporter_Reading_database {
