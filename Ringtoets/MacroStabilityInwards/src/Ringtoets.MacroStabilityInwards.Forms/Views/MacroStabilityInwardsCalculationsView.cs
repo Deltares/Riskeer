@@ -178,6 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             if (disposing)
             {
                 dataGridViewControl.CellFormatting -= OnCellFormatting;
+                dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
 
                 assessmentSectionObserver.Dispose();
                 failureMechanismObserver.Dispose();

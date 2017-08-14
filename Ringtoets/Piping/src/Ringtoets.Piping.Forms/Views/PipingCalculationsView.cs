@@ -178,6 +178,7 @@ namespace Ringtoets.Piping.Forms.Views
             if (disposing)
             {
                 dataGridViewControl.CellFormatting -= OnCellFormatting;
+                dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
 
                 assessmentSectionObserver.Dispose();
                 pipingFailureMechanismObserver.Dispose();
