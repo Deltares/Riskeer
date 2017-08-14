@@ -1360,17 +1360,14 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
-                var counter = 0;
-                control.CellFormatting += (sender, args) => counter++;
-
-                // Precondition
-                Assert.AreEqual(0, counter);
+                var handlerExecuted = false;
+                control.CellFormatting += (sender, args) => handlerExecuted = true;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual(1, counter);
+                Assert.IsTrue(handlerExecuted);
             }
         }
 
