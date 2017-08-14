@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
+using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingCalculationScenarioContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
             var mocks = new MockRepository();
@@ -72,6 +72,39 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine()
+            };
+            var soilModels = new[]
+            {
+                new TestStochasticSoilModel()
+            };
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new PipingCalculationScenarioContext(calculation,
+                                                                           null,
+                                                                           surfaceLines,
+                                                                           soilModels,
+                                                                           failureMechanism,
+                                                                           assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parent", exception.ParamName);
             mocks.VerifyAll();
         }
     }
