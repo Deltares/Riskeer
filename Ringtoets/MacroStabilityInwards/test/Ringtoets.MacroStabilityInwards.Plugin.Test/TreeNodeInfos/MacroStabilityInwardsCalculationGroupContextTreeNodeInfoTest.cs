@@ -185,9 +185,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(calculationItem, children[0]);
             var returnedCalculationContext = (MacroStabilityInwardsCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
+            Assert.AreSame(group, returnedCalculationContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationContext.FailureMechanism);
             var returnedCalculationGroupContext = (MacroStabilityInwardsCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
+            Assert.AreSame(group, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, returnedCalculationGroupContext.AssessmentSection);
         }

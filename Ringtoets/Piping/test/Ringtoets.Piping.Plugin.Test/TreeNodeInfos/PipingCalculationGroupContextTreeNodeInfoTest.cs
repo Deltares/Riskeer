@@ -188,9 +188,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(calculationItem, children[0]);
             var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
+            Assert.AreSame(group, returnedCalculationContext.Parent);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationContext.FailureMechanism);
             var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
+            Assert.AreSame(group, returnedCalculationGroupContext.Parent);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, returnedCalculationGroupContext.AssessmentSection);
         }

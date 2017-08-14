@@ -178,10 +178,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(group.Children.Count, children.Length);
             var calculationGroupContext = (StabilityPointStructuresCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
+            Assert.AreSame(group, calculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
             var calculationContext = (StabilityPointStructuresCalculationContext) children[1];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
+            Assert.AreSame(group, calculationContext.Parent);
             Assert.AreSame(assessmentSection, calculationContext.AssessmentSection);
         }
 
