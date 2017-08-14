@@ -174,36 +174,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing a calculation.
-        /// </summary>
-        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to perform.</param>
-        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
-        /// <param name="calculateAction">The action that performs the calculation.</param>
-        /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
-        /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
-        /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
-        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
-            TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction,
-            Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
-            where TCalculation : ICalculation
-        {
-            var menuItem = new StrictContextMenuItem(
-                Resources.Calculate,
-                Resources.Calculate_ToolTip,
-                Resources.CalculateIcon,
-                (o, args) => calculateAction(calculation, calculationContext));
-
-            SetStateWithEnableFunction(calculationContext, enableMenuItemFunction, menuItem);
-            return menuItem;
-        }
-
-        /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of duplicating a calculation.
         /// </summary>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
@@ -235,6 +205,36 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     currentChildren.Insert(calculationIndex + 1, copy);
                     parent.NotifyObservers();
                 });
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing a calculation.
+        /// </summary>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The calculation to perform.</param>
+        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <param name="calculateAction">The action that performs the calculation.</param>
+        /// <param name="enableMenuItemFunction">The function which determines whether the item should be enabled. If the 
+        /// item should not be enabled, then the reason for that should be returned by the function and will be shown as a tooltip. 
+        /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
+            TCalculation calculation,
+            TCalculationContext calculationContext,
+            Action<TCalculation, TCalculationContext> calculateAction,
+            Func<TCalculationContext, string> enableMenuItemFunction)
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculation : ICalculation
+        {
+            var menuItem = new StrictContextMenuItem(
+                Resources.Calculate,
+                Resources.Calculate_ToolTip,
+                Resources.CalculateIcon,
+                (o, args) => calculateAction(calculation, calculationContext));
+
+            SetStateWithEnableFunction(calculationContext, enableMenuItemFunction, menuItem);
+            return menuItem;
         }
 
         /// <summary>

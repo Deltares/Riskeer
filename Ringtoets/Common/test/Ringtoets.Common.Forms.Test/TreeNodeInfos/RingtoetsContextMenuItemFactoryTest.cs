@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -102,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => {});
 
             // Assert
             Assert.AreEqual("Berekening &toevoegen", toolStripItem.Text);
@@ -598,6 +599,141 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        #region CreateDuplicateCalculationItem
+
+        private static IEnumerable<TestCaseData> CalculationGroupConfigurations
+        {
+            get
+            {
+                var calculation = new TestCloneableCalculation
+                {
+                    Name = "Nieuwe berekening"
+                };
+
+                yield return new TestCaseData(calculation,
+                                              new CalculationGroup
+                                              {
+                                                  Children =
+                                                  {
+                                                      calculation
+                                                  }
+                                              },
+                                              "Kopie van Nieuwe berekening")
+                    .SetName("NameOfStandardCopyUnique");
+                yield return new TestCaseData(calculation,
+                                              new CalculationGroup
+                                              {
+                                                  Children =
+                                                  {
+                                                      calculation,
+                                                      new TestCalculation
+                                                      {
+                                                          Name = "Kopie van Nieuwe berekening"
+                                                      }
+                                                  }
+                                              },
+                                              "Kopie van Nieuwe berekening (1)")
+                    .SetName("NameOfStandardCopySameAsOtherCalculation");
+                yield return new TestCaseData(calculation,
+                                              new CalculationGroup
+                                              {
+                                                  Children =
+                                                  {
+                                                      new CalculationGroup
+                                                      {
+                                                          Name = "Kopie van Nieuwe berekening"
+                                                      },
+                                                      calculation
+                                                  }
+                                              },
+                                              "Kopie van Nieuwe berekening (1)")
+                    .SetName("NameOfStandardCopySameAsOtherCalculationGroup");
+            }
+        }
+
+        [Test]
+        public void CreateDuplicateCalculationItem_Always_CreatesDecoratedAndEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = mocks.Stub<ICloneableCalculation>();
+            var calculationContext = mocks.Stub<ICalculationContext<ICloneableCalculation, IFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext);
+
+            // Assert
+            Assert.AreEqual("D&upliceren", toolStripItem.Text);
+            Assert.AreEqual("Dupliceer deze berekening.", toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CopyHS, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource("CalculationGroupConfigurations")]
+        public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationWithExpectedNameAndPosition(TestCloneableCalculation calculation,
+                                                                                                                              CalculationGroup calculationGroup,
+                                                                                                                              string expectedCalculationName)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationContext = mocks.Stub<ICalculationContext<TestCloneableCalculation, IFailureMechanism>>();
+
+            calculationContext.Stub(c => c.Parent).Return(calculationGroup);
+
+            mocks.ReplayAll();
+
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext);
+
+            List<ICalculationBase> originalChildren = calculationGroup.Children.ToList();
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            ICalculationBase copiedItem = calculationGroup.Children.Except(originalChildren).SingleOrDefault();
+            Assert.IsNotNull(copiedItem);
+            Assert.AreEqual(expectedCalculationName, copiedItem.Name);
+            Assert.AreEqual(originalChildren.IndexOf(calculation) + 1, calculationGroup.Children.IndexOf(copiedItem));
+
+            mocks.VerifyAll();
+        }
+
+        public interface ICloneableCalculation : ICalculation, ICloneable {}
+
+        public class TestCloneableCalculation : Observable, ICloneableCalculation
+        {
+            public string Name { get; set; }
+
+            public bool HasOutput
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
+            public Comment Comments
+            {
+                get
+                {
+                    return null;
+                }
+            }
+
+            public void ClearOutput() {}
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
+        }
+
+        #endregion
+
         #region CreateUpdateForeshoreProfileOfCalculationItem
 
         [Test]
@@ -616,7 +752,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
-                inquiryHelper, c => { });
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -648,7 +784,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateUpdateForeshoreProfileOfCalculationItem(
                 calculation,
-                inquiryHelper, c => { });
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofiel...", toolStripItem.Text);
@@ -756,7 +892,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 {
                     calculation
                 },
-                inquiryHelper, c => { });
+                inquiryHelper, c => {});
 
             // Assert
             Assert.AreEqual("&Bijwerken voorlandprofielen...", toolStripItem.Text);
