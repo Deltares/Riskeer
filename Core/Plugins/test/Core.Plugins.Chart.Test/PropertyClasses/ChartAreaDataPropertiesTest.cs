@@ -52,10 +52,15 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isEditable)
         {
             // Setup
-            var chartAreaData = new ChartAreaData("Test");
+            var chartAreaData = new ChartAreaData("Test", new ChartAreaStyle
+            {
+                IsEditable = isEditable
+            });
 
             // Call
             var properties = new ChartAreaDataProperties
@@ -74,20 +79,23 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fillColorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(fillColorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijnkleur",
-                                                                            "De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
         }
 
         [Test]
@@ -104,10 +112,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                 StrokeColor = strokeColor,
                 StrokeThickness = strokeThickness
             });
-            var properties = new ChartAreaDataProperties();
 
             // Call
-            properties.Data = chartAreaData;
+            var properties = new ChartAreaDataProperties
+            {
+                Data = chartAreaData
+            };
 
             // Assert
             Assert.AreEqual(fillColor, properties.FillColor);

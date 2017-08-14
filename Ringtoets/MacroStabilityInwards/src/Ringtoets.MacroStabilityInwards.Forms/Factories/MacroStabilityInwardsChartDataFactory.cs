@@ -193,7 +193,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 StrokeThickness = strokeColor == Color.Transparent
                                       ? 0
                                       : 1,
-                Symbol = symbol
+                Symbol = symbol,
+                IsEditable = true
             };
         }
     }

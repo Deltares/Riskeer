@@ -43,13 +43,15 @@ namespace Core.Components.Chart.Test.Styles
             {
                 FillColor = fillColor,
                 StrokeColor = strokeColor,
-                StrokeThickness = width
+                StrokeThickness = width,
+                IsEditable = true
             };
 
             // Assert
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
+            Assert.IsTrue(areaStyle.IsEditable);
         }
 
         [Test]

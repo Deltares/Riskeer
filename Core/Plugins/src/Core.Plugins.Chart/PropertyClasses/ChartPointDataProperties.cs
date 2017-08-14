@@ -38,7 +38,16 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartPointDataProperties : ChartDataProperties<ChartPointData>
     {
+        public override string Type
+        {
+            get
+            {
+                return Resources.ChartDataProperties_Type_Points;
+            }
+        }
+
         [PropertyOrder(3)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Color_Description))]
@@ -58,6 +67,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(4)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_StrokeColor_Description))]
@@ -77,6 +87,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(5)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_StrokeThickness_Description))]
@@ -94,6 +105,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(6)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartPointData_Size_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Size_Description))]
@@ -111,6 +123,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(7)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartPointData_Symbol_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartPointData_Symbol_Description))]
@@ -128,12 +141,10 @@ namespace Core.Plugins.Chart.PropertyClasses
             }
         }
 
-        public override string Type
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidation(string propertyName)
         {
-            get
-            {
-                return Resources.ChartDataProperties_Type_Points;
-            }
+            return !data.Style.IsEditable;
         }
     }
 }

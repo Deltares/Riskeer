@@ -53,10 +53,15 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isEditable)
         {
             // Setup
-            var chartLineData = new ChartMultipleLineData("Test");
+            var chartLineData = new ChartMultipleLineData("Test", new ChartLineStyle
+            {
+                IsEditable = isEditable
+            });
 
             // Call
             var properties = new ChartMultipleLineDataProperties
@@ -71,24 +76,27 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             const string styleCategory = "Stijl";
 
             PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);            
+            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
             Assert.IsInstanceOf<EnumTypeConverter>(styleProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(styleProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
-                                                                            "De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
         }
 
         [Test]

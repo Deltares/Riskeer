@@ -73,7 +73,8 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = lineColor,
                                          Width = revetmentThickness,
-                                         DashStyle = ChartLineDashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         IsEditable = true
                                      });
         }
 
@@ -89,7 +90,8 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = Color.FromArgb(120, lineColor),
                                          Width = revetmentThickness,
-                                         DashStyle = ChartLineDashStyle.Dash
+                                         DashStyle = ChartLineDashStyle.Dash,
+                                         IsEditable = true
                                      });
         }
 
@@ -132,7 +134,8 @@ namespace Ringtoets.Revetment.Forms.Factories
                                      {
                                          Color = Color.LightCoral,
                                          Width = levelThickness,
-                                         DashStyle = ChartLineDashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         IsEditable = true
                                      });
         }
 
@@ -147,7 +150,8 @@ namespace Ringtoets.Revetment.Forms.Factories
                                              {
                                                  Color = Color.DarkTurquoise,
                                                  Width = levelThickness,
-                                                 DashStyle = ChartLineDashStyle.DashDotDot
+                                                 DashStyle = ChartLineDashStyle.DashDotDot,
+                                                 IsEditable = true
                                              });
         }
 
@@ -178,7 +182,8 @@ namespace Ringtoets.Revetment.Forms.Factories
             {
                 Color = lineColor,
                 Width = levelThickness,
-                DashStyle = ChartLineDashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid,
+                IsEditable = true
             };
         }
 
@@ -188,7 +193,8 @@ namespace Ringtoets.Revetment.Forms.Factories
             {
                 Color = Color.MediumBlue,
                 Width = levelThickness,
-                DashStyle = ChartLineDashStyle.Solid
+                DashStyle = ChartLineDashStyle.Solid,
+                IsEditable = true
             };
         }
     }

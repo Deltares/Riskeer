@@ -120,7 +120,8 @@ namespace Ringtoets.Piping.Forms.Factories
                 StrokeColor = Color.Transparent,
                 Size = 8,
                 StrokeThickness = 0,
-                Symbol = ChartPointSymbol.Triangle
+                Symbol = ChartPointSymbol.Triangle,
+                IsEditable = true
             };
         }
     }

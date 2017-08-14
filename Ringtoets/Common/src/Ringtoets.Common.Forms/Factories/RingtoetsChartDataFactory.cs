@@ -43,7 +43,8 @@ namespace Ringtoets.Common.Forms.Factories
                                      {
                                          Color = Color.DarkOrange,
                                          Width = 2,
-                                         DashStyle = ChartLineDashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         IsEditable = true
                                      });
         }
 
@@ -58,7 +59,8 @@ namespace Ringtoets.Common.Forms.Factories
                                      {
                                          Color = Color.Sienna,
                                          Width = 2,
-                                         DashStyle = ChartLineDashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         IsEditable = true
                                      });
         }
 
@@ -157,7 +159,8 @@ namespace Ringtoets.Common.Forms.Factories
                 StrokeColor = strokeColor,
                 Size = 8,
                 StrokeThickness = strokeColor == Color.Transparent ? 0 : 1,
-                Symbol = symbol
+                Symbol = symbol,
+                IsEditable = true
             };
         }
     }

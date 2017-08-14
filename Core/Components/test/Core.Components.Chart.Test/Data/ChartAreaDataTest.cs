@@ -44,6 +44,7 @@ namespace Core.Components.Chart.Test.Data
             Assert.AreEqual(Color.Gray, data.Style.FillColor);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
             Assert.AreEqual(2, data.Style.StrokeThickness);
+            Assert.AreEqual(false, data.Style.IsEditable);
         }
 
         [Test]
@@ -92,7 +93,8 @@ namespace Core.Components.Chart.Test.Data
             {
                 FillColor = Color.Red,
                 StrokeColor = Color.Fuchsia,
-                StrokeThickness = 3
+                StrokeThickness = 3,
+                IsEditable = true
             };
 
             // Call

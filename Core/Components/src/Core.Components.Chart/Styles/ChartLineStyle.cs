@@ -29,7 +29,7 @@ namespace Core.Components.Chart.Styles
     /// <summary>
     /// This class represents styling of a line on a chart.
     /// </summary>
-    public class ChartLineStyle
+    public class ChartLineStyle : ChartStyle
     {
         private readonly Range<int> widthValidityRange = new Range<int>(0, 48);
         private int width;

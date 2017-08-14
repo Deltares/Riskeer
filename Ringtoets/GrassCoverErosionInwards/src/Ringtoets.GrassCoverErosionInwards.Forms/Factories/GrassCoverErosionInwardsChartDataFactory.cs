@@ -47,7 +47,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
                                      {
                                          Color = Color.SaddleBrown,
                                          Width = 2,
-                                         DashStyle = ChartLineDashStyle.Solid
+                                         DashStyle = ChartLineDashStyle.Solid,
+                                         IsEditable = true
                                      });
         }
 
@@ -62,7 +63,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Factories
                                      {
                                          Color = Color.MediumSeaGreen,
                                          Width = 2,
-                                         DashStyle = ChartLineDashStyle.Dash
+                                         DashStyle = ChartLineDashStyle.Dash,
+                                         IsEditable = true
                                      });
         }
 

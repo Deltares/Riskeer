@@ -38,7 +38,16 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartLineDataProperties : ChartDataProperties<ChartLineData>
     {
+        public override string Type
+        {
+            get
+            {
+                return Resources.ChartDataProperties_Type_Lines;
+            }
+        }
+
         [PropertyOrder(3)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_Color_Description))]
@@ -58,6 +67,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(4)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_Width_Description))]
@@ -75,6 +85,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(5)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartLineData_DashStyle_Description))]
@@ -92,12 +103,10 @@ namespace Core.Plugins.Chart.PropertyClasses
             }
         }
 
-        public override string Type
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidation(string propertyName)
         {
-            get
-            {
-                return Resources.ChartDataProperties_Type_Lines;
-            }
+            return !data.Style.IsEditable;
         }
     }
 }

@@ -34,25 +34,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
     public class GrassCoverErosionInwardsChartDataFactoryTest
     {
         [Test]
-        public void CreateDikeGeometryChartData_ReturnsChartDataWithDefaultStyling()
+        public void CreateDikeGeometryChartData_ReturnsChartDataWithEditableStyling()
         {
             // Call
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
 
             // Assert
             Assert.AreEqual("Dijkprofiel", data.Name);
-            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid, true);
         }
 
         [Test]
-        public void CreateDikeHeightChartData_ReturnsChartDataWithDefaultStyling()
+        public void CreateDikeHeightChartData_ReturnsChartDataWithEditableStyling()
         {
             // Call
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
             // Assert
             Assert.AreEqual("Dijkhoogte", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, ChartLineDashStyle.Dash);
+            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, ChartLineDashStyle.Dash, true);
         }
 
         [Test]
@@ -150,11 +150,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style, bool isEditable)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
+            Assert.AreEqual(isEditable, lineStyle.IsEditable);
         }
     }
 }

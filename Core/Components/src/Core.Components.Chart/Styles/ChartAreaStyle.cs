@@ -29,7 +29,7 @@ namespace Core.Components.Chart.Styles
     /// <summary>
     /// This class represents styling of a area on a chart.
     /// </summary>
-    public class ChartAreaStyle
+    public class ChartAreaStyle : ChartStyle
     {
         private readonly Range<int> strokeThicknessValidityRange = new Range<int>(0, 48);
         private int strokeThickness;

@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Styles\ChartStyle.cs" />
     <Compile Include="Styles\ChartAreaStyle.cs" />
     <Compile Include="Styles\ChartLineDashStyle.cs" />
     <Compile Include="Styles\ChartLineStyle.cs" />

@@ -44,6 +44,7 @@ namespace Core.Components.Chart.Test.Data
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
             Assert.AreEqual(ChartLineDashStyle.Solid, data.Style.DashStyle);
+            Assert.AreEqual(false, data.Style.IsEditable);
         }
 
         [Test]
@@ -92,7 +93,8 @@ namespace Core.Components.Chart.Test.Data
             {
                 Color = Color.Red,
                 Width = 3,
-                DashStyle = ChartLineDashStyle.DashDot
+                DashStyle = ChartLineDashStyle.DashDot,
+                IsEditable = true
             };
 
             // Call

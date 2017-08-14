@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsChartDataFactoryTest
     {
         [Test]
-        public void CreateShoulderBaseInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateShoulderBaseInsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
@@ -43,11 +43,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Insteek binnenberm", data.Name);
-            AssertEqualStyle(data.Style, Color.BlueViolet, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+            AssertEqualStyle(data.Style, Color.BlueViolet, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle, true);
         }
 
         [Test]
-        public void CreateDikeTopAtPolderChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateDikeTopAtPolderChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
@@ -55,11 +55,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Kruin binnentalud", data.Name);
-            AssertEqualStyle(data.Style, Color.LightSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+            AssertEqualStyle(data.Style, Color.LightSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle, true);
         }
 
         [Test]
-        public void CreateShoulderTopInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateShoulderTopInsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
@@ -67,11 +67,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Kruin binnenberm", data.Name);
-            AssertEqualStyle(data.Style, Color.DeepSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+            AssertEqualStyle(data.Style, Color.DeepSkyBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle, true);
         }
 
         [Test]
-        public void CreateSurfaceLevelInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateSurfaceLevelInsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
@@ -79,11 +79,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Maaiveld binnenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.ForestGreen, 8, Color.Black, 1, ChartPointSymbol.Square);
+            AssertEqualStyle(data.Style, Color.ForestGreen, 8, Color.Black, 1, ChartPointSymbol.Square, true);
         }
 
         [Test]
-        public void CreateSurfaceLevelOutsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateSurfaceLevelOutsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
@@ -91,11 +91,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Maaiveld buitenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.LightSeaGreen, 8, Color.Black, 1, ChartPointSymbol.Square);
+            AssertEqualStyle(data.Style, Color.LightSeaGreen, 8, Color.Black, 1, ChartPointSymbol.Square, true);
         }
 
         [Test]
-        public void CreateTrafficLoadInsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateTrafficLoadInsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
@@ -103,11 +103,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Verkeersbelasting kant binnenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.LightSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
+            AssertEqualStyle(data.Style, Color.LightSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle, true);
         }
 
         [Test]
-        public void CreateTrafficLoadOutsideChartData_ReturnsChartPointDataWithDefaultStyling()
+        public void CreateTrafficLoadOutsideChartData_ReturnsChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Verkeersbelasting kant buitenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
+            AssertEqualStyle(data.Style, Color.DarkSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle, true);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
-            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
+            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1, false);
         }
 
         [Test]
@@ -250,20 +250,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         private static void AssertEqualStyle(ChartPointStyle pointStyle, Color fillColor, int size,
-                                             Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
+                                             Color strokeColor, int strokeThickness, ChartPointSymbol symbol, bool isEditable)
         {
             Assert.AreEqual(fillColor, pointStyle.Color);
             Assert.AreEqual(size, pointStyle.Size);
             Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
             Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
             Assert.AreEqual(symbol, pointStyle.Symbol);
+            Assert.AreEqual(isEditable, pointStyle.IsEditable);
         }
 
-        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width)
+        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width, bool isEditable)
         {
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
+            Assert.AreEqual(isEditable, areaStyle.IsEditable);
         }
     }
 }

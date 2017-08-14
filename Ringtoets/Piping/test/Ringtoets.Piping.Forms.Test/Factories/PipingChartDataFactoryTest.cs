@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
     public class PipingChartDataFactoryTest
     {
         [Test]
-        public void CreateEntryPointChartData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        public void CreateEntryPointChartData_ReturnsEmptyChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = PipingChartDataFactory.CreateEntryPointChartData();
@@ -43,11 +43,11 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Intredepunt", data.Name);
-            AssertEqualStyle(data.Style, Color.Gold, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
+            AssertEqualStyle(data.Style, Color.Gold, 8, Color.Transparent, 0, ChartPointSymbol.Triangle, true);
         }
 
         [Test]
-        public void CreateExitPointChartData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        public void CreateExitPointChartData_ReturnsEmptyChartPointDataWithEditableStyling()
         {
             // Call
             ChartPointData data = PipingChartDataFactory.CreateExitPointChartData();
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Uittredepunt", data.Name);
-            AssertEqualStyle(data.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
+            AssertEqualStyle(data.Style, Color.Tomato, 8, Color.Transparent, 0, ChartPointSymbol.Triangle, true);
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
-            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
+            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1, false);
         }
 
         [Test]
@@ -186,20 +186,22 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             Assert.AreEqual("soilLayerIndex", paramName);
         }
 
-        private static void AssertEqualStyle(ChartPointStyle pointStyle, Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)
+        private static void AssertEqualStyle(ChartPointStyle pointStyle, Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol, bool isEditable)
         {
             Assert.AreEqual(color, pointStyle.Color);
             Assert.AreEqual(size, pointStyle.Size);
             Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
             Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
             Assert.AreEqual(symbol, pointStyle.Symbol);
+            Assert.AreEqual(isEditable, pointStyle.IsEditable);
         }
 
-        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width)
+        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width, bool isEditable)
         {
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
+            Assert.AreEqual(isEditable, areaStyle.IsEditable);
         }
     }
 }

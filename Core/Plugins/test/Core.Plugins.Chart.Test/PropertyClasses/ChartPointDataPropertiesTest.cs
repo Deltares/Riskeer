@@ -55,10 +55,15 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isEditable)
         {
             // Setup
-            var chartPointData = new ChartPointData("Test");
+            var chartPointData = new ChartPointData("Test", new ChartPointStyle
+            {
+                IsEditable = isEditable
+            });
 
             // Call
             var properties = new ChartPointDataProperties
@@ -77,33 +82,38 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(strokeColorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijnkleur",
-                                                                            "De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor sizeProperty = dynamicProperties[sizePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
                                                                             styleCategory,
                                                                             "Grootte",
-                                                                            "De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
 
             PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
             Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
                                                                             styleCategory,
                                                                             "Symbool",
-                                                                            "Het symbool waarmee deze gegevensreeks wordt weergegeven.");
+                                                                            "Het symbool waarmee deze gegevensreeks wordt weergegeven.",
+                                                                            !isEditable);
         }
 
         [Test]

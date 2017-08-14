@@ -47,7 +47,8 @@ namespace Core.Components.Chart.Test.Styles
                 StrokeColor = strokeColor,
                 Size = size,
                 StrokeThickness = strokeThickness,
-                Symbol = symbol
+                Symbol = symbol,
+                IsEditable = true
             };
 
             // Assert
@@ -56,6 +57,7 @@ namespace Core.Components.Chart.Test.Styles
             Assert.AreEqual(strokeColor, pointStyle.StrokeColor);
             Assert.AreEqual(strokeThickness, pointStyle.StrokeThickness);
             Assert.AreEqual(symbol, pointStyle.Symbol);
+            Assert.IsTrue(pointStyle.IsEditable);
         }
 
         [Test]

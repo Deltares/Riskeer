@@ -36,7 +36,16 @@ namespace Core.Plugins.Chart.PropertyClasses
     /// </summary>
     public class ChartAreaDataProperties : ChartDataProperties<ChartAreaData>
     {
+        public override string Type
+        {
+            get
+            {
+                return Resources.ChartDataProperties_Type_Areas;
+            }
+        }
+
         [PropertyOrder(3)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_FillColor_Description))]
@@ -56,6 +65,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(4)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeColor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_StrokeColor_Description))]
@@ -75,6 +85,7 @@ namespace Core.Plugins.Chart.PropertyClasses
         }
 
         [PropertyOrder(5)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ChartData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ChartAreaData_StrokeThickness_Description))]
@@ -91,12 +102,10 @@ namespace Core.Plugins.Chart.PropertyClasses
             }
         }
 
-        public override string Type
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidation(string propertyName)
         {
-            get
-            {
-                return Resources.ChartDataProperties_Type_Areas;
-            }
+            return !data.Style.IsEditable;
         }
     }
 }
