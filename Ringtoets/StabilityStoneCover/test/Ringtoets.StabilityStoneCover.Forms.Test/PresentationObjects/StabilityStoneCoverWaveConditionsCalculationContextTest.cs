@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
@@ -32,59 +32,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationContextTest
     {
-        [Test]
-        public void Constructor_CalculationNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationContext(null, failureMechanism, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationContext(calculation, null, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationContext(calculation, failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -95,13 +42,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<StabilityStoneCoverWaveConditionsCalculation>>(context);
+            Assert.IsInstanceOf<StabilityStoneCoverContext<StabilityStoneCoverWaveConditionsCalculation>>(context);
+            Assert.IsInstanceOf<ICalculationContext<StabilityStoneCoverWaveConditionsCalculation, StabilityStoneCoverFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();

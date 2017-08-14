@@ -76,6 +76,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             failureMechanism,
@@ -115,6 +116,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup,
+                                                                                  null,
                                                                                   Enumerable.Empty<PipingSurfaceLine>(),
                                                                                   Enumerable.Empty<StochasticSoilModel>(),
                                                                                   pipingFailureMechanism,
@@ -138,6 +140,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                                  null,
                                                                                   Enumerable.Empty<PipingSurfaceLine>(),
                                                                                   Enumerable.Empty<StochasticSoilModel>(),
                                                                                   failureMechanism,
@@ -309,7 +312,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
             var pipingCalculationsGroup = mocks.StrictMock<CalculationGroup>();
-            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroup, Enumerable.Empty<PipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanism, assessmentSection);
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroup,
+                                                                                  null,
+                                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                  Enumerable.Empty<StochasticSoilModel>(),
+                                                                                  pipingFailureMechanism, assessmentSection);
 
             view.Expect(v => v.AssessmentSection = assessmentSection);
             view.Expect(v => v.PipingFailureMechanism = pipingFailureMechanism);

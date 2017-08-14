@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -66,6 +67,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
+                                                                 new CalculationGroup(),
                                                                  new HeightStructuresFailureMechanism(),
                                                                  assessmentSection);
 
@@ -107,6 +109,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
+                                                                 new CalculationGroup(),
                                                                  new HeightStructuresFailureMechanism(),
                                                                  assessmentSection);
 

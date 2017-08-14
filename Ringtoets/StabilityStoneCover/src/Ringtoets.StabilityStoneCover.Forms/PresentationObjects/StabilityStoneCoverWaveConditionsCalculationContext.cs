@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -35,12 +37,24 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationContext"/> class.
         /// </summary>
         /// <param name="wrappedData">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationContext(StabilityStoneCoverWaveConditionsCalculation wrappedData,
+                                                                   CalculationGroup parent,
                                                                    StabilityStoneCoverFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection)
-            : base(wrappedData, failureMechanism, assessmentSection) {}
+            : base(wrappedData, failureMechanism, assessmentSection)
+        {
+            if (parent == null)
+            {
+                throw new ArgumentNullException(nameof(parent));
+            }
+
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

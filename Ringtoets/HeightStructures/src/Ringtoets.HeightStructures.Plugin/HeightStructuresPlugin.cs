@@ -376,7 +376,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
-                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, context.Parent),
+                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, context.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -489,12 +489,14 @@ namespace Ringtoets.HeightStructures.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new HeightStructuresCalculationContext(calculation,
+                                                                                context.WrappedData,
                                                                                 context.FailureMechanism,
                                                                                 context.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new HeightStructuresCalculationGroupContext(group,
+                                                                                     context.WrappedData,
                                                                                      context.FailureMechanism,
                                                                                      context.AssessmentSection));
                 }

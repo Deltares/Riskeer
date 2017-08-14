@@ -67,6 +67,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               new StabilityPointStructuresFailureMechanism(),
                                                                               assessmentSection);
 
@@ -108,6 +109,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               new StabilityPointStructuresFailureMechanism(),
                                                                               assessmentSection);
 
@@ -147,6 +149,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
             }
 
             var context = new StabilityPointStructuresCalculationGroupContext(calculationGroup,
+                                                                              null,
                                                                               new StabilityPointStructuresFailureMechanism(),
                                                                               assessmentSection);
 

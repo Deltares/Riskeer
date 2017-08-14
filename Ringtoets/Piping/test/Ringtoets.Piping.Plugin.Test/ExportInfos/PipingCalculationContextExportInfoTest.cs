@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Configurations;
@@ -66,6 +67,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                                                               new CalculationGroup(),
                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                new PipingFailureMechanism(),
@@ -109,6 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                                                               new CalculationGroup(),
                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                new PipingFailureMechanism(),

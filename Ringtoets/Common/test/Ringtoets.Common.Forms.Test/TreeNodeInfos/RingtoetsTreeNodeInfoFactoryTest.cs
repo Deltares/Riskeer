@@ -74,11 +74,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             const string groupName = "testName";
-            var group = new CalculationGroup
-            {
-                Name = groupName
-            };
-            var groupContext = new TestCalculationGroupContext(group, failureMechanism);
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup
+                                                               {
+                                                                   Name = groupName
+                                                               },
+                                                               new CalculationGroup(),
+                                                               failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -107,13 +108,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationGroup = new TestCalculationGroupContext(new CalculationGroup(), mocks.Stub<IFailureMechanism>());
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
+
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
 
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
-            bool result = treeNodeInfo.EnsureVisibleOnCreate(null, calculationGroup);
+            bool result = treeNodeInfo.EnsureVisibleOnCreate(null, groupContext);
 
             // Assert
             Assert.IsTrue(result);
@@ -138,11 +141,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationGroup = mocks.StrictMock<CalculationGroup>();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var groupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -178,7 +180,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             const string newName = "new name";
             var group = new CalculationGroup();
-            var nodeData = new TestCalculationGroupContext(group, failureMechanism);
+            var nodeData = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
             nodeData.Attach(observer);
 
@@ -200,8 +202,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
-            var parentNodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
+            var parentGroup = new CalculationGroup();
+            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
+            var parentNodeData = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -220,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
+            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -239,8 +242,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
-            var parentGroupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
+            var parentGroup = new CalculationGroup();
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
+            var parentGroupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -259,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanism);
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -540,7 +544,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         private static void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
         {
             data = new CalculationGroup();
-            dataContext = new TestCalculationGroupContext(data, failureMechanism);
+            dataContext = new TestCalculationGroupContext(data, new CalculationGroup(), failureMechanism);
         }
 
         /// <summary>
@@ -563,7 +567,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                         calculation.Name = initialName;
                     }
                     data = calculation;
-                    dataContext = new TestCalculationContext(calculation, failureMechanism);
+                    dataContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
                     break;
                 case CalculationItemType.Group:
                     var group = new CalculationGroup();
@@ -572,7 +576,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                         group.Name = initialName;
                     }
                     data = group;
-                    dataContext = new TestCalculationGroupContext(group, failureMechanism);
+                    dataContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
                     break;
                 default:
                     throw new NotSupportedException();
@@ -621,7 +625,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Name = calculationName
             };
 
-            var context = new TestCalculationContext(calculation, failureMechanism);
+            var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
@@ -673,7 +677,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Name = "<Original name>"
             };
 
-            var context = new TestCalculationContext(calculation, failureMechanism);
+            var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             context.WrappedData.Attach(observer);
@@ -701,10 +705,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var context = new TestCalculationContext(calculationToBeRemoved, failureMechanism);
+            var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
-            var groupContext = new TestCalculationGroupContext(group, failureMechanism);
+            var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
             // Call
             bool removalAllowed = treeNodeInfo.CanRemove(context, groupContext);
@@ -727,10 +731,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var context = new TestCalculationContext(calculationToBeRemoved, failureMechanism);
+            var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
-            var groupContext = new TestCalculationGroupContext(group, failureMechanism);
+            var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
             // Call
             bool removalAllowed = treeNodeInfo.CanRemove(context, groupContext);
@@ -749,7 +753,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var calculationContext = new TestCalculationContext(new TestCalculation(), failureMechanism);
+            var calculationContext = new TestCalculationContext(new TestCalculation(), new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
@@ -1052,26 +1056,32 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            public TestCalculationGroupContext(CalculationGroup wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public CalculationGroup WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
         {
-            public TestCalculationContext(TestCalculation wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationContext(TestCalculation wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public TestCalculation WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }

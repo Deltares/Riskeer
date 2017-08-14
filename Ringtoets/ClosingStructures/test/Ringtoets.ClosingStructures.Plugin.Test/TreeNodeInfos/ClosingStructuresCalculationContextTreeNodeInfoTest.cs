@@ -119,12 +119,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = hasOutput ? new TestStructuresOutput() : null
             };
 
-            var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -150,8 +151,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -202,8 +204,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -255,9 +258,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -286,6 +290,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -294,7 +299,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -323,6 +328,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -331,7 +337,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             ChangeStructure(calculation.InputParameters.Structure);
@@ -361,6 +367,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structure = new TestClosingStructure();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -369,7 +376,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(obs => obs.UpdateObserver());
@@ -406,6 +413,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structure = new TestClosingStructure();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -417,7 +425,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             ClosingStructuresInput calculationInput = calculation.InputParameters;
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             calculationInput.Attach(inputObserver);
@@ -466,6 +474,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structure = new TestClosingStructure();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -475,7 +484,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Output = new TestStructuresOutput()
             };
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(obs => obs.UpdateObserver());
@@ -525,9 +534,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -561,9 +571,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -605,9 +616,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -647,9 +659,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Version = "1.0"
             };
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -680,9 +693,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
+                                                                   parent,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -715,10 +730,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
+                                                                   parent,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -753,11 +770,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
+                                                                   parent,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -795,6 +814,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -803,6 +823,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new ClosingStructuresCalculationContext(calculation,
+                                                                   parent,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -845,6 +866,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
@@ -855,6 +877,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var nodeData = new ClosingStructuresCalculationContext(calculation,
+                                                                   parent,
                                                                    failureMechanism,
                                                                    assessmentSection);
 
@@ -941,6 +964,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
 
             var initialOutput = new TestStructuresOutput();
+            var parent = new CalculationGroup();
             var calculation = new TestClosingStructuresCalculation
             {
                 Output = initialOutput,
@@ -950,7 +974,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1013,6 +1037,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            var parent = new CalculationGroup();
             var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
@@ -1025,7 +1050,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(observer);
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1060,9 +1085,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new ClosingStructuresCalculationContext(elementToBeRemoved,
+                                                                             group,
                                                                              failureMechanism,
                                                                              assessmentSection);
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
+                                                                            null,
                                                                             failureMechanism,
                                                                             assessmentSection);
 
@@ -1095,9 +1122,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var elementToBeRemoved = new StructuresCalculation<ClosingStructuresInput>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new ClosingStructuresCalculationContext(elementToBeRemoved,
+                                                                             group,
                                                                              failureMechanism,
                                                                              assessmentSection);
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
+                                                                            null,
                                                                             failureMechanism,
                                                                             assessmentSection);
 

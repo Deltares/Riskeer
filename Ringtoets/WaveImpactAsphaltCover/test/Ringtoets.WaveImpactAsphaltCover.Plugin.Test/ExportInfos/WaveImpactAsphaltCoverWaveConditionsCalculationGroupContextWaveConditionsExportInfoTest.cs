@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -106,7 +106,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -142,7 +142,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 
             calculationGroup.Children.Add(calculation);
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -186,7 +186,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
                     }
                 });
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

@@ -71,6 +71,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                       null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);
 
@@ -100,6 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                       null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);
 
@@ -135,6 +137,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             }
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                       null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);
 

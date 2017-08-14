@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -42,16 +43,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var context = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(context);
             Assert.IsInstanceOf<ICalculationContext<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(context);
-            Assert.AreEqual(calculation, context.WrappedData);
-            Assert.AreEqual(failureMechanism, context.FailureMechanism);
-            Assert.AreEqual(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
     }

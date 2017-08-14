@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -66,6 +67,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresCalculationContext(new TestStabilityPointStructuresCalculation(),
+                                                                         new CalculationGroup(),
                                                                          new StabilityPointStructuresFailureMechanism(),
                                                                          assessmentSection);
 
@@ -107,6 +109,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresCalculationContext(new TestStabilityPointStructuresCalculation(),
+                                                                         new CalculationGroup(),
                                                                          new StabilityPointStructuresFailureMechanism(),
                                                                          assessmentSection);
 

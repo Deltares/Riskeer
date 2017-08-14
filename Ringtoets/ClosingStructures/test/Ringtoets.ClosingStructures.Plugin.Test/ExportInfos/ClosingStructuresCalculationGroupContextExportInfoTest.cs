@@ -67,6 +67,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                       null,
                                                                        new ClosingStructuresFailureMechanism(),
                                                                        assessmentSection);
 
@@ -108,6 +109,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                       null,
                                                                        new ClosingStructuresFailureMechanism(),
                                                                        assessmentSection);
 
@@ -147,6 +149,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             }
 
             var context = new ClosingStructuresCalculationGroupContext(calculationGroup,
+                                                                       null,
                                                                        new ClosingStructuresFailureMechanism(),
                                                                        assessmentSection);
 

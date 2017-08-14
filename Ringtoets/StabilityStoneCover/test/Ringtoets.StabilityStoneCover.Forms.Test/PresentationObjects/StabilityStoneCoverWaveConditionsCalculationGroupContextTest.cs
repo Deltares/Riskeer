@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -35,60 +33,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
     public class StabilityStoneCoverWaveConditionsCalculationGroupContextTest
     {
         [Test]
-        public void Constructor_CalculationGroupNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationGroupContext(null, failureMechanism, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var group = new CalculationGroup();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationGroupContext(group, null, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationGroupContext(group, failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
-        [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -98,14 +45,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<CalculationGroup>>(context);
+            Assert.IsInstanceOf<StabilityStoneCoverContext<CalculationGroup>>(context);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, StabilityStoneCoverFailureMechanism>>(context);
-
             Assert.AreSame(calculationGroup, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();

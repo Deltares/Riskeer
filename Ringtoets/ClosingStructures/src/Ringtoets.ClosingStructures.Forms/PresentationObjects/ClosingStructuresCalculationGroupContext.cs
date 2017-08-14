@@ -40,13 +40,18 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="ClosingStructuresCalculationGroupContext"/>.
         /// </summary>
         /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance that is wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism which contains the calculation group.</param>
         /// <param name="assessmentSection">The assessment section which contains the calculation group.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>, except for <paramref name="parent"/>.</exception>
         public ClosingStructuresCalculationGroupContext(CalculationGroup calculationGroup,
+                                                        CalculationGroup parent,
                                                         ClosingStructuresFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism, assessmentSection) {}
+            : base(calculationGroup, failureMechanism, assessmentSection)
+        {
+            Parent = parent;
+        }
 
         /// <summary>
         /// Gets the available foreshore profiles.
@@ -69,5 +74,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
                 return FailureMechanism.ClosingStructures;
             }
         }
+
+        public CalculationGroup Parent { get; }
     }
 }

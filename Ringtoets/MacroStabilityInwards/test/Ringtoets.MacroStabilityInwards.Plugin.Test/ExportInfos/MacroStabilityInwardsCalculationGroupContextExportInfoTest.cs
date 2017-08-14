@@ -67,6 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                           null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),
@@ -110,6 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                           null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),
@@ -151,6 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             }
 
             var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                           null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),

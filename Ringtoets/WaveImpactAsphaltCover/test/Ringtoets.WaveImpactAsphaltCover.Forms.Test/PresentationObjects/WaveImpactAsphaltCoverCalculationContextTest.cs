@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -41,16 +42,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverContext<WaveImpactAsphaltCoverWaveConditionsCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverFailureMechanism>>(context);
-            Assert.AreEqual(calculation, context.WrappedData);
-            Assert.AreEqual(failureMechanism, context.FailureMechanism);
-            Assert.AreEqual(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
     }

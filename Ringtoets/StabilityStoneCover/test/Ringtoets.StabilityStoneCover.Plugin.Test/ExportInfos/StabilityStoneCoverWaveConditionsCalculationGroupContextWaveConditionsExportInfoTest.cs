@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -106,7 +106,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -129,7 +129,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -164,7 +164,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
                 Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
             });
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -215,7 +215,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
                     }
                 });
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

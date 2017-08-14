@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,7 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
     public class MacroStabilityInwardsCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -53,16 +54,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup, surfaceLines, soilModels, failureMechanism, assessmentSection);
+            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup, parent, surfaceLines, soilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(groupContext);
             Assert.IsInstanceOf<MacroStabilityInwardsContext<CalculationGroup>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, MacroStabilityInwardsFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(surfaceLines, groupContext.AvailableMacroStabilityInwardsSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);

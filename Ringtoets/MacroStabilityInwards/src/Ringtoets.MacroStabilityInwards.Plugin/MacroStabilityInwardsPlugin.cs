@@ -658,7 +658,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, macroStabilityInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, macroStabilityInwardsFailureMechanismContext.Parent),
+                new MacroStabilityInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, macroStabilityInwardsFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -804,6 +804,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationScenarioContext(calculation,
+                                                                                             nodeData.WrappedData,
                                                                                              nodeData.AvailableMacroStabilityInwardsSurfaceLines,
                                                                                              nodeData.AvailableStochasticSoilModels,
                                                                                              nodeData.FailureMechanism,
@@ -812,6 +813,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 else if (group != null)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                          nodeData.WrappedData,
                                                                                           nodeData.AvailableMacroStabilityInwardsSurfaceLines,
                                                                                           nodeData.AvailableStochasticSoilModels,
                                                                                           nodeData.FailureMechanism,

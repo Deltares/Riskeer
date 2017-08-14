@@ -117,12 +117,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 Output = hasOutput ? new TestStructuresOutput() : null
             };
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -148,8 +149,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -203,8 +205,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -259,9 +262,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -293,6 +297,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -301,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -333,6 +338,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -341,7 +347,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             ChangeStructure(calculation.InputParameters.Structure);
@@ -379,6 +385,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -387,6 +394,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -426,6 +434,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -436,6 +445,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -498,8 +508,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -538,8 +549,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -585,8 +597,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -630,8 +643,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -665,9 +679,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -701,10 +717,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -740,11 +758,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -783,6 +803,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -791,6 +812,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -834,6 +856,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -844,6 +867,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             };
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
+                                                                          parent,
                                                                           failureMechanism,
                                                                           assessmentSection);
 
@@ -929,6 +953,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
 
             var initialStructuresOutput = new TestStructuresOutput();
+            var parent = new CalculationGroup();
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 Output = initialStructuresOutput,
@@ -942,7 +967,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(observer);
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1008,6 +1033,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            var parent = new CalculationGroup();
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -1020,7 +1046,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation.Attach(observer);
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1058,9 +1084,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
+                                                                                    group,
                                                                                     failureMechanism,
                                                                                     assessmentSection);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                   null,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -1093,9 +1121,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
+                                                                                    group,
                                                                                     failureMechanism,
                                                                                     assessmentSection);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                   null,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 

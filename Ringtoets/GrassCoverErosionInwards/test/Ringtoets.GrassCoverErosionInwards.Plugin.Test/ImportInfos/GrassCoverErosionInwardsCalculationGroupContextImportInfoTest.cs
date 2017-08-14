@@ -116,6 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               failureMechanism,
                                                                               assessmentSection);
 

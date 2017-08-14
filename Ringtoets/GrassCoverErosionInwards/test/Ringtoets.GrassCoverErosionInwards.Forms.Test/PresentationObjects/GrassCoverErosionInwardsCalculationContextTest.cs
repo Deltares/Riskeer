@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -41,14 +42,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var context = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();

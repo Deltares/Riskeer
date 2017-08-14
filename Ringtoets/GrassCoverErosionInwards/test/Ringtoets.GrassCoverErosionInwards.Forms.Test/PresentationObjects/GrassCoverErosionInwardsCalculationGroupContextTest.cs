@@ -33,7 +33,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionInwardsCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -43,13 +45,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<CalculationGroup>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, GrassCoverErosionInwardsFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.DikeProfiles, groupContext.AvailableDikeProfiles);

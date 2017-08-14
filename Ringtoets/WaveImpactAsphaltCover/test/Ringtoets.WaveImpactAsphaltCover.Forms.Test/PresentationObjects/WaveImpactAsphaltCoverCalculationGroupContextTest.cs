@@ -33,7 +33,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
     public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -43,13 +45,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverContext<CalculationGroup>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, WaveImpactAsphaltCoverFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.ForeshoreProfiles);

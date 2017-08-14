@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,7 +35,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -53,16 +54,18 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var groupContext = new PipingCalculationGroupContext(calculationGroup, surfaceLines, soilModels, failureMechanism, assessmentSection);
+            var groupContext = new PipingCalculationGroupContext(calculationGroup, parent, surfaceLines, soilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(groupContext);
             Assert.IsInstanceOf<PipingContext<CalculationGroup>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, PipingFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);

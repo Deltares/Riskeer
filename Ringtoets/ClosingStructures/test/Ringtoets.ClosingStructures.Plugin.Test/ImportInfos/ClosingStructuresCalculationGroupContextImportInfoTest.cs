@@ -66,6 +66,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                       null,
                                                                        new ClosingStructuresFailureMechanism(),
                                                                        assessmentSection);
 

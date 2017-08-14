@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,60 +33,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest
     {
         [Test]
-        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("wrappedData", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationGroup = new CalculationGroup();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -97,14 +45,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsContext<CalculationGroup>>(context);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>>(context);
-
             Assert.AreSame(calculationGroup, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();

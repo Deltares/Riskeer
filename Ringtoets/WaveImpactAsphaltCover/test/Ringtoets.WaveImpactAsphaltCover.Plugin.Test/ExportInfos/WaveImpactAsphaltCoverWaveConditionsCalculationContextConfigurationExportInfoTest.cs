@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
@@ -69,10 +70,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                     failureMechanism, assessmentSection);
+                                                                                     new CalculationGroup(),
+                                                                                     new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                     assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -100,12 +101,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
-                new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                failureMechanism,
-                assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                     new CalculationGroup(),
+                                                                                     new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                     assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

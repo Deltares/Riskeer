@@ -355,7 +355,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, closingStructuresFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, closingStructuresFailureMechanismContext.Parent),
+                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, closingStructuresFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -478,12 +478,14 @@ namespace Ringtoets.ClosingStructures.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new ClosingStructuresCalculationContext(calculation,
+                                                                                 context.WrappedData,
                                                                                  context.FailureMechanism,
                                                                                  context.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new ClosingStructuresCalculationGroupContext(group,
+                                                                                      context.WrappedData,
                                                                                       context.FailureMechanism,
                                                                                       context.AssessmentSection));
                 }

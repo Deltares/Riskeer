@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -32,22 +33,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="MacroStabilityInwardsCalculationScenario"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class MacroStabilityInwardsCalculationScenarioContext : MacroStabilityInwardsContext<MacroStabilityInwardsCalculationScenario>, ICalculationContext<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsFailureMechanism>
+    public class MacroStabilityInwardsCalculationScenarioContext : MacroStabilityInwardsContext<MacroStabilityInwardsCalculationScenario>,
+                                                                   ICalculationContext<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationScenarioContext"/> class.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped scenario.</param>
         /// <param name="surfaceLines">The surface lines available within the macro stability inwards context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the macro stability inwards context.</param>
         /// <param name="macroStabilityInwardsFailureMechanism">The macro stability inwards failure mechanism which the macro stability inwards context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the macro stability inwards context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationScenarioContext(MacroStabilityInwardsCalculationScenario calculation,
+                                                               CalculationGroup parent,
                                                                IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                                IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                                MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(calculation, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}
+            : base(calculation, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection)
+        {
+            if (parent == null)
+            {
+                throw new ArgumentNullException(nameof(parent));
+            }
+
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

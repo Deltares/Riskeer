@@ -369,6 +369,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                        GetInputs(wrappedData, stabilityPointStructuresFailureMechanismContext.Parent),
                                        TreeFolderCategory.Input),
                 new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup,
+                                                                    null,
                                                                     wrappedData,
                                                                     stabilityPointStructuresFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
@@ -486,12 +487,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new StabilityPointStructuresCalculationContext(calculation,
+                                                                                        context.WrappedData,
                                                                                         context.FailureMechanism,
                                                                                         context.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                             context.WrappedData,
                                                                                              context.FailureMechanism,
                                                                                              context.AssessmentSection));
                 }

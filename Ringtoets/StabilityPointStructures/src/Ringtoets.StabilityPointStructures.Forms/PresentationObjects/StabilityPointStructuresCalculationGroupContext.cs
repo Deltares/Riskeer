@@ -40,13 +40,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationGroupContext"/>.
         /// </summary>
         /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
         public StabilityPointStructuresCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                               CalculationGroup parent,
                                                                StabilityPointStructuresFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(calculationsGroup, failureMechanism, assessmentSection) {}
+            : base(calculationsGroup, failureMechanism, assessmentSection)
+        {
+            Parent = parent;
+        }
 
         /// <summary>
         /// Gets the available foreshore profiles.
@@ -69,5 +74,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
                 return FailureMechanism.StabilityPointStructures;
             }
         }
+
+        public CalculationGroup Parent { get; }
     }
 }

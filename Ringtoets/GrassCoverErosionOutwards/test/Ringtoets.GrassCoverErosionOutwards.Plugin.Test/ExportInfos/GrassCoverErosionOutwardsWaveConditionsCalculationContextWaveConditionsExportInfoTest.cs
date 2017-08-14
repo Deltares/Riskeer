@@ -27,10 +27,11 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.IO.WaveConditions;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
@@ -70,10 +71,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                        new CalculationGroup(),
+                                                                                        new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                        assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -104,7 +105,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                        new CalculationGroup(),
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -122,18 +125,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var output = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
                 new GrassCoverErosionOutwardsWaveConditionsCalculation
                 {
-                    Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output)
+                    Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    })
                 },
-                failureMechanism, assessmentSection);
+                new CalculationGroup(),
+                new GrassCoverErosionOutwardsFailureMechanism(),
+                assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

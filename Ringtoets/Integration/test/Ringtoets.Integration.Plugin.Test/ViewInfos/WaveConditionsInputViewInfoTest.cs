@@ -196,6 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var contextToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                     null,
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -410,6 +411,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             });
 
             var contextToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                     null,
                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle())
@@ -497,6 +499,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
                         grassCoverErosionOutwardsWaveConditionsCalculation,
+                        new CalculationGroup(),
                         new GrassCoverErosionOutwardsFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     grassCoverErosionOutwardsWaveConditionsCalculation)
@@ -507,6 +510,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             yield return new TestCaseData(
                     new StabilityStoneCoverWaveConditionsCalculationContext(
                         stabilityStoneCoverWaveConditionsCalculation,
+                        new CalculationGroup(),
                         new StabilityStoneCoverFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     stabilityStoneCoverWaveConditionsCalculation)
@@ -517,6 +521,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             yield return new TestCaseData(
                     new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
                         waveImpactAsphaltCoverWaveConditionsCalculation,
+                        new CalculationGroup(),
                         new WaveImpactAsphaltCoverFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     waveImpactAsphaltCoverWaveConditionsCalculation)
@@ -590,6 +595,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                 grassCoverErosionOutwardsWaveConditionsCalculation
                             }
                         },
+                        null,
                         new GrassCoverErosionOutwardsFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     grassCoverErosionOutwardsWaveConditionsCalculation)
@@ -606,6 +612,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                 stabilityStoneCoverWaveConditionsCalculation
                             }
                         },
+                        null,
                         new StabilityStoneCoverFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     stabilityStoneCoverWaveConditionsCalculation)
@@ -622,6 +629,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                 waveImpactAsphaltCoverWaveConditionsCalculation
                             }
                         },
+                        null,
                         new WaveImpactAsphaltCoverFailureMechanism(),
                         new AssessmentSection(AssessmentSectionComposition.Dike)),
                     waveImpactAsphaltCoverWaveConditionsCalculation)

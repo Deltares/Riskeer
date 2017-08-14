@@ -117,6 +117,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                          null,
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 

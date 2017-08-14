@@ -23,6 +23,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -52,15 +53,21 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var presentationObject = new PipingCalculationScenarioContext(calculation, surfaceLines, soilModels, failureMechanism, assessmentSection);
+            var presentationObject = new PipingCalculationScenarioContext(calculation,
+                                                                          parent,
+                                                                          surfaceLines,
+                                                                          soilModels,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(presentationObject);
             Assert.IsInstanceOf<PipingContext<PipingCalculationScenario>>(presentationObject);
             Assert.IsInstanceOf<ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>>(presentationObject);
             Assert.AreSame(calculation, presentationObject.WrappedData);
+            Assert.AreSame(parent, presentationObject.Parent);
             Assert.AreSame(surfaceLines, presentationObject.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);

@@ -526,7 +526,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent),
+                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -639,12 +639,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationContext(calculation,
+                                                                                        context.WrappedData,
                                                                                         context.FailureMechanism,
                                                                                         context.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                                             context.WrappedData,
                                                                                              context.FailureMechanism,
                                                                                              context.AssessmentSection));
                 }

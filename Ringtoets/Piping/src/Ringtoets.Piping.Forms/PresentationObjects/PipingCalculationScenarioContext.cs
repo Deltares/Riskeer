@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -32,22 +33,35 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>, ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>
+    public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>,
+                                                    ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationScenarioContext"/> class.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped scenario.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingCalculationScenarioContext(PipingCalculationScenario calculation,
+                                                CalculationGroup parent,
                                                 IEnumerable<PipingSurfaceLine> surfaceLines,
                                                 IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                 PipingFailureMechanism pipingFailureMechanism,
                                                 IAssessmentSection assessmentSection)
-            : base(calculation, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
+            : base(calculation, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)
+        {
+            if (parent == null)
+            {
+                throw new ArgumentNullException(nameof(parent));
+            }
+
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

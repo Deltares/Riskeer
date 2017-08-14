@@ -33,7 +33,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
     public class StabilityPointStructuresCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -43,13 +45,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var groupContext = new StabilityPointStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<CalculationGroup, StabilityPointStructuresFailureMechanism>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, StabilityPointStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.AvailableForeshoreProfiles);

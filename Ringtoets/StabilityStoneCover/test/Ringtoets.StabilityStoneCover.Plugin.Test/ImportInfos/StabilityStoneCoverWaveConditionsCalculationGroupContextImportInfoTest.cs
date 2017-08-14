@@ -117,6 +117,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                       null,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
 

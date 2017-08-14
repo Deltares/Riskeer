@@ -27,8 +27,9 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.IO.WaveConditions;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.Revetment.IO.WaveConditions;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -70,10 +71,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
+                                                                                  new CalculationGroup(),
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -101,10 +102,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
+                                                                                  new CalculationGroup(),
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -122,18 +123,20 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var output = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
-                    Output = new StabilityStoneCoverWaveConditionsOutput(output, output)
+                    Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    }, new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    })
                 },
-                failureMechanism, assessmentSection);
+                new CalculationGroup(),
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

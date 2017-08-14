@@ -66,6 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 
@@ -107,6 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 
@@ -146,6 +148,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             }
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                              null,
                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                               assessmentSection);
 

@@ -102,8 +102,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var parent = new CalculationGroup();
                 var calculationGroup = new CalculationGroup();
-                var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+                var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
                 var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
                                                                 importCommandHandler,
                                                                 exportCommandHandler,
@@ -812,8 +813,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -855,8 +857,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -905,8 +908,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -948,8 +952,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var calculationContext = new TestCalculationContext(calculation, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -998,6 +1003,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -1010,7 +1016,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1052,8 +1058,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1096,6 +1103,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -1108,7 +1116,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1153,8 +1161,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1203,6 +1212,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -1215,7 +1225,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1257,8 +1267,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1301,6 +1312,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -1313,7 +1325,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1358,8 +1370,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1778,26 +1791,32 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            public TestCalculationGroupContext(CalculationGroup wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public CalculationGroup WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
         {
-            public TestCalculationContext(TestCalculation wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationContext(TestCalculation wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public TestCalculation WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }

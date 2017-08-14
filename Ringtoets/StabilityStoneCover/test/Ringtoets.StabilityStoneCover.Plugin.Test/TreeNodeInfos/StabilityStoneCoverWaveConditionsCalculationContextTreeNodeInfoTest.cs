@@ -38,6 +38,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -113,12 +114,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             const string name = "cool name";
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = name
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -171,6 +174,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = null
@@ -184,6 +188,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }, "path");
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -226,6 +231,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
@@ -240,6 +246,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }, "path");
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -289,6 +296,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
@@ -298,6 +306,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
             const string name = "the new name!";
@@ -316,6 +325,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
@@ -324,10 +334,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -345,6 +357,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
@@ -352,10 +365,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -375,6 +390,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
@@ -384,10 +400,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
@@ -418,8 +436,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -474,8 +494,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -527,11 +549,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -577,11 +601,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -628,11 +654,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -685,11 +713,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 FilePath = validHydroDatabasePath
             };
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -733,9 +763,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   parent,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -769,10 +801,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   parent,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -808,11 +842,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile();
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   parent,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -851,6 +887,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
@@ -859,6 +896,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   parent,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -902,6 +940,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
@@ -912,6 +951,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                   parent,
                                                                                    failureMechanism,
                                                                                    assessmentSection);
 
@@ -984,6 +1024,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
@@ -1001,6 +1042,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1059,11 +1101,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1110,11 +1154,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1167,11 +1213,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 FilePath = validHydroDatabasePath
             };
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A"
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1219,9 +1267,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validHydroDatabasePath);
 
+            var parent = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1289,12 +1339,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 Output = null
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1340,6 +1392,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
@@ -1347,6 +1400,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                      Enumerable.Empty<WaveConditionsOutput>())
             };
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
@@ -1394,6 +1448,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var observer = mocks.Stub<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
+            var parent = new CalculationGroup();
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
@@ -1402,6 +1457,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
             calculation.Attach(observer);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 

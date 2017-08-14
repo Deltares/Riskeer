@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
@@ -65,6 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
+                                                                         new CalculationGroup(),
                                                                          new GrassCoverErosionInwardsFailureMechanism(),
                                                                          assessmentSection);
 
@@ -106,6 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
+                                                                         new CalculationGroup(),
                                                                          new GrassCoverErosionInwardsFailureMechanism(),
                                                                          assessmentSection);
 

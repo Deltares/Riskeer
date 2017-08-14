@@ -51,15 +51,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnTheSameValueAsData()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
-
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
+            var calculationGroup = new CalculationGroup();
+
             var properties = new CalculationGroupContextProperties
             {
-                Data = new TestCalculationGroupContext(calculationGroup, failureMechanism)
+                Data = new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism)
             };
 
             // Call & Assert
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, new CalculationGroup(), failureMechanism);
 
             calculationGroup.Attach(projectObserver);
 
@@ -100,15 +100,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Name_GroupHasEditableName_NameShouldNotBeReadonly(bool nameIsEditable)
         {
             // Setup
-            var calculationGroup = new CalculationGroup("A", nameIsEditable);
-
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationGroupContextProperties
             {
-                Data = new TestCalculationGroupContext(calculationGroup, failureMechanism)
+                Data = new TestCalculationGroupContext(new CalculationGroup("A", nameIsEditable),
+                                                       new CalculationGroup(),
+                                                       failureMechanism)
             };
 
             string propertyName = nameof(CalculationGroupContextProperties.Name);
@@ -127,13 +127,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            public TestCalculationGroupContext(CalculationGroup wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public CalculationGroup WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }

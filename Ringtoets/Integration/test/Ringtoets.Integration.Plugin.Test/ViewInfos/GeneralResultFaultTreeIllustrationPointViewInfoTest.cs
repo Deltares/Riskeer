@@ -140,6 +140,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 return new HeightStructuresCalculationContext(
                     new StructuresCalculation<HeightStructuresInput>(),
+                    new CalculationGroup(),
                     new HeightStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
@@ -154,6 +155,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                             new StructuresCalculation<HeightStructuresInput>()
                         }
                     },
+                    null,
                     new HeightStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
@@ -187,6 +189,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 return new ClosingStructuresCalculationContext(
                     new StructuresCalculation<ClosingStructuresInput>(),
+                    new CalculationGroup(),
                     new ClosingStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
@@ -201,6 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                             new StructuresCalculation<ClosingStructuresInput>()
                         }
                     },
+                    null,
                     new ClosingStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
@@ -234,6 +238,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 return new StabilityPointStructuresCalculationContext(
                     new StructuresCalculation<StabilityPointStructuresInput>(),
+                    new CalculationGroup(),
                     new StabilityPointStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
@@ -248,6 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                             new StructuresCalculation<StabilityPointStructuresInput>()
                         }
                     },
+                    null,
                     new StabilityPointStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }

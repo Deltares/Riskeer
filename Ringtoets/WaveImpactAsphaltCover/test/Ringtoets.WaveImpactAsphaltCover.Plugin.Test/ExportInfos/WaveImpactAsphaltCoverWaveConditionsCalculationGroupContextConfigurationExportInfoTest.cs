@@ -71,6 +71,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                          null,
                                                                                           new WaveImpactAsphaltCoverFailureMechanism(),
                                                                                           assessmentSection);
 
@@ -100,6 +101,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                          null,
                                                                                           new WaveImpactAsphaltCoverFailureMechanism(),
                                                                                           assessmentSection);
 
@@ -133,6 +135,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             }
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                          null,
                                                                                           new WaveImpactAsphaltCoverFailureMechanism(),
                                                                                           assessmentSection);
 

@@ -128,6 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
+                                                                  new CalculationGroup(),
                                                                   new GrassCoverErosionInwardsFailureMechanism(),
                                                                   new AssessmentSection(AssessmentSectionComposition.Dike));
         }
@@ -142,6 +143,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                         new GrassCoverErosionInwardsCalculation()
                     }
                 },
+                null,
                 new GrassCoverErosionInwardsFailureMechanism(),
                 new AssessmentSection(AssessmentSectionComposition.Dike));
         }

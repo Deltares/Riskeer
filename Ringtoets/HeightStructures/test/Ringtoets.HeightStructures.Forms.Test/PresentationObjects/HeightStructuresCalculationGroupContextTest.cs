@@ -33,7 +33,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     public class HeightStructuresCalculationGroupContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameteredConstructor_ExpectedValues(bool withParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -43,13 +45,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
+            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+
             // Call
-            var groupContext = new HeightStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            var groupContext = new HeightStructuresCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<CalculationGroup, HeightStructuresFailureMechanism>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, HeightStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
+            Assert.AreSame(parent, groupContext.Parent);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, groupContext.AvailableForeshoreProfiles);

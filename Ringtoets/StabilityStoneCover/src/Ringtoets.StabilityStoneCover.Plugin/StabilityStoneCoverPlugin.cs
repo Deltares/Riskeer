@@ -249,7 +249,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, wrappedData, failureMechanismContext.Parent),
+                new StabilityStoneCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -333,12 +333,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                                 nodeData.WrappedData,
                                                                                                  nodeData.FailureMechanism,
                                                                                                  nodeData.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                                      nodeData.WrappedData,
                                                                                                       nodeData.FailureMechanism,
                                                                                                       nodeData.AssessmentSection));
                 }

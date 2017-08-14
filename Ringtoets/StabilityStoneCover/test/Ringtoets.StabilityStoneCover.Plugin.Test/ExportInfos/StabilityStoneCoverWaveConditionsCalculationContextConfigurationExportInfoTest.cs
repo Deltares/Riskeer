@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.IO.Exporters;
@@ -69,10 +70,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
+                                                                                  new CalculationGroup(),
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -100,12 +101,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(
-                new StabilityStoneCoverWaveConditionsCalculation(),
-                failureMechanism,
-                assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+                                                                                  new CalculationGroup(),
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

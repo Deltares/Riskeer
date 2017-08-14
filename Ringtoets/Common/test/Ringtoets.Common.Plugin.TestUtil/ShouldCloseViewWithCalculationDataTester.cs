@@ -300,10 +300,13 @@ namespace Ringtoets.Common.Plugin.TestUtil
             public TestCalculationContext()
             {
                 WrappedData = new TestCalculation("Calculation");
+                Parent = new CalculationGroup();
                 FailureMechanism = new TestFailureMechanism();
             }
 
             public TestCalculation WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public TestFailureMechanism FailureMechanism { get; }
         }
@@ -319,10 +322,13 @@ namespace Ringtoets.Common.Plugin.TestUtil
                         new TestCalculation("Calculation")
                     }
                 };
+                Parent = new CalculationGroup();
                 FailureMechanism = new TestFailureMechanism();
             }
 
             public CalculationGroup WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public TestFailureMechanism FailureMechanism { get; }
         }

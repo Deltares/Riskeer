@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
@@ -42,14 +43,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var context = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.IsInstanceOf<ICalculationContext<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+            Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();

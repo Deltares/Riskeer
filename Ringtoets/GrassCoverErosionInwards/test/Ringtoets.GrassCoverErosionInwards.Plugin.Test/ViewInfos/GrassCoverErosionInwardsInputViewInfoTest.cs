@@ -109,6 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
+                                                                                    new CalculationGroup(),
                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
                                                                                     assessmentSection);
 
@@ -137,6 +138,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
+                                                                                    new CalculationGroup(),
                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
                                                                                     assessmentSection);
 
@@ -166,6 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                              null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
             using (var view = new GrassCoverErosionInwardsInputView
@@ -194,6 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                              null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
             using (var view = new GrassCoverErosionInwardsInputView
@@ -224,6 +228,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                              null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
             using (var view = new GrassCoverErosionInwardsInputView
@@ -254,6 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                              null,
                                                                                               new GrassCoverErosionInwardsFailureMechanism(),
                                                                                               assessmentSection);
             using (var view = new GrassCoverErosionInwardsInputView

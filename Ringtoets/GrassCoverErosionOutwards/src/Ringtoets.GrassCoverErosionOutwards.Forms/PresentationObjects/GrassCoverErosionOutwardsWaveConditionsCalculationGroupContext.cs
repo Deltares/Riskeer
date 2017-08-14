@@ -37,12 +37,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext"/> class.
         /// </summary>
         /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation group belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                                              CalculationGroup parent,
                                                                               GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism, assessmentSection) {}
+            : base(calculationGroup, failureMechanism, assessmentSection)
+        {
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

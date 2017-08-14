@@ -112,6 +112,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
             var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
+                                                                                        new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
                                                                                         Enumerable.Empty<StochasticSoilModel>(),
                                                                                         new PipingFailureMechanism(),
@@ -142,6 +143,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput());
 
             var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
+                                                                                        new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
                                                                                         Enumerable.Empty<StochasticSoilModel>(),
                                                                                         new PipingFailureMechanism(),
@@ -173,6 +175,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
@@ -203,6 +206,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
+                                                                            null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
@@ -235,6 +239,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
@@ -267,6 +272,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
+                                                                            null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),

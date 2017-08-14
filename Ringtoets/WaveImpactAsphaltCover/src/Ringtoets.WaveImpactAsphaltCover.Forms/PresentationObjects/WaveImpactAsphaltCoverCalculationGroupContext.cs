@@ -38,12 +38,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext"/>.
         /// </summary>
         /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                                           CalculationGroup parent,
                                                                            WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                            IAssessmentSection assessmentSection)
-            : base(calculationsGroup, failureMechanism, assessmentSection) {}
+            : base(calculationsGroup, failureMechanism, assessmentSection)
+        {
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
@@ -66,6 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
+                                                                              new CalculationGroup(),
                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                               Enumerable.Empty<StochasticSoilModel>(),
                                                                               new MacroStabilityInwardsFailureMechanism(),
@@ -109,6 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
+                                                                              new CalculationGroup(),
                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                               Enumerable.Empty<StochasticSoilModel>(),
                                                                               new MacroStabilityInwardsFailureMechanism(),

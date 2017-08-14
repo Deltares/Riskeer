@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var properties = new CalculationContextProperties
             {
-                Data = new TestCalculationContext(calculation, failureMechanism)
+                Data = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism)
             };
 
             // Call & Assert
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var testCalculationContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
 
             calculation.Attach(projectObserver);
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, failureMechanism);
+            var testCalculationContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
 
             calculation.Attach(projectObserver);
 
@@ -129,13 +129,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private class TestCalculationContext : Observable, ICalculationContext<ICalculation, IFailureMechanism>
         {
-            public TestCalculationContext(ICalculation wrappedData, IFailureMechanism failureMechanism)
+            public TestCalculationContext(ICalculation wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
+                Parent = parent;
                 FailureMechanism = failureMechanism;
             }
 
             public ICalculation WrappedData { get; }
+
+            public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
         }

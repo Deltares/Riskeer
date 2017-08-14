@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
@@ -66,6 +67,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
+                                                                  new CalculationGroup(),
                                                                   new ClosingStructuresFailureMechanism(),
                                                                   assessmentSection);
 
@@ -107,6 +109,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
+                                                                  new CalculationGroup(),
                                                                   new ClosingStructuresFailureMechanism(),
                                                                   assessmentSection);
 

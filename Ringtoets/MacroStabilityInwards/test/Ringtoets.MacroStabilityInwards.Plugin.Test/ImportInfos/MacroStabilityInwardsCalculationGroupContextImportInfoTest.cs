@@ -118,6 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                           null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                                            failureMechanism,

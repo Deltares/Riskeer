@@ -23,6 +23,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -52,15 +53,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             };
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var parent = new CalculationGroup();
 
             // Call
-            var presentationObject = new MacroStabilityInwardsCalculationScenarioContext(calculation, surfaceLines, soilModels, failureMechanism, assessmentSection);
+            var presentationObject = new MacroStabilityInwardsCalculationScenarioContext(calculation,
+                                                                                         parent,
+                                                                                         surfaceLines,
+                                                                                         soilModels,
+                                                                                         failureMechanism,
+                                                                                         assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(presentationObject);
             Assert.IsInstanceOf<MacroStabilityInwardsContext<MacroStabilityInwardsCalculationScenario>>(presentationObject);
             Assert.IsInstanceOf<ICalculationContext<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsFailureMechanism>>(presentationObject);
             Assert.AreSame(calculation, presentationObject.WrappedData);
+            Assert.AreSame(parent, presentationObject.Parent);
             Assert.AreSame(surfaceLines, presentationObject.AvailableMacroStabilityInwardsSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
             Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);

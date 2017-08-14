@@ -138,6 +138,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          null,
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 
@@ -157,6 +158,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          null,
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 
@@ -177,6 +179,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                               null,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -202,6 +205,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(childGroup);
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           null,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
 
@@ -224,6 +228,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               null,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -275,6 +280,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               null,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -339,9 +345,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               parentGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
             var parentGroupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(parentGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -392,9 +400,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               parentGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
             var parentGroupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(parentGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -453,6 +463,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           null,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
 
@@ -557,6 +568,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           null,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
 
@@ -658,9 +670,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -696,9 +710,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -738,9 +754,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     FilePath = ""
                 };
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -784,9 +802,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     FilePath = validHydroDatabasePath
                 };
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -856,9 +876,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
 
@@ -916,9 +938,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
 
@@ -984,9 +1008,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
 
@@ -1030,9 +1056,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
 
@@ -1090,9 +1118,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
 
@@ -1148,9 +1178,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     null,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection);
 
@@ -1221,6 +1253,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               null,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -1284,6 +1317,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               null,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -1333,11 +1367,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism.WaveConditionsCalculationGroup,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 null,
                                                                                                  failureMechanism,
                                                                                                  assessmentSection);
             parentNodeData.Attach(observer);
@@ -1360,6 +1396,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          null,
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 
@@ -1408,6 +1445,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          null,
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 
@@ -1467,6 +1505,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         calculation
                     }
                 },
+                null,
                 failureMechanism,
                 assessmentSection);
 
@@ -1518,6 +1557,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         calculation
                     }
                 },
+                null,
                 failureMechanism,
                 assessmentSection);
 

@@ -66,6 +66,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                      null,
                                                                       new HeightStructuresFailureMechanism(),
                                                                       assessmentSection);
 

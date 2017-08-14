@@ -497,6 +497,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, failureMechanism),
                 new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection, failureMechanism),
                 new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(hydraulicBoundariesGroupContext.FailureMechanism.WaveConditionsCalculationGroup,
+                                                                                   null,
                                                                                    hydraulicBoundariesGroupContext.FailureMechanism,
                                                                                    assessmentSection)
             };
@@ -626,12 +627,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                                       nodeData.WrappedData,
                                                                                                        nodeData.FailureMechanism,
                                                                                                        nodeData.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                            nodeData.WrappedData,
                                                                                                             nodeData.FailureMechanism,
                                                                                                             nodeData.AssessmentSection));
                 }

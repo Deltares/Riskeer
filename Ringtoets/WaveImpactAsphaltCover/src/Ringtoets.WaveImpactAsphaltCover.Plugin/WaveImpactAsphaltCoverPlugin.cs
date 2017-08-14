@@ -251,7 +251,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, wrappedData, failureMechanismContext.Parent),
+                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -337,12 +337,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                                    nodeData.WrappedData,
                                                                                                     nodeData.FailureMechanism,
                                                                                                     nodeData.AssessmentSection));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                                         nodeData.WrappedData,
                                                                                                          nodeData.FailureMechanism,
                                                                                                          nodeData.AssessmentSection));
                 }

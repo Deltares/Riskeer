@@ -66,6 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresCalculationGroupContext(new CalculationGroup(),
+                                                                              null,
                                                                               new StabilityPointStructuresFailureMechanism(),
                                                                               assessmentSection);
 

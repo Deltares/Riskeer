@@ -40,16 +40,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationGroupContext"/> class.
         /// </summary>
         /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="surfaceLines">The surface lines available within the context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the context.</param>
         /// <param name="macroStabilityInwardsFailureMechanism">The macro stability inwards failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
         public MacroStabilityInwardsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                            CalculationGroup parent,
                                                             IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
                                                             IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                                             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                             IAssessmentSection assessmentSection)
-            : base(calculationGroup, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}
+            : base(calculationGroup, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection)
+        {
+            Parent = parent;
+        }
+
+        public CalculationGroup Parent { get; }
     }
 }

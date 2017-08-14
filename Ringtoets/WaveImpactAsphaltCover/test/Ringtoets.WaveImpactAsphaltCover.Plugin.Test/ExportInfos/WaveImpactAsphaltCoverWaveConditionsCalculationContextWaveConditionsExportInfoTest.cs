@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -70,10 +71,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                     failureMechanism, assessmentSection);
+                                                                                     new CalculationGroup(),
+                                                                                     new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                     assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -101,10 +102,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                     failureMechanism, assessmentSection);
+                                                                                     new CalculationGroup(),
+                                                                                     new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                     assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -122,18 +123,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var output = new[]
-            {
-                new TestWaveConditionsOutput()
-            };
-
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
                 new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {
-                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(output)
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+                    {
+                        new TestWaveConditionsOutput()
+                    })
                 },
-                failureMechanism, assessmentSection);
+                new CalculationGroup(),
+                new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

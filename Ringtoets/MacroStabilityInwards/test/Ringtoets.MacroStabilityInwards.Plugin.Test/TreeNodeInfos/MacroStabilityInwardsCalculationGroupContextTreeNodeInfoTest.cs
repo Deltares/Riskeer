@@ -137,6 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
@@ -170,6 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                            null,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             failureMechanism,
@@ -206,11 +208,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                            parentGroup,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             failureMechanism,
                                                                             assessmentSection);
             var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                  null,
                                                                                   Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                   Enumerable.Empty<StochasticSoilModel>(),
                                                                                   failureMechanism,
@@ -328,6 +332,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                            null,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             failureMechanism,
@@ -441,6 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 new[]
                                                                                 {
@@ -481,6 +487,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 new[]
                                                                                 {
                                                                                     new MacroStabilityInwardsSurfaceLine()
@@ -523,6 +530,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 new[]
                                                                                 {
                                                                                     new MacroStabilityInwardsSurfaceLine()
@@ -572,6 +580,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
@@ -621,6 +630,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 };
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
@@ -662,11 +672,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                      null,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
@@ -720,11 +732,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                      null,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
@@ -793,11 +807,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                      null,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
@@ -859,11 +875,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                     failureMechanism, mocks);
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                      null,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
@@ -935,11 +953,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     failureMechanism, mocks);
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
                 var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                      null,
                                                                                       Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                       Enumerable.Empty<StochasticSoilModel>(),
                                                                                       failureMechanism,
@@ -1009,6 +1029,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     }
                 };
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
@@ -1104,6 +1125,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }));
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                null,
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
@@ -1217,6 +1239,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }));
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                                null,
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
@@ -1284,15 +1307,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(group);
+
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                            parentGroup,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             failureMechanism,
                                                                             assessmentSection);
-
-            var parentGroup = new CalculationGroup();
-            parentGroup.Children.Add(group);
             var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                  null,
                                                                                   Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                   Enumerable.Empty<StochasticSoilModel>(),
                                                                                   failureMechanism,
@@ -1332,15 +1357,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            CalculationGroup parentGroup = macroStabilityInwardsFailureMechanism.CalculationsGroup;
+            parentGroup.Children.Add(group);
+
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
+                                                                            parentGroup,
                                                                             Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                             Enumerable.Empty<StochasticSoilModel>(),
                                                                             macroStabilityInwardsFailureMechanism,
                                                                             assessmentSection);
-
-            CalculationGroup parentGroup = macroStabilityInwardsFailureMechanism.CalculationsGroup;
-            parentGroup.Children.Add(group);
             var parentNodeData = new MacroStabilityInwardsCalculationGroupContext(parentGroup,
+                                                                                  null,
                                                                                   Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                   Enumerable.Empty<StochasticSoilModel>(),
                                                                                   macroStabilityInwardsFailureMechanism,

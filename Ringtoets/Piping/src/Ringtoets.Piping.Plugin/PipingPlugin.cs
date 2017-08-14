@@ -657,7 +657,7 @@ namespace Ringtoets.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, pipingFailureMechanismContext.Parent),
+                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, pipingFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -860,6 +860,7 @@ namespace Ringtoets.Piping.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new PipingCalculationScenarioContext(calculation,
+                                                                              nodeData.WrappedData,
                                                                               nodeData.AvailablePipingSurfaceLines,
                                                                               nodeData.AvailableStochasticSoilModels,
                                                                               nodeData.FailureMechanism,
@@ -868,6 +869,7 @@ namespace Ringtoets.Piping.Plugin
                 else if (group != null)
                 {
                     childNodeObjects.Add(new PipingCalculationGroupContext(group,
+                                                                           nodeData.WrappedData,
                                                                            nodeData.AvailablePipingSurfaceLines,
                                                                            nodeData.AvailableStochasticSoilModels,
                                                                            nodeData.FailureMechanism,

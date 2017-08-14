@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
@@ -69,10 +70,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                        failureMechanism, assessmentSection);
+                                                                                        new CalculationGroup(),
+                                                                                        new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                        assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -100,12 +101,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
-                new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                failureMechanism,
-                assessmentSection);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                        new CalculationGroup(),
+                                                                                        new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                        assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);

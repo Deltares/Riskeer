@@ -40,6 +40,11 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         TCalculationBase WrappedData { get; }
 
         /// <summary>
+        /// Gets the calculation group that owns the wrapped calculation item.
+        /// </summary>
+        CalculationGroup Parent { get; }
+
+        /// <summary>
         /// Gets the failure mechanism the wrapped calculation item belongs to.
         /// </summary>
         TFailureMechanism FailureMechanism { get; }
