@@ -71,7 +71,7 @@ namespace Demo.Ringtoets.Test.Views
             // Setup
             using (var view = new PointedTreeGraphView())
             {
-                var graphNode = new GraphNode("Root node", new GraphNode[0], false);
+                var graphNode = new GraphNode("<text>Root node</text>", new GraphNode[0], false);
 
                 // Call
                 view.Data = graphNode;
