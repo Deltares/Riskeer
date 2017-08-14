@@ -69,14 +69,14 @@ namespace Core.Components.GraphSharp.Forms.Test
             // Given
             using (var graphControl = new PointedTreeGraphControl())
             {
-                var doubleUsedNode = new GraphNode("Double used", new GraphNode[0], false);
-                var node = new GraphNode("Root", new[]
+                var doubleUsedNode = new GraphNode("<text>Double used</text>", new GraphNode[0], false);
+                var node = new GraphNode("<text>Root</text>", new[]
                 {
-                    new GraphNode("Child 1", new[]
+                    new GraphNode("<text>Child 1</text>", new[]
                     {
                         doubleUsedNode
                     }, false),
-                    new GraphNode("Child 2", new[]
+                    new GraphNode("<text>Child 2</text>", new[]
                     {
                         doubleUsedNode
                     }, false)
@@ -100,9 +100,9 @@ namespace Core.Components.GraphSharp.Forms.Test
         public void GivenGraphControlWithData_WhenDataSetToOtherGraphNode_ThenGraphControlUpdated()
         {
             // Given
-            var node = new GraphNode("Root", new[]
+            var node = new GraphNode("<text>Root</text>", new[]
             {
-                new GraphNode("Child 1", new GraphNode[0], false)
+                new GraphNode("<text>Child 1</text>", new GraphNode[0], false)
             }, false);
 
             using (var graphControl = new PointedTreeGraphControl
@@ -120,7 +120,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Assert.AreEqual(1, graph.EdgeCount);
 
                 // When
-                graphControl.Data = new GraphNode("Double used", new GraphNode[0], false);
+                graphControl.Data = new GraphNode("<text>Double used</text>", new GraphNode[0], false);
 
                 // Then
                 Assert.AreEqual(1, graph.VertexCount);
@@ -132,9 +132,9 @@ namespace Core.Components.GraphSharp.Forms.Test
         public void GivenGraphControlWithData_WhenDataSetToNull_ThenGraphControlUpdated()
         {
             // Given
-            var node = new GraphNode("Root", new[]
+            var node = new GraphNode("<text>Root</text>", new[]
             {
-                new GraphNode("Child 1", new GraphNode[0], false)
+                new GraphNode("<text>Child 1</text>", new GraphNode[0], false)
             }, false);
 
             using (var graphControl = new PointedTreeGraphControl

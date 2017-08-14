@@ -22,6 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
+using Core.Components.PointedTree.Properties;
 
 namespace Core.Components.PointedTree.Data
 {
@@ -40,8 +45,14 @@ namespace Core.Components.PointedTree.Data
         /// <param name="isSelectable">Indicator whether the node is selectable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>
         /// or <paramref name="childNodes"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the content is not valid.</exception>
+        /// <remarks>Content should have the following format: &lt;text&gt;Content&lt;/text&gt;.
+        /// The following tags are supported as content:
+        /// <list type="bullet">
+        /// <item>&lt;bold&gt;&lt;/bold&gt;</item>
+        /// </list></remarks>
         public GraphNode(string content, GraphNode[] childNodes, bool isSelectable)
-            : this(content, childNodes, isSelectable, CreateDefaultGraphNodeStyle()) { }
+            : this(content, childNodes, isSelectable, CreateDefaultGraphNodeStyle()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="GraphNode"/>.
@@ -52,6 +63,12 @@ namespace Core.Components.PointedTree.Data
         /// <param name="style">The style of the node.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>,
         /// <paramref name="childNodes"/> or <paramref name="style"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the content is not valid.</exception>
+        /// <remarks>Content should have the following format: &lt;text&gt;Content&lt;/text&gt;.
+        /// The following tags are supported as content:
+        /// <list type="bullet">
+        /// <item>&lt;bold&gt;&lt;/bold&gt;</item>
+        /// </list></remarks>
         public GraphNode(string content, GraphNode[] childNodes, bool isSelectable, GraphNodeStyle style)
         {
             if (content == null)
@@ -66,6 +83,8 @@ namespace Core.Components.PointedTree.Data
             {
                 throw new ArgumentNullException(nameof(style));
             }
+
+            ValidateContent(content);
 
             Content = content;
             this.childNodes = childNodes;
@@ -98,6 +117,29 @@ namespace Core.Components.PointedTree.Data
         /// Gets the style of the node.
         /// </summary>
         public GraphNodeStyle Style { get; }
+
+        /// <summary>
+        /// Validates whether the content is valid XML.
+        /// </summary>
+        /// <param name="content">The content to validate.</param>
+        /// <exception cref="ArgumentException">Thrown when the
+        /// content is not valid.</exception>
+        private static void ValidateContent(string content)
+        {
+            var xmlSchemaSet = new XmlSchemaSet();
+            xmlSchemaSet.Add(XmlSchema.Read(new StringReader(Resources.GraphNodeContentSchema), null));
+            xmlSchemaSet.Compile();
+
+            try
+            {
+                XDocument doc = XDocument.Parse(content);
+                doc.Validate(xmlSchemaSet, null);
+            }
+            catch (Exception e) when (e is XmlException || e is XmlSchemaValidationException)
+            {
+                throw new ArgumentException(Resources.GraphNode_ValidateContent_Content_not_valid, e);
+            }
+        }
 
         private static GraphNodeStyle CreateDefaultGraphNodeStyle()
         {

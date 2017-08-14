@@ -50,7 +50,7 @@ namespace Core.Components.GraphSharp.Test.Converters
         public void Convert_InvalidShapeType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var graphNode = new GraphNode("test", new GraphNode[0], false,
+            var graphNode = new GraphNode("<text>test</text>", new GraphNode[0], false,
                                           new GraphNodeStyle((GraphNodeShape) 99, Color.AliceBlue,
                                                              Color.AntiqueWhite, 2));
 
@@ -69,7 +69,7 @@ namespace Core.Components.GraphSharp.Test.Converters
                                                                          PointedTreeVertexType expectedVertexType)
         {
             // Setup
-            const string content = "Node";
+            const string content = "<text>Node</text>";
             const bool isSelectable = false;
             const int lineWidth = 3;
             Color fillColor = Color.Aquamarine;

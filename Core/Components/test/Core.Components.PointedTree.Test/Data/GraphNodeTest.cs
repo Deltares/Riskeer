@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.TestUtil;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
 
@@ -44,14 +45,14 @@ namespace Core.Components.PointedTree.Test.Data
 
             GraphNode[] childNodes =
             {
-                new GraphNode("node 1", new GraphNode[0], false, style),
-                new GraphNode("node 2", new[]
+                new GraphNode("<text>node 1</text>", new GraphNode[0], false, style),
+                new GraphNode("<text>node 2</text>", new[]
                 {
-                    new GraphNode("node 3", new GraphNode[0], false, style)
+                    new GraphNode("<text>node 3</text>", new GraphNode[0], false, style)
                 }, true, style)
             };
 
-            const string content = "test";
+            const string content = "<text>test</text>";
             const bool isSelectable = false;
 
             // Call
@@ -72,14 +73,14 @@ namespace Core.Components.PointedTree.Test.Data
             // Setup
             GraphNode[] childNodes =
             {
-                new GraphNode("node 1", new GraphNode[0], false),
-                new GraphNode("node 2", new[]
+                new GraphNode("<text>node 1</text>", new GraphNode[0], false),
+                new GraphNode("<text>node 2</text>", new[]
                 {
-                    new GraphNode("node 3", new GraphNode[0], true)
+                    new GraphNode("<text>node 3</text>", new GraphNode[0], true)
                 }, true)
             };
 
-            const string content = "test";
+            const string content = "<text>test</text>";
             const bool isSelectable = false;
 
             // Call
@@ -112,7 +113,7 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_ChildNodesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GraphNode("test", null, false);
+            TestDelegate call = () => new GraphNode("<text>test</text>", null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -123,11 +124,24 @@ namespace Core.Components.PointedTree.Test.Data
         public void Constructor_StyleNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GraphNode("test", new GraphNode[0], false, null);
+            TestDelegate call = () => new GraphNode("<text>test</text>", new GraphNode[0], false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase("plain text")]
+        [TestCase("<text>test")]
+        [TestCase("<text>test <italic>italic</italic></text>")]
+        public void Constructor_InvalidContent_ThrowsArgumentException(string content)
+        {
+            // Call
+            TestDelegate call = () => new GraphNode(content, new GraphNode[0], false);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De content voor deze node is niet geldig.");
         }
 
         private static void AssertChildNodes(IList<GraphNode> childNodes, IList<GraphNode> actualChildNodes)

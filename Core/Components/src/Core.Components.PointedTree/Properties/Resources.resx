@@ -121,4 +121,7 @@
   <data name="GraphNodeContentSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GraphNodeContentSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="GraphNode_ValidateContent_Content_not_valid" xml:space="preserve">
+    <value>De content voor deze node is niet geldig.</value>
+  </data>
 </root>
