@@ -39,6 +39,8 @@ namespace Core.Components.GraphSharp.Converters
         /// <returns>The created <see cref="PointedTreeElementVertex"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="graphNode"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="GraphNodeStyle.Shape"/>
+        /// is an invalid value.</exception>
         public static PointedTreeElementVertex Convert(GraphNode graphNode)
         {
             if (graphNode == null)
@@ -67,6 +69,13 @@ namespace Core.Components.GraphSharp.Converters
                     color.B));
         }
 
+        /// <summary>
+        /// Converts a <see cref="GraphNodeShape"/> to a <see cref="PointedTreeVertexType"/>.
+        /// </summary>
+        /// <param name="shape">The shape to convert.</param>
+        /// <returns>The converted <see cref="PointedTreeVertexType"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shape"/>
+        /// is an invalid value.</exception>
         private static PointedTreeVertexType ConvertType(GraphNodeShape shape)
         {
             switch(shape)
