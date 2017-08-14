@@ -27,7 +27,8 @@ All rights reserved.
     xmlns:graphSharpConverters="clr-namespace:GraphSharp.Converters;assembly=GraphSharp.Controls"
     xmlns:wpfExtensionsAttachedBehaviours="clr-namespace:WPFExtensions.AttachedBehaviours;assembly=WPFExtensions"
     xmlns:wpfExtensionsControls="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-    xmlns:converters="clr-namespace:Core.Components.GraphSharp.Forms.Converters;assembly=Core.Components.GraphSharp.Forms">
+    xmlns:converters="clr-namespace:Core.Components.GraphSharp.Forms.Converters;assembly=Core.Components.GraphSharp.Forms"
+    xmlns:extensions="clr-namespace:Core.Components.GraphSharp.Forms.Extensions;assembly=Core.Components.GraphSharp.Forms">
 
     <graphSharpConverters:EdgeRouteToPathConverter x:Key="RouteToPathConverter" />
     <converters:PointedTreeVertexTypeToStringConverter x:Key="PointedTreeVertexTypeToStringConverter" />
@@ -49,12 +50,12 @@ All rights reserved.
                                         <StackPanel.InputBindings>
 <!--                                            <MouseBinding Gesture="LeftClick" Command="{Binding VertexSelectedCommand}" />-->
                                         </StackPanel.InputBindings>
-                                        <TextBlock Width="Auto"
-                                               Height="Auto"
-                                               Text="{Binding Content}"
-                                               TextWrapping="Wrap"
-                                               VerticalAlignment="Center"
-                                               Margin="10,2,20,0" />
+                                        <TextBlock extensions:TextBlockExtensions.FormattedText="{Binding Content}"
+                                                   Width="Auto"
+                                                   Height="Auto"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10,2,20,0" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -72,7 +73,10 @@ All rights reserved.
                                         <RotateTransform Angle="45" CenterX="10" CenterY="10"/>
                                     </Rectangle.RenderTransform>
                                 </Rectangle>
-                                <TextBlock Text="{Binding Content}" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock extensions:TextBlockExtensions.FormattedText="{Binding Content}"
+                                           Margin="5"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>

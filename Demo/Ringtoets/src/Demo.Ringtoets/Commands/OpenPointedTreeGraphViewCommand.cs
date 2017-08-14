@@ -56,26 +56,26 @@ namespace Demo.Ringtoets.Commands
             var lastNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1);
             var treeNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
 
-            var doubleUsedNode = new GraphNode("Double <bold>used</bold>", new[]
+            var doubleUsedNode = new GraphNode("<text>Double <bold>used</bold></text>", new[]
             {
-                new GraphNode("En", new []
+                new GraphNode("<text>En</text>", new []
                 {
-                    new GraphNode("Child 2", new GraphNode[0], false, lastNodeStyle), 
-                    new GraphNode("Child 3", new GraphNode[0], false, lastNodeStyle), 
+                    new GraphNode("<text>Child 2</text>", new GraphNode[0], false, lastNodeStyle), 
+                    new GraphNode("<text>Child 3</text>", new GraphNode[0], false, lastNodeStyle), 
                 }, false, diamondStyle),
-                new GraphNode("Child 4", new GraphNode[0], false, lastNodeStyle), 
+                new GraphNode("<text>Child 4</text>", new GraphNode[0], false, lastNodeStyle), 
             }, false, treeNodeStyle);
 
-            var node = new GraphNode("Root", new[]
+            var node = new GraphNode("<text>Root</text>", new[]
             {
-                new GraphNode("Of", new[]
+                new GraphNode("<text>Of</text>", new[]
                 {
                     doubleUsedNode,
-                    new GraphNode("Child 1", new[]
+                    new GraphNode("<text>Child 1</text>", new[]
                     {
-                        new GraphNode("Of", new[]
+                        new GraphNode("<text>Of</text>", new[]
                         {
-                            new GraphNode("Child 5", new GraphNode[0], false, lastNodeStyle),
+                            new GraphNode("<text>Child 5</text>", new GraphNode[0], false, lastNodeStyle),
                             doubleUsedNode
                         }, false, diamondStyle),
                     }, false, treeNodeStyle)

@@ -85,6 +85,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\PointedTreeVertexTypeToStringConverterTest.cs" />
+    <Compile Include="Extensions\TextBlockExtensionsTest.cs" />
     <Compile Include="Layout\PointedTreeGraphLayoutTest.cs" />
     <Compile Include="PointedTreeGraphControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
