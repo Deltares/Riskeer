@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
-    public class StructuresCalculation<T> : Observable, IStructuresCalculation, ICalculation<T> where T : ICalculationInput, new()
+    public class StructuresCalculation<T> : Observable, IStructuresCalculation, ICalculation<T> where T : IStructuresCalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Gets the input parameters to perform a structures calculation with.
         /// </summary>
-        public T InputParameters { get; }
+        public T InputParameters { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="StructuresOutput"/>, 
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.Structures
 
         public string Name { get; set; }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public bool HasOutput
         {
@@ -66,6 +66,21 @@ namespace Ringtoets.Common.Data.Structures
         public override string ToString()
         {
             return Name;
+        }
+
+        public object Clone()
+        {
+            var clone = (StructuresCalculation<T>) MemberwiseClone();
+
+            clone.InputParameters = (T) InputParameters.Clone();
+            clone.Comments = (Comment) Comments.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (StructuresOutput) Output.Clone();
+            }
+
+            return clone;
         }
 
         public void ClearOutput()

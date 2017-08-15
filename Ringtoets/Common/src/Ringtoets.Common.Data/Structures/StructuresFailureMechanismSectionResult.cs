@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data.Structures
     /// </summary>
     /// <typeparam name="T">The type of the input of the calculation which is chosen to be representative 
     /// for the whole section.</typeparam>
-    public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : ICalculationInput, new()
+    public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : IStructuresCalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of <see cref="StructuresFailureMechanismSectionResult{T}"/>.

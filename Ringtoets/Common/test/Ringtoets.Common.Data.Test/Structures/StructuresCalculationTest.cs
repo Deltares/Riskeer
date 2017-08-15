@@ -130,13 +130,18 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
 
-        private class TestStructuresInput : ICalculationInput
+        private class TestStructuresInput : IStructuresCalculationInput
         {
             public void Attach(IObserver observer) {}
 
             public void Detach(IObserver observer) {}
 
             public void NotifyObservers() {}
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
     }
 }
