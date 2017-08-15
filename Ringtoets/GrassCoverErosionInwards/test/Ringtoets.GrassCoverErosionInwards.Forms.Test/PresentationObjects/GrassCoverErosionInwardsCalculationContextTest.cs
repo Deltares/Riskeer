@@ -55,6 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+
             mocksRepository.VerifyAll();
         }
 
@@ -75,7 +76,184 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parent", exception.ParamName);
+
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToNull_ReturnFalse()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnTrue()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToOtherWithDifferentType_ReturnFalse()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(isEqual);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation1 = new GrassCoverErosionInwardsCalculation();
+            var calculation2 = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context1 = new GrassCoverErosionInwardsCalculationContext(calculation1, parent, failureMechanism, assessmentSection);
+            var context2 = new GrassCoverErosionInwardsCalculationContext(calculation2, parent, failureMechanism, assessmentSection);
+
+            // Precondition:
+            Assert.IsFalse(calculation1.Equals(calculation2));
+
+            // Call
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToOtherWithDifferentParent_ReturnFalse()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent1 = new CalculationGroup();
+            var parent2 = new CalculationGroup();
+            var context1 = new GrassCoverErosionInwardsCalculationContext(calculation, parent1, failureMechanism, assessmentSection);
+            var context2 = new GrassCoverErosionInwardsCalculationContext(calculation, parent2, failureMechanism, assessmentSection);
+
+            // Precondition:
+            Assert.IsFalse(parent1.Equals(parent2));
+
+            // Call
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToOtherWithSameWrappedDataAndParent_ReturnTrue()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context1 = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context2 = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual1 = context1.Equals(context2);
+            bool isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetHashCode_EqualObjects_ReturnSameHashCode()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context1 = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context2 = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Precondition:
+            Assert.AreEqual(context1, context2);
+
+            // Call
+            int hashCode1 = context1.GetHashCode();
+            int hashCode2 = context2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode1, hashCode2);
+
+            mocksRepository.VerifyAll();
         }
     }
 }

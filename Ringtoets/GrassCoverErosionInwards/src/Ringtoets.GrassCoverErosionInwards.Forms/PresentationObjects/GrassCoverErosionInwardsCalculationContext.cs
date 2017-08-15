@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -57,5 +58,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         }
 
         public CalculationGroup Parent { get; }
+
+        public override bool Equals(WrappedObjectContextBase<GrassCoverErosionInwardsCalculation> other)
+        {
+            return base.Equals(other)
+                   && other is GrassCoverErosionInwardsCalculationContext
+                   && ReferenceEquals(Parent, ((GrassCoverErosionInwardsCalculationContext) other).Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GrassCoverErosionInwardsCalculationContext);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
+        }
     }
 }
