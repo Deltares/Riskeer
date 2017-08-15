@@ -78,6 +78,7 @@
     <Compile Include="Data\PointedTreeGraph.cs" />
     <Compile Include="Data\PointedTreeElementVertex.cs" />
     <Compile Include="Data\PointedTreeVertexType.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Media;
+using Core.Components.GraphSharp.Annotations;
 using Core.Components.GraphSharp.Commands;
 using GraphSharp.Controls;
 
@@ -30,9 +32,12 @@ namespace Core.Components.GraphSharp.Data
     /// <summary>
     /// Class describing the vertex to show in the <see cref="GraphLayout"/>.
     /// </summary>
-    public class PointedTreeElementVertex
+    public class PointedTreeElementVertex : INotifyPropertyChanged
     {
         private ICommand selectedItemCommand;
+        private bool isSelected;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="PointedTreeElementVertex"/>.
@@ -45,7 +50,9 @@ namespace Core.Components.GraphSharp.Data
         /// <param name="isSelectable">Indicator whether the vertex is selectable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>
         /// <paramref name="fillColor"/> or <paramref name="lineColor"/> is <c>null</c>.</exception>
-        public PointedTreeElementVertex(string content, Brush fillColor, Brush lineColor, int lineWidth, PointedTreeVertexType type, bool isSelectable)
+        public PointedTreeElementVertex(string content, Brush fillColor,
+                                        Brush lineColor, int lineWidth,
+                                        PointedTreeVertexType type, bool isSelectable)
         {
             if (content == null)
             {
@@ -85,7 +92,7 @@ namespace Core.Components.GraphSharp.Data
         /// <summary>
         /// Gets the line width of the vertex.
         /// </summary>
-        public int LineWidth { get;}
+        public int LineWidth { get; }
 
         /// <summary>
         /// Gets the type of the vertex.
@@ -100,7 +107,18 @@ namespace Core.Components.GraphSharp.Data
         /// <summary>
         /// Gets whether the vertex is selected.
         /// </summary>
-        public bool IsSelected { get; set; }
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
 
         /// <summary>
         /// Gets the command for selecting the vertex.
@@ -111,6 +129,12 @@ namespace Core.Components.GraphSharp.Data
             {
                 return selectedItemCommand ?? (selectedItemCommand = new VertexSelectedCommand(this));
             }
+        }
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

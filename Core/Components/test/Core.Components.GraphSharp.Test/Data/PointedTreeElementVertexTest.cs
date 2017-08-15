@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Media;
+using Core.Components.GraphSharp.Commands;
 using Core.Components.GraphSharp.Data;
 using NUnit.Framework;
 
@@ -77,6 +79,7 @@ namespace Core.Components.GraphSharp.Test.Data
             var vertex = new PointedTreeElementVertex(content, fillColor, lineColor, lineWidth, type, isSelectable);
 
             // Assert
+            Assert.IsInstanceOf<INotifyPropertyChanged>(vertex);
             Assert.AreEqual(content, vertex.Content);
             Assert.AreEqual(fillColor, vertex.FillColor);
             Assert.AreEqual(lineColor, vertex.LineColor);
@@ -84,6 +87,25 @@ namespace Core.Components.GraphSharp.Test.Data
             Assert.AreEqual(type, vertex.Type);
             Assert.AreEqual(isSelectable, vertex.IsSelectable);
             Assert.IsFalse(vertex.IsSelected);
+            Assert.IsInstanceOf<VertexSelectedCommand>(vertex.VertexSelectedCommand);
+        }
+
+        [Test]
+        public void IsSelected_SetNewValue_PropertyChangedEventFired()
+        {
+            // Setup
+            var vertex = new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Blue),
+                                                      new SolidColorBrush(Colors.Gray), 3,
+                                                      PointedTreeVertexType.Rectangle, true);
+
+            var propertyChanged = 0;
+            vertex.PropertyChanged += (sender, args) => propertyChanged++;
+
+            // Call
+            vertex.IsSelected = true;
+
+            // Assert
+            Assert.AreEqual(1, propertyChanged);
         }
     }
 }
