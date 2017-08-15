@@ -30,6 +30,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -245,10 +247,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithStochasticSoilModelEntityInCollector_CalculationHasAlreadyReadStochasticSoilModel()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel("A");
+            var stochasticSoilModel = new PipingStochasticSoilModel("A");
             var stochasticSoilModelEntity = new StochasticSoilModelEntity();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 1);
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(1, new TestPipingSoilProfile());
             var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
             {
                 StochasticSoilModelEntity = stochasticSoilModelEntity

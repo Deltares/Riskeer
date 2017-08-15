@@ -31,6 +31,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
 
@@ -227,7 +229,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(2.5, 1.0, 1.0),
                 new Point3D(5.0, 1.0, 0.0)
             });
-            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -254,7 +256,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "Het stochastische ondergrondmodel 'Ondergrondmodel'doorkruist de profielschematisatie 'Profielschematisatie' niet." +
+                                           " Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -277,7 +280,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -304,7 +307,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet binnen het stochastische ondergrondmodel 'Ondergrondmodel'. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De ondergrondschematisatie 'Ondergrondschematisatie' bestaat niet binnen het stochastische ondergrondmodel 'Ondergrondmodel'. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -328,7 +332,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie 'Ondergrondschematisatie'. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie 'Ondergrondschematisatie'. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -356,7 +361,8 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "Er is geen profielschematisatie, maar wel een intrede- of uittredepunt opgegeven. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -583,15 +589,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            var stochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0, new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
             {
-                SoilProfile = new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
-                {
-                    new PipingSoilLayer(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                new PipingSoilLayer(0)
+            }, SoilProfileType.SoilProfile1D, 0));
 
-            var stochasticSoilModel = new StochasticSoilModel("Ondergrondmodel");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
             stochasticSoilModel.Geometry.AddRange(new[]
             {

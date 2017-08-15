@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
@@ -74,7 +75,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
                 failureMechanism, assessmentSection);
 
             // Call

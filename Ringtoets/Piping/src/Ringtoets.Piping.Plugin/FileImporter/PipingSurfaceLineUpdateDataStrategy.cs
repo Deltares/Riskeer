@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
@@ -110,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var affectedObjects = new List<IObservable>();
             foreach (PipingCalculation calculation in calculationsToUpdate)
             {
-                IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
+                IEnumerable<PipingStochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
 
                 PipingInput calculationInput = calculation.InputParameters;
                 PipingInputService.SetMatchingStochasticSoilModel(calculationInput, matchingSoilModels);
@@ -129,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return affectedCalculations;
         }
 
-        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(PipingSurfaceLine surfaceLine)
+        private IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels(PipingSurfaceLine surfaceLine)
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
                                                                                               FailureMechanism.StochasticSoilModels);

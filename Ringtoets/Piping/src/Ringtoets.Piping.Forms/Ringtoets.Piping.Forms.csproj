@@ -75,10 +75,10 @@
     <Compile Include="PropertyClasses\PipingOutputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\ShiftedLogNormalDistributionDesignVariableProperties.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
+    <Compile Include="PropertyClasses\PipingStochasticSoilModelCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\PipingStochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineProperties.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
+    <Compile Include="PropertyClasses\PipingStochasticSoilModelProperties.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />

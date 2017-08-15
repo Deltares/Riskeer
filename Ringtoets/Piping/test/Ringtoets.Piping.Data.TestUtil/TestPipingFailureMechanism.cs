@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             }, "path/to/surfaceLines");
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, "path/to/stochasticSoilModels");
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>

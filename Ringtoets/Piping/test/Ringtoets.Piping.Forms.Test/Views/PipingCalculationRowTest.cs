@@ -33,6 +33,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -148,8 +149,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var newModel = new StochasticSoilModel("test");
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(newModel);
+            PipingStochasticSoilModel newModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
+            var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(newModel);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
@@ -161,7 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            DataGridViewComboBoxItemWrapper<StochasticSoilModel> oldValue = null;
+            DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel> oldValue = null;
 
             // Call
             AssertPropertyNotChanged(
@@ -182,8 +183,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newProfile = new StochasticSoilProfile(0, 0, 0);
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(newProfile);
+            var newProfile = new PipingStochasticSoilProfile(0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            var newValue = new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(newProfile);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
@@ -195,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            DataGridViewComboBoxItemWrapper<StochasticSoilProfile> oldValue = null;
+            DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile> oldValue = null;
 
             // Call
             AssertPropertyNotChanged(

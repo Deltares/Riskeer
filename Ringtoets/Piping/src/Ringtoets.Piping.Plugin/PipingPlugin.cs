@@ -41,15 +41,16 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.IO.Configurations;
-using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Plugin.Properties;
 using Ringtoets.Piping.Primitives;
@@ -81,12 +82,18 @@ namespace Ringtoets.Piping.Plugin
                 CreateInstance = context => new PipingSurfaceLineCollectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<PipingSurfaceLine, PipingSurfaceLineProperties>();
-            yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
+            yield return new PropertyInfo<StochasticSoilModelCollectionContext, PipingStochasticSoilModelCollectionProperties>
             {
-                CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
+                CreateInstance = context => new PipingStochasticSoilModelCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
-            yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
+            yield return new PropertyInfo<PipingStochasticSoilModel, PipingStochasticSoilModelProperties>
+            {
+                CreateInstance = stochasticSoilModel => new PipingStochasticSoilModelProperties(stochasticSoilModel)
+            };
+            yield return new PropertyInfo<PipingStochasticSoilProfile, PipingStochasticSoilProfileProperties>
+            {
+                CreateInstance = stochasticSoilProfile => new PipingStochasticSoilProfileProperties(stochasticSoilProfile)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -113,7 +120,12 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new ImportMessageProvider(), new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<PipingStochasticSoilModel>(
+                    context.WrappedData,
+                    filePath,
+                    new ImportMessageProvider(),
+                    StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism)
+                ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
@@ -165,7 +177,12 @@ namespace Ringtoets.Piping.Plugin
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new UpdateMessageProvider(), new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<PipingStochasticSoilModel>(
+                    context.WrappedData,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism)
+                ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
         }
@@ -267,7 +284,9 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingSurfaceLine => RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
                 Image = pipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Any()
+                                                     ? Color.FromKnownColor(KnownColor.ControlText)
+                                                     : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = pipingSurfaceLine => pipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = PipingSurfaceLinesContextContextMenuStrip
             };
@@ -293,7 +312,7 @@ namespace Ringtoets.Piping.Plugin
                 ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModel>
+            yield return new TreeNodeInfo<PipingStochasticSoilModel>
             {
                 Text = stochasticSoilModel => stochasticSoilModel.Name,
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
@@ -306,9 +325,9 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StochasticSoilProfile>
+            yield return new TreeNodeInfo<PipingStochasticSoilProfile>
             {
-                Text = pipingSoilProfile => pipingSoilProfile.SoilProfile != null ? pipingSoilProfile.SoilProfile.Name : "Profile",
+                Text = pipingSoilProfile => pipingSoilProfile.SoilProfile.Name,
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -350,15 +369,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
-        }
-
-        private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath,
-                                                                               IImporterMessageProvider messageProvider, IStochasticSoilModelUpdateModelStrategy updateStrategy)
-        {
-            return new StochasticSoilModelImporter(context.WrappedData,
-                                                   filePath,
-                                                   messageProvider,
-                                                   updateStrategy);
         }
 
         private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
@@ -1003,7 +1013,10 @@ namespace Ringtoets.Piping.Plugin
             nodeData.NotifyObservers();
         }
 
-        private static void GeneratePipingCalculations(CalculationGroup target, IEnumerable<PipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
+        private static void GeneratePipingCalculations(CalculationGroup target,
+                                                       IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                       IEnumerable<PipingStochasticSoilModel> soilModels,
+                                                       GeneralPipingInput generalInput)
         {
             foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {

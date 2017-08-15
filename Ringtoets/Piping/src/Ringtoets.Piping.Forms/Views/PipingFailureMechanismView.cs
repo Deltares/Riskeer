@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
@@ -301,7 +302,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetStochasticSoilModelsMapData()
         {
-            StochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            PipingStochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
             stochasticSoilModelsMapData.Features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
         }
 

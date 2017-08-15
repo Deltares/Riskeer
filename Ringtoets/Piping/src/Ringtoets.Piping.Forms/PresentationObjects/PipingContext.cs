@@ -27,6 +27,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -49,7 +50,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         protected PipingContext(
             T wrappedData,
             IEnumerable<PipingSurfaceLine> surfaceLines,
-            IEnumerable<StochasticSoilModel> stochasticSoilModels,
+            IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
             PipingFailureMechanism pipingFailureMechanism,
             IAssessmentSection assessmentSection) : base(wrappedData)
         {
@@ -68,10 +69,10 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public IEnumerable<PipingSurfaceLine> AvailablePipingSurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the available stochastic soil models in order for the user to select a <see cref="StochasticSoilModel"/> and <see cref="StochasticSoilProfile"/>
+        /// Gets the available stochastic soil models in order for the user to select a <see cref="StochasticSoilModel"/> and <see cref="PipingStochasticSoilProfile"/>
         /// to set <see cref="PipingInput.StochasticSoilProfile"/> and <see cref="PipingInput.StochasticSoilModel"/>.
         /// </summary>
-        public IEnumerable<StochasticSoilModel> AvailableStochasticSoilModels { get; private set; }
+        public IEnumerable<PipingStochasticSoilModel> AvailableStochasticSoilModels { get; private set; }
 
         /// <summary>
         /// Gets the available hydraulic boundary locations in order for the user to select one to 
@@ -108,7 +109,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         private static void AssertInputsAreNotNull(IEnumerable<PipingSurfaceLine> surfaceLines,
-                                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                                   IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
                                                    PipingFailureMechanism pipingFailureMechanism,
                                                    IAssessmentSection assessmentSection)
         {

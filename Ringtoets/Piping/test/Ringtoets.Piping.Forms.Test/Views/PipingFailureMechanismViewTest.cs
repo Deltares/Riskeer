@@ -41,6 +41,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Utils.TypeConverters;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
@@ -254,18 +255,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var stochasticSoilModel1 = new StochasticSoilModel("name1");
-                stochasticSoilModel1.Geometry.AddRange(new[]
+                var stochasticSoilModel1 = new PipingStochasticSoilModel("name1")
                 {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(1.1, 2.2)
-                });
-                var stochasticSoilModel2 = new StochasticSoilModel("name2");
-                stochasticSoilModel2.Geometry.AddRange(new[]
+                    Geometry =
+                    {
+                        new Point2D(1.0, 2.0),
+                        new Point2D(1.1, 2.2)
+                    }
+                };
+                var stochasticSoilModel2 = new PipingStochasticSoilModel("name2")
                 {
-                    new Point2D(3.0, 4.0),
-                    new Point2D(3.3, 4.4)
-                });
+                    Geometry =
+                    {
+                        new Point2D(3.0, 4.0),
+                        new Point2D(3.3, 4.4)
+                    }
+                };
 
                 var surfaceLineA = new PipingSurfaceLine
                 {
@@ -684,13 +689,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var stochasticSoilModel = new StochasticSoilModel("");
-
-                stochasticSoilModel.Geometry.AddRange(new[]
+                var stochasticSoilModel = new PipingStochasticSoilModel("")
                 {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                });
+                    Geometry =
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    }
+                };
 
                 view.Data = failureMechanismContext;
 
@@ -1012,18 +1018,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
 
-        private static void AssertStochasticSoilModelsMapData(IEnumerable<StochasticSoilModel> soilModels, MapData mapData)
+        private static void AssertStochasticSoilModelsMapData(IEnumerable<PipingStochasticSoilModel> soilModels, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var soilModelsMapData = (MapLineData) mapData;
             MapFeature[] soilModelsFeatures = soilModelsMapData.Features.ToArray();
-            StochasticSoilModel[] stochasticSoilModelsArray = soilModels.ToArray();
+            PipingStochasticSoilModel[] stochasticSoilModelsArray = soilModels.ToArray();
             Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);
 
             for (var index = 0; index < stochasticSoilModelsArray.Length; index++)
             {
                 Assert.AreEqual(1, soilModelsFeatures[index].MapGeometries.Count());
-                StochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
+                PipingStochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);

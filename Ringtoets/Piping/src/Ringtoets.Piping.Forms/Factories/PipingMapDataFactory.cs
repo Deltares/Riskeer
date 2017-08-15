@@ -22,7 +22,7 @@
 using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="StochasticSoilModel"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()

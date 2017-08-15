@@ -241,10 +241,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     return new ReadResult<T>(false);
                 }
 
-                if (!ValidateStochasticSoilModel(stochasticSoilModel))
-                {
-                    return new ReadResult<T>(true);
-                }
+                ValidateStochasticSoilModel(stochasticSoilModel);
 
                 transformedStochasticSoilModels.Add(transformer.Transform(stochasticSoilModel));
             }
@@ -255,21 +252,13 @@ namespace Ringtoets.Common.IO.SoilProfile
             };
         }
 
-        /// <summary>
-        /// Validate the definition of a <see cref="StochasticSoilModel"/>.
-        /// </summary>
-        /// <param name="stochasticSoilModel">The <see cref="StochasticSoilModel"/> to validate.</param>
-        /// <returns><c>false</c> when the sum of the stochastic soil profiles in the stochastic 
-        /// soil model does add up to 100%, <c>true</c> otherwise.</returns>
-        private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
+        private void ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
         {
             if (!IsSumOfAllProbabilitiesEqualToOne(stochasticSoilModel))
             {
-                Log.ErrorFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
-                                stochasticSoilModel.Name);
-                return false;
+                Log.WarnFormat(Resources.StochasticSoilModelImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
+                               stochasticSoilModel.Name);
             }
-            return true;
         }
 
         private static bool IsSumOfAllProbabilitiesEqualToOne(StochasticSoilModel stochasticSoilModel)

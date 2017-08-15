@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test
@@ -56,37 +57,36 @@ namespace Ringtoets.Piping.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilModel()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                0.3, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                }, SoilProfileType.SoilProfile1D, 1));
+            var soilProfile2 = new PipingStochasticSoilProfile(
+                0.7, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
-                }, SoilProfileType.SoilProfile1D, 2)
+                }, SoilProfileType.SoilProfile1D, 2));
+
+            var soilModel = new PipingStochasticSoilModel("A")
+            {
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile1,
+                    soilProfile2
+                }
             };
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1,
-                soilProfile2
-            });
-            StochasticSoilModel[] availableSoilModels =
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -100,12 +100,12 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 surfaceLine,
                 availableSoilModels);
 
             // Assert
-            StochasticSoilModel[] expected =
+            PipingStochasticSoilModel[] expected =
             {
                 soilModel
             };
@@ -129,30 +129,27 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(4.0)
             }, SoilProfileType.SoilProfile1D, 2);
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                Geometry =
                 {
-                    SoilProfile = soilProfile1
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                StochasticSoilProfiles =
                 {
-                    SoilProfile = soilProfile2
+                    new PipingStochasticSoilProfile(0.3, soilProfile1),
+                    new PipingStochasticSoilProfile(0.7, soilProfile2)
                 }
-            });
-            StochasticSoilModel[] availableSoilModels =
+            };
+
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 null,
                 availableSoilModels);
 
@@ -173,9 +170,9 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 surfaceLine,
-                Enumerable.Empty<StochasticSoilModel>());
+                Enumerable.Empty<PipingStochasticSoilModel>());
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -185,12 +182,14 @@ namespace Ringtoets.Piping.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_NoSoilProfiles_ReturnEmpty()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }
+            };
 
             var availableSoilModels = new[]
             {
@@ -206,7 +205,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 surfaceLine,
                 availableSoilModels);
 
@@ -231,24 +230,21 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(4.0)
             }, SoilProfileType.SoilProfile1D, 2);
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                Geometry =
                 {
-                    SoilProfile = soilProfile1
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                StochasticSoilProfiles =
                 {
-                    SoilProfile = soilProfile2
+                    new PipingStochasticSoilProfile(0.3, soilProfile1),
+                    new PipingStochasticSoilProfile(0.7, soilProfile2)
                 }
-            });
-            StochasticSoilModel[] availableSoilModels =
+            };
+
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -262,7 +258,8 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+                surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -272,47 +269,50 @@ namespace Ringtoets.Piping.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineOverlappingSoilModels_ReturnSoilModels()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
                 }, SoilProfileType.SoilProfile1D, 2)
-            };
+            );
 
             const double y = 1.1;
-            var soilModel1 = new StochasticSoilModel("A");
-            soilModel1.Geometry.AddRange(new[]
+            var soilModel1 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, y),
+                    new Point2D(2.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile1
+                }
+            };
 
-            var soilModel2 = new StochasticSoilModel("A");
-            soilModel2.Geometry.AddRange(new[]
+            var soilModel2 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(3.0, y),
-                new Point2D(4.0, y)
-            });
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(3.0, y),
+                    new Point2D(4.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile2
+                }
+            };
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -328,12 +328,12 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
+            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 surfaceLine,
                 availableSoilModels);
 
             // Assert
-            StochasticSoilModel[] expected =
+            PipingStochasticSoilModel[] expected =
             {
                 soilModel1,
                 soilModel2
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.Forms.Test
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 null,
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
                 new GeneralPipingInput());
 
             // Assert
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
                 null);
 
             // Assert
@@ -422,7 +422,7 @@ namespace Ringtoets.Piping.Forms.Test
             {
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     pipingSurfaceLines,
-                    Enumerable.Empty<StochasticSoilModel>(),
+                    Enumerable.Empty<PipingStochasticSoilModel>(),
                     new GeneralPipingInput()).ToArray();
             };
 
@@ -443,36 +443,36 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                0.3, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
                 }, SoilProfileType.SoilProfile1D, 2)
+            );
+
+            var soilModel = new PipingStochasticSoilModel("A")
+            {
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile1,
+                    soilProfile2
+                }
             };
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1,
-                soilProfile2
-            });
             var availableSoilModels = new[]
             {
                 soilModel
@@ -524,12 +524,14 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_NoSoilProfiles_LogWarning()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }
+            };
 
             var availableSoilModels = new[]
             {
@@ -589,24 +591,21 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(4.0)
             }, SoilProfileType.SoilProfile1D, 2);
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                Geometry =
                 {
-                    SoilProfile = soilProfile1
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                StochasticSoilProfiles =
                 {
-                    SoilProfile = soilProfile2
+                    new PipingStochasticSoilProfile(0.3, soilProfile1),
+                    new PipingStochasticSoilProfile(0.7, soilProfile2)
                 }
-            });
-            StochasticSoilModel[] availableSoilModels =
+            };
+
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -652,47 +651,50 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
                 }, SoilProfileType.SoilProfile1D, 2)
-            };
+            );
 
             const double y = 1.1;
-            var soilModel1 = new StochasticSoilModel("A");
-            soilModel1.Geometry.AddRange(new[]
+            var soilModel1 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, y),
+                    new Point2D(2.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile1
+                }
+            };
 
-            var soilModel2 = new StochasticSoilModel("A");
-            soilModel2.Geometry.AddRange(new[]
+            var soilModel2 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(3.0, y),
-                new Point2D(4.0, y)
-            });
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(3.0, y),
+                    new Point2D(4.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile2
+                }
+            };
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -745,48 +747,50 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
                 }, SoilProfileType.SoilProfile1D, 2)
-            };
+            );
 
             const double y = 1.1;
-            var soilModel1 = new StochasticSoilModel("A");
-            soilModel1.Geometry.AddRange(new[]
+            var soilModel1 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1,
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, y),
+                    new Point2D(2.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile1,
+                    soilProfile2
+                }
+            };
 
-            var soilModel2 = new StochasticSoilModel("A");
-            soilModel2.Geometry.AddRange(new[]
+            var soilModel2 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(3.0, y),
-                new Point2D(4.0, y)
-            });
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(3.0, y),
+                    new Point2D(4.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile2
+                }
+            };
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -866,48 +870,51 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationItemsStructure_OneSurfaceLineIntersectingSoilModelOneSurfaceLineNoIntersection_ReturnOneGroupsWithProfilesAndLogOneWarning()
         {
             // Setup
-            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 1", -10.0, new[]
                 {
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D, 1)
-            };
-            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+            );
+            var soilProfile2 = new PipingStochasticSoilProfile(
+                1.0, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
                     new PipingSoilLayer(-4.0),
                     new PipingSoilLayer(0.0),
                     new PipingSoilLayer(4.0)
                 }, SoilProfileType.SoilProfile1D, 2)
-            };
+            );
 
             const double y = 1.1;
-            var soilModel1 = new StochasticSoilModel("A");
-            soilModel1.Geometry.AddRange(new[]
+            var soilModel1 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1,
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(1.0, y),
+                    new Point2D(2.0, y)
+                },
 
-            var soilModel2 = new StochasticSoilModel("A");
-            soilModel2.Geometry.AddRange(new[]
+                StochasticSoilProfiles =
+                {
+                    soilProfile1,
+                    soilProfile2
+                }
+            };
+
+            var soilModel2 = new PipingStochasticSoilModel("A")
             {
-                new Point2D(3.0, y),
-                new Point2D(4.0, y)
-            });
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile2
-            });
+                Geometry =
+                {
+                    new Point2D(3.0, y),
+                    new Point2D(4.0, y)
+                },
+                StochasticSoilProfiles =
+                {
+                    soilProfile2
+                }
+            };
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -996,23 +1003,19 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(4.0)
             }, SoilProfileType.SoilProfile1D, 2);
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                Geometry =
                 {
-                    SoilProfile = soilProfile1
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                StochasticSoilProfiles =
                 {
-                    SoilProfile = soilProfile2
+                    new PipingStochasticSoilProfile(0.3, soilProfile1),
+                    new PipingStochasticSoilProfile(0.7, soilProfile2)
                 }
-            });
+            };
             var availableSoilModels = new[]
             {
                 soilModel
@@ -1078,27 +1081,20 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(4.0)
             }, SoilProfileType.SoilProfile1D, 2);
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new PipingStochasticSoilModel("A")
             {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
-            {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                Geometry =
                 {
-                    SoilProfile = soilProfile1
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
-                new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 2)
+                StochasticSoilProfiles =
                 {
-                    SoilProfile = soilProfile2
-                },
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 3)
-                {
-                    SoilProfile = soilProfile3
+                    new PipingStochasticSoilProfile(0.3, soilProfile1),
+                    new PipingStochasticSoilProfile(0.2, soilProfile2),
+                    new PipingStochasticSoilProfile(0.5, soilProfile3)
                 }
-            });
+            };
             var availableSoilModels = new[]
             {
                 soilModel

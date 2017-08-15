@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -49,7 +50,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public PipingCalculationGroupContext(CalculationGroup calculationGroup,
                                              CalculationGroup parent,
                                              IEnumerable<PipingSurfaceLine> surfaceLines,
-                                             IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                             IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
                                              PipingFailureMechanism pipingFailureMechanism,
                                              IAssessmentSection assessmentSection)
             : base(calculationGroup, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)

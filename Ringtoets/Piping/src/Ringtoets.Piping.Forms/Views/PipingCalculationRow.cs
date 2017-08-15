@@ -28,6 +28,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -85,15 +86,15 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<StochasticSoilModel> StochasticSoilModel
+        public DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel> StochasticSoilModel
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(PipingCalculation.InputParameters.StochasticSoilModel);
+                return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(PipingCalculation.InputParameters.StochasticSoilModel);
             }
             set
             {
-                StochasticSoilModel valueToSet = value?.WrappedObject;
+                PipingStochasticSoilModel valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilModel = valueToSet, propertyChangeHandler);
@@ -104,15 +105,15 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the stochastic soil profile of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<StochasticSoilProfile> StochasticSoilProfile
+        public DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile> StochasticSoilProfile
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(PipingCalculation.InputParameters.StochasticSoilProfile);
+                return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(PipingCalculation.InputParameters.StochasticSoilProfile);
             }
             set
             {
-                StochasticSoilProfile valueToSet = value?.WrappedObject;
+                PipingStochasticSoilProfile valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet, propertyChangeHandler);

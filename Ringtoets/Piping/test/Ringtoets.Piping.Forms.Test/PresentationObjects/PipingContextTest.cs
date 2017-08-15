@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
@@ -53,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
 
             var target = new ObservableObject();
@@ -88,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 null,
-                                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
 
@@ -130,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 null,
                                                                                 assessmentSection);
 
@@ -146,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                 new PipingFailureMechanism(),
                                                                                 null);
 
@@ -157,7 +158,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
         {
-            public SimplePipingContext(T target, IEnumerable<PipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+            public SimplePipingContext(T target,
+                                       IEnumerable<PipingSurfaceLine> surfaceLines,
+                                       IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                       PipingFailureMechanism pipingFailureMechanism,
+                                       IAssessmentSection assessmentSection)
                 : base(target, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
         }
 

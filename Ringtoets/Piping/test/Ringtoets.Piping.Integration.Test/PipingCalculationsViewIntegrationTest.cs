@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtils;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Integration.Test
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
-                StochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.PipingFailureMechanism.StochasticSoilModels;
+                PipingStochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.PipingFailureMechanism.StochasticSoilModels;
                 pipingCalculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection.First(sl => sl.Name == "PK001_0001_Piping");
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);

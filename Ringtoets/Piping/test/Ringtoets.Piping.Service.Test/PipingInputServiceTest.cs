@@ -21,7 +21,9 @@
 
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -32,7 +34,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SetMatchingStochasticSoilModel_SurfaceLineOverlappingSingleSoilModel_SetsSoilModel()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
@@ -42,7 +44,7 @@ namespace Ringtoets.Piping.Service.Test
             });
 
             // Assert
-            Assert.AreEqual(soilModel, pipingInput.StochasticSoilModel);
+            Assert.AreSame(soilModel, pipingInput.StochasticSoilModel);
         }
 
         [Test]
@@ -50,8 +52,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-            var soilModel1 = new StochasticSoilModel("A");
-            var soilModel2 = new StochasticSoilModel("C");
+            PipingStochasticSoilModel soilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A");
+            PipingStochasticSoilModel soilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("C");
 
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
@@ -68,14 +70,14 @@ namespace Ringtoets.Piping.Service.Test
         public void SetMatchingStochasticSoilModel_CurrentSoilModelNotInOverlappingMultipleSoilModels_ClearsModel()
         {
             // Setup
-            var nonOverlappingSoilModel = new StochasticSoilModel("A");
+            PipingStochasticSoilModel nonOverlappingSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 StochasticSoilModel = nonOverlappingSoilModel
             };
 
-            var soilModel1 = new StochasticSoilModel("A");
-            var soilModel2 = new StochasticSoilModel("C");
+            PipingStochasticSoilModel soilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A");
+            PipingStochasticSoilModel soilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("C");
 
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
@@ -92,10 +94,15 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncStochasticSoilProfileWithStochasticSoilModel_SingleStochasticSoilProfileInStochasticSoilModel_SetsStochasticSoilProfile()
         {
             // Setup
-            var soilProfile = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1);
+            var soilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            var soilModel = new StochasticSoilModel("A");
-            soilModel.StochasticSoilProfiles.Add(soilProfile);
+            var soilModel = new PipingStochasticSoilModel("A")
+            {
+                StochasticSoilProfiles =
+                {
+                    soilProfile
+                }
+            };
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
@@ -106,18 +113,18 @@ namespace Ringtoets.Piping.Service.Test
             PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(pipingInput);
 
             // Assert
-            Assert.AreEqual(soilProfile, pipingInput.StochasticSoilProfile);
+            Assert.AreSame(soilProfile, pipingInput.StochasticSoilProfile);
         }
 
         [Test]
         public void SyncStochasticSoilProfileWithStochasticSoilModel_MultipleStochasticSoilProfilesInStochasticSoilModel_DoesNotSetStochasticSoilProfile()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             soilModel.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1),
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
+                new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
             });
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
@@ -135,9 +142,9 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncStochasticSoilProfileWithStochasticSoilModel_SingleStochasticSoilProfileInSoilModelAlreadySet_StochasticSoilProfileDoesNotChange()
         {
             // Setup
-            var soilProfile = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1);
+            var soilProfile = new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            var soilModel = new StochasticSoilModel("A");
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             soilModel.StochasticSoilProfiles.Add(soilProfile);
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

@@ -27,6 +27,7 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Factories;
 using Ringtoets.Piping.Primitives;
@@ -113,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         public void CreateStochasticSoilModelFeatures_NoStochasticSoilModels_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new StochasticSoilModel[0]);
+            MapFeature[] features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new PipingStochasticSoilModel[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -135,8 +136,8 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             };
             var stochasticSoilModels = new[]
             {
-                new StochasticSoilModel("StochasticSoilModelName1"),
-                new StochasticSoilModel("StochasticSoilModelName2")
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName1"),
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName2")
             };
             stochasticSoilModels[0].Geometry.AddRange(pointsOne);
             stochasticSoilModels[1].Geometry.AddRange(pointsTwo);

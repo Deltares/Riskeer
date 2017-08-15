@@ -49,9 +49,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine()
             };
-            var soilModels = new StochasticSoilModel[]
+            var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
 
             CalculationGroup parent = withParent ? new CalculationGroup() : null;

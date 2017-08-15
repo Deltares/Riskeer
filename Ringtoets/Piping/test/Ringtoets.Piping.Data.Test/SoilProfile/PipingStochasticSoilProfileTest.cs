@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test.SoilProfile
@@ -81,6 +82,55 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             // Assert
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Update_WithNullProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var stochasticProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+
+            // Call
+            TestDelegate test = () => stochasticProfile.Update(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("fromProfile", paramName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(PipingStochasticProfileUnequalCombinations))]
+        public void Update_WithValidProfile_UpdatesProperties(PipingStochasticSoilProfile stochasticProfile,
+                                                              PipingStochasticSoilProfile otherStochasticProfile)
+        {
+            // Call
+            bool updated = stochasticProfile.Update(otherStochasticProfile);
+
+            // Assert
+            Assert.IsTrue(updated);
+            Assert.AreEqual(otherStochasticProfile.Probability, stochasticProfile.Probability);
+            Assert.AreSame(otherStochasticProfile.SoilProfile, stochasticProfile.SoilProfile);
+        }
+
+        [Test]
+        public void Update_WithEqualProfile_ReturnsFalse()
+        {
+            // Setup
+            const double probability = 1.0;
+            var profile = new TestPipingSoilProfile();
+            var stochasticProfile = new PipingStochasticSoilProfile(probability, profile);
+            var otherStochasticProfile = new PipingStochasticSoilProfile(probability, profile);
+
+            // Precondition
+            Assert.AreEqual(stochasticProfile, otherStochasticProfile);
+
+            // Call
+            bool updated = stochasticProfile.Update(otherStochasticProfile);
+
+            // Assert
+            Assert.IsFalse(updated);
+            Assert.AreEqual(probability, stochasticProfile.Probability);
+            Assert.AreSame(profile, stochasticProfile.SoilProfile);
         }
 
         [Test]
@@ -140,6 +190,29 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
 
             // Assert
             Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static TestCaseData[] PipingStochasticProfileUnequalCombinations()
+        {
+            const string profileName = "newProfile";
+            var stochasticSoilProfileA = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile(
+                                                                             profileName, SoilProfileType.SoilProfile1D));
+            var stochasticSoilProfileB = new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile(
+                                                                             profileName, SoilProfileType.SoilProfile1D));
+            var stochasticSoilProfileC = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile(
+                                                                             profileName, SoilProfileType.SoilProfile2D));
+
+            return new[]
+            {
+                new TestCaseData(stochasticSoilProfileA, stochasticSoilProfileB)
+                {
+                    TestName = "Update_ProfileWithProfileA_UpdatesProperties"
+                },
+                new TestCaseData(stochasticSoilProfileA, stochasticSoilProfileC)
+                {
+                    TestName = "Update_ProfileWithProfileB_UpdatesProperties"
+                }
+            };
         }
 
         private static TestCaseData[] StochasticProfileCombinations()

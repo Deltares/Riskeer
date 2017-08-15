@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -43,13 +43,13 @@ namespace Application.Ringtoets.Storage.Read
     /// </summary>
     internal class ReadConversionCollector
     {
-        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels =
-            CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
+        private readonly Dictionary<StochasticSoilModelEntity, PipingStochasticSoilModel> pipingStochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, PipingStochasticSoilModel>();
 
-        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles =
-            CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
+        private readonly Dictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
+            CreateDictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile>();
 
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
             CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
@@ -103,16 +103,16 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Registers a read operation for <see cref="StochasticSoilModelEntity"/> and the
-        /// <see cref="StochasticSoilModel"/> that was constructed with the information.
+        /// <see cref="PipingStochasticSoilModel"/> that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> that was constructed.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilModel"/> that was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Read(StochasticSoilModelEntity entity, StochasticSoilModel model)
+        internal void Read(StochasticSoilModelEntity entity, PipingStochasticSoilModel model)
         {
             if (entity == null)
             {
@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(model));
             }
 
-            stochasticSoilModels[entity] = model;
+            pipingStochasticSoilModels[entity] = model;
         }
 
         /// <summary>
@@ -138,21 +138,21 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            return stochasticSoilModels.ContainsKey(entity);
+            return pipingStochasticSoilModels.ContainsKey(entity);
         }
 
         /// <summary>
-        /// Obtains the <see cref="StochasticSoilModel"/> which was read for the given <see cref="StochasticSoilModelEntity"/>.
+        /// Obtains the <see cref="PipingStochasticSoilModel"/> which was read for the given <see cref="StochasticSoilModelEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> for which a
         /// read operation has been registered.</param>
-        /// <returns>The constructed <see cref="StochasticSoilModel"/>.</returns>
+        /// <returns>The constructed <see cref="PipingStochasticSoilModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
         /// <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(StochasticSoilModelEntity)"/> to find out 
         /// whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal StochasticSoilModel Get(StochasticSoilModelEntity entity)
+        internal PipingStochasticSoilModel Get(StochasticSoilModelEntity entity)
         {
             if (entity == null)
             {
@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Read
             }
             try
             {
-                return stochasticSoilModels[entity];
+                return pipingStochasticSoilModels[entity];
             }
             catch (KeyNotFoundException e)
             {
@@ -174,16 +174,16 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Registers a read operation for <see cref="StochasticSoilProfileEntity"/> and 
-        /// the <see cref="StochasticSoilProfile"/> that was constructed with the information.
+        /// the <see cref="PipingStochasticSoilProfile"/> that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> that was constructed.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> that was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Read(StochasticSoilProfileEntity entity, StochasticSoilProfile model)
+        internal void Read(StochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
         {
             if (entity == null)
             {
@@ -194,7 +194,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(model));
             }
 
-            stochasticSoilProfiles[entity] = model;
+            pipingStochasticSoilProfiles[entity] = model;
         }
 
         /// <summary>
@@ -209,22 +209,22 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            return stochasticSoilProfiles.ContainsKey(entity);
+            return pipingStochasticSoilProfiles.ContainsKey(entity);
         }
 
         /// <summary>
-        /// Obtains the <see cref="StochasticSoilProfile"/> which was read for the given
+        /// Obtains the <see cref="PipingStochasticSoilProfile"/> which was read for the given
         /// <see cref="StochasticSoilProfileEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> for which
         /// a read operation has been registered.</param>
-        /// <returns>The constructed <see cref="StochasticSoilProfile"/>.</returns>
+        /// <returns>The constructed <see cref="PipingStochasticSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
         /// <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(StochasticSoilProfileEntity)"/> to find out whether a read operation has been registered for
         /// <paramref name="entity"/>.</remarks>
-        internal StochasticSoilProfile Get(StochasticSoilProfileEntity entity)
+        internal PipingStochasticSoilProfile Get(StochasticSoilProfileEntity entity)
         {
             if (entity == null)
             {
@@ -232,7 +232,7 @@ namespace Application.Ringtoets.Storage.Read
             }
             try
             {
-                return stochasticSoilProfiles[entity];
+                return pipingStochasticSoilProfiles[entity];
             }
             catch (KeyNotFoundException e)
             {
@@ -266,7 +266,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(model));
             }
 
-            soilProfiles[entity] = model;
+            pipingSoilProfiles[entity] = model;
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            return soilProfiles.ContainsKey(entity);
+            return pipingSoilProfiles.ContainsKey(entity);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace Application.Ringtoets.Storage.Read
             }
             try
             {
-                return soilProfiles[entity];
+                return pipingSoilProfiles[entity];
             }
             catch (KeyNotFoundException e)
             {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.Piping
@@ -82,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
             var index = 0;
-            foreach (StochasticSoilModel stochasticSoilModel in mechanism.StochasticSoilModels)
+            foreach (PipingStochasticSoilModel stochasticSoilModel in mechanism.StochasticSoilModels)
             {
                 entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry, index++));
             }

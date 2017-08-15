@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
@@ -240,12 +241,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
-            var stochasticSoilProfile = new StochasticSoilProfile(0.6, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = soilProfile
-            };
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.6, soilProfile);
 
-            var soilModel = new StochasticSoilModel("A");
+            var soilModel = new PipingStochasticSoilModel("A");
             soilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var registry = new PersistenceRegistry();

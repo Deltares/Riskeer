@@ -46,6 +46,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
@@ -53,8 +54,6 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using StochasticSoilModel = Ringtoets.Piping.Data.StochasticSoilModel;
-using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -874,7 +873,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new StochasticSoilModel("modelName")
+                new PipingStochasticSoilModel("modelName")
                 {
                     Geometry =
                     {
@@ -884,14 +883,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
-                        {
-                            SoilProfile = pipingSoilProfile
-                        },
-                        new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile2D, -1)
-                        {
-                            SoilProfile = new TestPipingSoilProfile()
-                        }
+                        new PipingStochasticSoilProfile(0.2, pipingSoilProfile),
+                        new PipingStochasticSoilProfile(0.8, new TestPipingSoilProfile())
                     }
                 }
             }, "some/path/to/stochasticSoilModelFile");

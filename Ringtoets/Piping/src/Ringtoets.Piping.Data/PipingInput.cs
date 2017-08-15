@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -176,14 +177,14 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the stochastic soil model which is linked to the <see cref="StochasticSoilProfile"/>.
+        /// Gets or sets the stochastic soil model which is linked to the <see cref="PipingStochasticSoilProfile"/>.
         /// </summary>
-        public StochasticSoilModel StochasticSoilModel { get; set; }
+        public PipingStochasticSoilModel StochasticSoilModel { get; set; }
 
         /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
-        public StochasticSoilProfile StochasticSoilProfile { get; set; }
+        public PipingStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.

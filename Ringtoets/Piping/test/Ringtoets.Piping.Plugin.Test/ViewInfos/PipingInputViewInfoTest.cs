@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -91,7 +92,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                  new PipingFailureMechanism(),
                                                                  assessmentSection);
 
@@ -114,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
                                                                                         new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                         new PipingFailureMechanism(),
                                                                                         assessmentSection);
 
@@ -145,7 +146,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
                                                                                         new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                                         new PipingFailureMechanism(),
                                                                                         assessmentSection);
 
@@ -177,7 +178,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
                                                                             null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
             using (var view = new PipingInputView
@@ -208,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
                                                                             null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
             using (var view = new PipingInputView
@@ -241,7 +242,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
                                                                             null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
             using (var view = new PipingInputView
@@ -274,7 +275,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
                                                                             null,
                                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                             new PipingFailureMechanism(),
                                                                             assessmentSection);
             using (var view = new PipingInputView

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Ringtoets.Piping.Service
 {
@@ -32,13 +33,13 @@ namespace Ringtoets.Piping.Service
     {
         /// <summary>
         /// Sets <see cref="PipingInput.StochasticSoilModel"/> and <see cref="PipingInput.StochasticSoilProfile"/> that match the input of a calculation if there is one matching 
-        /// <see cref="StochasticSoilModel"/> or <see cref="StochasticSoilProfile"/> respectively.
+        /// <see cref="PipingStochasticSoilModel"/> or <see cref="PipingStochasticSoilProfile"/> respectively.
         /// </summary>
-        /// <param name="pipingInput">The input parameters to set the <see cref="StochasticSoilModel"/>.</param>
+        /// <param name="pipingInput">The input parameters to set the <see cref="PipingStochasticSoilModel"/>.</param>
         /// <param name="availableStochasticSoilModels">The available stochastic soil models.</param>
-        public static void SetMatchingStochasticSoilModel(PipingInput pipingInput, IEnumerable<StochasticSoilModel> availableStochasticSoilModels)
+        public static void SetMatchingStochasticSoilModel(PipingInput pipingInput, IEnumerable<PipingStochasticSoilModel> availableStochasticSoilModels)
         {
-            List<StochasticSoilModel> available = availableStochasticSoilModels.ToList();
+            List<PipingStochasticSoilModel> available = availableStochasticSoilModels.ToList();
             if (available.Count == 1)
             {
                 pipingInput.StochasticSoilModel = available.First();
@@ -57,7 +58,7 @@ namespace Ringtoets.Piping.Service
         /// <item>The first element of <paramref name="pipingInput.StochasticSoilModel.StochasticSoilProfiles"/> when it is the only element.</item>
         /// </list>
         /// </summary>
-        /// <param name="pipingInput">The input parameters to set the <see cref="StochasticSoilProfile"/>.</param>
+        /// <param name="pipingInput">The input parameters to set the <see cref="PipingStochasticSoilProfile"/>.</param>
         public static void SyncStochasticSoilProfileWithStochasticSoilModel(PipingInput pipingInput)
         {
             if (pipingInput.StochasticSoilModel != null)

@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -58,17 +59,14 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
-                StochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = new TestPipingSoilProfile()
-                }
+                StochasticSoilProfile = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile())
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
                                                             calculationItem,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                             new[]
                                                             {
-                                                                new TestStochasticSoilModel()
+                                                                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
                                                             },
                                                             failureMechanism,
                                                             assessmentSection);
@@ -105,11 +103,8 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new TestPipingSoilProfile()
-            };
-            var stochasticSoilModel = new StochasticSoilModel("Model")
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile());
+            var stochasticSoilModel = new PipingStochasticSoilModel("Model")
             {
                 Geometry =
                 {

@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -92,7 +93,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());
 
@@ -113,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 new PipingInput(new GeneralPipingInput()),
                 new PipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
                 mocks.Stub<IAssessmentSection>());
 

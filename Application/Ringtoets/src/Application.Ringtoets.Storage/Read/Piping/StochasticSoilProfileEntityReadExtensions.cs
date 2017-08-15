@@ -21,25 +21,27 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StochasticSoilProfile"/> based on the
-    /// <see cref="StochasticSoilProfileEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingStochasticSoilProfile"/> 
+    /// based on the <see cref="StochasticSoilProfileEntity"/>.
     /// </summary>
     internal static class StochasticSoilProfileEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StochasticSoilProfileEntity"/> and use the information to construct a <see cref="StochasticSoilProfile"/>.
+        /// Reads the <see cref="StochasticSoilProfileEntity"/> and use the information to construct
+        /// a <see cref="PipingStochasticSoilProfile"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to create <see cref="StochasticSoilProfile"/> for.</param>
+        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to create <see cref="PipingStochasticSoilProfile"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StochasticSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="PipingStochasticSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StochasticSoilProfile Read(this StochasticSoilProfileEntity entity, ReadConversionCollector collector)
+        internal static PipingStochasticSoilProfile Read(this StochasticSoilProfileEntity entity,
+                                                         ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -50,17 +52,18 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var profile = new StochasticSoilProfile(entity.Probability, (SoilProfileType) entity.Type, -1);
-            entity.ReadSoilProfile(profile, collector);
+            PipingSoilProfile soilProfile = entity.ReadSoilProfile(collector);
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(entity.Probability, soilProfile);
 
-            collector.Read(entity, profile);
+            collector.Read(entity, stochasticSoilProfile);
 
-            return profile;
+            return stochasticSoilProfile;
         }
 
-        private static void ReadSoilProfile(this StochasticSoilProfileEntity entity, StochasticSoilProfile profile, ReadConversionCollector collector)
+        private static PipingSoilProfile ReadSoilProfile(this StochasticSoilProfileEntity entity,
+                                                         ReadConversionCollector collector)
         {
-            profile.SoilProfile = entity.SoilProfileEntity.Read(collector);
+            return entity.SoilProfileEntity.Read(collector);
         }
     }
 }

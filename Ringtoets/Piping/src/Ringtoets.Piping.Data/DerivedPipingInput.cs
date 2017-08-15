@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
 
@@ -204,7 +205,7 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateThicknessAquiferLayerMean(LogNormalDistribution thicknessAquiferLayer)
         {
-            StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
+            PipingStochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 
@@ -222,7 +223,7 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateThicknessCoverageLayerMean(LogNormalDistribution thicknessCoverageLayerDistribution)
         {
-            StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
+            PipingStochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
             PipingSurfaceLine surfaceLine = input.SurfaceLine;
             RoundedDouble exitPointL = input.ExitPointL;
 

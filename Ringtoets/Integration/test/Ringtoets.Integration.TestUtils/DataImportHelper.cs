@@ -33,13 +33,16 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.IO.Importers;
+using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using PipingSurfaceLinesCsvImporterConfigurationFactory = Ringtoets.Piping.Plugin.FileImporter.SurfaceLinesCsvImporterConfigurationFactory;
@@ -204,7 +207,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Imports the <see cref="Piping.Data.StochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
+        /// Imports the <see cref="PipingStochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
@@ -216,12 +219,13 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
-                var activity = new FileImportActivity(new StochasticSoilModelImporter(
-                                                          assessmentSection.PipingFailureMechanism.StochasticSoilModels,
-                                                          filePath,
-                                                          new ImportMessageProvider(),
-                                                          new StochasticSoilModelReplaceDataStrategy(assessmentSection.PipingFailureMechanism)),
-                                                      "StochasticSoilModelImporter");
+                var activity = new FileImportActivity(
+                    new StochasticSoilModelImporter<PipingStochasticSoilModel>(
+                        assessmentSection.PipingFailureMechanism.StochasticSoilModels,
+                        filePath,
+                        new ImportMessageProvider(),
+                        StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
+                    "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
             }
@@ -269,11 +273,11 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
-                var activity = new FileImportActivity(new MacroStabilityInwards.IO.Importers.StochasticSoilModelImporter(
+                var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.MacroStabilityInwards.StochasticSoilModels,
                                                           filePath,
                                                           new ImportMessageProvider(),
-                                                          new MacroStabilityInwards.Plugin.FileImporter.StochasticSoilModelReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
+                                                          new StochasticSoilModelReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
                                                       "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();

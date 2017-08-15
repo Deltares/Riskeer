@@ -43,6 +43,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using Ringtoets.Revetment.Data;
@@ -374,7 +375,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertPipingFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            StochasticSoilModel[] soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            PipingStochasticSoilModel[] soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
             Assert.AreEqual(4, soilModels.Length);
             PipingSurfaceLine[] surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);

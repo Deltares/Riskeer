@@ -29,6 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
@@ -69,7 +70,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
                                                             null,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 
@@ -113,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
                                                             null,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 
@@ -155,7 +156,7 @@ namespace Ringtoets.Piping.Plugin.Test.ExportInfos
             var context = new PipingCalculationGroupContext(calculationGroup,
                                                             null,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                             new PipingFailureMechanism(),
                                                             assessmentSection);
 

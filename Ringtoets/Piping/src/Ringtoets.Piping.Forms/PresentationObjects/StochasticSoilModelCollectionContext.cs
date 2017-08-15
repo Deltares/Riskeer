@@ -23,13 +23,14 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.StochasticSoilModels"/>.
     /// </summary>
-    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<StochasticSoilModelCollection>
+    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<PipingStochasticSoilModelCollection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelCollectionContext"/>.
@@ -38,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionContext(StochasticSoilModelCollection wrappedStochasticSoilModels,
+        public StochasticSoilModelCollectionContext(PipingStochasticSoilModelCollection wrappedStochasticSoilModels,
                                                     PipingFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)

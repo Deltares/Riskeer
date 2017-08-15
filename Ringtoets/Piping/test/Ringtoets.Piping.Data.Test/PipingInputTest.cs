@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
@@ -40,6 +41,17 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingInputTest
     {
+        private static IEnumerable<TestCaseData> DifferentSurfaceLineProperties
+        {
+            get
+            {
+                yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
+                    .SetName("DifferentDikeToeAtRiver");
+                yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
+                    .SetName("DifferentDikeToeAtPolder");
+            }
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -555,17 +567,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsFalse(synchronized);
         }
 
-        private static IEnumerable<TestCaseData> DifferentSurfaceLineProperties
-        {
-            get
-            {
-                yield return new TestCaseData(new Point3D(3, 0, 0), new Point3D(3, 0, 0))
-                    .SetName("DifferentDikeToeAtRiver");
-                yield return new TestCaseData(new Point3D(2, 0, 3), new Point3D(4, 0, 2))
-                    .SetName("DifferentDikeToeAtPolder");
-            }
-        }
-
         [Test]
         public void GivenSurfaceLineSet_WhenSurfaceLineNull_ThenEntryAndExitPointsNaN()
         {
@@ -896,16 +897,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
                         IsAquifer = false
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -961,9 +961,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -974,7 +973,7 @@ namespace Ringtoets.Piping.Data.Test
                         IsAquifer = true
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -988,9 +987,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.5)
                     {
@@ -1001,7 +999,7 @@ namespace Ringtoets.Piping.Data.Test
                         IsAquifer = true
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -1074,16 +1072,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
                         IsAquifer = false
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -1097,9 +1094,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -1110,7 +1106,7 @@ namespace Ringtoets.Piping.Data.Test
                         IsAquifer = true
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -1183,16 +1179,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
                         IsAquifer = false
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution effectiveThicknessCoverageLayer = input.EffectiveThicknessCoverageLayer;
@@ -1206,9 +1201,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -1219,7 +1213,7 @@ namespace Ringtoets.Piping.Data.Test
                         IsAquifer = true
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
-            };
+            );
 
             // Call
             LogNormalDistribution effectiveThicknessCoverageLayer = input.EffectiveThicknessCoverageLayer;

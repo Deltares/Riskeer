@@ -32,10 +32,11 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.IO.Importers;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -46,17 +47,6 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;
-
-        public override void Setup()
-        {
-            plugin = new PipingPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
 
         [Test]
         public void Name_Always_ReturnExpectedName()
@@ -97,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var stochasticSoilModel = new StochasticSoilModelCollection();
+            var stochasticSoilModel = new PipingStochasticSoilModelCollection();
 
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
@@ -118,8 +108,8 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var stochasticSoilModel = new StochasticSoilModelCollection();
-            stochasticSoilModel.AddRange(Enumerable.Empty<StochasticSoilModel>(), "some/path");
+            var stochasticSoilModel = new PipingStochasticSoilModelCollection();
+            stochasticSoilModel.AddRange(Enumerable.Empty<PipingStochasticSoilModel>(), "some/path");
 
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
@@ -158,7 +148,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
@@ -192,7 +182,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
@@ -232,10 +222,10 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "some/path";
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             stochasticSoilModelCollection.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, expectedFilePath);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -266,8 +256,19 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModelImporter>(importer);
+            Assert.IsInstanceOf<StochasticSoilModelImporter<PipingStochasticSoilModel>>(importer);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new PipingPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }

@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.UITypeEditors;
@@ -64,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 {
                                                                     new PipingSurfaceLine()
                                                                 },
-                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 
@@ -119,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 {
                                                                     surfaceLine
                                                                 },
-                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                 failureMechanism,
                                                                 assessmentSection);
 

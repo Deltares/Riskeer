@@ -27,6 +27,10 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
 {
+    /// <summary>
+    /// This class defines extension methods for read operations for a <see cref="PipingCalculationScenario"/>
+    /// based on the <see cref="PipingCalculationEntity"/>.
+    /// </summary>
     internal static class PipingCalculationEntityReadExtensions
     {
         /// <summary>

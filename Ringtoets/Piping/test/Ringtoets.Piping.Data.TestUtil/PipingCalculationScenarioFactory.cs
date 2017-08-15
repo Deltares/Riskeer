@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
@@ -141,9 +142,8 @@ namespace Ringtoets.Piping.Data.TestUtil
         {
             const double bottom = 1.12;
             const double top = 10.56;
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0.0, new[]
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
                 {
                     new PipingSoilLayer(top)
                     {
@@ -160,8 +160,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         PermeabilityCoefficientOfVariation = 0.5,
                         PermeabilityMean = 1.0
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                }, SoilProfileType.SoilProfile1D, 0));
             var surfaceLine = new PipingSurfaceLine();
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);

@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
     public class PipingStochasticSoilProfile : Observable
     {
         private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
+        private double probability;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingStochasticSoilProfile"/>.
@@ -49,9 +50,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
-
-            ValidateProbability(probability);
-
+            
             Probability = probability;
             SoilProfile = soilProfile;
         }
@@ -59,12 +58,57 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// <summary>
         /// Gets the probability of the stochastic soil profile.
         /// </summary>
-        public double Probability { get; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="value"/> is outside the range
+        /// [0, 1].</exception>
+        public double Probability
+        {
+            get
+            {
+                return probability;
+            }
+            private set
+            {
+                if (!probabilityValidityRange.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        string.Format(
+                            Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
+                            probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
+                }
+                probability = value;
+            }
+        }
 
         /// <summary>
         /// Gets the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        public PipingSoilProfile SoilProfile { get; }
+        public PipingSoilProfile SoilProfile { get; private set; }
+
+        /// <summary>
+        /// Updates the <see cref="PipingStochasticSoilProfile"/> with the properties
+        /// from <paramref name="fromProfile"/>.
+        /// </summary>
+        /// <param name="fromProfile">The <see cref="PipingStochasticSoilProfile"/> to
+        /// obtain the property values from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
+        /// is <c>null</c>.</exception>
+        /// <returns><c>true</c> if the profile has been updated; <c>false</c> otherwise.</returns>
+        public bool Update(PipingStochasticSoilProfile fromProfile)
+        {
+            if (fromProfile == null)
+            {
+                throw new ArgumentNullException(nameof(fromProfile));
+            }
+            if (Equals(fromProfile))
+            {
+                return false;
+            }
+
+            SoilProfile = fromProfile.SoilProfile;
+            Probability = fromProfile.Probability;
+            return true;
+        }
 
         public override string ToString()
         {
@@ -92,24 +136,6 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 int hashCode = Probability.GetHashCode();
                 hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
                 return hashCode;
-            }
-        }
-
-        /// <summary>
-        /// Checks that <paramref name="probability"/> is valid.
-        /// </summary>
-        /// <param name="probability">Probability of the stochastic soil profile.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probability"/> 
-        /// is outside the range [0, 1].</exception>
-        private static void ValidateProbability(double probability)
-        {
-            if (!probabilityValidityRange.InRange(probability))
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(probability),
-                    string.Format(
-                        Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
-                        probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
             }
         }
 

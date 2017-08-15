@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Configurations;
 using Ringtoets.Piping.Primitives;
@@ -120,7 +121,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var context = new PipingCalculationGroupContext(new CalculationGroup(),
                                                             null,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
-                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
                                                             failureMechanism,
                                                             assessmentSection);
 

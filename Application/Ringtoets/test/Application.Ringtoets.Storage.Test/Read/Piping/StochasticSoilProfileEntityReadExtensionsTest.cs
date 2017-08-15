@@ -24,8 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
@@ -69,12 +68,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilProfile profile = entity.Read(collector);
+            PipingStochasticSoilProfile profile = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(profile);
             Assert.AreEqual(probability, profile.Probability, 1e-6);
-            Assert.AreEqual((SoilProfileType) soilProfileType, profile.SoilProfileType);
             Assert.IsTrue(collector.Contains(entity));
         }
 
@@ -102,10 +100,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
             var collector = new ReadConversionCollector();
 
-            StochasticSoilProfile firstProfile = firstEntity.Read(collector);
+            PipingStochasticSoilProfile firstProfile = firstEntity.Read(collector);
 
             // Call
-            StochasticSoilProfile secondProfile = secondEntity.Read(collector);
+            PipingStochasticSoilProfile secondProfile = secondEntity.Read(collector);
 
             // Assert
             Assert.AreNotSame(firstProfile, secondProfile);
@@ -130,8 +128,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilProfile profile1 = entity.Read(collector);
-            StochasticSoilProfile profile2 = entity.Read(collector);
+            PipingStochasticSoilProfile profile1 = entity.Read(collector);
+            PipingStochasticSoilProfile profile2 = entity.Read(collector);
 
             // Assert
             Assert.AreSame(profile1, profile2);

@@ -54,13 +54,12 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using StochasticSoilModelCollection = Ringtoets.Piping.Data.StochasticSoilModelCollection;
-using StochasticSoilProfile = Ringtoets.Piping.Data.StochasticSoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.IntegrationTests
 {
@@ -500,8 +499,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
-        private static void AssertStochasticSoilModels(StochasticSoilModelCollection expectedModels,
-                                                       StochasticSoilModelCollection actualModels)
+        private static void AssertStochasticSoilModels(PipingStochasticSoilModelCollection expectedModels,
+                                                       PipingStochasticSoilModelCollection actualModels)
         {
             Assert.Less(0, actualModels.Count);
 
@@ -522,8 +521,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedSoilModelSegmentPoints, actualSoilModelSegmentPoints);
         }
 
-        private static void AssertStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> expectedStochasticSoilProfiles,
-                                                         IEnumerable<StochasticSoilProfile> actualStochasticSoilProfiles)
+        private static void AssertStochasticSoilProfiles(IEnumerable<PipingStochasticSoilProfile> expectedStochasticSoilProfiles,
+                                                         IEnumerable<PipingStochasticSoilProfile> actualStochasticSoilProfiles)
         {
             Assert.Less(0, actualStochasticSoilProfiles.Count());
 
@@ -532,7 +531,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      AssertPipingSoilProfile);
         }
 
-        private static void AssertPipingSoilProfile(StochasticSoilProfile expectedProfile, StochasticSoilProfile actualProfile)
+        private static void AssertPipingSoilProfile(PipingStochasticSoilProfile expectedProfile, PipingStochasticSoilProfile actualProfile)
         {
             Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
             Assert.AreEqual(expectedProfile.SoilProfile.Bottom, actualProfile.SoilProfile.Bottom);

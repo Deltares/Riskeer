@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -46,7 +47,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -590,11 +591,12 @@ namespace Demo.Ringtoets.Commands
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
-                var soilProfilesImporter = new StochasticSoilModelImporter(pipingFailureMechanism.StochasticSoilModels,
-                                                                           Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
-                                                                                        "DR6.soil"),
-                                                                           new ImportMessageProvider(),
-                                                                           new StochasticSoilModelReplaceDataStrategy(pipingFailureMechanism));
+                var soilProfilesImporter =
+                    new StochasticSoilModelImporter<PipingStochasticSoilModel>(
+                        pipingFailureMechanism.StochasticSoilModels,
+                        Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"),
+                        new ImportMessageProvider(),
+                        StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(pipingFailureMechanism));
                 soilProfilesImporter.Import();
             }
 
@@ -608,7 +610,7 @@ namespace Demo.Ringtoets.Commands
             };
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
 
-            StochasticSoilModel stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
+            PipingStochasticSoilModel stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
             calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);

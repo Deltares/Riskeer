@@ -27,6 +27,7 @@ using log4net;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -55,7 +56,9 @@ namespace Ringtoets.Piping.Forms
         /// <item><paramref name="soilModels"/> is <c>null</c></item>
         /// <item><paramref name="generalInput"/> is <c>null</c></item>
         /// </list></exception>
-        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<PipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
+        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                                                      IEnumerable<PipingStochasticSoilModel> soilModels,
+                                                                                      GeneralPipingInput generalInput)
         {
             if (surfaceLines == null)
             {
@@ -91,16 +94,17 @@ namespace Ringtoets.Piping.Forms
         /// <summary>
         /// Gets the stochastic soil models matching the input of a calculation.
         /// </summary>
-        /// <param name="surfaceLine">The surface line used to match a <see cref="StochasticSoilModel"/>.</param>
+        /// <param name="surfaceLine">The surface line used to match a <see cref="PipingStochasticSoilModel"/>.</param>
         /// <param name="availableSoilModels">The available stochastic soil models.</param>
         /// <returns>The (sub)set of stochastic soil models from <paramref name="availableSoilModels"/>
-        /// or empty if no matching <see cref="StochasticSoilModel"/> instances can be found
+        /// or empty if no matching <see cref="PipingStochasticSoilModel"/> instances can be found
         /// or when there is not enough information to associate soil profiles to the calculation.</returns>
-        public static IEnumerable<StochasticSoilModel> GetStochasticSoilModelsForSurfaceLine(PipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> availableSoilModels)
+        public static IEnumerable<PipingStochasticSoilModel> GetStochasticSoilModelsForSurfaceLine(PipingSurfaceLine surfaceLine,
+                                                                                                   IEnumerable<PipingStochasticSoilModel> availableSoilModels)
         {
             if (surfaceLine == null)
             {
-                return Enumerable.Empty<StochasticSoilModel>();
+                return Enumerable.Empty<PipingStochasticSoilModel>();
             }
 
             return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
@@ -108,13 +112,15 @@ namespace Ringtoets.Piping.Forms
                                       .ToList();
         }
 
-        private static CalculationGroup CreateCalculationGroup(PipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
+        private static CalculationGroup CreateCalculationGroup(PipingSurfaceLine surfaceLine,
+                                                               IEnumerable<PipingStochasticSoilModel> soilModels,
+                                                               GeneralPipingInput generalInput)
         {
             var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
-            IEnumerable<StochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
-            foreach (StochasticSoilModel stochasticSoilModel in stochasticSoilModels)
+            IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
+            foreach (PipingStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {
-                foreach (StochasticSoilProfile soilProfile in stochasticSoilModel.StochasticSoilProfiles)
+                foreach (PipingStochasticSoilProfile soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
                     calculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput));
                 }
@@ -123,7 +129,11 @@ namespace Ringtoets.Piping.Forms
             return calculationGroup;
         }
 
-        private static ICalculationBase CreatePipingCalculation(PipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput)
+        private static ICalculationBase CreatePipingCalculation(PipingSurfaceLine surfaceLine,
+                                                                PipingStochasticSoilModel stochasticSoilModel,
+                                                                PipingStochasticSoilProfile stochasticSoilProfile,
+                                                                IEnumerable<ICalculationBase> calculations,
+                                                                GeneralPipingInput generalInput)
         {
             string nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);

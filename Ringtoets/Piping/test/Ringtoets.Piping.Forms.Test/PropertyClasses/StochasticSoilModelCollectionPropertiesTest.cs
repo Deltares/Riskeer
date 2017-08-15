@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionProperties(null);
+            TestDelegate test = () => new PipingStochasticSoilModelCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,14 +50,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new StochasticSoilModelCollection();
-            collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
+            var collection = new PipingStochasticSoilModelCollection();
+            collection.AddRange(Enumerable.Empty<PipingStochasticSoilModel>(), someFilePath);
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new PipingStochasticSoilModelCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StochasticSoilModelCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingStochasticSoilModelCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -65,10 +66,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new PipingStochasticSoilModelCollection();
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new PipingStochasticSoilModelCollectionProperties(collection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

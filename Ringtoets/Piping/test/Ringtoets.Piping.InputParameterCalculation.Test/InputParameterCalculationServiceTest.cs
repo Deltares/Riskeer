@@ -22,15 +22,17 @@
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
-using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
+using WTIPipingSurfaceLine = Deltares.WTIPiping.PipingSurfaceLine;
+using WTIPipingPoint = Deltares.WTIPiping.PipingPoint;
+using WTIPipingProfile = Deltares.WTIPiping.PipingProfile;
 
 namespace Ringtoets.Piping.InputParameterCalculation.Test
 {
@@ -47,24 +49,24 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
             double soilProfileTop = highestLevelSurfaceLine - 0.5;
             double soilProfileBottom = soilProfileTop - 0.5;
-            invalidPipingCalculation.InputParameters.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile("A", soilProfileBottom, new[]
+            invalidPipingCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0,
+                new PipingSoilProfile("A", soilProfileBottom, new[]
                 {
                     new PipingSoilLayer(soilProfileTop)
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                }, SoilProfileType.SoilProfile1D, 0));
 
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
-            double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(input.WaterVolumetricWeight,
-                                                                                                      PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                                                                                                      input.ExitPointL,
-                                                                                                      input.SurfaceLine,
-                                                                                                      input.StochasticSoilProfile.SoilProfile);
+            double result = InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
+                input.WaterVolumetricWeight,
+                PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                input.ExitPointL,
+                input.SurfaceLine,
+                input.StochasticSoilProfile.SoilProfile);
 
             // Assert
             Assert.IsNaN(result);
@@ -87,9 +89,8 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             surfaceLine.SetBottomDitchDikeSideAt(surfaceLine.Points[1]);
             surfaceLine.SetDitchPolderSideAt(surfaceLine.Points[1]);
 
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(5)
                     {
@@ -99,8 +100,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                }, SoilProfileType.SoilProfile1D, 0));
 
             var input = new PipingInput(new GeneralPipingInput())
             {
@@ -132,9 +132,8 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 new Point3D(20, 0, 10)
             });
 
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(5)
                     {
@@ -144,8 +143,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                }, SoilProfileType.SoilProfile1D, 0));
 
             var input = new PipingInput(new GeneralPipingInput())
             {
@@ -247,7 +245,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             }
         }
 
-        private static void AssertEqualSurfaceLines(PipingSurfaceLine pipingSurfaceLine, Deltares.WTIPiping.PipingSurfaceLine otherSurfaceLine)
+        private static void AssertEqualSurfaceLines(PipingSurfaceLine pipingSurfaceLine, WTIPipingSurfaceLine otherSurfaceLine)
         {
             AssertPointsAreEqual(pipingSurfaceLine.DitchDikeSide, otherSurfaceLine.DitchDikeSide);
             AssertPointsAreEqual(pipingSurfaceLine.BottomDitchDikeSide, otherSurfaceLine.BottomDitchDikeSide);
@@ -262,7 +260,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             }
         }
 
-        private static void AssertPointsAreEqual(Point3D point, PipingPoint otherPoint)
+        private static void AssertPointsAreEqual(Point3D point, WTIPipingPoint otherPoint)
         {
             if (point == null)
             {
@@ -278,7 +276,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             Assert.AreEqual(point.Z, otherPoint.Z, 1e-2);
         }
 
-        private static void AssertEqualSoilProfiles(PipingSoilProfile pipingProfile, PipingProfile otherPipingProfile)
+        private static void AssertEqualSoilProfiles(PipingSoilProfile pipingProfile, WTIPipingProfile otherPipingProfile)
         {
             Assert.AreEqual(pipingProfile.Bottom, otherPipingProfile.BottomLevel);
             Assert.AreEqual(pipingProfile.Layers.First().Top, otherPipingProfile.TopLevel);

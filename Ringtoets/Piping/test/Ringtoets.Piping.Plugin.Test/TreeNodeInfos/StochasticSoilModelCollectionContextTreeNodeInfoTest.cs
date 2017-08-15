@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -31,8 +30,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
@@ -43,21 +43,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -129,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_CollectionWithoutSoilProfiles_ReturnsGrayText()
+        public void ForeColor_CollectionWithoutSoilModels_ReturnsGrayText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -150,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_CollectionWithSoilProfiles_ReturnsControlText()
+        public void ForeColor_CollectionWithSoilModels_ReturnsControlText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -159,7 +144,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new StochasticSoilModel("Name")
+                new PipingStochasticSoilModel("Name")
             }, "path");
 
             var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
@@ -181,26 +166,14 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingSoilProfile1 = new PipingSoilProfile("pipingSoilProfile1", 0, new List<PipingSoilLayer>
+            var stochasticSoilModel = new PipingStochasticSoilModel("Name")
             {
-                new PipingSoilLayer(10)
-            }, SoilProfileType.SoilProfile1D, 0);
-            var pipingSoilProfile2 = new PipingSoilProfile("pipingSoilProfile2", 0, new List<PipingSoilLayer>
-            {
-                new PipingSoilLayer(10)
-            }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = pipingSoilProfile1
+                StochasticSoilProfiles =
+                {
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                }
             };
-            var stochasticSoilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = pipingSoilProfile2
-            };
-
-            var stochasticSoilModel = new StochasticSoilModel("Name");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
             var failureMechanism = new PipingFailureMechanism();
             var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
@@ -244,7 +217,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var context = new StochasticSoilModelCollectionContext(
-                    new StochasticSoilModelCollection(),
+                    new PipingStochasticSoilModelCollection(),
                     new PipingFailureMechanism(),
                     assessmentSection);
                 var gui = mocks.Stub<IGui>();
@@ -259,6 +232,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new PipingPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
     }
 }

@@ -29,6 +29,7 @@ using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -157,9 +158,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 InputParameters =
                 {
-                    StochasticSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, 1)
-                    {
-                        SoilProfile = new PipingSoilProfile(
+                    StochasticSoilProfile = new PipingStochasticSoilProfile(
+                        0.1, new PipingSoilProfile(
                             "profile",
                             -1,
                             new[]
@@ -169,8 +169,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                 new PipingSoilLayer(0)
                             },
                             SoilProfileType.SoilProfile1D,
-                            1)
-                    }
+                            1))
                 }
             };
 
@@ -208,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine.SetDikeToeAtPolderAt(new Point3D(1.2, 2.3, 4.0));
                 surfaceLine.SetDikeToeAtRiverAt(new Point3D(1.2, 2.3, 4.0));
 
-                StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
+                PipingStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
@@ -280,64 +279,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WithSurfaceLineWithoutSoilProfile_CollectionOfEmptyChartDataSetForSoilProfile()
-        {
-            // Setup
-            using (var view = new PipingInputView())
-            {
-                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        StochasticSoilProfile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
-                    }
-                };
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-                ChartDataCollection chartData = view.Chart.Data;
-                Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                Assert.AreEqual(10, chartData.Collection.Count());
-                var soilProfileData = (ChartDataCollection) chartData.Collection.ElementAt(soilProfileIndex);
-                CollectionAssert.IsEmpty(soilProfileData.Collection);
-                Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
-            }
-        }
-
-        [Test]
         public void Data_WithoutStochasticSoilProfile_SoilLayerTableEmpty()
         {
             // Setup
             using (var view = new PipingInputView())
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                AssertEmptySoilLayerTable(view);
-            }
-        }
-
-        [Test]
-        public void Data_WithoutSoilProfile_SoilLayerTableEmpty()
-        {
-            // Setup
-            using (var view = new PipingInputView())
-            {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        StochasticSoilProfile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
-                    }
-                };
 
                 // Call
                 view.Data = calculation;
@@ -512,16 +459,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                StochasticSoilProfile soilProfile = GetStochasticSoilProfile();
-                var soilProfile2 = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = new PipingSoilProfile("profile", -2, new[]
+                PipingStochasticSoilProfile soilProfile = GetStochasticSoilProfile();
+                var soilProfile2 = new PipingStochasticSoilProfile(
+                    0.5, new PipingSoilProfile("profile", -2, new[]
                     {
                         new PipingSoilLayer(0),
                         new PipingSoilLayer(2),
                         new PipingSoilLayer(3)
-                    }, SoilProfileType.SoilProfile1D, 1)
-                };
+                    }, SoilProfileType.SoilProfile1D, 1));
 
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
@@ -685,7 +630,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingInputView())
             {
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                StochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
+                PipingStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
@@ -713,17 +658,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private static StochasticSoilProfile GetStochasticSoilProfile()
+        private static PipingStochasticSoilProfile GetStochasticSoilProfile()
         {
-            return new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("profile", -1, new[]
-                {
-                    new PipingSoilLayer(1),
-                    new PipingSoilLayer(3),
-                    new PipingSoilLayer(5)
-                }, SoilProfileType.SoilProfile1D, 1)
-            };
+            return new PipingStochasticSoilProfile(0.5,
+                                                   new PipingSoilProfile("profile", -1, new[]
+                                                   {
+                                                       new PipingSoilLayer(1),
+                                                       new PipingSoilLayer(3),
+                                                       new PipingSoilLayer(5)
+                                                   }, SoilProfileType.SoilProfile1D, 1));
         }
 
         private static PipingSurfaceLine GetSurfaceLineWithGeometry()
@@ -809,7 +752,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
         }
 
-        private static void AssertSoilProfileChartData(StochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
+        private static void AssertSoilProfileChartData(PipingStochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
         {
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;

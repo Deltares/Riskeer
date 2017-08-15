@@ -61,12 +61,10 @@
     <Compile Include="PipingProbabilityAssessmentInput.cs" />
     <Compile Include="PipingSurfaceLineCollection.cs" />
     <Compile Include="SoilProfile\PipingStochasticSoilModel.cs" />
+    <Compile Include="SoilProfile\PipingStochasticSoilModelCollection.cs" />
+    <Compile Include="SoilProfile\PipingStochasticSoilModelExtensions.cs" />
+    <Compile Include="SoilProfile\PipingStochasticSoilModelProfileDifference.cs" />
     <Compile Include="SoilProfile\PipingStochasticSoilProfile.cs" />
-    <Compile Include="StochasticSoilModel.cs" />
-    <Compile Include="StochasticSoilModelCollection.cs" />
-    <Compile Include="StochasticSoilModelExtensions.cs" />
-    <Compile Include="StochasticSoilModelProfileDifference.cs" />
-    <Compile Include="StochasticSoilProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Piping.Data.SoilProfile;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -43,7 +44,7 @@ namespace Ringtoets.Piping.Data
             PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new PipingSurfaceLineCollection();
-            StochasticSoilModels = new StochasticSoilModelCollection();
+            StochasticSoilModels = new PipingStochasticSoilModelCollection();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
 
             sectionResults = new List<PipingFailureMechanismSectionResult>();
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available stochastic soil models within the scope of the piping failure mechanism.
         /// </summary>
-        public StochasticSoilModelCollection StochasticSoilModels { get; }
+        public PipingStochasticSoilModelCollection StochasticSoilModels { get; }
 
         /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.

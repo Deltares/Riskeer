@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
@@ -30,9 +30,9 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="StochasticSoilProfile"/> from a collection.
+    /// <see cref="PipingStochasticSoilProfile"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<PipingInputContextProperties, StochasticSoilProfile>
+    public class PipingInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingStochasticSoilProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextStochasticSoilProfileSelectionEditor"/>.
@@ -42,12 +42,12 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             DisplayMember = nameof(PipingSoilProfile.Name);
         }
 
-        protected override IEnumerable<StochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<PipingStochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableStochasticSoilProfiles();
         }
 
-        protected override StochasticSoilProfile GetCurrentOption(ITypeDescriptorContext context)
+        protected override PipingStochasticSoilProfile GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).StochasticSoilProfile;
         }

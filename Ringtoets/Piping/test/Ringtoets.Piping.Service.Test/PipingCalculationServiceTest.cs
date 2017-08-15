@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -346,14 +347,15 @@ namespace Ringtoets.Piping.Service.Test
                 PermeabilityCoefficientOfVariation = 0.5,
                 PermeabilityMean = 1
             };
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty, 0.0,
-                new[]
-                {
-                    topLayer,
-                    bottomLayer
-                },
-                SoilProfileType.SoilProfile1D, -1);
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(
+                0.0, new PipingSoilProfile(
+                    string.Empty, 0.0,
+                    new[]
+                    {
+                        topLayer,
+                        bottomLayer
+                    },
+                    SoilProfileType.SoilProfile1D, -1));
 
             testCalculation.Name = name;
 
@@ -391,7 +393,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -435,7 +437,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -482,7 +484,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -546,7 +548,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -607,7 +609,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -660,7 +662,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D, -1);
 
             testCalculation.Name = name;
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             var isValid = false;
 
@@ -720,7 +722,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -785,7 +787,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
 
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
 
             var isValid = false;
@@ -835,7 +837,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D, -1);
 
             testCalculation.Name = name;
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             var isValid = false;
 
@@ -895,7 +897,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 SoilProfileType.SoilProfile1D, -1);
 
             testCalculation.Name = name;
-            testCalculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
+            testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
             Action call = () => PipingCalculationService.Validate(testCalculation);

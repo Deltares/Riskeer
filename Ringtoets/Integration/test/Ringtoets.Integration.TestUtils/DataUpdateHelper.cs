@@ -24,9 +24,12 @@ using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.IO.Importers;
+using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Integration.TestUtils
@@ -37,7 +40,7 @@ namespace Ringtoets.Integration.TestUtils
     public static class DataUpdateHelper
     {
         /// <summary>
-        /// Imports the <see cref="StochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
+        /// Imports the <see cref="PipingStochasticSoilModel"/> data for the <see cref="PipingFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/> and updates existing data based upon the imported
         /// data.
         /// </summary>
@@ -52,12 +55,13 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_updated.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_updated.soil");
-                var activity = new FileImportActivity(new StochasticSoilModelImporter(
-                                                          assessmentSection.PipingFailureMechanism.StochasticSoilModels,
-                                                          filePath,
-                                                          new UpdateMessageProvider(),
-                                                          new StochasticSoilModelUpdateDataStrategy(assessmentSection.PipingFailureMechanism)),
-                                                      "StochasticSoilModelUpdater");
+                var activity = new FileImportActivity(
+                    new StochasticSoilModelImporter<PipingStochasticSoilModel>(
+                        assessmentSection.PipingFailureMechanism.StochasticSoilModels,
+                        filePath,
+                        new UpdateMessageProvider(),
+                        StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
+                    "StochasticSoilModelUpdater");
                 activity.Run();
                 activity.Finish();
             }
@@ -79,11 +83,11 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_updated.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_updated.soil");
-                var activity = new FileImportActivity(new MacroStabilityInwards.IO.Importers.StochasticSoilModelImporter(
+                var activity = new FileImportActivity(new StochasticSoilModelImporter(
                                                           assessmentSection.MacroStabilityInwards.StochasticSoilModels,
                                                           filePath,
                                                           new UpdateMessageProvider(),
-                                                          new MacroStabilityInwards.Plugin.FileImporter.StochasticSoilModelUpdateDataStrategy(assessmentSection.MacroStabilityInwards)),
+                                                          new StochasticSoilModelUpdateDataStrategy(assessmentSection.MacroStabilityInwards)),
                                                       "StochasticSoilModelUpdater");
                 activity.Run();
                 activity.Finish();

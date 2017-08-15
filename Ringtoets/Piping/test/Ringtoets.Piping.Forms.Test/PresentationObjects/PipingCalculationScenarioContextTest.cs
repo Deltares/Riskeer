@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
             var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
             var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();

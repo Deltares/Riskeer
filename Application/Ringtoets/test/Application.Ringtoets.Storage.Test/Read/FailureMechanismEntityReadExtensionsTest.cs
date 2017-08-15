@@ -39,6 +39,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -321,7 +322,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            StochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
+            PipingStochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
             Assert.AreEqual(sourcePath, stochasticSoilModels.SourcePath);
             CollectionAssert.IsEmpty(stochasticSoilModels);
         }

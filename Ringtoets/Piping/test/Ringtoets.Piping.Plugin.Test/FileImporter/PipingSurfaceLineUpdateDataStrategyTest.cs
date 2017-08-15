@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -704,7 +705,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new PipingStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -713,10 +714,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new StochasticSoilModel("C")
+                new PipingStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -725,7 +726,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 }
             };
@@ -772,7 +773,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new PipingStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -781,10 +782,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new StochasticSoilModel("C")
+                new PipingStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -793,10 +794,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new StochasticSoilModel("E")
+                new PipingStochasticSoilModel("E")
                 {
                     Geometry =
                     {
@@ -805,7 +806,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
+                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 }
             };
@@ -860,7 +861,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilInputs()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A")
+            var soilModel = new PipingStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -869,7 +870,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
 
@@ -917,7 +918,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A")
+            var soilModel = new PipingStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -1005,7 +1006,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new PipingStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -1014,10 +1015,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new StochasticSoilModel("C")
+                new PipingStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -1026,7 +1027,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 }
             };

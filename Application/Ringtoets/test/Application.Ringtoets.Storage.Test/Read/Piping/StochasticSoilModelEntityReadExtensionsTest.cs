@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(model);
@@ -127,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
@@ -155,7 +155,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.Read(collector);
 
             // Assert
             CollectionAssert.AreEqual(segmentPoints, model.Geometry);
@@ -173,8 +173,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            StochasticSoilModel soilModel1 = entity.Read(collector);
-            StochasticSoilModel soilModel2 = entity.Read(collector);
+            PipingStochasticSoilModel soilModel1 = entity.Read(collector);
+            PipingStochasticSoilModel soilModel2 = entity.Read(collector);
 
             // Assert
             Assert.AreSame(soilModel1, soilModel2);

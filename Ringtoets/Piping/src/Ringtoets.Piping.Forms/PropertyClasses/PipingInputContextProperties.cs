@@ -34,6 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.UITypeEditors;
@@ -103,21 +104,24 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <summary>
         /// Gets the available stochastic soil models on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels()
+        public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
         {
             if (data.WrappedData.SurfaceLine == null)
             {
                 return data.AvailableStochasticSoilModels;
             }
-            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine, data.AvailableStochasticSoilModels);
+            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine,
+                                                                                              data.AvailableStochasticSoilModels);
         }
 
         /// <summary>
         /// Gets the available stochastic soil profiles on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<StochasticSoilProfile> GetAvailableStochasticSoilProfiles()
+        public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
-            return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<StochasticSoilProfile>();
+            return data.WrappedData.StochasticSoilModel != null
+                       ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles
+                       : new List<PipingStochasticSoilProfile>();
         }
 
         [DynamicReadOnlyValidationMethod]
@@ -289,7 +293,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_Description))]
-        public StochasticSoilModel StochasticSoilModel
+        public PipingStochasticSoilModel StochasticSoilModel
         {
             get
             {
@@ -313,7 +317,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_Description))]
-        public StochasticSoilProfile StochasticSoilProfile
+        public PipingStochasticSoilProfile StochasticSoilProfile
         {
             get
             {

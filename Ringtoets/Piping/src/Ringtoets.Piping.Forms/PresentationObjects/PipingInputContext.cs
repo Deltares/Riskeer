@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -47,7 +48,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public PipingInputContext(PipingInput pipingInput,
                                   PipingCalculationScenario calculation,
                                   IEnumerable<PipingSurfaceLine> surfaceLines,
-                                  IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                  IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
                                   IAssessmentSection assessmentSection)
             : base(pipingInput, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)

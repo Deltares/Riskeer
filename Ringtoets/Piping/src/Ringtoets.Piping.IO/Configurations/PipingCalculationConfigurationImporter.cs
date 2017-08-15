@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -226,9 +227,9 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when
         /// <list type="bullet">
-        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="StochasticSoilModel"/> set
+        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="PipingStochasticSoilModel"/> set
         /// which is not available in the failure mechanism.</item>
-        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="PipingSurfaceLine"/>
+        /// <item>The <see cref="PipingStochasticSoilModel"/> does not intersect with the <see cref="PipingSurfaceLine"/>
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
@@ -237,8 +238,8 @@ namespace Ringtoets.Piping.IO.Configurations
         {
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
-                StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
+                PipingStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
+                                                                      .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
 
                 if (soilModel == null)
                 {
@@ -272,8 +273,8 @@ namespace Ringtoets.Piping.IO.Configurations
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has:
         /// <list type="bullet">
-        /// <item>a <see cref="StochasticSoilProfile"/> set but no <see cref="StochasticSoilModel"/> is specified;</item>
-        /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
+        /// <item>a <see cref="PipingStochasticSoilProfile"/> set but no <see cref="PipingStochasticSoilModel"/> is specified;</item>
+        /// <item>a <see cref="PipingStochasticSoilProfile"/> set which is not available in the <see cref="PipingStochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
         private bool TrySetStochasticSoilProfile(PipingCalculationConfiguration calculationConfiguration,
@@ -290,7 +291,7 @@ namespace Ringtoets.Piping.IO.Configurations
                     return false;
                 }
 
-                StochasticSoilProfile soilProfile = pipingCalculation
+                PipingStochasticSoilProfile soilProfile = pipingCalculation
                     .InputParameters
                     .StochasticSoilModel
                     .StochasticSoilProfiles

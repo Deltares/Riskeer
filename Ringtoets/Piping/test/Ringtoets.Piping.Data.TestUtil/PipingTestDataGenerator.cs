@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
@@ -146,14 +147,12 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
                     SurfaceLine = surfaceLine,
-                    StochasticSoilModel = new StochasticSoilModel("PK001_0001_Piping"),
-                    StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-                    {
-                        SoilProfile = new PipingSoilProfile("W1-6_0_1D1", 0, new[]
+                    StochasticSoilModel = new PipingStochasticSoilModel("PK001_0001_Piping"),
+                    StochasticSoilProfile = new PipingStochasticSoilProfile(
+                        0, new PipingSoilProfile("W1-6_0_1D1", 0, new[]
                         {
                             new PipingSoilLayer(0)
-                        }, SoilProfileType.SoilProfile1D, 0)
-                    },
+                        }, SoilProfileType.SoilProfile1D, 0)),
                     PhreaticLevelExit =
                     {
                         Mean = (RoundedDouble) 0,
@@ -267,7 +266,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 surfaceLine1,
                 surfaceLine2
             }, "some/path/to/surfacelines");
-            var stochasticSoilModel1 = new StochasticSoilModel("A")
+            var stochasticSoilModel1 = new PipingStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -276,10 +275,10 @@ namespace Ringtoets.Piping.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+                    new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
-            var stochasticSoilModel2 = new StochasticSoilModel("C")
+            var stochasticSoilModel2 = new PipingStochasticSoilModel("C")
             {
                 Geometry =
                 {
@@ -288,7 +287,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 2)
+                    new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
 

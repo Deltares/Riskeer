@@ -35,6 +35,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -90,17 +91,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             PipingFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
             Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
-            StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
+            PipingStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual("modelName", soilModel.Name);
             Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
-            StochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
+            PipingStochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
             Assert.AreEqual(0.2, stochasticSoilProfile1.Probability);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile1.SoilProfileType);
-            Assert.AreEqual(-1, stochasticSoilProfile1.SoilProfileId);
-            StochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
+            PipingStochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
             Assert.AreEqual(0.8, stochasticSoilProfile2.Probability);
-            Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticSoilProfile2.SoilProfileType);
-            Assert.AreEqual(-1, stochasticSoilProfile2.SoilProfileId);
 
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);

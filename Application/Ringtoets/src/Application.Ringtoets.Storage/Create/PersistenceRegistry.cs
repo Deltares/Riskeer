@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -58,13 +58,13 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
             CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
 
-        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels =
-            CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
+        private readonly Dictionary<StochasticSoilModelEntity, PipingStochasticSoilModel> pipingStochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, PipingStochasticSoilModel>();
 
-        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles =
-            CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
+        private readonly Dictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
+            CreateDictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile>();
 
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
             CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
@@ -254,15 +254,15 @@ namespace Application.Ringtoets.Storage.Create
         /// that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilModel"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Register(StochasticSoilModelEntity entity, StochasticSoilModel model)
+        internal void Register(StochasticSoilModelEntity entity, PipingStochasticSoilModel model)
         {
-            Register(stochasticSoilModels, entity, model);
+            Register(pipingStochasticSoilModels, entity, model);
         }
 
         /// <summary>
@@ -270,15 +270,15 @@ namespace Application.Ringtoets.Storage.Create
         /// that was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> to be registered.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Register(StochasticSoilProfileEntity entity, StochasticSoilProfile model)
+        internal void Register(StochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
         {
-            Register(stochasticSoilProfiles, entity, model);
+            Register(pipingStochasticSoilProfiles, entity, model);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </list></exception>
         internal void Register(SoilProfileEntity entity, PipingSoilProfile model)
         {
-            Register(soilProfiles, entity, model);
+            Register(pipingSoilProfiles, entity, model);
         }
 
         /// <summary>
@@ -410,23 +410,23 @@ namespace Application.Ringtoets.Storage.Create
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> to check for.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilModel"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(StochasticSoilModel model)
+        internal bool Contains(PipingStochasticSoilModel model)
         {
-            return ContainsValue(stochasticSoilModels, model);
+            return ContainsValue(pipingStochasticSoilModels, model);
         }
 
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> to check for.</param>
+        /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(StochasticSoilProfile model)
+        internal bool Contains(PipingStochasticSoilProfile model)
         {
-            return ContainsValue(stochasticSoilProfiles, model);
+            return ContainsValue(pipingStochasticSoilProfiles, model);
         }
 
         /// <summary>
@@ -437,7 +437,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         internal bool Contains(PipingSoilProfile model)
         {
-            return ContainsValue(soilProfiles, model);
+            return ContainsValue(pipingSoilProfiles, model);
         }
 
         /// <summary>
@@ -608,34 +608,34 @@ namespace Application.Ringtoets.Storage.Create
         /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilModel"/> for which a create
+        /// <param name="model">The <see cref="PipingStochasticSoilModel"/> for which a create
         /// operation has been registered.</param>
         /// <returns>The created <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StochasticSoilModel)"/> to find out whether
+        /// <remarks>Use <see cref="Contains(PipingStochasticSoilModel)"/> to find out whether
         /// a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal StochasticSoilModelEntity Get(StochasticSoilModel model)
+        internal StochasticSoilModelEntity Get(PipingStochasticSoilModel model)
         {
-            return Get(stochasticSoilModels, model);
+            return Get(pipingStochasticSoilModels, model);
         }
 
         /// <summary>
         /// Obtains the <see cref="StochasticSoilProfileEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="StochasticSoilProfile"/> for which a create
+        /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> for which a create
         /// operation has been registered.</param>
         /// <returns>The created <see cref="StochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StochasticSoilProfile)"/> to find out whether
+        /// <remarks>Use <see cref="Contains(PipingStochasticSoilProfile)"/> to find out whether
         /// a create/create operation has been registered for <paramref name="model"/>.</remarks>
-        internal StochasticSoilProfileEntity Get(StochasticSoilProfile model)
+        internal StochasticSoilProfileEntity Get(PipingStochasticSoilProfile model)
         {
-            return Get(stochasticSoilProfiles, model);
+            return Get(pipingStochasticSoilProfiles, model);
         }
 
         /// <summary>
@@ -652,7 +652,7 @@ namespace Application.Ringtoets.Storage.Create
         /// create operation has been registered for <paramref name="model"/>.</remarks>
         internal SoilProfileEntity Get(PipingSoilProfile model)
         {
-            return Get(soilProfiles, model);
+            return Get(pipingSoilProfiles, model);
         }
 
         /// <summary>

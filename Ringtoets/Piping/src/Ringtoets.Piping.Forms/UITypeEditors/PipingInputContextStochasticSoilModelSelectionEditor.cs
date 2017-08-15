@@ -22,31 +22,31 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="StochasticSoilModel"/> from a collection.
+    /// <see cref="PipingStochasticSoilModel"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilModelSelectionEditor : SelectionEditor<PipingInputContextProperties, StochasticSoilModel>
+    public class PipingInputContextStochasticSoilModelSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingStochasticSoilModel>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextStochasticSoilModelSelectionEditor"/>.
         /// </summary>
         public PipingInputContextStochasticSoilModelSelectionEditor()
         {
-            DisplayMember = nameof(StochasticSoilModel.Name);
+            DisplayMember = nameof(PipingStochasticSoilModel.Name);
         }
 
-        protected override IEnumerable<StochasticSoilModel> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<PipingStochasticSoilModel> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableStochasticSoilModels();
         }
 
-        protected override StochasticSoilModel GetCurrentOption(ITypeDescriptorContext context)
+        protected override PipingStochasticSoilModel GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).StochasticSoilModel;
         }

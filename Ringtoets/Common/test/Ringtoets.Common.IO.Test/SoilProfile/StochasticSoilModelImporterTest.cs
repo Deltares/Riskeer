@@ -719,8 +719,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Import_IncorrectProbability_LogAndImportSoilModelToCollection()
         {
             // Setup
+            string validFilePath = Path.Combine(testDataPath, "incorrectProbability.soil");
+            const string expectedAddDataProgressText = "Adding data...";
+
+            var stochasticSoilModelCollection = new TestStochasticSoilModelCollection();
+
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
+                           .Return(expectedAddDataProgressText);
             var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
+            updateStrategy.Expect(u => u.UpdateModelWithImportedData(Arg<IMechanismStochasticSoilModel[]>.List.ContainsAll(stochasticSoilModelCollection),
+                                                                     Arg<string>.Is.Equal(validFilePath)));
             var filter = mocks.StrictMock<IStochasticSoilModelMechanismFilter>();
             filter.Expect(f => f.IsValidForFailureMechanism(null))
                   .IgnoreArguments()
@@ -729,10 +738,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                   .AtLeastOnce();
             mocks.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, "incorrectProbability.soil");
-
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
-                new TestStochasticSoilModelCollection(),
+                stochasticSoilModelCollection,
                 validFilePath,
                 messageProvider,
                 new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(
@@ -747,9 +754,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             const string expectedLogMessage = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
-            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
-            Assert.IsFalse(importResult);
+            Assert.IsTrue(importResult);
         }
 
         [Test]

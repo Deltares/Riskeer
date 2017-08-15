@@ -48,7 +48,6 @@
     <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />
-    <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />
     <Compile Include="Importers\PipingSoilLayerTransformer.cs" />
     <Compile Include="Importers\PipingSoilProfileTransformer.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Importers\PipingStochasticSoilProfileTransformer.cs" />
     <Compile Include="Importers\PipingSurfaceLineTransformer.cs" />
     <Compile Include="Importers\PipingSurfaceLineExtensions.cs" />
-    <Compile Include="Importers\StochasticSoilModelImporter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,10 +74,8 @@
     <Compile Include="SoilProfile\Schema\SoilLayer1DTableColumns.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
     <Compile Include="SoilProfile\Schema\StochasticSoilModelTableColumns.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\Schema\StochasticSoilProfileTableColumns.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
-    <Compile Include="SoilProfile\StochasticSoilProfileReader.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />
     <Compile Include="SoilProfile\CriticalProfileProperties.cs" />
     <Compile Include="SoilProfile\SoilLayer2DReader.cs" />

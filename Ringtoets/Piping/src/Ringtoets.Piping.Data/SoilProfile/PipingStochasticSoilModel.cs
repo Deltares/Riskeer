@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.SoilProfile
 {
@@ -47,7 +50,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// <summary>
         /// Gets the name of the soil model.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets the list of geometry points.
@@ -59,9 +62,81 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// </summary>
         public List<PipingStochasticSoilProfile> StochasticSoilProfiles { get; }
 
+        /// <summary>
+        /// Updates the <see cref="PipingStochasticSoilModel"/> with the properties from <paramref name="fromModel"/>.
+        /// </summary>
+        /// <param name="fromModel">The <see cref="PipingStochasticSoilModel"/> to
+        /// obtain the property values from.</param>
+        /// <returns>The differences summed up in an instance of <see cref="PipingStochasticSoilModelProfileDifference"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromModel"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="PipingStochasticSoilModel.StochasticSoilProfiles"/>
+        /// contains multiple profiles with the same name, and <paramref name="fromModel"/> also contains a 
+        /// profile with the same name.
+        /// </exception>
+        public PipingStochasticSoilModelProfileDifference Update(PipingStochasticSoilModel fromModel)
+        {
+            if (fromModel == null)
+            {
+                throw new ArgumentNullException(nameof(fromModel));
+            }
+
+            Name = fromModel.Name;
+            Geometry.Clear();
+            foreach (Point2D point in fromModel.Geometry)
+            {
+                Geometry.Add(point);
+            }
+
+            var newSoilProfiles = new List<PipingSoilProfile>();
+            var updatedProfiles = new List<PipingStochasticSoilProfile>();
+            var addedProfiles = new List<PipingStochasticSoilProfile>();
+            var removedProfiles = new List<PipingStochasticSoilProfile>();
+
+            foreach (PipingStochasticSoilProfile fromProfile in fromModel.StochasticSoilProfiles)
+            {
+                PipingStochasticSoilProfile sameProfile = StochasticSoilProfiles.SingleOrDefault(
+                    sp => IsSame(sp, fromProfile)
+                );
+                if (sameProfile != null)
+                {
+                    if (sameProfile.Update(fromProfile))
+                    {
+                        updatedProfiles.Add(sameProfile);
+                    }
+                }
+                else
+                {
+                    StochasticSoilProfiles.Add(fromProfile);
+                    addedProfiles.Add(fromProfile);
+                }
+                newSoilProfiles.Add(fromProfile.SoilProfile);
+            }
+
+            foreach (PipingStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
+            {
+                StochasticSoilProfiles.Remove(profileToRemove);
+                removedProfiles.Add(profileToRemove);
+            }
+
+            return new PipingStochasticSoilModelProfileDifference(addedProfiles, updatedProfiles, removedProfiles);
+        }
+
         public override string ToString()
         {
             return Name;
+        }
+
+        private static bool IsSame(PipingSoilProfile pipingSoilProfile, PipingSoilProfile otherPipingSoilProfile)
+        {
+            return pipingSoilProfile.Name.Equals(otherPipingSoilProfile.Name)
+                   && pipingSoilProfile.SoilProfileType.Equals(otherPipingSoilProfile.SoilProfileType);
+        }
+
+        private static bool IsSame(PipingStochasticSoilProfile stochasticSoilProfile, PipingStochasticSoilProfile otherStochasticSoilProfile)
+        {
+            return IsSame(stochasticSoilProfile.SoilProfile, otherStochasticSoilProfile.SoilProfile);
         }
     }
 }

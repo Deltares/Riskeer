@@ -25,8 +25,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Service
@@ -201,7 +203,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="StochasticSoilModel"/> from the <see cref="PipingFailureMechanism"/>
+        /// Removes a given <see cref="PipingStochasticSoilModel"/> from the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilModel"/>.</param>
@@ -210,7 +212,8 @@ namespace Ringtoets.Piping.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilModel"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveStochasticSoilModel(PipingFailureMechanism failureMechanism, StochasticSoilModel soilModel)
+        public static IEnumerable<IObservable> RemoveStochasticSoilModel(PipingFailureMechanism failureMechanism,
+                                                                         PipingStochasticSoilModel soilModel)
         {
             if (failureMechanism == null)
             {
@@ -273,7 +276,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="StochasticSoilProfile"/> from calculations in the <see cref="PipingFailureMechanism"/>
+        /// Removes a given <see cref="PipingStochasticSoilProfile"/> from calculations in the <see cref="PipingFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
@@ -282,7 +285,8 @@ namespace Ringtoets.Piping.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveStochasticSoilProfileFromInput(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        public static IEnumerable<IObservable> RemoveStochasticSoilProfileFromInput(PipingFailureMechanism failureMechanism,
+                                                                                    PipingStochasticSoilProfile soilProfile)
         {
             if (failureMechanism == null)
             {
@@ -305,7 +309,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Clears data dependent on a given <see cref="StochasticSoilProfile"/>, either directly or indirectly,
+        /// Clears data dependent on a given <see cref="PipingStochasticSoilProfile"/>, either directly or indirectly,
         /// from calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
@@ -314,7 +318,8 @@ namespace Ringtoets.Piping.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearStochasticSoilProfileDependentData(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        public static IEnumerable<IObservable> ClearStochasticSoilProfileDependentData(PipingFailureMechanism failureMechanism,
+                                                                                       PipingStochasticSoilProfile soilProfile)
         {
             if (failureMechanism == null)
             {
@@ -347,7 +352,8 @@ namespace Ringtoets.Piping.Service
             return changedObservables;
         }
 
-        private static IEnumerable<PipingCalculation> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        private static IEnumerable<PipingCalculation> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism,
+                                                                                             PipingStochasticSoilProfile soilProfile)
         {
             IEnumerable<PipingCalculation> pipingCalculationScenarios =
                 failureMechanism.Calculations
