@@ -60,7 +60,7 @@ All rights reserved.
                                     </Border.Style>
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel.InputBindings>
-<!--                                            <MouseBinding Gesture="LeftClick" Command="{Binding VertexSelectedCommand}" />-->
+                                            <MouseBinding Gesture="LeftClick" Command="{Binding VertexSelectedCommand}" />
                                         </StackPanel.InputBindings>
                                         <TextBlock extensions:TextBlockExtensions.FormattedText="{Binding Content}"
                                                    Width="Auto"

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Input;
 using System.Windows.Media;
+using Core.Components.GraphSharp.Commands;
 using GraphSharp.Controls;
 
 namespace Core.Components.GraphSharp.Data
@@ -30,6 +32,8 @@ namespace Core.Components.GraphSharp.Data
     /// </summary>
     public class PointedTreeElementVertex
     {
+        private ICommand selectedItemCommand;
+
         /// <summary>
         /// Creates a new instance of <see cref="PointedTreeElementVertex"/>.
         /// </summary>
@@ -97,5 +101,16 @@ namespace Core.Components.GraphSharp.Data
         /// Gets whether the vertex is selected.
         /// </summary>
         public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// Gets the command for selecting the vertex.
+        /// </summary>
+        public ICommand VertexSelectedCommand
+        {
+            get
+            {
+                return selectedItemCommand ?? (selectedItemCommand = new VertexSelectedCommand(this));
+            }
+        }
     }
 }

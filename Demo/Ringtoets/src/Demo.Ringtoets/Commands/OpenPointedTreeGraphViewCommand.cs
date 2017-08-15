@@ -62,11 +62,11 @@ namespace Demo.Ringtoets.Commands
             {
                 new GraphNode("<text>En</text>", new []
                 {
-                    new GraphNode("<text>Child 2</text>", new GraphNode[0], false, lastNodeStyle), 
-                    new GraphNode("<text>Child 3</text>", new GraphNode[0], false, lastNodeStyle), 
+                    new GraphNode("<text>Child 2</text>", new GraphNode[0], true, lastNodeStyle), 
+                    new GraphNode("<text>Child 3</text>", new GraphNode[0], true, lastNodeStyle), 
                 }, false, diamondStyle),
-                new GraphNode("<text>Child 4</text>", new GraphNode[0], false, lastNodeStyle), 
-            }, false, treeNodeStyle);
+                new GraphNode("<text>Child 4</text>", new GraphNode[0], true, lastNodeStyle), 
+            }, true, treeNodeStyle);
 
             var node = new GraphNode("<text>Root</text>", new[]
             {
@@ -77,7 +77,7 @@ namespace Demo.Ringtoets.Commands
                     {
                         new GraphNode("<text>Of</text>", new[]
                         {
-                            new GraphNode("<text>Child 5</text>", new GraphNode[0], false, lastNodeStyle),
+                            new GraphNode("<text>Child 5</text>", new GraphNode[0], true, lastNodeStyle),
                             doubleUsedNode
                         }, false, diamondStyle),
                     }, false, treeNodeStyle)

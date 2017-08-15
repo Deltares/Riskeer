@@ -81,6 +81,7 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Commands\VertexSelectedCommandTest.cs" />
     <Compile Include="Converters\GraphNodeConverterTest.cs" />
     <Compile Include="Data\PointedTreeEdgeTest.cs" />
     <Compile Include="Data\PointedTreeGraphTest.cs" />
