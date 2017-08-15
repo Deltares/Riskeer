@@ -1138,7 +1138,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Alfa^2</value>
   </data>
   <data name="Duplicate" xml:space="preserve">
-    <value>D&amp;upliceren</value>
+    <value>&amp;Dupliceren</value>
   </data>
   <data name="Duplicate_ToolTip" xml:space="preserve">
     <value>Dupliceer deze berekening.</value>

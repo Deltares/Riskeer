@@ -834,7 +834,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "D&upliceren",
+                                                              "&Dupliceren",
                                                               "Dupliceer deze berekening.",
                                                               RingtoetsFormsResources.CopyHS);
             }
