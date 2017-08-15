@@ -25,6 +25,8 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -58,9 +60,36 @@ namespace Ringtoets.Common.Data.Test.Structures
             var structuresOutput = new StructuresOutput(output, generalResult);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(structuresOutput);
             Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
             Assert.AreEqual(withIllustrationPoints, structuresOutput.HasGeneralResult);
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new StructuresOutput(new TestProbabilityAssessmentOutput(), new TestGeneralResultFaultTreeIllustrationPoint());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
     }
 }

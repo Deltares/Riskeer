@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class contains the result of a calculation for a <see cref="StructuresCalculation{T}"/>.
     /// </summary>
-    public class StructuresOutput
+    public class StructuresOutput : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutput"/>.
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Gets the probabilistic assessment output.
         /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; }
+        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
 
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
@@ -69,6 +69,20 @@ namespace Ringtoets.Common.Data.Structures
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
         /// </summary>
-        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; }
+        public GeneralResult<TopLevelFaultTreeIllustrationPoint> GeneralResult { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (StructuresOutput) MemberwiseClone();
+
+            clone.ProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) ProbabilityAssessmentOutput.Clone();
+
+            if (GeneralResult != null)
+            {
+                clone.GeneralResult = (GeneralResult<TopLevelFaultTreeIllustrationPoint>) GeneralResult.Clone();
+            }
+
+            return clone;
+        }
     }
 }
