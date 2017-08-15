@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.IO;
 using Application.Ringtoets.Migration.Core;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -28,18 +30,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     [TestFixture]
     public class MigrationIntegrationTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core);
+
         [Test]
-        [TestCase("Empty valid [Release 16.4].rtd", "17.1")]
-        [TestCase("Empty valid [Release 17.1].rtd", "17.2")]
-        public void GivenProject_WhenMigratingWithSquareBracketsInPath_DoesNotThrowException(
-            string sourceFile, string newVersion)
+        [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
+        public void GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException(char specialCharacter,
+                                                                                  string sourceFile,
+                                                                                  string newVersion)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               sourceFile);
+            string sourceFilePath = CreateSourceFilePathWithSpecialCharacter(sourceFile, specialCharacter);
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
-            const string name = nameof(GivenProject_WhenMigratingWithSquareBracketsInPath_DoesNotThrowException);
+            string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} {specialCharacter}";
             string targetFilePath = TestHelper.GetScratchPadPath(name);
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(name, sourceFile, ".log"));
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator
@@ -56,7 +59,79 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 // Then
                 Assert.DoesNotThrow(call);
             }
+
+            File.Delete(sourceFilePath);
         }
 
+        private string CreateSourceFilePathWithSpecialCharacter(string sourceFile, char specialCharacter)
+        {
+            string fileToCopy = Path.Combine(testDataPath, sourceFile);
+            string sourceFilePath = TestHelper.GetScratchPadPath($"{specialCharacter} {sourceFile}");
+            File.Copy(fileToCopy, sourceFilePath, true);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(sourceFilePath));
+            return sourceFilePath;
+        }
+
+        private static IEnumerable<TestCaseData> GetFileNamesWithSpecialCharacters()
+        {
+            foreach (char character in GetSpecialCharactersToValidate())
+            {
+                foreach (FileToMigrate fileToMigrate in GetFilesToMigrate())
+                {
+                    yield return new TestCaseData(character,
+                                                  fileToMigrate.OriginalPath,
+                                                  fileToMigrate.ToVersion)
+                        .SetName($"Migrate{fileToMigrate.OriginalPath}WithChar{character}");
+                }
+            }
+        }
+
+        private static IEnumerable<FileToMigrate> GetFilesToMigrate()
+        {
+            yield return new FileToMigrate("Empty valid Release 16.4.rtd", "17.1");
+            yield return new FileToMigrate("Empty valid Release 17.1.rtd", "17.2");
+        }
+
+        private static IEnumerable<char> GetSpecialCharactersToValidate()
+        {
+            yield return '\'';
+            yield return '[';
+            yield return ']';
+            yield return '!';
+            yield return '`';
+            yield return '~';
+            yield return '@';
+            yield return '#';
+            yield return '$';
+            yield return '%';
+            yield return '€';
+            yield return '^';
+            yield return '&';
+            yield return '(';
+            yield return ')';
+            yield return '-';
+            yield return '_';
+            yield return '=';
+            yield return '+';
+            yield return ';';
+            yield return ',';
+            yield return '两';
+            yield return '​'; // zero width space
+            yield return 'Ⓚ';
+        }
+
+        private class FileToMigrate
+        {
+            public FileToMigrate(string path, string toVersion)
+            {
+                OriginalPath = path;
+                ToVersion = toVersion;
+            }
+
+            public string OriginalPath { get; }
+            public string ToVersion { get; }
+        }
     }
 }

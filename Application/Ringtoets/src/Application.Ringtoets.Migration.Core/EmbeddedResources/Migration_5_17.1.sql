@@ -5,7 +5,7 @@ TargetProject version: 17.1
 */
 PRAGMA foreign_keys = OFF;
 
-ATTACH DATABASE '{0}' AS SOURCEPROJECT;
+ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
 INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
@@ -331,7 +331,7 @@ SELECT BackgroundDataEntityId,
 /* 
 Write migration logging 
 */
-ATTACH DATABASE '{1}' AS LOGDATABASE;
+ATTACH DATABASE "{1}" AS LOGDATABASE;
 
 CREATE TEMP TABLE TempLogOutputDeleted 
 (

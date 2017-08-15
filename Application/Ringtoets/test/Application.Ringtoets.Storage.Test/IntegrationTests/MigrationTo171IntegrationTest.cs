@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               "Empty valid [Release 16.4].rtd");
+                                                               "Empty valid Release 16.4.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(
