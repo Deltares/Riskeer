@@ -42,10 +42,22 @@ All rights reserved.
                         <ControlTemplate TargetType="{x:Type graphSharpControls:VertexControl}">
                             <Grid>
                                 <Border Background="{Binding FillColor}" 
-                                    BorderBrush="{Binding LineColor}" 
-                                    BorderThickness="{Binding LineWidth}"
-                                    CornerRadius="10,10,10,10"
-                                    Padding="{TemplateBinding Padding}">
+                                        CornerRadius="5,5,5,5"
+                                        Padding="{TemplateBinding Padding}">
+                                    <Border.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                    <Setter Property="BorderBrush" Value="Red"/>
+                                                    <Setter Property="BorderThickness" Value="3"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                                    <Setter Property="BorderBrush" Value="{Binding LineColor}"/>
+                                                    <Setter Property="BorderThickness" Value="{Binding LineWidth}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel.InputBindings>
 <!--                                            <MouseBinding Gesture="LeftClick" Command="{Binding VertexSelectedCommand}" />-->
