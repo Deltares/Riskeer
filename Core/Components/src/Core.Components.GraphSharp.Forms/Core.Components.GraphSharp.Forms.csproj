@@ -80,6 +80,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\PointedTreeVertexTypeToStringConverter.cs" />
+    <Compile Include="Converters\SelectedVertexLineWidthConverter.cs" />
     <Compile Include="Extensions\TextBlockExtensions.cs" />
     <Compile Include="Layout\PointedTreeGraphLayout.cs" />
     <Compile Include="PointedTreeGraphControl.cs">

@@ -32,6 +32,7 @@ All rights reserved.
 
     <graphSharpConverters:EdgeRouteToPathConverter x:Key="RouteToPathConverter" />
     <converters:PointedTreeVertexTypeToStringConverter x:Key="PointedTreeVertexTypeToStringConverter" />
+    <converters:SelectedVertexLineWidthConverter x:Key="SelectedVertexLineWidthConverter" />
 
     <!-- VERTEX CONTROL -->
     <Style TargetType="{x:Type graphSharpControls:VertexControl}">
@@ -49,7 +50,7 @@ All rights reserved.
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                                     <Setter Property="BorderBrush" Value="Red"/>
-                                                    <Setter Property="BorderThickness" Value="3"/>
+                                                    <Setter Property="BorderThickness" Value="{Binding LineWidth, Converter={StaticResource SelectedVertexLineWidthConverter}}"/>
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding IsSelected}" Value="False">
                                                     <Setter Property="BorderBrush" Value="{Binding LineColor}"/>
