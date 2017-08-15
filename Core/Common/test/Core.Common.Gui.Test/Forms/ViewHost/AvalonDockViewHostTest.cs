@@ -267,7 +267,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void Remove_ActiveDocumentViewInViewHostWithNoOtherDocumentViews_ActiveDocumentViewSetToNullAndActiveViewEventsFired()
+        public void Remove_ActiveDocumentViewInViewHostWithNoOtherDocumentViews_ActiveDocumentViewSetToNullAndActiveDocumentViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
@@ -292,14 +292,13 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.AreEqual(1, activeDocumentViewChangingCounter);
                 Assert.AreEqual(1, activeDocumentViewChangedCounter);
-                Assert.AreEqual(1, activeViewChangedCounter);
+                Assert.AreEqual(0, activeViewChangedCounter);
                 Assert.IsNull(avalonDockViewHost.ActiveDocumentView);
-                Assert.IsFalse(IsAnyViewActive(avalonDockViewHost));
             }
         }
 
         [Test]
-        public void Remove_ActiveDocumentViewInViewHostWithMultipleOtherViews_ActiveDocumentViewSetToOtherViewAndActiveViewEventsFired()
+        public void Remove_ActiveDocumentViewInViewHostWithMultipleOtherViews_ActiveDocumentViewSetToNullAndActiveDocumentViewEventsFired()
         {
             // Setup
             var testView1 = new TestView();
@@ -323,7 +322,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
                 // Precondition
                 Assert.AreSame(testView1, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsActiveView(avalonDockViewHost, testView1));
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
@@ -335,10 +333,8 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.AreEqual(1, activeDocumentViewChangingCounter);
                 Assert.AreEqual(1, activeDocumentViewChangedCounter);
-                Assert.AreEqual(1, activeViewChangedCounter);
-                Assert.IsNotNull(avalonDockViewHost.ActiveDocumentView);
-                Assert.AreNotSame(testView1, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsActiveView(avalonDockViewHost, avalonDockViewHost.ActiveDocumentView));
+                Assert.AreEqual(0, activeViewChangedCounter);
+                Assert.IsNull(avalonDockViewHost.ActiveDocumentView);
             }
         }
 
@@ -367,7 +363,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
                 // Precondition
                 Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsActiveView(avalonDockViewHost, testView3));
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
@@ -381,7 +376,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
                 Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsActiveView(avalonDockViewHost, testView3));
             }
         }
 
@@ -694,6 +688,10 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView5, ToolViewLocation.Left);
 
                 SetActiveView(avalonDockViewHost, testView3);
+                SetActiveView(avalonDockViewHost, testView5);
+
+                // Precondition
+                Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
 
                 avalonDockViewHost.ActiveDocumentViewChanging += (sender, args) => activeDocumentViewChangingCounter++;
                 avalonDockViewHost.ActiveDocumentViewChanged += (sender, args) => activeDocumentViewChangedCounter++;
@@ -707,7 +705,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
                 Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsActiveView(avalonDockViewHost, testView3));
             }
         }
 

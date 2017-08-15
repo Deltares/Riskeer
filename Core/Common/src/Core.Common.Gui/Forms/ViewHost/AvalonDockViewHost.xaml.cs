@@ -43,7 +43,6 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private IView activeView;
         private IView activeDocumentView;
-        private bool removingProgrammatically;
 
         public event EventHandler<EventArgs> ActiveDocumentViewChanging;
         public event EventHandler<EventArgs> ActiveDocumentViewChanged;
@@ -181,22 +180,31 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void Remove(IView view)
         {
-            removingProgrammatically = true;
-
             if (documentViews.Contains(view))
             {
                 var layoutDocument = GetLayoutContent<LayoutDocument>(view);
-                layoutDocument.Close();
-                UpdateDockingManager();
+
+                PerformWithoutChangingActiveContent(() =>
+                {
+                    layoutDocument.Close();
+                    UpdateDockingManager();
+                });
+
+                if (ReferenceEquals(ActiveDocumentView, view))
+                {
+                    ActiveDocumentView = null;
+                }
             }
             else if (toolViews.Contains(view))
             {
                 var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
-                layoutAnchorable.Hide();
-                UpdateDockingManager();
-            }
 
-            removingProgrammatically = false;
+                PerformWithoutChangingActiveContent(() =>
+                {
+                    layoutAnchorable.Hide();
+                    UpdateDockingManager();
+                });
+            }
         }
 
         public void BringToFront(IView view)
@@ -225,6 +233,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             {
                 Remove(view);
             }
+
+            DockingManager.ActiveContent = null;
         }
 
         private void BringToFront(LayoutContent layoutContent)
@@ -267,10 +277,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnActiveContentChanged(object sender, EventArgs eventArgs)
         {
-            if (!removingProgrammatically)
-            {
-                UnfocusActiveView();
-            }
+            UnfocusActiveView();
 
             activeView = GetView(DockingManager.ActiveContent);
 
