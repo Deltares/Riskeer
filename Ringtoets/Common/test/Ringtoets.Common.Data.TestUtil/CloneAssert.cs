@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -143,7 +144,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(TopLevelSubMechanismIllustrationPoint original, TopLevelSubMechanismIllustrationPoint clone)
         {
-            AreClones((TopLevelIllustrationPointBase)original, clone);
+            AreClones((TopLevelIllustrationPointBase) original, clone);
             CoreCloneAssert.AreObjectClones(original.SubMechanismIllustrationPoint, clone.SubMechanismIllustrationPoint, AreClones);
         }
 
@@ -261,6 +262,34 @@ namespace Ringtoets.Common.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.GoverningWindDirection, clone.GoverningWindDirection, AreClones);
             CoreCloneAssert.AreEnumerationClones(original.Stochasts, clone.Stochasts, AreClones);
             CoreCloneAssert.AreEnumerationClones(original.TopLevelIllustrationPoints, clone.TopLevelIllustrationPoints, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones<T>(StructuresInputBase<T> original, StructuresInputBase<T> clone) where T : StructureBase
+        {
+            CoreCloneAssert.AreObjectClones(original.ModelFactorSuperCriticalFlow, clone.ModelFactorSuperCriticalFlow, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.AllowedLevelIncreaseStorage, clone.AllowedLevelIncreaseStorage, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.StorageStructureArea, clone.StorageStructureArea, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.FlowWidthAtBottomProtection, clone.FlowWidthAtBottomProtection, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.CriticalOvertoppingDischarge, clone.CriticalOvertoppingDischarge, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.WidthFlowApertures, clone.WidthFlowApertures, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.StormDuration, clone.StormDuration, DistributionAssert.AreEqual);
+            Assert.AreSame(original.Structure, clone.Structure);
+            Assert.AreEqual(original.StructureNormalOrientation, clone.StructureNormalOrientation);
+            Assert.AreEqual(original.FailureProbabilityStructureWithErosion, clone.FailureProbabilityStructureWithErosion);
+            Assert.AreSame(original.ForeshoreProfile, clone.ForeshoreProfile);
+            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
+            Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
+            Assert.AreEqual(original.UseBreakWater, clone.UseBreakWater);
+            CoreCloneAssert.AreObjectClones(original.BreakWater, clone.BreakWater, AreClones);
+            Assert.AreEqual(original.UseForeshore, clone.UseForeshore);
         }
     }
 }
