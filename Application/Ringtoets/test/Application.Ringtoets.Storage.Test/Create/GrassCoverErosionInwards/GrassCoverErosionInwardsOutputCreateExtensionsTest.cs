@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(probabilityAssessmentOutput.Reliability, entity.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(overtoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
             Assert.AreEqual(dikeHeightOutput.DikeHeight, dikeHeightEntity.DikeHeight, dikeHeightOutput.DikeHeight.GetAccuracy());
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.Reliability);
             Assert.IsNull(entity.RequiredProbability);
             Assert.IsNull(entity.RequiredReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(overtoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();
             Assert.IsNull(dikeHeightEntity.DikeHeight);
@@ -175,7 +175,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.OvertoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.OvertoppingOutput.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
     }
 }

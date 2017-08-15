@@ -1139,10 +1139,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     new GrassCoverErosionInwardsCalculation
                     {
-                        Name = "Calculation 1",
+                        Name = "Calculation 2",
                         Comments =
                         {
-                            Body = "Comments for Calculation 1"
+                            Body = "Comments for Calculation 2"
                         },
                         InputParameters =
                         {

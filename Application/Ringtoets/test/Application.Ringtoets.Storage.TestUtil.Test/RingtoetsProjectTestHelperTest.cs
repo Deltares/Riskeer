@@ -157,9 +157,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsFalse(calculationOutput.DikeHeightOutput.HasGeneralResult);
             Assert.IsFalse(calculationOutput.OvertoppingRateOutput.HasGeneralResult);
 
-            var calculationOutputWithGeneralResult = (GrassCoverErosionInwardsCalculation) firstCalculationGroup.Children[1];
-            Assert.IsTrue(calculationOutputWithGeneralResult.HasOutput);
-            GrassCoverErosionInwardsOutput outputCalculationWithGeneralResult = calculationOutputWithGeneralResult.Output;
+            var calculationWithOutputAndGeneralResult = (GrassCoverErosionInwardsCalculation) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.HasOutput);
+            GrassCoverErosionInwardsOutput outputCalculationWithGeneralResult = calculationWithOutputAndGeneralResult.Output;
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.OvertoppingOutput.GeneralResult);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.DikeHeightOutput.GeneralResult);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(outputCalculationWithGeneralResult.OvertoppingRateOutput.GeneralResult);
@@ -250,10 +250,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(calculationWithOutput.HasOutput);
             Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
 
-            var calculationGeneralResult = (StructuresCalculation<HeightStructuresInput>) firstCalculationGroup.Children[1];
-            Assert.IsTrue(calculationGeneralResult.HasOutput);
-            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
-            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
+            var calculationWithOutputAndGeneralResult = (StructuresCalculation<HeightStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.HasOutput);
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationWithOutputAndGeneralResult.Output.GeneralResult);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
@@ -280,10 +280,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(calculationWithOutput.HasOutput);
             Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
 
-            var calculationGeneralResult = (StructuresCalculation<ClosingStructuresInput>) firstCalculationGroup.Children[1];
-            Assert.IsTrue(calculationGeneralResult.HasOutput);
-            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
-            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
+            var calculationWithOutputAndGeneralResult = (StructuresCalculation<ClosingStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.HasOutput);
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationWithOutputAndGeneralResult.Output.GeneralResult);
 
             ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
@@ -329,10 +329,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(calculationWithOutput.HasOutput);
             Assert.IsFalse(calculationWithOutput.Output.HasGeneralResult);
 
-            var calculationGeneralResult = (StructuresCalculation<StabilityPointStructuresInput>) firstCalculationGroup.Children[1];
-            Assert.IsTrue(calculationGeneralResult.HasOutput);
-            Assert.IsTrue(calculationGeneralResult.Output.HasGeneralResult);
-            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationGeneralResult.Output.GeneralResult);
+            var calculationWithOutputAndGeneralResult = (StructuresCalculation<StabilityPointStructuresInput>) firstCalculationGroup.Children[1];
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.HasOutput);
+            Assert.IsTrue(calculationWithOutputAndGeneralResult.Output.HasGeneralResult);
+            AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationWithOutputAndGeneralResult.Output.GeneralResult);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);

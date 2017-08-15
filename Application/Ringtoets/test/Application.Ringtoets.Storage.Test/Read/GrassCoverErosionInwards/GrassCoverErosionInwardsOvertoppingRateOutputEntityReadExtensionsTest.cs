@@ -77,8 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
 
-            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
-                                                              output.GeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -103,8 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
 
-            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
-                                                              output.GeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -129,15 +127,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             OvertoppingRateOutput output = entity.Read();
 
             // Assert
-            Assert.IsNaN(output.OvertoppingRate);
-            Assert.IsNaN(output.TargetProbability);
-            Assert.IsNaN(output.TargetReliability);
-            Assert.IsNaN(output.CalculatedProbability);
-            Assert.IsNaN(output.CalculatedReliability);
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-
-            GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity,
-                                                              output.GeneralResult);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult,
+                                                                            generalResultEntity);
         }
     }
 }

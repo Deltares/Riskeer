@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
             Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -108,13 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.IsNull(entity.OvertoppingRate);
-            Assert.IsNull(entity.TargetProbability);
-            Assert.IsNull(entity.TargetReliability);
-            Assert.IsNull(entity.CalculatedProbability);
-            Assert.IsNull(entity.CalculatedReliability);
-            Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
     }
 }

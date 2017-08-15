@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -33,34 +34,32 @@ namespace Application.Ringtoets.Storage.TestUtil.IllustrationPoints
     public static class GeneralResultEntityTestHelper
     {
         /// <summary>
-        /// Determines if the properties of the <paramref name="generalResultEntity"/> match 
-        /// with the <paramref name="generalResult"/>.
+        /// Matches the property values of the <paramref name="generalResultEntity"/> and <paramref name="generalResult"/>
+        /// against each other to determine if they match.
         /// </summary>
-        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to assert against to.</param>
+        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to compare.</param>
         /// <param name="generalResultEntity">The <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
-        /// to assert.</param>
+        /// to compare.</param>
+        /// <exception cref="ArgumentNullException">Thrown if any of the argument is <c>null</c>.</exception>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="generalResult"/> is <c>null</c> and <paramref name="generalResultEntity"/> 
-        /// is not <c>null</c>.</item>
-        /// <item><paramref name="generalResult"/> is not <c>null</c> and <paramref name="generalResultEntity"/> 
-        /// is <c>null</c>.</item>
         /// <item>The values of the governing wind direction name and angles do not match.</item>
         /// <item>The count of the stochasts do not match.</item>
         /// <item>The count of the top level illustration points do not match.</item>
         /// </list></exception>
         /// <remarks>This only asserts the properties of the <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
         /// that are directly associated with it, but not the values of the items it is composed of.</remarks>
-        public static void AssertGeneralResultEntity(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
-                                                     GeneralResultFaultTreeIllustrationPointEntity generalResultEntity)
+        public static void AssertGeneralResultPropertyValues(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult,
+                                                             GeneralResultFaultTreeIllustrationPointEntity generalResultEntity)
         {
             if (generalResult == null)
             {
-                Assert.IsNull(generalResultEntity);
-                return;
+                throw new ArgumentNullException(nameof(generalResult));
             }
-
-            Assert.IsNotNull(generalResultEntity);
+            if (generalResultEntity == null)
+            {
+                throw new ArgumentNullException(nameof(generalResultEntity));
+            }
 
             WindDirection governingWindDirection = generalResult.GoverningWindDirection;
             Assert.AreEqual(governingWindDirection.Name, generalResultEntity.GoverningWindDirectionName);
@@ -69,44 +68,6 @@ namespace Application.Ringtoets.Storage.TestUtil.IllustrationPoints
 
             Assert.AreEqual(generalResult.Stochasts.Count(), generalResultEntity.StochastEntities.Count);
             Assert.AreEqual(generalResult.TopLevelIllustrationPoints.Count(), generalResultEntity.TopLevelFaultTreeIllustrationPointEntities.Count);
-        }
-
-        /// <summary>
-        /// Determines if the properties of the <paramref name="generalResult"/> match
-        /// with the <paramref name="generalResultEntity"/>.
-        /// </summary>
-        /// <param name="generalResultEntity">The <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>
-        /// to assert against to.</param>
-        /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to assert.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="generalResultEntity"/> is <c>null</c> and <paramref name="generalResult"/> 
-        /// is not <c>null</c>.</item>
-        /// <item><paramref name="generalResultEntity"/> is not <c>null</c> and <paramref name="generalResult"/> 
-        /// is <c>null</c>.</item>
-        /// <item>The values of the governing wind direction name and angles do not match.</item>
-        /// <item>The count of the stochasts do not match.</item>
-        /// <item>The count of the top level illustration points do not match.</item>
-        /// </list></exception>
-        /// <remarks>This only asserts the properties of <see cref="GeneralResult{T}"/> that are directly
-        /// associated with it, but not the value of the items it is composed of.</remarks>
-        public static void AssertGeneralResult(GeneralResultFaultTreeIllustrationPointEntity generalResultEntity,
-                                               GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            if (generalResultEntity == null)
-            {
-                Assert.IsNull(generalResult);
-                return;
-            }
-
-            Assert.IsNotNull(generalResult);
-
-            WindDirection governingWindDirection = generalResult.GoverningWindDirection;
-            Assert.AreEqual(generalResultEntity.GoverningWindDirectionName, governingWindDirection.Name);
-            Assert.AreEqual(generalResultEntity.GoverningWindDirectionAngle, governingWindDirection.Angle, governingWindDirection.Angle.GetAccuracy());
-
-            Assert.AreEqual(generalResultEntity.TopLevelFaultTreeIllustrationPointEntities.Count, generalResult.TopLevelIllustrationPoints.Count());
-            Assert.AreEqual(generalResultEntity.StochastEntities.Count, generalResult.Stochasts.Count());
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
                             probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.Probability);
             Assert.IsNull(entity.RequiredReliability);
             Assert.IsNull(entity.RequiredProbability);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
                             probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
-            GeneralResultEntityTestHelper.AssertGeneralResultEntity(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
         private class TestStructureOutputEntity : IProbabilityAssessmentOutputEntity,

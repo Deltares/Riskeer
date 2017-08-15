@@ -76,8 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
-                                                              output.GeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -101,8 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(output.CalculatedProbability);
             Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity,
-                                                              output.GeneralResult);
+            Assert.IsNull(output.GeneralResult);
         }
 
         [Test]
@@ -128,14 +126,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeHeightOutput output = entity.Read();
 
             // Assert
-            Assert.IsNaN(output.DikeHeight);
-            Assert.IsNaN(output.TargetProbability);
-            Assert.IsNaN(output.TargetReliability);
-            Assert.IsNaN(output.CalculatedProbability);
-            Assert.IsNaN(output.CalculatedReliability);
-            Assert.AreEqual(convergence, output.CalculationConvergence);
-            GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity,
-                                                              output.GeneralResult);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult,
+                                                                            generalResultEntity);
         }
     }
 }

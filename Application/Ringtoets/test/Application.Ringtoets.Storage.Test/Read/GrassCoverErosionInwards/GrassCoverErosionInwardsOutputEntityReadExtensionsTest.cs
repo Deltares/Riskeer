@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsNaN(probabilityAssessmentOutput.RequiredProbability);
             Assert.IsNaN(probabilityAssessmentOutput.Reliability);
             Assert.IsNaN(probabilityAssessmentOutput.RequiredReliability);
-            GeneralResultEntityTestHelper.AssertGeneralResult(entity.GeneralResultFaultTreeIllustrationPointEntity, overtoppingOutput.GeneralResult);
+            Assert.IsNull(overtoppingOutput.GeneralResult);
         }
 
         [Test]
@@ -137,19 +137,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             OvertoppingOutput overtoppingOutput = output.OvertoppingOutput;
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = overtoppingOutput.ProbabilityAssessmentOutput;
-
-            Assert.IsNaN(overtoppingOutput.WaveHeight);
-            Assert.IsTrue(overtoppingOutput.IsOvertoppingDominant);
-            Assert.IsNull(output.DikeHeightOutput);
-            Assert.IsNull(output.OvertoppingRateOutput);
-            Assert.IsNaN(probabilityAssessmentOutput.FactorOfSafety);
-            Assert.IsNaN(probabilityAssessmentOutput.Probability);
-            Assert.IsNaN(probabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(probabilityAssessmentOutput.Reliability);
-            Assert.IsNaN(probabilityAssessmentOutput.RequiredReliability);
-
-            GeneralResultEntityTestHelper.AssertGeneralResult(generalResultEntity, overtoppingOutput.GeneralResult);
+            GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(overtoppingOutput.GeneralResult,
+                                                                            generalResultEntity);
         }
 
         [Test]
