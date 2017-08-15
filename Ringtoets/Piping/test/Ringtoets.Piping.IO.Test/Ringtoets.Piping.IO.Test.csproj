@@ -70,8 +70,6 @@
     <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />
     <Compile Include="Exceptions\SoilProfileBuilderExceptionTest.cs" />
-    <Compile Include="Builders\SoilDatabaseQueryBuilderTest.cs" />
-    <Compile Include="Exceptions\StochasticSoilProfileReadExceptionTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporterTest.cs" />
@@ -85,31 +83,12 @@
     <Compile Include="Importers\PipingStochasticSoilProfileTransformerTest.cs" />
     <Compile Include="Importers\PipingSurfaceLineTransformerTest.cs" />
     <Compile Include="Importers\PipingSurfaceLineExtensionsTest.cs" />
-    <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
-    <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
-    <Compile Include="SoilProfile\SoilLayerColorConversionHelperTest.cs" />
-    <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
-    <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
-    <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
-    <Compile Include="SoilProfile\SoilLayer2DReaderTest.cs" />
-    <Compile Include="SoilProfile\PipingSoilProfileReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
-    <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
-    <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
-      <Name>Core.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
