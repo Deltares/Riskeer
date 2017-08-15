@@ -22,7 +22,7 @@
 using System;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Media;
+using System.Windows.Input;
 using Core.Common.Utils.Extensions;
 using Core.Components.GraphSharp.Converters;
 using Core.Components.GraphSharp.Data;
@@ -76,7 +76,8 @@ namespace Core.Components.GraphSharp.Forms
             zoomControl = new ZoomControl
             {
                 Mode = ZoomControlModes.Original,
-                ModifierMode = ZoomViewModifierMode.None
+                ModifierMode = ZoomViewModifierMode.None,
+                ZoomDeltaMultiplier = 300
             };
 
             graphLayout = new PointedTreeGraphLayout();
@@ -85,6 +86,7 @@ namespace Core.Components.GraphSharp.Forms
             graphLayout.Graph = graph;
 
             zoomControl.Content = graphLayout;
+            zoomControl.PreviewMouseWheel += ZoomControl_MouseWheel;
 
             var myResourceDictionary = new ResourceDictionary
             {
@@ -106,6 +108,33 @@ namespace Core.Components.GraphSharp.Forms
             {
                 graph.AddEdge(new PointedTreeEdge(parentVertex, vertex));
             }
+        }
+
+        private void ZoomControl_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double deltaZoom = GetZoomDelta(e.Delta);
+            double width = zoomControl.ActualWidth * deltaZoom;
+            double height = zoomControl.ActualHeight * deltaZoom;
+
+            Point cursorPosition = e.GetPosition(zoomControl);
+            double currentRelativeLeft = cursorPosition.X / zoomControl.ActualWidth;
+            double currentRelativeTop = cursorPosition.Y / zoomControl.ActualHeight;
+
+            var topLeftCorner = new Point(
+                cursorPosition.X - width * currentRelativeLeft,
+                cursorPosition.Y - height * currentRelativeTop);
+
+            var newSize = new Size(width, height);
+            var zoomTo = new Rect(topLeftCorner, newSize);
+
+            zoomControl.ZoomTo(zoomTo);
+            e.Handled = true;
+        }
+
+        private double GetZoomDelta(int delta)
+        {
+            return Math.Max(1.0 / zoomControl.MaxZoomDelta,
+                            Math.Min(zoomControl.MaxZoomDelta, delta / -zoomControl.ZoomDeltaMultiplier + 1.0));
         }
     }
 }
