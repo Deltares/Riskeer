@@ -79,7 +79,6 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converters\PointedTreeVertexTypeToStringConverter.cs" />
     <Compile Include="Converters\SelectedVertexLineWidthConverter.cs" />
     <Compile Include="Extensions\TextBlockExtensions.cs" />
     <Compile Include="Layout\PointedTreeGraphLayout.cs" />
@@ -125,9 +124,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\PointedTreeGraphTemplate.xaml">
+    <Page Include="Templates\EdgeControlTemplate.xaml">
       <SubType>Designer</SubType>
-    </Resource>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\PointedTreeGraphTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\VertexControlTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates\ZoomControlTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

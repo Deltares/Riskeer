@@ -70,7 +70,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
         public void ConvertBack_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new PointedTreeVertexTypeToStringConverter();
+            var converter = new SelectedVertexLineWidthConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertBack(string.Empty, typeof(int), null, CultureInfo.InvariantCulture);
