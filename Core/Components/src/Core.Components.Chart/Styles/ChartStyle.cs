@@ -27,7 +27,7 @@ namespace Core.Components.Chart.Styles
     public abstract class ChartStyle
     {
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="ChartStyle"/> is editable in a property panel.
+        /// Gets or sets a value indicating whether the <see cref="ChartStyle"/> is editable.
         /// </summary>
         public bool IsEditable { get; set; }
     }

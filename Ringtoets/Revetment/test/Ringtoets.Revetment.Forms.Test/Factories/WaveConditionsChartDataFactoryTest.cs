@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
     public class WaveConditionsChartDataFactoryTest
     {
         [Test]
-        public void CreateLowerRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateLowerRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Setup
             Color lineColor = Color.Gray;
@@ -45,11 +45,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateUpperRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateUpperRevetmentBoundaryChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Setup
             Color lineColor = Color.Gray;
@@ -60,11 +60,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, lineColor, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateRevetmentChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateRevetmentChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Setup
             Color lineColor = Color.Gray;
@@ -75,11 +75,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateRevetmentBaseChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateRevetmentBaseChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Setup
             Color lineColor = Color.FromArgb(120, Color.Gray);
@@ -90,11 +90,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Hulplijn bekleding", data.Name);
-            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Dash, true);
+            AssertEqualStyle(data.Style, lineColor, 8, ChartLineDashStyle.Dash);
         }
 
         [Test]
-        public void CreateLowerWaterLevelsBoundaryChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateLowerWaterLevelsBoundaryChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Call
             ChartLineData data = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartData();
@@ -102,11 +102,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Ondergrens waterstanden", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateUpperWaterLevelsBoundaryChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateUpperWaterLevelsBoundaryChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Call
             ChartLineData data = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartData();
@@ -114,7 +114,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual("Bovengrens waterstanden", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, Color.MediumBlue, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelChartData_ReturnsEmptyChartLineDataWithEditableStyling()
+        public void CreateDesignWaterLevelChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Setup
             const string designWaterLevelName = "Toetspeil";
@@ -140,11 +140,11 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual(designWaterLevelName, data.Name);
-            AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateWaterLevelsChartData_ReturnsEmptyChartMultipleLineDataWithEditableStyling()
+        public void CreateWaterLevelsChartData_ReturnsEmptyChartMultipleLineDataWithExpectedStyling()
         {
             // Call
             ChartMultipleLineData data = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
@@ -152,7 +152,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Lines);
             Assert.AreEqual("Waterstanden in berekening", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, ChartLineDashStyle.DashDotDot, true);
+            AssertEqualStyle(data.Style, Color.DarkTurquoise, 3, ChartLineDashStyle.DashDotDot);
         }
 
         [Test]
@@ -222,12 +222,12 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style, bool isEditable)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
-            Assert.AreEqual(isEditable, lineStyle.IsEditable);
+            Assert.IsTrue(lineStyle.IsEditable);
         }
     }
 }

@@ -60,7 +60,8 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               Color = Color.DarkRed,
                                               Width = 3,
-                                              DashStyle = ChartLineDashStyle.Solid
+                                              DashStyle = ChartLineDashStyle.Solid,
+                                              IsEditable = true
                                           })
             {
                 Points = new[]
@@ -95,7 +96,8 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               Color = Color.DarkSlateBlue,
                                               Width = 2,
-                                              DashStyle = ChartLineDashStyle.DashDot
+                                              DashStyle = ChartLineDashStyle.DashDot,
+                                              IsEditable = true
                                           })
             {
                 Points = new[]
@@ -130,7 +132,8 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               FillColor = Color.DarkSeaGreen,
                                               StrokeColor = Color.DarkGreen,
-                                              StrokeThickness = 5
+                                              StrokeThickness = 5,
+                                              IsEditable = true
                                           })
             {
                 Points = new[]
@@ -176,7 +179,8 @@ namespace Demo.Ringtoets.Commands
                                           {
                                               FillColor = Color.FromArgb(120, Color.Wheat),
                                               StrokeColor = Color.DarkOrange,
-                                              StrokeThickness = 2
+                                              StrokeThickness = 2,
+                                              IsEditable = true
                                           })
             {
                 Points = new[]
@@ -230,7 +234,8 @@ namespace Demo.Ringtoets.Commands
                                                  StrokeColor = Color.AntiqueWhite,
                                                  Size = 6,
                                                  StrokeThickness = 3,
-                                                 Symbol = ChartPointSymbol.Circle
+                                                 Symbol = ChartPointSymbol.Circle,
+                                                 IsEditable = true
                                              })
             {
                 Points = new[]
@@ -253,7 +258,8 @@ namespace Demo.Ringtoets.Commands
                                                  StrokeColor = Color.DeepSkyBlue,
                                                  Size = 7,
                                                  StrokeThickness = 2,
-                                                 Symbol = ChartPointSymbol.Diamond
+                                                 Symbol = ChartPointSymbol.Diamond,
+                                                 IsEditable = true
                                              })
             {
                 Points = new[]

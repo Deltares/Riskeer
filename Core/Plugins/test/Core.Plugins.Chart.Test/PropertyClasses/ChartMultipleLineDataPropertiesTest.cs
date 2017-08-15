@@ -55,12 +55,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isEditable)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isStyleEditable)
         {
             // Setup
             var chartLineData = new ChartMultipleLineData("Test", new ChartLineStyle
             {
-                IsEditable = isEditable
+                IsEditable = isStyleEditable
             });
 
             // Call
@@ -81,14 +81,14 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor widthProperty = dynamicProperties[widthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor styleProperty = dynamicProperties[stylePropertyIndex];
             Assert.IsInstanceOf<EnumTypeConverter>(styleProperty.Converter);
@@ -96,7 +96,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             styleCategory,
                                                                             "Lijnstijl",
                                                                             "De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
         }
 
         [Test]

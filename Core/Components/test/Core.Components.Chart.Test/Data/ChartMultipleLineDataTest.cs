@@ -45,7 +45,7 @@ namespace Core.Components.Chart.Test.Data
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
             Assert.AreEqual(ChartLineDashStyle.Solid, data.Style.DashStyle);
-            Assert.AreEqual(false, data.Style.IsEditable);
+            Assert.IsFalse(data.Style.IsEditable);
         }
 
         [Test]
@@ -76,13 +76,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartLineStyle
-            {
-                Color = Color.Red,
-                Width = 3,
-                DashStyle = ChartLineDashStyle.DashDot,
-                IsEditable = true
-            };
+            var style = new ChartLineStyle();
 
             // Call
             var data = new ChartMultipleLineData("test data", style);

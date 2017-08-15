@@ -57,12 +57,12 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isEditable)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isStyleEditable)
         {
             // Setup
             var chartPointData = new ChartPointData("Test", new ChartPointStyle
             {
-                IsEditable = isEditable
+                IsEditable = isStyleEditable
             });
 
             // Call
@@ -83,7 +83,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             styleCategory,
                                                                             "Kleur",
                                                                             "De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             Assert.IsInstanceOf<ColorTypeConverter>(strokeColorProperty.Converter);
@@ -91,21 +91,21 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             styleCategory,
                                                                             "Lijnkleur",
                                                                             "De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
                                                                             "De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor sizeProperty = dynamicProperties[sizePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
                                                                             styleCategory,
                                                                             "Grootte",
                                                                             "De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
 
             PropertyDescriptor symbolProperty = dynamicProperties[symbolPropertyIndex];
             Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
@@ -113,7 +113,7 @@ namespace Core.Plugins.Chart.Test.PropertyClasses
                                                                             styleCategory,
                                                                             "Symbool",
                                                                             "Het symbool waarmee deze gegevensreeks wordt weergegeven.",
-                                                                            !isEditable);
+                                                                            !isStyleEditable);
         }
 
         [Test]

@@ -46,7 +46,7 @@ namespace Core.Components.Chart.Test.Data
             Assert.AreEqual(ChartPointSymbol.Square, data.Style.Symbol);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
             Assert.AreEqual(1, data.Style.StrokeThickness);
-            Assert.AreEqual(false, data.Style.IsEditable);
+            Assert.IsFalse(data.Style.IsEditable);
         }
 
         [Test]
@@ -91,15 +91,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartPointStyle
-            {
-                Color = Color.Red,
-                StrokeColor = Color.Blue,
-                Size = 2,
-                StrokeThickness = 2,
-                Symbol = ChartPointSymbol.Circle,
-                IsEditable = true
-            };
+            var style = new ChartPointStyle();
 
             // Call
             var data = new ChartPointData("test data", style);

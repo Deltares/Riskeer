@@ -45,7 +45,7 @@ namespace Core.Components.Chart.Test.Data
             Assert.AreEqual(Color.Gray, data.Style.FillColor);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
             Assert.AreEqual(2, data.Style.StrokeThickness);
-            Assert.AreEqual(false, data.Style.IsEditable);
+            Assert.IsFalse(data.Style.IsEditable);
         }
 
         [Test]
@@ -90,13 +90,7 @@ namespace Core.Components.Chart.Test.Data
         public void Constructor_WithStyle_ExpectedValue()
         {
             // Setup
-            var style = new ChartAreaStyle
-            {
-                FillColor = Color.Red,
-                StrokeColor = Color.Fuchsia,
-                StrokeThickness = 3,
-                IsEditable = true
-            };
+            var style = new ChartAreaStyle();
 
             // Call
             var data = new ChartMultipleAreaData("test data", style);

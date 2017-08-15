@@ -34,25 +34,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
     public class GrassCoverErosionInwardsChartDataFactoryTest
     {
         [Test]
-        public void CreateDikeGeometryChartData_ReturnsChartDataWithEditableStyling()
+        public void CreateDikeGeometryChartData_ReturnsChartDataWithExpectedStyling()
         {
             // Call
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
 
             // Assert
             Assert.AreEqual("Dijkprofiel", data.Name);
-            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid, true);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, ChartLineDashStyle.Solid);
         }
 
         [Test]
-        public void CreateDikeHeightChartData_ReturnsChartDataWithEditableStyling()
+        public void CreateDikeHeightChartData_ReturnsChartDataWithExpectedStyling()
         {
             // Call
             ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
             // Assert
             Assert.AreEqual("Dijkhoogte", data.Name);
-            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, ChartLineDashStyle.Dash, true);
+            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, ChartLineDashStyle.Dash);
         }
 
         [Test]
@@ -150,12 +150,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
-        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style, bool isEditable)
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
-            Assert.AreEqual(isEditable, lineStyle.IsEditable);
+            Assert.IsTrue(lineStyle.IsEditable);
         }
     }
 }

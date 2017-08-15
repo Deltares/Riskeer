@@ -27,7 +27,7 @@ using Core.Components.Chart.Properties;
 namespace Core.Components.Chart.Styles
 {
     /// <summary>
-    /// This class represents styling of a area on a chart.
+    /// This class represents styling of an area on a chart.
     /// </summary>
     public class ChartAreaStyle : ChartStyle
     {
