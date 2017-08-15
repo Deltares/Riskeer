@@ -78,6 +78,8 @@ namespace Ringtoets.Integration.Forms.Test
                     Assert.IsInstanceOf<DialogBase>(dialog);
                     Assert.IsNull(dialog.SelectedReferenceLineMeta);
                     Assert.AreEqual(@"Stel een traject samen", dialog.Text);
+                    var selectAssessmentSectionLabel = (GroupBox) new ComponentTester("groupBox1", dialog).Properties;
+                    Assert.AreEqual("Kies de norm van het dijktraject:", selectAssessmentSectionLabel.Text);
 
                     AssertReferenceLineMetaDataGridViewControl(dialog);
                 }

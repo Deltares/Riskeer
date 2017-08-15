@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.SetPropertyValueAfterConfirmation(() => { });
+            handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
@@ -146,10 +146,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             IEnumerable<IObservable> affectedObjects = null;
-            const double norm = 1.0 / 1000;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = norm);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
             var expectedMessages = new[]
@@ -158,8 +157,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
-
-            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -206,15 +203,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             IEnumerable<IObservable> affectedObjects = null;
 
-            const double newNormValue = 0.01234;
-
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = newNormValue);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
-
-            Assert.AreEqual(newNormValue, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations
                                                                             .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations))
@@ -248,15 +241,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             IEnumerable<IObservable> affectedObjects = null;
-            const double norm = 1.0 / 1000;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = norm);
+            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
-
-            Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -268,6 +258,29 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                                assessmentSection.FailureMechanismContribution
                                                                                            });
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_FullyConfiguredAssessmentSectionConfirmationGiven_HandlerExecuted()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            var handlerExecuted = false;
+
+            // Call
+            handler.SetPropertyValueAfterConfirmation(() => handlerExecuted = true);
+
+            // Assert
+            Assert.IsTrue(handlerExecuted);
         }
 
         [Test]

@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
@@ -53,163 +54,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
 
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
+        private const NormType newNormativeNorm = NormType.Signaling;
         private readonly string newLowerLimitNorm = 0.01.ToString(CultureInfo.CurrentCulture);
         private readonly string newSignalingNorm = 0.000001.ToString(CultureInfo.CurrentCulture);
-        private const NormType newNormativeNorm = NormType.Signaling;
-
-        #region AllDataAndOutputSet
-
-        [Test]
-        public void LowerLimitNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region NoPermissionGiven
-
-        [Test]
-        public void LowerLimitNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
-        {
-            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
-        {
-            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
-        {
-            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region HydraulicBoundarySetAndCalculationsNoOutput
-
-        [Test]
-        public void LowerLimitNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region HydraulicBoundaryLocationNoOutputAndCalculationWithOutput
-
-        [Test]
-        public void LowerLimitNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput
-
-        [Test]
-        public void LowerLimitNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput
-
-        [Test]
-        public void LowerLimitNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
-
-        #region NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput
-
-        [Test]
-        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
-        }
-
-        [Test]
-        public void SignalingNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
-        }
-
-        [Test]
-        public void NormativeNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
-        }
-
-        #endregion
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
@@ -320,8 +167,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             AssertNormValues(properties, failureMechanismContribution);
 
-            AssertLocationsOutputClear(hydraulicBoundaryLocation, grassCoverErosionOutwardsHydraulicBoundaryLocation);
-            AssertCalculationsOutputClear(pipingCalculation, grassCoverErosionInwardsCalculation, heightStructuresCalculation);
+            AssertLocationOutputClear(hydraulicBoundaryLocation);
+            AssertLocationOutputClear(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+
+            AssertCalculationOutputClear(pipingCalculation);
+            AssertCalculationOutputClear(grassCoverErosionInwardsCalculation);
+            AssertCalculationOutputClear(heightStructuresCalculation);
 
             mockRepository.VerifyAll();
         }
@@ -503,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
             AssertNormValues(properties, failureMechanismContribution);
-            AssertLocationsOutputClear(hydraulicBoundaryLocation);
+            AssertLocationOutputClear(hydraulicBoundaryLocation);
 
             mockRepository.VerifyAll();
         }
@@ -598,7 +449,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             AssertNormValues(properties, failureMechanismContribution);
-            AssertCalculationsOutputClear(pipingCalculation, grassCoverErosionInwardsCalculation, heightStructuresCalculation);
+            AssertCalculationOutputClear(pipingCalculation);
+            AssertCalculationOutputClear(grassCoverErosionInwardsCalculation);
+            AssertCalculationOutputClear(heightStructuresCalculation);
 
             mockRepository.VerifyAll();
         }
@@ -684,7 +537,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             AssertNormValues(properties, failureMechanismContribution);
-            AssertCalculationsOutputClear(pipingCalculation, grassCoverErosionInwardsCalculation, heightStructuresCalculation);
+            AssertCalculationOutputClear(pipingCalculation);
+            AssertCalculationOutputClear(grassCoverErosionInwardsCalculation);
+            AssertCalculationOutputClear(heightStructuresCalculation);
 
             mockRepository.VerifyAll();
         }
@@ -787,25 +642,171 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        #region Asserts
+        #region AllDataAndOutputSet
 
-        private static void AssertCalculationsOutputClear(PipingCalculation pipingCalculation,
-                                                          GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation,
-                                                          StructuresCalculation<HeightStructuresInput> heightStructuresCalculation)
+        [Test]
+        public void LowerLimitNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
-            Assert.IsNull(pipingCalculation.Output);
-            Assert.IsNull(pipingCalculation.SemiProbabilisticOutput);
-            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
-            Assert.IsNull(heightStructuresCalculation.Output);
+            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.LowerLimitNorm = newLowerLimitNorm);
         }
 
-        private static void AssertLocationsOutputClear(params HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        [Test]
+        public void SignalingNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
-                Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
-            }
+            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region NoPermissionGiven
+
+        [Test]
+        public void LowerLimitNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
+        {
+            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
+        {
+            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_PermissionNotGiven_DoesnotClearDependentDataNorNotifiesObserversAndLogsMessages()
+        {
+            ChangeValueNoPermissionGivenAndVerifyNoNotifcationsAndOutputForAllDataSet(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region HydraulicBoundarySetAndCalculationsNoOutput
+
+        [Test]
+        public void LowerLimitNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundarySetAndCalculationsNoOutput(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region HydraulicBoundaryLocationNoOutputAndCalculationWithOutput
+
+        [Test]
+        public void LowerLimitNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput
+
+        [Test]
+        public void LowerLimitNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryLocationNoOutputAndCalculationWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput
+
+        [Test]
+        public void LowerLimitNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForHydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput
+
+        [Test]
+        public void LowerLimitNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.SignalingNorm = newSignalingNorm);
+        }
+
+        [Test]
+        public void NormativeNorm_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            SetPropertyAndVerifyNotifcationsAndOutputForNoHydraulicBoundaryDatabaseAndNoCalculationsWithOutput(properties => properties.NormativeNorm = newNormativeNorm);
+        }
+
+        #endregion
+
+        #region Asserts
+
+        private static void AssertCalculationOutputClear(ICalculation calculation)
+        {
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        private static void AssertLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);
         }
 
         private static void AssertNormValues(FailureMechanismContributionProperties properties, FailureMechanismContribution failureMechanismContribution)

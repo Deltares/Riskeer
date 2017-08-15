@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionNormChangeHandler"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessmentSection to change the contribution norm for.</param>
+        /// <param name="assessmentSection">The assessment section to change the contribution norm for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         public FailureMechanismContributionNormChangeHandler(IAssessmentSection assessmentSection)

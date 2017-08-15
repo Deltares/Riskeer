@@ -470,6 +470,16 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ondergrens moet gelijk of groter zijn dan de signaleringswaarde..
+        /// </summary>
+        public static string FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_Signal" +
+                        "ingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens..
         /// </summary>
         public static string FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm {

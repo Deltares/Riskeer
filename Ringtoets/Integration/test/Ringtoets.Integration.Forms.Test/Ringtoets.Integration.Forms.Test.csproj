@@ -232,10 +232,6 @@
       <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
       <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.TestUtils\Ringtoets.Integration.TestUtils.csproj">
-      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
-      <Name>Ringtoets.Integration.TestUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

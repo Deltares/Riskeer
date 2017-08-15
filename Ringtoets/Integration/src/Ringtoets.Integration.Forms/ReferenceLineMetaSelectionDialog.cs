@@ -64,17 +64,17 @@ namespace Ringtoets.Integration.Forms
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
 
         /// <summary>
-        /// Gets the lower limit norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// Gets the lower limit norm value from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
         public double SelectedLowerLimitNorm { get; private set; }
 
         /// <summary>
-        /// Gets the signaling norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// Gets the signaling norm value from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
         public double SelectedSignalingNorm { get; private set; }
 
         /// <summary>
-        /// Gets the norm type from the dialog.
+        /// Gets the norm type from the selected <see cref="RadioButton"/> in the dialog.
         /// </summary>
         public NormType SelectedNormativeNorm { get; private set; }
 
@@ -119,9 +119,9 @@ namespace Ringtoets.Integration.Forms
             }
         }
 
-        private static double GetNormValue(int value)
+        private static double GetNormValue(int returnPeriod)
         {
-            return 1.0 / value;
+            return 1.0 / returnPeriod;
         }
 
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()

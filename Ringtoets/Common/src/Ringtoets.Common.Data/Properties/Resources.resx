@@ -381,4 +381,7 @@
   <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
   </data>
+  <data name="FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm" xml:space="preserve">
+    <value>De ondergrens moet gelijk of groter zijn dan de signaleringswaarde.</value>
+  </data>
 </root>

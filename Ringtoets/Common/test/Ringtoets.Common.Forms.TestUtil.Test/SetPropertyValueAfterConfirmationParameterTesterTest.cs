@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
     public class SetPropertyValueAfterConfirmationParameterTesterTest
     {
         [Test]
-        public void Constructructed_Always_PropertiesSet()
+        public void Constructor_Always_PropertiesSet()
         {
             // Setup
             IEnumerable<IObservable> returnedAffectedObjects = Enumerable.Empty<IObservable>();

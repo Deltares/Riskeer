@@ -396,7 +396,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
             mocks.VerifyAll();
         }
 
-
         [Test]
         public void SignalingNorm_WhenUpdatedAndNormativeNormNotSignaling_NormNotUpdatedForEachFailureMechanismContributionItem()
         {
@@ -456,7 +455,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidValues),
+        [TestCaseSource(nameof(GetInvalidNormValues),
             new object[]
             {
                 "Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem"
@@ -478,7 +477,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidValues),
+        [TestCaseSource(nameof(GetInvalidNormValues),
             new object[]
             {
                 "SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
@@ -527,10 +526,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = 0.000001;
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De ondergrens moet gelijk of groter zijn dan de signaleringswaarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
-
 
         [Test]
         [TestCase(NormType.Signaling, 0.01)]
@@ -552,7 +550,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.AreEqual(expectedNorm, norm);
-
         }
 
         private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
@@ -561,7 +558,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidValues(string name)
+        private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
         {
             yield return new TestCaseData(double.MaxValue)
                 .SetName($"{name} maxValue");
@@ -570,9 +567,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             yield return new TestCaseData(double.NaN)
                 .SetName($"{name} NaN");
             yield return new TestCaseData(0.1 + 1e-6)
-                .SetName($"{name} minimum boundary");
-            yield return new TestCaseData(0.000001 - 1e-6)
                 .SetName($"{name} maximum boundary");
+            yield return new TestCaseData(0.000001 - 1e-6)
+                .SetName($"{name} minimum boundary");
         }
     }
 }

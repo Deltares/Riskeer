@@ -53,6 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int probabilitySpaceColumnIndex = 4;
         private Form testForm;
 
+        [SetUp]
         public override void Setup()
         {
             base.Setup();
@@ -60,6 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             testForm = new Form();
         }
 
+        [TearDown]
         public override void TearDown()
         {
             testForm.Dispose();
@@ -329,6 +331,56 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Assert
                 string newReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
+                Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateObserver_ChangeNormativeNormAndNotify_UpdateReturnPeriodTextBox()
+        {
+            // Setup
+            const int lowerLimitNorm = 100;
+            const int signalingNorm = 1000;
+
+            var random = new Random(21);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mockRepository = new MockRepository();
+            var viewCommands = mockRepository.Stub<IViewCommands>();
+            var someMechanism = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var contribution = new FailureMechanismContribution(new[]
+            {
+                someMechanism
+            }, random.Next(0, 100))
+            {
+                LowerLimitNorm = 1.0 / lowerLimitNorm,
+                SignalingNorm = 1.0 / signalingNorm
+            };
+
+            using (var distributionView = new FailureMechanismContributionView(viewCommands)
+            {
+                Data = contribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                ShowFormWithView(distributionView);
+                var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
+
+                // Precondition
+                string initialReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {lowerLimitNorm.ToString(CultureInfo.CurrentCulture)}";
+                Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
+
+                // Call
+                contribution.NormativeNorm = NormType.Signaling;
+                contribution.NotifyObservers();
+
+                // Assert
+                string newReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {signalingNorm.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 

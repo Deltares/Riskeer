@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Data.Contribution
 
                 if (value < signalingNorm)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm);
                 }
 
                 lowerLimitNorm = value;
