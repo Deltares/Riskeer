@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.PointedTree.Data;
 
 namespace Core.Components.PointedTree.Forms
@@ -29,8 +30,18 @@ namespace Core.Components.PointedTree.Forms
     public interface IPointedTreeGraphControl
     {
         /// <summary>
+        /// Fired when the selection has been changed.
+        /// </summary>
+        event EventHandler<EventArgs> SelectionChanged;
+
+        /// <summary>
         /// Gets or sets the root node of the control.
         /// </summary>
         GraphNode Data { get; set; }
+
+        /// <summary>
+        /// Gets the selected <see cref="GraphNode"/>; or <c>null</c> if nothing is selected.
+        /// </summary>
+        GraphNode Selection { get; }
     }
 }

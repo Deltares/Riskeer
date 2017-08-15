@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -38,10 +40,13 @@ namespace Core.Components.GraphSharp.Forms
     /// </summary>
     public partial class PointedTreeGraphControl : UserControl, IPointedTreeGraphControl
     {
+        private readonly List<DrawnGraphNode> drawnGraphNodeList = new List<DrawnGraphNode>();
         private ZoomControl zoomControl;
         private PointedTreeGraphLayout graphLayout;
         private GraphNode data;
         private PointedTreeGraph graph;
+
+        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="PointedTreeGraphControl"/>.
@@ -60,7 +65,7 @@ namespace Core.Components.GraphSharp.Forms
             }
             set
             {
-                graph.Clear();
+                ClearData();
 
                 data = value;
 
@@ -69,6 +74,18 @@ namespace Core.Components.GraphSharp.Forms
                     DrawNode(data);
                 }
             }
+        }
+
+        public GraphNode Selection { get; private set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                ClearData();
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void InitializeGraph()
@@ -96,9 +113,30 @@ namespace Core.Components.GraphSharp.Forms
             wpfElementHost.Child = zoomControl;
         }
 
+        private void ClearData()
+        {
+            foreach (DrawnGraphNode drawnGraphNode in drawnGraphNodeList)
+            {
+                drawnGraphNode.Vertex.PropertyChanged -= VertexOnPropertyChanged;
+            }
+
+            graph.Clear();
+            drawnGraphNodeList.Clear();
+        }
+
         private void DrawNode(GraphNode node, PointedTreeElementVertex parentVertex = null)
         {
             PointedTreeElementVertex vertex = GraphNodeConverter.Convert(node);
+
+            vertex.PropertyChanged += VertexOnPropertyChanged;
+
+            var drawnGraphNode = new DrawnGraphNode
+            {
+                GraphNode = node,
+                Vertex = vertex
+            };
+
+            drawnGraphNodeList.Add(drawnGraphNode);
 
             graph.AddVertex(vertex);
 
@@ -109,6 +147,37 @@ namespace Core.Components.GraphSharp.Forms
                 graph.AddEdge(new PointedTreeEdge(parentVertex, vertex));
             }
         }
+
+        private void VertexOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(PointedTreeElementVertex.IsSelected))
+            {
+                var changedVertex = sender as PointedTreeElementVertex;
+                if (changedVertex != null && changedVertex.IsSelected)
+                {
+                    foreach (DrawnGraphNode drawnGraphNode in drawnGraphNodeList)
+                    {
+                        if (drawnGraphNode.Vertex.IsSelected && drawnGraphNode.Vertex != changedVertex)
+                        {
+                            drawnGraphNode.Vertex.IsSelected = false;
+                        }
+
+                        if (drawnGraphNode.Vertex == changedVertex && changedVertex.IsSelected)
+                        {
+                            Selection = drawnGraphNode.GraphNode;
+                            OnSelectionChanged(e);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnSelectionChanged(PropertyChangedEventArgs e)
+        {
+            SelectionChanged?.Invoke(this, e);
+        }
+
+        #region Zooming
 
         private void ZoomControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -135,6 +204,24 @@ namespace Core.Components.GraphSharp.Forms
         {
             return Math.Max(1.0 / zoomControl.MaxZoomDelta,
                             Math.Min(zoomControl.MaxZoomDelta, delta / -zoomControl.ZoomDeltaMultiplier + 1.0));
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Lookup class for administration related to drawn vertices.
+        /// </summary>
+        private class DrawnGraphNode
+        {
+            /// <summary>
+            /// The graph node which the drawn <see cref="PointedTreeElementVertex "/> is based upon.
+            /// </summary>
+            public GraphNode GraphNode { get; set; }
+
+            /// <summary>
+            /// The drawn vertex.
+            /// </summary>
+            public PointedTreeElementVertex Vertex { get; set; }
         }
     }
 }

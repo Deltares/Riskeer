@@ -48,6 +48,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Assert.IsInstanceOf<IPointedTreeGraphControl>(graphControl);
 
                 Assert.IsNull(graphControl.Data);
+                Assert.IsNull(graphControl.Selection);
 
                 Assert.AreEqual(1, graphControl.Controls.Count);
 
@@ -161,6 +162,72 @@ namespace Core.Components.GraphSharp.Forms.Test
                 // Then
                 Assert.AreEqual(0, graph.VertexCount);
                 Assert.AreEqual(0, graph.EdgeCount);
+            }
+        }
+
+        [Test]
+        public void GivenControlWithData_WhenVertexSelected_SelectionSetToGraphNodeAndSelectionChangedFired()
+        {
+            // Given
+            using (var graphControl = new PointedTreeGraphControl())
+            {
+                var childNode = new GraphNode("<text>node 2</text>", new GraphNode[0], true);
+                var node = new GraphNode("<text>node 1</text>", new[]
+                {
+                    childNode
+                }, true);
+
+                graphControl.Data = node;
+
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
+                PointedTreeGraph graph = graphLayout.Graph;
+
+                var selectionChanged = 0;
+                graphControl.SelectionChanged += (sender, args) => selectionChanged++;
+
+                // Precondition
+                Assert.IsNull(graphControl.Selection);
+
+                // When
+                PointedTreeElementVertex selectedVertex = graph.Vertices.ElementAt(1);
+                selectedVertex.IsSelected = true;
+
+                // Then
+                Assert.AreSame(childNode, graphControl.Selection);
+                Assert.AreEqual(1, selectionChanged);
+            }
+        }
+
+        [Test]
+        public void GivenControlWithSelectedVertex_WhenOtherVertexSelected_FirstSelectedVertexUnselected()
+        {
+            // Given
+            using (var graphControl = new PointedTreeGraphControl())
+            {
+                var node = new GraphNode("<text>node 1</text>", new[]
+                {
+                    new GraphNode("<text>node 2</text>", new GraphNode[0], true)
+                }, true);
+
+                graphControl.Data = node;
+
+                var elementHost = graphControl.Controls[0] as ElementHost;
+                var zoomControl = (ZoomControl) elementHost.Child;
+                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
+                PointedTreeGraph graph = graphLayout.Graph;
+
+                PointedTreeElementVertex firstSelectedVertex = graph.Vertices.ElementAt(1);
+                firstSelectedVertex.IsSelected = true;
+
+                PointedTreeElementVertex newSelectedVertex = graph.Vertices.First();
+
+                // When
+                newSelectedVertex.IsSelected = true;
+
+                // Then
+                Assert.IsFalse(firstSelectedVertex.IsSelected);
             }
         }
     }
