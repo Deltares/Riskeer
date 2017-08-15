@@ -43,13 +43,13 @@ namespace Ringtoets.Common.Data.Structures
         private static readonly Range<RoundedDouble> structureNormalOrientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(structureNormalOrientationNumberOfDecimals),
                                                                                                                         new RoundedDouble(structureNormalOrientationNumberOfDecimals, 360));
 
-        private readonly NormalDistribution modelFactorSuperCriticalFlow;
-        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
-        private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
-        private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
-        private readonly NormalDistribution widthFlowApertures;
-        private readonly VariationCoefficientLogNormalDistribution stormDuration;
+        private NormalDistribution modelFactorSuperCriticalFlow;
+        private LogNormalDistribution allowedLevelIncreaseStorage;
+        private VariationCoefficientLogNormalDistribution storageStructureArea;
+        private LogNormalDistribution flowWidthAtBottomProtection;
+        private VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
+        private NormalDistribution widthFlowApertures;
+        private VariationCoefficientLogNormalDistribution stormDuration;
 
         private T structure;
         private RoundedDouble structureNormalOrientation;
@@ -147,6 +147,23 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>
         public abstract void SynchronizeStructureInput();
+
+        public object Clone()
+        {
+            var clone = (StructuresInputBase<T>) MemberwiseClone();
+
+            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
+            clone.allowedLevelIncreaseStorage = (LogNormalDistribution) AllowedLevelIncreaseStorage.Clone();
+            clone.storageStructureArea = (VariationCoefficientLogNormalDistribution) StorageStructureArea.Clone();
+            clone.flowWidthAtBottomProtection = (LogNormalDistribution) FlowWidthAtBottomProtection.Clone();
+            clone.criticalOvertoppingDischarge = (VariationCoefficientLogNormalDistribution) CriticalOvertoppingDischarge.Clone();
+            clone.widthFlowApertures = (NormalDistribution) WidthFlowApertures.Clone();
+            clone.stormDuration = (VariationCoefficientLogNormalDistribution) StormDuration.Clone();
+
+            clone.BreakWater = (BreakWater) BreakWater.Clone();
+
+            return clone;
+        }
 
         private void SetDefaultCommonStructureSchematizationProperties()
         {
