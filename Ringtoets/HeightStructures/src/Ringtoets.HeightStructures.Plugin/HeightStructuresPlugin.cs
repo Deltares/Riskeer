@@ -735,6 +735,8 @@ namespace Ringtoets.HeightStructures.Plugin
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
             return builder.AddExportItem()
                           .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, context)
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,

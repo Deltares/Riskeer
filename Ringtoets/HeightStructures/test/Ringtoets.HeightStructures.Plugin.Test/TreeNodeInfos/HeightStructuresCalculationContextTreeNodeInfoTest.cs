@@ -58,11 +58,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateForeshoreProfileIndex = 3;
-        private const int contextMenuUpdateStructureIndex = 4;
-        private const int contextMenuValidateIndex = 6;
-        private const int contextMenuCalculateIndex = 7;
-        private const int contextMenuClearIndex = 9;
+        private const int contextMenuDuplicateIndex = 2;
+        private const int contextMenuUpdateForeshoreProfileIndex = 5;
+        private const int contextMenuUpdateStructureIndex = 6;
+        private const int contextMenuValidateIndex = 8;
+        private const int contextMenuCalculateIndex = 9;
+        private const int contextMenuClearIndex = 11;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
@@ -174,6 +175,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -238,7 +241,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(16, menu.Items.Count);
+                    Assert.AreEqual(18, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                                  "&Dupliceren",
+                                                                  "Dupliceer deze berekening.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
