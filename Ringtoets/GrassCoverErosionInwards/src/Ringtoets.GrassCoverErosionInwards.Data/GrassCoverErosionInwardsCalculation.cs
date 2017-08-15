@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (GrassCoverErosionInwardsInput) InputParameters.Clone();
 
-            if (clone.Output != null)
+            if (Output != null)
             {
                 clone.Output = (GrassCoverErosionInwardsOutput) Output.Clone();
             }

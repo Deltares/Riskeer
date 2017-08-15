@@ -72,12 +72,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             clone.OvertoppingOutput = (OvertoppingOutput) OvertoppingOutput.Clone();
 
-            if (clone.DikeHeightOutput != null)
+            if (DikeHeightOutput != null)
             {
                 clone.DikeHeightOutput = (DikeHeightOutput) DikeHeightOutput.Clone();
             }
 
-            if (clone.OvertoppingRateOutput != null)
+            if (OvertoppingRateOutput != null)
             {
                 clone.OvertoppingRateOutput = (OvertoppingRateOutput) OvertoppingRateOutput.Clone();
             }

@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
-using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
