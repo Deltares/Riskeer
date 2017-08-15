@@ -38,7 +38,7 @@ namespace Core.Components.PointedTree.Test.Data
             // Setup
             Color fillColor = Color.Aqua;
             Color lineColor = Color.Brown;
-            const GraphNodeShape shape = GraphNodeShape.Diamond;
+            const GraphNodeShape shape = GraphNodeShape.None;
             const int lineWidth = 3;
 
             var style = new GraphNodeStyle(shape, fillColor, lineColor, lineWidth);

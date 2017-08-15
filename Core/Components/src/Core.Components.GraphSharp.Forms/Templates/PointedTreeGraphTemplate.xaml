@@ -76,7 +76,7 @@ All rights reserved.
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Type, Converter={StaticResource PointedTreeVertexTypeToStringConverter}}" Value="Diamond">
+            <DataTrigger Binding="{Binding Type, Converter={StaticResource PointedTreeVertexTypeToStringConverter}}" Value="None">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type graphSharpControls:VertexControl}">

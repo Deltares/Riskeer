@@ -72,7 +72,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Converters
 
         [Test]
         [TestCase(PointedTreeVertexType.Rectangle, "Rectangle")]
-        [TestCase(PointedTreeVertexType.Diamond, "Diamond")]
+        [TestCase(PointedTreeVertexType.None, "None")]
         public void Convert_WithPointedTreeVertexType_ConvertToString(PointedTreeVertexType vertexType, string expectedString)
         {
             // Setup

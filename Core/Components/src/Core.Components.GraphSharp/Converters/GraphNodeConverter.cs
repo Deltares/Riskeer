@@ -82,8 +82,8 @@ namespace Core.Components.GraphSharp.Converters
             {
                 case GraphNodeShape.Rectangle:
                     return PointedTreeVertexType.Rectangle;
-                case GraphNodeShape.Diamond:
-                    return PointedTreeVertexType.Diamond;
+                case GraphNodeShape.None:
+                    return PointedTreeVertexType.None;
                 default:
                     throw new InvalidEnumArgumentException(nameof(shape),
                                                            (int) shape,

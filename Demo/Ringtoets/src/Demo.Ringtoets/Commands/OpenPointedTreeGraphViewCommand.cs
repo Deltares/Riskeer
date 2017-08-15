@@ -53,7 +53,7 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute()
         {
-            var diamondStyle = new GraphNodeStyle(GraphNodeShape.Diamond, Color.BlanchedAlmond, Color.Black, 1);
+            var connectingNodeStyle = new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1);
             var lastNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1);
             var treeNodeStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
 
@@ -64,7 +64,7 @@ namespace Demo.Ringtoets.Commands
                 {
                     new GraphNode("<text>Child 2</text>", new GraphNode[0], true, lastNodeStyle), 
                     new GraphNode("<text>Child 3</text>", new GraphNode[0], true, lastNodeStyle), 
-                }, false, diamondStyle),
+                }, false, connectingNodeStyle),
                 new GraphNode("<text>Child 4</text>", new GraphNode[0], true, lastNodeStyle), 
             }, true, treeNodeStyle);
 
@@ -79,9 +79,9 @@ namespace Demo.Ringtoets.Commands
                         {
                             new GraphNode("<text>Child 5</text>", new GraphNode[0], true, lastNodeStyle),
                             doubleUsedNode
-                        }, false, diamondStyle),
+                        }, false, connectingNodeStyle),
                     }, false, treeNodeStyle)
-                }, false, diamondStyle)
+                }, false, connectingNodeStyle)
             }, false, treeNodeStyle);
 
             viewCommands.OpenView(node);

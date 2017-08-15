@@ -63,7 +63,7 @@ namespace Core.Components.GraphSharp.Test.Converters
         }
 
         [Test]
-        [TestCase(GraphNodeShape.Diamond, PointedTreeVertexType.Diamond)]
+        [TestCase(GraphNodeShape.None, PointedTreeVertexType.None)]
         [TestCase(GraphNodeShape.Rectangle, PointedTreeVertexType.Rectangle)]
         public void Convert_WithGraphNode_ReturnPointedTreeElementVertex(GraphNodeShape graphNodeShape,
                                                                          PointedTreeVertexType expectedVertexType)

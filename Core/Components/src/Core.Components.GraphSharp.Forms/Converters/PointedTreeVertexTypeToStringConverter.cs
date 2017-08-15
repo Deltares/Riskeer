@@ -44,8 +44,8 @@ namespace Core.Components.GraphSharp.Forms.Converters
             {
                 case PointedTreeVertexType.Rectangle:
                     return "Rectangle";
-                case PointedTreeVertexType.Diamond:
-                    return "Diamond";
+                case PointedTreeVertexType.None:
+                    return "None";
                 default:
                     throw new InvalidEnumArgumentException(nameof(value),
                                                            (int) value,

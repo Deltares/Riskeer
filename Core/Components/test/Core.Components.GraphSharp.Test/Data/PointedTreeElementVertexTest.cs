@@ -35,7 +35,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void Constructor_ContentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointedTreeElementVertex(null, new SolidColorBrush(Colors.Gray), new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.Diamond, false);
+            TestDelegate call = () => new PointedTreeElementVertex(null, new SolidColorBrush(Colors.Gray), new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.None, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +46,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void Constructor_FillColorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointedTreeElementVertex("test", null, new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.Diamond, false);
+            TestDelegate call = () => new PointedTreeElementVertex("test", null, new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.None, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +57,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void Constructor_LineColorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Gray), null, 3, PointedTreeVertexType.Diamond, false);
+            TestDelegate call = () => new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Gray), null, 3, PointedTreeVertexType.None, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,7 +72,7 @@ namespace Core.Components.GraphSharp.Test.Data
             var fillColor = new SolidColorBrush(Colors.Blue);
             var lineColor = new SolidColorBrush(Colors.Gray);
             const int lineWidth = 3;
-            const PointedTreeVertexType type = PointedTreeVertexType.Diamond;
+            const PointedTreeVertexType type = PointedTreeVertexType.None;
             const bool isSelectable = false;
 
             // Call

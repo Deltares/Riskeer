@@ -27,6 +27,6 @@ namespace Core.Components.GraphSharp.Data
     public enum PointedTreeVertexType
     {
         Rectangle,
-        Diamond
+        None
     }
 }

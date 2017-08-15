@@ -27,6 +27,6 @@ namespace Core.Components.PointedTree.Data
     public enum GraphNodeShape
     {
         Rectangle,
-        Diamond
+        None
     }
 }
