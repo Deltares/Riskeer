@@ -55,7 +55,7 @@ All rights reserved.
                                                    Height="Auto"
                                                    TextWrapping="Wrap"
                                                    VerticalAlignment="Center"
-                                                   Margin="10,2,20,0" />
+                                                   Margin="10,2,20,0"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -68,11 +68,6 @@ All rights reserved.
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type graphSharpControls:VertexControl}">
                             <Grid>
-                                <Rectangle Width="20" Height="20" Fill="{Binding FillColor}" Stroke="{Binding LineColor}" >
-                                    <Rectangle.RenderTransform>
-                                        <RotateTransform Angle="45" CenterX="10" CenterY="10"/>
-                                    </Rectangle.RenderTransform>
-                                </Rectangle>
                                 <TextBlock extensions:TextBlockExtensions.FormattedText="{Binding Content}"
                                            Margin="5"
                                            HorizontalAlignment="Center"
@@ -88,8 +83,8 @@ All rights reserved.
         </Style.Triggers>
         <Setter Property="wpfExtensionsAttachedBehaviours:DragBehaviour.IsDragEnabled" Value="False"/>
     </Style>
-	
-	<!-- EDGE CONTROL -->
+
+    <!-- EDGE CONTROL -->
     <Style TargetType="{x:Type graphSharpControls:EdgeControl}">
         <Setter Property="Template">
             <Setter.Value>
