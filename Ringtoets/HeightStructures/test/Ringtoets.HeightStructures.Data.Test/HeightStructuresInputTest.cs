@@ -28,6 +28,8 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using HeightStructuresCloneAssert = Ringtoets.HeightStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -238,6 +240,31 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         #endregion
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new HeightStructuresInput
+            {
+                Structure = new TestHeightStructure(),
+                LevelCrestStructure = new NormalDistribution
+                {
+                    Mean = random.NextRoundedDouble(),
+                    StandardDeviation = random.NextRoundedDouble()
+                },
+                DeviationWaveDirection = random.NextRoundedDouble()
+            };
+
+            CloneTestHelper.SetRandomDataToStructuresInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, HeightStructuresCloneAssert.AreClones);
+        }
 
         #region Hydraulic data
 

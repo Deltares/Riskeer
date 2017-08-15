@@ -285,56 +285,12 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
             var original = new SimpleStructuresInput
             {
-                ModelFactorSuperCriticalFlow = new NormalDistribution
-                {
-                    Mean = random.NextRoundedDouble()
-                },
-                AllowedLevelIncreaseStorage = new LogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                StorageStructureArea = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    CoefficientOfVariation = random.NextRoundedDouble()
-                },
-                FlowWidthAtBottomProtection = new LogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    CoefficientOfVariation = random.NextRoundedDouble()
-                },
-                WidthFlowApertures = new NormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                StormDuration = new VariationCoefficientLogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble()
-                },
-                Structure = new TestStructure(),
-                StructureNormalOrientation = random.NextRoundedDouble(),
-                FailureProbabilityStructureWithErosion = random.NextDouble(),
-                ForeshoreProfile = new TestForeshoreProfile(),
-                ShouldIllustrationPointsBeCalculated = random.NextBoolean(),
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                UseBreakWater = random.NextBoolean(),
-                BreakWater =
-                {
-                    Type = random.NextEnumValue<BreakWaterType>(),
-                    Height = random.NextRoundedDouble()
-                },
-                UseForeshore = random.NextBoolean()
+                Structure = new TestStructure()
             };
+
+            CloneTestHelper.SetRandomDataToStructuresInput(original);
 
             // Call
             object clone = original.Clone();

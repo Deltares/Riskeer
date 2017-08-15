@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.Data
         private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRage = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
                                                                                                                    new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
 
-        private readonly NormalDistribution levelCrestStructure;
+        private NormalDistribution levelCrestStructure;
         private RoundedDouble deviationWaveDirection;
 
         /// <summary>
@@ -97,6 +97,15 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         #endregion
+
+        public override object Clone()
+        {
+            var clone = (HeightStructuresInput) base.Clone();
+
+            clone.levelCrestStructure = (NormalDistribution) LevelCrestStructure.Clone();
+
+            return clone;
+        }
 
         public override bool IsStructureInputSynchronized
         {
