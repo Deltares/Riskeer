@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -792,6 +793,51 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               hasForeshoreProfile && !isSynchronized);
             }
 
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region AddDuplicateCalculationItem
+
+        [Test]
+        public void AddDuplicateCalculationItem_WhenBuildWithCalculationWithOutput_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommands = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
+            var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var calculation = mocks.Stub<ICloneableCalculation>();
+            var calculationContext = mocks.Stub<ICalculationContext<ICloneableCalculation, IFailureMechanism>>();
+
+            mocks.ReplayAll();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                                importCommandHandler,
+                                                                exportCommandHandler,
+                                                                updateCommandHandler,
+                                                                viewCommands,
+                                                                calculation,
+                                                                treeViewControl);
+                var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+                // Call
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddDuplicateCalculationItem(calculation, calculationContext).Build();
+
+                // Assert
+                Assert.IsInstanceOf<ContextMenuStrip>(result);
+                Assert.AreEqual(1, result.Items.Count);
+
+                TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                              "D&upliceren",
+                                                              "Dupliceer deze berekening.",
+                                                              RingtoetsFormsResources.CopyHS);
+            }
             mocks.VerifyAll();
         }
 
@@ -1844,6 +1890,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
+
+        public interface ICloneableCalculation : ICalculation, ICloneable { }
 
         #endregion
     }

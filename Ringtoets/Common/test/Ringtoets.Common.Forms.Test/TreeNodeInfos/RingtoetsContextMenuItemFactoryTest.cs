@@ -619,7 +619,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                   }
                                               },
                                               "Kopie van Nieuwe berekening")
-                    .SetName("NameOfStandardCopyUnique");
+                    .SetName("NameOfDefaultCopyUnique");
                 yield return new TestCaseData(calculation,
                                               new CalculationGroup
                                               {
@@ -633,7 +633,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                   }
                                               },
                                               "Kopie van Nieuwe berekening (1)")
-                    .SetName("NameOfStandardCopySameAsOtherCalculation");
+                    .SetName("NameOfDefaultCopySameAsOtherCalculation");
                 yield return new TestCaseData(calculation,
                                               new CalculationGroup
                                               {
@@ -647,7 +647,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                   }
                                               },
                                               "Kopie van Nieuwe berekening (1)")
-                    .SetName("NameOfStandardCopySameAsOtherCalculationGroup");
+                    .SetName("NameOfDefaultCopySameAsOtherCalculationGroup");
             }
         }
 
@@ -694,10 +694,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            ICalculationBase copiedItem = calculationGroup.Children.Except(originalChildren).SingleOrDefault();
-            Assert.IsNotNull(copiedItem);
-            Assert.AreEqual(expectedCalculationName, copiedItem.Name);
-            Assert.AreEqual(originalChildren.IndexOf(calculation) + 1, calculationGroup.Children.IndexOf(copiedItem));
+            ICalculationBase duplicatedItem = calculationGroup.Children.Except(originalChildren).SingleOrDefault();
+            Assert.IsNotNull(duplicatedItem);
+            Assert.AreEqual(expectedCalculationName, duplicatedItem.Name);
+            Assert.AreEqual(originalChildren.IndexOf(calculation) + 1, calculationGroup.Children.IndexOf(duplicatedItem));
 
             mocks.VerifyAll();
         }
