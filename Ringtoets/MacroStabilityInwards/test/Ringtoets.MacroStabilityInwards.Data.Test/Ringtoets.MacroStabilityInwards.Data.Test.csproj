@@ -61,6 +61,7 @@
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
+    <Compile Include="MacroStabilityInwardsDikeSoilScenarioTest.cs" />
     <Compile Include="SoilLayerUnderSurfaceLineTest.cs" />
     <Compile Include="SoilProfileUnderSurfaceLineFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />

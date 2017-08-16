@@ -37,6 +37,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private readonly GeneralMacroStabilityInwardsInput generalInputParameters;
         private RoundedDouble assessmentLevel;
         private bool useAssessmentLevelManualInput;
+        private RoundedDouble slipPlaneMinimumDepth;
+        private RoundedDouble slipPlaneMinimumLength;
+        private RoundedDouble maximumSliceWidth;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
@@ -56,6 +59,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             assessmentLevel = new RoundedDouble(2, double.NaN);
             useAssessmentLevelManualInput = false;
+
+            slipPlaneMinimumDepth = new RoundedDouble(2, 10);
+            slipPlaneMinimumLength = new RoundedDouble(2, 30);
+            maximumSliceWidth = new RoundedDouble(2, 5);
+
+            MoveGrid = true;
+            DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
         }
 
         /// <summary>
@@ -97,6 +107,69 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 }
             }
         }
+
+        #region settings
+
+        /// <summary>
+        /// Gets or sets the minimum depth of the slip plane.
+        /// [m]
+        /// </summary>
+        public RoundedDouble SlipPlaneMinimumDepth
+        {
+            get
+            {
+                return slipPlaneMinimumDepth;
+            }
+            set
+            {
+                slipPlaneMinimumDepth = value.ToPrecision(slipPlaneMinimumDepth.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum length of the slip plane.
+        /// [m]
+        /// </summary>
+        public RoundedDouble SlipPlaneMinimumLength
+        {
+            get
+            {
+                return slipPlaneMinimumLength;
+            }
+            set
+            {
+                slipPlaneMinimumLength = value.ToPrecision(slipPlaneMinimumLength.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum slice width.
+        /// [m]
+        /// </summary>
+        public RoundedDouble MaximumSliceWidth
+        {
+            get
+            {
+                return maximumSliceWidth;
+            }
+            set
+            {
+                maximumSliceWidth = value.ToPrecision(maximumSliceWidth.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value  whether the grid should be moved.
+        /// </summary>
+        public bool MoveGrid { get; set; }
+
+        #endregion
+
+        #region Hydraulic
+
+        public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { get; set; }
+
+        #endregion
 
         #region Derived input
 

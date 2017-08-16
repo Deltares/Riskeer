@@ -82,6 +82,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klei dijk op klei (geval 1A).
+        /// </summary>
+        public static string ClayDikeOnClay_DisplayName {
+            get {
+                return ResourceManager.GetString("ClayDikeOnClay_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klei dijk op zand (geval 1B).
+        /// </summary>
+        public static string ClayDikeOnSand_DisplayName {
+            get {
+                return ResourceManager.GetString("ClayDikeOnSand_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to STBI.
         /// </summary>
         public static string MacroStabilityInwardsFailureMechanism_Code {
@@ -105,6 +123,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         public static string MacroStabilityInwardsProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zand dijk op klei (geval 2A).
+        /// </summary>
+        public static string SandDikeOnClay_DisplayName {
+            get {
+                return ResourceManager.GetString("SandDikeOnClay_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zand dijk op zand (geval 2B).
+        /// </summary>
+        public static string SandDikeOnSand_DisplayName {
+            get {
+                return ResourceManager.GetString("SandDikeOnSand_DisplayName", resourceCulture);
             }
         }
         

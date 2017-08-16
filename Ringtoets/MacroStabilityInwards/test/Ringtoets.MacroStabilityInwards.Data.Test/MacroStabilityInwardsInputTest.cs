@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
@@ -52,6 +53,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.AssessmentLevel);
 
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
+
+            Assert.AreEqual(10, inputParameters.SlipPlaneMinimumDepth.Value);
+            Assert.AreEqual(2, inputParameters.SlipPlaneMinimumDepth.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(30, inputParameters.SlipPlaneMinimumLength.Value);
+            Assert.AreEqual(2, inputParameters.SlipPlaneMinimumLength.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(5, inputParameters.MaximumSliceWidth.Value);
+            Assert.AreEqual(2, inputParameters.MaximumSliceWidth.NumberOfDecimalPlaces);
+
+            Assert.IsTrue(inputParameters.MoveGrid);
+            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, inputParameters.DikeSoilScenario);
         }
 
         [Test]
@@ -190,6 +203,60 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "SlipPlaneMinimumDepth"
+        })]
+        public void SlipPlaneMinimumDepth_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.SlipPlaneMinimumDepth = (RoundedDouble) newValue, newValue, input => input.SlipPlaneMinimumDepth);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "SlipPlaneMinimumLength"
+        })]
+        public void SlipPlaneMinimumLength_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.SlipPlaneMinimumLength = (RoundedDouble) newValue, newValue, input => input.SlipPlaneMinimumLength);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "MaximumSliceWidth"
+        })]
+        public void MaximumSliceWidth_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.MaximumSliceWidth = (RoundedDouble) newValue, newValue, input => input.MaximumSliceWidth);
+        }
+
+        private static void TestValueIsRounded(Action<MacroStabilityInwardsInput> setValue, double newValue, Func<MacroStabilityInwardsInput, RoundedDouble> getValue)
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+
+            int originalNumberOfDecimalPlaces = getValue(input).NumberOfDecimalPlaces;
+
+            // Call
+            setValue(input);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, getValue(input).NumberOfDecimalPlaces);
+            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, newValue), getValue(input));
+        }
+
+        private static IEnumerable<TestCaseData> GetUnroundedValues(string name)
+        {
+            yield return new TestCaseData(double.NaN).SetName($"{name} double.NaN");
+            yield return new TestCaseData(-1e-3).SetName($"{name} -1e-3");
+            yield return new TestCaseData(0.005).SetName($"{name} 0.005");
+            yield return new TestCaseData(0.1004).SetName($"{name} 0.1004");
+            yield return new TestCaseData(0.5).SetName($"{name} 0.5");
         }
     }
 }

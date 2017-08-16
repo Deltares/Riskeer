@@ -132,4 +132,16 @@
   <data name="MacroStabilityInwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Macrostabiliteit binnenwaarts</value>
   </data>
+  <data name="ClayDikeOnClay_DisplayName" xml:space="preserve">
+    <value>Klei dijk op klei (geval 1A)</value>
+  </data>
+  <data name="ClayDikeOnSand_DisplayName" xml:space="preserve">
+    <value>Klei dijk op zand (geval 1B)</value>
+  </data>
+  <data name="SandDikeOnClay_DisplayName" xml:space="preserve">
+    <value>Zand dijk op klei (geval 2A)</value>
+  </data>
+  <data name="SandDikeOnSand_DisplayName" xml:space="preserve">
+    <value>Zand dijk op zand (geval 2B)</value>
+  </data>
 </root>
