@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsSurfaceLineTransformException()
+        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsSurfaceLineTransformException()
+        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         [TestCase(2.0)]
         [TestCase(3.0)]
         [TestCase(3.5)]
-        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_ThrowsSurfaceLineTransformException(double xDikeToePolder)
+        public void Transform_DikeToePolderOnOrBeforeDikeToeRiver_ThrowsImportedDataTransformException(double xDikeToePolder)
         {
             // Setup
             var referenceLine = new ReferenceLine();

@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        public void SetCharacteristicPoints_DikeToesReversed_ThrowsSurfaceLineTransformException()
+        public void SetCharacteristicPoints_DikeToesReversed_ThrowsImportedDataTransformException()
         {
             // Setup
             const string name = "Reversed dike toes";

@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void SetCharacteristicPoints_CharacteristicPointsNull_ThrowsSurfaceLineTransformException()
+        public void SetCharacteristicPoints_CharacteristicPointsNull_ThrowsImportedDataTransformException()
         {
             // Setup
             const string name = "Some line name";
@@ -224,7 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(DifferentCharacteristicPointConfigurationsWithMissingMandatoryPoint))]
-        public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsSurfaceLineTransformException(CharacteristicPoints points, string pointDescription)
+        public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsImportedDataTransformException(CharacteristicPoints points, string pointDescription)
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine
@@ -244,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(DifferentCharacteristicPointConfigurationsWithMandatoryPointNotOnSurfaceLine))]
-        public void SetCharacteristicPoints_MandatoryPointNotOnSurfaceLine_ThrowsSurfaceLineTransformException(
+        public void SetCharacteristicPoints_MandatoryPointNotOnSurfaceLine_ThrowsImportedDataTransformException(
             CharacteristicPoints points,
             Action<CharacteristicPoints, Point3D> setPoint,
             string pointDescription)

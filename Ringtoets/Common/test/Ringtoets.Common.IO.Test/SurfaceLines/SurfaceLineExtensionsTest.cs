@@ -113,7 +113,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetSingleReferenceLineIntersection_SurfaceLineNotOnReferenceLine_ThrowSurfaceLineTransformException()
+        public void GetSingleReferenceLineIntersection_SurfaceLineNotOnReferenceLine_ThrowImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
         }
 
         [Test]
-        public void GetSingleReferenceLineIntersection_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowSurfaceLineTransformException()
+        public void GetSingleReferenceLineIntersection_SurfaceLineIntersectsReferenceLineMultipleTimesInDifferentPoints_ThrowImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();

@@ -127,7 +127,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsSurfaceLineTransformException()
+        public void Transform_SurfaceLineNotOnReferenceLine_ThrowsImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -158,7 +158,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsSurfaceLineTransformException()
+        public void Transform_SurfaceLineIntersectsReferenceLineMultipleTimes_ThrowsImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -191,7 +191,7 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
         }
 
         [Test]
-        public void Transform_WithoutCharacteristicPoints_ThrowsSurfaceLineTransformException()
+        public void Transform_WithoutCharacteristicPoints_ThrowsImportedDataTransformException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -324,7 +324,10 @@ namespace Ringtoets.MacrostabilityInwards.IO.Test.Importers
 
         [Test]
         [TestCaseSource(nameof(MoveMandatoryCharacteristicPoint))]
-        public void Transform_MandatoryCharacteristicPointNotOnSurfaceLine_ThrowsSurfaceLineTransformException(Action<CharacteristicPoints, Point3D> pointChange, Func<MacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        public void Transform_MandatoryCharacteristicPointNotOnSurfaceLine_ThrowsImportedDataTransformException(
+            Action<CharacteristicPoints, Point3D> pointChange,
+            Func<MacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull,
+            string changedCharacteristicPointName)
         {
             // Setup
             var referenceLine = new ReferenceLine();
