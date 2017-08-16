@@ -34,8 +34,8 @@ namespace Application.Ringtoets.Storage.TestUtil.IllustrationPoints
     public static class GeneralResultEntityTestHelper
     {
         /// <summary>
-        /// Matches the property values of the <paramref name="generalResultEntity"/> and <paramref name="generalResult"/>
-        /// against each other to determine if they match.
+        /// Determines for each property of <paramref name="generalResultEntity"/> whether the matching 
+        /// property of <paramref name="generalResult"/> has an equal value.
         /// </summary>
         /// <param name="generalResult">The <see cref="GeneralResult{T}"/> to compare.</param>
         /// <param name="generalResultEntity">The <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>

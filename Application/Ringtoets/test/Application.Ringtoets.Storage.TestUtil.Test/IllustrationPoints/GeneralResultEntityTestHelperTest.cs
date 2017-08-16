@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.IllustrationPoints
     public class GeneralResultEntityTestHelperTest
     {
         [Test]
-        public void AssertGeneralResultPropertyValues_WithGeneralResultNull_DoesNotThrowException()
+        public void AssertGeneralResultPropertyValues_WithGeneralResultNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(null,
