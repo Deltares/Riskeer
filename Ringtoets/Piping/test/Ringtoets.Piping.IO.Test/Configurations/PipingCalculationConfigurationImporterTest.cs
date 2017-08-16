@@ -592,7 +592,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0, new PipingSoilProfile("Ondergrondschematisatie", 0, new[]
             {
                 new PipingSoilLayer(0)
-            }, SoilProfileType.SoilProfile1D, 0));
+            }, SoilProfileType.SoilProfile1D));
 
             PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);

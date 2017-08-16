@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         PermeabilityCoefficientOfVariation = 0.5,
                         PermeabilityMean = 1.0
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
             var surfaceLine = new PipingSurfaceLine();
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);

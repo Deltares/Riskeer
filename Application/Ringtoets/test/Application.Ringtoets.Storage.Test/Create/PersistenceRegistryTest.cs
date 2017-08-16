@@ -2167,7 +2167,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new PipingSoilProfile("name", 0, new[]
             {
                 new PipingSoilLayer(1)
-            }, SoilProfileType.SoilProfile1D, -1));
+            }, SoilProfileType.SoilProfile1D));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

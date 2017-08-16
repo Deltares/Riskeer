@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -338,7 +338,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -470,7 +470,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -554,7 +554,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -675,7 +675,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -699,7 +699,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -727,7 +727,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -761,7 +761,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -802,7 +802,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -851,7 +851,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -889,7 +889,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -919,7 +919,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -955,7 +955,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             LogNormalDistribution result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -1024,7 +1024,7 @@ namespace Ringtoets.Piping.Data.Test
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
                     new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1049,7 +1049,7 @@ namespace Ringtoets.Piping.Data.Test
                         PermeabilityCoefficientOfVariation = 0.3,
                         PermeabilityMean = 0
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1080,7 +1080,7 @@ namespace Ringtoets.Piping.Data.Test
                         PermeabilityCoefficientOfVariation = 0.3,
                         PermeabilityMean = 2.4
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1117,7 +1117,7 @@ namespace Ringtoets.Piping.Data.Test
                         PermeabilityCoefficientOfVariation = coefficientOfVariation,
                         PermeabilityMean = mean2
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1146,7 +1146,7 @@ namespace Ringtoets.Piping.Data.Test
                         PermeabilityMean = permeabilityMean,
                         PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1179,7 +1179,7 @@ namespace Ringtoets.Piping.Data.Test
                         PermeabilityMean = 12.5,
                         PermeabilityCoefficientOfVariation = 2.3
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DarcyPermeability;
@@ -1247,7 +1247,7 @@ namespace Ringtoets.Piping.Data.Test
                 0.0, new PipingSoilProfile("", -2.0, new[]
                 {
                     new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
@@ -1275,7 +1275,7 @@ namespace Ringtoets.Piping.Data.Test
                         DiameterD70Mean = diameterD70Mean,
                         DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;
@@ -1308,7 +1308,7 @@ namespace Ringtoets.Piping.Data.Test
                         DiameterD70Mean = 12.5,
                         DiameterD70CoefficientOfVariation = 2.3
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             VariationCoefficientLogNormalDistribution result = derivedInput.DiameterD70;

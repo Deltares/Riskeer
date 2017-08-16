@@ -56,8 +56,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             var pipingSoilProfile = new PipingSoilProfile(entity.Name,
                                                           entity.Bottom.ToNullAsNaN(),
                                                           layers,
-                                                          (SoilProfileType) entity.SourceType,
-                                                          -1);
+                                                          (SoilProfileType) entity.SourceType);
 
             collector.Read(entity, pipingSoilProfile);
             return pipingSoilProfile;

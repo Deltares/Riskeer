@@ -161,9 +161,9 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilProfile CreateTestProfile(PipingSoilLayer[] layers)
+        private static PipingSoilProfile CreateTestProfile(PipingSoilLayer[] layers)
         {
-            return new PipingSoilProfile(string.Empty, 0.0, layers, SoilProfileType.SoilProfile1D, 0);
+            return new PipingSoilProfile(string.Empty, 0.0, layers, SoilProfileType.SoilProfile1D);
         }
 
         #region GetTopmostConsecutiveAquiferLayerThicknessBelowLevel

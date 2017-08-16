@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
             var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
             {

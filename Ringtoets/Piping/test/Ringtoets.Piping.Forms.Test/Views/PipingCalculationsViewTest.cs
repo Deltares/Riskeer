@@ -1636,7 +1636,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 1));
+                }, SoilProfileType.SoilProfile1D));
 
             var stochasticSoilModelA = new PipingStochasticSoilModel("Model A")
             {
@@ -1653,7 +1653,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         new PipingSoilLayer(-4.0),
                         new PipingSoilLayer(0.0),
                         new PipingSoilLayer(4.0)
-                    }, SoilProfileType.SoilProfile1D, 2))
+                    }, SoilProfileType.SoilProfile1D))
                 }
             };
 
@@ -1663,7 +1663,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new PipingSoilLayer(-5.0),
                     new PipingSoilLayer(-2.0),
                     new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 1));
+                }, SoilProfileType.SoilProfile1D));
 
             var stochasticSoilModelE = new PipingStochasticSoilModel("Model E")
             {
@@ -1695,13 +1695,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             new PipingSoilLayer(-5.0),
                             new PipingSoilLayer(-2.0),
                             new PipingSoilLayer(1.0)
-                        }, SoilProfileType.SoilProfile1D, 1)),
+                        }, SoilProfileType.SoilProfile1D)),
                         new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 4", -8.0, new[]
                         {
                             new PipingSoilLayer(-4.0),
                             new PipingSoilLayer(0.0),
                             new PipingSoilLayer(4.0)
-                        }, SoilProfileType.SoilProfile1D, 2))
+                        }, SoilProfileType.SoilProfile1D))
                     }
                 },
                 stochasticSoilModelE

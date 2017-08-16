@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             const string name = "name";
 
             // Call
-            TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN, 0);
+            TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Constructor_WithNameValidX_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => new SoilProfileBuilder2D("name", 0.0, 0);
+            TestDelegate test = () => new SoilProfileBuilder2D("name", 0.0);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             const string profileName = "SomeProfile";
             const double atX = 0.0;
-            var builder = new SoilProfileBuilder2D(profileName, atX, 0);
+            var builder = new SoilProfileBuilder2D(profileName, atX);
 
             var soilLayer = new SoilLayer2D
             {
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             const string profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder2D(profileName, 0.0, 0);
+            var builder = new SoilProfileBuilder2D(profileName, 0.0);
 
             // Call
             TestDelegate test = () => builder.Build();
@@ -109,8 +109,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             const string profileName = "SomeProfile";
-            const long pipingSoilProfileId = 1234L;
-            var builder = new SoilProfileBuilder2D(profileName, 0.0, pipingSoilProfileId);
+            var builder = new SoilProfileBuilder2D(profileName, 0.0);
             var firstPoint = new Point2D(-0.5, 1.0);
             var secondPoint = new Point2D(0.5, 1.0);
             var thirdPoint = new Point2D(0.5, -1.0);
@@ -136,7 +135,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(1.0, soilProfile.Layers.ToArray()[0].Top);
             Assert.AreEqual(-1.0, soilProfile.Bottom);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, soilProfile.SoilProfileType);
-            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 
         [Test]
@@ -144,8 +142,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             const string profileName = "SomeProfile";
-            const long pipingSoilProfileId = 1234L;
-            var builder = new SoilProfileBuilder2D(profileName, 1.0, pipingSoilProfileId);
+            var builder = new SoilProfileBuilder2D(profileName, 1.0);
             builder.Add(new SoilLayer2D
             {
                 OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
@@ -204,7 +201,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 8.0
             }, soilProfile.Layers.Select(rl => rl.Top));
             Assert.AreEqual(1.0, soilProfile.Bottom);
-            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 
         [Test]
@@ -212,8 +208,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             const string profileName = "SomeProfile";
-            const long pipingSoilProfileId = 1234L;
-            var builder = new SoilProfileBuilder2D(profileName, 2.0, pipingSoilProfileId);
+            var builder = new SoilProfileBuilder2D(profileName, 2.0);
             List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                   "5",
                                                                                                   ".....",
@@ -251,7 +246,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 2.0
             }, soilProfile.Layers.Select(rl => rl.Top));
             Assert.AreEqual(0.0, soilProfile.Bottom);
-            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
     }
 }

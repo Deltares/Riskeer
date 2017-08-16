@@ -904,7 +904,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -972,7 +972,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -998,7 +998,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -1105,7 +1105,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -1186,7 +1186,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call
@@ -1212,7 +1212,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
+                }, SoilProfileType.SoilProfile1D)
             );
 
             // Call

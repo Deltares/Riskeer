@@ -34,7 +34,8 @@ namespace Ringtoets.Piping.Primitives
         private PipingSoilLayer[] layers;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
+        /// Creates a new instance of <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, 
+        /// <paramref name="bottom"/> and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
@@ -42,23 +43,16 @@ namespace Ringtoets.Piping.Primitives
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         /// <param name="sourceProfileType">The type of soil profile used as data source
         /// to build this instance.</param>
-        /// <param name="pipingSoilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, SoilProfileType sourceProfileType, long pipingSoilProfileId)
+        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, SoilProfileType sourceProfileType)
         {
             Name = name;
             Bottom = bottom;
             Layers = layers;
             SoilProfileType = sourceProfileType;
-            PipingSoilProfileId = pipingSoilProfileId;
         }
-
-        /// <summary>
-        /// Gets the database identifier of the <see cref="PipingSoilProfile"/>.
-        /// </summary>
-        public long PipingSoilProfileId { get; }
-
+        
         /// <summary>
         /// Gets the bottom level of the <see cref="PipingSoilProfile"/>.
         /// </summary>

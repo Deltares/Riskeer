@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 {
                     IsAquifer = true
                 }
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             var input = new PipingCalculatorInput(properties);
 
@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             properties.SoilProfile = new PipingSoilProfile(string.Empty, -1.0, new[]
             {
                 new PipingSoilLayer(0)
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             var input = new PipingCalculatorInput(properties);
 
@@ -611,7 +611,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 },
                 new PipingSoilLayer(2),
                 new PipingSoilLayer(-1)
-            }, SoilProfileType.SoilProfile1D, 1234L);
+            }, SoilProfileType.SoilProfile1D);
         }
 
         private static PipingSurfaceLine CreateValidSurfaceLine()

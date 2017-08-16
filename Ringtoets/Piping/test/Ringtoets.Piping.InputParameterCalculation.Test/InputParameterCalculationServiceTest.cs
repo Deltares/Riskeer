@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                     {
                         IsAquifer = true
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             var input = new PipingInput(new GeneralPipingInput())
             {
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                     {
                         IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }, SoilProfileType.SoilProfile1D));
 
             var input = new PipingInput(new GeneralPipingInput())
             {

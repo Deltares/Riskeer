@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
                 Color = Color.Aquamarine
             });
 
-            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D);
 
             // Call
             ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
                                                     new[]
                                                     {
                                                         new PipingSoilLayer(3.2)
-                                                    }, SoilProfileType.SoilProfile1D, 0);
+                                                    }, SoilProfileType.SoilProfile1D);
 
             // Call
             PipingChartDataFactory.UpdateSoilProfileChartDataName(chartData, soilProfile);
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
                 new PipingSoilLayer(0),
                 new PipingSoilLayer(1)
             };
-            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D);
 
             // Call
             TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);

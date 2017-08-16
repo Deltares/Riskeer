@@ -425,7 +425,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", 2.0, new[]
             {
                 new PipingSoilLayer(3.2)
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
             PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
@@ -457,7 +457,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, null);
@@ -481,7 +481,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -511,7 +511,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine);
@@ -537,7 +537,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -575,7 +575,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -611,7 +611,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -646,7 +646,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -681,7 +681,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             var soilProfile = new PipingSoilProfile("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             IEnumerable<Point2D[]> areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();

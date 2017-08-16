@@ -32,39 +32,34 @@ namespace Ringtoets.Piping.Primitives.Test
     [TestFixture]
     public class PipingSoilProfileTest
     {
-        private static readonly Random profileIdRandom = new Random(32);
-
         [Test]
-        [TestCase(SoilProfileType.SoilProfile1D)]
-        [TestCase(SoilProfileType.SoilProfile2D)]
-        public void Constructor_WithNameBottomLayersAndAquifer_ReturnsInstanceWithPropsAndEquivalentLayerCollection(SoilProfileType type)
+        public void Constructor_WithNameBottomLayersAndAquifer_ReturnsInstanceWithPropsAndEquivalentLayerCollection()
         {
             // Setup
             const string name = "Profile";
             var random = new Random(22);
             double bottom = random.NextDouble();
+            var type = random.NextEnumValue<SoilProfileType>();
             var layers = new Collection<PipingSoilLayer>
             {
                 new PipingSoilLayer(bottom)
             };
-            const long pipingSoilProfileId = 1234L;
 
             // Call
-            var profile = new PipingSoilProfile(name, bottom, layers, type, pipingSoilProfileId);
+            var profile = new PipingSoilProfile(name, bottom, layers, type);
 
             // Assert
             Assert.AreNotSame(layers, profile.Layers);
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
             Assert.AreEqual(type, profile.SoilProfileType);
-            Assert.AreEqual(pipingSoilProfileId, profile.PipingSoilProfileId);
         }
 
         [Test]
         public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
@@ -75,7 +70,7 @@ namespace Ringtoets.Piping.Primitives.Test
         public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
@@ -100,7 +95,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 });
             }
 
-            var profile = new PipingSoilProfile(string.Empty, bottom, equivalentLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new PipingSoilProfile(string.Empty, bottom, equivalentLayers, SoilProfileType.SoilProfile1D);
 
             // Call
             PipingSoilLayer[] result = profile.Layers.ToArray();
@@ -124,7 +119,7 @@ namespace Ringtoets.Piping.Primitives.Test
             };
 
             // Call
-            TestDelegate test = () => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Assert
             const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
@@ -142,7 +137,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(1.1)
             };
-            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Call
             double thickness = profile.GetLayerThickness(pipingSoilLayers[layerIndex]);
@@ -160,7 +155,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(1.1)
             };
-            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Call
             TestDelegate test = () => profile.GetLayerThickness(new PipingSoilLayer(1.1));
@@ -177,7 +172,7 @@ namespace Ringtoets.Piping.Primitives.Test
             var profile = new PipingSoilProfile(null, 0.0, new[]
             {
                 new PipingSoilLayer(0.0)
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             string text = profile.ToString();
@@ -195,7 +190,7 @@ namespace Ringtoets.Piping.Primitives.Test
             var profile = new PipingSoilProfile(name, 0.0, new[]
             {
                 new PipingSoilLayer(0.0)
-            }, SoilProfileType.SoilProfile1D, 0);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             string text = profile.ToString();
@@ -254,7 +249,7 @@ namespace Ringtoets.Piping.Primitives.Test
             var profile = new PipingSoilProfile("name", 0, new[]
             {
                 CreateRandomLayer(new Random(21))
-            }, SoilProfileType.SoilProfile1D, -1);
+            }, SoilProfileType.SoilProfile1D);
 
             // Call
             bool areEqual = profile.Equals(null);
@@ -292,23 +287,23 @@ namespace Ringtoets.Piping.Primitives.Test
             var profileH = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
             {
                 CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            }, random.NextEnumValue<SoilProfileType>());
 
             random = new Random(seed);
             var profileI = new PipingSoilProfile(GetRandomName(random), -random.NextDouble(), new[]
             {
                 CreateRandomLayer(random),
                 CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            }, random.NextEnumValue<SoilProfileType>());
 
             var profileJ = new PipingSoilProfile("A", -3, new[]
             {
                 new PipingSoilLayer(-2)
-            }, SoilProfileType.SoilProfile1D, 35);
+            }, SoilProfileType.SoilProfile1D);
             var profileK = new PipingSoilProfile("A", -3, new[]
             {
                 new PipingSoilLayer(-2)
-            }, SoilProfileType.SoilProfile1D, 56);
+            }, SoilProfileType.SoilProfile1D);
 
             return new[]
             {
@@ -348,7 +343,7 @@ namespace Ringtoets.Piping.Primitives.Test
             return new PipingSoilProfile(name, bottom, new[]
             {
                 new PipingSoilLayer(bottom + 1.0)
-            }, type, profileIdRandom.Next());
+            }, type);
         }
 
         private static PipingSoilProfile CreateRandomProfile(int randomSeed)
@@ -359,7 +354,7 @@ namespace Ringtoets.Piping.Primitives.Test
             {
                 layers.Add(CreateRandomLayer(random));
             }
-            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), profileIdRandom.Next());
+            return new PipingSoilProfile(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>());
         }
 
         private static PipingSoilLayer CreateRandomLayer(Random random)
@@ -390,8 +385,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 : base(profile.Name,
                        profile.Bottom,
                        profile.Layers,
-                       profile.SoilProfileType,
-                       profile.PipingSoilProfileId) {}
+                       profile.SoilProfileType) {}
         }
     }
 }

@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         0, new PipingSoilProfile("W1-6_0_1D1", 0, new[]
                         {
                             new PipingSoilLayer(0)
-                        }, SoilProfileType.SoilProfile1D, 0)),
+                        }, SoilProfileType.SoilProfile1D)),
                     PhreaticLevelExit =
                     {
                         Mean = (RoundedDouble) 0,

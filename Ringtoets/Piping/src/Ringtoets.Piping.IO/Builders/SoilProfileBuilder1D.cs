@@ -34,19 +34,16 @@ namespace Ringtoets.Piping.IO.Builders
         private readonly Collection<PipingSoilLayer> layers;
         private readonly string name;
         private readonly double bottom;
-        private readonly long soilProfileId;
 
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfileBuilder1D"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>
         /// <param name="bottom">The bottom level of the profile.</param>
-        /// <param name="soilProfileId">Identifier of the profile.</param>
-        internal SoilProfileBuilder1D(string name, double bottom, long soilProfileId)
+        internal SoilProfileBuilder1D(string name, double bottom)
         {
             this.name = name;
             this.bottom = bottom;
-            this.soilProfileId = soilProfileId;
             layers = new Collection<PipingSoilLayer>();
         }
 
@@ -59,7 +56,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             try
             {
-                return new PipingSoilProfile(name, bottom, layers, SoilProfileType.SoilProfile1D, soilProfileId);
+                return new PipingSoilProfile(name, bottom, layers, SoilProfileType.SoilProfile1D);
             }
             catch (ArgumentException e)
             {

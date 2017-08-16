@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
@@ -265,7 +264,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
                     PermeabilityCoefficientOfVariation = random.NextDouble(),
                     PermeabilityMean = random.NextDouble()
                 }
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            }, random.NextEnumValue<SoilProfileType>());
         }
 
         private static string GetRandomName(Random random)

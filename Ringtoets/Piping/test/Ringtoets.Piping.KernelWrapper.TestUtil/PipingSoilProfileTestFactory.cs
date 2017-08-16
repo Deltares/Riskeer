@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
                 {
                     IsAquifer = true
                 }
-            }, soilProfileType, 0L);
+            }, soilProfileType);
         }
     }
 }

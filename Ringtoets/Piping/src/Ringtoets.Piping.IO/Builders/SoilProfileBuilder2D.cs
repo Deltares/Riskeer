@@ -36,7 +36,6 @@ namespace Ringtoets.Piping.IO.Builders
         private readonly ICollection<PipingSoilLayer> layers = new Collection<PipingSoilLayer>();
         private readonly double atX;
         private readonly string profileName;
-        private readonly long soilProfileId;
 
         private double bottom;
 
@@ -46,10 +45,9 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
-        /// <param name="soilProfileId">The identifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
         /// (is <see cref="double.NaN"/>).</exception>
-        internal SoilProfileBuilder2D(string profileName, double atX, long soilProfileId)
+        internal SoilProfileBuilder2D(string profileName, double atX)
         {
             if (double.IsNaN(atX))
             {
@@ -59,7 +57,6 @@ namespace Ringtoets.Piping.IO.Builders
             this.profileName = profileName;
             this.atX = atX;
             bottom = double.MaxValue;
-            this.soilProfileId = soilProfileId;
         }
 
         /// <summary>
@@ -73,7 +70,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             try
             {
-                return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D, soilProfileId);
+                return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D);
             }
             catch (ArgumentException e)
             {
@@ -89,7 +86,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <exception cref="SoilProfileBuilderException">Thrown when either:
         /// <list type="bullet">
         /// <item>the <paramref name="soilLayer"/>'s geometry contains vertical segments at the 
-        /// X-coordinate given for the construction of the <see cref="SoilProfileBuilder2D(string,double,long)"/>.</item>
+        /// X-coordinate given for the construction of the <see cref="SoilProfileBuilder2D(string,double)"/>.</item>
         /// <item>any of the distributions of the stochastic parameters for <paramref name="soilLayer"/> is not defined 
         /// as lognormal or is shifted when it should not be</item>
         /// </list></exception>

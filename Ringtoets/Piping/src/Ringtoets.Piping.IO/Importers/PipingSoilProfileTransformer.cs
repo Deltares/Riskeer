@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.IO.Importers
                 bottom = Math.Min(bottom, newBottom);
             }
 
-            return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D, 0);
+            return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D);
         }
 
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile1D soilProfile1D)
@@ -115,8 +115,7 @@ namespace Ringtoets.Piping.IO.Importers
             return new PipingSoilProfile(soilProfile1D.Name,
                                          soilProfile1D.Bottom,
                                          layers.ToArray(),
-                                         SoilProfileType.SoilProfile1D,
-                                         0);
+                                         SoilProfileType.SoilProfile1D);
         }
     }
 }

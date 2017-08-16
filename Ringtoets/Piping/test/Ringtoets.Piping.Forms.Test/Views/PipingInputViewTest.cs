@@ -168,8 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                 new PipingSoilLayer(2.0),
                                 new PipingSoilLayer(0)
                             },
-                            SoilProfileType.SoilProfile1D,
-                            1))
+                            SoilProfileType.SoilProfile1D))
                 }
             };
 
@@ -466,7 +465,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         new PipingSoilLayer(0),
                         new PipingSoilLayer(2),
                         new PipingSoilLayer(3)
-                    }, SoilProfileType.SoilProfile1D, 1));
+                    }, SoilProfileType.SoilProfile1D));
 
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
@@ -666,7 +665,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                        new PipingSoilLayer(1),
                                                        new PipingSoilLayer(3),
                                                        new PipingSoilLayer(5)
-                                                   }, SoilProfileType.SoilProfile1D, 1));
+                                                   }, SoilProfileType.SoilProfile1D));
         }
 
         private static PipingSurfaceLine GetSurfaceLineWithGeometry()

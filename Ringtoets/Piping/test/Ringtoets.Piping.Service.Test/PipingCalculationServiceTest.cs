@@ -355,7 +355,7 @@ namespace Ringtoets.Piping.Service.Test
                         topLayer,
                         bottomLayer
                     },
-                    SoilProfileType.SoilProfile1D, -1));
+                    SoilProfileType.SoilProfile1D));
 
             testCalculation.Name = name;
 
@@ -391,7 +391,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 {
                                                     aquitardLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Service.Test
                                                 {
                                                     aquiferLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -482,7 +482,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     coverageLayerAboveSurfaceLine,
                                                     bottomAquiferLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -546,7 +546,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     middleCoverageLayer,
                                                     bottomAquiferLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     completeLayer,
                                                     incompletePipingSoilLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -659,7 +659,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     validLayer,
                                                     coverageLayerInvalidD70
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
@@ -720,7 +720,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     completeLayer,
                                                     incompletePipingSoilLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -785,7 +785,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     incompletePipingSoilLayer,
                                                     completeLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
             testCalculation.Name = name;
@@ -834,7 +834,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     coverageLayerInvalidSaturatedVolumicWeight,
                                                     validLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
@@ -894,7 +894,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     middleCoverageLayerMissingParameter,
                                                     bottomAquiferLayer
                                                 },
-                                                SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D);
 
             testCalculation.Name = name;
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);

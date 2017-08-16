@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 new PipingSoilLayer(bottom + 1),
                 new PipingSoilLayer(bottom + 2)
             };
-            var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D, -1);
+            var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 new PipingSoilLayer(1),
                 new PipingSoilLayer(2)
             };
-            var soilProfile = new PipingSoilProfile(testName, 0, layers, SoilProfileType.SoilProfile1D, -1);
+            var soilProfile = new PipingSoilProfile(testName, 0, layers, SoilProfileType.SoilProfile1D);
             var registry = new PersistenceRegistry();
 
             // Call
