@@ -245,7 +245,9 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            HeightStructuresInput original = HeightStructuresTestDataGenerator.CreateRandomHeightStructuresInput();
+            var original = new HeightStructuresInput();
+
+            HeightStructuresTestDataGenerator.SetRandomDataToHeightStructuresInput(original);
 
             // Call
             object clone = original.Clone();

@@ -32,28 +32,22 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
     public static class HeightStructuresTestDataGenerator
     {
         /// <summary>
-        /// This method creates a <see cref="HeightStructuresInput"/> object with random
-        /// data values set for all properties.
+        /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
-        /// <returns>The created input object.</returns>
-        public static HeightStructuresInput CreateRandomHeightStructuresInput()
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToHeightStructuresInput(HeightStructuresInput input)
         {
             var random = new Random(21);
 
-            var heightStructuresInput = new HeightStructuresInput
+            input.Structure = new TestHeightStructure();
+            input.LevelCrestStructure = new NormalDistribution
             {
-                Structure = new TestHeightStructure(),
-                LevelCrestStructure = new NormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                DeviationWaveDirection = random.NextRoundedDouble()
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
             };
+            input.DeviationWaveDirection = random.NextRoundedDouble();
 
-            CommonTestDataGenerator.SetRandomDataToStructuresInput(heightStructuresInput);
-
-            return heightStructuresInput;
+            CommonTestDataGenerator.SetRandomDataToStructuresInput(input);
         }
     }
 }

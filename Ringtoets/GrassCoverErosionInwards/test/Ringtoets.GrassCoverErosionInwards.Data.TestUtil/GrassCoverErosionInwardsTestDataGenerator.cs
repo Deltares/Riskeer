@@ -33,38 +33,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
     public static class GrassCoverErosionInwardsTestDataGenerator
     {
         /// <summary>
-        /// This method creates a <see cref="GrassCoverErosionInwardsInput"/> object with random
-        /// data values set for all properties.
+        /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
-        /// <returns>The created input object.</returns>
-        public static GrassCoverErosionInwardsInput CreateRandomGrassCoverErosionInwardsInput()
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput input)
         {
             var random = new Random(21);
 
-            return new GrassCoverErosionInwardsInput
+            input.Orientation = random.NextRoundedDouble();
+            input.DikeHeight = random.NextRoundedDouble();
+            input.CriticalFlowRate = new LogNormalDistribution
             {
-                Orientation = random.NextRoundedDouble(),
-                DikeHeight = random.NextRoundedDouble(),
-                CriticalFlowRate = new LogNormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
-                OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
-                ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
-                ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean(),
-                ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
-                DikeProfile = new TestDikeProfile(),
-                UseBreakWater = random.NextBoolean(),
-                BreakWater =
-                {
-                    Type = random.NextEnumValue<BreakWaterType>(),
-                    Height = random.NextRoundedDouble()
-                },
-                UseForeshore = random.NextBoolean()
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
             };
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            input.DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
+            input.OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
+            input.ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean();
+            input.ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean();
+            input.ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean();
+            input.DikeProfile = new TestDikeProfile();
+            input.UseBreakWater = random.NextBoolean();
+            input.BreakWater.Type = random.NextEnumValue<BreakWaterType>();
+            input.BreakWater.Height = random.NextRoundedDouble();
+            input.UseForeshore = random.NextBoolean();
         }
     }
 }

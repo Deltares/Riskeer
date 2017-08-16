@@ -368,7 +368,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            GrassCoverErosionInwardsInput original = GrassCoverErosionInwardsTestDataGenerator.CreateRandomGrassCoverErosionInwardsInput();
+            var original = new GrassCoverErosionInwardsInput();
+
+            GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
 
             // Call
             object clone = original.Clone();
@@ -381,7 +383,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            GrassCoverErosionInwardsInput original = GrassCoverErosionInwardsTestDataGenerator.CreateRandomGrassCoverErosionInwardsInput();
+            var original = new GrassCoverErosionInwardsInput();
+
+            GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
 
             original.DikeProfile = null;
             original.HydraulicBoundaryLocation = null;
