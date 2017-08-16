@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void GivenFullyConfiguredControl_WhenDataIsResetAndCellInSameRowSelected_ThenRowChangedFired()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             using (var control = new IllustrationPointsControl())
             {
@@ -111,12 +111,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 dataGridView.CurrentRowChanged += (sender, args) => currentRowChangedCount++;
                 dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
-                // Call
-                control.Data = null;
-                control.Data = data; // Updating data fires event 2 times, then resets to allow next cell change to fire again
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]);
+                // When
+                var newData = new[]
+                {
+                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                     "NE",
+                                                     "Regular",
+                                                     Enumerable.Empty<Stochast>(),
+                                                     (RoundedDouble) 2.6)
+                };
+                control.Data = newData; // Updating data fires event 3 times here, then resets to allow next cell change to fire again
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]); // This will fire the event once more (4 total)
 
-                // Assert
+                // Then
                 Assert.AreEqual(4, currentRowChangedCount);
             }
         }

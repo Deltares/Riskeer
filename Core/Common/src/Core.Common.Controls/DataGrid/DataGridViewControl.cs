@@ -33,10 +33,11 @@ namespace Core.Common.Controls.DataGrid
     /// </summary>
     public partial class DataGridViewControl : UserControl
     {
+        private int lastSelectedRow;
+
         /// <summary>
-        /// Event handler that fires only when a new cell in a
-        /// row different from the previously selected row is
-        /// selected. Also fires if it's the first selection.
+        /// Occurs when it's the first selection or when a cell in a row different 
+        /// from the previously selected row is selected.
         /// </summary>
         public event EventHandler CurrentRowChanged
         {
@@ -199,7 +200,7 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         public void ResetLastSelectedRow()
         {
-            LastSelectedRow = -1;
+            lastSelectedRow = -1;
         }
 
         /// <summary>
@@ -435,12 +436,6 @@ namespace Core.Common.Controls.DataGrid
             base.OnLoad(e);
         }
 
-        /// <summary>
-        /// Integer containing the index of the previously selected
-        /// row.
-        /// </summary>
-        private int LastSelectedRow { get; set; }
-
         #region Styling
 
         /// <summary>
@@ -516,13 +511,13 @@ namespace Core.Common.Controls.DataGrid
                 return;
             }
 
-            if (LastSelectedRow == CurrentRow.Index)
+            if (lastSelectedRow == CurrentRow.Index)
             {
                 return;
             }
 
             RowChanged.Invoke(o, eventArgs);
-            LastSelectedRow = CurrentRow.Index;
+            lastSelectedRow = CurrentRow.Index;
         }
 
         private void SubscribeEvents()

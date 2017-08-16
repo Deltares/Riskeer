@@ -1280,7 +1280,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void GivenFullyConfiguredDataGridView_WhenResetLastSelectedRowAndCellInSameRowSelected_ThenCurrentRowChangedEventFired()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -1298,11 +1298,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.CurrentRowChanged += (sender, args) => counter++;
                 control.SetCurrentCell(control.GetCell(0, 1));
 
-                // Call
+                // When
                 control.ResetLastSelectedRow();
-
-                // Assert
                 control.SetCurrentCell(control.GetCell(0, 0));
+
+                // Then
                 Assert.AreEqual(2, counter);
             }
         }
