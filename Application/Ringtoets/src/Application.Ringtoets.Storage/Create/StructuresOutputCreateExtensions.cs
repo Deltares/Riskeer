@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 outputEntity.GeneralResultFaultTreeIllustrationPointEntity =
                     structuresOutput.GeneralResult
-                                     .CreateGeneralResultFaultTreeIllustrationPointEntity();
+                                    .CreateGeneralResultFaultTreeIllustrationPointEntity();
             }
         }
     }

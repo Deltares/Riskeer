@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
@@ -47,18 +48,18 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSetAndEntityRegistered(bool isRelevant)
+        public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             const string testName = "testName";
             var random = new Random(21);
             double bottom = random.NextDouble();
+            var sourceType = random.NextEnumValue<SoilProfileType>();
             var entity = new SoilProfileEntity
             {
                 Name = testName,
                 Bottom = bottom,
+                SourceType = (byte) sourceType,
                 SoilLayerEntities =
                 {
                     new SoilLayerEntity
@@ -84,6 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(profile);
             Assert.AreEqual(testName, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom, 1e-6);
+            Assert.AreEqual(sourceType, profile.SoilProfileType);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
@@ -94,12 +96,16 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithCollectorWithoutLayers_ThrowsArgumentException(bool isRelevant)
+        public void Read_WithCollectorWithoutLayers_ThrowsArgumentException()
         {
             // Setup
-            var entity = new SoilProfileEntity();
+            var random = new Random(21);
+            var entity = new SoilProfileEntity
+            {
+                Name = "Name",
+                Bottom = random.NextDouble(),
+                SourceType = (byte) random.NextEnumValue<SoilProfileType>()
+            };
             var collector = new ReadConversionCollector();
 
             // Call
@@ -114,11 +120,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             const string testName = "testName";
-            double bottom = new Random(21).NextDouble();
+            var random = new Random(21);
+            double bottom = random.NextDouble();
             var entity = new SoilProfileEntity
             {
                 Name = testName,
                 Bottom = bottom,
+                SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                 SoilLayerEntities =
                 {
                     new SoilLayerEntity

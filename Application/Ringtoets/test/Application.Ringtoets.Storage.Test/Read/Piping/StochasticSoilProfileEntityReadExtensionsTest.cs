@@ -23,8 +23,10 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
@@ -46,9 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered(byte soilProfileType)
+        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             var random = new Random(21);
@@ -56,9 +56,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new StochasticSoilProfileEntity
             {
                 Probability = probability,
-                Type = soilProfileType,
                 SoilProfileEntity = new SoilProfileEntity
                 {
+                    SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                     SoilLayerEntities =
                     {
                         new SoilLayerEntity()
@@ -80,9 +80,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollectorDifferentStochasticSoilProfileEntitiesWithSameSoilProfileEntity_ReturnsStochasticSoilProfilesWithSamePipingSoilProfile()
         {
             // Setup
-            double probability = new Random(21).NextDouble();
+            var random = new Random(21);
+            double probability = random.NextDouble();
             var soilProfileEntity = new SoilProfileEntity
             {
+                SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                 SoilLayerEntities =
                 {
                     new SoilLayerEntity()
@@ -114,10 +116,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_SameStochasticSoilProfileEntityMultipleTimes_ReturnSameStochasticSoilProfile()
         {
             // Setup
+            var random = new Random(9);
             var entity = new StochasticSoilProfileEntity
             {
                 SoilProfileEntity = new SoilProfileEntity
                 {
+                    SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                     SoilLayerEntities =
                     {
                         new SoilLayerEntity()

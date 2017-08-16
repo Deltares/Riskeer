@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Create.IllustrationPoints
                 throw new ArgumentNullException(nameof(illustrationPointResult));
             }
 
-            var entity = new IllustrationPointResultEntity()
+            var entity = new IllustrationPointResultEntity
             {
                 Description = illustrationPointResult.Description.DeepClone(),
                 Value = illustrationPointResult.Value,

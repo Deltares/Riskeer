@@ -53,7 +53,11 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
             IEnumerable<PipingSoilLayer> layers = entity.SoilLayerEntities.OrderBy(sl => sl.Order).Select(sl => sl.Read());
-            var pipingSoilProfile = new PipingSoilProfile(entity.Name, entity.Bottom.ToNullAsNaN(), layers, SoilProfileType.SoilProfile1D, -1);
+            var pipingSoilProfile = new PipingSoilProfile(entity.Name,
+                                                          entity.Bottom.ToNullAsNaN(),
+                                                          layers,
+                                                          (SoilProfileType) entity.SourceType,
+                                                          -1);
 
             collector.Read(entity, pipingSoilProfile);
             return pipingSoilProfile;

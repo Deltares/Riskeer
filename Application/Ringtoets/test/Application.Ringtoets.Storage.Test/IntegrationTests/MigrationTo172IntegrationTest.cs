@@ -72,6 +72,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructures(reader);
                     AssertForeshoreProfiles(reader);
 
+                    AssertSoilProfiles(reader, sourceFilePath);
+
                     AssertVersions(reader);
                     AssertDatabase(reader);
                 }
@@ -219,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             foreach (string table in tables)
             {
                 string validateMigratedTable =
-                    $"ATTACH DATABASE[{sourceFilePath}] AS SOURCEPROJECT; " +
+                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                     $"SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].{table}) " +
                     $"FROM {table};" +
                     "DETACH SOURCEPROJECT;";
@@ -532,6 +534,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM StabilityPointStructureEntity " +
                 "GROUP BY [FailureMechanismEntityId]";
             reader.AssertReturnedDataIsValid(validateStabilityPointStructures);
+        }
+
+        private static void AssertSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilProfileEntity) " +
+                "FROM SoilProfileEntity " +
+                "WHERE [SourceType] IN (1,2);" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
         }
 
         /// <summary>

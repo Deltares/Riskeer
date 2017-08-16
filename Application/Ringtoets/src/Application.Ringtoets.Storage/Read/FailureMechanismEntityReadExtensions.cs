@@ -50,8 +50,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using GeneralPipingInput = Ringtoets.Piping.Data.GeneralPipingInput;
-using PipingFailureMechanismSectionResult = Ringtoets.Piping.Data.PipingFailureMechanismSectionResult;
 
 namespace Application.Ringtoets.Storage.Read
 {

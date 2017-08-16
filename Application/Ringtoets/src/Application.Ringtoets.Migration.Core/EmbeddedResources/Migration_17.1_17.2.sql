@@ -713,7 +713,22 @@ INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].Pi
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO SoilLayerEntity SELECT * FROM [SOURCEPROJECT].SoilLayerEntity;
-INSERT INTO SoilProfileEntity SELECT * FROM [SOURCEPROJECT].SoilProfileEntity;
+INSERT INTO SoilProfileEntity(
+	[SoilProfileEntityId],
+	[Bottom],
+	[Name],
+	[SourceType])
+SELECT 
+	[SoilProfileEntityId],
+	[Bottom],
+	[Name],
+	(
+		SELECT SSP.[Type]
+		FROM [SOURCEPROJECT].StochasticSoilProfileEntity SSP
+		WHERE SSP.SoilProfileEntityId IS SP.SoilProfileEntityId
+		LIMIT 1
+	) AS [SourceType]
+FROM [SOURCEPROJECT].SoilProfileEntity SP;
 INSERT INTO StabilityPointStructureEntity (
 	[StabilityPointStructureEntityId],
 	[FailureMechanismEntityId],
@@ -1043,7 +1058,19 @@ SELECT
 	[StochasticSoilModelSegmentPointXml],
 	[Order]
 	FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO StochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
+INSERT INTO StochasticSoilProfileEntity(
+	[StochasticSoilProfileEntityId],
+	[SoilProfileEntityId],
+	[StochasticSoilModelEntityId],
+	[Probability],
+	[Order])
+SELECT 
+	[StochasticSoilProfileEntityId],
+	[SoilProfileEntityId],
+	[StochasticSoilModelEntityId],
+	[Probability],
+	[Order]
+	FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;

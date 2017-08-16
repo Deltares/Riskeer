@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SoilProfileEntityId { get; set; }
         public double? Bottom { get; set; }
         public string Name { get; set; }
+        public byte SourceType { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SoilLayerEntity> SoilLayerEntities { get; set; }
