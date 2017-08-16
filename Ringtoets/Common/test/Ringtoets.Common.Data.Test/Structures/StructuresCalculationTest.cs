@@ -24,6 +24,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -128,20 +130,62 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(comments, calculation.Comments.Body);
         }
 
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            TestStructuresCalculation original = CreateRandomCalculationWithoutOutput();
+
+            original.Output = new TestStructuresOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones<TestStructuresInput, TestStructure>);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            TestStructuresCalculation original = CreateRandomCalculationWithoutOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones<TestStructuresInput, TestStructure>);
+        }
+
+        private static TestStructuresCalculation CreateRandomCalculationWithoutOutput()
+        {
+            var calculation = new TestStructuresCalculation
+            {
+                Comments =
+                {
+                    Body = "Random body"
+                }
+            };
+
+            CommonTestDataGenerator.SetRandomDataToStructuresInput(calculation.InputParameters);
+
+            return calculation;
+        }
+
         private class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
 
-        private class TestStructuresInput : IStructuresCalculationInput
+        private class TestStructuresInput : StructuresInputBase<TestStructure>
         {
-            public void Attach(IObserver observer) {}
-
-            public void Detach(IObserver observer) {}
-
-            public void NotifyObservers() {}
-
-            public object Clone()
+            public override bool IsStructureInputSynchronized
             {
-                return MemberwiseClone();
+                get
+                {
+                    return true;
+                }
             }
+
+            public override void SynchronizeStructureInput() {}
         }
     }
 }

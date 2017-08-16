@@ -268,6 +268,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
         /// are clones.
         /// </summary>
+        /// <typeparam name="T">The type of the structure contained by the structures input.</typeparam>
         /// <param name="original">The original object.</param>
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
@@ -304,6 +305,26 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             CoreCloneAssert.AreObjectClones(original.ProbabilityAssessmentOutput, clone.ProbabilityAssessmentOutput, AreClones);
             CoreCloneAssert.AreObjectClones(original.GeneralResult, clone.GeneralResult, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <typeparam name="TInput">The type of structures input.</typeparam>
+        /// <typeparam name="TStructure">The type of the structure contained by the structures input.</typeparam>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones<TInput, TStructure>(StructuresCalculation<TInput> original, StructuresCalculation<TInput> clone)
+            where TInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase, new()
+        {
+            Assert.AreEqual(original.Name, clone.Name);
+            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, AreClones);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
+            CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
     }
 }
