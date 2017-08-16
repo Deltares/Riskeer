@@ -38,11 +38,11 @@ namespace Ringtoets.ClosingStructures.Data
         private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
                                                                                                                     new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
 
-        private readonly NormalDistribution thresholdHeightOpenWeir;
-        private readonly NormalDistribution drainCoefficient;
-        private readonly LogNormalDistribution areaFlowApertures;
-        private readonly NormalDistribution levelCrestStructureNotClosing;
-        private readonly NormalDistribution insideWaterLevel;
+        private NormalDistribution thresholdHeightOpenWeir;
+        private NormalDistribution drainCoefficient;
+        private LogNormalDistribution areaFlowApertures;
+        private NormalDistribution levelCrestStructureNotClosing;
+        private NormalDistribution insideWaterLevel;
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
@@ -71,15 +71,6 @@ namespace Ringtoets.ClosingStructures.Data
             SetDefaultSchematizationProperties();
         }
 
-        #region Structure
-
-        /// <summary>
-        /// Gets or sets the type of closing structure inflow model.
-        /// </summary>
-        public ClosingStructureInflowModelType InflowModelType { get; set; }
-
-        #endregion
-
         public override bool IsStructureInputSynchronized
         {
             get
@@ -102,6 +93,15 @@ namespace Ringtoets.ClosingStructures.Data
                        && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir);
             }
         }
+
+        #region Structure
+
+        /// <summary>
+        /// Gets or sets the type of closing structure inflow model.
+        /// </summary>
+        public ClosingStructureInflowModelType InflowModelType { get; set; }
+
+        #endregion
 
         public override void SynchronizeStructureInput()
         {
@@ -127,6 +127,19 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 SetDefaultSchematizationProperties();
             }
+        }
+
+        public override object Clone()
+        {
+            var clone = (ClosingStructuresInput) base.Clone();
+
+            clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
+            clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
+            clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
+            clone.levelCrestStructureNotClosing = (NormalDistribution) LevelCrestStructureNotClosing.Clone();
+            clone.insideWaterLevel = (NormalDistribution) InsideWaterLevel.Clone();
+
+            return clone;
         }
 
         private void SetDefaultSchematizationProperties()

@@ -28,6 +28,8 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using ClosingStructuresCloneAssert = Ringtoets.ClosingStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -284,6 +286,21 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             AssertClosingStructureInput(differentStructure, input);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ClosingStructuresInput();
+
+            ClosingStructuresTestDataGenerator.SetRandomDataToClosingStructuresInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, ClosingStructuresCloneAssert.AreClones);
         }
 
         #region Hydraulic data
