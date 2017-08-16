@@ -21,12 +21,8 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
@@ -165,39 +161,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
         private static GrassCoverErosionInwardsCalculation CreateRandomCalculationWithoutOutput()
         {
-            var random = new Random(21);
-
-            return new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
-                InputParameters =
-                {
-                    DikeProfile = new TestDikeProfile(),
-                    Orientation = random.NextRoundedDouble(),
-                    DikeHeight = random.NextRoundedDouble(),
-                    CriticalFlowRate = new LogNormalDistribution
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        StandardDeviation = random.NextRoundedDouble()
-                    },
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
-                    DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
-                    OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
-                    ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
-                    ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean(),
-                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
-                    UseBreakWater = random.NextBoolean(),
-                    BreakWater =
-                    {
-                        Type = random.NextEnumValue<BreakWaterType>(),
-                        Height = random.NextRoundedDouble()
-                    },
-                    UseForeshore = random.NextBoolean()
-                },
                 Comments =
                 {
                     Body = "Random body"
                 }
             };
+
+            GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
+
+            return calculation;
         }
     }
 }
