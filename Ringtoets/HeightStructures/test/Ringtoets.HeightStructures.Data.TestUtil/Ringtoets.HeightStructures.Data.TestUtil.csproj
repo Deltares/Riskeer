@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="CloneAssert.cs" />
     <Compile Include="HeightStructurePermutationHelper.cs" />
+    <Compile Include="HeightStructuresTestDataGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHeightStructure.cs" />
     <Compile Include="TestHeightStructuresCalculation.cs" />

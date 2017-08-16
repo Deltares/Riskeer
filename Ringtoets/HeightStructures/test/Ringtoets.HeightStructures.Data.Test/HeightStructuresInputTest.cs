@@ -245,19 +245,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new HeightStructuresInput
-            {
-                Structure = new TestHeightStructure(),
-                LevelCrestStructure = new NormalDistribution
-                {
-                    Mean = random.NextRoundedDouble(),
-                    StandardDeviation = random.NextRoundedDouble()
-                },
-                DeviationWaveDirection = random.NextRoundedDouble()
-            };
-
-            CommonTestDataGenerator.SetRandomDataToStructuresInput(original);
+            HeightStructuresInput original = HeightStructuresTestDataGenerator.CreateRandomStructuresInput();
 
             // Call
             object clone = original.Clone();
