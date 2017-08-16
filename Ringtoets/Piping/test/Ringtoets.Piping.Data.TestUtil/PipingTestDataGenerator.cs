@@ -430,7 +430,8 @@ namespace Ringtoets.Piping.Data.TestUtil
             input.ExitPointL = random.NextRoundedDouble();
             input.SurfaceLine = surfaceLine;
             input.StochasticSoilModel = new PipingStochasticSoilModel("model");
-            input.StochasticSoilProfile = new PipingStochasticSoilProfile(random.NextDouble(), new TestPipingSoilProfile());
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(random.NextDouble(),
+                                                                          PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.UseAssessmentLevelManualInput = true;
             input.AssessmentLevel = random.NextRoundedDouble();
