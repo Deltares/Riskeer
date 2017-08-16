@@ -1509,8 +1509,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     },
                     StochasticSoilProfiles =
                     {
-                        new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile("A")),
-                        new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile("B"))
+                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
+                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
                     }
                 }
             }, arbirtraryFilePath);

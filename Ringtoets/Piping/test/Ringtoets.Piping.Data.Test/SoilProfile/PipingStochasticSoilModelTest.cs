@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             // Setup
             PipingStochasticSoilModel model = CreateEmptyModel();
             PipingStochasticSoilModel otherModel = CreateEmptyModel();
-            var expectedAddedProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
+            var expectedAddedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             otherModel.StochasticSoilProfiles.Add(expectedAddedProfile);
 
             // Call
@@ -128,13 +128,15 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         {
             // Setup
             const string profileName = "A";
-            var expectedUpdatedProfile = new PipingStochasticSoilProfile(0.2,
-                                                                         new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D));
+            var expectedUpdatedProfile = new PipingStochasticSoilProfile(
+                0.2,
+                new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D));
             PipingStochasticSoilModel model = CreateEmptyModel();
             model.StochasticSoilProfiles.Add(expectedUpdatedProfile);
             PipingStochasticSoilModel otherModel = CreateEmptyModel();
-            otherModel.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(0.2,
-                                                                                  new PipingSoilProfile(profileName, -1, CreateLayers(), SoilProfileType.SoilProfile1D)));
+            otherModel.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(
+                                                      0.2,
+                                                      new PipingSoilProfile(profileName, -1, CreateLayers(), SoilProfileType.SoilProfile1D)));
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -238,8 +240,8 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             const string equalProfileName = "nameA";
             PipingStochasticSoilModel model = CreateEmptyModel();
 
-            var stochasticProfileA = new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile(equalProfileName));
-            var stochasticProfileB = new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile("nameB"));
+            var stochasticProfileA = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile(equalProfileName));
+            var stochasticProfileB = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("nameB"));
             model.StochasticSoilProfiles.Add(stochasticProfileA);
             model.StochasticSoilProfiles.Add(stochasticProfileB);
 
@@ -256,7 +258,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
                 {
                     new PipingSoilLayer(0)
                 }, SoilProfileType.SoilProfile1D));
-            var otherStochasticProfileB = new PipingStochasticSoilProfile(0.3, new TestPipingSoilProfile("other profile name"));
+            var otherStochasticProfileB = new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile("other profile name"));
             otherModel.StochasticSoilProfiles.Add(otherStochasticProfileA);
             otherModel.StochasticSoilProfiles.Add(otherStochasticProfileB);
 
@@ -291,11 +293,11 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
             // Setup 
-            var addedProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
+            var addedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             PipingStochasticSoilModel otherModel = CreateEmptyModel();
             otherModel.StochasticSoilProfiles.Add(addedProfile);
 
-            var existingProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
+            var existingProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             PipingStochasticSoilModel model = CreateEmptyModel();
             model.StochasticSoilProfiles.Add(existingProfile);
             model.StochasticSoilProfiles.Add(existingProfile);

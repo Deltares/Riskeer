@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         {
             // Setup
             const double probability = 1.0;
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var stochasticProfile = new PipingStochasticSoilProfile(probability, profile);
             var otherStochasticProfile = new PipingStochasticSoilProfile(probability, profile);
 
@@ -194,12 +194,15 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         private static TestCaseData[] PipingStochasticProfileUnequalCombinations()
         {
             const string profileName = "newProfile";
-            var stochasticSoilProfileA = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile(
-                                                                             profileName, SoilProfileType.SoilProfile1D));
-            var stochasticSoilProfileB = new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile(
-                                                                             profileName, SoilProfileType.SoilProfile1D));
-            var stochasticSoilProfileC = new PipingStochasticSoilProfile(1.0, new TestPipingSoilProfile(
-                                                                             profileName, SoilProfileType.SoilProfile2D));
+            var stochasticSoilProfileA = new PipingStochasticSoilProfile(
+                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
+                                                                          SoilProfileType.SoilProfile1D));
+            var stochasticSoilProfileB = new PipingStochasticSoilProfile(
+                0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
+                                                                          SoilProfileType.SoilProfile1D));
+            var stochasticSoilProfileC = new PipingStochasticSoilProfile(
+                1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName,
+                                                                          SoilProfileType.SoilProfile2D));
 
             return new[]
             {

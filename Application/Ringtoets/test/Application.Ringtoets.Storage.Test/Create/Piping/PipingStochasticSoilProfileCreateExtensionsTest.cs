@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
 {
@@ -36,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             TestDelegate test = () => stochasticSoilProfile.Create(null, 0);
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var random = new Random(21);
             double probability = random.NextDouble();
             int order = random.Next();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(probability, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(probability, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var registry = new PersistenceRegistry();
 
             // Call
@@ -69,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_DifferentStochasticSoilProfilesWithSamePipingSoilProfile_ReturnsStochasticSoilProfileEntityWithSameSoilProfileEntitySet()
         {
             // Setup
-            var testPipingSoilProfile = new TestPipingSoilProfile();
+            PipingSoilProfile testPipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var firstStochasticSoilProfile = new PipingStochasticSoilProfile(new Random(21).NextDouble(), testPipingSoilProfile);
             var secondStochasticSoilProfile = new PipingStochasticSoilProfile(new Random(21).NextDouble(), testPipingSoilProfile);
             var registry = new PersistenceRegistry();
@@ -86,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SameStochasticSoilProfileMultipleTimes_ReturnSameEntity()
         {
             // Setup
-            var soilProfile = new TestPipingSoilProfile();
+            PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, soilProfile);
             var registry = new PersistenceRegistry();
 

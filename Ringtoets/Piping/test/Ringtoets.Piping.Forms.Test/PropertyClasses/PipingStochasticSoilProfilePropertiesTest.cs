@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_ValidStochasticSoilProfile_ExpectedValues()
         {
             // Setup
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(1, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             var properties = new PipingStochasticSoilProfileProperties(stochasticSoilProfile);

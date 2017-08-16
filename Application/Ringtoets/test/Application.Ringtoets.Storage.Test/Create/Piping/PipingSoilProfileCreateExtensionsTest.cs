@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var soilProfile = new TestPipingSoilProfile();
+            PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
             TestDelegate test = () => soilProfile.Create(null);
@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_ForTheSameEntityTwice_ReturnsSameSoilProfileEntityInstance()
         {
             // Setup
-            var soilProfile = new TestPipingSoilProfile();
+            PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var registry = new PersistenceRegistry();
 
             SoilProfileEntity firstEntity = soilProfile.Create(registry);

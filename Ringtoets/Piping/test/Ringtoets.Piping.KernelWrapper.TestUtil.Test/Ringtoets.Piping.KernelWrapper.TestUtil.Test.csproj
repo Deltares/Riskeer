@@ -60,7 +60,6 @@
     <Compile Include="SubCalculator\SellmeijerCalculatorStubTest.cs" />
     <Compile Include="SubCalculator\TestPipingSubCalculatorFactoryTest.cs" />
     <Compile Include="SubCalculator\UpliftCalculatorStubTest.cs" />
-    <Compile Include="TestPipingSoilProfileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

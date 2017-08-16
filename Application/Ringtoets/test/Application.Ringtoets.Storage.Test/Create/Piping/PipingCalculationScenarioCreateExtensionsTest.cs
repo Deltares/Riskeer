@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StochasticSoilProfileSet_EntityHasStochasticSoilProfileEntity()
         {
             // Setup
-            var soilProfile = new TestPipingSoilProfile();
+            PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.6, soilProfile);
 
             var soilModel = new PipingStochasticSoilModel("A");

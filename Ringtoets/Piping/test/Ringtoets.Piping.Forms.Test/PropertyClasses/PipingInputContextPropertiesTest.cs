@@ -1256,7 +1256,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingInputContextProperties(context, handler);
 
-            inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new TestPipingSoilProfile());
+            inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             properties.SurfaceLine = newSurfaceLine;
@@ -1277,7 +1277,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             PipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
             {
                 StochasticSoilProfiles =
@@ -1324,7 +1324,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
             {
                 StochasticSoilProfiles =

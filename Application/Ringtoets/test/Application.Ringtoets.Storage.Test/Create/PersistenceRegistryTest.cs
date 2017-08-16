@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             registry.Register(new SoilProfileEntity(), profile);
 
             // Call
@@ -103,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
             bool result = registry.Contains(profile);
@@ -117,8 +117,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
-            registry.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            registry.Register(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             bool result = registry.Contains(profile);
@@ -378,7 +378,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             registry.Register(new StochasticSoilProfileEntity(), stochasticSoilProfile);
 
             // Call
@@ -393,7 +393,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             bool result = registry.Contains(stochasticSoilProfile);
@@ -407,8 +407,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile());
-            registry.Register(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.7, new TestPipingSoilProfile()));
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            registry.Register(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
             bool result = registry.Contains(stochasticSoilProfile);
@@ -1031,7 +1031,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var entity = new SoilProfileEntity();
             registry.Register(entity, profile);
 
@@ -1047,7 +1047,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
             TestDelegate test = () => registry.Get(profile);
@@ -1061,8 +1061,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var profile = new TestPipingSoilProfile();
-            registry.Register(new SoilProfileEntity(), new TestPipingSoilProfile());
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            registry.Register(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             TestDelegate test = () => registry.Get(profile);
@@ -1326,7 +1326,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var entity = new StochasticSoilProfileEntity();
             registry.Register(entity, stochasticSoilProfile);
 
@@ -1342,7 +1342,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             TestDelegate test = () => registry.Get(stochasticSoilProfile);
@@ -1356,8 +1356,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, new TestPipingSoilProfile());
-            registry.Register(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile()));
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            registry.Register(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
             TestDelegate test = () => registry.Get(stochasticSoilProfile);
@@ -2136,7 +2136,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Register(null, new PipingStochasticSoilProfile(1, new TestPipingSoilProfile()));
+            TestDelegate test = () => registry.Register(null, new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

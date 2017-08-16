@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 model.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(
                                                      1.0 / profileNames.Length,
-                                                     new TestPipingSoilProfile(profileName)));
+                                                     PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName)));
             }
             return model;
         }

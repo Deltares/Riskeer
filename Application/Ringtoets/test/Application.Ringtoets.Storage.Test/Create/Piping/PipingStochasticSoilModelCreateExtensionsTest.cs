@@ -93,8 +93,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 StochasticSoilProfiles =
                 {
-                    new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile()),
-                    new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile())
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
             var registry = new PersistenceRegistry();

@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModel = new PipingStochasticSoilModel("A");
             var stochasticSoilModelEntity = new StochasticSoilModelEntity();
 
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(1, new TestPipingSoilProfile());
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
             {
                 StochasticSoilModelEntity = stochasticSoilModelEntity

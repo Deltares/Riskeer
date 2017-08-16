@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new StochasticSoilProfileEntity();
-            collector.Read(entity, new PipingStochasticSoilProfile(1, new TestPipingSoilProfile()));
+            collector.Read(entity, new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
             bool result = collector.Contains(entity);
@@ -98,7 +98,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new StochasticSoilProfileEntity();
-            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.4, new TestPipingSoilProfile()));
+            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
+                               0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
             bool result = collector.Contains(entity);
@@ -126,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var profile = new PipingStochasticSoilProfile(0.5, new TestPipingSoilProfile());
+            var profile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var entity = new StochasticSoilProfileEntity();
             collector.Read(entity, profile);
 
@@ -157,7 +158,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new StochasticSoilProfileEntity();
-            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.7, new TestPipingSoilProfile()));
+            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
+                               0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -173,7 +175,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(null, new PipingStochasticSoilProfile(0.7, new TestPipingSoilProfile()));
+            TestDelegate test = () => collector.Read(null, new PipingStochasticSoilProfile(
+                                                         0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -218,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new SoilProfileEntity();
-            collector.Read(entity, new TestPipingSoilProfile());
+            collector.Read(entity, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             bool result = collector.Contains(entity);
@@ -247,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new SoilProfileEntity();
-            collector.Read(new SoilProfileEntity(), new TestPipingSoilProfile());
+            collector.Read(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             bool result = collector.Contains(entity);
@@ -275,7 +278,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var profile = new TestPipingSoilProfile();
+            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var entity = new SoilProfileEntity();
             collector.Read(entity, profile);
 
@@ -306,7 +309,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new SoilProfileEntity();
-            collector.Read(new SoilProfileEntity(), new TestPipingSoilProfile());
+            collector.Read(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -322,7 +325,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(null, new TestPipingSoilProfile());
+            TestDelegate test = () => collector.Read(null, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

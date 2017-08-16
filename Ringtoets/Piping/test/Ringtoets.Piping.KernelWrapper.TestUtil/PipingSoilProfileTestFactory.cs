@@ -29,7 +29,14 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
     public static class PipingSoilProfileTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/> with arbitrary values.
+        /// Creates a new instance of <see cref="PipingSoilProfile"/>, which has:
+        /// <list type="bullet">
+        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
+        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// </list>
         /// </summary>
         /// <param name="name">The name to set for the <see cref="PipingSoilProfile"/>.</param>
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
@@ -39,7 +46,14 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/> with arbitrary values.
+        /// Creates a new instance of <see cref="PipingSoilProfile"/>, which has:
+        /// <list type="bullet">
+        /// <item><see cref="PipingSoilProfile.Name"/> set to "name";</item>
+        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// </list>
         /// </summary>
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
         public static PipingSoilProfile CreatePipingSoilProfile()
@@ -50,10 +64,10 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfile"/> that has:
         /// <list type="bullet">
-        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/></item>
-        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
+        /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
+        /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
         /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
-        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
+        /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
         /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>
         /// </summary>
