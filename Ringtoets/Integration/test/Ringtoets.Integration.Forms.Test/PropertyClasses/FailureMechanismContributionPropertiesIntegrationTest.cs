@@ -167,8 +167,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             AssertNormValues(properties, failureMechanismContribution);
 
-            AssertLocationOutputClear(hydraulicBoundaryLocation);
-            AssertLocationOutputClear(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryLocationOutputClear(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             AssertCalculationOutputClear(pipingCalculation);
             AssertCalculationOutputClear(grassCoverErosionInwardsCalculation);
@@ -354,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
             AssertNormValues(properties, failureMechanismContribution);
-            AssertLocationOutputClear(hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
 
             mockRepository.VerifyAll();
         }
@@ -803,7 +803,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.HasOutput);
         }
 
-        private static void AssertLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AssertHydraulicBoundaryLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.HasOutput);

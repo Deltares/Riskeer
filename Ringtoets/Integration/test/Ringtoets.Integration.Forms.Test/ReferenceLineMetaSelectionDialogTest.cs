@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Integration.Forms.Test
 {
@@ -78,8 +79,9 @@ namespace Ringtoets.Integration.Forms.Test
                     Assert.IsInstanceOf<DialogBase>(dialog);
                     Assert.IsNull(dialog.SelectedReferenceLineMeta);
                     Assert.AreEqual(@"Stel een traject samen", dialog.Text);
-                    var selectAssessmentSectionLabel = (GroupBox) new ComponentTester("groupBox1", dialog).Properties;
-                    Assert.AreEqual("Kies de norm van het dijktraject:", selectAssessmentSectionLabel.Text);
+
+                    GroupBox groupBox = ControlTestHelper.GetControls<GroupBox>(dialog, "groupBox1").Single();
+                    Assert.AreEqual("Kies de norm van het dijktraject:", groupBox.Text);
 
                     AssertReferenceLineMetaDataGridViewControl(dialog);
                 }

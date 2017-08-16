@@ -53,22 +53,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int probabilitySpaceColumnIndex = 4;
         private Form testForm;
 
-        [SetUp]
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        [TearDown]
-        public override void TearDown()
-        {
-            testForm.Dispose();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
         {
@@ -816,6 +800,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(isRelevantCell.ReadOnly);
             }
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            testForm.Dispose();
+
+            base.TearDown();
         }
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)
