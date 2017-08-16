@@ -55,30 +55,15 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateEntryAndExitPointIndex = 3;
-
-        private const int contextMenuValidateIndex = 5;
-        private const int contextMenuCalculateIndex = 6;
-        private const int contextMenuClearIndex = 8;
+        private const int contextMenuDuplicateIndex = 2;
+        private const int contextMenuUpdateEntryAndExitPointIndex = 5;
+        private const int contextMenuValidateIndex = 7;
+        private const int contextMenuCalculateIndex = 8;
+        private const int contextMenuClearIndex = 10;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationScenarioContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -357,6 +342,68 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_Always_AddsCustomitems()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                                                                    new CalculationGroup(),
+                                                                    Enumerable.Empty<PipingSurfaceLine>(),
+                                                                    Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                    pipingFailureMechanism,
+                                                                    assessmentSection);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    Assert.AreEqual(17, contextMenu.Items.Count);
+
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuDuplicateIndex,
+                                                                  "&Dupliceren",
+                                                                  "Dupliceer deze berekening.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuUpdateEntryAndExitPointIndex,
+                                                                  "&Bijwerken intrede- en uittredepunt...",
+                                                                  "Er moet een profielschematisatie geselecteerd zijn.",
+                                                                  RingtoetsCommonFormsResources.UpdateItemIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuCalculateIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuClearIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
@@ -375,6 +422,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -1065,6 +1114,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new PipingPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationScenarioContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeSurfaceLine(PipingSurfaceLine surfaceLine)

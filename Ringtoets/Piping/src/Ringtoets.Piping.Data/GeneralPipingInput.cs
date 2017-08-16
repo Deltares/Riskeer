@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the critical exit gradient for heave.
         /// </summary>
-        public double CriticalHeaveGradient { get; private set; }
+        public double CriticalHeaveGradient { get; }
 
         #endregion
 
@@ -98,12 +98,12 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for uplift.
         /// </summary>
-        public double UpliftModelFactor { get; private set; }
+        public double UpliftModelFactor { get; }
 
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
-        public double SellmeijerModelFactor { get; private set; }
+        public double SellmeijerModelFactor { get; }
 
         #endregion
 
@@ -125,38 +125,38 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the White's drag coefficient.
         /// </summary>
-        public double WhitesDragCoefficient { get; private set; }
+        public double WhitesDragCoefficient { get; }
 
         /// <summary>
         /// Gets the angle of the force balance representing the amount in which sand 
         /// grains resist rolling.
         /// [°]
         /// </summary>
-        public double BeddingAngle { get; private set; }
+        public double BeddingAngle { get; }
 
         /// <summary>
         /// Gets the kinematic viscosity of water at 10 °C.
         /// [m²/s]
         /// </summary>
-        public double WaterKinematicViscosity { get; private set; }
+        public double WaterKinematicViscosity { get; }
 
         /// <summary>
         /// Gets the gravitational acceleration.
         /// [m/s²]
         /// </summary>
-        public double Gravity { get; private set; }
+        public double Gravity { get; }
 
         /// <summary>
         /// Gets the mean diameter of small scale tests applied to different kinds of sand, 
         /// on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
-        public double MeanDiameter70 { get; private set; }
+        public double MeanDiameter70 { get; }
 
         /// <summary>
         /// Gets the reduction factor Sellmeijer.
         /// </summary>
-        public double SellmeijerReductionFactor { get; private set; }
+        public double SellmeijerReductionFactor { get; }
 
         #endregion
     }

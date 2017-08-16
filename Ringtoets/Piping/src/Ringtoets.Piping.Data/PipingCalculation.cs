@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingCalculation : Observable, ICalculation
+    public class PipingCalculation : Observable, ICalculation, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
@@ -70,12 +70,32 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public void ClearOutput()
         {
             Output = null;
             SemiProbabilisticOutput = null;
+        }
+
+        public object Clone()
+        {
+            var clone = (PipingCalculation) MemberwiseClone();
+
+            clone.Comments = (Comment) Comments.Clone();
+            clone.InputParameters = (PipingInput) InputParameters.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (PipingOutput) Output.Clone();
+            }
+
+            if (SemiProbabilisticOutput != null)
+            {
+                clone.SemiProbabilisticOutput = (PipingSemiProbabilisticOutput) SemiProbabilisticOutput.Clone();
+            }
+
+            return clone;
         }
     }
 }

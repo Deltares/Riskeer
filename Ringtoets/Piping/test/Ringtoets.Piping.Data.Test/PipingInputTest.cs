@@ -35,6 +35,8 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -119,6 +121,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
+            Assert.IsInstanceOf<ICloneable>(inputParameters);
 
             DistributionAssert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
             DistributionAssert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
@@ -1264,6 +1267,39 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsNaN(seepageLength.Mean);
             Assert.AreEqual(0.1, seepageLength.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new PipingInput(new GeneralPipingInput());
+
+            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new PipingInput(new GeneralPipingInput());
+
+            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
+
+            original.StochasticSoilModel = null;
+            original.HydraulicBoundaryLocation = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
         private static PipingSurfaceLine CreateSurfaceLine()

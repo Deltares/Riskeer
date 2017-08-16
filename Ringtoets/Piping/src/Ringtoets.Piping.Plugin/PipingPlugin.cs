@@ -716,6 +716,8 @@ namespace Ringtoets.Piping.Plugin
 
             return builder.AddExportItem()
                           .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, nodeData)
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddCustomItem(updateEntryAndExitPoint)
                           .AddSeparator()

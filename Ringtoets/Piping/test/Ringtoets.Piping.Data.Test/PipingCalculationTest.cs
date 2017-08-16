@@ -21,11 +21,20 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -51,6 +60,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICloneable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 
@@ -229,6 +239,52 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsTrue(calculationHasOutput);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            PipingCalculation original = CreateRandomCalculationWithoutOutput();
+
+            original.Output = new TestPipingOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            PipingCalculation original = CreateRandomCalculationWithoutOutput();
+
+            original.InputParameters.HydraulicBoundaryLocation = null;
+            original.InputParameters.StochasticSoilModel = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private static PipingCalculation CreateRandomCalculationWithoutOutput()
+        {
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Comments =
+                {
+                    Body = "Random body"
+                }
+            };
+
+            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
+
+            return calculation;
         }
     }
 }

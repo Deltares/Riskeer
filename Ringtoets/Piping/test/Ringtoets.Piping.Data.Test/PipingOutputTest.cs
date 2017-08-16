@@ -24,6 +24,8 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -94,6 +96,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
+            Assert.IsInstanceOf<ICloneable>(output);
 
             Assert.AreEqual(zuValue, output.UpliftZValue);
             Assert.AreEqual(foSuValue, output.UpliftFactorOfSafety);
@@ -112,6 +115,44 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(sellmeijerCriticalFall, output.SellmeijerCriticalFall, output.SellmeijerCriticalFall.GetAccuracy());
             Assert.AreEqual(2, output.SellmeijerReducedFall.NumberOfDecimalPlaces);
             Assert.AreEqual(sellmeijerReducedFall, output.SellmeijerReducedFall, output.SellmeijerReducedFall.GetAccuracy());
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = GetRandomPipingOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private PipingOutput GetRandomPipingOutput()
+        {
+            var random = new Random(22);
+            double zuValue = random.NextDouble();
+            double foSuValue = random.NextDouble();
+            double zhValue = random.NextDouble();
+            double foShValue = random.NextDouble();
+            double zsValue = random.NextDouble();
+            double foSsValue = random.NextDouble();
+            double upliftEffectiveStress = random.NextDouble();
+            double heaveGradient = random.NextDouble();
+
+            return new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                UpliftZValue = zuValue,
+                UpliftFactorOfSafety = foSuValue,
+                HeaveZValue = zhValue,
+                HeaveFactorOfSafety = foShValue,
+                SellmeijerZValue = zsValue,
+                SellmeijerFactorOfSafety = foSsValue,
+                UpliftEffectiveStress = upliftEffectiveStress,
+                HeaveGradient = heaveGradient
+            });
         }
     }
 }

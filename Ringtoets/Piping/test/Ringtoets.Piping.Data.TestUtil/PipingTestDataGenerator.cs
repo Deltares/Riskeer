@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -406,6 +409,33 @@ namespace Ringtoets.Piping.Data.TestUtil
                     subCalculationWithSurfaceLineAndStochasticSoilModel
                 }
             });
+        }
+
+        /// <summary>
+        /// This method sets random data values to all properties of <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToGrassCoverErosionInwardsInput(PipingInput input)
+        {
+            var random = new Random(21);
+
+            var surfaceLine = new PipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(random.Next(0, 5), random.Next(0, 5), random.Next(0, 5)),
+                new Point3D(random.Next(5, 10), random.Next(5, 10), random.Next(5, 10))
+            });
+
+            input.EntryPointL = random.NextRoundedDouble();
+            input.ExitPointL = random.NextRoundedDouble();
+            input.SurfaceLine = surfaceLine;
+            input.StochasticSoilModel = new PipingStochasticSoilModel("model");
+            input.StochasticSoilProfile = new PipingStochasticSoilProfile(random.NextDouble(), new TestPipingSoilProfile());
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            input.UseAssessmentLevelManualInput = true;
+            input.AssessmentLevel = random.NextRoundedDouble();
+            input.PhreaticLevelExit = new NormalDistribution();
+            input.DampingFactorExit = new LogNormalDistribution();
         }
     }
 }

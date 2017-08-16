@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// This class contains the results of a semi-probabilistic assessment of the piping
     /// failure mechanism.
     /// </summary>
-    public class PipingSemiProbabilisticOutput
+    public class PipingSemiProbabilisticOutput : ICloneable
     {
         private double requiredProbability;
         private double pipingProbability;
@@ -102,19 +102,19 @@ namespace Ringtoets.Piping.Data
         /// Get the required reliability of the piping failure mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble RequiredReliability { get; private set; }
+        public RoundedDouble RequiredReliability { get; }
 
         /// <summary>
         /// Gets the factor of safety of the piping failure mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble PipingFactorOfSafety { get; private set; }
+        public RoundedDouble PipingFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the reliability of the piping failure mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble PipingReliability { get; private set; }
+        public RoundedDouble PipingReliability { get; }
 
         /// <summary>
         /// Gets the probability of failing due to the piping failure mechanism,
@@ -139,13 +139,13 @@ namespace Ringtoets.Piping.Data
         /// Gets the factor of safety for the uplift sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble UpliftFactorOfSafety { get; private set; }
+        public RoundedDouble UpliftFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the reliability for the uplift sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble UpliftReliability { get; private set; }
+        public RoundedDouble UpliftReliability { get; }
 
         /// <summary>
         /// Gets the probability of failing due to the uplift failure sub-mechanism,
@@ -170,13 +170,13 @@ namespace Ringtoets.Piping.Data
         /// Gets the factor of safety for the heave sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble HeaveFactorOfSafety { get; private set; }
+        public RoundedDouble HeaveFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the reliability for the heave sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble HeaveReliability { get; private set; }
+        public RoundedDouble HeaveReliability { get; }
 
         /// <summary>
         /// Gets the probability of failing due to the heave failure sub-mechanism,
@@ -201,13 +201,13 @@ namespace Ringtoets.Piping.Data
         /// Gets the factor of safety for the Sellmeijer sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble SellmeijerFactorOfSafety { get; private set; }
+        public RoundedDouble SellmeijerFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the reliability for the Sellmeijer sub-mechanism,
         /// which is a value greater than 0.
         /// </summary>
-        public RoundedDouble SellmeijerReliability { get; private set; }
+        public RoundedDouble SellmeijerReliability { get; }
 
         /// <summary>
         /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism,
@@ -226,6 +226,11 @@ namespace Ringtoets.Piping.Data
                 ProbabilityHelper.ValidateProbability(value, nameof(value), true);
                 sellmeijerProbability = value;
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

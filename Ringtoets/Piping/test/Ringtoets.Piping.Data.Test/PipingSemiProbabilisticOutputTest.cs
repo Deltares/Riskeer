@@ -23,6 +23,8 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -67,6 +69,8 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(output);
+
             Assert.AreEqual(3, output.HeaveFactorOfSafety.NumberOfDecimalPlaces);
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety, output.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(5, output.UpliftReliability.NumberOfDecimalPlaces);
@@ -550,6 +554,54 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            PipingSemiProbabilisticOutput original = GetRandomPipingSemiProbabilisticOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private PipingSemiProbabilisticOutput GetRandomPipingSemiProbabilisticOutput()
+        {
+            var random = new Random(21);
+            double upliftFactorOfSafety = random.NextDouble();
+            double upliftReliability = random.NextDouble();
+            double upliftProbability = random.NextDouble();
+            double heaveFactorOfSafety = random.NextDouble();
+            double heaveReliability = random.NextDouble();
+            double heaveProbability = random.NextDouble();
+            double sellmeijerFactorOfSafety = random.NextDouble();
+            double sellmeijerReliability = random.NextDouble();
+            double sellmeijerProbability = random.NextDouble();
+            double requiredProbability = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double pipingProbability = random.NextDouble();
+            double pipingReliability = random.NextDouble();
+            double pipingFactorOfSafety = random.NextDouble();
+
+            return new PipingSemiProbabilisticOutput(
+                upliftFactorOfSafety,
+                upliftReliability,
+                upliftProbability,
+                heaveFactorOfSafety,
+                heaveReliability,
+                heaveProbability,
+                sellmeijerFactorOfSafety,
+                sellmeijerReliability,
+                sellmeijerProbability,
+                requiredProbability,
+                requiredReliability,
+                pipingProbability,
+                pipingReliability,
+                pipingFactorOfSafety);
         }
     }
 }

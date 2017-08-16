@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Simple class containing the results of a Piping calculation.
     /// </summary>
-    public class PipingOutput : Observable, ICalculationOutput
+    public class PipingOutput : Observable, ICalculationOutput, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 
@@ -60,57 +60,62 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the calculated z-value for the uplift sub calculation.
         /// </summary>
-        public double UpliftZValue { get; private set; }
+        public double UpliftZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety for the uplift sub calculation.
         /// </summary>
-        public double UpliftFactorOfSafety { get; private set; }
+        public double UpliftFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the calculated z-value for the heave sub calculation.
         /// </summary>
-        public double HeaveZValue { get; private set; }
+        public double HeaveZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety for the heave sub calculation.
         /// </summary>
-        public double HeaveFactorOfSafety { get; private set; }
+        public double HeaveFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the calculated z-value for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerZValue { get; private set; }
+        public double SellmeijerZValue { get; }
 
         /// <summary>
         /// Gets the factor of safety for the Sellmeijer sub calculation.
         /// </summary>
-        public double SellmeijerFactorOfSafety { get; private set; }
+        public double SellmeijerFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the effective stress that was calculated for the uplift sub calculation.
         /// </summary>
-        public RoundedDouble UpliftEffectiveStress { get; private set; }
+        public RoundedDouble UpliftEffectiveStress { get; }
 
         /// <summary>
         /// Gets the gradient that was calculated for the heave sub calculation.
         /// </summary>
-        public RoundedDouble HeaveGradient { get; private set; }
+        public RoundedDouble HeaveGradient { get; }
 
         /// <summary>
         /// Gets the creep coefficient that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public RoundedDouble SellmeijerCreepCoefficient { get; private set; }
+        public RoundedDouble SellmeijerCreepCoefficient { get; }
 
         /// <summary>
         /// Gets the critical fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public RoundedDouble SellmeijerCriticalFall { get; private set; }
+        public RoundedDouble SellmeijerCriticalFall { get; }
 
         /// <summary>
         /// Gets the reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
-        public RoundedDouble SellmeijerReducedFall { get; private set; }
+        public RoundedDouble SellmeijerReducedFall { get; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="PipingOutput"/>.

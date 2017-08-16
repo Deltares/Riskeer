@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
     /// Class that holds all piping calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class PipingInput : Observable, ICalculationInput
+    public class PipingInput : Observable, ICalculationInput, ICloneable
     {
         private readonly GeneralPipingInput generalInputParameters;
         private readonly NormalDistribution phreaticLevelExit;
@@ -264,6 +264,11 @@ namespace Ringtoets.Piping.Data
                     EntryPointL = (RoundedDouble) tempEntryPointL;
                 }
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         private void GetEntryExitPointFromSurfaceLine(out double tempEntryPointL, out double tempExitPointL)
