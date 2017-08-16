@@ -21,39 +21,50 @@
 
 using System;
 using Core.Common.TestUtil;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.HeightStructures.Data.TestUtil
+namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.
     /// </summary>
-    public static class HeightStructuresTestDataGenerator
+    public static class GrassCoverErosionInwardsTestDataGenerator
     {
         /// <summary>
-        /// This method creates a <see cref="HeightStructuresInput"/> object with random
+        /// This method creates a <see cref="GrassCoverErosionInwardsInput"/> object with random
         /// data values set for all properties.
         /// </summary>
         /// <returns>The created input object.</returns>
-        public static HeightStructuresInput CreateRandomHeightStructuresInput()
+        public static GrassCoverErosionInwardsInput CreateRandomGrassCoverErosionInwardsInput()
         {
             var random = new Random(21);
 
-            var heightStructuresInput = new HeightStructuresInput
+            return new GrassCoverErosionInwardsInput
             {
-                Structure = new TestHeightStructure(),
-                LevelCrestStructure = new NormalDistribution
+                Orientation = random.NextRoundedDouble(),
+                DikeHeight = random.NextRoundedDouble(),
+                CriticalFlowRate = new LogNormalDistribution
                 {
                     Mean = random.NextRoundedDouble(),
                     StandardDeviation = random.NextRoundedDouble()
                 },
-                DeviationWaveDirection = random.NextRoundedDouble()
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
+                OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
+                ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean(),
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                DikeProfile = new TestDikeProfile(),
+                UseBreakWater = random.NextBoolean(),
+                BreakWater =
+                {
+                    Type = random.NextEnumValue<BreakWaterType>(),
+                    Height = random.NextRoundedDouble()
+                },
+                UseForeshore = random.NextBoolean()
             };
-
-            CommonTestDataGenerator.SetRandomDataToStructuresInput(heightStructuresInput);
-
-            return heightStructuresInput;
         }
     }
 }

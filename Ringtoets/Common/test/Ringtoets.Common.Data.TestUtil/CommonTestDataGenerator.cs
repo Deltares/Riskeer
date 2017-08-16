@@ -33,7 +33,8 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class CommonTestDataGenerator
     {
         /// <summary>
-        /// This method sets some random data values to <paramref name="input"/>.
+        /// This method sets random data values to all properties of <paramref name="input"/>, except
+        /// for the property <see cref="StructuresInputBase{T}.Structure"/>.
         /// </summary>
         /// <typeparam name="T">The type of structure contained by the input.</typeparam>
         /// <param name="input">The input object to set the random data values to.</param>
