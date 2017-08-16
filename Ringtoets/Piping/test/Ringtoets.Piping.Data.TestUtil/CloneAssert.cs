@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
@@ -99,7 +98,6 @@ namespace Ringtoets.Piping.Data.TestUtil
             Assert.AreSame(original.StochasticSoilModel, clone.StochasticSoilModel);
             Assert.AreSame(original.StochasticSoilProfile, clone.StochasticSoilProfile);
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
-
         }
 
         /// <summary>
@@ -117,7 +115,23 @@ namespace Ringtoets.Piping.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
             CoreCloneAssert.AreObjectClones(original.SemiProbabilisticOutput, clone.SemiProbabilisticOutput, AreClones);
+        }
 
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(PipingCalculationScenario original, PipingCalculationScenario clone)
+        {
+            CoreCloneAssert.AreObjectClones((PipingCalculation) original, clone, AreClones);
+            Assert.AreEqual(original.Contribution, clone.Contribution);
+            Assert.AreEqual(original.Probability, clone.Probability);
+            Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+            Assert.AreEqual(original.Status, clone.Status);
         }
     }
 }

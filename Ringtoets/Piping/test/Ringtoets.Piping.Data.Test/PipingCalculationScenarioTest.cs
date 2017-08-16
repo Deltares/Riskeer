@@ -25,6 +25,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -43,6 +45,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.IsInstanceOf<ICalculationScenario>(scenario);
+            Assert.IsInstanceOf<ICloneable>(scenario);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
@@ -178,6 +181,56 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+
+            original.Output = new TestPipingOutput();
+            original.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+
+            original.Output = new TestPipingOutput();
+            original.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
+
+            original.InputParameters.HydraulicBoundaryLocation = null;
+            original.InputParameters.StochasticSoilModel = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private static PipingCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
+        {
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Comments =
+                {
+                    Body = "Random body"
+                }
+            };
+
+            PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
+
+            return calculation;
         }
     }
 }

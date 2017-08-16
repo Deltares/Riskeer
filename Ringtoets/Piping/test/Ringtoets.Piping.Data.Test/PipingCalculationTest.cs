@@ -21,18 +21,11 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
-using Ringtoets.Piping.Primitives;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
