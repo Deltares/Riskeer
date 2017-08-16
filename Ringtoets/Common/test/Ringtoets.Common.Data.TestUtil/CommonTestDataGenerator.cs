@@ -28,12 +28,12 @@ using Ringtoets.Common.Data.Structures;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class that defines helper methods that can be used for clone testing.
+    /// Class responsible for generating test data configurations.
     /// </summary>
-    public static class CloneTestHelper
+    public static class CommonTestDataGenerator
     {
         /// <summary>
-        /// This method adds some random data values to <paramref name="input"/>.
+        /// This method sets some random data values to <paramref name="input"/>.
         /// </summary>
         /// <typeparam name="T">The type of structure contained by the input.</typeparam>
         /// <param name="input">The input object to set the random data values to.</param>

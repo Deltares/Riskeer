@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Structure = new TestStructure()
             };
 
-            CloneTestHelper.SetRandomDataToStructuresInput(original);
+            CommonTestDataGenerator.SetRandomDataToStructuresInput(original);
 
             // Call
             object clone = original.Clone();

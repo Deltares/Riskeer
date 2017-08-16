@@ -257,7 +257,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 DeviationWaveDirection = random.NextRoundedDouble()
             };
 
-            CloneTestHelper.SetRandomDataToStructuresInput(original);
+            CommonTestDataGenerator.SetRandomDataToStructuresInput(original);
 
             // Call
             object clone = original.Clone();
