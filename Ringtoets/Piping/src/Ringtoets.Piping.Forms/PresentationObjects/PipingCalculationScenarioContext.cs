@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -64,5 +65,22 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         public CalculationGroup Parent { get; }
+
+        public override bool Equals(WrappedObjectContextBase<PipingCalculationScenario> other)
+        {
+            return base.Equals(other)
+                   && other is PipingCalculationScenarioContext
+                   && ReferenceEquals(Parent, ((PipingCalculationScenarioContext) other).Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as PipingCalculationScenarioContext);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
+        }
     }
 }
