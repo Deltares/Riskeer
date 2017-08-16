@@ -33,21 +33,21 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresInput : StructuresInputBase<StabilityPointStructure>
     {
-        private readonly NormalDistribution insideWaterLevelFailureConstruction;
-        private readonly NormalDistribution insideWaterLevel;
-        private readonly NormalDistribution drainCoefficient;
-        private readonly NormalDistribution levelCrestStructure;
-        private readonly NormalDistribution thresholdHeightOpenWeir;
-        private readonly LogNormalDistribution areaFlowApertures;
-        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel;
-        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel;
-        private readonly VariationCoefficientLogNormalDistribution stabilityLinearLoadModel;
-        private readonly VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel;
-        private readonly VariationCoefficientLogNormalDistribution failureCollisionEnergy;
-        private readonly VariationCoefficientNormalDistribution shipMass;
-        private readonly VariationCoefficientNormalDistribution shipVelocity;
-        private readonly NormalDistribution bankWidth;
-        private readonly VariationCoefficientNormalDistribution flowVelocityStructureClosable;
+        private NormalDistribution insideWaterLevelFailureConstruction;
+        private NormalDistribution insideWaterLevel;
+        private NormalDistribution drainCoefficient;
+        private NormalDistribution levelCrestStructure;
+        private NormalDistribution thresholdHeightOpenWeir;
+        private LogNormalDistribution areaFlowApertures;
+        private VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel;
+        private VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel;
+        private VariationCoefficientLogNormalDistribution stabilityLinearLoadModel;
+        private VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel;
+        private VariationCoefficientLogNormalDistribution failureCollisionEnergy;
+        private VariationCoefficientNormalDistribution shipMass;
+        private VariationCoefficientNormalDistribution shipVelocity;
+        private NormalDistribution bankWidth;
+        private VariationCoefficientNormalDistribution flowVelocityStructureClosable;
         private RoundedDouble volumicWeightWater;
         private RoundedDouble factorStormDurationOpenStructure;
         private RoundedDouble evaluationLevel;
@@ -161,6 +161,29 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 SetDefaultSchematizationProperties();
             }
+        }
+
+        public override object Clone()
+        {
+            var clone = (StabilityPointStructuresInput) base.Clone();
+
+            clone.insideWaterLevelFailureConstruction = (NormalDistribution) InsideWaterLevelFailureConstruction.Clone();
+            clone.insideWaterLevel = (NormalDistribution) InsideWaterLevel.Clone();
+            clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
+            clone.levelCrestStructure = (NormalDistribution) LevelCrestStructure.Clone();
+            clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
+            clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
+            clone.constructiveStrengthLinearLoadModel = (VariationCoefficientLogNormalDistribution) ConstructiveStrengthLinearLoadModel.Clone();
+            clone.constructiveStrengthQuadraticLoadModel = (VariationCoefficientLogNormalDistribution) ConstructiveStrengthQuadraticLoadModel.Clone();
+            clone.stabilityLinearLoadModel = (VariationCoefficientLogNormalDistribution) StabilityLinearLoadModel.Clone();
+            clone.stabilityQuadraticLoadModel = (VariationCoefficientLogNormalDistribution) StabilityQuadraticLoadModel.Clone();
+            clone.failureCollisionEnergy = (VariationCoefficientLogNormalDistribution) FailureCollisionEnergy.Clone();
+            clone.shipMass = (VariationCoefficientNormalDistribution) ShipMass.Clone();
+            clone.shipVelocity = (VariationCoefficientNormalDistribution) ShipVelocity.Clone();
+            clone.bankWidth = (NormalDistribution) BankWidth.Clone();
+            clone.flowVelocityStructureClosable = (VariationCoefficientNormalDistribution) FlowVelocityStructureClosable.Clone();
+
+            return clone;
         }
 
         private void SetDefaultSchematizationProperties()

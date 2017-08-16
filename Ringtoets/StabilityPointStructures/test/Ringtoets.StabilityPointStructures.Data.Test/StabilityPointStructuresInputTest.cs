@@ -28,6 +28,8 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
+using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
+using StabilityPointStructuresCloneAssert = Ringtoets.StabilityPointStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -428,6 +430,21 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             AssertStabilityPointStructureInput(differentStructure, input);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new StabilityPointStructuresInput();
+
+            StabilityPointStructuresTestDataGenerator.SetRandomDataToStabilityPointStructuresInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, StabilityPointStructuresCloneAssert.AreClones);
         }
 
         #region Hydraulic data
