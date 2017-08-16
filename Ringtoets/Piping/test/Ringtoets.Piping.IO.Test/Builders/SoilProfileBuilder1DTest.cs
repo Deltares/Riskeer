@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
             Assert.AreEqual(1, soilProfile.Layers.Count());
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileSourceType);
             Assert.AreEqual(top, soilProfile.Layers.ToArray()[0].Top);
             Assert.AreEqual(bottom, soilProfile.Bottom);
         }

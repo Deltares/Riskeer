@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual("name", soilProfile.Name);
             Assert.AreEqual(0, soilProfile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileSourceType);
 
             var expectedLayer = new PipingSoilLayer(1.0);
             Assert.AreEqual(1, soilProfile.Layers.Count());
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, soilProfile.Name);
             Assert.AreEqual(0, soilProfile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, soilProfile.SoilProfileSourceType);
 
             var expectedLayer = new PipingSoilLayer(1.0);
             Assert.AreEqual(1, soilProfile.Layers.Count());
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, soilProfile.Name);
             Assert.AreEqual(0, soilProfile.Bottom);
-            Assert.AreEqual(type, soilProfile.SoilProfileType);
+            Assert.AreEqual(type, soilProfile.SoilProfileSourceType);
 
             var expectedLayer = new PipingSoilLayer(1.0);
             Assert.AreEqual(1, soilProfile.Layers.Count());

@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                        profile.SoilProfile.Name,
                                                        profile.SoilProfile.Bottom - 0.2,
                                                        profile.SoilProfile.Layers,
-                                                       profile.SoilProfile.SoilProfileType));
+                                                       profile.SoilProfile.SoilProfileSourceType));
         }
     }
 }

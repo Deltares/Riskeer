@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileSourceType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileSourceType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(soilProfileType, profile.SoilProfileType);
+            Assert.AreEqual(soilProfileType, profile.SoilProfileSourceType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true

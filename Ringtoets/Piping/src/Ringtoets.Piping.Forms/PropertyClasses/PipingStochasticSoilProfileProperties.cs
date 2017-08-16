@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile.SoilProfileType == SoilProfileType.SoilProfile1D ? "1D profiel" : "2D profiel";
+                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D ? "1D profiel" : "2D profiel";
             }
         }
 

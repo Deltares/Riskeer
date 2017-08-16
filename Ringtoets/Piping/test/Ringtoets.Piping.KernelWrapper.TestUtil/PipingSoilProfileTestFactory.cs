@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c></item>
         /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileType"/> set to <paramref name="soilProfileType"/>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>

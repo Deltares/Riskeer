@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(name, transformed.Name);
-            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileSourceType);
             Assert.AreEqual(bottom, transformed.Bottom);
 
             double bottomOut;
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.AreEqual(1, transformed.Layers.Count());
             Assert.AreEqual(1.0, transformed.Layers.ToArray()[0].Top);
             Assert.AreEqual(-1.0, transformed.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileSourceType);
         }
 
         [Test]
@@ -277,7 +277,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
-            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileSourceType);
             Assert.AreEqual(3, transformed.Layers.Count());
             CollectionAssert.AreEquivalent(new[]
             {
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
-            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileSourceType);
             Assert.AreEqual(3, transformed.Layers.Count());
             CollectionAssert.AreEquivalent(new[]
             {
@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
 
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, transformed.SoilProfileType);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, transformed.SoilProfileSourceType);
 
             PipingSoilLayer[] layers = transformed.Layers.ToArray();
             Assert.AreEqual(1, layers.Length);

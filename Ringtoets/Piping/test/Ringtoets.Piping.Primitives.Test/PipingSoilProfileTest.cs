@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Primitives.Test
             Assert.AreNotSame(layers, profile.Layers);
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
-            Assert.AreEqual(type, profile.SoilProfileType);
+            Assert.AreEqual(type, profile.SoilProfileSourceType);
         }
 
         [Test]
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.Primitives.Test
                 : base(profile.Name,
                        profile.Bottom,
                        profile.Layers,
-                       profile.SoilProfileType) {}
+                       profile.SoilProfileSourceType) {}
         }
     }
 }

@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
         private static bool IsSame(PipingSoilProfile pipingSoilProfile, PipingSoilProfile otherPipingSoilProfile)
         {
             return pipingSoilProfile.Name.Equals(otherPipingSoilProfile.Name)
-                   && pipingSoilProfile.SoilProfileType.Equals(otherPipingSoilProfile.SoilProfileType);
+                   && pipingSoilProfile.SoilProfileSourceType.Equals(otherPipingSoilProfile.SoilProfileSourceType);
         }
 
         private static bool IsSame(PipingStochasticSoilProfile stochasticSoilProfile, PipingStochasticSoilProfile otherStochasticSoilProfile)

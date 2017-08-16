@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(profile);
             Assert.AreEqual(testName, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom, 1e-6);
-            Assert.AreEqual(sourceType, profile.SoilProfileType);
+            Assert.AreEqual(sourceType, profile.SoilProfileSourceType);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
