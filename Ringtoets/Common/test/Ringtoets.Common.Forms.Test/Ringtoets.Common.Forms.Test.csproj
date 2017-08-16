@@ -88,6 +88,7 @@
     <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPointTest.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPointTest.cs" />
+    <Compile Include="PresentationObjects\StructuresCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
