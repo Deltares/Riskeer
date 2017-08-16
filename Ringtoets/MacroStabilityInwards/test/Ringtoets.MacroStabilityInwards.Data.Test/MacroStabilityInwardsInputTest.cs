@@ -65,6 +65,63 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsTrue(inputParameters.MoveGrid);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, inputParameters.DikeSoilScenario);
+
+            Assert.AreEqual(0, inputParameters.WaterLevelRiverAverage.Value);
+            Assert.AreEqual(2, inputParameters.WaterLevelRiverAverage.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.WaterLevelPolder.Value);
+            Assert.AreEqual(2, inputParameters.WaterLevelPolder.NumberOfDecimalPlaces);
+
+            Assert.IsFalse(inputParameters.DrainageConstructionPresent);
+
+            Assert.IsNaN(inputParameters.XCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(2, inputParameters.XCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.ZCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(2, inputParameters.ZCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
+            Assert.AreEqual(2, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
+            Assert.AreEqual(2, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
+
+            Assert.IsTrue(inputParameters.UseDefaultOffset);
+
+            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
+            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
+            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowShoulderBaseInside.Value);
+            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
+            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
+
+            Assert.IsFalse(inputParameters.AdjustPhreaticLine3And4ForUplift);
+
+            Assert.AreEqual(0, inputParameters.LeakageLengthOutwardsPhreaticLine3.Value);
+            Assert.AreEqual(2, inputParameters.LeakageLengthOutwardsPhreaticLine3.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.LeakageLengthInwardsPhreaticLine3.Value);
+            Assert.AreEqual(2, inputParameters.LeakageLengthInwardsPhreaticLine3.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.LeakageLengthOutwardsPhreaticLine4.Value);
+            Assert.AreEqual(2, inputParameters.LeakageLengthOutwardsPhreaticLine4.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.LeakageLengthInwardsPhreaticLine4.Value);
+            Assert.AreEqual(2, inputParameters.LeakageLengthInwardsPhreaticLine4.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.PiezometricHeadPhreaticLine2Outwards.Value);
+            Assert.AreEqual(2, inputParameters.PiezometricHeadPhreaticLine2Outwards.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.PiezometricHeadPhreaticLine2Inwards.Value);
+            Assert.AreEqual(2, inputParameters.PiezometricHeadPhreaticLine2Inwards.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.PenetrationLength.Value);
+            Assert.AreEqual(2, inputParameters.PenetrationLength.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -233,6 +290,177 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void MaximumSliceWidth_SetToNew_ValueIsRounded(double newValue)
         {
             TestValueIsRounded(input => input.MaximumSliceWidth = (RoundedDouble) newValue, newValue, input => input.MaximumSliceWidth);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "WaterLevelRiverAverage"
+        })]
+        public void WaterLevelRiverAverage_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.WaterLevelRiverAverage = (RoundedDouble) newValue, newValue, input => input.WaterLevelRiverAverage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "WaterLevelPolder"
+        })]
+        public void WaterLevelPolder_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.WaterLevelPolder = (RoundedDouble) newValue, newValue, input => input.WaterLevelPolder);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "XCoordinateDrainageConstruction"
+        })]
+        public void XCoordinateDrainageConstruction_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.XCoordinateDrainageConstruction = (RoundedDouble) newValue, newValue, input => input.XCoordinateDrainageConstruction);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "ZCoordinateDrainageConstruction"
+        })]
+        public void ZCoordinateDrainageConstruction_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.ZCoordinateDrainageConstruction = (RoundedDouble) newValue, newValue, input => input.ZCoordinateDrainageConstruction);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "MinimumLevelPhreaticLineAtDikeTopRiver"
+        })]
+        public void MinimumLevelPhreaticLineAtDikeTopRiver_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) newValue, newValue, input => input.MinimumLevelPhreaticLineAtDikeTopRiver);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "MinimumLevelPhreaticLineAtDikeTopPolder"
+        })]
+        public void MinimumLevelPhreaticLineAtDikeTopPolder_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) newValue, newValue, input => input.MinimumLevelPhreaticLineAtDikeTopPolder);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PhreaticLineOffsetBelowDikeTopAtRiver"
+        })]
+        public void PhreaticLineOffsetBelowDikeTopAtRiver_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeTopAtRiver);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PhreaticLineOffsetBelowDikeTopAtPolder"
+        })]
+        public void PhreaticLineOffsetBelowDikeTopAtPolder_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeTopAtPolder);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PhreaticLineOffsetBelowShoulderBaseInside"
+        })]
+        public void PhreaticLineOffsetBelowShoulderBaseInside_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowShoulderBaseInside);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PhreaticLineOffsetBelowDikeToeAtPolder"
+        })]
+        public void PhreaticLineOffsetBelowDikeToeAtPolder_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeToeAtPolder);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "LeakageLengthOutwardsPhreaticLine3"
+        })]
+        public void LeakageLengthOutwardsPhreaticLine3_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthOutwardsPhreaticLine3);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "LeakageLengthInwardsPhreaticLine3"
+        })]
+        public void LeakageLengthInwardsPhreaticLine3_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthInwardsPhreaticLine3);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "LeakageLengthOutwardsPhreaticLine4"
+        })]
+        public void LeakageLengthOutwardsPhreaticLine4_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthOutwardsPhreaticLine4);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "LeakageLengthInwardsPhreaticLine4"
+        })]
+        public void LeakageLengthInwardsPhreaticLine4_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthInwardsPhreaticLine4);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PiezometricHeadPhreaticLine2Outwards"
+        })]
+        public void PiezometricHeadPhreaticLine2Outwards_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) newValue, newValue, input => input.PiezometricHeadPhreaticLine2Outwards);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PiezometricHeadPhreaticLine2Inwards"
+        })]
+        public void PiezometricHeadPhreaticLine2Inwards_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) newValue, newValue, input => input.PiezometricHeadPhreaticLine2Inwards);
+        }
+
+
+        [Test]
+        [TestCaseSource(nameof(GetUnroundedValues), new object[]
+        {
+            "PenetrationLength"
+        })]
+        public void PenetrationLength_SetToNew_ValueIsRounded(double newValue)
+        {
+            TestValueIsRounded(input => input.PenetrationLength = (RoundedDouble) newValue, newValue, input => input.PenetrationLength);
         }
 
         private static void TestValueIsRounded(Action<MacroStabilityInwardsInput> setValue, double newValue, Func<MacroStabilityInwardsInput, RoundedDouble> getValue)

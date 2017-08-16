@@ -40,6 +40,23 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble slipPlaneMinimumDepth;
         private RoundedDouble slipPlaneMinimumLength;
         private RoundedDouble maximumSliceWidth;
+        private RoundedDouble waterLevelRiverAverage;
+        private RoundedDouble waterLevelPolder;
+        private RoundedDouble xCoordinateDrainageConstruction;
+        private RoundedDouble zCoordinateDrainageConstruction;
+        private RoundedDouble minimumLevelPhreaticLineAtDikeTopRiver;
+        private RoundedDouble minimumLevelPhreaticLineAtDikeTopPolder;
+        private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
+        private RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder;
+        private RoundedDouble phreaticLineOffsetBelowShoulderBaseInside;
+        private RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder;
+        private RoundedDouble leakageLengthOutwardsPhreaticLine3;
+        private RoundedDouble leakageLengthInwardsPhreaticLine3;
+        private RoundedDouble leakageLengthOutwardsPhreaticLine4;
+        private RoundedDouble leakageLengthInwardsPhreaticLine4;
+        private RoundedDouble piezometricHeadPhreaticLine2Outwards;
+        private RoundedDouble piezometricHeadPhreaticLine2Inwards;
+        private RoundedDouble penetrationLength;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
@@ -66,6 +83,30 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             MoveGrid = true;
             DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
+
+            waterLevelRiverAverage = new RoundedDouble(2);
+            waterLevelPolder = new RoundedDouble(2);
+
+            xCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
+            zCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
+
+            minimumLevelPhreaticLineAtDikeTopRiver = new RoundedDouble(2, double.NaN);
+            minimumLevelPhreaticLineAtDikeTopPolder = new RoundedDouble(2, double.NaN);
+
+            UseDefaultOffset = true;
+
+            phreaticLineOffsetBelowDikeTopAtRiver = new RoundedDouble(2, double.NaN);
+            phreaticLineOffsetBelowDikeTopAtPolder = new RoundedDouble(2, double.NaN);
+            phreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(2, double.NaN);
+            phreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(2, double.NaN);
+
+            leakageLengthOutwardsPhreaticLine3 = new RoundedDouble(2);
+            leakageLengthInwardsPhreaticLine3 = new RoundedDouble(2);
+            leakageLengthOutwardsPhreaticLine4 = new RoundedDouble(2);
+            leakageLengthInwardsPhreaticLine4 = new RoundedDouble(2);
+            piezometricHeadPhreaticLine2Outwards = new RoundedDouble(2);
+            piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2);
+            penetrationLength = new RoundedDouble(2);
         }
 
         /// <summary>
@@ -159,15 +200,305 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the value  whether the grid should be moved.
+        /// Gets or sets the value whether the grid should be moved.
         /// </summary>
         public bool MoveGrid { get; set; }
 
         #endregion
 
-        #region Hydraulic
+        #region Hydraulics
 
+        /// <summary>
+        /// Gets or sets the dike soil scenario.
+        /// </summary>
         public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { get; set; }
+
+        /// <summary>
+        /// Gets or sets the average river water level.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble WaterLevelRiverAverage
+        {
+            get
+            {
+                return waterLevelRiverAverage;
+            }
+            set
+            {
+                waterLevelRiverAverage = value.ToPrecision(waterLevelRiverAverage.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the polder water level.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble WaterLevelPolder
+        {
+            get
+            {
+                return waterLevelPolder;
+            }
+            set
+            {
+                waterLevelPolder = value.ToPrecision(waterLevelPolder.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether a drainage construction is present.
+        /// </summary>
+        public bool DrainageConstructionPresent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the x coordinate of the drainage construction.
+        /// [m]
+        /// </summary>
+        public RoundedDouble XCoordinateDrainageConstruction
+        {
+            get
+            {
+                return xCoordinateDrainageConstruction;
+            }
+            set
+            {
+                xCoordinateDrainageConstruction = value.ToPrecision(xCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the z coordinate of the drainage construction.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble ZCoordinateDrainageConstruction
+        {
+            get
+            {
+                return zCoordinateDrainageConstruction;
+            }
+            set
+            {
+                zCoordinateDrainageConstruction = value.ToPrecision(zCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum level phreatic line at dike top river.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble MinimumLevelPhreaticLineAtDikeTopRiver
+        {
+            get
+            {
+                return minimumLevelPhreaticLineAtDikeTopRiver;
+            }
+            set
+            {
+                minimumLevelPhreaticLineAtDikeTopRiver = value.ToPrecision(minimumLevelPhreaticLineAtDikeTopRiver.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum level phreatic line at dike top polder.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble MinimumLevelPhreaticLineAtDikeTopPolder
+        {
+            get
+            {
+                return minimumLevelPhreaticLineAtDikeTopPolder;
+            }
+            set
+            {
+                minimumLevelPhreaticLineAtDikeTopPolder = value.ToPrecision(minimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the default offset should be used.
+        /// </summary>
+        public bool UseDefaultOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the offset of the phreatic line below dike top at river.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PhreaticLineOffsetBelowDikeTopAtRiver
+        {
+            get
+            {
+                return phreaticLineOffsetBelowDikeTopAtRiver;
+            }
+            set
+            {
+                phreaticLineOffsetBelowDikeTopAtRiver = value.ToPrecision(phreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the offset of the phreatic line below dike top at polder.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PhreaticLineOffsetBelowDikeTopAtPolder
+        {
+            get
+            {
+                return phreaticLineOffsetBelowDikeTopAtPolder;
+            }
+            set
+            {
+                phreaticLineOffsetBelowDikeTopAtPolder = value.ToPrecision(phreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the offset of the phreatic line below shoulder base inside.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PhreaticLineOffsetBelowShoulderBaseInside
+        {
+            get
+            {
+                return phreaticLineOffsetBelowShoulderBaseInside;
+            }
+            set
+            {
+                phreaticLineOffsetBelowShoulderBaseInside = value.ToPrecision(phreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the offset of the phreatic line below dike toe at polder.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PhreaticLineOffsetBelowDikeToeAtPolder
+        {
+            get
+            {
+                return phreaticLineOffsetBelowDikeToeAtPolder;
+            }
+            set
+            {
+                phreaticLineOffsetBelowDikeToeAtPolder = value.ToPrecision(phreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for uplift.
+        /// </summary>
+        public bool AdjustPhreaticLine3And4ForUplift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leakage length outwards of phreatic line 3.
+        /// [m]
+        /// </summary>
+        public RoundedDouble LeakageLengthOutwardsPhreaticLine3
+        {
+            get
+            {
+                return leakageLengthOutwardsPhreaticLine3;
+            }
+            set
+            {
+                leakageLengthOutwardsPhreaticLine3 = value.ToPrecision(leakageLengthOutwardsPhreaticLine3.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the leakage length inwards of phreatic line 3.
+        /// [m]
+        /// </summary>
+        public RoundedDouble LeakageLengthInwardsPhreaticLine3
+        {
+            get
+            {
+                return leakageLengthInwardsPhreaticLine3;
+            }
+            set
+            {
+                leakageLengthInwardsPhreaticLine3 = value.ToPrecision(leakageLengthInwardsPhreaticLine3.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the leakage length outwards of phreatic line 4.
+        /// [m]
+        /// </summary>
+        public RoundedDouble LeakageLengthOutwardsPhreaticLine4
+        {
+            get
+            {
+                return leakageLengthOutwardsPhreaticLine4;
+            }
+            set
+            {
+                leakageLengthOutwardsPhreaticLine4 = value.ToPrecision(leakageLengthOutwardsPhreaticLine4.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the leakage length inwards of phreatic line 4.
+        /// [m]
+        /// </summary>
+        public RoundedDouble LeakageLengthInwardsPhreaticLine4
+        {
+            get
+            {
+                return leakageLengthInwardsPhreaticLine4;
+            }
+            set
+            {
+                leakageLengthInwardsPhreaticLine4 = value.ToPrecision(leakageLengthInwardsPhreaticLine4.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the piezometric head of the phreatic line 2 outwards.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble PiezometricHeadPhreaticLine2Outwards
+        {
+            get
+            {
+                return piezometricHeadPhreaticLine2Outwards;
+            }
+            set
+            {
+                piezometricHeadPhreaticLine2Outwards = value.ToPrecision(piezometricHeadPhreaticLine2Outwards.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the piezometric head of the phreatic line 2 inwards.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble PiezometricHeadPhreaticLine2Inwards
+        {
+            get
+            {
+                return piezometricHeadPhreaticLine2Inwards;
+            }
+            set
+            {
+                piezometricHeadPhreaticLine2Inwards = value.ToPrecision(piezometricHeadPhreaticLine2Inwards.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the penetration length.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PenetrationLength
+        {
+            get
+            {
+                return penetrationLength;
+            }
+            set
+            {
+                penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
+            }
+        }
 
         #endregion
 
