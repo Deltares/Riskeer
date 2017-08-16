@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.IO.Test.Importers
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Het stochastische ondergrondmodel met '{failureMechanismType}' als faalmechanisme type is niet ondersteund. " +
-                            $"Alleen stochastische ondergrondmodellen met 'Piping' als faalmechanisme type zijn ondersteund.", exception.Message);
+                            "Alleen stochastische ondergrondmodellen met 'Piping' als faalmechanisme type zijn ondersteund.", exception.Message);
         }
 
         [Test]
