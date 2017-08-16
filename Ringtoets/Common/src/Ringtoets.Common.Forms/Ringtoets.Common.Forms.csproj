@@ -76,6 +76,7 @@
     <Compile Include="PresentationObjects\FailureMechanismItemContextBase.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelFaultTreeIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPoint.cs" />
+    <Compile Include="PresentationObjects\StructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
