@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
     public class RingtoetsMapDataFactoryTest
     {
         [Test]
-        public void CreateReferenceLineMapData_ReturnsEmptyMapLineDataWithDefaultStyling()
+        public void CreateReferenceLineMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
             MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
+        public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
             MapPointData data = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        public void CreateHydraulicBoundaryLocationsMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
             MapPointData data = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDikeProfileMapData_ReturnsEmptyMapLineDataWithDefaultStyling()
+        public void CreateDikeProfileMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateDikeProfileMapData();
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateForeshoreProfileMapData_ReturnsEmptyMapLineDataWithDefaultStyling()
+        public void CreateForeshoreProfileMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateStructuresMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        public void CreateStructuresMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
             MapPointData data = RingtoetsMapDataFactory.CreateStructuresMapData();
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateCalculationsMapData_ReturnsEmptyMapPointDataWithDefaultStyling()
+        public void CreateCalculationsMapData_ReturnsEmptyMapPointDataWithExpectedStyling()
         {
             // Call
             MapLineData data = RingtoetsMapDataFactory.CreateCalculationsMapData();

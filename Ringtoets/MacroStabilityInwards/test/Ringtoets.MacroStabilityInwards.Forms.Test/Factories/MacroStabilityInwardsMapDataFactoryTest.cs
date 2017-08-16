@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsMapDataFactoryTest
     {
         [Test]
-        public void CreateSurfaceLinesMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        public void CreateSurfaceLinesMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = MacroStabilityInwardsMapDataFactory.CreateSurfaceLinesMapData();
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateStochasticSoilModelsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        public void CreateStochasticSoilModelsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = MacroStabilityInwardsMapDataFactory.CreateStochasticSoilModelsMapData();

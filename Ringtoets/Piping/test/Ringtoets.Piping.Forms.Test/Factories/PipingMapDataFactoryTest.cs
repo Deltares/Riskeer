@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
     public class PipingMapDataFactoryTest
     {
         [Test]
-        public void CreateSurfaceLinesMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        public void CreateSurfaceLinesMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = PipingMapDataFactory.CreateSurfaceLinesMapData();
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateStochasticSoilModelsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
+        public void CreateStochasticSoilModelsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
             MapLineData data = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
