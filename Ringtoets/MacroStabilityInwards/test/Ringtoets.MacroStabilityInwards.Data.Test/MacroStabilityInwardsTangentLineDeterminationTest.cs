@@ -26,35 +26,35 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MarcoStabilityInwardsTangentLineDeterminationTest : EnumTestFixture<MarcoStabilityInwardsTangentLineDetermination>
+    public class MacroStabilityInwardsTangentLineDeterminationTest : EnumTestFixture<MacroStabilityInwardsTangentLineDetermination>
     {
-        protected override IDictionary<MarcoStabilityInwardsTangentLineDetermination, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<MacroStabilityInwardsTangentLineDetermination, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<MarcoStabilityInwardsTangentLineDetermination, string>
+                return new Dictionary<MacroStabilityInwardsTangentLineDetermination, string>
                 {
                     {
-                        MarcoStabilityInwardsTangentLineDetermination.Specified, "Gespecificeerd"
+                        MacroStabilityInwardsTangentLineDetermination.Specified, "Gespecificeerd"
                     },
                     {
-                        MarcoStabilityInwardsTangentLineDetermination.LayerSeparated, "Op laagscheiding"
+                        MacroStabilityInwardsTangentLineDetermination.LayerSeparated, "Op laagscheiding"
                     }
                 };
             }
         }
 
-        protected override IDictionary<MarcoStabilityInwardsTangentLineDetermination, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsTangentLineDetermination, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MarcoStabilityInwardsTangentLineDetermination, byte>
+                return new Dictionary<MacroStabilityInwardsTangentLineDetermination, byte>
                 {
                     {
-                        MarcoStabilityInwardsTangentLineDetermination.Specified, 1
+                        MacroStabilityInwardsTangentLineDetermination.Specified, 1
                     },
                     {
-                        MarcoStabilityInwardsTangentLineDetermination.LayerSeparated, 2
+                        MacroStabilityInwardsTangentLineDetermination.LayerSeparated, 2
                     }
                 };
             }
