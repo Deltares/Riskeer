@@ -142,9 +142,11 @@ namespace Ringtoets.Common.Data
         {
             ValidateHasPoints();
 
+            Point2D[] localGeometry = LocalGeometry.ToArray();
+
             if (!ValidateInRange(l))
             {
-                var localRangeL = new Range<double>(LocalGeometry.First().X, LocalGeometry.Last().X);
+                var localRangeL = new Range<double>(localGeometry[0].X, localGeometry[localGeometry.Length - 1].X);
                 string outOfRangeMessage = string.Format(Resources.MechanismSurfaceLineBase_0_L_needs_to_be_in_Range_1_,
                                                          Resources.MechanismSurfaceLineBase_GetZAtL_Cannot_determine_height,
                                                          localRangeL.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
@@ -152,9 +154,9 @@ namespace Ringtoets.Common.Data
             }
 
             var segments = new Collection<Segment2D>();
-            for (var i = 1; i < LocalGeometry.Count(); i++)
+            for (var i = 1; i < localGeometry.Length; i++)
             {
-                segments.Add(new Segment2D(LocalGeometry.ElementAt(i - 1), LocalGeometry.ElementAt(i)));
+                segments.Add(new Segment2D(localGeometry[i - 1], localGeometry[i]));
             }
 
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
