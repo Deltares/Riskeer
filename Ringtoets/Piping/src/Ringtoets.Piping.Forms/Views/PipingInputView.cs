@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateTableData()
         {
-            pipingSoilLayerTable.SetData(data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers);
+            pipingSoilLayerTable.SetData(data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers);
         }
 
         private void SetChartData()
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IList<PipingSoilLayer> GetSoilLayers()
         {
-            return data?.InputParameters.StochasticSoilProfile?.SoilProfile?.Layers.ToList() ?? new List<PipingSoilLayer>();
+            return data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers.ToList() ?? new List<PipingSoilLayer>();
         }
     }
 }
