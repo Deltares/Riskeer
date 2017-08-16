@@ -57,6 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble piezometricHeadPhreaticLine2Outwards;
         private RoundedDouble piezometricHeadPhreaticLine2Inwards;
         private RoundedDouble penetrationLength;
+        private RoundedDouble tangentLineZTop;
+        private RoundedDouble tangentLineZBottom;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
@@ -107,6 +109,15 @@ namespace Ringtoets.MacroStabilityInwards.Data
             piezometricHeadPhreaticLine2Outwards = new RoundedDouble(2);
             piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2);
             penetrationLength = new RoundedDouble(2);
+
+            GridDetermination = MacroStabilityInwardsGridDetermination.Automatic;
+            TangentLineDetermination = MacroStabilityInwardsTangentLineDetermination.LayerSeparated;
+
+            tangentLineZTop = new RoundedDouble(2);
+            tangentLineZBottom = new RoundedDouble(2);
+
+            LeftGrid = new MacroStabilityInwardsGrid();
+            RightGrid = new MacroStabilityInwardsGrid();
         }
 
         /// <summary>
@@ -203,6 +214,58 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the value whether the grid should be moved.
         /// </summary>
         public bool MoveGrid { get; set; }
+
+        /// <summary>
+        /// Gets the grid determination type.
+        /// </summary>
+        public MacroStabilityInwardsGridDetermination GridDetermination { get; set; }
+
+        /// <summary>
+        /// Gets the tangent line determination type.
+        /// </summary>
+        public MacroStabilityInwardsTangentLineDetermination TangentLineDetermination { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tangent line z top.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble TangentLineZTop
+        {
+            get
+            {
+                return tangentLineZTop;
+            }
+            set
+            {
+                tangentLineZTop = value.ToPrecision(tangentLineZTop.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tangent line z bottom.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble TangentLineZBottom
+        {
+            get
+            {
+                return tangentLineZBottom;
+            }
+            set
+            {
+                tangentLineZBottom = value.ToPrecision(tangentLineZBottom.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets the left grid.
+        /// </summary>
+        public MacroStabilityInwardsGrid LeftGrid { get; }
+
+        /// <summary>
+        /// Gets the right grid.
+        /// </summary>
+        public MacroStabilityInwardsGrid RightGrid { get; }
 
         #endregion
 

@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_PropertiesSet_ExpectedValues()
+        public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
             var random = new Random();

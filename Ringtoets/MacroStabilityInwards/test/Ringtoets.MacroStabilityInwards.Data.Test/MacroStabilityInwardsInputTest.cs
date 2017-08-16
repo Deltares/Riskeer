@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
@@ -122,6 +121,98 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.AreEqual(0, inputParameters.PenetrationLength.Value);
             Assert.AreEqual(2, inputParameters.PenetrationLength.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(MacroStabilityInwardsGridDetermination.Automatic, inputParameters.GridDetermination);
+            Assert.AreEqual(MacroStabilityInwardsTangentLineDetermination.LayerSeparated, inputParameters.TangentLineDetermination);
+
+            Assert.AreEqual(0, inputParameters.TangentLineZTop.Value);
+            Assert.AreEqual(2, inputParameters.TangentLineZTop.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0, inputParameters.TangentLineZBottom.Value);
+            Assert.AreEqual(2, inputParameters.TangentLineZBottom.NumberOfDecimalPlaces);
+
+            Assert.IsNotNull(inputParameters.LeftGrid);
+            Assert.IsNotNull(inputParameters.RightGrid);
+        }
+
+        [Test]
+        public void Constructor_SetProperties_ExpectedValues()
+        {
+            // Setup
+            var random = new Random();
+            double slipPlaneMinimumDepth = random.Next();
+            double slipPlaneMinimumLength = random.Next();
+            double maximumSliceWidth = random.Next();
+            double waterLevelRiverAverage = random.Next();
+            double waterLevelPolder = random.Next();
+            double xCoordinateDrainageConstruction = random.Next();
+            double zCoordinateDrainageConstruction = random.Next();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
+            double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
+            double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
+            double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
+            double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
+            double leakageLengthOutwardsPhreaticLine3 = random.Next();
+            double leakageLengthInwardsPhreaticLine3 = random.Next();
+            double leakageLengthOutwardsPhreaticLine4 = random.Next();
+            double leakageLengthInwardsPhreaticLine4 = random.Next();
+            double piezometricHeadPhreaticLine2Outwards = random.Next();
+            double piezometricHeadPhreaticLine2Inwards = random.Next();
+            double penetrationLength = random.Next();
+            double tangentLineZTop = random.Next();
+            double tangentLineZBottom = random.Next();
+            
+            // Call
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth,
+                SlipPlaneMinimumLength = (RoundedDouble)slipPlaneMinimumLength,
+                MaximumSliceWidth = (RoundedDouble)maximumSliceWidth,
+                WaterLevelRiverAverage = (RoundedDouble)waterLevelRiverAverage,
+                WaterLevelPolder = (RoundedDouble)waterLevelPolder,
+                XCoordinateDrainageConstruction = (RoundedDouble)xCoordinateDrainageConstruction,
+                ZCoordinateDrainageConstruction = (RoundedDouble)zCoordinateDrainageConstruction,
+                MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble)minimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble)minimumLevelPhreaticLineAtDikeTopPolder,
+                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble)phreaticLineOffsetBelowDikeTopAtRiver,
+                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble)phreaticLineOffsetBelowDikeTopAtPolder,
+                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble)phreaticLineOffsetBelowShoulderBaseInside,
+                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble)phreaticLineOffsetBelowDikeToeAtPolder,
+                LeakageLengthOutwardsPhreaticLine3  = (RoundedDouble)leakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine3 = (RoundedDouble)leakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble)leakageLengthOutwardsPhreaticLine4,
+                LeakageLengthInwardsPhreaticLine4 = (RoundedDouble)leakageLengthInwardsPhreaticLine4,
+                PiezometricHeadPhreaticLine2Outwards = (RoundedDouble)piezometricHeadPhreaticLine2Outwards,
+                PiezometricHeadPhreaticLine2Inwards = (RoundedDouble)piezometricHeadPhreaticLine2Inwards,
+                PenetrationLength = (RoundedDouble)penetrationLength,
+                TangentLineZTop = (RoundedDouble)tangentLineZTop,
+                TangentLineZBottom = (RoundedDouble)tangentLineZBottom,
+            };
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, slipPlaneMinimumDepth), input.SlipPlaneMinimumDepth);
+            Assert.AreEqual(new RoundedDouble(2, slipPlaneMinimumLength), input.SlipPlaneMinimumLength);
+            Assert.AreEqual(new RoundedDouble(2, maximumSliceWidth), input.MaximumSliceWidth);
+            Assert.AreEqual(new RoundedDouble(2, waterLevelRiverAverage), input.WaterLevelRiverAverage);
+            Assert.AreEqual(new RoundedDouble(2, waterLevelPolder), input.WaterLevelPolder);
+            Assert.AreEqual(new RoundedDouble(2, xCoordinateDrainageConstruction), input.XCoordinateDrainageConstruction);
+            Assert.AreEqual(new RoundedDouble(2, zCoordinateDrainageConstruction), input.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopRiver), input.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopPolder), input.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtRiver), input.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtPolder), input.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowShoulderBaseInside), input.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeToeAtPolder), input.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine3), input.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine3), input.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine4), input.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine4), input.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Outwards), input.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Inwards), input.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(new RoundedDouble(2, penetrationLength), input.PenetrationLength);
+            Assert.AreEqual(new RoundedDouble(2, tangentLineZTop), input.TangentLineZTop);
+            Assert.AreEqual(new RoundedDouble(2, tangentLineZBottom), input.TangentLineZBottom);
         }
 
         [Test]
@@ -260,231 +351,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "SlipPlaneMinimumDepth"
-        })]
-        public void SlipPlaneMinimumDepth_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.SlipPlaneMinimumDepth = (RoundedDouble) newValue, newValue, input => input.SlipPlaneMinimumDepth);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "SlipPlaneMinimumLength"
-        })]
-        public void SlipPlaneMinimumLength_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.SlipPlaneMinimumLength = (RoundedDouble) newValue, newValue, input => input.SlipPlaneMinimumLength);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "MaximumSliceWidth"
-        })]
-        public void MaximumSliceWidth_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.MaximumSliceWidth = (RoundedDouble) newValue, newValue, input => input.MaximumSliceWidth);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "WaterLevelRiverAverage"
-        })]
-        public void WaterLevelRiverAverage_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.WaterLevelRiverAverage = (RoundedDouble) newValue, newValue, input => input.WaterLevelRiverAverage);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "WaterLevelPolder"
-        })]
-        public void WaterLevelPolder_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.WaterLevelPolder = (RoundedDouble) newValue, newValue, input => input.WaterLevelPolder);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "XCoordinateDrainageConstruction"
-        })]
-        public void XCoordinateDrainageConstruction_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.XCoordinateDrainageConstruction = (RoundedDouble) newValue, newValue, input => input.XCoordinateDrainageConstruction);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "ZCoordinateDrainageConstruction"
-        })]
-        public void ZCoordinateDrainageConstruction_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.ZCoordinateDrainageConstruction = (RoundedDouble) newValue, newValue, input => input.ZCoordinateDrainageConstruction);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "MinimumLevelPhreaticLineAtDikeTopRiver"
-        })]
-        public void MinimumLevelPhreaticLineAtDikeTopRiver_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) newValue, newValue, input => input.MinimumLevelPhreaticLineAtDikeTopRiver);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "MinimumLevelPhreaticLineAtDikeTopPolder"
-        })]
-        public void MinimumLevelPhreaticLineAtDikeTopPolder_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) newValue, newValue, input => input.MinimumLevelPhreaticLineAtDikeTopPolder);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PhreaticLineOffsetBelowDikeTopAtRiver"
-        })]
-        public void PhreaticLineOffsetBelowDikeTopAtRiver_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeTopAtRiver);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PhreaticLineOffsetBelowDikeTopAtPolder"
-        })]
-        public void PhreaticLineOffsetBelowDikeTopAtPolder_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeTopAtPolder);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PhreaticLineOffsetBelowShoulderBaseInside"
-        })]
-        public void PhreaticLineOffsetBelowShoulderBaseInside_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowShoulderBaseInside);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PhreaticLineOffsetBelowDikeToeAtPolder"
-        })]
-        public void PhreaticLineOffsetBelowDikeToeAtPolder_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) newValue, newValue, input => input.PhreaticLineOffsetBelowDikeToeAtPolder);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "LeakageLengthOutwardsPhreaticLine3"
-        })]
-        public void LeakageLengthOutwardsPhreaticLine3_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthOutwardsPhreaticLine3);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "LeakageLengthInwardsPhreaticLine3"
-        })]
-        public void LeakageLengthInwardsPhreaticLine3_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthInwardsPhreaticLine3);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "LeakageLengthOutwardsPhreaticLine4"
-        })]
-        public void LeakageLengthOutwardsPhreaticLine4_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthOutwardsPhreaticLine4);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "LeakageLengthInwardsPhreaticLine4"
-        })]
-        public void LeakageLengthInwardsPhreaticLine4_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) newValue, newValue, input => input.LeakageLengthInwardsPhreaticLine4);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PiezometricHeadPhreaticLine2Outwards"
-        })]
-        public void PiezometricHeadPhreaticLine2Outwards_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) newValue, newValue, input => input.PiezometricHeadPhreaticLine2Outwards);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PiezometricHeadPhreaticLine2Inwards"
-        })]
-        public void PiezometricHeadPhreaticLine2Inwards_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) newValue, newValue, input => input.PiezometricHeadPhreaticLine2Inwards);
-        }
-
-
-        [Test]
-        [TestCaseSource(nameof(GetUnroundedValues), new object[]
-        {
-            "PenetrationLength"
-        })]
-        public void PenetrationLength_SetToNew_ValueIsRounded(double newValue)
-        {
-            TestValueIsRounded(input => input.PenetrationLength = (RoundedDouble) newValue, newValue, input => input.PenetrationLength);
-        }
-
-        private static void TestValueIsRounded(Action<MacroStabilityInwardsInput> setValue, double newValue, Func<MacroStabilityInwardsInput, RoundedDouble> getValue)
-        {
-            // Setup
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            int originalNumberOfDecimalPlaces = getValue(input).NumberOfDecimalPlaces;
-
-            // Call
-            setValue(input);
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, getValue(input).NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, newValue), getValue(input));
-        }
-
-        private static IEnumerable<TestCaseData> GetUnroundedValues(string name)
-        {
-            yield return new TestCaseData(double.NaN).SetName($"{name} double.NaN");
-            yield return new TestCaseData(-1e-3).SetName($"{name} -1e-3");
-            yield return new TestCaseData(0.005).SetName($"{name} 0.005");
-            yield return new TestCaseData(0.1004).SetName($"{name} 0.1004");
-            yield return new TestCaseData(0.5).SetName($"{name} 0.5");
         }
     }
 }
