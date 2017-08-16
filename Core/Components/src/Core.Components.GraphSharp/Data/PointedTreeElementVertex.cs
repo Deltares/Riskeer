@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Media;
-using Core.Components.GraphSharp.Annotations;
 using Core.Components.GraphSharp.Commands;
 using GraphSharp.Controls;
 
@@ -131,7 +130,6 @@ namespace Core.Components.GraphSharp.Data
             }
         }
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
