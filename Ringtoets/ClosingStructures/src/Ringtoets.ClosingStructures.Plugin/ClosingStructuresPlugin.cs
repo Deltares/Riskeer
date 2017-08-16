@@ -723,6 +723,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
             return builder.AddExportItem()
                           .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, context)
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                                       inquiryHelper,
