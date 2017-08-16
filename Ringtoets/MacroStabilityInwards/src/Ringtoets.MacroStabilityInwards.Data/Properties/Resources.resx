@@ -144,4 +144,16 @@
   <data name="SandDikeOnSand_DisplayName" xml:space="preserve">
     <value>Zand dijk op zand (geval 2B)</value>
   </data>
+  <data name="Automatic_DisplayName" xml:space="preserve">
+    <value>Automatisch</value>
+  </data>
+  <data name="Manual_DisplayName" xml:space="preserve">
+    <value>Handmatig</value>
+  </data>
+  <data name="LayerSeparated_DisplayName" xml:space="preserve">
+    <value>Op laagscheiding</value>
+  </data>
+  <data name="Specified_DisplayName" xml:space="preserve">
+    <value>Gespecificeerd</value>
+  </data>
 </root>

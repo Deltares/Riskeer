@@ -82,6 +82,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatisch.
+        /// </summary>
+        public static string Automatic_DisplayName {
+            get {
+                return ResourceManager.GetString("Automatic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klei dijk op klei (geval 1A).
         /// </summary>
         public static string ClayDikeOnClay_DisplayName {
@@ -96,6 +105,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         public static string ClayDikeOnSand_DisplayName {
             get {
                 return ResourceManager.GetString("ClayDikeOnSand_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Op laagscheiding.
+        /// </summary>
+        public static string LayerSeparated_DisplayName {
+            get {
+                return ResourceManager.GetString("LayerSeparated_DisplayName", resourceCulture);
             }
         }
         
@@ -127,6 +145,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handmatig.
+        /// </summary>
+        public static string Manual_DisplayName {
+            get {
+                return ResourceManager.GetString("Manual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zand dijk op klei (geval 2A).
         /// </summary>
         public static string SandDikeOnClay_DisplayName {
@@ -141,6 +168,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         public static string SandDikeOnSand_DisplayName {
             get {
                 return ResourceManager.GetString("SandDikeOnSand_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gespecificeerd.
+        /// </summary>
+        public static string Specified_DisplayName {
+            get {
+                return ResourceManager.GetString("Specified_DisplayName", resourceCulture);
             }
         }
         
