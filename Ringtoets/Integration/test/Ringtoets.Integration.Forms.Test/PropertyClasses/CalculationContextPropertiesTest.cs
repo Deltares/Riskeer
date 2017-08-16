@@ -70,33 +70,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_WithData_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            projectObserver.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
-
-            calculation.Attach(projectObserver);
-
-            var properties = new CalculationContextProperties
-            {
-                Data = testCalculationContext
-            };
-
-            // Call & Assert
-            const string newName = "haha";
-            properties.Name = newName;
-            Assert.AreEqual(newName, calculation.Name);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup

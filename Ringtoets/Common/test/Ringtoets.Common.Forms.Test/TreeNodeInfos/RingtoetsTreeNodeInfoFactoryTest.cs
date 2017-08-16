@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var parentGroup = new CalculationGroup();
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), parentGroup, failureMechanism);
-            var parentGroupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
+            var parentGroupContext = new TestCalculationGroupContext(parentGroup, new CalculationGroup(), failureMechanism);
             TreeNodeInfo<TestCalculationGroupContext> treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call

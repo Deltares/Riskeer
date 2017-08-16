@@ -271,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInParent_ReturnTrue()
+        public void OnNodeRemoved_CalculationInParent_CalculationRemovedFromParent()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
