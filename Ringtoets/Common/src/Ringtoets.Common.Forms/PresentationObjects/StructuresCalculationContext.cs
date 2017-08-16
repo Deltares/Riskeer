@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -44,10 +45,10 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StructuresCalculationContext(StructuresCalculation<TInput> calculation,
-                                            CalculationGroup parent,
-                                            TFailureMechanism failureMechanism,
-                                            IAssessmentSection assessmentSection)
+        protected StructuresCalculationContext(StructuresCalculation<TInput> calculation,
+                                               CalculationGroup parent,
+                                               TFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection)
         {
             if (parent == null)
@@ -59,5 +60,22 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         public CalculationGroup Parent { get; }
+
+        public override bool Equals(WrappedObjectContextBase<StructuresCalculation<TInput>> other)
+        {
+            return base.Equals(other)
+                   && other is StructuresCalculationContext<TInput, TFailureMechanism>
+                   && ReferenceEquals(Parent, ((StructuresCalculationContext<TInput, TFailureMechanism>) other).Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as StructuresCalculationContext<TInput, TFailureMechanism>);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
+        }
     }
 }
