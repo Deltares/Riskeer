@@ -56,10 +56,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource("AssessmentLayerOneStateIsSufficient")]
-        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationNull")]
-        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput")]
-        [TestCaseSource("AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput")]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficient))]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationNull))]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput))]
+        [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput))]
         public void SetAssessmentLayerTwoAError_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                               AssessmentLayerOneState passedAssessmentLayerOne,
                                                               double assessmentLayerTwoA,

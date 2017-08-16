@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        [TestCaseSource("Distances")]
+        [TestCaseSource(nameof(Distances))]
         public void Distance_ValidDistances_ReturnsDistanceToGivenPoint(Point2D point, double expectedDistance)
         {
             // Setup

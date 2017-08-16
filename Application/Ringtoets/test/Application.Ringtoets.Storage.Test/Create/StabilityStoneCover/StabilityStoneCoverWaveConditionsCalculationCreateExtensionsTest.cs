@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        [TestCaseSource("ValidWaveConditionsInputs")]
+        [TestCaseSource(nameof(ValidWaveConditionsInputs))]
         public void Create_CalculationWithPropertiesSet_ReturnCalculationEntity(
             double orientation, bool useBreakWater, double lowerBoundaryRevetment,
             double upperBoundaryRevetment, double lowerBoundaryWaterLevels,

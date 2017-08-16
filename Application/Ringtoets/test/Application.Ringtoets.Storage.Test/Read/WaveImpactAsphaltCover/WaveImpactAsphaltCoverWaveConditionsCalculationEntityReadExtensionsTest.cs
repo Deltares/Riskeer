@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         }
 
         [Test]
-        [TestCaseSource("ValidWaveConditionsInputs")]
+        [TestCaseSource(nameof(ValidWaveConditionsInputs))]
         public void Read_ValidEntity_ReturnCalculation(
             string name, string comments,
             double orientation, bool useBreakWater, BreakWaterType breakWaterType, double breakWaterHeight, bool useForeshore, double lowerBoundaryRevetment,

@@ -673,7 +673,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource("CalculationGroupConfigurations")]
+        [TestCaseSource(nameof(CalculationGroupConfigurations))]
         public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationWithExpectedNameAndPosition(TestCloneableCalculation calculation,
                                                                                                                               CalculationGroup calculationGroup,
                                                                                                                               string expectedCalculationName)

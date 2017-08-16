@@ -61,7 +61,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCaseSource("IntersectingSegments")]
+        [TestCaseSource(nameof(IntersectingSegments))]
         public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
         {
             // Call
@@ -72,7 +72,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCaseSource("ParallelSegments")]
+        [TestCaseSource(nameof(ParallelSegments))]
         // String testname was added because the Teamcity report only counts the unique signatures that were tested
         public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points, string testname = "")
         {
@@ -84,7 +84,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCaseSource("nonIntersectingSegments")]
+        [TestCaseSource(nameof(nonIntersectingSegments))]
         public void LineIntersectionWithLine_DifferentLineSegmentsWithNoIntersection_ReturnsPoint(Point2D[] points)
         {
             // Call
