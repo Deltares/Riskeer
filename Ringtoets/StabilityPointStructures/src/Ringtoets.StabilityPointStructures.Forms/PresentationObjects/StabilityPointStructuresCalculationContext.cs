@@ -32,8 +32,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationContext : FailureMechanismItemContextBase<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>,
-                                                              ICalculationContext<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresCalculationContext : StructuresCalculationContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationContext"/>.
@@ -47,16 +46,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
                                                           CalculationGroup parent,
                                                           StabilityPointStructuresFailureMechanism failureMechanism,
                                                           IAssessmentSection assessmentSection)
-            : base(calculation, failureMechanism, assessmentSection)
-        {
-            if (parent == null)
-            {
-                throw new ArgumentNullException(nameof(parent));
-            }
-
-            Parent = parent;
-        }
-
-        public CalculationGroup Parent { get; }
+            : base(calculation, parent, failureMechanism, assessmentSection) {}
     }
 }

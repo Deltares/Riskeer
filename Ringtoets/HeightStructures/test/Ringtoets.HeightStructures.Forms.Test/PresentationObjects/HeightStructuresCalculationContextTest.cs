@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -50,33 +49,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var context = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(context);
-            Assert.IsInstanceOf<ICalculationContext<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new HeightStructuresCalculationContext(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("parent", exception.ParamName);
-            mockRepository.VerifyAll();
         }
     }
 }

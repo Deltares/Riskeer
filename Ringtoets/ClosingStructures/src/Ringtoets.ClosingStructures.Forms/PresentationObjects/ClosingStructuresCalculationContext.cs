@@ -32,8 +32,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class ClosingStructuresCalculationContext : FailureMechanismItemContextBase<StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>,
-                                                       ICalculationContext<StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresCalculationContext : StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationContext"/>.
@@ -47,16 +46,6 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
                                                    CalculationGroup parent,
                                                    ClosingStructuresFailureMechanism failureMechanism,
                                                    IAssessmentSection assessmentSection)
-            : base(wrappedData, failureMechanism, assessmentSection)
-        {
-            if (parent == null)
-            {
-                throw new ArgumentNullException(nameof(parent));
-            }
-
-            Parent = parent;
-        }
-
-        public CalculationGroup Parent { get; }
+            : base(wrappedData, parent, failureMechanism, assessmentSection) {}
     }
 }
