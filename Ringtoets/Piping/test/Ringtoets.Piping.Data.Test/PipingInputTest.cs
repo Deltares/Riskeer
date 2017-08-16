@@ -1275,7 +1275,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var original = new PipingInput(new GeneralPipingInput());
 
-            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
+            PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
             // Call
             object clone = original.Clone();
@@ -1290,7 +1290,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var original = new PipingInput(new GeneralPipingInput());
 
-            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
+            PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
             original.StochasticSoilModel = null;
             original.HydraulicBoundaryLocation = null;

@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.Data.Test
                 }
             };
 
-            PipingTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
+            PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
 
             return calculation;
         }

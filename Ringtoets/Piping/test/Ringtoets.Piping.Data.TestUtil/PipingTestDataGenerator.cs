@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The input to set the random data values to.</param>
-        public static void SetRandomDataToGrassCoverErosionInwardsInput(PipingInput input)
+        public static void SetRandomDataToPipingInput(PipingInput input)
         {
             var random = new Random(21);
 
