@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                 new PipingStochasticSoilModel[0],
                                                                 failureMechanism,
                                                                 assessmentSection);
-            // Precondition:
+            // Precondition
             Assert.IsFalse(calculationScenario1.Equals(calculationScenario2));
 
             // Call
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                 new PipingStochasticSoilModel[0],
                                                                 failureMechanism,
                                                                 assessmentSection);
-            // Precondition:
+            // Precondition
             Assert.IsFalse(parent1.Equals(parent2));
 
             // Call
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                 new PipingStochasticSoilModel[0],
                                                                 failureMechanism,
                                                                 assessmentSection);
-            // Precondition:
+            // Precondition
             Assert.AreEqual(context1, context2);
 
             // Call
