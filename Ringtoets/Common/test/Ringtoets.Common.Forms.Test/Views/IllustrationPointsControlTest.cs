@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredControl_WhenDataIsResetAndCellInSameRowSelected_ThenRowChangedFired()
+        public void GivenFullyConfiguredControl_WhenNewDataSetAndCellInSameRowSelected_ThenRowChangedFired()
         {
             // Given
             using (var form = new Form())
