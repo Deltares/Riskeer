@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using StabilityPointStructuresCloneAssert = Ringtoets.StabilityPointStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {

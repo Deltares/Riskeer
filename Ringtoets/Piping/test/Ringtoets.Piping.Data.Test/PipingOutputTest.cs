@@ -25,7 +25,7 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
-using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {

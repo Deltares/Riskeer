@@ -28,7 +28,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
     /// <summary>
     /// Class that defines methods for asserting whether two objects are clones.
     /// </summary>
-    public static class CloneAssert
+    public static class GrassCoverErosionInwardsCloneAssert
     {
         /// <summary>
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>

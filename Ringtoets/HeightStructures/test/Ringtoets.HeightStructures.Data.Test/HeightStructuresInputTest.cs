@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using HeightStructuresCloneAssert = Ringtoets.HeightStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {

@@ -29,7 +29,6 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using ClosingStructuresCloneAssert = Ringtoets.ClosingStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
