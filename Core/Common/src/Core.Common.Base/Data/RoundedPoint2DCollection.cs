@@ -55,10 +55,9 @@ namespace Core.Common.Base.Data
                 throw new ArgumentOutOfRangeException(nameof(numberOfDecimalPlaces), @"Value must be in range [0, 15].");
             }
 
-            points = originalPoints.Select(p =>
-                                               new Point2D(
-                                                   new RoundedDouble(numberOfDecimalPlaces, p.X),
-                                                   new RoundedDouble(numberOfDecimalPlaces, p.Y)));
+            points = originalPoints.Select(p => new Point2D(new RoundedDouble(numberOfDecimalPlaces, p.X),
+                                                            new RoundedDouble(numberOfDecimalPlaces, p.Y)))
+                                   .ToArray();
 
             NumberOfDecimalPlaces = numberOfDecimalPlaces;
         }
