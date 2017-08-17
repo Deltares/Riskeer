@@ -32,6 +32,14 @@ namespace Ringtoets.Piping.Primitives
     public class PipingSurfaceLine : MechanismSurfaceLineBase
     {
         /// <summary>
+        /// Creates a new instance of <see cref="PipingSurfaceLine"/>.
+        /// </summary>
+        /// <param name="name">The name of the surface line.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c>.</exception>
+        public PipingSurfaceLine(string name) : base(name) {}
+
+        /// <summary>
         /// Gets the location of dike toe when approaching from outside 
         /// the polder.
         /// </summary>

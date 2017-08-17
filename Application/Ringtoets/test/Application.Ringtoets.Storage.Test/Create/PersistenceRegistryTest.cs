@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             registry.Register(new SurfaceLineEntity(), surfaceLine);
 
             // Call
@@ -161,7 +161,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
             bool result = registry.Contains(surfaceLine);
@@ -175,8 +175,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
-            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine());
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine(string.Empty));
 
             // Call
             bool result = registry.Contains(surfaceLine);
@@ -1090,7 +1090,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             var entity = new SurfaceLineEntity();
             registry.Register(entity, surfaceLine);
 
@@ -1106,7 +1106,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
             TestDelegate test = () => registry.Get(surfaceLine);
@@ -1120,8 +1120,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine();
-            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine());
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine(string.Empty));
 
             // Call
             TestDelegate test = () => registry.Get(surfaceLine);

@@ -271,10 +271,7 @@ namespace Ringtoets.Piping.Service.Test
 
             Point3D[] geometry = testCalculation.InputParameters.SurfaceLine.Points;
             const string surfaceLineName = "surfaceLineA";
-            var surfaceLineMissingCharacteristicPoint = new PipingSurfaceLine
-            {
-                Name = surfaceLineName
-            };
+            var surfaceLineMissingCharacteristicPoint = new PipingSurfaceLine(surfaceLineName);
             surfaceLineMissingCharacteristicPoint.SetGeometry(geometry);
             surfaceLineMissingCharacteristicPoint.SetDitchDikeSideAt(geometry[2]);
 

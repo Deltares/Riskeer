@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var random = new Random(11);
 
             double hRiverValue = random.NextDouble();
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(

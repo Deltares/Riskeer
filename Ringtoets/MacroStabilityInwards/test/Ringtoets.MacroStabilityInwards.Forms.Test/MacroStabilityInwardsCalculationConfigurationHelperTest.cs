@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_NoSoilModels_ReturnEmpty()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -238,7 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -304,7 +304,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel2
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 0.0),
@@ -383,22 +383,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
 
             var surfaceLines = new List<MacroStabilityInwardsSurfaceLine>
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = testName1
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = testName2
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = testName3
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = testName4
-                }
+                new MacroStabilityInwardsSurfaceLine(testName1),
+                new MacroStabilityInwardsSurfaceLine(testName2),
+                new MacroStabilityInwardsSurfaceLine(testName3),
+                new MacroStabilityInwardsSurfaceLine(testName4)
             };
             IEnumerable<ICalculationBase> result = null;
 
@@ -463,7 +451,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -522,10 +510,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             };
 
             const string testName = "testName";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = testName
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(testName);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -596,10 +581,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             };
 
             const string testName = "testName";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = testName
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(testName);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -682,7 +664,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel2
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 0.0),
@@ -778,19 +760,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
 
             const string surfaceLineName1 = "surface line 1";
             const string surfaceLineName2 = "surface line 2";
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLineName1
-            };
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine(surfaceLineName1);
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
                 new Point3D(0.0, y, 0.0)
             });
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLineName2
-            };
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine(surfaceLineName2);
             surfaceLine2.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
@@ -899,19 +875,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
 
             const string surfaceLineName1 = "surface line 1";
             const string surfaceLineName2 = "surface line 2";
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLineName1
-            };
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine(surfaceLineName1);
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
                 new Point3D(0.0, y, 0.0)
             });
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLineName2
-            };
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine(surfaceLineName2);
             surfaceLine2.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 1.0),
@@ -999,10 +969,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Surface Line"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface Line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -1082,10 +1049,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Surface Line"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface Line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),

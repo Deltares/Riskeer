@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 calculationItem,
                                                                 new[]
                                                                 {
-                                                                    new PipingSurfaceLine()
+                                                                    new PipingSurfaceLine(string.Empty)
                                                                 },
                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                 failureMechanism,
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
         private static PipingSurfaceLine ValidSurfaceLine()
         {
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),

@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             }, expectedFilePath);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

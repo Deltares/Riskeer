@@ -35,6 +35,17 @@ namespace Ringtoets.Common.Data.Test
     public class MechanismSurfaceLineBaseTest
     {
         [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new TestMechanismSurfaceLine(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
@@ -251,10 +262,7 @@ namespace Ringtoets.Common.Data.Test
         {
             // Setup
             const string niceName = "Nice name";
-            var surfaceLine = new TestMechanismSurfaceLine
-            {
-                Name = niceName
-            };
+            var surfaceLine = new TestMechanismSurfaceLine(niceName);
 
             // Call
             string text = surfaceLine.ToString();
@@ -358,7 +366,10 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual(new Point2D(double.NaN, double.NaN), localPoint);
         }
 
-        private class TestMechanismSurfaceLine : MechanismSurfaceLineBase {}
+        private class TestMechanismSurfaceLine : MechanismSurfaceLineBase
+        {
+            public TestMechanismSurfaceLine(string name = "") : base(name) {}
+        }
 
         private static void CreateTestGeometry(Point3D testPoint, TestMechanismSurfaceLine surfaceLine)
         {

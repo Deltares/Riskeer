@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = null;
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
             TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);

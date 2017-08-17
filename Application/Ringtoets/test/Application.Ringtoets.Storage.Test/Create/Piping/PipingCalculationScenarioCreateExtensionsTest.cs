@@ -184,7 +184,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_HasSurfaceLineSet_EntityHasSurfaceLineEntity()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             };

@@ -47,8 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
-                new MacroStabilityInwardsSurfaceLine(),
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty),
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
 
             var soilModels = new[]

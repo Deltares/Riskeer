@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_NoSoilModels_ReturnEmpty()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -319,7 +319,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel2
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 0.0),
@@ -398,22 +398,10 @@ namespace Ringtoets.Piping.Forms.Test
 
             var pipingSurfaceLines = new List<PipingSurfaceLine>
             {
-                new PipingSurfaceLine
-                {
-                    Name = testName1
-                },
-                new PipingSurfaceLine
-                {
-                    Name = testName2
-                },
-                new PipingSurfaceLine
-                {
-                    Name = testName3
-                },
-                new PipingSurfaceLine
-                {
-                    Name = testName4
-                }
+                new PipingSurfaceLine(testName1),
+                new PipingSurfaceLine(testName2),
+                new PipingSurfaceLine(testName3),
+                new PipingSurfaceLine(testName4)
             };
             IEnumerable<ICalculationBase> result = null;
 
@@ -478,7 +466,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -539,10 +527,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             const string testName = "testName";
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = testName
-            };
+            var surfaceLine = new PipingSurfaceLine(testName);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -611,10 +596,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             const string testName = "testName";
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = testName
-            };
+            var surfaceLine = new PipingSurfaceLine(testName);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -701,7 +683,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel2
             };
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine("surface line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 0.0),
@@ -799,19 +781,13 @@ namespace Ringtoets.Piping.Forms.Test
 
             const string surfaceLineName1 = "surface line 1";
             const string surfaceLineName2 = "surface line 2";
-            var surfaceLine1 = new PipingSurfaceLine
-            {
-                Name = surfaceLineName1
-            };
+            var surfaceLine1 = new PipingSurfaceLine(surfaceLineName1);
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
                 new Point3D(0.0, y, 0.0)
             });
-            var surfaceLine2 = new PipingSurfaceLine
-            {
-                Name = surfaceLineName2
-            };
+            var surfaceLine2 = new PipingSurfaceLine(surfaceLineName2);
             surfaceLine2.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
@@ -923,19 +899,13 @@ namespace Ringtoets.Piping.Forms.Test
 
             const string surfaceLineName1 = "surface line 1";
             const string surfaceLineName2 = "surface line 2";
-            var surfaceLine1 = new PipingSurfaceLine
-            {
-                Name = surfaceLineName1
-            };
+            var surfaceLine1 = new PipingSurfaceLine(surfaceLineName1);
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(2.5, y, 1.0),
                 new Point3D(0.0, y, 0.0)
             });
-            var surfaceLine2 = new PipingSurfaceLine
-            {
-                Name = surfaceLineName2
-            };
+            var surfaceLine2 = new PipingSurfaceLine(surfaceLineName2);
             surfaceLine2.SetGeometry(new[]
             {
                 new Point3D(5.0, y, 1.0),
@@ -1021,10 +991,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Surface Line"
-            };
+            var surfaceLine = new PipingSurfaceLine("Surface Line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -1100,10 +1067,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Surface Line"
-            };
+            var surfaceLine = new PipingSurfaceLine("Surface Line");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),

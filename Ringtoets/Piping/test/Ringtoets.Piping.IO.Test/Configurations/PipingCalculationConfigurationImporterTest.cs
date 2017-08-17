@@ -109,10 +109,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -219,10 +216,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -270,10 +264,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -579,10 +570,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             string filePath = Path.Combine(readerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),

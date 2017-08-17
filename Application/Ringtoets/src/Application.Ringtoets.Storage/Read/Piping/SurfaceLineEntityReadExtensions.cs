@@ -57,9 +57,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(entity.Name)
             {
-                Name = entity.Name,
                 ReferenceLineIntersectionWorldPoint = new Point2D(
                     entity.ReferenceLineIntersectionX.ToNullAsNaN(),
                     entity.ReferenceLineIntersectionY.ToNullAsNaN())

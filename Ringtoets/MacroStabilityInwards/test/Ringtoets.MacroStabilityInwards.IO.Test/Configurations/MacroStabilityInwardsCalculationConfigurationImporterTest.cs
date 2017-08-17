@@ -163,10 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingNonIntersectingSurfaceLineAndSoilModel.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),
@@ -213,10 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingUnknownSoilProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -378,10 +372,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             string filePath = Path.Combine(readerPath, file);
 
             var calculationGroup = new CalculationGroup();
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Profielschematisatie"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),

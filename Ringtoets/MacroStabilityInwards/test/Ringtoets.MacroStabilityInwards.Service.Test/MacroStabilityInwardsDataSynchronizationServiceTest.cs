@@ -213,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = null;
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);

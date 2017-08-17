@@ -136,18 +136,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var lineOne = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var lineOne = new MacroStabilityInwardsSurfaceLine(duplicateName);
             lineOne.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3)
             });
-            var lineTwo = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var lineTwo = new MacroStabilityInwardsSurfaceLine(duplicateName);
             lineTwo.SetGeometry(new[]
             {
                 new Point3D(4, 5, 6)
@@ -179,10 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(duplicateName);
             Point3D[] expectedGeometry =
             {
                 new Point3D(0, 1, 2),
@@ -201,14 +192,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             MacroStabilityInwardsSurfaceLine[] importedSurfaceLines =
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = duplicateName
-                }
+                new MacroStabilityInwardsSurfaceLine(duplicateName),
+                new MacroStabilityInwardsSurfaceLine(duplicateName)
             };
 
             var strategy = new MacroStabilityInwardsSurfaceLineUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
@@ -235,8 +220,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             const string collectionSurfaceLineName = "Name A";
-            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine();
-            targetSurfaceLine.Name = collectionSurfaceLineName;
+            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine(collectionSurfaceLineName);
             MacroStabilityInwardsSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
             {
@@ -274,15 +258,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string collectionSurfaceLineName = "Name A";
             const string readSurfaceLineName = "Name B";
 
-            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = collectionSurfaceLineName
-            };
+            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine(collectionSurfaceLineName);
 
-            var readSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = readSurfaceLineName
-            };
+            var readSurfaceLine = new MacroStabilityInwardsSurfaceLine(readSurfaceLineName);
             var readSurfaceLines = new[]
             {
                 readSurfaceLine
@@ -318,15 +296,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string removedSurfaceLineName = "Name B";
             const string addedSurfaceLineName = "Name C";
 
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
-
-            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = removedSurfaceLineName
-            };
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(updatedSurfaceLineName);
+            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine(removedSurfaceLineName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
@@ -337,10 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             MacroStabilityInwardsSurfaceLine readSurfaceLineOne = DeepCloneAndModifyPoints(surfaceLineOne);
-            var readSurfaceLineTwo = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = addedSurfaceLineName
-            };
+            var readSurfaceLineTwo = new MacroStabilityInwardsSurfaceLine(addedSurfaceLineName);
             var readSurfaceLines = new[]
             {
                 readSurfaceLineOne,
@@ -423,10 +391,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string updatedSurfaceLineName = "Name A";
             const string unaffectedSurfaceLineName = "Name B";
 
-            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -447,10 +412,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = unaffectedSurfaceLineName
-            };
+            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
             {
@@ -513,10 +475,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string removedSurfaceLineName = "Name A";
             const string unaffectedSurfaceLineName = "Name B";
 
-            var removedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = removedSurfaceLineName
-            };
+            var removedSurfaceLine = new MacroStabilityInwardsSurfaceLine(removedSurfaceLineName);
             removedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -537,10 +496,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = unaffectedSurfaceLineName
-            };
+            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
             {
@@ -873,10 +829,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             const string updatedSurfaceLineName = "Name A";
 
-            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -895,7 +848,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
             {
@@ -982,10 +935,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             const string updatedSurfaceLineName = "Name A";
 
-            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -1031,9 +981,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLineForCalculations()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Name A")
             {
-                Name = "Name A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(123, 456)
             };
             var geometry = new[]
@@ -1061,10 +1010,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         /// only the name property copied.</returns>
         private static MacroStabilityInwardsSurfaceLine DeepCloneName(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
+            return new MacroStabilityInwardsSurfaceLine(surfaceLine.Name);
         }
 
         /// <summary>
@@ -1087,9 +1033,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                    oldIntersectionPoint.Y + random.NextDouble());
             }
 
-            var copiedLine = new MacroStabilityInwardsSurfaceLine
+            var copiedLine = new MacroStabilityInwardsSurfaceLine(surfaceLine.Name)
             {
-                Name = surfaceLine.Name,
                 ReferenceLineIntersectionWorldPoint = newIntersectionPoint
             };
 

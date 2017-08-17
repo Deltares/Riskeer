@@ -41,28 +41,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         protected override IEnumerable<MacroStabilityInwardsSurfaceLine> UniqueElements()
         {
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name B"
-            };
+            yield return new MacroStabilityInwardsSurfaceLine("Name A");
+            yield return new MacroStabilityInwardsSurfaceLine("Name B");
         }
 
         protected override IEnumerable<MacroStabilityInwardsSurfaceLine> SingleNonUniqueElements()
         {
             const string duplicateName = "Duplicate name it is";
 
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateName
-            };
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateName
-            };
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateName);
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateName);
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsSurfaceLine> itemsToAdd)
@@ -76,22 +64,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             const string duplicateNameOne = "Duplicate name it is";
             const string duplicateNameTwo = "Duplicate name again";
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateNameOne
-            };
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateNameOne
-            };
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateNameTwo
-            };
-            yield return new MacroStabilityInwardsSurfaceLine
-            {
-                Name = duplicateNameTwo
-            };
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateNameOne);
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateNameOne);
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateNameTwo);
+            yield return new MacroStabilityInwardsSurfaceLine(duplicateNameTwo);
         }
 
         protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsSurfaceLine> itemsToAdd)

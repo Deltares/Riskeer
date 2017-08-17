@@ -614,7 +614,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4),
@@ -645,7 +645,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineBelowSoilLayer_ReturnsEmptyAreasCollection()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2.0),
@@ -668,7 +668,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingIt_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -704,7 +704,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -742,7 +742,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineStartsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2.0),
@@ -777,7 +777,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineEndsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 3.0),
@@ -812,7 +812,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateSoilLayerAreas_SurfaceLineZigZagsThroughSoilLayer_ReturnsSoilLayerPointsSplitInMultipleAreas()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 4.0),
@@ -869,7 +869,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
         private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             surfaceLine.SetGeometry(new[]
             {

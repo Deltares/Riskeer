@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var surfaceLines = new[]
             {
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty)
             };
             var soilModels = new[]
             {

@@ -114,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),

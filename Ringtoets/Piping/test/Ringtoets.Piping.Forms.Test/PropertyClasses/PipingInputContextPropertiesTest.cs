@@ -327,7 +327,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             if (withSurfaceLine)
             {
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(0, 0, 0),
@@ -1479,7 +1479,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -2043,7 +2043,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private static PipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
         {
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(xMin, 0.0, 0.0),

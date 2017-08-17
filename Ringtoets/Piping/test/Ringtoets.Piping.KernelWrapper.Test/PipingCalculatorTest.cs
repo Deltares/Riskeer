@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
-            properties.SurfaceLine = new PipingSurfaceLine();
+            properties.SurfaceLine = new PipingSurfaceLine(string.Empty);
 
             var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput.ConstructionProperties properties = CreateSimpleConstructionProperties();
-            properties.SurfaceLine = new PipingSurfaceLine();
+            properties.SurfaceLine = new PipingSurfaceLine(string.Empty);
 
             var input = new PipingCalculatorInput(properties);
             input.SurfaceLine.SetGeometry(new[]
@@ -616,7 +616,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
         private static PipingSurfaceLine CreateValidSurfaceLine()
         {
-            var pipingSurfaceLine = new PipingSurfaceLine();
+            var pipingSurfaceLine = new PipingSurfaceLine(string.Empty);
             pipingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),

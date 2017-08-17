@@ -51,10 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var point1 = new Point3D(1.1, 2.2, 3.3);
             var point2 = new Point3D(2.1, 2.2, 3.3);
 
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = expectedName
-            };
+            var surfaceLine = new PipingSurfaceLine(expectedName);
             surfaceLine.SetGeometry(new[]
             {
                 point1,
@@ -87,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
             var properties = new PipingSurfaceLineProperties

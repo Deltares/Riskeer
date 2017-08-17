@@ -85,10 +85,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var pipingSurfaceLine = mocks.StrictMock<PipingSurfaceLine>();
             const string testName = "ttt";
-            pipingSurfaceLine.Name = testName;
-
+            var pipingSurfaceLine = new PipingSurfaceLine(testName);
             mocks.ReplayAll();
 
             // Call
@@ -102,12 +100,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingSurfaceLine = mocks.StrictMock<PipingSurfaceLine>();
-
             mocks.ReplayAll();
 
             // Call
-            Image image = info.Image(pipingSurfaceLine);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PipingSurfaceLineIcon, image);

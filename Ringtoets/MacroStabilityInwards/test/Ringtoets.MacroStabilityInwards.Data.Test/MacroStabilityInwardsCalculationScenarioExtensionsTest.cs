@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_WithoutReferenceLineIntersectionWorldPoint_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 5.0, 0.0),
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectsReferenceline_ReturnsFalse()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };

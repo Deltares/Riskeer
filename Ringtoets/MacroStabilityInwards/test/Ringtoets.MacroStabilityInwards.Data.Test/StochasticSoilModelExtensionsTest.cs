@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IntersectsWithSurfaceLineGeometry_SoilModelNull_ThrowArgumentNullException()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(5.0, 0.0)
             });
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3.0, 5.0, 0.0),
@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(5.0, 0.0)
             });
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 1.0, 0.0),

@@ -143,14 +143,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Line A"
-            };
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Line B"
-            };
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Line A");
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Line B");
 
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]
@@ -177,14 +171,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Line A"
-            };
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Line B"
-            };
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Line A");
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Line B");
 
             var surfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             surfaceLines.AddRange(new[]

@@ -247,9 +247,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
         private PipingSurfaceLine CreateSurfaceLine(Random random)
         {
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("A")
             {
-                Name = "A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
 

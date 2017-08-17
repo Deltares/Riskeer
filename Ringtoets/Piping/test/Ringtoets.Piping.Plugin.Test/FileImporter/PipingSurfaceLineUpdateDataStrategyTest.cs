@@ -170,10 +170,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var surfaceLineToUpdateFrom = new PipingSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
+            var surfaceLineToUpdateFrom = new PipingSurfaceLine(surfaceLine.Name);
             surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
 
             var failureMechanism = new PipingFailureMechanism();
@@ -234,18 +231,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var lineOne = new PipingSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var lineOne = new PipingSurfaceLine(duplicateName);
             lineOne.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3)
             });
-            var lineTwo = new PipingSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var lineTwo = new PipingSurfaceLine(duplicateName);
             lineTwo.SetGeometry(new[]
             {
                 new Point3D(4, 5, 6)
@@ -277,10 +268,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string duplicateName = "Duplicate name it is";
-            var expectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = duplicateName
-            };
+            var expectedSurfaceLine = new PipingSurfaceLine(duplicateName);
             Point3D[] expectedGeometry =
             {
                 new Point3D(0, 1, 2),
@@ -299,14 +287,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             PipingSurfaceLine[] importedSurfaceLines =
             {
-                new PipingSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new PipingSurfaceLine
-                {
-                    Name = duplicateName
-                }
+                new PipingSurfaceLine(duplicateName),
+                new PipingSurfaceLine(duplicateName)
             };
 
             var strategy = new PipingSurfaceLineUpdateDataStrategy(new PipingFailureMechanism());
@@ -331,10 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string collectionSurfaceLineName = "Name A";
-            var targetSurfaceLine = new PipingSurfaceLine
-            {
-                Name = collectionSurfaceLineName
-            };
+            var targetSurfaceLine = new PipingSurfaceLine(collectionSurfaceLineName);
             var failureMechanism = new PipingFailureMechanism();
             PipingSurfaceLineCollection targetCollection = failureMechanism.SurfaceLines;
             targetCollection.AddRange(new[]
@@ -373,15 +352,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string collectionSurfaceLineName = "Name A";
             const string readSurfaceLineName = "Name B";
 
-            var targetSurfaceLine = new PipingSurfaceLine
-            {
-                Name = collectionSurfaceLineName
-            };
+            var targetSurfaceLine = new PipingSurfaceLine(collectionSurfaceLineName);
 
-            var readSurfaceLine = new PipingSurfaceLine
-            {
-                Name = readSurfaceLineName
-            };
+            var readSurfaceLine = new PipingSurfaceLine(readSurfaceLineName);
             var readSurfaceLines = new[]
             {
                 readSurfaceLine
@@ -417,15 +390,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string removedSurfaceLineName = "Name B";
             const string addedSurfaceLineName = "Name C";
 
-            var surfaceLineOne = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var surfaceLineOne = new PipingSurfaceLine(updatedSurfaceLineName);
 
-            var surfaceLineTwo = new PipingSurfaceLine
-            {
-                Name = removedSurfaceLineName
-            };
+            var surfaceLineTwo = new PipingSurfaceLine(removedSurfaceLineName);
 
             var failureMechanism = new PipingFailureMechanism();
             PipingSurfaceLineCollection surfaceLineCollection = failureMechanism.SurfaceLines;
@@ -436,10 +403,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             PipingSurfaceLine readSurfaceLineOne = DeepCloneAndModifyPoints(surfaceLineOne);
-            var readSurfaceLineTwo = new PipingSurfaceLine
-            {
-                Name = addedSurfaceLineName
-            };
+            var readSurfaceLineTwo = new PipingSurfaceLine(addedSurfaceLineName);
             var readSurfaceLines = new[]
             {
                 readSurfaceLineOne,
@@ -522,10 +486,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string updatedSurfaceLineName = "Name A";
             const string unaffectedSurfaceLineName = "Name B";
 
-            var affectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new PipingSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -546,10 +507,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = unaffectedSurfaceLineName
-            };
+            var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -612,10 +570,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string removedSurfaceLineName = "Name A";
             const string unaffectedSurfaceLineName = "Name B";
 
-            var removedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = removedSurfaceLineName
-            };
+            var removedSurfaceLine = new PipingSurfaceLine(removedSurfaceLineName);
             removedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -636,10 +591,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = unaffectedSurfaceLineName
-            };
+            var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -972,10 +924,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             const string updatedSurfaceLineName = "Name A";
 
-            var affectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new PipingSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -994,7 +943,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point3D(10, 9, 8),
                 new Point3D(7, 6, 5)
             };
-            var unaffectedSurfaceLine = new PipingSurfaceLine();
+            var unaffectedSurfaceLine = new PipingSurfaceLine(string.Empty);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
             var unAffectedCalculation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -1081,10 +1030,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             const string updatedSurfaceLineName = "Name A";
 
-            var affectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new PipingSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -1133,10 +1079,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string updatedSurfaceLineName = "Name A";
-            var affectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new PipingSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1202,10 +1145,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string updatedSurfaceLineName = "Name A";
-            var affectedSurfaceLine = new PipingSurfaceLine
-            {
-                Name = updatedSurfaceLineName
-            };
+            var affectedSurfaceLine = new PipingSurfaceLine(updatedSurfaceLineName);
             affectedSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1270,9 +1210,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
         private static PipingSurfaceLine CreateValidSurfaceLineForCalculations()
         {
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Name A")
             {
-                Name = "Name A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(123, 456)
             };
             var geometry = new[]
@@ -1306,10 +1245,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         /// only the name property copied.</returns>
         private static PipingSurfaceLine DeepCloneName(PipingSurfaceLine surfaceLine)
         {
-            return new PipingSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
+            return new PipingSurfaceLine(surfaceLine.Name);
         }
 
         /// <summary>
@@ -1332,9 +1268,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                    oldIntersectionPoint.Y + random.NextDouble());
             }
 
-            var copiedLine = new PipingSurfaceLine
+            var copiedLine = new PipingSurfaceLine(surfaceLine.Name)
             {
-                Name = surfaceLine.Name,
                 ReferenceLineIntersectionWorldPoint = newIntersectionPoint
             };
 

@@ -692,10 +692,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static PipingSurfaceLine GetSurfaceLine(Point3D[] points)
         {
-            var surfaceLine = new PipingSurfaceLine
-            {
-                Name = "Surface line name"
-            };
+            var surfaceLine = new PipingSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);
             return surfaceLine;
         }

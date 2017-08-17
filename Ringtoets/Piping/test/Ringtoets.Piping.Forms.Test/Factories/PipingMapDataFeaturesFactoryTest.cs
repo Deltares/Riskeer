@@ -73,14 +73,8 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             };
             var surfaceLines = new[]
             {
-                new PipingSurfaceLine
-                {
-                    Name = "Surface line 1"
-                },
-                new PipingSurfaceLine
-                {
-                    Name = "Surface line 2"
-                }
+                new PipingSurfaceLine("Surface line 1"),
+                new PipingSurfaceLine("Surface line 2")
             };
             surfaceLines[0].SetGeometry(pointsOne);
             surfaceLines[1].SetGeometry(pointsTwo);

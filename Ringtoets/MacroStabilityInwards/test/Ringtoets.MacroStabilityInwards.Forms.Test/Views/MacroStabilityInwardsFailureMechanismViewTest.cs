@@ -267,20 +267,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point2D(3.3, 4.4)
                 });
 
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line A"
-                };
+                var surfaceLineA = new MacroStabilityInwardsSurfaceLine("Line A");
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Name B"
-                };
+                var surfaceLineB = new MacroStabilityInwardsSurfaceLine("Name B");
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -560,7 +554,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
                 var geometry1 = new Collection<Point3D>
                 {
@@ -599,7 +593,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var view = new MacroStabilityInwardsFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
@@ -725,14 +719,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -774,14 +768,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -824,14 +818,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),

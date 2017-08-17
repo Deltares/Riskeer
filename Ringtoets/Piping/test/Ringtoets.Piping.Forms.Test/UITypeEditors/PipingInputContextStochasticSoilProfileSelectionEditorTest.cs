@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                     stochasticSoilProfile
                 }
             };
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(2, 1, 0),

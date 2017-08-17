@@ -505,7 +505,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty)
             }, "path");
 
             using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
@@ -529,7 +529,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitrarySourcePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty)
             }, arbitrarySourcePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -603,14 +603,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitraryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new PipingSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new PipingSurfaceLine("Line A"),
+                new PipingSurfaceLine("Line B")
             }, arbitraryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -655,14 +649,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitraryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new PipingSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new PipingSurfaceLine("Line A"),
+                new PipingSurfaceLine("Line B")
             }, arbitraryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -699,14 +687,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const string arbitryFilePath = "path";
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new PipingSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new PipingSurfaceLine("Line A"),
+                new PipingSurfaceLine("Line B")
             }, arbitryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -843,7 +825,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // When
                 pipingFailureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new PipingSurfaceLine()
+                    new PipingSurfaceLine(string.Empty)
                 }, "path");
                 pipingFailureMechanism.NotifyObservers();
 
@@ -866,7 +848,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 pipingFailureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new PipingSurfaceLine()
+                    new PipingSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -892,7 +874,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 pipingFailureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new PipingSurfaceLine()
+                    new PipingSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -916,7 +898,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 pipingFailureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new PipingSurfaceLine()
+                    new PipingSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -1253,9 +1235,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 PipingSurfaceLine surfaceLineToChange = pipingCalculation.InputParameters.SurfaceLine;
-                var updatedSurfaceLine = new PipingSurfaceLine
+                var updatedSurfaceLine = new PipingSurfaceLine(surfaceLineToChange.Name)
                 {
-                    Name = surfaceLineToChange.Name,
                     ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
                 };
                 updatedSurfaceLine.SetGeometry(new[]
@@ -1333,9 +1314,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
         {
-            var surfaceLine1 = new PipingSurfaceLine
+            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1346,9 +1326,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new PipingSurfaceLine
+            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -1465,9 +1444,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static PipingFailureMechanism ConfigureSimpleFailureMechanism()
         {
-            var surfaceLine1 = new PipingSurfaceLine
+            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1478,9 +1456,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new PipingSurfaceLine
+            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -1584,9 +1561,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private static PipingFailureMechanism ConfigureFailuremechanism()
         {
-            var surfaceLine1 = new PipingSurfaceLine
+            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1597,9 +1573,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new PipingSurfaceLine
+            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 

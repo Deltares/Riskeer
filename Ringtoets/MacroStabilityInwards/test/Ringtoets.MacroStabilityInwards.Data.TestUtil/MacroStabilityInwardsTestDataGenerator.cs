@@ -127,10 +127,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         public static MacroStabilityInwardsCalculationScenario GetMacroStabilityInwardsCalculationScenario()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("PK001_0001")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "PK001_0001"
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5)
             };
             surfaceLine.SetGeometry(new[]
             {
@@ -206,20 +205,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static void ConfigureFailureMechanismWithAllCalculationConfigurations(MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Line A")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "Line A"
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5)
             };
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
                 new Point3D(0, 10, 0)
             });
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Line B")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5),
-                Name = "Line B"
+                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5)
             };
             surfaceLine2.SetGeometry(new[]
             {

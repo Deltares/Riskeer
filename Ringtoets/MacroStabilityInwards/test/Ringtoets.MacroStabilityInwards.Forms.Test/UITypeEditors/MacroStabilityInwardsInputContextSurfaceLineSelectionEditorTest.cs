@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                calculationItem,
                                                                                new[]
                                                                                {
-                                                                                   new MacroStabilityInwardsSurfaceLine()
+                                                                                   new MacroStabilityInwardsSurfaceLine(string.Empty)
                                                                                },
                                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                                failureMechanism,
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
 
         private static MacroStabilityInwardsSurfaceLine ValidSurfaceLine()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),

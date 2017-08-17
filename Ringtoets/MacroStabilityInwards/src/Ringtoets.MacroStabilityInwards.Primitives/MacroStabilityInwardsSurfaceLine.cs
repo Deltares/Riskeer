@@ -32,6 +32,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     public class MacroStabilityInwardsSurfaceLine : MechanismSurfaceLineBase
     {
         /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLine"/>.
+        /// </summary>
+        /// <param name="name">The name of the surface line.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> 
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsSurfaceLine(string name) : base(name) {}
+
+        /// <summary>
         /// Gets the location which generalizes the height of the surface
         /// on the outside of the polder.
         /// </summary>

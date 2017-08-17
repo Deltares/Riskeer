@@ -62,10 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var point12 = new Point3D(13.1, 4.2, 1.0);
             var point13 = new Point3D(15.1, 5.6, 1.1);
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = expectedName
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(expectedName);
             surfaceLine.SetGeometry(new[]
             {
                 point1,
@@ -124,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             var properties = new MacroStabilityInwardsSurfaceLineProperties

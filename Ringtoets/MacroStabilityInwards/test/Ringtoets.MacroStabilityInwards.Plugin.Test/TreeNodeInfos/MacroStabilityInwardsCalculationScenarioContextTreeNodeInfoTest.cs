@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                          new CalculationGroup(),
                                                                                          new[]
                                                                                          {
-                                                                                             new MacroStabilityInwardsSurfaceLine()
+                                                                                             new MacroStabilityInwardsSurfaceLine(string.Empty)
                                                                                          },
                                                                                          new[]
                                                                                          {

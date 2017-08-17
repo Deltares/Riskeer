@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var surfaceLines = new PipingSurfaceLineCollection();
             surfaceLines.AddRange(new[]
             {
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty)
             }, expectedFilePath);
 
             var failureMechanism = new PipingFailureMechanism();

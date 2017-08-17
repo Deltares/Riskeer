@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_WithMultipleCharacteristicTypesOnSamePoint_ReturnsThickness()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),

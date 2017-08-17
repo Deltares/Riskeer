@@ -42,17 +42,23 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="MechanismSurfaceLineBase"/> class.
         /// </summary>
-        protected MechanismSurfaceLineBase()
+        /// <param name="name">The name of the surface line.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        protected MechanismSurfaceLineBase(string name)
         {
-            Name = string.Empty;
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            Name = name;
             Points = new Point3D[0];
             LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, new Point2D[0]);
         }
 
         /// <summary>
-        /// Gets or sets the name of the surface line.
+        /// Gets the name of the surface line.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Gets the 3D points describing the geometry of the surface line.

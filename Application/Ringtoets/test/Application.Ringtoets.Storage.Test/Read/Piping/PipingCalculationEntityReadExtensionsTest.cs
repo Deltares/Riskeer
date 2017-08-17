@@ -129,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithSurfaceLineInCollector_CalculationHasAlreadyReadSurfaceLine()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),
@@ -168,6 +168,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var surfaceLineEntity = new SurfaceLineEntity
             {
+                Name = "surface line",
                 PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
 

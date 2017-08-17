@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             var importedSurfaceLines = new[]
             {
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty)
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -143,20 +143,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
-            var targetSurfaceLine = new PipingSurfaceLine
-            {
-                Name = "Name A"
-            };
+            var targetSurfaceLine = new PipingSurfaceLine("Name A");
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
             {
                 targetSurfaceLine
             }, sourceFilePath);
 
-            var readSurfaceLine = new PipingSurfaceLine
-            {
-                Name = "Name B"
-            };
+            var readSurfaceLine = new PipingSurfaceLine("Name B");
 
             var strategy = new PipingSurfaceLineReplaceDataStrategy(failureMechanism);
 
@@ -183,7 +177,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
         {
             // Setup
-            var existingSurfaceLine = new PipingSurfaceLine();
+            var existingSurfaceLine = new PipingSurfaceLine(string.Empty);
             existingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 1, 2),
@@ -230,14 +224,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             const string duplicateName = "Duplicate name it is";
             PipingSurfaceLine[] importedSurfaceLines =
             {
-                new PipingSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new PipingSurfaceLine
-                {
-                    Name = duplicateName
-                }
+                new PipingSurfaceLine(duplicateName),
+                new PipingSurfaceLine(duplicateName)
             };
 
             var strategy = new PipingSurfaceLineReplaceDataStrategy(new PipingFailureMechanism());

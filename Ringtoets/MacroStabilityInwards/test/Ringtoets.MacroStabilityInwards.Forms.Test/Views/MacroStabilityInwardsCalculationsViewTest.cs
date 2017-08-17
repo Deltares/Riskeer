@@ -53,20 +53,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int selectableHydraulicBoundaryLocationsColumnIndex = 4;
         private Form testForm;
 
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-
-            testForm.Dispose();
-        }
-
         [Test]
         public void Constructor_DefaultValues()
         {
@@ -433,7 +419,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             }, "path");
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
@@ -457,7 +443,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const string arbitrarySourcePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             }, arbitrarySourcePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -531,14 +517,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const string arbitraryFilePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new MacroStabilityInwardsSurfaceLine("Line A"),
+                new MacroStabilityInwardsSurfaceLine("Line B")
             }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -583,14 +563,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const string arbitraryFilePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new MacroStabilityInwardsSurfaceLine("Line A"),
+                new MacroStabilityInwardsSurfaceLine("Line B")
             }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -627,14 +601,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const string arbitryFilePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line A"
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Line B"
-                }
+                new MacroStabilityInwardsSurfaceLine("Line A"),
+                new MacroStabilityInwardsSurfaceLine("Line B")
             }, arbitryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -771,7 +739,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // When
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new MacroStabilityInwardsSurfaceLine()
+                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                 }, "path");
                 failureMechanism.NotifyObservers();
 
@@ -794,7 +762,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new MacroStabilityInwardsSurfaceLine()
+                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -820,7 +788,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new MacroStabilityInwardsSurfaceLine()
+                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -844,7 +812,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 const string arbitraryFilePath = "path";
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
-                    new MacroStabilityInwardsSurfaceLine()
+                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
@@ -1098,9 +1066,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 MacroStabilityInwardsSurfaceLine surfaceLineToChange = calculation.InputParameters.SurfaceLine;
-                var updatedSurfaceLine = new MacroStabilityInwardsSurfaceLine
+                var updatedSurfaceLine = new MacroStabilityInwardsSurfaceLine(surfaceLineToChange.Name)
                 {
-                    Name = surfaceLineToChange.Name,
                     ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
                 };
                 updatedSurfaceLine.SetGeometry(new[]
@@ -1125,6 +1092,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
             }
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
         }
 
         private MacroStabilityInwardsCalculationsView ShowFullyConfiguredMacroStabilityInwardsCalculationsView(
@@ -1164,9 +1145,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsCalculationsView ShowSimpleMacroStabilityInwardsCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
         {
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1177,9 +1157,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -1296,9 +1275,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static MacroStabilityInwardsFailureMechanism ConfigureSimpleFailureMechanism()
         {
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1309,9 +1287,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -1335,7 +1312,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     Geometry =
                     {
-                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
                     }
                 }
             }, arbirtraryFilePath);
@@ -1389,9 +1367,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static MacroStabilityInwardsFailureMechanism ConfigureFailuremechanism()
         {
-            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
             {
-                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -1402,9 +1379,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point3D(0.0, -5.0, 0.0)
             });
 
-            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Surface line 2")
             {
-                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -1449,7 +1425,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Geometry =
                 {
-                    new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
                 },
                 StochasticSoilProfiles =
                 {
@@ -1480,7 +1457,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Geometry =
                 {
-                    new Point2D(1.0, 0.0), new Point2D(6.0, 0.0)
+                    new Point2D(1.0, 0.0),
+                    new Point2D(6.0, 0.0)
                 },
                 StochasticSoilProfiles =
                 {
@@ -1495,7 +1473,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     Geometry =
                     {
-                        new Point2D(1.0, 0.0), new Point2D(4.0, 0.0)
+                        new Point2D(1.0, 0.0),
+                        new Point2D(4.0, 0.0)
                     },
                     StochasticSoilProfiles =
                     {

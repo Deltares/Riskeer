@@ -53,10 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         {
             Point2D intersectionPoint = surfaceLine.GetSingleReferenceLineIntersection(referenceLine);
 
-            var macroStabilityInwardsSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = surfaceLine.Name
-            };
+            var macroStabilityInwardsSurfaceLine = new MacroStabilityInwardsSurfaceLine(surfaceLine.Name);
             macroStabilityInwardsSurfaceLine.SetGeometry(surfaceLine.Points);
 
             macroStabilityInwardsSurfaceLine.SetCharacteristicPoints(characteristicPoints);

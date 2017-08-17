@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             var surfaceLines = new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
             var soilModels = new[]
             {
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             var surfaceLines = new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
             var soilModels = new[]
             {

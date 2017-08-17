@@ -132,10 +132,9 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario GetPipingCalculationScenario()
         {
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("PK001_0001")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "PK001_0001"
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5)
             };
             surfaceLine.SetGeometry(new[]
             {
@@ -243,20 +242,18 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static void ConfigureFailureMechanismWithAllCalculationConfigurations(PipingFailureMechanism failureMechanism,
                                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            var surfaceLine1 = new PipingSurfaceLine
+            var surfaceLine1 = new PipingSurfaceLine("Line A")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5),
-                Name = "Line A"
+                ReferenceLineIntersectionWorldPoint = new Point2D(0, 5)
             };
             surfaceLine1.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
                 new Point3D(0, 10, 0)
             });
-            var surfaceLine2 = new PipingSurfaceLine
+            var surfaceLine2 = new PipingSurfaceLine("Line B")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5),
-                Name = "Line B"
+                ReferenceLineIntersectionWorldPoint = new Point2D(10, 5)
             };
             surfaceLine2.SetGeometry(new[]
             {
@@ -419,7 +416,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         {
             var random = new Random(21);
 
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(random.Next(0, 5), random.Next(0, 5), random.Next(0, 5)),

@@ -48,8 +48,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             PipingSurfaceLine[] surfaceLines =
             {
-                new PipingSurfaceLine(),
-                new PipingSurfaceLine()
+                new PipingSurfaceLine(string.Empty),
+                new PipingSurfaceLine(string.Empty)
             };
 
             var soilModels = new[]

@@ -34,20 +34,35 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
     public class MacroStabilityInwardsSurfaceLineTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            TestDelegate test = () => new MacroStabilityInwardsSurfaceLine(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Setup
+            const string name = "some name";
+
+            // Call
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Assert
             Assert.IsInstanceOf<MechanismSurfaceLineBase>(surfaceLine);
+            Assert.AreEqual(name, surfaceLine.Name);
         }
 
         [Test]
         public void CopyProperties_WithSurfaceLineNull_ThrowsArgumentNullException()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             TestDelegate call = () => surfaceLine.CopyProperties(null);
@@ -85,9 +100,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateSurfaceLineWithCharacteristicPoints();
-            var surfaceLineToUpdateFrom = new MacroStabilityInwardsSurfaceLine
+            var surfaceLineToUpdateFrom = new MacroStabilityInwardsSurfaceLine(surfaceLine.Name)
             {
-                Name = surfaceLine.Name,
                 ReferenceLineIntersectionWorldPoint = surfaceLine.ReferenceLineIntersectionWorldPoint
             };
             surfaceLineToUpdateFrom.SetGeometry(surfaceLine.Points);
@@ -120,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void CopyProperties_LineWithUpdatedGeometryAndReferenceLineIntersectionAndCharacteristicPoints_PropertiesUpdated()
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             MacroStabilityInwardsSurfaceLine surfaceLineToUpdateFrom = CreateSurfaceLineWithCharacteristicPoints();
 
             // Call
@@ -148,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             bool isLineOneEqualToLineOne = surfaceLineOne.Equals(surfaceLineOne);
@@ -161,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_SameReference_ReturnsTrue()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
             MacroStabilityInwardsSurfaceLine surfaceLineTwo = surfaceLineOne;
 
             // Call
@@ -177,10 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
 
             // Call
             bool isLineOneEqualToNull = surfaceLineOne.Equals(null);
@@ -193,11 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_ToDifferentType_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
-
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
             var differentType = new object();
 
             // Call
@@ -213,11 +220,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentNames_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineOne.Name = "Name A";
-
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            surfaceLineTwo.Name = "Name B";
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints("Name one");
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints("Name two");
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -232,19 +236,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentGeometries_ReturnsFalse()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine("Name A");
             surfaceLineOne.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3)
             });
 
-            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
+            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine("Name A");
             surfaceLineTwo.SetGeometry(new[]
             {
                 new Point3D(3, 4, 5)
@@ -551,8 +549,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetHashCode_EqualSurfaceLines_ReturnSameHashCode()
         {
             // Setup
-            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine();
-            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLineOne = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var surfaceLineTwo = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
             int hashCodeOne = surfaceLineOne.GetHashCode();
@@ -572,7 +570,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 const double testY = 2.2;
                 const double testZ = 4.4;
                 var testPoint = new Point3D(testX, testY, testZ);
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 CreateTestGeometry(testPoint, surfaceLine);
 
                 // Call
@@ -589,7 +587,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 // Setup
                 var random = new Random(21);
                 var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
@@ -603,7 +601,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             public void Null_ThrowsArgumentNullException()
             {
                 // Setup
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
                 // Call
                 TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
@@ -867,7 +865,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private class TestSurfaceLine : MacroStabilityInwardsSurfaceLine
         {
-            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine profile)
+            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine profile) : base(string.Empty)
             {
                 CopyProperties(profile);
             }
@@ -907,11 +905,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }
         }
 
-        private static MacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints()
+        private static MacroStabilityInwardsSurfaceLine CreateSurfaceLineWithCharacteristicPoints(string name = "Name A")
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name)
             {
-                Name = "Name A",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0, 0)
             };
             var geometry = new[]

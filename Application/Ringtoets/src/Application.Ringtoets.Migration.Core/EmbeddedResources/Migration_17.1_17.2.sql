@@ -1077,7 +1077,28 @@ SELECT
 	[Order]
 	FROM [SOURCEPROJECT].StochasticSoilProfileEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
-INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
+INSERT INTO SurfaceLineEntity (
+	[SurfaceLineEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	[PointsXml],
+	[Order])
+SELECT 
+	[SurfaceLineEntityId],
+	[FailureMechanismEntityId],
+	CASE
+		WHEN [Name] IS NULL
+			THEN ""
+		ELSE
+			[Name]
+	END,
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	[PointsXml],
+	[Order]
+	FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO VersionEntity (
 	[VersionId], 

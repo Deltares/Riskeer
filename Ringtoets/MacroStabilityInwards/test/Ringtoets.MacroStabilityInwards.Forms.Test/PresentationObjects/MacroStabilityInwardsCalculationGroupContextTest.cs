@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var surfaceLines = new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
             var soilModels = new StochasticSoilModel[]
             {

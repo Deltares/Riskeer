@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                  null,
                                                                  new[]
                                                                  {
-                                                                     new PipingSurfaceLine()
+                                                                     new PipingSurfaceLine(string.Empty)
                                                                  },
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                  pipingFailureMechanism,
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                  null,
                                                                  new[]
                                                                  {
-                                                                     new PipingSurfaceLine()
+                                                                     new PipingSurfaceLine(string.Empty)
                                                                  },
                                                                  new[]
                                                                  {
@@ -1189,14 +1189,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 var surfaceLines = new[]
                 {
-                    new PipingSurfaceLine
-                    {
-                        Name = "surfaceLine1"
-                    },
-                    new PipingSurfaceLine
-                    {
-                        Name = "surfaceLine2"
-                    }
+                    new PipingSurfaceLine("surfaceLine1"),
+                    new PipingSurfaceLine("surfaceLine2")
                 };
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  null,
@@ -1251,9 +1245,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new PipingSurfaceLine
+                var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
                 {
-                    Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
                 };
 
@@ -1264,9 +1257,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new PipingSurfaceLine
+                var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
                 {
-                    Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
                 };
 
@@ -1371,9 +1363,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new PipingSurfaceLine
+                var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
                 {
-                    Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
                 };
 
@@ -1384,9 +1375,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new PipingSurfaceLine
+                var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
                 {
-                    Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
                 };
 
@@ -1577,7 +1567,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 calculation1InputObserver.Expect(obs => obs.UpdateObserver());
                 calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1672,7 +1662,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var calculation2Observer = mocks.StrictMock<IObserver>();
                 var calculation2InputObserver = mocks.StrictMock<IObserver>();
 
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1790,7 +1780,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 calculation2Observer.Expect(obs => obs.UpdateObserver());
                 calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),

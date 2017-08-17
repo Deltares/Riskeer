@@ -85,21 +85,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -492,7 +477,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 null,
                                                                                 new[]
                                                                                 {
-                                                                                    new MacroStabilityInwardsSurfaceLine()
+                                                                                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                                                                                 },
                                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                                 failureMechanism,
@@ -535,7 +520,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 null,
                                                                                 new[]
                                                                                 {
-                                                                                    new MacroStabilityInwardsSurfaceLine()
+                                                                                    new MacroStabilityInwardsSurfaceLine(string.Empty)
                                                                                 },
                                                                                 new[]
                                                                                 {
@@ -1021,14 +1006,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var surfaceLines = new[]
                 {
-                    new MacroStabilityInwardsSurfaceLine
-                    {
-                        Name = "surfaceLine1"
-                    },
-                    new MacroStabilityInwardsSurfaceLine
-                    {
-                        Name = "surfaceLine2"
-                    }
+                    new MacroStabilityInwardsSurfaceLine("surfaceLine1"),
+                    new MacroStabilityInwardsSurfaceLine("surfaceLine2")
                 };
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,
@@ -1083,9 +1062,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+                var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
                 {
-                    Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
                 };
 
@@ -1096,9 +1074,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+                var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Surface line 2")
                 {
-                    Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
                 };
 
@@ -1197,9 +1174,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var surfaceLine1 = new MacroStabilityInwardsSurfaceLine
+                var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
                 {
-                    Name = "Surface line 1",
                     ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
                 };
 
@@ -1210,9 +1186,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     new Point3D(0.0, -5.0, 0.0)
                 });
 
-                var surfaceLine2 = new MacroStabilityInwardsSurfaceLine
+                var surfaceLine2 = new MacroStabilityInwardsSurfaceLine("Surface line 2")
                 {
-                    Name = "Surface line 2",
                     ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
                 };
 
@@ -1387,6 +1362,21 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
             CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(macroStabilityInwardsFailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()), calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new MacroStabilityInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
     }
 }

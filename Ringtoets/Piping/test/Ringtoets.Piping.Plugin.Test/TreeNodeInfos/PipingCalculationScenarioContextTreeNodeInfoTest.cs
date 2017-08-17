@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                                 new CalculationGroup(),
                                                                                 new[]
                                                                                 {
-                                                                                    new PipingSurfaceLine()
+                                                                                    new PipingSurfaceLine(string.Empty)
                                                                                 },
                                                                                 new[]
                                                                                 {
@@ -497,7 +497,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -545,7 +545,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 surfaceLine.SetGeometry(new[]
                 {
                     new Point3D(1, 2, 3),
@@ -1148,7 +1148,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
         private static void CreateCalculationWithSurfaceLine(out PipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine)
         {
-            surfaceLine = new PipingSurfaceLine();
+            surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(1, 2, 3),

@@ -968,7 +968,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 0),
@@ -1527,7 +1527,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
         private static MacroStabilityInwardsSurfaceLine ValidSurfaceLine(double xMin, double xMax)
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(xMin, 0.0, 0.0),

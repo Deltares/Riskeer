@@ -41,28 +41,16 @@ namespace Ringtoets.Piping.Data.Test
 
         protected override IEnumerable<PipingSurfaceLine> UniqueElements()
         {
-            yield return new PipingSurfaceLine
-            {
-                Name = "Name A"
-            };
-            yield return new PipingSurfaceLine
-            {
-                Name = "Name B"
-            };
+            yield return new PipingSurfaceLine("Name A");
+            yield return new PipingSurfaceLine("Name B");
         }
 
         protected override IEnumerable<PipingSurfaceLine> SingleNonUniqueElements()
         {
             const string duplicateName = "Duplicate name it is";
 
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateName
-            };
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateName
-            };
+            yield return new PipingSurfaceLine(duplicateName);
+            yield return new PipingSurfaceLine(duplicateName);
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<PipingSurfaceLine> itemsToAdd)
@@ -76,22 +64,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             const string duplicateNameOne = "Duplicate name it is";
             const string duplicateNameTwo = "Duplicate name again";
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateNameOne
-            };
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateNameOne
-            };
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateNameTwo
-            };
-            yield return new PipingSurfaceLine
-            {
-                Name = duplicateNameTwo
-            };
+            yield return new PipingSurfaceLine(duplicateNameOne);
+            yield return new PipingSurfaceLine(duplicateNameOne);
+            yield return new PipingSurfaceLine(duplicateNameTwo);
+            yield return new PipingSurfaceLine(duplicateNameTwo);
         }
 
         protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<PipingSurfaceLine> itemsToAdd)

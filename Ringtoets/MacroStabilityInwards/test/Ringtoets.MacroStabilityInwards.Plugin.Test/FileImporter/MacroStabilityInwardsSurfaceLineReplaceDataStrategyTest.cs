@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             var importedSurfaceLines = new[]
             {
-                new MacroStabilityInwardsSurfaceLine()
+                new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -142,20 +142,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCurrentAndImportedDataAreDifferent_ReplacesCurrentWithImportedData()
         {
             // Setup
-            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name A"
-            };
+            var targetSurfaceLine = new MacroStabilityInwardsSurfaceLine("Name A");
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
             {
                 targetSurfaceLine
             }, sourceFilePath);
 
-            var readSurfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Name B"
-            };
+            var readSurfaceLine = new MacroStabilityInwardsSurfaceLine("Name B");
 
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(failureMechanism);
 
@@ -182,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_CalculationWithOutputSurfaceLine_CalculationUpdatedAndReturnsAffectedObject()
         {
             // Setup
-            var existingSurfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var existingSurfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             existingSurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 1, 2),
@@ -229,14 +223,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             const string duplicateName = "Duplicate name it is";
             MacroStabilityInwardsSurfaceLine[] importedSurfaceLines =
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = duplicateName
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = duplicateName
-                }
+                new MacroStabilityInwardsSurfaceLine(duplicateName),
+                new MacroStabilityInwardsSurfaceLine(duplicateName)
             };
 
             var strategy = new MacroStabilityInwardsSurfaceLineReplaceDataStrategy(new MacroStabilityInwardsFailureMechanism());

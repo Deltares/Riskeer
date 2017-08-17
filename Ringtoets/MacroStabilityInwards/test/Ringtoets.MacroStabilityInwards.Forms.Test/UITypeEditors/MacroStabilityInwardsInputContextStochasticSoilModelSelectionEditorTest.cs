@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                     stochasticSoilProfile
                 }
             };
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(2, 1, 0),

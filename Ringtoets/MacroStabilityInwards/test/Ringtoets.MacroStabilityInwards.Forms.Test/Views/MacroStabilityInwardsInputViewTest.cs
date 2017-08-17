@@ -737,10 +737,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = "Surface line name"
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);
             return surfaceLine;
         }

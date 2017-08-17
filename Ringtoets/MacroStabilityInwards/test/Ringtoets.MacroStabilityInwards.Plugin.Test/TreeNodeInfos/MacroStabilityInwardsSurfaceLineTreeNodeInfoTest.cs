@@ -85,10 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var surfaceLine = mocks.StrictMock<MacroStabilityInwardsSurfaceLine>();
             const string testName = "ttt";
-            surfaceLine.Name = testName;
-
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(testName);
             mocks.ReplayAll();
 
             // Call
@@ -102,12 +100,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var surfaceLine = mocks.StrictMock<MacroStabilityInwardsSurfaceLine>();
-
             mocks.ReplayAll();
 
             // Call
-            Image image = info.Image(surfaceLine);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.SurfaceLineIcon, image);

@@ -173,10 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         {
             // Setup
             const string name = "Some line name";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = name
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(3, 2, 5),
@@ -200,7 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void SetCharacteristicPoints_ValidSituations_PointsAreSet(CharacteristicPoints points)
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine();
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
@@ -227,10 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void SetCharacteristicPoints_UndefinedMandatoryPoint_ThrowsImportedDataTransformException(CharacteristicPoints points, string pointDescription)
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = points.Name
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(points.Name);
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             // Call
@@ -250,10 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             string pointDescription)
         {
             // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = points.Name
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(points.Name);
             surfaceLine.SetGeometry(CharacteristicPointsToGeometry(points));
 
             var changedPoint = new Point3D(-1, -1, -1);

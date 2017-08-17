@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
+                Name = "surface line",
                 PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
 
@@ -75,6 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             var entity = new SurfaceLineEntity
             {
+                Name = "surface line",
                 PointsXml = xml
             };
 
@@ -248,27 +250,45 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 {
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.BottomDitchDikeSide
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.BottomDitchDikeSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.BottomDitchPolderSide
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.BottomDitchPolderSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.DikeToeAtPolder
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.DikeToeAtPolder
                     },
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.DikeToeAtRiver
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.DikeToeAtRiver
                     },
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.DitchDikeSide
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.DitchDikeSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X = x, Y = y, Z = z, Type = (byte) CharacteristicPointType.DitchPolderSide
+                        X = x,
+                        Y = y,
+                        Z = z,
+                        Type = (byte) CharacteristicPointType.DitchPolderSide
                     }
                 }
             };
@@ -301,6 +321,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
+                Name = "surface line",
                 PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
 
@@ -317,7 +338,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             return new CharacteristicPointEntity
             {
                 Type = (byte) type,
-                X = point.X, Y = point.Y, Z = point.Z
+                X = point.X,
+                Y = point.Y,
+                Z = point.Z
             };
         }
     }

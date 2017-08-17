@@ -115,10 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         {
             // Setup
             const string testname = "testName";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
-            {
-                Name = testname
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(testname);
 
             // Call
             using (var viewParent = new Form())

@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
             TestDelegate call = () => surfaceLine.Create(null, 0);
@@ -54,9 +54,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             int order = new Random(96).Next();
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Test")
             {
-                Name = "Test",
                 ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
             };
 
@@ -83,9 +82,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var registry = new PersistenceRegistry();
             const string originalName = "Test";
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(originalName)
             {
-                Name = originalName,
                 ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
             };
 
@@ -110,9 +108,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 new Point3D(4.4, 5.5, 6.6),
                 new Point3D(7.7, 8.8, 9.9)
             };
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Test")
             {
-                Name = "Test",
                 ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             };
             surfaceLine.SetGeometry(geometry);
@@ -150,9 +147,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 new Point3D(19.19, 20.20, 21.21),
                 new Point3D(22.22, 23.23, 24.24)
             };
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Test")
             {
-                Name = "Test",
                 ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
             };
             surfaceLine.SetGeometry(geometry);
@@ -235,9 +231,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 new Point3D(1.1, 2.2, 3.3)
             };
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Test")
             {
-                Name = "Test",
                 ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
             };
             surfaceLine.SetGeometry(geometry);
@@ -280,7 +275,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
@@ -296,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_CreatingEntityForSameSurfaceLine_ReturnSamenEntity()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             };

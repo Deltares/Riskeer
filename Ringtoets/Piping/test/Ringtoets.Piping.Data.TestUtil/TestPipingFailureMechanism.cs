@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new instance of <see cref="TestPipingFailureMechanism"/>.</returns>
         public static TestPipingFailureMechanism GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels()
         {
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };

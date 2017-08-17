@@ -1019,9 +1019,8 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static PipingSurfaceLine GetSurfaceLine()
         {
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new PipingSurfaceLine("Surface line")
             {
-                Name = "Surface line",
                 ReferenceLineIntersectionWorldPoint = new Point2D(4.0, 6.0)
             };
 

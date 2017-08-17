@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new instance of <see cref="TestMacroStabilityInwardsFailureMechanism"/>.</returns>
         public static TestMacroStabilityInwardsFailureMechanism GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels()
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty)
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };

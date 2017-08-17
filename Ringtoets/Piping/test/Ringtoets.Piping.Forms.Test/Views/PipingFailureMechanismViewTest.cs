@@ -272,20 +272,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     }
                 };
 
-                var surfaceLineA = new PipingSurfaceLine
-                {
-                    Name = "Line A"
-                };
+                var surfaceLineA = new PipingSurfaceLine("Line A");
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new PipingSurfaceLine
-                {
-                    Name = "Name B"
-                };
+                var surfaceLineB = new PipingSurfaceLine("Name B");
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -565,7 +559,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
 
                 var geometry1 = new Collection<Point3D>
                 {
@@ -604,7 +598,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismView())
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var surfaceLine = new PipingSurfaceLine();
+                var surfaceLine = new PipingSurfaceLine(string.Empty);
                 var failureMechanism = new PipingFailureMechanism();
                 failureMechanism.SurfaceLines.AddRange(new[]
                 {
@@ -731,14 +725,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
-                var surfaceLineA = new PipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new PipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -780,14 +774,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new PipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new PipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),
@@ -830,14 +824,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new PipingSurfaceLine();
+                var surfaceLineA = new PipingSurfaceLine(string.Empty);
                 surfaceLineA.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.0),
                     new Point3D(3.0, 0.0, 1.7)
                 });
 
-                var surfaceLineB = new PipingSurfaceLine();
+                var surfaceLineB = new PipingSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
                 {
                     new Point3D(0.0, 0.0, 1.5),

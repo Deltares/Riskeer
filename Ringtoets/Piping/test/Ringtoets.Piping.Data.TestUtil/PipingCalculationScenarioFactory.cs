@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(section));
             }
-            var pipingSurfaceLine = new PipingSurfaceLine();
+            var pipingSurfaceLine = new PipingSurfaceLine(string.Empty);
             Point2D p = section.Points.First();
             pipingSurfaceLine.SetGeometry(new[]
             {
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                         PermeabilityMean = 1.0
                     }
                 }, SoilProfileType.SoilProfile1D));
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
             var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);

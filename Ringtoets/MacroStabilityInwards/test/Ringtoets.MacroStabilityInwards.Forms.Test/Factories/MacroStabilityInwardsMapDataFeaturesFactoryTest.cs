@@ -72,14 +72,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
             var surfaceLines = new[]
             {
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Surface line 1"
-                },
-                new MacroStabilityInwardsSurfaceLine
-                {
-                    Name = "Surface line 2"
-                }
+                new MacroStabilityInwardsSurfaceLine("Surface line 1"),
+                new MacroStabilityInwardsSurfaceLine("Surface line 2")
             };
             surfaceLines[0].SetGeometry(pointsOne);
             surfaceLines[1].SetGeometry(pointsTwo);
