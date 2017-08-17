@@ -531,6 +531,96 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offsets PL1 eigenschappen..
+        /// </summary>
+        public static string Offsets_Description {
+            get {
+                return ResourceManager.GetString("Offsets_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offsets PL1.
+        /// </summary>
+        public static string Offsets_DisplayName {
+            get {
+                return ResourceManager.GetString("Offsets_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts..
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeToeAtPolder_Description {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeToeAtPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL1 offset onder teen dijk binnenwaarts [m].
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeToeAtPolder_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeToeAtPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud..
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeTopAtPolder_Description {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeTopAtPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL1 offset onder binnenkruin [m].
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud..
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeTopAtRiver_Description {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeTopAtRiver_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL1 offset onder buitenkruin [m].
+        /// </summary>
+        public static string PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm..
+        /// </summary>
+        public static string PhreaticLineOffsetBelowShoulderBaseInside_Description {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowShoulderBaseInside_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL1 offset onder insteek binnenberm [m].
+        /// </summary>
+        public static string PhreaticLineOffsetBelowShoulderBaseInside_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLineOffsetBelowShoulderBaseInside_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SoilProfileIcon {
@@ -710,6 +800,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SurfaceLineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?.
+        /// </summary>
+        public static string UseDefaultOffset_Description {
+            get {
+                return ResourceManager.GetString("UseDefaultOffset_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik default waarden voor offsets van PL1.
+        /// </summary>
+        public static string UseDefaultOffset_DisplayName {
+            get {
+                return ResourceManager.GetString("UseDefaultOffset_DisplayName", resourceCulture);
             }
         }
         

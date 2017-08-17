@@ -38,11 +38,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     public class MacroStabilityInwardsWaterStressesProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
-        private const int waterLevelRiverAveragePropertyIndex = 0;
-        private const int waterLevelPolderPropertyIndex = 1;
-        private const int drainagePropertyIndex = 2;
-        private const int minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 3;
-        private const int minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 4;
+        private const int waterLevelRiverAveragePropertyIndex = 1;
+        private const int waterLevelPolderPropertyIndex = 2;
+        private const int drainagePropertyIndex = 3;
+        private const int minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 4;
+        private const int minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 5;
+        private const int offsetsPropertyIndex = 6;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -140,6 +141,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.MinimumLevelPhreaticLineAtDikeTopPolder = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(offsetsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Offsets_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Offsets_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsOffsetsProperties Offsets
+        {
+            get
+            {
+                return new MacroStabilityInwardsOffsetsProperties(data, propertyChangeHandler);
             }
         }
 

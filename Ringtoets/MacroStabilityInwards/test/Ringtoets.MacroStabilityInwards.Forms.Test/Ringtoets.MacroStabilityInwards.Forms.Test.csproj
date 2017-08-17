@@ -70,6 +70,7 @@
     <Compile Include="PresentationObjects\StochasticSoilModelCollectionContextTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsDrainagePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesPropertiesTest.cs" />

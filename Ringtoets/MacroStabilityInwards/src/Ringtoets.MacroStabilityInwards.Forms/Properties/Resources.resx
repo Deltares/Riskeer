@@ -343,6 +343,42 @@
   <data name="MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName" xml:space="preserve">
     <value>PL 1 initiele hoogte onder buitenkruin [m+NAP]</value>
   </data>
+  <data name="Offsets_Description" xml:space="preserve">
+    <value>Offsets PL1 eigenschappen.</value>
+  </data>
+  <data name="Offsets_DisplayName" xml:space="preserve">
+    <value>Offsets PL1</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeToeAtPolder_Description" xml:space="preserve">
+    <value>Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts.</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeToeAtPolder_DisplayName" xml:space="preserve">
+    <value>PL1 offset onder teen dijk binnenwaarts [m]</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeTopAtPolder_Description" xml:space="preserve">
+    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName" xml:space="preserve">
+    <value>PL1 offset onder binnenkruin [m]</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeTopAtRiver_Description" xml:space="preserve">
+    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName" xml:space="preserve">
+    <value>PL1 offset onder buitenkruin [m]</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowShoulderBaseInside_Description" xml:space="preserve">
+    <value>Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm.</value>
+  </data>
+  <data name="PhreaticLineOffsetBelowShoulderBaseInside_DisplayName" xml:space="preserve">
+    <value>PL1 offset onder insteek binnenberm [m]</value>
+  </data>
+  <data name="UseDefaultOffset_Description" xml:space="preserve">
+    <value>Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?</value>
+  </data>
+  <data name="UseDefaultOffset_DisplayName" xml:space="preserve">
+    <value>Gebruik default waarden voor offsets van PL1</value>
+  </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
     <value>X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
   </data>

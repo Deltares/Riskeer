@@ -235,10 +235,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
 
             // Call
-            bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
+            bool result = properties.DynamicReadOnlyValidationMethod("");
 
             // Assert
-            Assert.AreNotEqual(drainageConstructionPresent, result);
+            Assert.AreEqual(!drainageConstructionPresent, result);
         }
 
         [Test]

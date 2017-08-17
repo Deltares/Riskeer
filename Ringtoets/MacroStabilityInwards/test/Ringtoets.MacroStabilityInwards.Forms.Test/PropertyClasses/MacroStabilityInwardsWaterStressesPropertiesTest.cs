@@ -43,6 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedDrainagePropertyIndex = 2;
         private const int expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 3;
         private const int expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 4;
+        private const int expecteOffsetPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -108,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string waterStressesCategory = "Waterspanningen";
 
@@ -149,6 +150,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "PL 1 initiele hoogte onder binnenkruin [m+NAP]",
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
 
+            PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
+            Assert.AreEqual(typeof(ExpandableObjectConverter), offsetProperty.Converter.GetType());
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                offsetProperty,
+                waterStressesCategory,
+                "Offsets PL1",
+                "Offsets PL1 eigenschappen.",
+                true);
+
             mocks.VerifyAll();
         }
 
@@ -171,6 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(input, properties.Drainage.Data);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreSame(input, properties.Offsets.Data);
             mocks.VerifyAll();
         }
 
