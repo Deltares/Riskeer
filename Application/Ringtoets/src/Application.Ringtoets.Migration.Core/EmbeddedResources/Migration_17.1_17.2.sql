@@ -721,7 +721,12 @@ INSERT INTO SoilProfileEntity(
 SELECT 
 	[SoilProfileEntityId],
 	[Bottom],
-	[Name],
+	CASE
+		WHEN [Name] IS NULL
+			THEN ""
+		ELSE
+			[Name]
+	END,
 	(
 		SELECT SSP.[Type]
 		FROM [SOURCEPROJECT].StochasticSoilProfileEntity SSP
