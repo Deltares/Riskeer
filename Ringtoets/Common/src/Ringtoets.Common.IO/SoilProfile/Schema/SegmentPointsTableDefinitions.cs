@@ -27,17 +27,17 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class SegmentPointsTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "SegmentPoints";
 
         /// <summary>
-        /// Gets the name of the world x coordinate column.
+        /// The name of the world x coordinate column.
         /// </summary>
         public const string CoordinateX = "XWorld";
 
         /// <summary>
-        /// Gets the name of the world Y coordinate column.
+        /// The name of the world Y coordinate column.
         /// </summary>
         public const string CoordinateY = "YWorld";
     }

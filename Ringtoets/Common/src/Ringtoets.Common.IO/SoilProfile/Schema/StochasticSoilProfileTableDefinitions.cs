@@ -27,27 +27,27 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class StochasticSoilProfileTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "StochasticSoilProfile";
 
         /// <summary>
-        /// Gets the name of the stochastic soil profile 1D id column.
+        /// The name of the stochastic soil profile 1D id column.
         /// </summary>
         public const string SoilProfile1DId = "SP1D_ID";
 
         /// <summary>
-        /// Gets the name of the stochastic soil profile 2D id column.
+        /// The name of the stochastic soil profile 2D id column.
         /// </summary>
         public const string SoilProfile2DId = "SP2D_ID";
 
         /// <summary>
-        /// Gets the name of the stochastic soil profile probability column.
+        /// The name of the stochastic soil profile probability column.
         /// </summary>
         public const string Probability = "Probability";
 
         /// <summary>
-        /// Gets the name of the alias used for identifying if the database consists only of 
+        /// The name of the alias used for identifying if the database consists only of 
         /// valid probabilities.
         /// </summary>
         public const string AllProbabilitiesValid = "AllProbabilitiesValid";

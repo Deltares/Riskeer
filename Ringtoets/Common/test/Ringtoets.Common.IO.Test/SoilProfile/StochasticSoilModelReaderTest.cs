@@ -281,7 +281,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<StochasticSoilModelException>(test);
 
-                const string expectedMessage = "Het faalmechanisme 'AssessmentLevel' wordt niet ondersteund.";
+                const string expectedMessage = "Het faalmechanisme 'UNKNOWN' wordt niet ondersteund.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 

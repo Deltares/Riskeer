@@ -27,17 +27,17 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class MechanismTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "Mechanism";
 
         /// <summary>
-        /// Gets the name of the failure mechanism id column.
+        /// The name of the failure mechanism id column.
         /// </summary>
         public const string MechanismId = "ME_ID";
 
         /// <summary>
-        /// Gets the name of the failure mechanism name column.
+        /// The name of the failure mechanism name column.
         /// </summary>
         public const string MechanismName = "ME_Name";
     }

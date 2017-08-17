@@ -27,27 +27,27 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class StochasticSoilModelTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "StochasticSoilModel";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model id column.
+        /// The name of the stochastic soil model id column.
         /// </summary>
         public const string StochasticSoilModelId = "SSM_ID";
 
         /// <summary>
-        /// Gets the name of the stochastic soil model name column.
+        /// The name of the stochastic soil model name column.
         /// </summary>
         public const string StochasticSoilModelName = "SSM_Name";
 
         /// <summary>
-        /// Gets the name of the alias used for identifying if segments are unique.
+        /// The name of the alias used for identifying if segments are unique.
         /// </summary>
         public const string AreSegmentsUnique = "AreSegmentsUnique";
 
         /// <summary>
-        /// Gets the name of the alias used for the number of rows that can be read.
+        /// The name of the alias used for the number of rows that can be read.
         /// </summary>
         public const string Count = "nrOfRows";
     }

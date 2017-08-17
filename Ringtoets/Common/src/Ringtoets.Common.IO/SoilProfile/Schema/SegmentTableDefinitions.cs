@@ -27,12 +27,12 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class SegmentTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "Segment";
 
         /// <summary>
-        /// Gets the name of the segment id column.
+        /// The name of the segment id column.
         /// </summary>
         public const string SegmentId = "SE_ID";
     }

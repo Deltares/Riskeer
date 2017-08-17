@@ -31,12 +31,14 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         Settlement = 2,
         PipingUpliftGradient = 3,
         Piping = 4,
+        Koswat = 5,
         FlowSlide = 6,
         Overtopping = 7,
         AnchorLoading = 9,
         DAM = 10,
         Structures = 11,
         BlockRevetment = 12,
+        AssessmentLevel = 13,
         Dunes = 14,
         AsphaltRevetment = 15
     }

@@ -27,17 +27,17 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
     internal static class MetaTableDefinitions
     {
         /// <summary>
-        /// Gets the name of the table.
+        /// The name of the table.
         /// </summary>
         public const string TableName = "_MetaData";
 
         /// <summary>
-        /// Gets the name of the 'key' column.
+        /// The name of the 'key' column.
         /// </summary>
         public const string Key = "Key";
 
         /// <summary>
-        /// Gets the name of the 'value' column.
+        /// The name of the 'value' column.
         /// </summary>
         public const string Value = "Value";
     }

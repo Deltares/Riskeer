@@ -34,14 +34,17 @@ namespace Ringtoets.Common.IO.SoilProfile
     internal class LayerProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
+        /// Creates a new instance of <see cref="LayerProperties"/>, that contains properties
         /// that are required to create a complete soil layer.
         /// </summary>
-        /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain the required layer property values from.</param>
-        /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        /// <exception cref="SoilProfileReadException">Thrown when the values in the database cannot be 
-        /// casted to the expected column types.</exception>
+        /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain the required 
+        /// layer property values from.</param>
+        /// <param name="profileName">The profile name used in generating exceptions messages 
+        /// if reading property values fails.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is 
+        /// <c>null</c>.</exception>
+        /// <exception cref="SoilProfileReadException">Thrown when the values in the database 
+        /// cannot be casted to the expected column types.</exception>
         internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
         {
             if (reader == null)
@@ -101,7 +104,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Gets a <see cref="double"/> value representing  whether the layer is an aquifer.
+        /// Gets a <see cref="double"/> value representing whether the layer is an aquifer.
         /// </summary>
         public double? IsAquifer { get; }
 
