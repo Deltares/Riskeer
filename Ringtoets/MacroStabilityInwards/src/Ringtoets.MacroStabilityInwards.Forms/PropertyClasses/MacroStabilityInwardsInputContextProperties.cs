@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
@@ -52,9 +53,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int assessmentLevelPropertyIndex = 2;
         private const int useHydraulicBoundaryLocationPropertyIndex = 3;
-        private const int surfaceLinePropertyIndex = 4;
-        private const int stochasticSoilModelPropertyIndex = 5;
-        private const int stochasticSoilProfilePropertyIndex = 6;
+        private const int dikeSoilScenarioPropertyIndex = 4;
+        private const int waterStressesPropertyIndex = 5;
+        private const int surfaceLinePropertyIndex = 6;
+        private const int stochasticSoilModelPropertyIndex = 7;
+        private const int stochasticSoilProfilePropertyIndex = 8;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -195,6 +198,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.UseAssessmentLevelManualInput = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(dikeSoilScenarioPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeSoilScenario_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeSoilScenario_Description))]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario
+        {
+            get
+            {
+                return data.WrappedData.DikeSoilScenario;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeSoilScenario = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(waterStressesPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.Waterstresses_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsWaterStressesProperties WaterStressesProperties
+        {
+            get
+            {
+                return new MacroStabilityInwardsWaterStressesProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

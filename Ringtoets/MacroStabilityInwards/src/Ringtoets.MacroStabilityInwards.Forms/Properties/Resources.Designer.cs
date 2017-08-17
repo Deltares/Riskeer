@@ -91,6 +91,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijktype van de geschematiseerde dijk..
+        /// </summary>
+        public static string DikeSoilScenario_Description {
+            get {
+                return ResourceManager.GetString("DikeSoilScenario_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijk/bodem materiaal.
+        /// </summary>
+        public static string DikeSoilScenario_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeSoilScenario_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
         /// </summary>
         public static string GeneralMacroStabilityInwardsInput_A_Description {
@@ -620,6 +638,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SurfaceLineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gemiddeld hoog water..
+        /// </summary>
+        public static string WaterLevelRiverAverage_Description {
+            get {
+                return ResourceManager.GetString("WaterLevelRiverAverage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gemiddeld hoog water (GHW) [m+NAP].
+        /// </summary>
+        public static string WaterLevelRiverAverage_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelRiverAverage_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waterspanning eigenschappen..
+        /// </summary>
+        public static string Waterstresses_Description {
+            get {
+                return ResourceManager.GetString("Waterstresses_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanningen.
+        /// </summary>
+        public static string Waterstresses_DisplayName {
+            get {
+                return ResourceManager.GetString("Waterstresses_DisplayName", resourceCulture);
             }
         }
     }

@@ -28,11 +28,11 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -53,9 +53,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedSelectedHydraulicBoundaryLocationPropertyIndex = 0;
         private const int expectedAssessmentLevelPropertyIndex = 1;
         private const int expectedUseHydraulicBoundaryLocationPropertyIndex = 2;
-        private const int expectedSurfaceLinePropertyIndex = 3;
-        private const int expectedStochasticSoilModelPropertyIndex = 4;
-        private const int expectedStochasticSoilProfilePropertyIndex = 5;
+        private const int expectedDikeSoilScenarioPropertyIndex = 3;
+        private const int expectedWaterStressesPropertyIndex = 4;
+        private const int expectedSurfaceLinePropertyIndex = 5;
+        private const int expectedStochasticSoilModelPropertyIndex = 6;
+        private const int expectedStochasticSoilProfilePropertyIndex = 7;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -85,9 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -114,9 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -144,10 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            // Call
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -156,6 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
+            // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler)
             {
                 UseAssessmentLevelManualInput = false
@@ -164,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string schematizationCategory = "Schematisatie";
@@ -190,6 +186,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 hydraulicDataCategory,
                 "Handmatig toetspeil invoeren",
                 "Sta toe om het toetspeil handmatig te specificeren?");
+
+            PropertyDescriptor dikeSoilScenarioProperty = dynamicProperties[expectedDikeSoilScenarioPropertyIndex];
+            Assert.AreEqual(typeof(EnumTypeConverter), dikeSoilScenarioProperty.Converter.GetType());
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                dikeSoilScenarioProperty,
+                hydraulicDataCategory,
+                "Dijk/bodem materiaal",
+                "Dijktype van de geschematiseerde dijk.");
+
+            PropertyDescriptor waterStressesProperty = dynamicProperties[expectedWaterStressesPropertyIndex];
+            Assert.AreEqual(typeof(ExpandableObjectConverter), waterStressesProperty.Converter.GetType());
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                waterStressesProperty,
+                hydraulicDataCategory,
+                "Waterspanningen",
+                "De waterspanning eigenschappen.",
+                true);
 
             PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -228,9 +241,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -251,7 +262,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             const string hydraulicDataCategory = "Hydraulische gegevens";
             if (!useManualAssessmentLevelInput)
             {
-                Assert.AreEqual(6, dynamicProperties.Count);
+                Assert.AreEqual(8, dynamicProperties.Count);
 
                 PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -270,7 +281,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             }
             else
             {
-                Assert.AreEqual(5, dynamicProperties.Count);
+                Assert.AreEqual(7, dynamicProperties.Count);
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[0];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -279,6 +290,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     "Toetspeil [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.");
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -311,16 +323,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
-                HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
-                SurfaceLine = surfaceLine,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile,
-                UseAssessmentLevelManualInput = false
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    UseAssessmentLevelManualInput = false
+                }
             };
-
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
@@ -330,9 +344,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
+            // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
@@ -340,14 +355,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
+            Assert.AreEqual(inputParameters.DikeSoilScenario, properties.DikeSoilScenario);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void SetProperties_WithData_PropertiesOnInputSet()
+        public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -355,7 +371,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
@@ -368,36 +384,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
             const double assessmentLevel = 0.36;
-            const double entryPointL = 0.12;
-            const double exitPointL = 0.44;
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
-            var dampingFactorExit = new LogNormalDistributionDesignVariable(
-                new LogNormalDistribution(3)
-                {
-                    Mean = (RoundedDouble) 1.55,
-                    StandardDeviation = (RoundedDouble) 0.22
-                });
-            var phreaticLevelExit = new NormalDistributionDesignVariable(
-                new NormalDistribution(3)
-                {
-                    Mean = (RoundedDouble) 1.55,
-                    StandardDeviation = (RoundedDouble) 0.22
-                });
+            const MacroStabilityInwardsDikeSoilScenario dikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
 
-            // Call
+            // When
             properties.UseAssessmentLevelManualInput = true;
             properties.AssessmentLevel = (RoundedDouble) assessmentLevel;
             properties.SurfaceLine = surfaceLine;
             properties.StochasticSoilModel = soilModel;
             properties.StochasticSoilProfile = soilProfile;
+            properties.DikeSoilScenario = dikeSoilScenario;
 
-            // Assert
+            // Then
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
             Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
+            Assert.AreEqual(dikeSoilScenario, inputParameters.DikeSoilScenario);
             mocks.VerifyAll();
         }
 
@@ -409,7 +414,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
         }
 
         [Test]
@@ -420,7 +425,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
         }
 
         [Test]
@@ -431,7 +436,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
         }
 
         [Test]
@@ -448,7 +453,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
         }
 
         [Test]
@@ -458,7 +463,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
+                                                                    calculation);
+        }
+
+        [Test]
+        public void DikeSoilScenario_SetNewValue_SetsValuesAndUpdatesObservers()
+        {
+            // Setup
+            var newDikeSoilScenario = new Random().NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
                                                                     calculation);
         }
 
@@ -600,15 +617,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
-                UseAssessmentLevelManualInput = true
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = true
+                }
             };
-
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -641,17 +659,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             var random = new Random(21);
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
-                UseAssessmentLevelManualInput = true,
-                AssessmentLevel = (RoundedDouble) random.NextDouble()
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = true,
+                    AssessmentLevel = (RoundedDouble) random.NextDouble()
+                }
             };
-
-            var context = new MacroStabilityInwardsInputContext(inputParameters,
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            
+            var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
@@ -742,15 +761,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilModel = new StochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
-                SurfaceLine = testSurfaceLine,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile
+                InputParameters =
+                {
+                    SurfaceLine = testSurfaceLine,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
             };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
+
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -848,15 +870,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
             var stochasticSoilModel2 = new StochasticSoilModel("StochasticSoilModel2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
-
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            
+            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
-                SurfaceLine = testSurfaceLine,
-                StochasticSoilModel = stochasticSoilModel1,
-                StochasticSoilProfile = stochasticSoilProfile1
+                InputParameters =
+                {
+                    SurfaceLine = testSurfaceLine,
+                    StochasticSoilModel = stochasticSoilModel1,
+                    StochasticSoilProfile = stochasticSoilProfile1
+                }
             };
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
 
             var context = new MacroStabilityInwardsInputContext(inputParameters,
                                                                 calculationItem,
@@ -1162,6 +1188,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetSelectableHydraulicBoundaryLocations_WithLocationsNoSurfaceLine_ReturnLocationsSortedById()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1172,12 +1203,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 4)
                 }
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
@@ -1254,7 +1280,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void GivenLocationAndReferencePoint_WhenUpdatingSurfaceLine_ThenUpdateSelectableBoundaryLocations()
         {
-            // Given
+            // Given          
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -1267,13 +1299,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new HydraulicBoundaryLocation(2, "B", 0, 200)
                 }
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -1448,7 +1474,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(result);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+        private static void SetPropertyAndVerifyNotifcationsForCalculation(
             Action<MacroStabilityInwardsInputContextProperties> setProperty,
             MacroStabilityInwardsCalculationScenario calculation)
         {

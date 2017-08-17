@@ -295,4 +295,22 @@
   <data name="MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
   </data>
+  <data name="DikeSoilScenario_Description" xml:space="preserve">
+    <value>Dijktype van de geschematiseerde dijk.</value>
+  </data>
+  <data name="DikeSoilScenario_DisplayName" xml:space="preserve">
+    <value>Dijk/bodem materiaal</value>
+  </data>
+  <data name="Waterstresses_DisplayName" xml:space="preserve">
+    <value>Waterspanningen</value>
+  </data>
+  <data name="WaterLevelRiverAverage_Description" xml:space="preserve">
+    <value>Gemiddeld hoog water.</value>
+  </data>
+  <data name="WaterLevelRiverAverage_DisplayName" xml:space="preserve">
+    <value>Gemiddeld hoog water (GHW) [m+NAP]</value>
+  </data>
+  <data name="Waterstresses_Description" xml:space="preserve">
+    <value>De waterspanning eigenschappen.</value>
+  </data>
 </root>

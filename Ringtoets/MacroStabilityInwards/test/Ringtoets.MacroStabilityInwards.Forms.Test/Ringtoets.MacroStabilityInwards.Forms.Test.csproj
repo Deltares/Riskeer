@@ -71,6 +71,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationGroupContextTest.cs" />
@@ -110,6 +111,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>

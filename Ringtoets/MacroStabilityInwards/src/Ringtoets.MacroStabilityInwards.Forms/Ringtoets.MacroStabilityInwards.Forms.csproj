@@ -73,6 +73,7 @@
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesProperties.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextSurfaceLineSelectionEditor.cs" />
