@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        private PipingOutput GetRandomPipingOutput()
+        private static PipingOutput GetRandomPipingOutput()
         {
             var random = new Random(22);
             double zuValue = random.NextDouble();

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
@@ -90,8 +91,8 @@ namespace Ringtoets.Piping.Data.TestUtil
         {
             Assert.AreEqual(original.EntryPointL, clone.EntryPointL);
             Assert.AreEqual(original.ExitPointL, clone.ExitPointL);
-            Assert.AreEqual(original.PhreaticLevelExit, clone.PhreaticLevelExit);
-            Assert.AreEqual(original.DampingFactorExit, clone.DampingFactorExit);
+            CoreCloneAssert.AreObjectClones(original.PhreaticLevelExit, clone.PhreaticLevelExit, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.DampingFactorExit, clone.DampingFactorExit, DistributionAssert.AreEqual);
             Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
             Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
             Assert.AreSame(original.SurfaceLine, clone.SurfaceLine);

@@ -435,8 +435,16 @@ namespace Ringtoets.Piping.Data.TestUtil
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.UseAssessmentLevelManualInput = true;
             input.AssessmentLevel = random.NextRoundedDouble();
-            input.PhreaticLevelExit = new NormalDistribution();
-            input.DampingFactorExit = new LogNormalDistribution();
+            input.PhreaticLevelExit = new NormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
+            };
+            input.DampingFactorExit = new LogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                StandardDeviation = random.NextRoundedDouble()
+            };
         }
     }
 }

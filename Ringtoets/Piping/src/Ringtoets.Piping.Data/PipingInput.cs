@@ -41,8 +41,8 @@ namespace Ringtoets.Piping.Data
     public class PipingInput : Observable, ICalculationInput, ICloneable
     {
         private readonly GeneralPipingInput generalInputParameters;
-        private readonly NormalDistribution phreaticLevelExit;
-        private readonly LogNormalDistribution dampingFactorExit;
+        private NormalDistribution phreaticLevelExit;
+        private LogNormalDistribution dampingFactorExit;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private PipingSurfaceLine surfaceLine;
@@ -268,7 +268,12 @@ namespace Ringtoets.Piping.Data
 
         public object Clone()
         {
-            return MemberwiseClone();
+            var clone = (PipingInput) MemberwiseClone();
+
+            clone.phreaticLevelExit = (NormalDistribution) PhreaticLevelExit.Clone();
+            clone.dampingFactorExit = (LogNormalDistribution) DampingFactorExit.Clone();
+
+            return clone;
         }
 
         private void GetEntryExitPointFromSurfaceLine(out double tempEntryPointL, out double tempExitPointL)
@@ -292,7 +297,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
+        private static void ValidateEntryExitPoint(RoundedDouble entryPointLocalXCoordinate, RoundedDouble exitPointLocalXCoordinate)
         {
             if (entryPointLocalXCoordinate >= exitPointLocalXCoordinate)
             {
