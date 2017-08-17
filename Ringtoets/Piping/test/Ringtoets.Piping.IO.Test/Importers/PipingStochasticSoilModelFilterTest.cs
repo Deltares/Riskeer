@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
@@ -46,8 +47,8 @@ namespace Ringtoets.Piping.IO.Test.Importers
         }
 
         [Test]
-        [TestCaseSource(nameof(InvalidStochasticSoilModels))]
-        public void Constructor_InvalidStochasticSoilModelType_ReturnsFalse(StochasticSoilModel model)
+        [TestCaseSource(nameof(StochasticSoilModelsOfInvalidType))]
+        public void Constructor_StochasticSoilModelOfInvalidType_ReturnsFalse(StochasticSoilModel model)
         {
             // Setup
             var filter = new PipingStochasticSoilModelFilter();
@@ -73,15 +74,15 @@ namespace Ringtoets.Piping.IO.Test.Importers
             Assert.IsTrue(isValid);
         }
 
-        private static IEnumerable<StochasticSoilModel> InvalidStochasticSoilModels()
+        private static IEnumerable<TestCaseData> StochasticSoilModelsOfInvalidType()
         {
-            foreach (FailureMechanismType type in Enum.GetValues(typeof(FailureMechanismType)))
-            {
-                if (type != FailureMechanismType.Piping)
-                {
-                    yield return new StochasticSoilModel(type.ToString(), type);
-                }
-            }
+            return Enum.GetValues(typeof(FailureMechanismType))
+                       .Cast<FailureMechanismType>()
+                       .Where(type => type != FailureMechanismType.Piping)
+                       .Select(type => new TestCaseData(
+                                       new StochasticSoilModel(type.ToString(), type))
+                                   .SetName($"Constructor_InvalidType_ReturnsFalse({type.ToString()})")
+                       );
         }
     }
 }
