@@ -424,16 +424,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de &apos;Norm (terugkeertijd)&apos; moet in het bereik {0} liggen..
-        /// </summary>
-        public static string FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod_Must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionContextProperties_ReturnPeriod_Value_for_ReturnPeriod" +
-                        "_Must_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Trajecttype: {0}.
         /// </summary>
         public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {

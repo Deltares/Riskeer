@@ -107,10 +107,6 @@
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net40\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.XML.dll</HintPath>
@@ -123,9 +119,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="Resources\PipingConfiguratieSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Resources\XmlGeometrySchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
