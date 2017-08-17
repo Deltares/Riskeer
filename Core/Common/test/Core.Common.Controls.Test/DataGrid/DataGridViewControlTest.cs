@@ -1323,7 +1323,7 @@ namespace Core.Common.Controls.Test.DataGrid
             }
 
             // Property needs to have a setter, otherwise some tests will fail
-            public RoundedDouble TestRoundedDouble { get; set; }
+            public RoundedDouble TestRoundedDouble { get; }
         }
 
         private class TestDataGridViewMultipleColumnsRow
@@ -1925,7 +1925,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CurrentRowChanged_SetHandlerToNullOrNotSet_DoesNothing(bool setToNull)
+        public void CurrentRowChanged_SetHandlerToNullOrNotSet_DoesNotThrow(bool setToNull)
         {
             // Setup
             using (var form = new Form())
@@ -1941,21 +1941,16 @@ namespace Core.Common.Controls.Test.DataGrid
                     new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "abcd")
                 });
 
-                // Call
                 if (setToNull)
                 {
                     control.CurrentRowChanged += null;
                 }
 
-                // Assert
-                control.SetCurrentCell(control.GetCell(0, 1));
-                control.SetCurrentCell(control.GetCell(0, 0));
+                // Call
+                TestDelegate call = () => control.SetCurrentCell(control.GetCell(0, 1));
 
-                // If handler is added again, LastSelectedRow is still -1 so event handler will be executed
-                var handlerExecuted = false;
-                control.CurrentRowChanged += (sender, args) => handlerExecuted = true;
-                control.SetCurrentCell(control.GetCell(0, 1));
-                Assert.IsTrue(handlerExecuted);
+                // Assert
+                Assert.DoesNotThrow(call);
             }
         }
 
