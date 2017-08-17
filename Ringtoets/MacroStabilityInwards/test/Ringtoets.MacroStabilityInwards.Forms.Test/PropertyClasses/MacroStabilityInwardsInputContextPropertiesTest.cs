@@ -58,6 +58,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedSurfaceLinePropertyIndex = 5;
         private const int expectedStochasticSoilModelPropertyIndex = 6;
         private const int expectedStochasticSoilProfilePropertyIndex = 7;
+        private const int expectedSlipPlaneMinimumDepthPropertyIndex = 8;
+        private const int expectedSlipPlaneMinimumLengthPropertyIndex = 9;
+        private const int expectedMaximumSliceWidthPropertyIndex = 10;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -160,10 +163,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string schematizationCategory = "Schematisatie";
+            const string hydraulicDataCategory = "\t\tHydraulische gegevens";
+            const string schematizationCategory = "\tSchematisatie";
+            const string settingsCategory = "Instellingen";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -225,6 +229,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Ondergrondschematisatie",
                 "De opbouw van de ondergrond.");
 
+            PropertyDescriptor slipPlaneMinimumDepthProperty = dynamicProperties[expectedSlipPlaneMinimumDepthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                slipPlaneMinimumDepthProperty,
+                settingsCategory,
+                "Minimale glijvlakdiepte [m]",
+                "Minimale diepte van het berekende glijvlak ten opzichte van het maaiveld.");
+
+            PropertyDescriptor slipPlaneMinimumLengthProperty = dynamicProperties[expectedSlipPlaneMinimumLengthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                slipPlaneMinimumLengthProperty,
+                settingsCategory,
+                "Minimale glijvlaklengte [m]",
+                "Minimale lengte van het berekende glijvlak.");
+
+            PropertyDescriptor maximumSliceWidthProperty = dynamicProperties[expectedMaximumSliceWidthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                maximumSliceWidthProperty,
+                settingsCategory,
+                "Maximale lamelbreedte [m]",
+                "Maximale breedte van een lamel.");
+
             mocks.VerifyAll();
         }
 
@@ -259,10 +284,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            const string hydraulicDataCategory = "Hydraulische gegevens";
+            const string hydraulicDataCategory = "\t\tHydraulische gegevens";
             if (!useManualAssessmentLevelInput)
             {
-                Assert.AreEqual(8, dynamicProperties.Count);
+                Assert.AreEqual(11, dynamicProperties.Count);
 
                 PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -281,7 +306,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             }
             else
             {
-                Assert.AreEqual(7, dynamicProperties.Count);
+                Assert.AreEqual(10, dynamicProperties.Count);
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[0];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -359,6 +384,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreSame(inputParameters, properties.WaterStressesProperties.Data);
 
+            Assert.AreEqual(inputParameters.SlipPlaneMinimumDepth, properties.SlipPlaneMinimumDepth);
+            Assert.AreEqual(inputParameters.SlipPlaneMinimumLength, properties.SlipPlaneMinimumLength);
+            Assert.AreEqual(inputParameters.MaximumSliceWidth, properties.MaximumSliceWidth);
+
             mocks.VerifyAll();
         }
 
@@ -385,11 +414,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
+            var random = new Random();
             const double assessmentLevel = 0.36;
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
             const MacroStabilityInwardsDikeSoilScenario dikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
+            double slipPlaneMinimumDepth = random.Next();
+            double slipPlaneMinimumLength= random.Next();
+            double maximumSliceWidth = random.Next();
 
             // When
             properties.UseAssessmentLevelManualInput = true;
@@ -398,6 +431,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.StochasticSoilModel = soilModel;
             properties.StochasticSoilProfile = soilProfile;
             properties.DikeSoilScenario = dikeSoilScenario;
+            properties.SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth;
+            properties.SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength;
+            properties.MaximumSliceWidth = (RoundedDouble) maximumSliceWidth;
 
             // Then
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
@@ -405,6 +441,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             Assert.AreEqual(dikeSoilScenario, inputParameters.DikeSoilScenario);
+            Assert.AreEqual(slipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth);
+            Assert.AreEqual(slipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength);
+            Assert.AreEqual(maximumSliceWidth, inputParameters.MaximumSliceWidth);
             mocks.VerifyAll();
         }
 
@@ -478,6 +517,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
+                                                                    calculation);
+        }
+
+        [Test]
+        public void SlipPlaneMinimumDepth_SetNewValue_SetsValuesAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumDepth = (RoundedDouble) 1,
+                                                                    calculation);
+        }
+
+        [Test]
+        public void SlipPlaneMinimumLength_SetNewValue_SetsValuesAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumLength = (RoundedDouble) 1,
+                                                                    calculation);
+        }
+
+        [Test]
+        public void MaximumSliceWidth_SetNewValue_SetsValuesAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MaximumSliceWidth = (RoundedDouble) 1,
                                                                     calculation);
         }
 

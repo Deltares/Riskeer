@@ -433,4 +433,25 @@
   <data name="ZCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
     <value>Z [m+NAP]</value>
   </data>
+  <data name="Categories_Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="MaximumSliceWidth_Description" xml:space="preserve">
+    <value>Maximale breedte van een lamel.</value>
+  </data>
+  <data name="MaximumSliceWidth_DisplayName" xml:space="preserve">
+    <value>Maximale lamelbreedte [m]</value>
+  </data>
+  <data name="SlipPlaneMinimumDepth_Description" xml:space="preserve">
+    <value>Minimale diepte van het berekende glijvlak ten opzichte van het maaiveld.</value>
+  </data>
+  <data name="SlipPlaneMinimumDepth_DisplayName" xml:space="preserve">
+    <value>Minimale glijvlakdiepte [m]</value>
+  </data>
+  <data name="SlipPlaneMinimumLength_Description" xml:space="preserve">
+    <value>Minimale lengte van het berekende glijvlak.</value>
+  </data>
+  <data name="SlipPlaneMinimumLength_DisplayName" xml:space="preserve">
+    <value>Minimale glijvlaklengte [m]</value>
+  </data>
 </root>

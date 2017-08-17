@@ -58,6 +58,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int surfaceLinePropertyIndex = 6;
         private const int stochasticSoilModelPropertyIndex = 7;
         private const int stochasticSoilProfilePropertyIndex = 8;
+        private const int slipPlaneMinimumDepthPropertyIndex = 9;
+        private const int slipPlaneMinimumLengthPropertyIndex = 10;
+        private const int maximumSliceWidthPropertyIndex = 11;
+
+        private const int hydraulicCategoryIndex = 1;
+        private const int schematizationCategoryIndex = 2;
+        private const int settingsCategoryIndex = 3;
+        private const int totalCategoryCount = 3;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -148,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
@@ -170,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(assessmentLevelPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_Description))]
         public RoundedDouble AssessmentLevel
@@ -186,7 +194,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(useHydraulicBoundaryLocationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description))]
         public bool UseAssessmentLevelManualInput
@@ -202,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(dikeSoilScenarioPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeSoilScenario_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeSoilScenario_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -219,7 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(waterStressesPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Waterstresses_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -237,7 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_Description))]
         public MacroStabilityInwardsSurfaceLine SurfaceLine
@@ -261,7 +269,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilModelPropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_Description))]
         public StochasticSoilModel StochasticSoilModel
@@ -285,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilProfilePropertyIndex)]
         [Editor(typeof(MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_Description))]
         public StochasticSoilProfile StochasticSoilProfile
@@ -300,6 +308,58 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.StochasticSoilProfile = value, propertyChangeHandler);
                 }
+            }
+        }
+
+        #endregion
+
+        #region Settings
+
+        [PropertyOrder(slipPlaneMinimumDepthPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Settings), settingsCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SlipPlaneMinimumDepth_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SlipPlaneMinimumDepth_Description))]
+        public RoundedDouble SlipPlaneMinimumDepth
+        {
+            get
+            {
+                return data.WrappedData.SlipPlaneMinimumDepth;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.SlipPlaneMinimumDepth = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(slipPlaneMinimumLengthPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Settings), settingsCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SlipPlaneMinimumLength_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SlipPlaneMinimumLength_Description))]
+        public RoundedDouble SlipPlaneMinimumLength
+        {
+            get
+            {
+                return data.WrappedData.SlipPlaneMinimumLength;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.SlipPlaneMinimumLength = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(maximumSliceWidthPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Settings), settingsCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MaximumSliceWidth_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MaximumSliceWidth_Description))]
+        public RoundedDouble MaximumSliceWidth
+        {
+            get
+            {
+                return data.WrappedData.MaximumSliceWidth;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.MaximumSliceWidth = value, propertyChangeHandler);
             }
         }
 

@@ -109,6 +109,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instellingen.
+        /// </summary>
+        public static string Categories_Settings {
+            get {
+                return ResourceManager.GetString("Categories_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijktype van de geschematiseerde dijk..
         /// </summary>
         public static string DikeSoilScenario_Description {
@@ -567,6 +576,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximale breedte van een lamel..
+        /// </summary>
+        public static string MaximumSliceWidth_Description {
+            get {
+                return ResourceManager.GetString("MaximumSliceWidth_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximale lamelbreedte [m].
+        /// </summary>
+        public static string MaximumSliceWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("MaximumSliceWidth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimale hoogte van de freatische lijn onder kruin binnentalud..
         /// </summary>
         public static string MinimumLevelPhreaticLineAtDikeTopPolder_Description {
@@ -743,6 +770,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string PiezometricHeadPhreaticLine2Outwards_DisplayName {
             get {
                 return ResourceManager.GetString("PiezometricHeadPhreaticLine2Outwards_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimale diepte van het berekende glijvlak ten opzichte van het maaiveld..
+        /// </summary>
+        public static string SlipPlaneMinimumDepth_Description {
+            get {
+                return ResourceManager.GetString("SlipPlaneMinimumDepth_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimale glijvlakdiepte [m].
+        /// </summary>
+        public static string SlipPlaneMinimumDepth_DisplayName {
+            get {
+                return ResourceManager.GetString("SlipPlaneMinimumDepth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimale lengte van het berekende glijvlak..
+        /// </summary>
+        public static string SlipPlaneMinimumLength_Description {
+            get {
+                return ResourceManager.GetString("SlipPlaneMinimumLength_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimale glijvlaklengte [m].
+        /// </summary>
+        public static string SlipPlaneMinimumLength_DisplayName {
+            get {
+                return ResourceManager.GetString("SlipPlaneMinimumLength_DisplayName", resourceCulture);
             }
         }
         
