@@ -36,11 +36,11 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsWaterStressesPropertiesTest
+    public class MacroStabilityInwardsDrainagePropertiesTest
     {
-        private const int expectedWaterLevelRiverAveragePropertyIndex = 0;
-        private const int expectedwaterLevelPolderPropertyIndex = 1;
-        private const int expectedDrainagePropertyIndex = 2;
+        private const int expectedDrainageConstructionPresentPropertyIndex = 0;
+        private const int expectedXCoordinateDrainageConstructionPropertyIndex = 1;
+        private const int expectedZCoordinateDrainageConstructionPropertyIndex = 2;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null, changeHandler);
+            TestDelegate call = () => new MacroStabilityInwardsDrainageProperties(null, changeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
-                                                                                       null);
+            TestDelegate call = () => new MacroStabilityInwardsDrainageProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
+                                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,37 +101,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            const string waterStressesCategory = "Waterspanningen";
+            const string drainageCategory = "Drainage";
 
-            PropertyDescriptor waterLevelRiverAverageProperty = dynamicProperties[expectedWaterLevelRiverAveragePropertyIndex];
+            PropertyDescriptor drainagePresentProperty = dynamicProperties[expectedDrainageConstructionPresentPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                waterLevelRiverAverageProperty,
-                waterStressesCategory,
-                "Gemiddeld hoog water (GHW) [m+NAP]",
-                "Gemiddeld hoog water.");
+                drainagePresentProperty,
+                drainageCategory,
+                "Aanwezig",
+                "Is drainage aanwezig?");
 
-            PropertyDescriptor waterLevelPolderProperty = dynamicProperties[expectedwaterLevelPolderPropertyIndex];
+            PropertyDescriptor drainageXProperty = dynamicProperties[expectedXCoordinateDrainageConstructionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                waterLevelPolderProperty,
-                waterStressesCategory,
-                "Polderpeil [m+NAP]",
-                "Het niveau van het oppervlaktewater binnen een beheersgebied.");
+                drainageXProperty,
+                drainageCategory,
+                "X [m]",
+                "X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).");
 
-            PropertyDescriptor drainageProperty = dynamicProperties[expectedDrainagePropertyIndex];
-            Assert.AreEqual(typeof(ExpandableObjectConverter), drainageProperty.Converter.GetType());
+            PropertyDescriptor drainageZProperty = dynamicProperties[expectedZCoordinateDrainageConstructionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                drainageProperty,
-                waterStressesCategory,
-                "Drainage",
-                "Drainage constructie eigenschappen.",
-                true);
+                drainageZProperty,
+                drainageCategory,
+                "Z [m+NAP]",
+                "Z-coordinaat (hoogte) van het middelpunt van de drainage.");
 
             mocks.VerifyAll();
         }
@@ -147,12 +145,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
 
             // Assert
-            Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
-            Assert.AreEqual(input.WaterLevelPolder, properties.WaterLevelPolder);
-            Assert.AreSame(input, properties.Drainage.Data);
+            Assert.AreEqual(input.DrainageConstructionPresent, properties.DrainageConstructionPresent);
+            Assert.AreEqual(input.XCoordinateDrainageConstruction, properties.XCoordinateDrainageConstruction);
+            Assert.AreEqual(input.ZCoordinateDrainageConstruction, properties.ZCoordinateDrainageConstruction);
             mocks.VerifyAll();
         }
 
@@ -164,39 +162,52 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, handler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
 
             var random = new Random();
-            double waterLevelRiverAverage = random.Next();
-            double waterLevelPolder = random.Next();
+            bool constructionPresent = random.NextBoolean();
+            double xCoordinateDrainageConstruction = random.Next();
+            double zCoordinateDrainageConstruction = random.Next();
 
             // When
-            properties.WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage;
-            properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
+            properties.DrainageConstructionPresent = constructionPresent;
+            properties.XCoordinateDrainageConstruction = (RoundedDouble) xCoordinateDrainageConstruction;
+            properties.ZCoordinateDrainageConstruction = (RoundedDouble) zCoordinateDrainageConstruction;
 
             // Then
-            Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage.Value);
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder.Value);
+            Assert.AreEqual(constructionPresent, input.DrainageConstructionPresent);
+            Assert.AreEqual(xCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(zCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.Value);
         }
 
         [Test]
-        public void WaterLevelRiverAverage_SetValidValue_SetsValueAndUpdatesObservers()
+        public void DrainageConstructionPresent_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelRiverAverage = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DrainageConstructionPresent = true, calculation);
         }
 
         [Test]
-        public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
+        public void XCoordinateDrainageConstruction_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.XCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
+        }
+
+        [Test]
+        public void ZCoordinateDrainageConstruction_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ZCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -217,7 +228,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(string.Empty, toString);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsWaterStressesProperties> setProperty,
+        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsDrainageProperties> setProperty,
                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup
@@ -233,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, handler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
 
             // Call
             setProperty(properties);

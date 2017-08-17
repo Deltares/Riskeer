@@ -313,4 +313,34 @@
   <data name="Waterstresses_Description" xml:space="preserve">
     <value>De waterspanning eigenschappen.</value>
   </data>
+  <data name="DrainageConstructionPresent_Description" xml:space="preserve">
+    <value>Is drainage aanwezig?</value>
+  </data>
+  <data name="DrainageConstructionPresent_DisplayName" xml:space="preserve">
+    <value>Aanwezig</value>
+  </data>
+  <data name="DrainageConstruction_DisplayName" xml:space="preserve">
+    <value>Drainage</value>
+  </data>
+  <data name="WaterLevelPolder_Description" xml:space="preserve">
+    <value>Het niveau van het oppervlaktewater binnen een beheersgebied.</value>
+  </data>
+  <data name="WaterLevelPolder_DisplayName" xml:space="preserve">
+    <value>Polderpeil [m+NAP]</value>
+  </data>
+  <data name="DrainageConstruction_Description" xml:space="preserve">
+    <value>Drainage constructie eigenschappen.</value>
+  </data>
+  <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
+    <value>X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
+  </data>
+  <data name="XCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
+    <value>X [m]</value>
+  </data>
+  <data name="ZCoordinateDrainageConstruction_Description" xml:space="preserve">
+    <value>Z-coordinaat (hoogte) van het middelpunt van de drainage.</value>
+  </data>
+  <data name="ZCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
+    <value>Z [m+NAP]</value>
+  </data>
 </root>

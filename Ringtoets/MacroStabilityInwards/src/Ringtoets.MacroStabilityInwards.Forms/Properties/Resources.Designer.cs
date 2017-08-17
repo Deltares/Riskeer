@@ -109,6 +109,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drainage constructie eigenschappen..
+        /// </summary>
+        public static string DrainageConstruction_Description {
+            get {
+                return ResourceManager.GetString("DrainageConstruction_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drainage.
+        /// </summary>
+        public static string DrainageConstruction_DisplayName {
+            get {
+                return ResourceManager.GetString("DrainageConstruction_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is drainage aanwezig?.
+        /// </summary>
+        public static string DrainageConstructionPresent_Description {
+            get {
+                return ResourceManager.GetString("DrainageConstructionPresent_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanwezig.
+        /// </summary>
+        public static string DrainageConstructionPresent_DisplayName {
+            get {
+                return ResourceManager.GetString("DrainageConstructionPresent_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
         /// </summary>
         public static string GeneralMacroStabilityInwardsInput_A_Description {
@@ -642,6 +678,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het niveau van het oppervlaktewater binnen een beheersgebied..
+        /// </summary>
+        public static string WaterLevelPolder_Description {
+            get {
+                return ResourceManager.GetString("WaterLevelPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polderpeil [m+NAP].
+        /// </summary>
+        public static string WaterLevelPolder_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gemiddeld hoog water..
         /// </summary>
         public static string WaterLevelRiverAverage_Description {
@@ -674,6 +728,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string Waterstresses_DisplayName {
             get {
                 return ResourceManager.GetString("Waterstresses_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-coordinaat van het middelpunt van de drainage (in lokale coordinaten)..
+        /// </summary>
+        public static string XCoordinateDrainageConstruction_Description {
+            get {
+                return ResourceManager.GetString("XCoordinateDrainageConstruction_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X [m].
+        /// </summary>
+        public static string XCoordinateDrainageConstruction_DisplayName {
+            get {
+                return ResourceManager.GetString("XCoordinateDrainageConstruction_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-coordinaat (hoogte) van het middelpunt van de drainage..
+        /// </summary>
+        public static string ZCoordinateDrainageConstruction_Description {
+            get {
+                return ResourceManager.GetString("ZCoordinateDrainageConstruction_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z [m+NAP].
+        /// </summary>
+        public static string ZCoordinateDrainageConstruction_DisplayName {
+            get {
+                return ResourceManager.GetString("ZCoordinateDrainageConstruction_DisplayName", resourceCulture);
             }
         }
     }

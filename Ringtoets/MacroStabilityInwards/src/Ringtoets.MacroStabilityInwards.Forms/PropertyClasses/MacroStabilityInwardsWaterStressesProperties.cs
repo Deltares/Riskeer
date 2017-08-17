@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -38,6 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsWaterStressesProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
         private const int waterLevelRiverAveragePropertyIndex = 0;
+        private const int waterLevelPolderPropertyIndex = 1;
+        private const int drainagePropertyIndex = 2;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -74,6 +77,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WaterLevelRiverAverage = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(waterLevelPolderPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterLevelPolder_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaterLevelPolder_Description))]
+        public RoundedDouble WaterLevelPolder
+        {
+            get
+            {
+                return data.WaterLevelPolder;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WaterLevelPolder = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(drainagePropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DrainageConstruction_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DrainageConstruction_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsDrainageProperties Drainage
+        {
+            get
+            {
+                return new MacroStabilityInwardsDrainageProperties(data, propertyChangeHandler);
             }
         }
 

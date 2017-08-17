@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\MacroStabilityInwardsDrainageProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />

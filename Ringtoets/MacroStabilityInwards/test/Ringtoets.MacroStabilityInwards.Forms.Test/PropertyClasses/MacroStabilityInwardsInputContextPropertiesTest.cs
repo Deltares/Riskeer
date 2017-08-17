@@ -357,6 +357,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
             Assert.AreEqual(inputParameters.DikeSoilScenario, properties.DikeSoilScenario);
 
+            Assert.AreSame(inputParameters, properties.WaterStressesProperties.Data);
+
             mocks.VerifyAll();
         }
 
