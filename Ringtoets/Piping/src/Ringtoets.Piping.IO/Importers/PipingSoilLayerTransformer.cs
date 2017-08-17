@@ -26,11 +26,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
-using SoilLayer1D = Ringtoets.Common.IO.SoilProfile.SoilLayer1D;
-using SoilLayer2D = Ringtoets.Common.IO.SoilProfile.SoilLayer2D;
 
 namespace Ringtoets.Piping.IO.Importers
 {

@@ -140,6 +140,7 @@
     <Compile Include="SoilProfile\SoilLayerBase.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
     <Compile Include="Exceptions\SoilLayerConversionException.cs" />
+    <Compile Include="SoilProfile\SoilLayerConstants.cs" />
     <Compile Include="SoilProfile\SoilProfile1D.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile2D.cs" />

@@ -63,12 +63,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Builders\GenericSoilLayerParametersTest.cs" />
-    <Compile Include="Builders\SoilLayer1DTest.cs" />
     <Compile Include="Exceptions\SoilLayerConversionExceptionTest.cs" />
-    <Compile Include="Builders\SoilLayer2DTest.cs" />
-    <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
-    <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />
     <Compile Include="Exceptions\SoilProfileBuilderExceptionTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriterTest.cs" />

@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.Builders
+namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class defining constants that hold certain meaning in the D-Soil Model database.
     /// </summary>
-    internal static class SoilLayerConstants
+    public static class SoilLayerConstants
     {
         /// <summary>
         /// The value of the distribution parameter when the the distribution is lognormal.
