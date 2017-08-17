@@ -78,6 +78,23 @@ namespace Ringtoets.Piping.Primitives.Test
         }
 
         [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(22);
+
+            // Call
+            TestDelegate test = () => new PipingSoilProfile(null,
+                                                            double.NaN,
+                                                            null,
+                                                            random.NextEnumValue<SoilProfileType>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(5)]
         [TestCase(15)]
@@ -163,22 +180,6 @@ namespace Ringtoets.Piping.Primitives.Test
             // Assert
             const string expectedMessage = "Layer not found in profile.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void ToString_WithNullName_ReturnsStringEmpty()
-        {
-            // Setup
-            var profile = new PipingSoilProfile(null, 0.0, new[]
-            {
-                new PipingSoilLayer(0.0)
-            }, SoilProfileType.SoilProfile1D);
-
-            // Call
-            string text = profile.ToString();
-
-            // Assert
-            Assert.IsEmpty(text);
         }
 
         [Test]

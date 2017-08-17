@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.Common.IO.SoilProfile
@@ -34,8 +35,19 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="id">The database identifier of the soil profile.</param>
         /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
+        /// is <c>null</c>.</exception>
         public SoilProfile2D(long id, string name, IEnumerable<SoilLayer2D> layers)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (layers == null)
+            {
+                throw new ArgumentNullException(nameof(layers));
+            }
+
             Id = id;
             Name = name;
             Layers = layers;

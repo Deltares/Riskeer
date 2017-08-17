@@ -40,8 +40,15 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">Name of the segment soil model.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c>.</exception>
         public PipingStochasticSoilModel(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
             Geometry = new List<Point2D>();
             StochasticSoilProfiles = new List<PipingStochasticSoilProfile>();
@@ -70,7 +77,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// <returns>The differences summed up in an instance of <see cref="PipingStochasticSoilModelProfileDifference"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromModel"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when <see cref="PipingStochasticSoilModel.StochasticSoilProfiles"/>
+        /// <exception cref="InvalidOperationException">Thrown when <see cref="StochasticSoilProfiles"/>
         /// contains multiple profiles with the same name, and <paramref name="fromModel"/> also contains a 
         /// profile with the same name.
         /// </exception>

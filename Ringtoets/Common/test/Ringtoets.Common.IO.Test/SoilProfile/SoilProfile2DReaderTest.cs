@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
@@ -132,6 +134,58 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(1, soilProfile2D.Id);
             Assert.AreEqual("Profile", soilProfile2D.Name);
             Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
+            Assert.AreEqual(3, soilProfile2D.Layers.Count());
+        }
+
+        [Test]
+        public void ReadSoilProfile_IntersectionXFor2DSoilProfileInvalid_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dProfileWithXInvalid.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
+                    .WithSubject("ondergrondschematisatie 'Profile'")
+                    .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadSoilProfile_IntersectionXFor2DSoilProfileNull_ReturnOneProfile()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dProfileWithXNull.soil");
+
+            var result = new Collection<SoilProfile2D>();
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                while (reader.HasNext)
+                {
+                    result.Add(reader.ReadSoilProfile());
+                }
+            }
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+
+            SoilProfile2D soilProfile2D = result[0];
+            Assert.AreEqual(1, soilProfile2D.Id);
+            Assert.AreEqual("Profile", soilProfile2D.Name);
+            Assert.IsNaN(soilProfile2D.IntersectionX);
             Assert.AreEqual(3, soilProfile2D.Layers.Count());
         }
     }

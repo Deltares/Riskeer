@@ -44,15 +44,21 @@ namespace Ringtoets.Piping.Primitives
         /// <param name="soilProfileSourceType">The type of soil profile used as data source
         /// to build this instance.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
+        /// is <c>null</c>.</exception>
         public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, SoilProfileType soilProfileSourceType)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
             Bottom = bottom;
             Layers = layers;
             SoilProfileSourceType = soilProfileSourceType;
         }
-        
+
         /// <summary>
         /// Gets the bottom level of the <see cref="PipingSoilProfile"/>.
         /// </summary>
@@ -111,7 +117,7 @@ namespace Ringtoets.Piping.Primitives
 
         public override string ToString()
         {
-            return Name ?? string.Empty;
+            return Name;
         }
 
         public override bool Equals(object obj)
@@ -125,7 +131,7 @@ namespace Ringtoets.Piping.Primitives
                 return true;
             }
             var other = obj as PipingSoilProfile;
-            return other!= null && Equals(other);
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()
@@ -138,8 +144,8 @@ namespace Ringtoets.Piping.Primitives
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
                 hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (int)SoilProfileSourceType;
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int) SoilProfileSourceType;
                 return hashCode;
             }
         }
@@ -148,7 +154,7 @@ namespace Ringtoets.Piping.Primitives
         {
             return layers.SequenceEqual(other.layers)
                    && Bottom.Equals(other.Bottom)
-                   && string.Equals(Name, other.Name)
+                   && Name.Equals(other.Name)
                    && SoilProfileSourceType == other.SoilProfileSourceType;
         }
 

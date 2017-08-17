@@ -35,6 +35,17 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
     public class PipingStochasticSoilModelTest
     {
         [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new PipingStochasticSoilModel(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ValidName_ExpectedValues()
         {
             // Setup
