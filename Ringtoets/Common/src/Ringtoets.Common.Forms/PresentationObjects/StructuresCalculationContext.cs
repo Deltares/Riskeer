@@ -29,9 +29,10 @@ using Ringtoets.Common.Data.Structures;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{TInput}"/>
-    /// in order to prepare it for performing a calculation.
+    /// Presentation object for all data required to configure a structures calculation.
     /// </summary>
+    /// <typeparam name="TInput">The type of calculation wrapped by this context.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of failure mechanism which the context belongs to.</typeparam>
     public class StructuresCalculationContext<TInput, TFailureMechanism> : FailureMechanismItemContextBase<StructuresCalculation<TInput>, TFailureMechanism>,
                                                                            ICalculationContext<StructuresCalculation<TInput>, TFailureMechanism>
         where TInput : IStructuresCalculationInput, new()

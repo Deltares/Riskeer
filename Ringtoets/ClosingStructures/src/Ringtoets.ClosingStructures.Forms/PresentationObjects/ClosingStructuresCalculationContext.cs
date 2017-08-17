@@ -29,15 +29,14 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
-    /// in order to prepare it for performing a calculation.
+    /// Presentation object for all data required to configure a closing structures calculation.
     /// </summary>
     public class ClosingStructuresCalculationContext : StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="StructuresCalculation{T}"/> instance wrapped by this context object.</param>
+        /// <param name="wrappedData">The calculation instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>

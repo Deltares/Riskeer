@@ -28,6 +28,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
+    /// <typeparam name="T">The type of input contained by the calculation.</typeparam>
     public class StructuresCalculation<T> : Observable, IStructuresCalculation, ICalculation<T> where T : IStructuresCalculationInput, new()
     {
         /// <summary>

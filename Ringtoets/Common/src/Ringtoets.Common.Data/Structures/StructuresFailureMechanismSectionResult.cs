@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.Structures

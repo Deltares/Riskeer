@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<TestStructuresInput>();
+            var calculation = new TestStructuresCalculation();
             var failureMechanism = new TestFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<TestStructuresInput>();
+            var calculation = new TestStructuresCalculation();
             var failureMechanism = new TestFailureMechanism();
 
             // Call

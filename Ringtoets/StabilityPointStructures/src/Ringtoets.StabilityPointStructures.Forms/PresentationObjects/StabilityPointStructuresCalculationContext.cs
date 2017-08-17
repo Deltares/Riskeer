@@ -29,15 +29,14 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
-    /// in order to prepare it for performing a calculation.
+    /// Presentation object for all data required to configure a stability point structures calculation.
     /// </summary>
     public class StabilityPointStructuresCalculationContext : StructuresCalculationContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationContext"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The calculation instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
