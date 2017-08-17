@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test
 {

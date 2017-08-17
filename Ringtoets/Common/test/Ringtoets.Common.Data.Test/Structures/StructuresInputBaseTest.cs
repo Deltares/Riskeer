@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {

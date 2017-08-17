@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {

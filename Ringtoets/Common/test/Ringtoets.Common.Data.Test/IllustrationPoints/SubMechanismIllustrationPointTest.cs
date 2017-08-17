@@ -26,7 +26,6 @@ using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
-using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
