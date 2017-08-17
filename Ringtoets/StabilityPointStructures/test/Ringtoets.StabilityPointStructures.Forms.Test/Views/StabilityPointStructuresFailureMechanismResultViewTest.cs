@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -584,6 +585,76 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Then
                 Assert.AreEqual("-", formattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
+            }
+        }
+
+
+        [Test]
+        [TestCase("test", assessmentLayerThreeIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
+        public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        {
+            // Setup
+            using (CreateConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+                // Assert
+                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("1.01")]
+        [TestCase("-0.01")]
+        [TestCase("5")]
+        [TestCase("-10")]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(string newValue)
+        {
+            // Setup
+            using (CreateConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
+
+                // Assert
+                Assert.AreEqual("Kans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
+            }
+        }
+
+        [Test]
+        [TestCase("1")]
+        [TestCase("0")]
+        [TestCase("0.5")]
+        [TestCase("1e-6")]
+        [TestCase("NaN")]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(string newValue)
+        {
+            // Setup
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
+
+                // Assert
+                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+
+                var dataObject = view.Data as List<StabilityPointStructuresFailureMechanismSectionResult>;
+                Assert.IsNotNull(dataObject);
+                StabilityPointStructuresFailureMechanismSectionResult row = dataObject.First();
+
+                const string propertyName = "AssessmentLayerThree";
+                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+
+                Assert.AreEqual((RoundedDouble)double.Parse(newValue), propertyValue);
             }
         }
 

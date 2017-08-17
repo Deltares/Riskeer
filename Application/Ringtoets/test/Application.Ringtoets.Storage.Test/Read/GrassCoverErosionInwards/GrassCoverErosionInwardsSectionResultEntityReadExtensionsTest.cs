@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ParameterValues_SectionResultWithParameterValues(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
-            [Values(1.1, 2.2, null)] double? layerThree)
+            [Values(0.1, 0.2, null)] double? layerThree)
         {
             // Setup
             var collector = new ReadConversionCollector();

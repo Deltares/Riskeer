@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult layerTwoA,
-            [Values(1.1, 2.2, null)] double? layerThree)
+            [Values(0.1, 0.2, null)] double? layerThree)
         {
             // Setup
             var collector = new ReadConversionCollector();

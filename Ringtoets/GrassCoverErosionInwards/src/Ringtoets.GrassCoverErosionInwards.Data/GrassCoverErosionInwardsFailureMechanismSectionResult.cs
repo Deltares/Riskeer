@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -57,5 +59,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// to be representative for the whole section.
         /// </summary>
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
+
+        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        {
+            ProbabilityHelper.ValidateProbability(value, null, true);
+            return value;
+        }
     }
 }

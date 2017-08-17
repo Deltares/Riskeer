@@ -238,11 +238,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("1.01")]
+        [TestCase("-0.01")]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(string newValue)
+        {
+            // Setup
+            using (ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
+
+                // Assert
+                Assert.AreEqual("Kans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
+            }
+        }
+
+        [Test]
         [TestCase("1")]
+        [TestCase("0")]
+        [TestCase("0.5")]
         [TestCase("1e-6")]
-        [TestCase("1e+6")]
-        [TestCase("14.3")]
-        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue)
+        [TestCase("NaN")]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(string newValue)
         {
             // Setup
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())

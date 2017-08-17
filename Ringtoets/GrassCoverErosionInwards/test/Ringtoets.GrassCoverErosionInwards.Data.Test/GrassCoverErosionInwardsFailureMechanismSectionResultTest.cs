@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -41,6 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
+            Assert.IsNaN(result.AssessmentLayerThree);
             Assert.IsNaN(result.AssessmentLayerTwoA);
         }
 
@@ -124,6 +129,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(probability, twoAValue);
+        }
+
+        [Test]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(1.1)]
+        [TestCase(-0.1)]
+        public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection());
+
+            // Call
+            TestDelegate call = () => sectionResult.AssessmentLayerThree = (RoundedDouble)invalidValue;
+
+            // Assert
+            const string expectedMessage = "Kans moet in het bereik [0.0, 1.0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                expectedMessage);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
+        {
+            // Setup
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection());
+
+            // Call
+            TestDelegate call = () => sectionResult.AssessmentLayerThree = (RoundedDouble)validValue;
+
+            // Assert
+            Assert.DoesNotThrow(call);
+            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree, sectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
         private static FailureMechanismSection CreateSection()

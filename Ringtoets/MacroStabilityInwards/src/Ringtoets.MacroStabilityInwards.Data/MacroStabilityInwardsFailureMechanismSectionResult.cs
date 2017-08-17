@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -36,5 +38,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+
+        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        {
+            ProbabilityHelper.ValidateProbability(value, null, true);
+            return value;
+        }
     }
 }

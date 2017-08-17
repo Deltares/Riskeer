@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.Structures
 {
@@ -44,5 +46,11 @@ namespace Ringtoets.Common.Data.Structures
         /// to be representative for the whole section.
         /// </summary>
         public StructuresCalculation<T> Calculation { get; set; }
+
+        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        {
+            ProbabilityHelper.ValidateProbability(value, null, true);
+            return value;
+        }
     }
 }

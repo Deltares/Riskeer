@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
+            [Values(0.2, 0.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())

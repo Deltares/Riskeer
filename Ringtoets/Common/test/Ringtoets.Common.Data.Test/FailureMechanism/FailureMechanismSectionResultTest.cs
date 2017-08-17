@@ -76,11 +76,14 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue()
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(5)]
+        [TestCase(0.5)]
+        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
         {
             // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
 
