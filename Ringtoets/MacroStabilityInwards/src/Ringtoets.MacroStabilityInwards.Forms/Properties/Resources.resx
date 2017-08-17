@@ -331,6 +331,18 @@
   <data name="DrainageConstruction_Description" xml:space="preserve">
     <value>Drainage constructie eigenschappen.</value>
   </data>
+  <data name="MinimumLevelPhreaticLineAtDikeTopPolder_Description" xml:space="preserve">
+    <value>Minimale hoogte van de freatische lijn onder kruin binnentalud.</value>
+  </data>
+  <data name="MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName" xml:space="preserve">
+    <value>PL 1 initiele hoogte onder binnenkruin [m+NAP]</value>
+  </data>
+  <data name="MinimumLevelPhreaticLineAtDikeTopRiver_Description" xml:space="preserve">
+    <value>Minimale hoogte van de freatische lijn onder kruin buitentalud.</value>
+  </data>
+  <data name="MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName" xml:space="preserve">
+    <value>PL 1 initiele hoogte onder buitenkruin [m+NAP]</value>
+  </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
     <value>X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
   </data>

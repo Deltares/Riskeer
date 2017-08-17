@@ -41,6 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedWaterLevelRiverAveragePropertyIndex = 0;
         private const int expectedwaterLevelPolderPropertyIndex = 1;
         private const int expectedDrainagePropertyIndex = 2;
+        private const int expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 3;
+        private const int expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -106,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string waterStressesCategory = "Waterspanningen";
 
@@ -133,6 +135,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Drainage constructie eigenschappen.",
                 true);
 
+            PropertyDescriptor minimumLevelPhreaticLineAtDikeTopRiverProperty = dynamicProperties[expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                minimumLevelPhreaticLineAtDikeTopRiverProperty,
+                waterStressesCategory,
+                "PL 1 initiele hoogte onder buitenkruin [m+NAP]",
+                "Minimale hoogte van de freatische lijn onder kruin buitentalud.");
+
+            PropertyDescriptor minimumLevelPhreaticLineAtDikeTopPolderProperty = dynamicProperties[expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                minimumLevelPhreaticLineAtDikeTopPolderProperty,
+                waterStressesCategory,
+                "PL 1 initiele hoogte onder binnenkruin [m+NAP]",
+                "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
+
             mocks.VerifyAll();
         }
 
@@ -153,6 +169,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
             Assert.AreEqual(input.WaterLevelPolder, properties.WaterLevelPolder);
             Assert.AreSame(input, properties.Drainage.Data);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);
             mocks.VerifyAll();
         }
 
@@ -169,14 +187,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var random = new Random();
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
 
             // When
             properties.WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage;
             properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
+            properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopRiver;
+            properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopPolder;
 
             // Then
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage.Value);
             Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder.Value);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
         }
 
         [Test]
@@ -197,6 +221,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1, calculation);
+        }
+
+        [Test]
+        public void MinimumLevelPhreaticLineAtDikeTopRiver_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 1, calculation);
+        }
+
+        [Test]
+        public void MinimumLevelPhreaticLineAtDikeTopPolder_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 1, calculation);
         }
 
         [Test]

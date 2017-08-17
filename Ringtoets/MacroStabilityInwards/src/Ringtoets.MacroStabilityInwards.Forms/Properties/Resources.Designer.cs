@@ -495,6 +495,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minimale hoogte van de freatische lijn onder kruin binnentalud..
+        /// </summary>
+        public static string MinimumLevelPhreaticLineAtDikeTopPolder_Description {
+            get {
+                return ResourceManager.GetString("MinimumLevelPhreaticLineAtDikeTopPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL 1 initiele hoogte onder binnenkruin [m+NAP].
+        /// </summary>
+        public static string MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName {
+            get {
+                return ResourceManager.GetString("MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimale hoogte van de freatische lijn onder kruin buitentalud..
+        /// </summary>
+        public static string MinimumLevelPhreaticLineAtDikeTopRiver_Description {
+            get {
+                return ResourceManager.GetString("MinimumLevelPhreaticLineAtDikeTopRiver_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PL 1 initiele hoogte onder buitenkruin [m+NAP].
+        /// </summary>
+        public static string MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName {
+            get {
+                return ResourceManager.GetString("MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SoilProfileIcon {

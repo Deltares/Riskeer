@@ -41,6 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int waterLevelRiverAveragePropertyIndex = 0;
         private const int waterLevelPolderPropertyIndex = 1;
         private const int drainagePropertyIndex = 2;
+        private const int minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 3;
+        private const int minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 4;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -106,6 +108,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return new MacroStabilityInwardsDrainageProperties(data, propertyChangeHandler);
+            }
+        }
+        
+        [PropertyOrder(minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopRiver_Description))]
+        public RoundedDouble MinimumLevelPhreaticLineAtDikeTopRiver
+        {
+            get
+            {
+                return data.MinimumLevelPhreaticLineAtDikeTopRiver;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.MinimumLevelPhreaticLineAtDikeTopRiver = value, propertyChangeHandler);
+            }
+        }
+        
+        [PropertyOrder(minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopPolder_Description))]
+        public RoundedDouble MinimumLevelPhreaticLineAtDikeTopPolder
+        {
+            get
+            {
+                return data.MinimumLevelPhreaticLineAtDikeTopPolder;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.MinimumLevelPhreaticLineAtDikeTopPolder = value, propertyChangeHandler);
             }
         }
 
