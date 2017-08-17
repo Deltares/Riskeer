@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints

@@ -49,7 +49,7 @@
     <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="CloneAssertTest.cs" />
+    <Compile Include="CoreCloneAssertTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

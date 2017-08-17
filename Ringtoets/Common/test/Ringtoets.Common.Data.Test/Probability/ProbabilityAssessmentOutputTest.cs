@@ -21,12 +21,12 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using CommonCloneAssert = Ringtoets.Common.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Common.Data.Test.Probability

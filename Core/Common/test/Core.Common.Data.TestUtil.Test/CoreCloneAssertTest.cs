@@ -27,13 +27,13 @@ using NUnit.Framework;
 namespace Core.Common.Data.TestUtil.Test
 {
     [TestFixture]
-    public class CloneAssertTest
+    public class CoreCloneAssertTest
     {
         [Test]
         public void AreObjectClones_TypeSpecificAssertsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones(new object(), new object(), null);
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(new object(), new object(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -43,7 +43,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreObjectClones_OriginalAndCloneBothNull_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones<object>(null, null, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones<object>(null, null, (original, clone) => {});
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -53,7 +53,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreObjectClones_OriginalNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones<object>(null, new object(), (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones<object>(null, new object(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -63,7 +63,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreObjectClones_CloneNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones(new object(), null, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(new object(), null, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -73,7 +73,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreObjectClones_CloneOfOtherDataType_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones(1.0, 1, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(1.0, 1, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -86,7 +86,7 @@ namespace Core.Common.Data.TestUtil.Test
             var o = new object();
 
             // Call
-            TestDelegate test = () => CloneAssert.AreObjectClones(o, o, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(o, o, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -99,7 +99,7 @@ namespace Core.Common.Data.TestUtil.Test
             var counter = 0;
 
             // Call
-            CloneAssert.AreObjectClones(new object(), new object(), (original, clone) => counter++);
+            CoreCloneAssert.AreObjectClones(new object(), new object(), (original, clone) => counter++);
 
             // Assert
             Assert.AreEqual(1, counter);
@@ -109,7 +109,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_TypeSpecificAssertsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), Enumerable.Empty<object>(), null);
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), Enumerable.Empty<object>(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -119,7 +119,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_OriginalAndCloneBothNull_DoesNotThrow()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones<IEnumerable<object>>(null, null, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones<IEnumerable<object>>(null, null, (original, clone) => {});
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -129,7 +129,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_OriginalNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones<IEnumerable<object>>(null, Enumerable.Empty<object>(), (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones<IEnumerable<object>>(null, Enumerable.Empty<object>(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -139,7 +139,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_CloneNull_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), null, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(Enumerable.Empty<object>(), null, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -149,7 +149,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_CloneOfOtherDataType_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones(Enumerable.Empty<int>(), Enumerable.Empty<double>(), (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(Enumerable.Empty<int>(), Enumerable.Empty<double>(), (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -162,7 +162,7 @@ namespace Core.Common.Data.TestUtil.Test
             IEnumerable<object> o = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones(o, o, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(o, o, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -172,7 +172,7 @@ namespace Core.Common.Data.TestUtil.Test
         public void AreEnumerationClones_OriginalAndCloneDifferentLength_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => CloneAssert.AreEnumerationClones(
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(
                 new[]
                 {
                     new object(),
@@ -194,7 +194,7 @@ namespace Core.Common.Data.TestUtil.Test
             var counter = 0;
 
             // Call
-            CloneAssert.AreEnumerationClones(
+            CoreCloneAssert.AreEnumerationClones(
                 new[]
                 {
                     new object(),

@@ -21,11 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test

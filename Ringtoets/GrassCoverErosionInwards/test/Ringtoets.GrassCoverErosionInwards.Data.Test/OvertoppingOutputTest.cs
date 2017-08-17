@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using GrassCoverErosionInwardsCloneAssert = Ringtoets.GrassCoverErosionInwards.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test

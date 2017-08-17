@@ -29,7 +29,7 @@ namespace Core.Common.Data.TestUtil
     /// <summary>
     /// Class for asserting whether two objects are clones.
     /// </summary>
-    public static class CloneAssert
+    public static class CoreCloneAssert
     {
         /// <summary>
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>

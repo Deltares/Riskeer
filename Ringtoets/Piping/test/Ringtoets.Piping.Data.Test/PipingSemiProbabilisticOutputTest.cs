@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using PipingCloneAssert = Ringtoets.Piping.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.Piping.Data.Test

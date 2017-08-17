@@ -22,13 +22,13 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using CoreCloneAssert = Core.Common.Data.TestUtil.CloneAssert;
 using HeightStructuresCloneAssert = Ringtoets.HeightStructures.Data.TestUtil.CloneAssert;
 
 namespace Ringtoets.HeightStructures.Data.Test
