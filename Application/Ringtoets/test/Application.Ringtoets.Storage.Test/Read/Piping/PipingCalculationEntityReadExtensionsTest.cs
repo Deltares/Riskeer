@@ -284,6 +284,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 SoilProfileEntity = new SoilProfileEntity
                 {
+                    Name = "SoilProfile",
                     SoilLayerEntities =
                     {
                         new SoilLayerEntity()
@@ -293,6 +294,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
+                Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {

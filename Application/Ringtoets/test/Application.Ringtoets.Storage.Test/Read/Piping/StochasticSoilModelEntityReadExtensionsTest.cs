@@ -95,6 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
+                Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
@@ -150,6 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new StochasticSoilModelEntity
             {
+                Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(segmentPoints)
             };
             var collector = new ReadConversionCollector();
@@ -167,6 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
+                Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 

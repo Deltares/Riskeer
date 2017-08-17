@@ -58,6 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Probability = probability,
                 SoilProfileEntity = new SoilProfileEntity
                 {
+                    Name = "StochasticSoilProfile",
                     SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                     SoilLayerEntities =
                     {
@@ -84,6 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             double probability = random.NextDouble();
             var soilProfileEntity = new SoilProfileEntity
             {
+                Name = "StochasticSoilProfile",
                 SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                 SoilLayerEntities =
                 {
@@ -121,6 +123,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 SoilProfileEntity = new SoilProfileEntity
                 {
+                    Name = "StochasticSoilProfile",
                     SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                     SoilLayerEntities =
                     {
