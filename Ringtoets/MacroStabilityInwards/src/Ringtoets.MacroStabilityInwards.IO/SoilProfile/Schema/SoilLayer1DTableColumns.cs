@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// This class contains the column names that are used when querying the DSoil-Model database.
+    /// This class contains the column names that are used when querying the D-Soil Model database.
     /// </summary>
     internal static class SoilLayer1DTableColumns
     {

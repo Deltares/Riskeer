@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the various failure mechanism types in the DSoil-Model database.
+    /// Defines the various failure mechanism types in the D-Soil Model database.
     /// </summary>
     public enum FailureMechanismType : long
     {

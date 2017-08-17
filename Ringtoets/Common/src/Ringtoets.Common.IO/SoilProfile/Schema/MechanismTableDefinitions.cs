@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the table and column names of the table 'Mechanism' in the DSoil-Model database.
+    /// Defines the table and column names of the table 'Mechanism' in the D-Soil Model database.
     /// </summary>
     internal static class MechanismTableDefinitions
     {

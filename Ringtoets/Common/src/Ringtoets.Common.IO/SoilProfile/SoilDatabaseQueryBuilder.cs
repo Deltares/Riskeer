@@ -24,7 +24,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Defines queries to execute on the DSoil-Model database.
+    /// Defines queries to execute on the D-Soil Model database.
     /// </summary>
     internal static class SoilDatabaseQueryBuilder
     {
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             "GROUP BY mat.MA_ID ";
 
         /// <summary>
-        /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
+        /// Returns the SQL query to execute to check if version of the D-Soil Model database is as expected.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> "@<see cref="MetaTableDefinitions.Value"/>"
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to check if segment names in the DSoil-Model database 
+        /// Returns the SQL query to execute to check if segment names in the D-Soil Model database 
         /// are unique.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Returns the SQL query to execute to fetch stochastic soil models 
-        /// per failure mechanism from the DSoil-Model database.
+        /// per failure mechanism from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetStochasticSoilModelPerMechanismQuery()
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Returns the SQL query to execute to fetch segments and segment points
-        /// per stochastic soil model from the DSoil-Model database.
+        /// per stochastic soil model from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetSegmentPointsQuery()
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to fetch 1D soil profile from the DSoil-Model database.
+        /// Returns the SQL query to execute to fetch 1D soil profile from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetSoilProfile1DQuery()
@@ -199,7 +199,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to fetch 2D soil profile from the DSoil-Model database.
+        /// Returns the SQL query to execute to fetch 2D soil profile from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetSoilProfile2DQuery()

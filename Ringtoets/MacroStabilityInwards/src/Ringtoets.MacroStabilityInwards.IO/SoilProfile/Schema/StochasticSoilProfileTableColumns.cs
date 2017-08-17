@@ -23,7 +23,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema
 {
     /// <summary>
     /// This class contains the names of the table and columns of the table 
-    /// 'StochasticSoilProfile' of the DSoil-Model database.
+    /// 'StochasticSoilProfile' of the D-Soil Model database.
     /// </summary>
     internal static class StochasticSoilProfileTableColumns
     {

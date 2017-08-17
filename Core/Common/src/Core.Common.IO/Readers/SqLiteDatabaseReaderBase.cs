@@ -79,6 +79,17 @@ namespace Core.Common.IO.Readers
         /// </summary>
         public string Path { get; }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Connection"/>.
+        /// </summary>
+        protected SQLiteConnection Connection { get; private set; }
+
         /// <summary>
         /// Closes and disposes the existing <see cref="Connection"/>.
         /// When <paramref name="disposing"/> is <c>true</c>, the managed resources are freed as well.
@@ -96,17 +107,6 @@ namespace Core.Common.IO.Readers
             disposed = true;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Connection"/>.
-        /// </summary>
-        protected SQLiteConnection Connection { get; private set; }
-
         /// <summary>
         /// Moves to and reads the next result set in multiple row-returning SQL command. 
         /// </summary>
@@ -121,7 +121,7 @@ namespace Core.Common.IO.Readers
         /// Creates a new <see cref="SQLiteDataReader"/>, based upon <paramref name="queryString"/> and <paramref name="parameters"/>.
         /// </summary>
         /// <param name="queryString">The query to execute.</param>
-        /// <param name="parameters">Parameters the <paramref name="queryString"/> is depended on.</param>
+        /// <param name="parameters">Parameters the <paramref name="queryString"/> is dependent on.</param>
         /// <returns>A new instance of <see cref="IDataReader"/>.</returns>
         /// <exception cref="SQLiteException">Thrown when the execution of <paramref name="queryString"/> failed.</exception>
         protected IDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)

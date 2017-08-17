@@ -758,11 +758,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
     <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.</value>
   </data>
-  <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_" xml:space="preserve">
-    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}</value>
-  </data>
-  <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
-    <value>Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.</value>
+  <data name="SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_Could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.</value>
   </data>
   <data name="SurfaceLinesCsvImporter_Reading_characteristic_points_file" xml:space="preserve">
     <value>Inlezen van het karakteristieke punten-bestand.</value>

@@ -2277,22 +2277,13 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
         /// </summary>
-        public static string SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_ {
+        public static string SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_Could_be_caused_coordinates_being_local_coordinate_system {
             get {
                 return ResourceManager.GetString("SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_c" +
-                        "orrespond_to_current_referenceline_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft..
-        /// </summary>
-        public static string SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coordinates_being_local_coordinate_system {
-            get {
-                return ResourceManager.GetString("SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coo" +
-                        "rdinates_being_local_coordinate_system", resourceCulture);
+                        "orrespond_to_current_referenceline_Could_be_caused_coordinates_being_local_coord" +
+                        "inate_system", resourceCulture);
             }
         }
         

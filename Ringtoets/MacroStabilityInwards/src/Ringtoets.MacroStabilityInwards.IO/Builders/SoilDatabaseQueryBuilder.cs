@@ -24,13 +24,13 @@ using Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema;
 namespace Ringtoets.MacroStabilityInwards.IO.Builders
 {
     /// <summary>
-    /// Defines queries to execute on the DSoil-Model database.
+    /// Defines queries to execute on the D-Soil Model database.
     /// </summary>
     public static class SoilDatabaseQueryBuilder
     {
         /// <summary>
         /// Returns the SQL query to execute to fetch Stochastic Soil Models 
-        /// of the Macro Stability Inwards Mechanism from the DSoil-Model database.
+        /// of the Macro Stability Inwards Mechanism from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> ME_Name needs to be 
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
 
         /// <summary>
         /// Returns the SQL query to execute to fetch all Stochastic Soil Profiles 
-        /// from the DSoil-Model database.
+        /// from the D-Soil Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetAllStochasticSoilProfileQuery()
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
+        /// Returns the SQL query to execute to check if version of the D-Soil Model database is as expected.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> Value needs to be 
@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to check if segment names in the DSoil-Model database 
+        /// Returns the SQL query to execute to check if segment names in the D-Soil Model database 
         /// are unique.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>

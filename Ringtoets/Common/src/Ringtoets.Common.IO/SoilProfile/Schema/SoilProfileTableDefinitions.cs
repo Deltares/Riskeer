@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
-    /// Defines the table and column names of the table 'StochasticSoilProfile' in the DSoil-Model database.
+    /// Defines the table and column names of the table 'StochasticSoilProfile' in the D-Soil Model database.
     /// </summary>
     internal static class SoilProfileTableDefinitions
     {

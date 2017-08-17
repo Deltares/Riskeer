@@ -74,9 +74,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.NoIntersections)
             {
-                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_1_,
-                                               surfaceLine.Name,
-                                               Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_This_could_be_caused_coordinates_being_local_coordinate_system);
+                string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline_Could_be_caused_coordinates_being_local_coordinate_system,
+                                               surfaceLine.Name);
                 throw new ImportedDataTransformException(message);
             }
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
