@@ -292,7 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) leakageLengthOutwardsPhreaticLine4;
             properties.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) leakageLengthInwardsPhreaticLine4;
             properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards;
-            properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards;
+            properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards;
             properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
