@@ -50,17 +50,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 LogPath = logFilePath
             };
 
-            using (new FileDisposeHelper(logFilePath))
-            using (new FileDisposeHelper(targetFilePath))
+            try
             {
-                // When
-                TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+                using (new FileDisposeHelper(logFilePath))
+                using (new FileDisposeHelper(targetFilePath))
+                {
+                    // When
+                    TestDelegate call = () => migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
-                // Then
-                Assert.DoesNotThrow(call);
+                    // Then
+                    Assert.DoesNotThrow(call);
+                }
             }
-
-            File.Delete(sourceFilePath);
+            finally
+            {
+                File.Delete(sourceFilePath);
+            }
         }
 
         private string CreateSourceFilePathWithSpecialCharacter(string sourceFile, char specialCharacter)
