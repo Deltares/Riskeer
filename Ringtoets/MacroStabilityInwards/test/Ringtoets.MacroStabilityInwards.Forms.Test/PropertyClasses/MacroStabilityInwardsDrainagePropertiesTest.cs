@@ -91,14 +91,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool drainageConstructionPresent)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                DrainageConstructionPresent = drainageConstructionPresent
+            };
 
             // Call
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
@@ -122,14 +127,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageXProperty,
                 drainageCategory,
                 "X [m]",
-                "X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).");
+                "X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).",
+                !drainageConstructionPresent);
 
             PropertyDescriptor drainageZProperty = dynamicProperties[expectedZCoordinateDrainageConstructionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 drainageZProperty,
                 drainageCategory,
                 "Z [m+NAP]",
-                "Z-coordinaat (hoogte) van het middelpunt van de drainage.");
+                "Z-coordinaat (hoogte) van het middelpunt van de drainage.",
+                !drainageConstructionPresent);
 
             mocks.VerifyAll();
         }
@@ -208,6 +215,30 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ZCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnlyValidationMethod_Always_DependsDrainageConstructionPresent(bool drainageConstructionPresent)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                DrainageConstructionPresent = drainageConstructionPresent
+            };
+
+            var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
+
+            // Assert
+            Assert.AreNotEqual(drainageConstructionPresent, result);
         }
 
         [Test]

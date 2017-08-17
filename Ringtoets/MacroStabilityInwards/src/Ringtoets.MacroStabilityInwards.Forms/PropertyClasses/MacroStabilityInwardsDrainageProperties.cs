@@ -79,6 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(xCoordinateDrainageConstructionPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.DrainageConstruction_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.XCoordinateDrainageConstruction_DisplayName))]
@@ -95,6 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(zCoordinateDrainageConstructionPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.DrainageConstruction_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZCoordinateDrainageConstruction_DisplayName))]
@@ -109,6 +111,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.ZCoordinateDrainageConstruction = value, propertyChangeHandler);
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return !DrainageConstructionPresent;
         }
 
         public override string ToString()
