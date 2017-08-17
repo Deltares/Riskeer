@@ -82,6 +82,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Corrigeer de stijghoogte in watervoerende zandlaag en tussenzandlaag voor opbarsten?.
+        /// </summary>
+        public static string AdjustPhreaticLine3And4ForUplift_Description {
+            get {
+                return ResourceManager.GetString("AdjustPhreaticLine3And4ForUplift_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Corrigeer PL 3 en PL 4 voor opbarsten.
+        /// </summary>
+        public static string AdjustPhreaticLine3And4ForUplift_DisplayName {
+            get {
+                return ResourceManager.GetString("AdjustPhreaticLine3And4ForUplift_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Semi-probabilistische parameters.
         /// </summary>
         public static string Categories_SemiProbabilisticParameters {
@@ -177,6 +195,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string GeneralMacroStabilityInwardsInput_B_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralMacroStabilityInwardsInput_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leklengte binnenwaarts PL 3 [m].
+        /// </summary>
+        public static string LeakageLengthInwardsPhreaticLine3_DisplayName {
+            get {
+                return ResourceManager.GetString("LeakageLengthInwardsPhreaticLine3_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leklengte binnenwaarts PL 4 [m].
+        /// </summary>
+        public static string LeakageLengthInwardsPhreaticLine4_DisplayName {
+            get {
+                return ResourceManager.GetString("LeakageLengthInwardsPhreaticLine4_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leklengte buitenwaarts PL 3 [m].
+        /// </summary>
+        public static string LeakageLengthOutwardsPhreaticLine3_DisplayName {
+            get {
+                return ResourceManager.GetString("LeakageLengthOutwardsPhreaticLine3_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leklengte buitenwaarts PL 4 [m].
+        /// </summary>
+        public static string LeakageLengthOutwardsPhreaticLine4_DisplayName {
+            get {
+                return ResourceManager.GetString("LeakageLengthOutwardsPhreaticLine4_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag..
+        /// </summary>
+        public static string LeakageLengthPhreaticLine3_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthPhreaticLine3_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag..
+        /// </summary>
+        public static string LeakageLengthPhreaticLine4_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthPhreaticLine4_Description", resourceCulture);
             }
         }
         
@@ -531,7 +603,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Offsets PL1 eigenschappen..
+        ///   Looks up a localized string similar to Offsets PL 1 eigenschappen..
         /// </summary>
         public static string Offsets_Description {
             get {
@@ -540,11 +612,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Offsets PL1.
+        ///   Looks up a localized string similar to Offsets PL 1.
         /// </summary>
         public static string Offsets_DisplayName {
             get {
                 return ResourceManager.GetString("Offsets_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag..
+        /// </summary>
+        public static string PenetrationLength_Description {
+            get {
+                return ResourceManager.GetString("PenetrationLength_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indringingslengte [m].
+        /// </summary>
+        public static string PenetrationLength_DisplayName {
+            get {
+                return ResourceManager.GetString("PenetrationLength_DisplayName", resourceCulture);
             }
         }
         
@@ -558,7 +648,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL1 offset onder teen dijk binnenwaarts [m].
+        ///   Looks up a localized string similar to PL 1 offset onder teen dijk binnenwaarts [m].
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeToeAtPolder_DisplayName {
             get {
@@ -576,7 +666,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL1 offset onder binnenkruin [m].
+        ///   Looks up a localized string similar to PL 1 offset onder binnenkruin [m].
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName {
             get {
@@ -594,7 +684,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL1 offset onder buitenkruin [m].
+        ///   Looks up a localized string similar to PL 1 offset onder buitenkruin [m].
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName {
             get {
@@ -612,11 +702,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL1 offset onder insteek binnenberm [m].
+        ///   Looks up a localized string similar to PL 1 offset onder insteek binnenberm [m].
         /// </summary>
         public static string PhreaticLineOffsetBelowShoulderBaseInside_DisplayName {
             get {
                 return ResourceManager.GetString("PhreaticLineOffsetBelowShoulderBaseInside_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stijghoogte in de indringingslaag binnenwaarts..
+        /// </summary>
+        public static string PiezometricHeadPhreaticLine2Inwards_Description {
+            get {
+                return ResourceManager.GetString("PiezometricHeadPhreaticLine2Inwards_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stijghoogte PL 2 binnenwaarts [m+NAP].
+        /// </summary>
+        public static string PiezometricHeadPhreaticLine2Inwards_DisplayName {
+            get {
+                return ResourceManager.GetString("PiezometricHeadPhreaticLine2Inwards_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stijghoogte in de indringingslaag buitenwaarts..
+        /// </summary>
+        public static string PiezometricHeadPhreaticLine2Outwards_Description {
+            get {
+                return ResourceManager.GetString("PiezometricHeadPhreaticLine2Outwards_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stijghoogte PL 2 buitenwaarts [m+NAP].
+        /// </summary>
+        public static string PiezometricHeadPhreaticLine2Outwards_DisplayName {
+            get {
+                return ResourceManager.GetString("PiezometricHeadPhreaticLine2Outwards_DisplayName", resourceCulture);
             }
         }
         
@@ -813,7 +939,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gebruik default waarden voor offsets van PL1.
+        ///   Looks up a localized string similar to Gebruik default waarden voor offsets van PL 1.
         /// </summary>
         public static string UseDefaultOffset_DisplayName {
             get {

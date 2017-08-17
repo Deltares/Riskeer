@@ -328,8 +328,32 @@
   <data name="WaterLevelPolder_DisplayName" xml:space="preserve">
     <value>Polderpeil [m+NAP]</value>
   </data>
+  <data name="AdjustPhreaticLine3And4ForUplift_Description" xml:space="preserve">
+    <value>Corrigeer de stijghoogte in watervoerende zandlaag en tussenzandlaag voor opbarsten?</value>
+  </data>
+  <data name="AdjustPhreaticLine3And4ForUplift_DisplayName" xml:space="preserve">
+    <value>Corrigeer PL 3 en PL 4 voor opbarsten</value>
+  </data>
   <data name="DrainageConstruction_Description" xml:space="preserve">
     <value>Drainage constructie eigenschappen.</value>
+  </data>
+  <data name="LeakageLengthInwardsPhreaticLine3_DisplayName" xml:space="preserve">
+    <value>Leklengte binnenwaarts PL 3 [m]</value>
+  </data>
+  <data name="LeakageLengthInwardsPhreaticLine4_DisplayName" xml:space="preserve">
+    <value>Leklengte binnenwaarts PL 4 [m]</value>
+  </data>
+  <data name="LeakageLengthOutwardsPhreaticLine3_DisplayName" xml:space="preserve">
+    <value>Leklengte buitenwaarts PL 3 [m]</value>
+  </data>
+  <data name="LeakageLengthOutwardsPhreaticLine4_DisplayName" xml:space="preserve">
+    <value>Leklengte buitenwaarts PL 4 [m]</value>
+  </data>
+  <data name="LeakageLengthPhreaticLine3_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag.</value>
+  </data>
+  <data name="LeakageLengthPhreaticLine4_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag.</value>
   </data>
   <data name="MinimumLevelPhreaticLineAtDikeTopPolder_Description" xml:space="preserve">
     <value>Minimale hoogte van de freatische lijn onder kruin binnentalud.</value>
@@ -344,40 +368,58 @@
     <value>PL 1 initiele hoogte onder buitenkruin [m+NAP]</value>
   </data>
   <data name="Offsets_Description" xml:space="preserve">
-    <value>Offsets PL1 eigenschappen.</value>
+    <value>Offsets PL 1 eigenschappen.</value>
   </data>
   <data name="Offsets_DisplayName" xml:space="preserve">
-    <value>Offsets PL1</value>
+    <value>Offsets PL 1</value>
+  </data>
+  <data name="PenetrationLength_Description" xml:space="preserve">
+    <value>De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.</value>
+  </data>
+  <data name="PenetrationLength_DisplayName" xml:space="preserve">
+    <value>Indringingslengte [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeToeAtPolder_Description" xml:space="preserve">
     <value>Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeToeAtPolder_DisplayName" xml:space="preserve">
-    <value>PL1 offset onder teen dijk binnenwaarts [m]</value>
+    <value>PL 1 offset onder teen dijk binnenwaarts [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_Description" xml:space="preserve">
     <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName" xml:space="preserve">
-    <value>PL1 offset onder binnenkruin [m]</value>
+    <value>PL 1 offset onder binnenkruin [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_Description" xml:space="preserve">
     <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName" xml:space="preserve">
-    <value>PL1 offset onder buitenkruin [m]</value>
+    <value>PL 1 offset onder buitenkruin [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowShoulderBaseInside_Description" xml:space="preserve">
     <value>Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm.</value>
   </data>
   <data name="PhreaticLineOffsetBelowShoulderBaseInside_DisplayName" xml:space="preserve">
-    <value>PL1 offset onder insteek binnenberm [m]</value>
+    <value>PL 1 offset onder insteek binnenberm [m]</value>
+  </data>
+  <data name="PiezometricHeadPhreaticLine2Inwards_Description" xml:space="preserve">
+    <value>Stijghoogte in de indringingslaag binnenwaarts.</value>
+  </data>
+  <data name="PiezometricHeadPhreaticLine2Inwards_DisplayName" xml:space="preserve">
+    <value>Stijghoogte PL 2 binnenwaarts [m+NAP]</value>
+  </data>
+  <data name="PiezometricHeadPhreaticLine2Outwards_Description" xml:space="preserve">
+    <value>Stijghoogte in de indringingslaag buitenwaarts.</value>
+  </data>
+  <data name="PiezometricHeadPhreaticLine2Outwards_DisplayName" xml:space="preserve">
+    <value>Stijghoogte PL 2 buitenwaarts [m+NAP]</value>
   </data>
   <data name="UseDefaultOffset_Description" xml:space="preserve">
     <value>Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?</value>
   </data>
   <data name="UseDefaultOffset_DisplayName" xml:space="preserve">
-    <value>Gebruik default waarden voor offsets van PL1</value>
+    <value>Gebruik default waarden voor offsets van PL 1</value>
   </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
     <value>X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).</value>

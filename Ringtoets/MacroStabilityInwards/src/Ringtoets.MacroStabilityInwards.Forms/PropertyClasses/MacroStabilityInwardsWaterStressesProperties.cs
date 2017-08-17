@@ -44,6 +44,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 4;
         private const int minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 5;
         private const int offsetsPropertyIndex = 6;
+        private const int adjustPhreaticLine3And4ForUpliftPropertyIndex = 7;
+        private const int leakageLengthOutwardsPhreaticLine3PropertyIndex = 8;
+        private const int leakageLengthInwardsPhreaticLine3PropertyIndex = 9;
+        private const int leakageLengthOutwardsPhreaticLine4PropertyIndex = 10;
+        private const int leakageLengthInwardsPhreaticLine4PropertyIndex = 11;
+        private const int piezometricHeadPhreaticLine2OutwardsPropertyIndex = 12;
+        private const int piezometricHeadPhreaticLine2InwardsPropertyIndex = 13;
+        private const int penetrationLengthPropertyIndex = 14;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -111,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 return new MacroStabilityInwardsDrainageProperties(data, propertyChangeHandler);
             }
         }
-        
+
         [PropertyOrder(minimumLevelPhreaticLineAtDikeTopRiverPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName))]
@@ -127,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.MinimumLevelPhreaticLineAtDikeTopRiver = value, propertyChangeHandler);
             }
         }
-        
+
         [PropertyOrder(minimumLevelPhreaticLineAtDikeTopPolderPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName))]
@@ -154,6 +162,134 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return new MacroStabilityInwardsOffsetsProperties(data, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(adjustPhreaticLine3And4ForUpliftPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AdjustPhreaticLine3And4ForUplift_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AdjustPhreaticLine3And4ForUplift_Description))]
+        public bool AdjustPhreaticLine3And4ForUplift
+        {
+            get
+            {
+                return data.AdjustPhreaticLine3And4ForUplift;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.AdjustPhreaticLine3And4ForUplift = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(leakageLengthOutwardsPhreaticLine3PropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine3_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine3_Description))]
+        public RoundedDouble LeakageLengthOutwardsPhreaticLine3
+        {
+            get
+            {
+                return data.LeakageLengthOutwardsPhreaticLine3;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LeakageLengthOutwardsPhreaticLine3 = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(leakageLengthInwardsPhreaticLine3PropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine3_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine3_Description))]
+        public RoundedDouble LeakageLengthInwardsPhreaticLine3
+        {
+            get
+            {
+                return data.LeakageLengthInwardsPhreaticLine3;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LeakageLengthInwardsPhreaticLine3 = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(leakageLengthOutwardsPhreaticLine4PropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine4_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine4_Description))]
+        public RoundedDouble LeakageLengthOutwardsPhreaticLine4
+        {
+            get
+            {
+                return data.LeakageLengthOutwardsPhreaticLine4;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LeakageLengthOutwardsPhreaticLine4 = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(leakageLengthInwardsPhreaticLine4PropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine4_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine4_Description))]
+        public RoundedDouble LeakageLengthInwardsPhreaticLine4
+        {
+            get
+            {
+                return data.LeakageLengthInwardsPhreaticLine4;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LeakageLengthInwardsPhreaticLine4 = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(piezometricHeadPhreaticLine2OutwardsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Outwards_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Outwards_Description))]
+        public RoundedDouble PiezometricHeadPhreaticLine2Outwards
+        {
+            get
+            {
+                return data.PiezometricHeadPhreaticLine2Outwards;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.PiezometricHeadPhreaticLine2Outwards = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(piezometricHeadPhreaticLine2InwardsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Inwards_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PiezometricHeadPhreaticLine2Inwards_Description))]
+        public RoundedDouble PiezometricHeadPhreaticLine2Inwards
+        {
+            get
+            {
+                return data.PiezometricHeadPhreaticLine2Inwards;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.PiezometricHeadPhreaticLine2Inwards = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(penetrationLengthPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PenetrationLength_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PenetrationLength_Description))]
+        public RoundedDouble PenetrationLength
+        {
+            get
+            {
+                return data.PenetrationLength;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.PenetrationLength = value, propertyChangeHandler);
             }
         }
 

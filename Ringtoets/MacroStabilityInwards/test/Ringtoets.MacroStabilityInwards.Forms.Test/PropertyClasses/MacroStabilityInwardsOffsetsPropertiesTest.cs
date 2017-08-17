@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate call = () => new MacroStabilityInwardsOffsetsProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
-                                                                                  null);
+                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -115,20 +115,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(5, dynamicProperties.Count);
 
-            const string offsetCategory = "Offsets PL1";
+            const string offsetCategory = "Offsets PL 1";
 
             PropertyDescriptor useDefaultOffsetProperty = dynamicProperties[expectedUseDefaultOffsetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 useDefaultOffsetProperty,
                 offsetCategory,
-                "Gebruik default waarden voor offsets van PL1",
+                "Gebruik default waarden voor offsets van PL 1",
                 "Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?");
 
             PropertyDescriptor phreaticLineOffsetBelowDikeTopAtRiverProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeTopAtRiverPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 phreaticLineOffsetBelowDikeTopAtRiverProperty,
                 offsetCategory,
-                "PL1 offset onder buitenkruin [m]",
+                "PL 1 offset onder buitenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.",
                 !useDefaultOffset);
 
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 phreaticLineOffsetBelowDikeTopAtPolderProperty,
                 offsetCategory,
-                "PL1 offset onder binnenkruin [m]",
+                "PL 1 offset onder binnenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.",
                 !useDefaultOffset);
 
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 phreaticLineOffsetBelowShoulderBaseInsideProperty,
                 offsetCategory,
-                "PL1 offset onder insteek binnenberm [m]",
+                "PL 1 offset onder insteek binnenberm [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm.",
                 !useDefaultOffset);
 
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 phreaticLineOffsetBelowDikeToeAtPolderProperty,
                 offsetCategory,
-                "PL1 offset onder teen dijk binnenwaarts [m]",
+                "PL 1 offset onder teen dijk binnenwaarts [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts.",
                 !useDefaultOffset);
 
@@ -202,8 +202,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.UseDefaultOffset = useDefaultOffset;
             properties.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtRiver;
             properties.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtPolder;
-            properties.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble)phreaticLineOffsetBelowShoulderBaseInside;
-            properties.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble)phreaticLineOffsetBelowDikeToeAtPolder;
+            properties.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) phreaticLineOffsetBelowShoulderBaseInside;
+            properties.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeToeAtPolder;
 
             // Then
             Assert.AreEqual(useDefaultOffset, input.UseDefaultOffset);
