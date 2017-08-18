@@ -26,11 +26,11 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SurfaceLines;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
+using Ringtoets.MacroStabilityInwards.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
+namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineExtensionsTest
