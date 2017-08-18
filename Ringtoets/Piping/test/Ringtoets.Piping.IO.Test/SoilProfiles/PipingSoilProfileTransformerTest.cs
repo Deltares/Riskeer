@@ -68,7 +68,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             const string name = "name";
-            var profile = new SoilProfile2D(0, name, Enumerable.Empty<SoilLayer2D>());
+            var profile = new SoilProfile2D(0, name, new[]
+            {
+                new SoilLayer2D()
+            });
 
             // Call
             TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
