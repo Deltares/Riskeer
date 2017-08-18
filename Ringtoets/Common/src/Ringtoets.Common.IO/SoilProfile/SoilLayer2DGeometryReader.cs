@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// This class is responsible for reading an array of bytes and interpret this as an XML document,
     /// which contains information about the geometry of a soil layer.
     /// </summary>
-    internal class SoilLayer2DReader
+    internal class SoilLayer2DGeometryReader
     {
         private const string outerLoopElementName = "OuterLoop";
         private const string innerLoopElementName = "InnerLoop";
@@ -50,9 +50,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         private readonly XmlSchemaSet schema;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer2DReader"/>.
+        /// Creates a new instance of <see cref="SoilLayer2DGeometryReader"/>.
         /// </summary>
-        public SoilLayer2DReader()
+        public SoilLayer2DGeometryReader()
         {
             schema = LoadXmlSchema();
         }
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             if (geometry == null)
             {
-                throw new ArgumentNullException(nameof(geometry), Resources.SoilLayer2DReader_Geometry_is_null);
+                throw new ArgumentNullException(nameof(geometry), Resources.SoilLayer2DGeometryReader_Geometry_is_null);
             }
             try
             {
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (XmlException e)
             {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml, e);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (XmlSchemaValidationException e)
             {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml, e);
             }
         }
 
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="geometry">The geometry.</param>
         /// <exception cref="SoilLayerConversionException">XML for inner or outer geometry loops is invalid.</exception>
-        private SoilLayer2D ParseLayer(XDocument geometry)
+        private static SoilLayer2D ParseLayer(XDocument geometry)
         {
             var soilLayer = new SoilLayer2D();
 
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             XElement endDefinition = curve.Element(endPointElementName);
             if (headDefinition == null || endDefinition == null)
             {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
             }
 
             return new Segment2D(ParsePoint(headDefinition), ParsePoint(endDefinition));
@@ -213,7 +213,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             XElement yElement = point.Element(zElementName);
             if (xElement == null || yElement == null)
             {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
             }
 
             try
@@ -222,9 +222,11 @@ namespace Ringtoets.Common.IO.SoilProfile
                 double y = XmlConvert.ToDouble(yElement.Value);
                 return new Point2D(x, y);
             }
-            catch (SystemException e) when (e is ArgumentNullException || e is FormatException || e is OverflowException)
+            catch (SystemException e) when (e is ArgumentNullException || e is
+                                                FormatException
+                                            || e is OverflowException)
             {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DReader_Could_not_parse_point_location, e);
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Could_not_parse_point_location, e);
             }
         }
     }

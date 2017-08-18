@@ -1632,27 +1632,27 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Coördinaat van een punt bevat ongeldige waarde..
         /// </summary>
-        public static string SoilLayer2DReader_Could_not_parse_point_location {
+        public static string SoilLayer2DGeometryReader_Could_not_parse_point_location {
             get {
-                return ResourceManager.GetString("SoilLayer2DReader_Could_not_parse_point_location", resourceCulture);
+                return ResourceManager.GetString("SoilLayer2DGeometryReader_Could_not_parse_point_location", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de geometrie beschrijft voor de laag is niet geldig..
         /// </summary>
-        public static string SoilLayer2DReader_Geometry_contains_no_valid_xml {
+        public static string SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml {
             get {
-                return ResourceManager.GetString("SoilLayer2DReader_Geometry_contains_no_valid_xml", resourceCulture);
+                return ResourceManager.GetString("SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De geometrie is leeg..
         /// </summary>
-        public static string SoilLayer2DReader_Geometry_is_null {
+        public static string SoilLayer2DGeometryReader_Geometry_is_null {
             get {
-                return ResourceManager.GetString("SoilLayer2DReader_Geometry_is_null", resourceCulture);
+                return ResourceManager.GetString("SoilLayer2DGeometryReader_Geometry_is_null", resourceCulture);
             }
         }
         

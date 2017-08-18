@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             SoilLayer2D soilLayer;
             try
             {
-                soilLayer = new SoilLayer2DReader().Read(geometryValue);
+                soilLayer = new SoilLayer2DGeometryReader().Read(geometryValue);
             }
             catch (SoilLayerConversionException e)
             {

@@ -97,9 +97,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="layers"/> contains no layers</item>
+        /// <item><paramref name="layers"/> contains no layers;</item>
         /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
-        /// less than <see cref="Bottom"/></item>
+        /// less than <see cref="Bottom"/>.</item>
         /// </list>
         /// </exception>
         private void ValidateLayersCollection(IEnumerable<SoilLayer1D> layers, double bottom)

@@ -35,13 +35,13 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayer2DReaderTest
+    public class SoilLayer2DGeometryReaderTest
     {
         [Test]
         public void Constructor_ReturnsNewInstance()
         {
             // Call
-            var result = new SoilLayer2DReader();
+            var result = new SoilLayer2DGeometryReader();
 
             // Assert
             Assert.NotNull(result);
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Read_NullByteArray_ThrowsArgumentNullException()
         {
             // Setup
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read((byte[]) null);
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Read_NullXmlDocument_ThrowsArgumentNullException()
         {
             // Setup
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read((XDocument) null);
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<doc/>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             SoilLayer2D result = reader.Read(xmlDoc);
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 $"<HeadPoint><X>{incorrectNumber}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
                 "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 $"<HeadPoint><X>{double.MaxValue}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
                 "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -221,7 +221,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                               "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
                               "</GeometryCurve></CurveList></InnerLoop></InnerLoops></GeometrySurface>",
                               x1String, y1String, x2String, y2String));
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             SoilLayer2D result = reader.Read(xmlDoc);
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
                 "<EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint>" +
                 "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "<GeometrySurface><InnerLoops><InnerLoop><GeometryCurve>" +
                 "<HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint>" +
                 "</GeometryCurve></InnerLoop></InnerLoops></GeometrySurface>");
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             TestDelegate test = () => reader.Read(xmlDoc);
@@ -288,7 +288,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "</GeometryCurve>" +
                 "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
 
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             SoilLayer2D result = reader.Read(xmlDoc);
@@ -328,7 +328,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                               "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
                               x1String, y1String, x2String, y2String));
 
-            var reader = new SoilLayer2DReader();
+            var reader = new SoilLayer2DGeometryReader();
 
             // Call
             SoilLayer2D result = reader.Read(bytes);
