@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
     public class TestHydraulicLoadsOutput : HydraulicLoadsOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestOvertoppingOutput"/>.
+        /// Creates a new instance of <see cref="TestHydraulicLoadsOutput"/>.
         /// </summary>
         /// <param name="targetProbability">The norm used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
