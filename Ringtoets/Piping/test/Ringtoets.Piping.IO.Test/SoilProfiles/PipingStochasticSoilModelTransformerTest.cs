@@ -110,7 +110,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, new SoilProfile2D(0, name, Enumerable.Empty<SoilLayer2D>()))
+                    new StochasticSoilProfile(1.0, new SoilProfile2D(0, name, new[]
+                    {
+                        new SoilLayer2D()
+                    }))
                 }
             };
 

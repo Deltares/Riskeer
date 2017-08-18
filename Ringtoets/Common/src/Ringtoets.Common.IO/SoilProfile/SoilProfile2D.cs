@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -37,20 +39,19 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         public SoilProfile2D(long id, string name, IEnumerable<SoilLayer2D> layers)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            if (layers == null)
-            {
-                throw new ArgumentNullException(nameof(layers));
-            }
+
+            ValidateLayersCollection(layers);
 
             Id = id;
             Name = name;
-            Layers = layers;
+            Layers = layers.ToArray();
             IntersectionX = double.NaN;
         }
 
@@ -64,11 +65,29 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         public IEnumerable<SoilLayer2D> Layers { get; }
 
-        public string Name { get; }
-
         /// <summary>
         /// The 1d intersection of the profile.
         /// </summary>
         public double IntersectionX { get; set; }
+
+        public string Name { get; }
+
+        /// <summary>
+        /// Validates the given <paramref name="layers"/>. A valid <paramref name="layers"/> has layers.
+        /// </summary>
+        /// <param name="layers">The collection of <see cref="SoilLayer2D"/> to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
+        private static void ValidateLayersCollection(IEnumerable<SoilLayer2D> layers)
+        {
+            if (layers == null)
+            {
+                throw new ArgumentNullException(nameof(layers), string.Format(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers));
+            }
+            if (!layers.Any())
+            {
+                throw new ArgumentException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers);
+            }
+        }
     }
 }

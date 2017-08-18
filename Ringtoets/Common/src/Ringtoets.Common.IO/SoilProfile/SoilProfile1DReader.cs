@@ -150,7 +150,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new SoilProfileReadException(
                     Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
-                    properties.ProfileName, 
+                    properties.ProfileName,
                     exception);
             }
         }
@@ -177,31 +177,72 @@ namespace Ringtoets.Common.IO.SoilProfile
         private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new Layer1DProperties(reader, profileName);
-
-            return new SoilLayer1D(properties.Top)
+            var soilLayer = new SoilLayer1D(properties.Top)
             {
-                IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0),
-                MaterialName = properties.MaterialName ?? string.Empty,
-                Color = SoilLayerColorConverter.Convert(properties.Color),
-                BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution,
-                BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN,
-                BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean ?? double.NaN,
-                BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation ?? double.NaN,
-                DiameterD70Distribution = properties.DiameterD70Distribution,
-                DiameterD70Shift = properties.DiameterD70Shift ?? double.NaN,
-                DiameterD70Mean = properties.DiameterD70Mean ?? double.NaN,
-                DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation ?? double.NaN,
-                PermeabilityDistribution = properties.PermeabilityDistribution,
-                PermeabilityShift = properties.PermeabilityShift ?? double.NaN,
-                PermeabilityMean = properties.PermeabilityMean ?? double.NaN,
-                PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation ?? double.NaN
+                MaterialName = properties.MaterialName,
+                Color = SoilLayerColorConverter.Convert(properties.Color)
             };
+
+            if (properties.IsAquifer.HasValue)
+            {
+                soilLayer.IsAquifer = properties.IsAquifer.Value.Equals(1.0);
+            }
+            if (properties.BelowPhreaticLevelDistribution.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution.Value;
+            }
+            if (properties.BelowPhreaticLevelShift.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift.Value;
+            }
+            if (properties.BelowPhreaticLevelMean.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean.Value;
+            }
+            if (properties.BelowPhreaticLevelDeviation.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation.Value;
+            }
+            if (properties.DiameterD70Distribution.HasValue)
+            {
+                soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution.Value;
+            }
+            if (properties.DiameterD70Shift.HasValue)
+            {
+                soilLayer.DiameterD70Shift = properties.DiameterD70Shift.Value;
+            }
+            if (properties.DiameterD70Mean.HasValue)
+            {
+                soilLayer.DiameterD70Mean = properties.DiameterD70Mean.Value;
+            }
+            if (properties.DiameterD70CoefficientOfVariation.HasValue)
+            {
+                soilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation.Value;
+            }
+            if (properties.PermeabilityDistribution.HasValue)
+            {
+                soilLayer.PermeabilityDistribution = properties.PermeabilityDistribution.Value;
+            }
+            if (properties.PermeabilityShift.HasValue)
+            {
+                soilLayer.PermeabilityShift = properties.PermeabilityShift.Value;
+            }
+            if (properties.PermeabilityMean.HasValue)
+            {
+                soilLayer.PermeabilityMean = properties.PermeabilityMean.Value;
+            }
+            if (properties.PermeabilityCoefficientOfVariation.HasValue)
+            {
+                soilLayer.PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation.Value;
+            }
+
+            return soilLayer;
         }
 
         private class Layer1DProperties : LayerProperties
         {
             /// <summary>
-            /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties
+            /// Creates a new instance of <see cref="Layer1DProperties"/> which contains properties
             /// that are required to create a complete <see cref="SoilLayer1D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
@@ -235,7 +276,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private class RequiredProfileProperties
         {
             /// <summary>
-            /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
+            /// Creates a new instance of <see cref="RequiredProfileProperties"/> which contains properties
             /// that are required to create a complete <see cref="SoilProfile1D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>

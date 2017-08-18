@@ -46,6 +46,43 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void Constructor_LayersNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SoilProfile1D(1, "name", 1, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("layers", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_NoLayers_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new SoilProfile1D(1, "name", 1, new SoilLayer1D[0]);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Geen lagen gevonden voor de ondergrondschematisatie.", exception.Message);
+        }
+
+        [Test]
+        public void Constructor_BottomAboveLayers_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new SoilProfile1D(1, "name", 9999, new[]
+            {
+                new SoilLayer1D(2)
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.",
+                            exception.Message);
+        }
+
+        [Test]
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup

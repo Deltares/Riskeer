@@ -57,6 +57,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void Constructor_NoLayers_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new SoilProfile2D(1, "name", new SoilLayer2D[0]);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Geen lagen gevonden voor de ondergrondschematisatie.", exception.Message);
+        }
+
+        [Test]
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
