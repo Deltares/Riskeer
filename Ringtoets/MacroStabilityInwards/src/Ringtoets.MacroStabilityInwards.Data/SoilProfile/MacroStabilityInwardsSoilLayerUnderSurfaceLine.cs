@@ -30,25 +30,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// A 2D soil layer that has been adapted by using a surface line.
     /// </summary>
-    public class SoilLayerUnderSurfaceLine
+    public class MacroStabilityInwardsSoilLayerUnderSurfaceLine
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayerUnderSurfaceLine"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
         /// <param name="properties">The properties of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SoilLayerUnderSurfaceLine(Point2D[] outerRing, SoilLayerProperties properties)
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, SoilLayerProperties properties)
             : this(outerRing, Enumerable.Empty<Point2D[]>(), properties) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayerUnderSurfaceLine"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
         /// <param name="holes">The holes of the geometry of the soil layer.</param>
         /// <param name="properties">The properties of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, SoilLayerProperties properties)
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, SoilLayerProperties properties)
         {
             if (outerRing == null)
             {

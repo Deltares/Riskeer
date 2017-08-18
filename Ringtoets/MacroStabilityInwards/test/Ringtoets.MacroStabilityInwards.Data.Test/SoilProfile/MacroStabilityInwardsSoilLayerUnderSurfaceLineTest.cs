@@ -30,13 +30,13 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayerUnderSurfaceLineTest
+    public class MacroStabilityInwardsSoilLayerUnderSurfaceLineTest
     {
         [Test]
         public void Constructor_WithoutOuterRingWithHolesAndProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayerUnderSurfaceLine(null, Enumerable.Empty<Point2D[]>(), new SoilLayerProperties());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(null, Enumerable.Empty<Point2D[]>(), new SoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithoutHolesWithOuterRingAndProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayerUnderSurfaceLine(new Point2D[0], null, new SoilLayerProperties());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new Point2D[0], null, new SoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithoutPropertiesWithOuterRingAndHoles_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayerUnderSurfaceLine(new Point2D[0], Enumerable.Empty<Point2D[]>(), null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new Point2D[0], Enumerable.Empty<Point2D[]>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithoutOuterRingWithProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayerUnderSurfaceLine(null, new SoilLayerProperties());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(null, new SoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithoutPropertiesWithOuterRing_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayerUnderSurfaceLine(new Point2D[0], null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new Point2D[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var properties = new SoilLayerProperties();
 
             // Setup
-            var layer = new SoilLayerUnderSurfaceLine(outerRing, holes, properties);
+            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, holes, properties);
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var properties = new SoilLayerProperties();
 
             // Setup
-            var layer = new SoilLayerUnderSurfaceLine(outerRing, properties);
+            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, properties);
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);

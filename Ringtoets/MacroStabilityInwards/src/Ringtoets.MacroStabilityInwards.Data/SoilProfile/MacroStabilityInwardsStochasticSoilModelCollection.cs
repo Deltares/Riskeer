@@ -26,13 +26,14 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// A collection of <see cref="StochasticSoilModel"/>. The names of the <see cref="StochasticSoilModel"/> elements are
-    /// unique within the collection.
+    /// A collection of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
+    /// The names of the <see cref="MacroStabilityInwardsStochasticSoilModel"/>
+    /// elements are unique within the collection.
     /// </summary>
-    public class StochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>
+    public class MacroStabilityInwardsStochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsStochasticSoilModel>
     {
-        public StochasticSoilModelCollection() : base(model => model.Name,
-                                                      RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                                                      Resources.UniqueFeature_Name_FeatureDescription) {}
+        public MacroStabilityInwardsStochasticSoilModelCollection() : base(model => model.Name,
+                                                                           RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                                                                           Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

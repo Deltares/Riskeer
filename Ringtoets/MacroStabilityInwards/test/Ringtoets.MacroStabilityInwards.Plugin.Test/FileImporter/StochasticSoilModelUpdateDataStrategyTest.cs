@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<IStochasticSoilModelUpdateModelStrategy>(strategy);
-            Assert.IsInstanceOf<UpdateDataStrategyBase<StochasticSoilModel, MacroStabilityInwardsFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<UpdateDataStrategyBase<MacroStabilityInwardsStochasticSoilModel, MacroStabilityInwardsFailureMechanism>>(strategy);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), null);
+            TestDelegate test = () => strategy.UpdateModelWithImportedData(new List<MacroStabilityInwardsStochasticSoilModel>(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             const string nonUniqueName = "non-unique name";
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             targetCollection.AddRange(new[]
             {
                 new TestStochasticSoilModel(nonUniqueName)
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             const string nonUniqueName = "non-unique name";
 
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
             var importedStochasticSoilModels = new[]
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             IEnumerable<TestStochasticSoilModel> importedStochasticSoilModels = Enumerable.Empty<TestStochasticSoilModel>();
             var strategy = new StochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-            var targetCollection = new StochasticSoilModelCollection();
+            var targetCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(importedStochasticSoilModels, "path");
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
@@ -231,14 +231,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
-            StochasticSoilModel readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
+            MacroStabilityInwardsStochasticSoilModel readModel = CreateSimpleModel(modelsName, "new profile A", "new profile B");
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new[]
@@ -265,14 +265,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
-            StochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
-            StochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
+            MacroStabilityInwardsStochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
 
             var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
@@ -296,7 +296,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath).ToArray();
 
             // Assert
-            StochasticSoilModel firstSoilModel = targetCollection[0];
+            MacroStabilityInwardsStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
             Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count);
             Assert.AreSame(firstExistingProfile, firstSoilModel.StochasticSoilProfiles[0]);
@@ -316,17 +316,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            StochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
+            MacroStabilityInwardsStochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
-            StochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
-            StochasticSoilProfile changedProfile = CloneAndSlightlyModify1DProfile(readModel.StochasticSoilProfiles.ElementAt(0));
+            MacroStabilityInwardsStochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
+            MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify1DProfile(readModel.StochasticSoilProfiles.ElementAt(0));
             readModel.StochasticSoilProfiles[0] = changedProfile;
 
             var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -351,7 +351,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath).ToArray();
 
             // Assert
-            StochasticSoilModel firstSoilModel = targetCollection[0];
+            MacroStabilityInwardsStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
             Assert.AreEqual(2, firstSoilModel.StochasticSoilProfiles.Count);
             Assert.AreSame(existingModel.StochasticSoilProfiles[0], firstSoilModel.StochasticSoilProfiles[0]);
@@ -378,17 +378,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            StochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
+            MacroStabilityInwardsStochasticSoilModel existingModel = CreateStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
 
-            StochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
-            StochasticSoilProfile changedProfile = CloneAndSlightlyModify2DProfile(readModel.StochasticSoilProfiles.ElementAt(1));
+            MacroStabilityInwardsStochasticSoilModel readModel = CreateStochasticSoilModel(modelsName);
+            MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify2DProfile(readModel.StochasticSoilProfiles.ElementAt(1));
             readModel.StochasticSoilProfiles[1] = changedProfile;
 
             var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -413,7 +413,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath).ToArray();
 
             // Assert
-            StochasticSoilModel firstSoilModel = targetCollection[0];
+            MacroStabilityInwardsStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
             Assert.AreEqual(2, firstSoilModel.StochasticSoilProfiles.Count);
             Assert.AreSame(existingModel.StochasticSoilProfiles[0], firstSoilModel.StochasticSoilProfiles[0]);
@@ -447,7 +447,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            StochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
             stochasticSoilModelCollection.AddRange(new[]
             {
                 existingModel
@@ -456,7 +456,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var strategy = new StochasticSoilModelUpdateDataStrategy(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new List<StochasticSoilModel>(), sourceFilePath).ToArray();
+            IEnumerable<IObservable> affectedObjects = strategy.UpdateModelWithImportedData(new List<MacroStabilityInwardsStochasticSoilModel>(), sourceFilePath).ToArray();
 
             // Assert
             Assert.IsFalse(calculation.HasOutput);
@@ -478,15 +478,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var existingModel = new TestStochasticSoilModel(modelsName);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            StochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
             targetCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
-            StochasticSoilProfile removedProfile = existingModel.StochasticSoilProfiles[0];
-            StochasticSoilProfile unaffectedProfile = existingModel.StochasticSoilProfiles[1];
+            MacroStabilityInwardsStochasticSoilProfile removedProfile = existingModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile unaffectedProfile = existingModel.StochasticSoilProfiles[1];
 
-            StochasticSoilModel readModel = new TestStochasticSoilModel(modelsName);
+            MacroStabilityInwardsStochasticSoilModel readModel = new TestStochasticSoilModel(modelsName);
             readModel.StochasticSoilProfiles.RemoveAt(0);
 
             var calculationWithRemovedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
@@ -511,7 +511,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath).ToArray();
 
             // Assert
-            StochasticSoilModel firstSoilModel = targetCollection[0];
+            MacroStabilityInwardsStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
             Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count);
             Assert.AreSame(unaffectedProfile, firstSoilModel.StochasticSoilProfiles[0]);
@@ -531,13 +531,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, affectedObjects);
         }
 
-        private static StochasticSoilModel CreateStochasticSoilModel(string modelsName)
+        private static MacroStabilityInwardsStochasticSoilModel CreateStochasticSoilModel(string modelsName)
         {
-            var model = new StochasticSoilModel(modelsName);
+            var model = new MacroStabilityInwardsStochasticSoilModel(modelsName);
 
             model.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
                     SoilProfile = new MacroStabilityInwardsSoilProfile1D(
                         "A",
@@ -549,7 +549,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                         SoilProfileType.SoilProfile1D,
                         0)
                 },
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 0)
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile2D, 0)
                 {
                     SoilProfile = new MacroStabilityInwardsSoilProfile2D(
                         "B",
@@ -573,14 +573,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         /// </summary>
         /// <param name="modelName">Name of the created model.</param>
         /// <param name="profileNames">List of names for the profiles to be added to the model.</param>
-        /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
-        private static StochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
+        /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
+        private static MacroStabilityInwardsStochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
         {
-            var model = new StochasticSoilModel(modelName);
+            var model = new MacroStabilityInwardsStochasticSoilModel(modelName);
             foreach (string profileName in profileNames)
             {
                 model.StochasticSoilProfiles.Add(
-                    new StochasticSoilProfile(1.0 / profileNames.Length, SoilProfileType.SoilProfile1D, -1)
+                    new MacroStabilityInwardsStochasticSoilProfile(1.0 / profileNames.Length, SoilProfileType.SoilProfile1D, -1)
                     {
                         SoilProfile = new TestMacroStabilityInwardsSoilProfile1D(profileName)
                     });
@@ -588,10 +588,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             return model;
         }
 
-        private static StochasticSoilProfile CloneAndSlightlyModify2DProfile(StochasticSoilProfile profile)
+        private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify2DProfile(MacroStabilityInwardsStochasticSoilProfile profile)
         {
             var soilProfile = (MacroStabilityInwardsSoilProfile2D) profile.SoilProfile;
-            return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
+            return new MacroStabilityInwardsStochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile2D(
                     soilProfile.Name,
@@ -603,10 +603,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
         }
 
-        private static StochasticSoilProfile CloneAndSlightlyModify1DProfile(StochasticSoilProfile profile)
+        private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify1DProfile(MacroStabilityInwardsStochasticSoilProfile profile)
         {
             var soilProfile = (MacroStabilityInwardsSoilProfile1D) profile.SoilProfile;
-            return new StochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
+            return new MacroStabilityInwardsStochasticSoilProfile(profile.Probability, profile.SoilProfileType, profile.SoilProfileId)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(
                     soilProfile.Name,

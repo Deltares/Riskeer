@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModel));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilModel));
         }
 
         [TearDown]
@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "test test 123";
-            var model = new StochasticSoilModel(name);
+            var model = new MacroStabilityInwardsStochasticSoilModel(name);
 
             // Call
             string text = info.Text(model);
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var model = new StochasticSoilModel("A");
+            var model = new MacroStabilityInwardsStochasticSoilModel("A");
 
             // Call
             Image image = info.Image(model);
@@ -108,14 +108,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer1D>
                 {
                     new MacroStabilityInwardsSoilLayer1D(10)
                 }, SoilProfileType.SoilProfile1D, 0)
             };
-            var stochasticSoilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer1D>
                 {
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }, SoilProfileType.SoilProfile1D, 0)
             };
 
-            var stochasticSoilModel = new StochasticSoilModel("Name");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new StochasticSoilModel("A");
+            var model = new MacroStabilityInwardsStochasticSoilModel("A");
 
             var mocks = new MockRepository();
 

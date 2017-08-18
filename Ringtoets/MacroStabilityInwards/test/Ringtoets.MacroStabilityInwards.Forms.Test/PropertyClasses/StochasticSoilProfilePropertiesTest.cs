@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new StochasticSoilProfileProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StochasticSoilProfile>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 1234L)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 1234L)
             {
                 SoilProfile = soilProfile
             };

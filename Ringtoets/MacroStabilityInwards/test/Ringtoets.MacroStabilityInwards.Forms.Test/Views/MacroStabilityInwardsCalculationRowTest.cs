@@ -144,8 +144,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var newModel = new StochasticSoilModel("test");
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(newModel);
+            var newModel = new MacroStabilityInwardsStochasticSoilModel("test");
+            var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(newModel);
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            DataGridViewComboBoxItemWrapper<StochasticSoilModel> oldValue = null;
+            DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel> oldValue = null;
 
             // Call
             AssertPropertyNotChanged(
@@ -178,8 +178,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newProfile = new StochasticSoilProfile(0, 0, 0);
-            var newValue = new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(newProfile);
+            var newProfile = new MacroStabilityInwardsStochasticSoilProfile(0, 0, 0);
+            var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(newProfile);
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
 
@@ -191,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
         {
             // Setup
-            DataGridViewComboBoxItemWrapper<StochasticSoilProfile> oldValue = null;
+            DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile> oldValue = null;
 
             // Call
             AssertPropertyNotChanged(

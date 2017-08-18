@@ -256,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {
                 // Call
-                StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(profileId);
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(profileId);
 
                 // Assert
                 Assert.IsNotNull(stochasticSoilProfile);
@@ -279,7 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {
                 // Call
-                StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(987654321);
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(987654321);
 
                 // Assert
                 Assert.IsNull(stochasticSoilProfile);
@@ -299,7 +299,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
             {
                 // Call
-                StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(profileId);
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(profileId);
 
                 // Assert
                 Assert.IsNull(stochasticSoilProfile);

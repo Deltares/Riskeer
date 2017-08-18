@@ -26,9 +26,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
-    /// <see cref="StochasticSoilModel"/> for testing purposes.
+    /// <see cref="MacroStabilityInwardsStochasticSoilModel"/> for testing purposes.
     /// </summary>
-    public class TestStochasticSoilModel : StochasticSoilModel
+    public class TestStochasticSoilModel : MacroStabilityInwardsStochasticSoilModel
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
@@ -38,11 +38,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
                     SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("A")
                 },
-                new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {
                     SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("B")
                 }

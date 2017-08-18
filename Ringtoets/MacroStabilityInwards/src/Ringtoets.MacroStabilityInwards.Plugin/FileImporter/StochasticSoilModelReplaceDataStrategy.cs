@@ -34,10 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     /// A <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> to replace the stochastic 
     /// soil models with the imported stochastic soil models. 
     /// </summary>
-    public class StochasticSoilModelReplaceDataStrategy : ReplaceDataStrategyBase<StochasticSoilModel, MacroStabilityInwardsFailureMechanism>,
+    public class StochasticSoilModelReplaceDataStrategy : ReplaceDataStrategyBase<MacroStabilityInwardsStochasticSoilModel, MacroStabilityInwardsFailureMechanism>,
                                                           IStochasticSoilModelUpdateModelStrategy
     {
-        private ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> targetDataCollection;
+        private ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsStochasticSoilModel> targetDataCollection;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelUpdateDataStrategy"/>.
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             targetDataCollection = failureMechanism.StochasticSoilModels;
         }
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, string sourceFilePath)
         {
             return ReplaceTargetCollectionWithImportedData(stochasticSoilModels, sourceFilePath);
         }

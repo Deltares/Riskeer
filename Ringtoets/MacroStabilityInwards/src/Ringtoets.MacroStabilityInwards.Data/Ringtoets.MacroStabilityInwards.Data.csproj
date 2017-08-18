@@ -61,14 +61,14 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInput.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineCollection.cs" />
-    <Compile Include="SoilProfile\SoilLayerUnderSurfaceLine.cs" />
-    <Compile Include="SoilProfile\SoilProfileUnderSurfaceLine.cs" />
-    <Compile Include="SoilProfile\SoilProfileUnderSurfaceLineFactory.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModel.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelCollection.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelExtensions.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelProfileDifference.cs" />
-    <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerUnderSurfaceLine.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModel.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelCollection.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelExtensions.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelProfileDifference.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

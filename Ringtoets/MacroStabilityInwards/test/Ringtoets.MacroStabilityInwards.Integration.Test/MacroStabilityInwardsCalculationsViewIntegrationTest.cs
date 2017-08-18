@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportMacroStabilityInwardsStochasticSoilModels(assessmentSection);
-                StochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.MacroStabilityInwards.StochasticSoilModels;
+                MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.MacroStabilityInwards.StochasticSoilModels;
                 calculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection.First(sl => sl.Name == "PK001_0001_Piping");
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);

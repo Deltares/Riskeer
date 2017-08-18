@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         public MacroStabilityInwardsInputContext(MacroStabilityInwardsInput macroStabilityInwardsInput,
                                                  MacroStabilityInwardsCalculationScenario calculation,
                                                  IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
-                                                 IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                                 IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels,
                                                  MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                  IAssessmentSection assessmentSection)
             : base(macroStabilityInwardsInput, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection)

@@ -169,9 +169,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when
         /// <list type="bullet">
-        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="StochasticSoilModel"/> set
+        /// <item>the <paramref name="calculationConfiguration"/> has a <see cref="MacroStabilityInwardsStochasticSoilModel"/> set
         /// which is not available in the failure mechanism.</item>
-        /// <item>The <see cref="StochasticSoilModel"/> does not intersect with the <see cref="MacroStabilityInwardsSurfaceLine"/>
+        /// <item>The <see cref="MacroStabilityInwardsStochasticSoilModel"/> does not intersect with the <see cref="MacroStabilityInwardsSurfaceLine"/>
         /// when this is set.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
@@ -180,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         {
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
-                StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
+                MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
                                                                 .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
 
                 if (soilModel == null)
@@ -215,8 +215,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// <param name="macroStabilityInwardsCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has:
         /// <list type="bullet">
-        /// <item>a <see cref="StochasticSoilProfile"/> set but no <see cref="StochasticSoilModel"/> is specified;</item>
-        /// <item>a <see cref="StochasticSoilProfile"/> set which is not available in the <see cref="StochasticSoilModel"/>.</item>
+        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set but no <see cref="MacroStabilityInwardsStochasticSoilModel"/> is specified;</item>
+        /// <item>a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> set which is not available in the <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</item>
         /// </list>
         /// <c>true</c> otherwise.</returns>
         private bool TrySetStochasticSoilProfile(MacroStabilityInwardsCalculationConfiguration calculationConfiguration,
@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                     return false;
                 }
 
-                StochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters
+                MacroStabilityInwardsStochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters
                                                                                     .StochasticSoilModel
                                                                                     .StochasticSoilProfiles
                                                                                     .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);

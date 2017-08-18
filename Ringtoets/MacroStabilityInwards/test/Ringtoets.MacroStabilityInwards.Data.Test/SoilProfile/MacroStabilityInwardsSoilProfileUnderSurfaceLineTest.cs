@@ -28,13 +28,13 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilProfileUnderSurfaceLineTest
+    public class MacroStabilityInwardsSoilProfileUnderSurfaceLineTest
     {
         [Test]
         public void Constructor_WithoutLayersUnderSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilProfileUnderSurfaceLine(null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -45,10 +45,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithLayersUnderSurfaceLine_NewInstanceWithPropertiesSet()
         {
             // Call
-            IEnumerable<SoilLayerUnderSurfaceLine> layers = Enumerable.Empty<SoilLayerUnderSurfaceLine>();
+            IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
 
             // Setup
-            var profile = new SoilProfileUnderSurfaceLine(layers);
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers);
 
             // Assert
             Assert.AreSame(layers, profile.LayersUnderSurfaceLine);

@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
     /// </summary>
-    public class StochasticSoilModelImporter : FileImporterBase<StochasticSoilModelCollection>
+    public class StochasticSoilModelImporter : FileImporterBase<MacroStabilityInwardsStochasticSoilModelCollection>
     {
         private readonly IImporterMessageProvider messageProvider;
         private readonly IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy;
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <param name="modelUpdateStrategy">The <see cref="IStochasticSoilModelUpdateModelStrategy"/> to use
         /// when updating the <paramref name="importTarget"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public StochasticSoilModelImporter(StochasticSoilModelCollection importTarget, string filePath,
+        public StochasticSoilModelImporter(MacroStabilityInwardsStochasticSoilModelCollection importTarget, string filePath,
                                            IImporterMessageProvider messageProvider, IStochasticSoilModelUpdateModelStrategy modelUpdateStrategy)
             : base(filePath, importTarget)
         {
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
                 return false;
             }
 
-            ReadResult<StochasticSoilModel> importStochasticSoilModelResult = ReadStochasticSoilModels();
+            ReadResult<MacroStabilityInwardsStochasticSoilModel> importStochasticSoilModelResult = ReadStochasticSoilModels();
             if (importStochasticSoilModelResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
                 return false;
             }
 
-            StochasticSoilModel[] validStochasticSoilModels = GetValidStochasticSoilModels(importStochasticSoilModelResult).ToArray();
+            MacroStabilityInwardsStochasticSoilModel[] validStochasticSoilModels = GetValidStochasticSoilModels(importStochasticSoilModelResult).ToArray();
             if (Canceled)
             {
                 return false;
@@ -133,13 +133,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         }
 
         /// <summary>
-        /// Validate the definition of a <see cref="StochasticSoilModel"/>.
+        /// Validate the definition of a <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
-        /// <param name="stochasticSoilModel">The <see cref="StochasticSoilModel"/> to validate.</param>
+        /// <param name="stochasticSoilModel">The <see cref="MacroStabilityInwardsStochasticSoilModel"/> to validate.</param>
         /// <returns><c>false</c> when the stochastic soil model does not contain any stochastic soil profiles
         /// or when a stochastic soil profile does not have a definition for a soil profile; <c>true</c>
         /// otherwise.</returns>
-        private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
+        private bool ValidateStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
         {
             if (!stochasticSoilModel.StochasticSoilProfiles.Any())
             {
@@ -161,11 +161,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             return true;
         }
 
-        private IEnumerable<StochasticSoilModel> GetValidStochasticSoilModels(ReadResult<StochasticSoilModel> importStochasticSoilModelResult)
+        private IEnumerable<MacroStabilityInwardsStochasticSoilModel> GetValidStochasticSoilModels(ReadResult<MacroStabilityInwardsStochasticSoilModel> importStochasticSoilModelResult)
         {
             var currentStep = 1;
-            StochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
-            foreach (StochasticSoilModel importedModel in importedModels)
+            MacroStabilityInwardsStochasticSoilModel[] importedModels = importStochasticSoilModelResult.Items.ToArray();
+            foreach (MacroStabilityInwardsStochasticSoilModel importedModel in importedModels)
             {
                 NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Validating_imported_data, currentStep, importedModels.Length);
                 if (Canceled)
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
         }
 
-        private static bool IsSumOfAllProbabilitiesEqualToOne(StochasticSoilModel stochasticSoilModel)
+        private static bool IsSumOfAllProbabilitiesEqualToOne(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
         {
             double sumOfAllScenarioProbabilities = stochasticSoilModel.StochasticSoilProfiles
                                                                       .Where(s => s.SoilProfile != null)
@@ -189,11 +189,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             return Math.Abs(sumOfAllScenarioProbabilities - 1.0) < 1e-6;
         }
 
-        private void AddSoilProfilesToStochasticSoilModels(ICollection<MacroStabilityInwardsSoilProfile1D> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)
+        private void AddSoilProfilesToStochasticSoilModels(ICollection<MacroStabilityInwardsSoilProfile1D> soilProfiles, ICollection<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
-            foreach (StochasticSoilModel stochasticSoilModel in stochasticSoilModels)
+            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {
-                foreach (StochasticSoilProfile stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
+                foreach (MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
                     MacroStabilityInwardsSoilProfile1D soilProfile = soilProfiles.FirstOrDefault(s => s.SoilProfileType == stochasticSoilProfile.SoilProfileType && s.MacroStabilityInwardsSoilProfileId == stochasticSoilProfile.SoilProfileId);
                     if (soilProfile != null)
@@ -204,15 +204,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
         }
 
-        private void MergeStochasticSoilProfiles(ICollection<StochasticSoilModel> stochasticSoilModels)
+        private void MergeStochasticSoilProfiles(ICollection<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
-            foreach (StochasticSoilModel stochasticSoilModel in stochasticSoilModels)
+            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
             {
-                StochasticSoilProfile[] profiles = stochasticSoilModel.StochasticSoilProfiles.OrderBy(sp => sp.SoilProfileId).ToArray();
+                MacroStabilityInwardsStochasticSoilProfile[] profiles = stochasticSoilModel.StochasticSoilProfiles.OrderBy(sp => sp.SoilProfileId).ToArray();
                 for (var i = 1; i < profiles.Length; i++)
                 {
-                    StochasticSoilProfile previousProfile = profiles[i - 1];
-                    StochasticSoilProfile currentProfile = profiles[i];
+                    MacroStabilityInwardsStochasticSoilProfile previousProfile = profiles[i - 1];
+                    MacroStabilityInwardsStochasticSoilProfile currentProfile = profiles[i];
                     if (currentProfile.SoilProfileId == previousProfile.SoilProfileId &&
                         currentProfile.SoilProfileType == previousProfile.SoilProfileType)
                     {
@@ -227,7 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
         }
 
-        private void CheckIfAllProfilesAreUsed(ICollection<MacroStabilityInwardsSoilProfile1D> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)
+        private void CheckIfAllProfilesAreUsed(ICollection<MacroStabilityInwardsSoilProfile1D> soilProfiles, ICollection<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
             NotifyProgress(Resources.StochasticSoilModelImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles, 1, 1);
             foreach (MacroStabilityInwardsSoilProfile1D soilProfile in soilProfiles.Where(soilProfile => !SoilProfileIsUsed(soilProfile, stochasticSoilModels)))
@@ -236,7 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             }
         }
 
-        private static bool SoilProfileIsUsed(MacroStabilityInwardsSoilProfile1D soilProfile, ICollection<StochasticSoilModel> stochasticSoilModels)
+        private static bool SoilProfileIsUsed(MacroStabilityInwardsSoilProfile1D soilProfile, ICollection<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
             return stochasticSoilModels.Any(
                 stochasticSoilModel => stochasticSoilModel
@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
 
         #region read stochastic soil models
 
-        private ReadResult<StochasticSoilModel> ReadStochasticSoilModels()
+        private ReadResult<MacroStabilityInwardsStochasticSoilModel> ReadStochasticSoilModels()
         {
             NotifyProgress(Resources.StochasticSoilModelImporter_Reading_database, 1, 1);
             try
@@ -267,20 +267,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
             {
                 HandleException(e);
             }
-            return new ReadResult<StochasticSoilModel>(true);
+            return new ReadResult<MacroStabilityInwardsStochasticSoilModel>(true);
         }
 
-        private ReadResult<StochasticSoilModel> GetStochasticSoilModelReadResult(StochasticSoilModelReader stochasticSoilModelReader)
+        private ReadResult<MacroStabilityInwardsStochasticSoilModel> GetStochasticSoilModelReadResult(StochasticSoilModelReader stochasticSoilModelReader)
         {
             int totalNumberOfSteps = stochasticSoilModelReader.MacroStabilityInwardsStochasticSoilModelCount;
             var currentStep = 1;
 
-            var soilModels = new Collection<StochasticSoilModel>();
+            var soilModels = new Collection<MacroStabilityInwardsStochasticSoilModel>();
             while (stochasticSoilModelReader.HasNext)
             {
                 if (Canceled)
                 {
-                    return new ReadResult<StochasticSoilModel>(false);
+                    return new ReadResult<MacroStabilityInwardsStochasticSoilModel>(false);
                 }
                 try
                 {
@@ -293,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
                     Log.Error(message);
                 }
             }
-            return new ReadResult<StochasticSoilModel>(false)
+            return new ReadResult<MacroStabilityInwardsStochasticSoilModel>(false)
             {
                 Items = soilModels
             };

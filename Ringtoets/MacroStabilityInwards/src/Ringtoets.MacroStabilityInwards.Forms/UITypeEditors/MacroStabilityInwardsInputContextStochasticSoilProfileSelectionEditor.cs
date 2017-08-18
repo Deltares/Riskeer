@@ -30,9 +30,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="StochasticSoilProfile"/> from a collection.
+    /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/> from a collection.
     /// </summary>
-    public class MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<MacroStabilityInwardsInputContextProperties, StochasticSoilProfile>
+    public class MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<MacroStabilityInwardsInputContextProperties, MacroStabilityInwardsStochasticSoilProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditor"/>.
@@ -42,12 +42,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
             DisplayMember = nameof(MacroStabilityInwardsSoilProfile1D.Name);
         }
 
-        protected override IEnumerable<StochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).GetAvailableStochasticSoilProfiles();
         }
 
-        protected override StochasticSoilProfile GetCurrentOption(ITypeDescriptorContext context)
+        protected override MacroStabilityInwardsStochasticSoilProfile GetCurrentOption(ITypeDescriptorContext context)
         {
             return GetPropertiesObject(context).StochasticSoilProfile;
         }

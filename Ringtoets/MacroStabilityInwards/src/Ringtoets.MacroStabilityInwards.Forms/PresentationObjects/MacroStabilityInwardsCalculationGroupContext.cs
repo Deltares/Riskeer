@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
         public MacroStabilityInwardsCalculationGroupContext(CalculationGroup calculationGroup,
                                                             CalculationGroup parent,
                                                             IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
-                                                            IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                                            IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels,
                                                             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
                                                             IAssessmentSection assessmentSection)
             : base(calculationGroup, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection)

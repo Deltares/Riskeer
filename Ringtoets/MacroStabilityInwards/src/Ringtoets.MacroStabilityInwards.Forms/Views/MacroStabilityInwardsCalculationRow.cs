@@ -86,15 +86,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<StochasticSoilModel> StochasticSoilModel
+        public DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel> StochasticSoilModel
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilModel>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel);
+                return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel);
             }
             set
             {
-                StochasticSoilModel valueToSet = value?.WrappedObject;
+                MacroStabilityInwardsStochasticSoilModel valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel = valueToSet, propertyChangeHandler);
@@ -105,15 +105,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Gets or sets the stochastic soil profile of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<StochasticSoilProfile> StochasticSoilProfile
+        public DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile> StochasticSoilProfile
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile);
+                return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile);
             }
             set
             {
-                StochasticSoilProfile valueToSet = value?.WrappedObject;
+                MacroStabilityInwardsStochasticSoilProfile valueToSet = value?.WrappedObject;
                 if (!ReferenceEquals(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile = valueToSet, propertyChangeHandler);

@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
     /// <summary>
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for updating stochastic soil models based on imported data.
     /// </summary>
-    public class StochasticSoilModelUpdateDataStrategy : UpdateDataStrategyBase<StochasticSoilModel, MacroStabilityInwardsFailureMechanism>,
+    public class StochasticSoilModelUpdateDataStrategy : UpdateDataStrategyBase<MacroStabilityInwardsStochasticSoilModel, MacroStabilityInwardsFailureMechanism>,
                                                          IStochasticSoilModelUpdateModelStrategy
     {
         /// <summary>
@@ -47,14 +47,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         public StochasticSoilModelUpdateDataStrategy(MacroStabilityInwardsFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.StochasticSoilModels, new SoilModelNameEqualityComparer()) {}
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, string sourceFilePath)
         {
             return UpdateTargetCollectionData(stochasticSoilModels, sourceFilePath);
         }
 
         #region Remove Data Functions
 
-        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StochasticSoilModel removedModel)
+        protected override IEnumerable<IObservable> RemoveObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel removedModel)
         {
             return MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(FailureMechanism, removedModel);
         }
@@ -62,16 +62,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
         #endregion
 
         /// <summary>
-        /// Class for comparing <see cref="StochasticSoilModel"/> by just the name.
+        /// Class for comparing <see cref="MacroStabilityInwardsStochasticSoilModel"/> by just the name.
         /// </summary>
-        private class SoilModelNameEqualityComparer : IEqualityComparer<StochasticSoilModel>
+        private class SoilModelNameEqualityComparer : IEqualityComparer<MacroStabilityInwardsStochasticSoilModel>
         {
-            public bool Equals(StochasticSoilModel x, StochasticSoilModel y)
+            public bool Equals(MacroStabilityInwardsStochasticSoilModel x, MacroStabilityInwardsStochasticSoilModel y)
             {
                 return x.Name == y.Name;
             }
 
-            public int GetHashCode(StochasticSoilModel obj)
+            public int GetHashCode(MacroStabilityInwardsStochasticSoilModel obj)
             {
                 return obj.Name.GetHashCode();
             }
@@ -79,26 +79,26 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
 
         #region Update Data Functions
 
-        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(StochasticSoilModel soilModelToUpdate,
-                                                                                 StochasticSoilModel soilModelToUpdateFrom)
+        protected override IEnumerable<IObservable> UpdateObjectAndDependentData(MacroStabilityInwardsStochasticSoilModel soilModelToUpdate,
+                                                                                 MacroStabilityInwardsStochasticSoilModel soilModelToUpdateFrom)
         {
             return UpdateStochasticSoilModel(soilModelToUpdate, soilModelToUpdateFrom);
         }
 
-        private IEnumerable<IObservable> UpdateStochasticSoilModel(StochasticSoilModel modelToUpdate, StochasticSoilModel modelToUpdateFrom)
+        private IEnumerable<IObservable> UpdateStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel modelToUpdate, MacroStabilityInwardsStochasticSoilModel modelToUpdateFrom)
         {
-            Dictionary<StochasticSoilProfile, ISoilProfile> oldProfiles = modelToUpdate
+            Dictionary<MacroStabilityInwardsStochasticSoilProfile, ISoilProfile> oldProfiles = modelToUpdate
                 .StochasticSoilProfiles
-                .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<StochasticSoilProfile>());
+                .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<MacroStabilityInwardsStochasticSoilProfile>());
 
-            StochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
+            MacroStabilityInwardsStochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
 
             var affectedObjects = new List<IObservable>();
-            foreach (StochasticSoilProfile removedProfile in difference.RemovedProfiles)
+            foreach (MacroStabilityInwardsStochasticSoilProfile removedProfile in difference.RemovedProfiles)
             {
                 affectedObjects.AddRange(MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(FailureMechanism, removedProfile));
             }
-            foreach (StochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
+            foreach (MacroStabilityInwardsStochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
                 if (!oldProfiles[updatedProfile].Equals(updatedProfile.SoilProfile))
                 {

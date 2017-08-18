@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class StochasticSoilModelExtensionsTest
+    public class MacroStabilityInwardsStochasticSoilModelExtensionsTest
     {
         [Test]
         public void IntersectsWithSurfaceLineGeometry_SoilModelNull_ThrowArgumentNullException()
@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            StochasticSoilModel soilModel = null;
+            MacroStabilityInwardsStochasticSoilModel soilModel = null;
 
             // Call
             TestDelegate test = () => soilModel.IntersectsWithSurfaceLineGeometry(surfaceLine);
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineIntersectingSoilModel_ReturnTrue()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNotIntersectingSoilModel_ReturnFalse()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A");
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1.0, 0.0),

@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             var model = new TestStochasticSoilModel();
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModel>(model);
+            Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModel>(model);
             Assert.IsEmpty(model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEquivalent(new[]
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             var model = new TestStochasticSoilModel(name);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModel>(model);
+            Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModel>(model);
             Assert.AreEqual(name, model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEquivalent(new[]

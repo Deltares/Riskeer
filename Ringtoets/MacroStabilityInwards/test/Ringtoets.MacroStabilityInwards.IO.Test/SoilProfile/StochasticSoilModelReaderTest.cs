@@ -256,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
                 int nrOfModels = stochasticSoilModelDatabaseReader.MacroStabilityInwardsStochasticSoilModelCount;
 
                 // Call
-                StochasticSoilModel stochasticSoilModel = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
+                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
 
                 // Assert
                 Assert.IsNull(stochasticSoilModel);
@@ -277,7 +277,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
                 int nrOfModels = stochasticSoilModelDatabaseReader.MacroStabilityInwardsStochasticSoilModelCount;
-                var readModels = new List<StochasticSoilModel>();
+                var readModels = new List<MacroStabilityInwardsStochasticSoilModel>();
                 while (stochasticSoilModelDatabaseReader.HasNext)
                 {
                     // Call
@@ -326,7 +326,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
                 int nrOfModels = stochasticSoilModelDatabaseReader.MacroStabilityInwardsStochasticSoilModelCount;
-                var readModels = new List<StochasticSoilModel>();
+                var readModels = new List<MacroStabilityInwardsStochasticSoilModel>();
                 while (stochasticSoilModelDatabaseReader.HasNext)
                 {
                     // Call
@@ -390,7 +390,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
-                var readModels = new List<StochasticSoilModel>();
+                var readModels = new List<MacroStabilityInwardsStochasticSoilModel>();
                 for (var i = 0; i < stochasticSoilModelDatabaseReader.MacroStabilityInwardsStochasticSoilModelCount; i++)
                 {
                     // Call
@@ -414,7 +414,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
-                var readModels = new List<StochasticSoilModel>();
+                var readModels = new List<MacroStabilityInwardsStochasticSoilModel>();
                 while (stochasticSoilModelDatabaseReader.HasNext)
                 {
                     // Call
@@ -429,7 +429,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
-        private static void CheckModelWithoutSegmentPoints(List<StochasticSoilModel> readModels)
+        private static void CheckModelWithoutSegmentPoints(List<MacroStabilityInwardsStochasticSoilModel> readModels)
         {
             var expectedSegmentAndModelNames = new[]
             {

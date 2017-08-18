@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
@@ -180,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;

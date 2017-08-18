@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateStochasticSoilModelFeatures_NoStochasticSoilModels_ReturnsEmptyFeaturesArray()
         {
             // Call
-            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new StochasticSoilModel[0]);
+            MapFeature[] features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(new MacroStabilityInwardsStochasticSoilModel[0]);
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -130,8 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
             var stochasticSoilModels = new[]
             {
-                new StochasticSoilModel("StochasticSoilModelName1"),
-                new StochasticSoilModel("StochasticSoilModelName2")
+                new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName1"),
+                new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName2")
             };
             stochasticSoilModels[0].Geometry.AddRange(pointsOne);
             stochasticSoilModels[1].Geometry.AddRange(pointsTwo);

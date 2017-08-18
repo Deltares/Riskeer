@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Gets the available stochastic soil models on <see cref="MacroStabilityInwardsCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels()
+        public IEnumerable<MacroStabilityInwardsStochasticSoilModel> GetAvailableStochasticSoilModels()
         {
             if (data.WrappedData.SurfaceLine == null)
             {
@@ -116,9 +116,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Gets the available stochastic soil profiles on <see cref="MacroStabilityInwardsCalculationScenarioContext"/>.
         /// </summary>
-        public IEnumerable<StochasticSoilProfile> GetAvailableStochasticSoilProfiles()
+        public IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
-            return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<StochasticSoilProfile>();
+            return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<MacroStabilityInwardsStochasticSoilProfile>();
         }
 
         [DynamicReadOnlyValidationMethod]
@@ -274,7 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilModel_Description))]
-        public StochasticSoilModel StochasticSoilModel
+        public MacroStabilityInwardsStochasticSoilModel StochasticSoilModel
         {
             get
             {
@@ -298,7 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization), schematizationCategoryIndex, totalCategoryCount)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_StochasticSoilProfile_Description))]
-        public StochasticSoilProfile StochasticSoilProfile
+        public MacroStabilityInwardsStochasticSoilProfile StochasticSoilProfile
         {
             get
             {

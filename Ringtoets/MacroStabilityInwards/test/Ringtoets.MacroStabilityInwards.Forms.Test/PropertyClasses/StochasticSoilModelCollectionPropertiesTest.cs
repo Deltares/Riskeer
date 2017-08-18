@@ -49,14 +49,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const string someFilePath = "location/to/a/file";
-            var collection = new StochasticSoilModelCollection();
-            collection.AddRange(Enumerable.Empty<StochasticSoilModel>(), someFilePath);
+            var collection = new MacroStabilityInwardsStochasticSoilModelCollection();
+            collection.AddRange(Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), someFilePath);
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StochasticSoilModelCollection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModelCollection>>(properties);
             Assert.AreSame(collection, properties.Data);
             Assert.AreEqual(someFilePath, properties.SourcePath);
         }
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_WithData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var collection = new StochasticSoilModelCollection();
+            var collection = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
             var properties = new StochasticSoilModelCollectionProperties(collection);

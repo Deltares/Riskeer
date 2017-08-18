@@ -145,8 +145,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
                     SurfaceLine = surfaceLine,
-                    StochasticSoilModel = new StochasticSoilModel("PK001_0001_Macrostabiliteit"),
-                    StochasticSoilProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+                    StochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("PK001_0001_Macrostabiliteit"),
+                    StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
                     {
                         SoilProfile = new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
                         {
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 surfaceLine1,
                 surfaceLine2
             }, "some/path/to/surfacelines");
-            var stochasticSoilModel1 = new StochasticSoilModel("A")
+            var stochasticSoilModel1 = new MacroStabilityInwardsStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -239,10 +239,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+                    new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
                 }
             };
-            var stochasticSoilModel2 = new StochasticSoilModel("C")
+            var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("C")
             {
                 Geometry =
                 {
@@ -251,7 +251,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 2)
+                    new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 2)
                 }
             };
 

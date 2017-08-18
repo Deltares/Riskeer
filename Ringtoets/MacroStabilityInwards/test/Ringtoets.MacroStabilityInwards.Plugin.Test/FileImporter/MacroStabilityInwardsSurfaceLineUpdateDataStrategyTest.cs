@@ -563,7 +563,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new MacroStabilityInwardsStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -572,10 +572,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel("C")
+                new MacroStabilityInwardsStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -584,7 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
                     }
                 }
             };
@@ -631,7 +631,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new MacroStabilityInwardsStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -640,10 +640,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel("C")
+                new MacroStabilityInwardsStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -652,10 +652,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
                     }
                 },
-                new StochasticSoilModel("E")
+                new MacroStabilityInwardsStochasticSoilModel("E")
                 {
                     Geometry =
                     {
@@ -664,7 +664,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
                     }
                 }
             };
@@ -719,7 +719,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilInputs()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A")
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -728,7 +728,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                 }
             };
 
@@ -776,7 +776,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateSurfaceLinesWithImportedData_WithCalculationAssignedToRemovedLine_UpdatesCalculationAndDoesNotRemoveStochasticSoilModelInput()
         {
             // Setup
-            var soilModel = new StochasticSoilModel("A")
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A")
             {
                 Geometry =
                 {
@@ -861,7 +861,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
             var soilModels = new[]
             {
-                new StochasticSoilModel("A")
+                new MacroStabilityInwardsStochasticSoilModel("A")
                 {
                     Geometry =
                     {
@@ -870,10 +870,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
                     }
                 },
-                new StochasticSoilModel("C")
+                new MacroStabilityInwardsStochasticSoilModel("C")
                 {
                     Geometry =
                     {
@@ -882,7 +882,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
                     }
                 }
             };

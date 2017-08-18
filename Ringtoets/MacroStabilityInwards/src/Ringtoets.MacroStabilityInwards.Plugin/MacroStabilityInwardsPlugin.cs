@@ -84,8 +84,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
-            yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
+            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilModel, StochasticSoilModelProperties>();
+            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilProfile, StochasticSoilProfileProperties>();
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -295,7 +295,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 ContextMenuStrip = StochasticSoilModelCollectionContextContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModel>
+            yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilModel>
             {
                 Text = stochasticSoilModel => stochasticSoilModel.Name,
                 Image = stochasticSoilModel => MacroStabilityInwardsFormsResources.StochasticSoilModelIcon,
@@ -308,7 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StochasticSoilProfile>
+            yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilProfile>
             {
                 Text = stochasticSoilProfile => stochasticSoilProfile.SoilProfile != null ? stochasticSoilProfile.SoilProfile.Name : "Profile",
                 Image = stochasticSoilProfile => MacroStabilityInwardsFormsResources.SoilProfileIcon,
@@ -942,7 +942,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             nodeData.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
+        private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
         {
             foreach (ICalculationBase group in MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {

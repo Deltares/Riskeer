@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new StochasticSoilModel("Name")
+                new MacroStabilityInwardsStochasticSoilModel("Name")
             }, "path");
 
             var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
@@ -175,16 +175,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = soilProfile1
             };
-            var stochasticSoilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = soilProfile2
             };
 
-            var stochasticSoilModel = new StochasticSoilModel("Name");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var context = new StochasticSoilModelCollectionContext(
-                    new StochasticSoilModelCollection(),
+                    new MacroStabilityInwardsStochasticSoilModelCollection(),
                     new MacroStabilityInwardsFailureMechanism(),
                     assessmentSection);
                 var gui = mocks.Stub<IGui>();

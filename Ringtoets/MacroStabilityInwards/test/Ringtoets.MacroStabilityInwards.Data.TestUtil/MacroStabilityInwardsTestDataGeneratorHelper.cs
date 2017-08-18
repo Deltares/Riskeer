@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="StochasticSoilModel"/>.
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         public static void AssertHasStochasticSoilModels(MacroStabilityInwardsFailureMechanism failureMechanism)

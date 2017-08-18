@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             var affectedObjects = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation calculation in calculationsToUpdate)
             {
-                IEnumerable<StochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
+                IEnumerable<MacroStabilityInwardsStochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
 
                 MacroStabilityInwardsInput calculationInput = calculation.InputParameters;
                 MacroStabilityInwardsInputService.SetMatchingStochasticSoilModel(calculationInput, matchingSoilModels);
@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             return affectedCalculations;
         }
 
-        private IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private IEnumerable<MacroStabilityInwardsStochasticSoilModel> GetAvailableStochasticSoilModels(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return MacroStabilityInwardsCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine,
                                                                                                              FailureMechanism.StochasticSoilModels);

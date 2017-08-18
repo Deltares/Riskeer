@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads <see cref="StochasticSoilModel"/> from this database.
+    /// This class reads a DSoil database file and reads <see cref="MacroStabilityInwardsStochasticSoilModel"/> from this database.
     /// </summary>
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
@@ -69,18 +69,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
         public bool HasNext { get; private set; }
 
         /// <summary>
-        /// Gets the amount of <see cref="StochasticSoilModel"/> that can be read from the database.
+        /// Gets the amount of <see cref="MacroStabilityInwardsStochasticSoilModel"/> that can be read from the database.
         /// </summary>
         public int MacroStabilityInwardsStochasticSoilModelCount { get; private set; }
 
         /// <summary>
         /// Reads the information for the next stochastic soil model from the database and creates a 
-        /// <see cref="StochasticSoilModel"/> instance of the information.
+        /// <see cref="MacroStabilityInwardsStochasticSoilModel"/> instance of the information.
         /// </summary>
-        /// <returns>The next <see cref="StochasticSoilModel"/> from the database, or <c>null</c> if no more soil models can be read.</returns>
+        /// <returns>The next <see cref="MacroStabilityInwardsStochasticSoilModel"/> from the database, or <c>null</c> if no more soil models can be read.</returns>
         /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
-        public StochasticSoilModel ReadStochasticSoilModel()
+        public MacroStabilityInwardsStochasticSoilModel ReadStochasticSoilModel()
         {
             try
             {
@@ -108,13 +108,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[StochasticSoilModelTableColumns.Count]);
         }
 
-        private StochasticSoilModel ReadMacroStabilityInwardsStochasticSoilModel()
+        private MacroStabilityInwardsStochasticSoilModel ReadMacroStabilityInwardsStochasticSoilModel()
         {
             if (!HasNext)
             {
                 return null;
             }
-            StochasticSoilModel stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
             long currentSegmentSoilModelId = ReadStochasticSoildModelSegmentId();
             do
             {
@@ -132,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             return stochasticSoilModelSegment;
         }
 
-        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment,
+        private void AddStochasticSoilProfiles(MacroStabilityInwardsStochasticSoilModel stochasticSoilModelSegment,
                                                long stochasticSoilModelSegmentId)
         {
             using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(filePath))
@@ -146,11 +146,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             }
         }
 
-        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment,
+        private static void AddStochasticSoilProfile(MacroStabilityInwardsStochasticSoilModel stochasticSoilModelSegment,
                                                      StochasticSoilProfileReader stochasticSoilProfileReader,
                                                      long stochasticSoilModelSegmentId)
         {
-            StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegmentId);
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegmentId);
             if (stochasticSoilProfile != null)
             {
                 stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfile);
@@ -232,10 +232,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             }
         }
 
-        private StochasticSoilModel ReadStochasticSoilModelSegment()
+        private MacroStabilityInwardsStochasticSoilModel ReadStochasticSoilModelSegment()
         {
             string stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelTableColumns.StochasticSoilModelName]);
-            return new StochasticSoilModel(stochasticSoilModelName);
+            return new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModelName);
         }
 
         private long ReadStochasticSoildModelSegmentId()

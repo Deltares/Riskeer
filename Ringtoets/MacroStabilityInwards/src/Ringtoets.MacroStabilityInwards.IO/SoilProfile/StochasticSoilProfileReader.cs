@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads <see cref="StochasticSoilProfile"/>
+    /// This class reads a DSoil database file and reads <see cref="MacroStabilityInwardsStochasticSoilProfile"/>
     /// from this database.
     /// </summary>
     public class StochasticSoilProfileReader : SqLiteDatabaseReaderBase
@@ -67,18 +67,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next stochastic soil profile from the database
-        /// and creates a <see cref="StochasticSoilProfile"/> instance of the information.
+        /// and creates a <see cref="MacroStabilityInwardsStochasticSoilProfile"/> instance of the information.
         /// </summary>
-        /// <param name="stochasticSoilModelId">Identifier of the next <see cref="StochasticSoilModel"/> 
+        /// <param name="stochasticSoilModelId">Identifier of the next <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
         /// to look for.</param>
-        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> 
+        /// <returns>The next <see cref="MacroStabilityInwardsStochasticSoilProfile"/> from the database, or <c>null</c> 
         /// if no more stochastic soil profiles can be read.</returns>
         /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned 
         /// incorrect values for required properties.</exception>
         /// <remarks>Rows are being read in ascending order based on the database ID of the 
         /// stochastic soil model. Therefore once a stochastic soil model has been read already, 
         /// it will not be found with this method.</remarks>
-        public StochasticSoilProfile ReadStochasticSoilProfile(long stochasticSoilModelId)
+        public MacroStabilityInwardsStochasticSoilProfile ReadStochasticSoilProfile(long stochasticSoilModelId)
         {
             if (!HasNext)
             {
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             }
             try
             {
-                StochasticSoilProfile stochasticSoilProfile = ReadStochasticSoilProfileProbability();
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = ReadStochasticSoilProfileProbability();
                 MoveToNextStochasticSoilModelId(stochasticSoilModelId);
                 return stochasticSoilProfile;
             }
@@ -193,18 +193,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             return Convert.ToInt64(dataReader[StochasticSoilProfileTableColumns.StochasticSoilModelId]);
         }
 
-        private StochasticSoilProfile ReadStochasticSoilProfileProbability()
+        private MacroStabilityInwardsStochasticSoilProfile ReadStochasticSoilProfileProbability()
         {
             object valueProbability = dataReader[StochasticSoilProfileTableColumns.Probability];
             double probability = valueProbability.Equals(DBNull.Value) ? 0 : Convert.ToDouble(valueProbability);
 
-            StochasticSoilProfile soilProfile1DId = ReadSoilProfile1DId(probability);
+            MacroStabilityInwardsStochasticSoilProfile soilProfile1DId = ReadSoilProfile1DId(probability);
             if (soilProfile1DId != null)
             {
                 return soilProfile1DId;
             }
 
-            StochasticSoilProfile soilProfile2DId = ReadSoilProfile2DId(probability);
+            MacroStabilityInwardsStochasticSoilProfile soilProfile2DId = ReadSoilProfile2DId(probability);
             if (soilProfile2DId != null)
             {
                 return soilProfile2DId;
@@ -215,24 +215,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             throw new StochasticSoilProfileReadException(message);
         }
 
-        private StochasticSoilProfile ReadSoilProfile2DId(double probability)
+        private MacroStabilityInwardsStochasticSoilProfile ReadSoilProfile2DId(double probability)
         {
             object valueSoilProfile2DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile2DId];
             if (!valueSoilProfile2DId.Equals(DBNull.Value))
             {
                 long soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
-                return new StochasticSoilProfile(probability, SoilProfileType.SoilProfile2D, soilProfileId);
+                return new MacroStabilityInwardsStochasticSoilProfile(probability, SoilProfileType.SoilProfile2D, soilProfileId);
             }
             return null;
         }
 
-        private StochasticSoilProfile ReadSoilProfile1DId(double probability)
+        private MacroStabilityInwardsStochasticSoilProfile ReadSoilProfile1DId(double probability)
         {
             object valueSoilProfile1DId = dataReader[StochasticSoilProfileTableColumns.SoilProfile1DId];
             if (!valueSoilProfile1DId.Equals(DBNull.Value))
             {
                 long soilProfileId = Convert.ToInt64(valueSoilProfile1DId);
-                return new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, soilProfileId);
+                return new MacroStabilityInwardsStochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, soilProfileId);
             }
             return null;
         }

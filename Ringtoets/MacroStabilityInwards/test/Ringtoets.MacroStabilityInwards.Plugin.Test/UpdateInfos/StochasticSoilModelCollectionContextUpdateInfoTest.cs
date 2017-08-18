@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var stochasticSoilModel = new StochasticSoilModelCollection();
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
@@ -108,8 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var stochasticSoilModel = new StochasticSoilModelCollection();
-            stochasticSoilModel.AddRange(Enumerable.Empty<StochasticSoilModel>(), "some/path");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
+            stochasticSoilModel.AddRange(Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), "some/path");
 
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
@@ -222,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "some/path";
-            var stochasticSoilModelCollection = new StochasticSoilModelCollection();
+            var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             stochasticSoilModelCollection.AddRange(new[]
             {
                 new TestStochasticSoilModel()

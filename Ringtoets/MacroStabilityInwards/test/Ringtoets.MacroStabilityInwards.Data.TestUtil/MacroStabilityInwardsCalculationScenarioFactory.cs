@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             const double bottom = 1.12;
             const double top = 10.56;
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
                 {

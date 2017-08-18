@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, 0, thicknessCoverageLayer),
                 new Point3D(1.0, 0, thicknessCoverageLayer)
             });
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, -thicknessAquiferLayer, new[]
                 {
@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, 0, 0.0),
                 new Point3D(1.0, 0, 0.0)
             });
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, -thicknessAquiferLayer, new[]
                 {
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, 0, surfaceLineTopLevel),
                 new Point3D(1.0, 0, surfaceLineTopLevel)
             });
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0, new[]
                 {
@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, 0, 3.3),
                 new Point3D(1.0, 0, 3.3)
             });
-            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
                 SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0, new[]
                 {

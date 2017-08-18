@@ -32,17 +32,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// Class for constructing soil profiles for which the geometry of the layers lay under a surface line.
     /// </summary>
-    public static class SoilProfileUnderSurfaceLineFactory
+    public static class MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory
     {
         /// <summary>
-        /// Creates a new <see cref="SoilProfileUnderSurfaceLine"/>.
+        /// Creates a new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile containing layers under the <paramref name="surfaceLine"/>.</param>
         /// <param name="surfaceLine">The surface line for which determines the top of the <paramref name="soilProfile"/>.</param>
-        /// <returns>A new <see cref="SoilProfileUnderSurfaceLine"/> containing geometries from the 
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/> under the <paramref name="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile, MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile,
+                                                                              MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)
             {
@@ -67,26 +68,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Creates a new <see cref="SoilProfileUnderSurfaceLine"/>.
+        /// Creates a new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile containing layers.</param>
-        /// <returns>A new <see cref="SoilProfileUnderSurfaceLine"/> containing geometries from the 
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static SoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
+        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            IEnumerable<SoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
-                layer => new SoilLayerUnderSurfaceLine(
+            IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
+                layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
                     layer.Holes.Select(RingToPoints),
                     layer.Properties));
 
-            return new SoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
         }
 
         private static Point2D[] RingToPoints(Ring ring)
@@ -94,9 +95,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return ring.Points.ToArray();
         }
 
-        private static SoilProfileUnderSurfaceLine GeometriesToIntersections(IEnumerable<TempSoilLayerGeometry> layerGeometries, IEnumerable<Point2D> surfaceLineGeometry)
+        private static MacroStabilityInwardsSoilProfileUnderSurfaceLine GeometriesToIntersections(IEnumerable<TempSoilLayerGeometry> layerGeometries, IEnumerable<Point2D> surfaceLineGeometry)
         {
-            var collection = new Collection<SoilLayerUnderSurfaceLine>();
+            var collection = new Collection<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
 
             IEnumerable<Point2D> surfaceLineGeometryArray = surfaceLineGeometry.ToArray();
 
@@ -104,11 +105,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
-                    collection.Add(new SoilLayerUnderSurfaceLine(soilLayerArea, layer.Properties));
+                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, layer.Properties));
                 }
             }
 
-            return new SoilProfileUnderSurfaceLine(collection);
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection);
         }
 
         private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)

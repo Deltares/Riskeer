@@ -33,9 +33,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StochasticSoilModel"/> for properties panel.
+    /// ViewModel of <see cref="MacroStabilityInwardsStochasticSoilModel"/> for properties panel.
     /// </summary>
-    public class StochasticSoilModelProperties : ObjectProperties<StochasticSoilModel>
+    public class StochasticSoilModelProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModel>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var collection = new StochasticSoilModelCollection();
+            var collection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call

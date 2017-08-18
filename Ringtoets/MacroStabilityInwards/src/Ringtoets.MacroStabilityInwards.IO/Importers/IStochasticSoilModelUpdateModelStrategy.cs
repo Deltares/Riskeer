@@ -43,6 +43,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Importers
         /// <see cref="UpdateDataException.InnerException"/> is set with the more detailed
         /// exception.</exception>
         /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
-        IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath);
+        IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, string sourceFilePath);
     }
 }

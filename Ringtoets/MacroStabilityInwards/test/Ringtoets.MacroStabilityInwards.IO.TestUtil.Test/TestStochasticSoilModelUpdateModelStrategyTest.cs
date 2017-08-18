@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
         {
             // Setup
             var strategy = new TestStochasticSoilModelUpdateModelStrategy();
-            IEnumerable<StochasticSoilModel> readModels = new[]
+            IEnumerable<MacroStabilityInwardsStochasticSoilModel> readModels = new[]
             {
                 new TestStochasticSoilModel("A"),
                 new TestStochasticSoilModel("B"),
@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
         {
             // Setup
             var strategy = new TestStochasticSoilModelUpdateModelStrategy();
-            IEnumerable<StochasticSoilModel> readModels = Enumerable.Empty<StochasticSoilModel>();
+            IEnumerable<MacroStabilityInwardsStochasticSoilModel> readModels = Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>();
             var filePath = new string('x', new Random(21).Next(5, 23));
 
             IEnumerable<IObservable> updatedInstances = Enumerable.Empty<IObservable>();

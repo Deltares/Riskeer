@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
                                                                                                null,
-                                                                                               Enumerable.Empty<StochasticSoilModel>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
                                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                               Enumerable.Empty<StochasticSoilModel>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                                null,
                                                                                                assessmentSection);
 
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new SimpleMacroStabilityInwardsContext<ObservableObject>(new ObservableObject(),
                                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                               Enumerable.Empty<StochasticSoilModel>(),
+                                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                                new MacroStabilityInwardsFailureMechanism(),
                                                                                                null);
 
@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
         private class SimpleMacroStabilityInwardsContext<T> : MacroStabilityInwardsContext<T> where T : IObservable
         {
-            public SimpleMacroStabilityInwardsContext(T target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism, IAssessmentSection assessmentSection)
+            public SimpleMacroStabilityInwardsContext(T target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism, IAssessmentSection assessmentSection)
                 : base(target, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}
         }
 

@@ -61,10 +61,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Returns the query to get the amount of <see cref="StochasticSoilModel"/> 
+        /// Returns the query to get the amount of <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
         /// that can be read from the database.
         /// </summary>
-        /// <returns>The query to get the amount of <see cref="StochasticSoilModel"/> 
+        /// <returns>The query to get the amount of <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
         /// from the database.</returns>
         public static string GetStochasticSoilModelOfMechanismCountQuery()
         {

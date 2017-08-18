@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="StochasticSoilModel"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateStochasticSoilModelsMapData()

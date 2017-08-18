@@ -302,7 +302,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetStochasticSoilModelsMapData()
         {
-            StochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
             stochasticSoilModelsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
         }
 

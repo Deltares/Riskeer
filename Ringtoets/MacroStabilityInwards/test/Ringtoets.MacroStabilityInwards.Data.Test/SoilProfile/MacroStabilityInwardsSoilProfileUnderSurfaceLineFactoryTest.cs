@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilProfileUnderSurfaceLineFactoryTest
+    public class MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest
     {
         [Test]
         public void Create_SoilProfile1DNull_ThrowArgumentNullException()
@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate test = () => SoilProfileUnderSurfaceLineFactory.Create(null, surfaceLine);
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(null, surfaceLine);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            TestDelegate test = () => SoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Create_SoilProfile2DNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SoilProfileUnderSurfaceLineFactory.Create(null);
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(areas.LayersUnderSurfaceLine);
@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
@@ -222,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
@@ -292,7 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine areas = SoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
             Assert.AreEqual(2, areas.LayersUnderSurfaceLine.Count());
@@ -337,7 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var profile = new MacroStabilityInwardsSoilProfile2D("name", layers, SoilProfileType.SoilProfile2D, 0);
 
             // Call
-            SoilProfileUnderSurfaceLine profileUnderSurfaceLine = SoilProfileUnderSurfaceLineFactory.Create(profile);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile);
 
             // Assert
             Assert.AreEqual(2, profileUnderSurfaceLine.LayersUnderSurfaceLine.Count());

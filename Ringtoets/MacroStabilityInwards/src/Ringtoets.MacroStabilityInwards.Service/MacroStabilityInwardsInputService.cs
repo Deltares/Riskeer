@@ -33,13 +33,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
     {
         /// <summary>
         /// Sets <see cref="MacroStabilityInwardsInput.StochasticSoilModel"/> and <see cref="MacroStabilityInwardsInput.StochasticSoilProfile"/> that match the input of a calculation if there is one matching 
-        /// <see cref="StochasticSoilModel"/> or <see cref="StochasticSoilProfile"/> respectively.
+        /// <see cref="MacroStabilityInwardsStochasticSoilModel"/> or <see cref="MacroStabilityInwardsStochasticSoilProfile"/> respectively.
         /// </summary>
-        /// <param name="macroStabilityInwardsInput">The input parameters to set the <see cref="StochasticSoilModel"/>.</param>
+        /// <param name="macroStabilityInwardsInput">The input parameters to set the <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</param>
         /// <param name="availableStochasticSoilModels">The available stochastic soil models.</param>
-        public static void SetMatchingStochasticSoilModel(MacroStabilityInwardsInput macroStabilityInwardsInput, IEnumerable<StochasticSoilModel> availableStochasticSoilModels)
+        public static void SetMatchingStochasticSoilModel(MacroStabilityInwardsInput macroStabilityInwardsInput, IEnumerable<MacroStabilityInwardsStochasticSoilModel> availableStochasticSoilModels)
         {
-            List<StochasticSoilModel> available = availableStochasticSoilModels.ToList();
+            List<MacroStabilityInwardsStochasticSoilModel> available = availableStochasticSoilModels.ToList();
             if (available.Count == 1)
             {
                 macroStabilityInwardsInput.StochasticSoilModel = available.First();
@@ -52,13 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Sets the <paramref name="macroStabilityInwardsInput.StochasticSoilProfile"/> to the corresponding <paramref name="macroStabilityInwardsInput.StochasticSoilModel"/>:
+        /// Sets the <see cref="MacroStabilityInwardsStochasticSoilProfile"/> to the corresponding <see cref="MacroStabilityInwardsStochasticSoilModel"/>:
         /// <list type="bullet">
-        /// <item><c>null</c> if no <paramref name="macroStabilityInwardsInput.StochasticSoilModel"/> is set.</item>
-        /// <item>The first element of <paramref name="macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles"/> when it is the only element.</item>
+        /// <item><c>null</c> if no <see cref="MacroStabilityInwardsStochasticSoilModel"/> is set.</item>
+        /// <item>The first element of <see cref="MacroStabilityInwardsStochasticSoilModel.StochasticSoilProfiles"/> when it is the only element.</item>
         /// </list>
         /// </summary>
-        /// <param name="macroStabilityInwardsInput">The input parameters to set the <see cref="StochasticSoilProfile"/>.</param>
+        /// <param name="macroStabilityInwardsInput">The input parameters to set the <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</param>
         public static void SyncStochasticSoilProfileWithStochasticSoilModel(MacroStabilityInwardsInput macroStabilityInwardsInput)
         {
             if (macroStabilityInwardsInput.StochasticSoilModel != null)

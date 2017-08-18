@@ -24,21 +24,21 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Container for the differences of the collection of <see cref="StochasticSoilProfile"/> contained
-    /// by a <see cref="StochasticSoilModel"/>.
+    /// Container for the differences of the collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/> contained
+    /// by a <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
     /// </summary>
-    public class StochasticSoilModelProfileDifference
+    public class MacroStabilityInwardsStochasticSoilModelProfileDifference
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelProfileDifference"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModelProfileDifference"/>.
         /// </summary>
         /// <param name="addedProfiles">Profiles that were added to the model.</param>
         /// <param name="updatedProfiles">Profiles that were updated.</param>
         /// <param name="removedProfiles">Profiles that were removed from the model.</param>
-        public StochasticSoilModelProfileDifference(
-            IEnumerable<StochasticSoilProfile> addedProfiles,
-            IEnumerable<StochasticSoilProfile> updatedProfiles,
-            IEnumerable<StochasticSoilProfile> removedProfiles)
+        public MacroStabilityInwardsStochasticSoilModelProfileDifference(
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> addedProfiles,
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> updatedProfiles,
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> removedProfiles)
         {
             AddedProfiles = addedProfiles;
             UpdatedProfiles = updatedProfiles;
@@ -48,16 +48,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <summary>
         /// Gets the profiles that were updated.
         /// </summary>
-        public IEnumerable<StochasticSoilProfile> UpdatedProfiles { get; }
+        public IEnumerable<MacroStabilityInwardsStochasticSoilProfile> UpdatedProfiles { get; }
 
         /// <summary>
         /// Gets the profiles that were removed from the model.
         /// </summary>
-        public IEnumerable<StochasticSoilProfile> RemovedProfiles { get; }
+        public IEnumerable<MacroStabilityInwardsStochasticSoilProfile> RemovedProfiles { get; }
 
         /// <summary>
         /// Gets the profiles that were added to the model.
         /// </summary>
-        public IEnumerable<StochasticSoilProfile> AddedProfiles { get; }
+        public IEnumerable<MacroStabilityInwardsStochasticSoilProfile> AddedProfiles { get; }
     }
 }

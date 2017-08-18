@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="StochasticSoilModel"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Removes a given <see cref="MacroStabilityInwardsStochasticSoilModel"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilModel"/>.</param>
@@ -212,7 +212,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilModel"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveStochasticSoilModel(MacroStabilityInwardsFailureMechanism failureMechanism, StochasticSoilModel soilModel)
+        public static IEnumerable<IObservable> RemoveStochasticSoilModel(MacroStabilityInwardsFailureMechanism failureMechanism, MacroStabilityInwardsStochasticSoilModel soilModel)
         {
             if (failureMechanism == null)
             {
@@ -243,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Removes all <see cref="StochasticSoilModel"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Removes all <see cref="MacroStabilityInwardsStochasticSoilModel"/> from the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
@@ -275,7 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Removes a given <see cref="StochasticSoilProfile"/> from calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Removes a given <see cref="MacroStabilityInwardsStochasticSoilProfile"/> from calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
@@ -284,7 +284,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> RemoveStochasticSoilProfileFromInput(MacroStabilityInwardsFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        public static IEnumerable<IObservable> RemoveStochasticSoilProfileFromInput(MacroStabilityInwardsFailureMechanism failureMechanism, MacroStabilityInwardsStochasticSoilProfile soilProfile)
         {
             if (failureMechanism == null)
             {
@@ -307,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Clears data dependent on a given <see cref="StochasticSoilProfile"/>, either directly or indirectly,
+        /// Clears data dependent on a given <see cref="MacroStabilityInwardsStochasticSoilProfile"/>, either directly or indirectly,
         /// from calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
@@ -316,7 +316,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearStochasticSoilProfileDependentData(MacroStabilityInwardsFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        public static IEnumerable<IObservable> ClearStochasticSoilProfileDependentData(MacroStabilityInwardsFailureMechanism failureMechanism, MacroStabilityInwardsStochasticSoilProfile soilProfile)
         {
             if (failureMechanism == null)
             {
@@ -349,7 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             return changedObservables;
         }
 
-        private static IEnumerable<MacroStabilityInwardsCalculation> GetCalculationsWithSoilProfileAssigned(MacroStabilityInwardsFailureMechanism failureMechanism, StochasticSoilProfile soilProfile)
+        private static IEnumerable<MacroStabilityInwardsCalculation> GetCalculationsWithSoilProfileAssigned(MacroStabilityInwardsFailureMechanism failureMechanism, MacroStabilityInwardsStochasticSoilProfile soilProfile)
         {
             IEnumerable<MacroStabilityInwardsCalculation> calculationScenarios =
                 failureMechanism.Calculations

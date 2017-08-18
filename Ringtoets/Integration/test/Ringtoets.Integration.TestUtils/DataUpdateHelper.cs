@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Imports the <see cref="MacroStabilityInwards.Data.SoilProfile.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwards.Data.MacroStabilityInwardsFailureMechanism"/>
+        /// Imports the <see cref="MacroStabilityInwardsStochasticSoilModel"/> data for the <see cref="MacroStabilityInwards.Data.MacroStabilityInwardsFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/> and updates existing data based upon the imported
         /// data.
         /// </summary>

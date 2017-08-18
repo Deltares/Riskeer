@@ -255,13 +255,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var stochasticSoilModel1 = new StochasticSoilModel("name1");
+                var stochasticSoilModel1 = new MacroStabilityInwardsStochasticSoilModel("name1");
                 stochasticSoilModel1.Geometry.AddRange(new[]
                 {
                     new Point2D(1.0, 2.0),
                     new Point2D(1.1, 2.2)
                 });
-                var stochasticSoilModel2 = new StochasticSoilModel("name2");
+                var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("name2");
                 stochasticSoilModel2.Geometry.AddRange(new[]
                 {
                     new Point2D(3.0, 4.0),
@@ -679,7 +679,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var stochasticSoilModel = new StochasticSoilModel("");
+                var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("");
 
                 stochasticSoilModel.Geometry.AddRange(new[]
                 {
@@ -1007,18 +1007,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
 
-        private static void AssertStochasticSoilModelsMapData(IEnumerable<StochasticSoilModel> soilModels, MapData mapData)
+        private static void AssertStochasticSoilModelsMapData(IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
             var soilModelsMapData = (MapLineData) mapData;
             MapFeature[] soilModelsFeatures = soilModelsMapData.Features.ToArray();
-            StochasticSoilModel[] stochasticSoilModelsArray = soilModels.ToArray();
+            MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModelsArray = soilModels.ToArray();
             Assert.AreEqual(stochasticSoilModelsArray.Length, soilModelsFeatures.Length);
 
             for (var index = 0; index < stochasticSoilModelsArray.Length; index++)
             {
                 Assert.AreEqual(1, soilModelsFeatures[index].MapGeometries.Count());
-                StochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
+                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);

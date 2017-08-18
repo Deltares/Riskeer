@@ -31,18 +31,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// This class couples a SoilProfile to a probability of occurrence.
     /// </summary>
-    public class StochasticSoilProfile : Observable
+    public class MacroStabilityInwardsStochasticSoilProfile : Observable
     {
         private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
         private double probability;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="probability">Probability of the stochastic soil profile.</param>
         /// <param name="soilProfileType">Type of the stochastic soil profile.</param>
         /// <param name="soilProfileId">Database identifier of the stochastic soil profile.</param>
-        public StochasticSoilProfile(double probability, SoilProfileType soilProfileType, long soilProfileId)
+        public MacroStabilityInwardsStochasticSoilProfile(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             Probability = probability;
             SoilProfileType = soilProfileType;
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
+        /// Updates the probability of the <see cref="MacroStabilityInwardsStochasticSoilProfile"/> 
         /// by adding <paramref name="probabilityToAdd"/>.
         /// </summary>
         /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
@@ -101,15 +101,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Updates the <see cref="StochasticSoilProfile"/> with the properties
+        /// Updates the <see cref="MacroStabilityInwardsStochasticSoilProfile"/> with the properties
         /// from <paramref name="fromProfile"/>.
         /// </summary>
-        /// <param name="fromProfile">The <see cref="StochasticSoilProfile"/> to
+        /// <param name="fromProfile">The <see cref="MacroStabilityInwardsStochasticSoilProfile"/> to
         /// obtain the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
         /// is <c>null</c>.</exception>
         /// <returns><c>true</c> if the profile has been updated; <c>false</c> otherwise.</returns>
-        public bool Update(StochasticSoilProfile fromProfile)
+        public bool Update(MacroStabilityInwardsStochasticSoilProfile fromProfile)
         {
             if (fromProfile == null)
             {
@@ -135,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((StochasticSoilProfile) obj);
+            return Equals((MacroStabilityInwardsStochasticSoilProfile) obj);
         }
 
         public override int GetHashCode()
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
-        private bool Equals(StochasticSoilProfile other)
+        private bool Equals(MacroStabilityInwardsStochasticSoilProfile other)
         {
             return Probability.Equals(other.Probability)
                    && SoilProfileType == other.SoilProfileType

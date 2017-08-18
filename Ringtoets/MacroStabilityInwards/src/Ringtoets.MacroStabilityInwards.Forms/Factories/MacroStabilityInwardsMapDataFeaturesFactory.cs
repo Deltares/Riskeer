@@ -69,9 +69,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create stochastic soil model features based on the provided <paramref name="stochasticSoilModels"/>.
         /// </summary>
-        /// <param name="stochasticSoilModels">The collection of <see cref="StochasticSoilModel"/> to create the stochastic soil model features for.</param>
+        /// <param name="stochasticSoilModels">The collection of <see cref="MacroStabilityInwardsStochasticSoilModel"/> to create the stochastic soil model features for.</param>
         /// <returns>An array of features or an empty array when <paramref name="stochasticSoilModels"/> is <c>null</c> or empty.</returns>
-        public static MapFeature[] CreateStochasticSoilModelFeatures(StochasticSoilModel[] stochasticSoilModels)
+        public static MapFeature[] CreateStochasticSoilModelFeatures(MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModels)
         {
             if (stochasticSoilModels != null && stochasticSoilModels.Any())
             {
@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
                 for (var i = 0; i < stochasticSoilModels.Length; i++)
                 {
-                    StochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
+                    MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModels[i];
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
                     feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return surfaceLine.Points.Select(p => new Point2D(p.X, p.Y));
         }
 
-        private static IEnumerable<Point2D> GetWorldPoints(StochasticSoilModel stochasticSoilModel)
+        private static IEnumerable<Point2D> GetWorldPoints(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
         {
             return stochasticSoilModel.Geometry.Select(p => new Point2D(p));
         }

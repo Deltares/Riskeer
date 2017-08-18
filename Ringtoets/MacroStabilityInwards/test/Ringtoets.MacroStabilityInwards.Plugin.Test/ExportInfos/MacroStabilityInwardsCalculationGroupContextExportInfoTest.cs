@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
                                                                            null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                           Enumerable.Empty<StochasticSoilModel>(),
+                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
@@ -114,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
                                                                            null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                           Enumerable.Empty<StochasticSoilModel>(),
+                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 
@@ -156,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
                                                                            null,
                                                                            Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                           Enumerable.Empty<StochasticSoilModel>(),
+                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                            assessmentSection);
 

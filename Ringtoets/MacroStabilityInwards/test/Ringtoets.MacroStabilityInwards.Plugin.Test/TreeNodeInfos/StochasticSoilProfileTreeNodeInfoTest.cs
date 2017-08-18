@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilProfile));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilProfile));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 soilLayer
             }, SoilProfileType.SoilProfile2D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
+            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
             stochasticSoilProfile.SoilProfile = soilProfile;
             mocks.ReplayAll();
 
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
+            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
             stochasticSoilProfile.SoilProfile = soilProfile;
             mocks.ReplayAll();
 

@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil
         /// <summary>
         /// Gets the models that were passed to <see cref="UpdateModelWithImportedData"/> as the read models.
         /// </summary>
-        public StochasticSoilModel[] ReadModels { get; private set; }
+        public MacroStabilityInwardsStochasticSoilModel[] ReadModels { get; private set; }
 
         /// <summary>
         /// Gets the file path that was passed to <see cref="UpdateModelWithImportedData"/>.
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         public IEnumerable<IObservable> UpdatedInstances { get; set; } = Enumerable.Empty<IObservable>();
 
-        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<StochasticSoilModel> stochasticSoilModels, string sourceFilePath)
+        public IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels, string sourceFilePath)
         {
             Updated = true;
             EvaluateGetValidStochasticSoilModelsMethod(stochasticSoilModels);
@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil
             return UpdatedInstances;
         }
 
-        private void EvaluateGetValidStochasticSoilModelsMethod(IEnumerable<StochasticSoilModel> readStochasticSoilModels)
+        private void EvaluateGetValidStochasticSoilModelsMethod(IEnumerable<MacroStabilityInwardsStochasticSoilModel> readStochasticSoilModels)
         {
             ReadModels = readStochasticSoilModels.ToArray();
         }

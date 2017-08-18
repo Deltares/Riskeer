@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new StochasticSoilModelProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StochasticSoilModel>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModel>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -53,13 +53,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel("Name");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = soilProfile
             };
@@ -83,13 +83,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new StochasticSoilModel("Name");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = soilProfile
             };

@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
+                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                 failureMechanism, assessmentSection);
 
             // Call

@@ -28,9 +28,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Extension methods dealing with <see cref="StochasticSoilModel"/> instances.
+    /// Extension methods dealing with <see cref="MacroStabilityInwardsStochasticSoilModel"/> instances.
     /// </summary>
-    public static class StochasticSoilModelExtensions
+    public static class MacroStabilityInwardsStochasticSoilModelExtensions
     {
         /// <summary>
         /// Indicates whether a stochastic soil model intersects with a surface line.
@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <returns><c>true</c> when the <paramref name="stochasticSoilModel"/> intersects with the <paramref name="surfaceLine"/>;
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static bool IntersectsWithSurfaceLineGeometry(this StochasticSoilModel stochasticSoilModel,
+        public static bool IntersectsWithSurfaceLineGeometry(this MacroStabilityInwardsStochasticSoilModel stochasticSoilModel,
                                                              MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (stochasticSoilModel == null)
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments);
         }
 
-        private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
+        private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
         {
             IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
             return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));

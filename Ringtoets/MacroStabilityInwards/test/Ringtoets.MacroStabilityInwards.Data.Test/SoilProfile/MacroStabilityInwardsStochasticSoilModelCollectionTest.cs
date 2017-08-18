@@ -30,47 +30,47 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionTest :
+    public class MacroStabilityInwardsStochasticSoilModelCollectionTest :
         CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase<
-            ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel>, StochasticSoilModel>
+            ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsStochasticSoilModel>, MacroStabilityInwardsStochasticSoilModel>
     {
-        protected override ObservableUniqueItemCollectionWithSourcePath<StochasticSoilModel> CreateCollection()
+        protected override ObservableUniqueItemCollectionWithSourcePath<MacroStabilityInwardsStochasticSoilModel> CreateCollection()
         {
-            return new StochasticSoilModelCollection();
+            return new MacroStabilityInwardsStochasticSoilModelCollection();
         }
 
-        protected override IEnumerable<StochasticSoilModel> UniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> UniqueElements()
         {
-            yield return new StochasticSoilModel("Model A");
-            yield return new StochasticSoilModel("Model B");
+            yield return new MacroStabilityInwardsStochasticSoilModel("Model A");
+            yield return new MacroStabilityInwardsStochasticSoilModel("Model B");
         }
 
-        protected override IEnumerable<StochasticSoilModel> SingleNonUniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> SingleNonUniqueElements()
         {
             const string someName = "Soil model";
-            yield return new StochasticSoilModel(someName);
-            yield return new StochasticSoilModel(someName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
         }
 
-        protected override IEnumerable<StochasticSoilModel> MultipleNonUniqueElements()
+        protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> MultipleNonUniqueElements()
         {
             const string someName = "Soil model";
             const string someOtherName = "Other soil model";
-            yield return new StochasticSoilModel(someName);
-            yield return new StochasticSoilModel(someName);
-            yield return new StochasticSoilModel(someOtherName);
-            yield return new StochasticSoilModel(someOtherName);
-            yield return new StochasticSoilModel(someOtherName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
         }
 
-        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<StochasticSoilModel> itemsToAdd)
+        protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsStochasticSoilModel> itemsToAdd)
         {
             string someName = itemsToAdd.First().Name;
             Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
                             $"Gevonden dubbele elementen: {someName}.", exception.Message);
         }
 
-        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<StochasticSoilModel> itemsToAdd)
+        protected override void AssertMultipleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsStochasticSoilModel> itemsToAdd)
         {
             string someName = itemsToAdd.First().Name;
             string someOtherName = itemsToAdd.First(i => i.Name != someName).Name;

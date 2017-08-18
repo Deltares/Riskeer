@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         {
             // Call
             TestDelegate call = () => new StochasticSoilModelImporter(
-                new StochasticSoilModelCollection(),
+                new MacroStabilityInwardsStochasticSoilModelCollection(),
                 "",
                 null,
                 new TestStochasticSoilModelUpdateModelStrategy());
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 
             // Call
             TestDelegate call = () => new StochasticSoilModelImporter(
-                new StochasticSoilModelCollection(),
+                new MacroStabilityInwardsStochasticSoilModelCollection(),
                 "",
                 messageProvider,
                 null);
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
-            var list = new StochasticSoilModelCollection();
+            var list = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
             var importer = new StochasticSoilModelImporter(
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                 new TestStochasticSoilModelUpdateModelStrategy());
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<StochasticSoilModelCollection>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<MacroStabilityInwardsStochasticSoilModelCollection>>(importer);
         }
 
         [Test]
@@ -295,7 +295,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             TestHelper.AssertLogMessagesCount(call, 0);
             Assert.AreEqual(36 * 2, progress);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -483,7 +483,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             const string expectedMessage = "Huidige actie was niet meer te annuleren en is daarom voortgezet.";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -514,7 +514,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(3, readModels.Length);
         }
 
@@ -553,7 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 2);
             Assert.AreEqual(8, progress);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -579,7 +579,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             bool importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -613,7 +613,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -645,7 +645,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToCorruptFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
         }
 
@@ -670,17 +670,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             bool importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
 
             Assert.AreEqual(2, readModels.Length);
-            StochasticSoilModel model1 = readModels[0];
-            StochasticSoilModel model2 = readModels[1];
+            MacroStabilityInwardsStochasticSoilModel model1 = readModels[0];
+            MacroStabilityInwardsStochasticSoilModel model2 = readModels[1];
 
             Assert.AreEqual(1, model1.StochasticSoilProfiles.Count);
             Assert.AreEqual(1, model2.StochasticSoilProfiles.Count);
 
-            StochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
-            StochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
             Assert.AreNotSame(profile1, profile2);
             Assert.AreSame(profile1.SoilProfile, profile2.SoilProfile);
 
@@ -711,17 +711,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             bool importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
 
             Assert.AreEqual(2, readModels.Length);
-            StochasticSoilModel model1 = readModels[0];
-            StochasticSoilModel model2 = readModels[1];
+            MacroStabilityInwardsStochasticSoilModel model1 = readModels[0];
+            MacroStabilityInwardsStochasticSoilModel model2 = readModels[1];
 
             Assert.AreEqual(1, model1.StochasticSoilProfiles.Count);
             Assert.AreEqual(1, model2.StochasticSoilProfiles.Count);
 
-            StochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
-            StochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
             Assert.AreNotSame(profile1, profile2);
             Assert.AreSame(profile1.SoilProfile, profile2.SoilProfile);
 
@@ -759,7 +759,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             CollectionAssert.IsEmpty(readModels);
         }
 
@@ -791,9 +791,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                                            "'StochasticSoilModelName'. Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageIsGenerated(importAction, expectedMessage, 1);
 
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
-            StochasticSoilModel firstModel = readModels.First();
+            MacroStabilityInwardsStochasticSoilModel firstModel = readModels.First();
             Assert.AreEqual(1, firstModel.StochasticSoilProfiles.Count);
             Assert.AreEqual(1.0, firstModel.StochasticSoilProfiles[0].Probability);
         }
@@ -823,9 +823,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 
             // Assert
             TestHelper.AssertLogMessagesCount(importAction, 0);
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(pathToFile, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
-            StochasticSoilModel firstModel = readModels.First();
+            MacroStabilityInwardsStochasticSoilModel firstModel = readModels.First();
             Assert.AreEqual(2, firstModel.StochasticSoilProfiles.Count);
             Assert.AreEqual(firstModel.StochasticSoilProfiles[0].SoilProfile.Name, firstModel.StochasticSoilProfiles[1].SoilProfile.Name);
         }
@@ -852,13 +852,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             bool importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
 
-            StochasticSoilModel soilModel = readModels[0];
+            MacroStabilityInwardsStochasticSoilModel soilModel = readModels[0];
             Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
 
-            StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
             Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
@@ -909,13 +909,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             bool importResult = importer.Import();
 
             // Assert
-            StochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
+            MacroStabilityInwardsStochasticSoilModel[] readModels = AssertSuccessfulImport(validFilePath, importResult, updateStrategy);
             Assert.AreEqual(1, readModels.Length);
 
-            StochasticSoilModel soilModel = readModels[0];
+            MacroStabilityInwardsStochasticSoilModel soilModel = readModels[0];
             Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
 
-            StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
             Assert.AreEqual(1.0, stochasticProfile.Probability);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
 
@@ -960,7 +960,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         public void Import_UpdateSurfaceLinesWithImportedDataThrowsUpdateDataException_ReturnFalseAndLogError()
         {
             // Setup
-            var importTarget = new StochasticSoilModelCollection();
+            var importTarget = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             string filePath = Path.Combine(testDataPath, "complete.soil");
 
@@ -970,7 +970,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                            .Return("error {0}");
 
             var strategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy>();
-            strategy.Expect(s => s.UpdateModelWithImportedData(Arg<StochasticSoilModel[]>.Is.NotNull,
+            strategy.Expect(s => s.UpdateModelWithImportedData(Arg<MacroStabilityInwardsStochasticSoilModel[]>.Is.NotNull,
                                                                Arg<string>.Is.Same(filePath)
                             )).Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
@@ -1010,7 +1010,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                 }
             };
             var importer = new StochasticSoilModelImporter(
-                new StochasticSoilModelCollection(),
+                new MacroStabilityInwardsStochasticSoilModelCollection(),
                 validFilePath,
                 messageProvider,
                 updateStrategy);
@@ -1022,7 +1022,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
             // Assert
         }
 
-        private static StochasticSoilModel[] AssertSuccessfulImport(
+        private static MacroStabilityInwardsStochasticSoilModel[] AssertSuccessfulImport(
             string expectedPath,
             bool actualImportResult,
             TestStochasticSoilModelUpdateModelStrategy updateStrategy)
