@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
@@ -32,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 
     /// A stochastic soil model contains a segment for which the model applies.
     /// </summary>
-    public class StochasticSoilModel : Observable
+    public class StochasticSoilModel : Observable, IMechanismStochasticSoilModel
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.
