@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             TestDelegate call = () => sectionResult.AssessmentLayerThree = (RoundedDouble) invalidValue;
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0.0, 1.0] liggen.";
+            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
                                                                                                 expectedMessage);
         }

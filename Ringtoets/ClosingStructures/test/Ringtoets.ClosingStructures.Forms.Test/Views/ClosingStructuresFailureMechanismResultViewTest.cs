@@ -610,8 +610,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("1.01")]
-        [TestCase("-0.01")]
+        [TestCase("1,01")]
+        [TestCase("-0,01")]
         [TestCase("5")]
         [TestCase("-10")]
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(string newValue)
@@ -633,7 +633,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase("1")]
         [TestCase("0")]
-        [TestCase("0.5")]
+        [TestCase("0,5")]
         [TestCase("1e-6")]
         [TestCase("NaN")]
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(string newValue)
