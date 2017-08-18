@@ -1093,7 +1093,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Dupliceren.
+        ///   Looks up a localized string similar to D&amp;upliceren.
         /// </summary>
         public static string Duplicate {
             get {

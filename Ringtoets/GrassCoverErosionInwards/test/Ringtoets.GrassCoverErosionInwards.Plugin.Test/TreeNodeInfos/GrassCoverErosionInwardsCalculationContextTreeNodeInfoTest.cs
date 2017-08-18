@@ -240,7 +240,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(17, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
-                                                                  "&Dupliceren",
+                                                                  "D&upliceren",
                                                                   "Dupliceer deze berekening.",
                                                                   RingtoetsCommonFormsResources.CopyHS);
 

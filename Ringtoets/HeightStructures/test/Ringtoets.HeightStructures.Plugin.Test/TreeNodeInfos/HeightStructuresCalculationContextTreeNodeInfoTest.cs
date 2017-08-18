@@ -244,7 +244,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(18, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
-                                                                  "&Dupliceren",
+                                                                  "D&upliceren",
                                                                   "Dupliceer deze berekening.",
                                                                   RingtoetsCommonFormsResources.CopyHS);
 

@@ -664,7 +664,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext);
 
             // Assert
-            Assert.AreEqual("&Dupliceren", toolStripItem.Text);
+            Assert.AreEqual("D&upliceren", toolStripItem.Text);
             Assert.AreEqual("Dupliceer deze berekening.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CopyHS, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);

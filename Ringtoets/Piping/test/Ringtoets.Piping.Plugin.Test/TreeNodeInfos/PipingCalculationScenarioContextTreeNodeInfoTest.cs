@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuDuplicateIndex,
-                                                                  "&Dupliceren",
+                                                                  "D&upliceren",
                                                                   "Dupliceer deze berekening.",
                                                                   RingtoetsCommonFormsResources.CopyHS);
 
