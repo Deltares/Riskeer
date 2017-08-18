@@ -49,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(1.1)]
