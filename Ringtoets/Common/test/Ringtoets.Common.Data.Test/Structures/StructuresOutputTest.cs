@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new StructuresOutput(new TestProbabilityAssessmentOutput(), null);
+            StructuresOutput original = CommonTestDataGenerator.GetRandomStructuresOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new StructuresOutput(new TestProbabilityAssessmentOutput(), new TestGeneralResultFaultTreeIllustrationPoint());
+            StructuresOutput original = CommonTestDataGenerator.GetRandomStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();

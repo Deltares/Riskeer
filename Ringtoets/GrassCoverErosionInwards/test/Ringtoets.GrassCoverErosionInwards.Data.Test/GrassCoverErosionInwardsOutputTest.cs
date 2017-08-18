@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -69,10 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
-                                                              new TestDikeHeightOutput(random.NextDouble()),
-                                                              new TestOvertoppingRateOutput(random.NextDouble()));
+            GrassCoverErosionInwardsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomGrassCoverErosionInwardsOutput();
 
             // Call
             object clone = original.Clone();
@@ -85,8 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var random = new Random(21);
-            var original = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
+            var original = new GrassCoverErosionInwardsOutput(GrassCoverErosionInwardsTestDataGenerator.GetRandomOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                               null,
                                                               null);
 

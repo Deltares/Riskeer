@@ -443,5 +443,54 @@ namespace Ringtoets.Piping.Data.TestUtil
                 StandardDeviation = random.NextRoundedDouble()
             };
         }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PipingOutput"/>.
+        /// </summary>
+        /// <returns>A random instance of <see cref="PipingOutput"/>.</returns>
+        public static PipingOutput GetRandomPipingOutput()
+        {
+            var random = new Random(22);
+
+            return new PipingOutput(new PipingOutput.ConstructionProperties
+            {
+                UpliftZValue = random.NextDouble(),
+                UpliftFactorOfSafety = random.NextDouble(),
+                HeaveZValue = random.NextDouble(),
+                HeaveFactorOfSafety = random.NextDouble(),
+                SellmeijerZValue = random.NextDouble(),
+                SellmeijerFactorOfSafety = random.NextDouble(),
+                UpliftEffectiveStress = random.NextDouble(),
+                HeaveGradient = random.NextDouble(),
+                SellmeijerCreepCoefficient = random.NextDouble(),
+                SellmeijerCriticalFall = random.NextDouble(),
+                SellmeijerReducedFall = random.NextDouble()
+            });
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="PipingSemiProbabilisticOutput"/>.
+        /// </summary>
+        /// <returns>A random instance of <see cref="PipingSemiProbabilisticOutput"/>.</returns>
+        public static PipingSemiProbabilisticOutput GetRandomPipingSemiProbabilisticOutput()
+        {
+            var random = new Random(21);
+
+            return new PipingSemiProbabilisticOutput(
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble());
+        }
     }
 }

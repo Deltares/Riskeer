@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Data.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -50,6 +51,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             Assert.AreEqual(original.SellmeijerCreepCoefficient, clone.SellmeijerCreepCoefficient);
             Assert.AreEqual(original.SellmeijerCriticalFall, clone.SellmeijerCriticalFall);
             Assert.AreEqual(original.SellmeijerReducedFall, clone.SellmeijerReducedFall);
+            Assert.AreEqual(original.SellmeijerFactorOfSafety, clone.SellmeijerFactorOfSafety);
         }
 
         /// <summary>
@@ -88,6 +90,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingInput original, PipingInput clone)
         {
+            Assert.AreSame(TypeUtils.GetField<GeneralPipingInput>(original, "generalInputParameters"), TypeUtils.GetField<GeneralPipingInput>(clone, "generalInputParameters"));
             Assert.AreEqual(original.EntryPointL, clone.EntryPointL);
             Assert.AreEqual(original.ExitPointL, clone.ExitPointL);
             CoreCloneAssert.AreObjectClones(original.PhreaticLevelExit, clone.PhreaticLevelExit, DistributionAssert.AreEqual);
@@ -127,11 +130,9 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingCalculationScenario original, PipingCalculationScenario clone)
         {
-            CoreCloneAssert.AreObjectClones((PipingCalculation) original, clone, AreClones);
+            AreClones((PipingCalculation)original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
-            Assert.AreEqual(original.Probability, clone.Probability);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
-            Assert.AreEqual(original.Status, clone.Status);
         }
     }
 }

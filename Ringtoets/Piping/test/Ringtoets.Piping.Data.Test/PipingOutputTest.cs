@@ -118,41 +118,16 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = GetRandomPipingOutput();
+            PipingOutput original = PipingTestDataGenerator.GetRandomPipingOutput();
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
-        }
-
-        private static PipingOutput GetRandomPipingOutput()
-        {
-            var random = new Random(22);
-            double zuValue = random.NextDouble();
-            double foSuValue = random.NextDouble();
-            double zhValue = random.NextDouble();
-            double foShValue = random.NextDouble();
-            double zsValue = random.NextDouble();
-            double foSsValue = random.NextDouble();
-            double upliftEffectiveStress = random.NextDouble();
-            double heaveGradient = random.NextDouble();
-
-            return new PipingOutput(new PipingOutput.ConstructionProperties
-            {
-                UpliftZValue = zuValue,
-                UpliftFactorOfSafety = foSuValue,
-                HeaveZValue = zhValue,
-                HeaveFactorOfSafety = foShValue,
-                SellmeijerZValue = zsValue,
-                SellmeijerFactorOfSafety = foSsValue,
-                UpliftEffectiveStress = upliftEffectiveStress,
-                HeaveGradient = heaveGradient
-            });
         }
     }
 }

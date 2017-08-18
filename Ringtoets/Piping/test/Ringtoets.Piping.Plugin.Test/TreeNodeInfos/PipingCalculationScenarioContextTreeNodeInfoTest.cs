@@ -342,7 +342,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddsCustomitems()
+        public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())

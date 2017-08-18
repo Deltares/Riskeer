@@ -53,6 +53,7 @@
     <Compile Include="GrassCoverErosionInwardsCloneAssert.cs" />
     <Compile Include="GrassCoverErosionInwardsTestDataGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHydraulicLoadsOutput.cs" />
     <Compile Include="TestOvertoppingOutput.cs" />
     <Compile Include="TestOvertoppingRateOutput.cs" />
     <Compile Include="TestDikeHeightOutput.cs" />

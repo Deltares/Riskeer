@@ -557,51 +557,16 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingSemiProbabilisticOutput original = GetRandomPipingSemiProbabilisticOutput();
+            PipingSemiProbabilisticOutput original = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
-        }
-
-        private PipingSemiProbabilisticOutput GetRandomPipingSemiProbabilisticOutput()
-        {
-            var random = new Random(21);
-            double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
-            double upliftProbability = random.NextDouble();
-            double heaveFactorOfSafety = random.NextDouble();
-            double heaveReliability = random.NextDouble();
-            double heaveProbability = random.NextDouble();
-            double sellmeijerFactorOfSafety = random.NextDouble();
-            double sellmeijerReliability = random.NextDouble();
-            double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double pipingProbability = random.NextDouble();
-            double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
-
-            return new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftReliability,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
         }
     }
 }

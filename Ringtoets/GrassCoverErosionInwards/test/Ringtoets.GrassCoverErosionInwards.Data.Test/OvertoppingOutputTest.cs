@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            OvertoppingOutput original = GetRandomOvertoppingOutput(null);
+            OvertoppingOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomOvertoppingOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -117,23 +117,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            OvertoppingOutput original = GetRandomOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            OvertoppingOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
-        }
-
-        private static OvertoppingOutput GetRandomOvertoppingOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            var random = new Random(21);
-
-            return new OvertoppingOutput(random.NextDouble(),
-                                         random.NextBoolean(),
-                                         new TestProbabilityAssessmentOutput(),
-                                         generalResult);
         }
     }
 }

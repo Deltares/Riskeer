@@ -22,7 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -91,6 +93,22 @@ namespace Ringtoets.Common.Data.TestUtil
             input.BreakWater.Type = random.NextEnumValue<BreakWaterType>();
             input.BreakWater.Height = random.NextRoundedDouble();
             input.UseForeshore = random.NextBoolean();
+        }
+
+        /// <summary>
+        /// Creates a random instance of <see cref="StructuresOutput"/>.
+        /// </summary>
+        /// <returns>A random instance of <see cref="StructuresOutput"/>.</returns>
+        public static StructuresOutput GetRandomStructuresOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        {
+            var random = new Random(21);
+
+            return new StructuresOutput(new ProbabilityAssessmentOutput(random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextDouble()),
+                                        generalResult);
         }
     }
 }

@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             GrassCoverErosionInwardsCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = new TestGrassCoverErosionInwardsOutput();
+            original.Output = GrassCoverErosionInwardsTestDataGenerator.GetRandomGrassCoverErosionInwardsOutput();
 
             // Call
             object clone = original.Clone();
@@ -165,7 +165,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Comments =
                 {
                     Body = "Random body"
-                }
+                },
+                Name = "Random name"
             };
 
             GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);

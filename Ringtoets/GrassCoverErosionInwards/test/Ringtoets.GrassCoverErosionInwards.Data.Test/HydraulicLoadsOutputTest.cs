@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestHydraulicLoadsOutput original = GetRandomHydraulicLoadsOutput(null);
+            TestHydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -168,34 +168,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestHydraulicLoadsOutput original = GetRandomHydraulicLoadsOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            TestHydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
-        }
-
-        private static TestHydraulicLoadsOutput GetRandomHydraulicLoadsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            var random = new Random(21);
-
-            return new TestHydraulicLoadsOutput(random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextDouble(),
-                                                random.NextEnumValue<CalculationConvergence>(),
-                                                generalResult);
-        }
-
-        private class TestHydraulicLoadsOutput : HydraulicLoadsOutput
-        {
-            public TestHydraulicLoadsOutput(double targetProbability, double targetReliability,
-                                            double calculatedProbability, double calculatedReliability, CalculationConvergence calculationConvergence,
-                                            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-                : base(targetProbability, targetReliability, calculatedProbability,
-                       calculatedReliability, calculationConvergence, generalResult) {}
         }
     }
 }

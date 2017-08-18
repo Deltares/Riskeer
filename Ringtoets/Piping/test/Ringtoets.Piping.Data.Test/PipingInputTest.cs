@@ -1291,7 +1291,9 @@ namespace Ringtoets.Piping.Data.Test
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(original);
 
+            original.SurfaceLine = null;
             original.StochasticSoilModel = null;
+            original.StochasticSoilProfile = null;
             original.HydraulicBoundaryLocation = null;
 
             // Call

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.TestUtil;
@@ -44,7 +45,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.IsInstanceOf<ICalculationScenario>(scenario);
-            Assert.IsInstanceOf<ICloneable>(scenario);
+
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
@@ -188,8 +189,8 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
-            original.Output = new TestPipingOutput();
-            original.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
+            original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
+            original.SemiProbabilisticOutput = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();
@@ -204,12 +205,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
-            original.Output = new TestPipingOutput();
-            original.SemiProbabilisticOutput = new TestPipingSemiProbabilisticOutput();
-
-            original.InputParameters.HydraulicBoundaryLocation = null;
-            original.InputParameters.StochasticSoilModel = null;
-
             // Call
             object clone = original.Clone();
 
@@ -219,12 +214,17 @@ namespace Ringtoets.Piping.Data.Test
 
         private static PipingCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
         {
+            var random = new Random(21);
+
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Comments =
                 {
                     Body = "Random body"
-                }
+                },
+                Name = "Random name",
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble()
             };
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);

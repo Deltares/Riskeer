@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -135,7 +136,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Setup
             TestStructuresCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = new TestStructuresOutput();
+            original.Output = CommonTestDataGenerator.GetRandomStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();
@@ -164,7 +165,8 @@ namespace Ringtoets.Common.Data.Test.Structures
                 Comments =
                 {
                     Body = "Random body"
-                }
+                },
+                Name = "Random name"
             };
 
             CommonTestDataGenerator.SetRandomDataToStructuresInput(calculation.InputParameters);

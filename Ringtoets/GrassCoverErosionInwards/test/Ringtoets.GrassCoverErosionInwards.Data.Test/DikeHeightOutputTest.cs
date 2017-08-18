@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            DikeHeightOutput original = GetRandomDikeHeightOutput(null);
+            DikeHeightOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomDikeHeightOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -118,26 +118,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            DikeHeightOutput original = GetRandomDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            DikeHeightOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
-        }
-
-        private static DikeHeightOutput GetRandomDikeHeightOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-        {
-            var random = new Random(21);
-
-            return new DikeHeightOutput(random.NextDouble(),
-                                        random.NextDouble(),
-                                        random.NextDouble(),
-                                        random.NextDouble(),
-                                        random.NextDouble(),
-                                        random.NextEnumValue<CalculationConvergence>(),
-                                        generalResult);
         }
     }
 }

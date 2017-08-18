@@ -239,7 +239,8 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = new TestPipingOutput();
+            original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
+            original.SemiProbabilisticOutput = PipingTestDataGenerator.GetRandomPipingSemiProbabilisticOutput();
 
             // Call
             object clone = original.Clone();
@@ -253,9 +254,6 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingCalculation original = CreateRandomCalculationWithoutOutput();
-
-            original.InputParameters.HydraulicBoundaryLocation = null;
-            original.InputParameters.StochasticSoilModel = null;
 
             // Call
             object clone = original.Clone();
@@ -271,7 +269,8 @@ namespace Ringtoets.Piping.Data.Test
                 Comments =
                 {
                     Body = "Random body"
-                }
+                },
+                Name = "Random name"
             };
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
