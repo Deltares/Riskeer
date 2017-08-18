@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -239,17 +240,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("1,01")]
-        [TestCase("-0,01")]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(string newValue)
+        [TestCase(1.01)]
+        [TestCase(-0.01)]
+        [TestCase(5)]
+        [TestCase(-10)]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
             using (ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
 
                 // Assert
                 Assert.AreEqual("Kans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
@@ -258,12 +261,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("1")]
-        [TestCase("0")]
-        [TestCase("0,5")]
-        [TestCase("1e-6")]
-        [TestCase("NaN")]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(string newValue)
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
@@ -271,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue;
+                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -283,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 const string propertyName = "AssessmentLayerThree";
                 object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
-                Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
+                Assert.AreEqual((RoundedDouble) newValue, propertyValue);
             }
         }
 
