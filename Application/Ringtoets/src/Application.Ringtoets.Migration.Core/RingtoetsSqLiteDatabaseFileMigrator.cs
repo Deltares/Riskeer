@@ -63,7 +63,8 @@ namespace Application.Ringtoets.Migration.Core
 
         protected override IEnumerable<UpgradeScript> GetAvailableUpgradeScripts()
         {
-            return scriptResource.GetManifestResourceNames().Where(r => r.Contains("Migration_"))
+            return scriptResource.GetManifestResourceNames()
+                                 .Where(r => r.Contains("Migration_"))
                                  .Select(CreateNewUpgradeScript);
         }
 
@@ -96,7 +97,8 @@ namespace Application.Ringtoets.Migration.Core
 
         protected override IEnumerable<CreateScript> GetAvailableCreateScripts()
         {
-            return scriptResource.GetManifestResourceNames().Where(r => r.Contains("DatabaseStructure"))
+            return scriptResource.GetManifestResourceNames()
+                                 .Where(r => r.Contains("DatabaseStructure"))
                                  .Select(CreateNewCreateScript);
         }
 

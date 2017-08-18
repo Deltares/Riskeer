@@ -65,14 +65,16 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
             IEnumerable<SubMechanismIllustrationPointStochastEntity> stochastEntities)
         {
             return stochastEntities.OrderBy(st => st.Order)
-                                   .Select(st => st.Read());
+                                   .Select(st => st.Read())
+                                   .ToArray();
         }
 
         private static IEnumerable<IllustrationPointResult> GetReadIllustrationPointResults(
             IEnumerable<IllustrationPointResultEntity> illustrationPointResultEntities)
         {
             return illustrationPointResultEntities.OrderBy(ipr => ipr.Order)
-                                                  .Select(ipr => ipr.Read());
+                                                  .Select(ipr => ipr.Read())
+                                                  .ToArray();
         }
     }
 }

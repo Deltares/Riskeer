@@ -71,14 +71,16 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)
         {
             return stochastEntities.OrderBy(st => st.Order)
-                                   .Select(st => st.Read());
+                                   .Select(st => st.Read())
+                                   .ToArray();
         }
 
         private static IEnumerable<TopLevelFaultTreeIllustrationPoint> GetReadTopLevelFaultTreeIllustrationPoint(
             IEnumerable<TopLevelFaultTreeIllustrationPointEntity> topLevelIllustrationPointEntities)
         {
             return topLevelIllustrationPointEntities.OrderBy(ip => ip.Order)
-                                                    .Select(ip => ip.Read());
+                                                    .Select(ip => ip.Read())
+                                                    .ToArray();
         }
     }
 }

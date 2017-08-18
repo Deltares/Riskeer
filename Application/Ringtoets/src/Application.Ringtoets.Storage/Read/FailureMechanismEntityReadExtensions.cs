@@ -96,7 +96,8 @@ namespace Application.Ringtoets.Storage.Read
             {
                 foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities
                                                  .OrderBy(fpe => fpe.Order)
-                                                 .Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)),
+                                                 .Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector))
+                                                 .ToArray(),
                                            foreshoreProfileSourcePath);
             }
         }
@@ -140,7 +141,8 @@ namespace Application.Ringtoets.Storage.Read
             {
                 failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
                                                                      .OrderBy(ssm => ssm.Order)
-                                                                     .Select(e => e.Read(collector)),
+                                                                     .Select(e => e.Read(collector))
+                                                                     .ToArray(),
                                                                stochasticSoilModelCollectionSourcePath);
             }
 
@@ -149,7 +151,8 @@ namespace Application.Ringtoets.Storage.Read
             {
                 failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
                                                              .OrderBy(sl => sl.Order)
-                                                             .Select(e => e.Read(collector)),
+                                                             .Select(e => e.Read(collector))
+                                                             .ToArray(),
                                                        surfaceLineCollectionSourcePath);
             }
 
@@ -221,7 +224,9 @@ namespace Application.Ringtoets.Storage.Read
 
                 dikeProfiles.AddRange(entity.DikeProfileEntities
                                             .OrderBy(dp => dp.Order)
-                                            .Select(dp => dp.Read(collector)), sourcePath);
+                                            .Select(dp => dp.Read(collector))
+                                            .ToArray(),
+                                      sourcePath);
             }
         }
 
@@ -293,8 +298,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (sourcePath != null)
             {
-                heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order)
-                                                .Select(structureEntity => structureEntity.Read(collector)),
+                heightStructures.AddRange(entity.HeightStructureEntities
+                                                .OrderBy(fpe => fpe.Order)
+                                                .Select(structureEntity => structureEntity.Read(collector))
+                                                .ToArray(),
                                           sourcePath);
             }
         }
@@ -466,8 +473,10 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (sourcePath != null)
             {
-                closingStructures.AddRange(entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order)
-                                                 .Select(structureEntity => structureEntity.Read(collector)),
+                closingStructures.AddRange(entity.ClosingStructureEntities
+                                                 .OrderBy(fpe => fpe.Order)
+                                                 .Select(structureEntity => structureEntity.Read(collector))
+                                                 .ToArray(),
                                            sourcePath);
             }
         }
@@ -648,11 +657,10 @@ namespace Application.Ringtoets.Storage.Read
                                                            List<HydraulicBoundaryLocation> locations,
                                                            ReadConversionCollector collector)
         {
-            locations.AddRange(
-                entity
-                    .GrassCoverErosionOutwardsHydraulicLocationEntities
-                    .OrderBy(location => location.Order)
-                    .Select(location => location.Read(collector)));
+            locations.AddRange(entity.GrassCoverErosionOutwardsHydraulicLocationEntities
+                                     .OrderBy(location => location.Order)
+                                     .Select(location => location.Read(collector))
+                                     .ToArray());
         }
 
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
@@ -831,10 +839,10 @@ namespace Application.Ringtoets.Storage.Read
                                               List<DuneLocation> locations,
                                               ReadConversionCollector collector)
         {
-            locations.AddRange(
-                entity.DuneLocationEntities
-                      .OrderBy(location => location.Order)
-                      .Select(location => location.Read(collector)));
+            locations.AddRange(entity.DuneLocationEntities
+                                     .OrderBy(location => location.Order)
+                                     .Select(location => location.Read(collector))
+                                     .ToArray());
         }
 
         #endregion
@@ -944,7 +952,8 @@ namespace Application.Ringtoets.Storage.Read
             {
                 stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities
                                                         .OrderBy(fpe => fpe.Order)
-                                                        .Select(structureEntity => structureEntity.Read(collector)),
+                                                        .Select(structureEntity => structureEntity.Read(collector))
+                                                        .ToArray(),
                                                   sourcePath);
             }
         }

@@ -90,7 +90,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 return;
             }
 
-            List<WaveConditionsOutput> waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order).Select(e => e.Read()).ToList();
+            List<WaveConditionsOutput> waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities
+                                                                     .OrderBy(e => e.Order)
+                                                                     .Select(e => e.Read())
+                                                                     .ToList();
             calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
         }
 

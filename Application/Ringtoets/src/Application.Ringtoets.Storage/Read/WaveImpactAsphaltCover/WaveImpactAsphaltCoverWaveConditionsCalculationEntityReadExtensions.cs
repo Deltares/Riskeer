@@ -100,7 +100,8 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             {
                 calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities
                                                                                           .OrderBy(oe => oe.Order)
-                                                                                          .Select(oe => oe.Read()));
+                                                                                          .Select(oe => oe.Read())
+                                                                                          .ToArray());
             }
         }
     }

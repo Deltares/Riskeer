@@ -111,7 +111,8 @@ namespace Application.Ringtoets.Storage.Read.IllustrationPoints
         private static IEnumerable<Stochast> GetReadStochasts(IEnumerable<StochastEntity> stochastEntities)
         {
             return stochastEntities.OrderBy(st => st.Order)
-                                   .Select(st => st.Read());
+                                   .Select(st => st.Read())
+                                   .ToArray();
         }
     }
 }
