@@ -1,5 +1,4 @@
-﻿
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -237,6 +236,29 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 Assert.IsNull(model);
                 Assert.AreEqual(0, nrOfModels);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_MissingSegmentPoint_ThrowsStochasticSoilModelException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "skippedStochasticSoilModel.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                TestDelegate test = () => reader.ReadStochasticSoilModel();
+
+                // Assert
+                var exception = Assert.Throws<StochasticSoilModelException>(test);
+
+                const string expectedMessage = "Het stochastische ondergrondmodel '36005_Stability' moet een geometrie bevatten.";
+                Assert.AreEqual(expectedMessage, exception.Message);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

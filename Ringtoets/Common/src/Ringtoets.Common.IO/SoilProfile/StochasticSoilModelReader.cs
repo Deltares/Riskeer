@@ -195,6 +195,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="StochasticSoilModelException">Thrown when:
         /// <list type="bullet">
         /// <item>no stochastic soil profiles could be read;</item>
+        /// <item>the geometry could not be read;</item>
         /// <item>the read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
@@ -208,10 +209,29 @@ namespace Ringtoets.Common.IO.SoilProfile
             StochasticSoilModel stochasticSoilModel = CreateStochasticSoilModel();
             long currentSoilModelId = ReadStochasticSoilModelId();
 
-            stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints(currentSoilModelId));
+            SetGeometry(stochasticSoilModel);
             stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles(currentSoilModelId));
 
             return stochasticSoilModel;
+        }
+
+        /// <summary>
+        /// Sets the geometry points of <paramref name="stochasticSoilModel"/> from the database.
+        /// </summary>
+        /// <param name="stochasticSoilModel">The stochastic soil model of which the geometry to set.</param>
+        /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
+        private void SetGeometry(StochasticSoilModel stochasticSoilModel)
+        {
+            long currentSoilModelId = ReadStochasticSoilModelId();
+
+            if (!segmentPointReader.MoveToStochasticSoilModel(currentSoilModelId))
+            {
+                throw new StochasticSoilModelException(
+                    string.Format(Resources.SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry,
+                                  ReadStochasticSoilModelName()));
+            }
+
+            stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints());
         }
 
         /// <summary>
