@@ -629,6 +629,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase("1")]
         [TestCase("0")]
         [TestCase("0.5")]
