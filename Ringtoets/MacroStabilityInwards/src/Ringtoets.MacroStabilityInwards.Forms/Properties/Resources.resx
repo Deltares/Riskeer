@@ -454,4 +454,40 @@
   <data name="SlipPlaneMinimumLength_DisplayName" xml:space="preserve">
     <value>Minimale glijvlaklengte [m]</value>
   </data>
+  <data name="GridDetermination_Description" xml:space="preserve">
+    <value>Rekengrid automatisch bepalen of handmatig invoeren?</value>
+  </data>
+  <data name="GridDetermination_DisplayName" xml:space="preserve">
+    <value>Bepaling grid</value>
+  </data>
+  <data name="GridSettings_Description" xml:space="preserve">
+    <value>De rekengrids eigenschappen.</value>
+  </data>
+  <data name="GridSettings_DisplayName" xml:space="preserve">
+    <value>Rekengrids</value>
+  </data>
+  <data name="MoveGrid_Description" xml:space="preserve">
+    <value>Sta automatische aanpassing van het grid toe?</value>
+  </data>
+  <data name="MoveGrid_DisplayName" xml:space="preserve">
+    <value>Verplaats grid</value>
+  </data>
+  <data name="TangentLineDetermination_Description" xml:space="preserve">
+    <value>Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?</value>
+  </data>
+  <data name="TangentLineDetermination_DisplayName" xml:space="preserve">
+    <value>Bepaling tangentlijnen</value>
+  </data>
+  <data name="TangentLineZBottom_Description" xml:space="preserve">
+    <value>Verticale coordinaat van de onderste raaklijn.</value>
+  </data>
+  <data name="TangentLineZBottom_DisplayName" xml:space="preserve">
+    <value>Tangentlijn Z-onder [m+NAP]</value>
+  </data>
+  <data name="TangentLineZTop_Description" xml:space="preserve">
+    <value>Verticale coordinaat van de bovenste raaklijn.</value>
+  </data>
+  <data name="TangentLineZTop_DisplayName" xml:space="preserve">
+    <value>Tangentlijn Z-boven [m+NAP]</value>
+  </data>
 </root>

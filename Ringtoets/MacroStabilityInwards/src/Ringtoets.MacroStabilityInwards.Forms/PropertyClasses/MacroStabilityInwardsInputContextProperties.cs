@@ -61,6 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int slipPlaneMinimumDepthPropertyIndex = 9;
         private const int slipPlaneMinimumLengthPropertyIndex = 10;
         private const int maximumSliceWidthPropertyIndex = 11;
+        private const int gridSettingsPropertyIndex = 12;
 
         private const int hydraulicCategoryIndex = 1;
         private const int schematizationCategoryIndex = 2;
@@ -360,6 +361,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.MaximumSliceWidth = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(gridSettingsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Settings), settingsCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GridSettings_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsGridSettingsProperties GridSettings
+        {
+            get
+            {
+                return new MacroStabilityInwardsGridSettingsProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

@@ -208,6 +208,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rekengrid automatisch bepalen of handmatig invoeren?.
+        /// </summary>
+        public static string GridDetermination_Description {
+            get {
+                return ResourceManager.GetString("GridDetermination_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bepaling grid.
+        /// </summary>
+        public static string GridDetermination_DisplayName {
+            get {
+                return ResourceManager.GetString("GridDetermination_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De rekengrids eigenschappen..
+        /// </summary>
+        public static string GridSettings_Description {
+            get {
+                return ResourceManager.GetString("GridSettings_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekengrids.
+        /// </summary>
+        public static string GridSettings_DisplayName {
+            get {
+                return ResourceManager.GetString("GridSettings_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leklengte binnenwaarts PL 3 [m].
         /// </summary>
         public static string LeakageLengthInwardsPhreaticLine3_DisplayName {
@@ -630,6 +666,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sta automatische aanpassing van het grid toe?.
+        /// </summary>
+        public static string MoveGrid_Description {
+            get {
+                return ResourceManager.GetString("MoveGrid_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verplaats grid.
+        /// </summary>
+        public static string MoveGrid_DisplayName {
+            get {
+                return ResourceManager.GetString("MoveGrid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offsets PL 1 eigenschappen..
         /// </summary>
         public static string Offsets_Description {
@@ -989,6 +1043,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SurfaceLineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?.
+        /// </summary>
+        public static string TangentLineDetermination_Description {
+            get {
+                return ResourceManager.GetString("TangentLineDetermination_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bepaling tangentlijnen.
+        /// </summary>
+        public static string TangentLineDetermination_DisplayName {
+            get {
+                return ResourceManager.GetString("TangentLineDetermination_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale coordinaat van de onderste raaklijn..
+        /// </summary>
+        public static string TangentLineZBottom_Description {
+            get {
+                return ResourceManager.GetString("TangentLineZBottom_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tangentlijn Z-onder [m+NAP].
+        /// </summary>
+        public static string TangentLineZBottom_DisplayName {
+            get {
+                return ResourceManager.GetString("TangentLineZBottom_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale coordinaat van de bovenste raaklijn..
+        /// </summary>
+        public static string TangentLineZTop_Description {
+            get {
+                return ResourceManager.GetString("TangentLineZTop_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tangentlijn Z-boven [m+NAP].
+        /// </summary>
+        public static string TangentLineZTop_DisplayName {
+            get {
+                return ResourceManager.GetString("TangentLineZTop_DisplayName", resourceCulture);
             }
         }
         

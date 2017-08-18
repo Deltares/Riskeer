@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int phreaticLineOffsetBelowShoulderBaseInsidePropertyIndex = 4;
         private const int phreaticLineOffsetBelowDikeToeAtPolderPropertyIndex = 5;
 
-        private IObservablePropertyChangeHandler propertyChangeHandler;
+        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsDrainageProperties"/>.
