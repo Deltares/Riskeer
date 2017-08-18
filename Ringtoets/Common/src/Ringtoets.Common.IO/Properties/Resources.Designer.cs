@@ -1675,6 +1675,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het uitlezen van de ondergrondschematisatie is mislukt..
+        /// </summary>
+        public static string SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data {
+            get {
+                return ResourceManager.GetString("SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string SoilProfileReader_Critical_Unexpected_value_on_column {

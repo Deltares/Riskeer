@@ -28,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
@@ -129,6 +130,26 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("Profile", result[0].Name);
+        }
+
+        [Test]
+        public void ReadSoilProfile_BottomAboveLayers_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithIncorrectBottom.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(test);
+                Assert.AreEqual("Het uitlezen van de ondergrondschematisatie is mislukt.", exception.Message);
+                Assert.AreEqual("Profile", exception.ProfileName);
+            }
         }
 
         [Test]

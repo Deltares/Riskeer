@@ -821,9 +821,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="SoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
     <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
   </data>
-  <data name="SoilProfile_Cannot_construct_SoilProfile_without_layers" xml:space="preserve">
-    <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
-  </data>
   <data name="SoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
     <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
   </data>
@@ -870,5 +867,11 @@ Het bestand wordt overgeslagen.</value>
   </data>
   <data name="StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism" xml:space="preserve">
     <value>Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme.</value>
+  </data>
+  <data name="SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data" xml:space="preserve">
+    <value>Het uitlezen van de ondergrondschematisatie is mislukt.</value>
+  </data>
+  <data name="SoilProfile_Cannot_construct_SoilProfile_without_layers" xml:space="preserve">
+    <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
 </root>

@@ -133,21 +133,26 @@ namespace Ringtoets.Common.IO.SoilProfile
             var properties = new RequiredProfileProperties(this);
 
             var soilLayers = new List<SoilLayer1D>();
-            if (properties.LayerCount == 0)
-            {
-                throw new SoilProfileReadException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers, properties.ProfileName);
-            }
-
             for (var i = 1; i <= properties.LayerCount; i++)
             {
                 soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
                 MoveNext();
             }
 
-            return new SoilProfile1D(properties.ProfileId,
-                                     properties.ProfileName,
-                                     properties.Bottom,
-                                     soilLayers);
+            try
+            {
+                return new SoilProfile1D(properties.ProfileId,
+                                         properties.ProfileName,
+                                         properties.Bottom,
+                                         soilLayers);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new SoilProfileReadException(
+                    Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
+                    properties.ProfileName, 
+                    exception);
+            }
         }
 
         private void PrepareReader()
