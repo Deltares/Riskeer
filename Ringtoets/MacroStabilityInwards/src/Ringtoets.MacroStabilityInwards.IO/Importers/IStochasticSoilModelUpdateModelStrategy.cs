@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Importers
 {

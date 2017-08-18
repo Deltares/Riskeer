@@ -22,9 +22,10 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
     public class StochasticSoilModelExtensionsTest

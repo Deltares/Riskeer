@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Common.Service;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;

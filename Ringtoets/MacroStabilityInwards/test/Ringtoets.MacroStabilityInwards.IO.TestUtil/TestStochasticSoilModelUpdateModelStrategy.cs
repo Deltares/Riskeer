@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 
 namespace Ringtoets.MacroStabilityInwards.IO.TestUtil

@@ -31,6 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Specified_DisplayName))]
         Specified = 1,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LayerSeparated_DisplayName))]
         LayerSeparated = 2
     }

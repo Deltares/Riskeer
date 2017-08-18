@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Data

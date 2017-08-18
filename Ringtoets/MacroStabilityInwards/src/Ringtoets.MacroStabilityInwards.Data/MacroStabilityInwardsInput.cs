@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -161,6 +162,38 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 }
             }
         }
+
+        #region Derived input
+
+        /// <summary>
+        /// Gets or sets the outside high water level.
+        /// [m]
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
+        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c></exception>
+        public RoundedDouble AssessmentLevel
+        {
+            get
+            {
+                if (!UseAssessmentLevelManualInput)
+                {
+                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
+                }
+
+                return assessmentLevel;
+            }
+            set
+            {
+                if (!UseAssessmentLevelManualInput)
+                {
+                    throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
+                }
+
+                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
 
         #region settings
 
@@ -562,38 +595,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             set
             {
                 penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
-            }
-        }
-
-        #endregion
-
-        #region Derived input
-
-        /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m]
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
-        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c></exception>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
-                }
-
-                return assessmentLevel;
-            }
-            set
-            {
-                if (!UseAssessmentLevelManualInput)
-                {
-                    throw new InvalidOperationException("UseAssessmentLevelManualInput is false");
-                }
-
-                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 

@@ -21,6 +21,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {

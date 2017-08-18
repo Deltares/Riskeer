@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
@@ -554,7 +555,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                         "B",
                         new[]
                         {
-                            new MacroStabilityInwardsSoilLayer2D(new Ring(new [] { new Point2D(3,2), new Point2D(4,5) }), Enumerable.Empty<Ring>())
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(3, 2),
+                                new Point2D(4, 5)
+                            }), Enumerable.Empty<Ring>())
                         },
                         SoilProfileType.SoilProfile2D,
                         0)
@@ -591,8 +596,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 SoilProfile = new MacroStabilityInwardsSoilProfile2D(
                     soilProfile.Name,
                     soilProfile.Layers.Select(s => new MacroStabilityInwardsSoilLayer2D(
-                        new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
-                        s.Holes)),
+                                                  new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
+                                                  s.Holes)),
                     soilProfile.SoilProfileType,
                     soilProfile.MacroStabilityInwardsSoilProfileId)
             };

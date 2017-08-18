@@ -98,12 +98,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            dataReader?.Dispose();
-            base.Dispose(disposing);
-        }
-
         /// <summary>
         /// Moves the reader to the next record in the database.
         /// </summary>
@@ -140,6 +134,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
         public T Read<T>(string columnName)
         {
             return (T) dataReader[columnName];
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            dataReader?.Dispose();
+            base.Dispose(disposing);
         }
 
         private void VerifyVersion(string databaseFilePath)

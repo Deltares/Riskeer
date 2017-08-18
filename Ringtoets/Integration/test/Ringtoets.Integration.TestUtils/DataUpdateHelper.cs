@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.Piping.Data;
@@ -68,7 +69,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Imports the <see cref="MacroStabilityInwards.Data.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwards.Data.MacroStabilityInwardsFailureMechanism"/>
+        /// Imports the <see cref="MacroStabilityInwards.Data.SoilProfile.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwards.Data.MacroStabilityInwardsFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/> and updates existing data based upon the imported
         /// data.
         /// </summary>

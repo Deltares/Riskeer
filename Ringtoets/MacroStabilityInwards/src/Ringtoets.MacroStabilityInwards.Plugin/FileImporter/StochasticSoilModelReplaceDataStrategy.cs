@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Service;
 

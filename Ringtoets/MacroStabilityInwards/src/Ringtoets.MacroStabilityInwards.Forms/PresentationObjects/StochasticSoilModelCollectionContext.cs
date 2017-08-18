@@ -23,6 +23,7 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
 {

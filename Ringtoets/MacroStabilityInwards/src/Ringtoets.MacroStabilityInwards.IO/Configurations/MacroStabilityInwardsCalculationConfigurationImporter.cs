@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 

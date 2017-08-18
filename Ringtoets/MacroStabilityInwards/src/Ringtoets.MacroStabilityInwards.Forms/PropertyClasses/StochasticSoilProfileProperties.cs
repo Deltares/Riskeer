@@ -27,7 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ((MacroStabilityInwardsSoilProfile1D)data.SoilProfile)?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
+                return ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
             }
         }
 
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ((MacroStabilityInwardsSoilProfile1D)data.SoilProfile)?.Bottom ?? double.NaN;
+                return ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Bottom ?? double.NaN;
             }
         }
 

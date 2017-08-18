@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 

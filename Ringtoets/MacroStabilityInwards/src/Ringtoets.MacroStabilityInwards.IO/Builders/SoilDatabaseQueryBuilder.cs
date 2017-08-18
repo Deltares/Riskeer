@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Builders
@@ -60,10 +61,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Builders
         }
 
         /// <summary>
-        /// Returns the query to get the amount of <see cref="Data.StochasticSoilModel"/> 
+        /// Returns the query to get the amount of <see cref="StochasticSoilModel"/> 
         /// that can be read from the database.
         /// </summary>
-        /// <returns>The query to get the amount of <see cref="Data.StochasticSoilModel"/> 
+        /// <returns>The query to get the amount of <see cref="StochasticSoilModel"/> 
         /// from the database.</returns>
         public static string GetStochasticSoilModelOfMechanismCountQuery()
         {

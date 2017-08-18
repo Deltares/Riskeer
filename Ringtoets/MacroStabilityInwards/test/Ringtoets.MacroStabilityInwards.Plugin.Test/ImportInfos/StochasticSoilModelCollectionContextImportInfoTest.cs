@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
@@ -45,17 +46,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
     {
         private ImportInfo importInfo;
         private MacroStabilityInwardsPlugin plugin;
-
-        public override void Setup()
-        {
-            plugin = new MacroStabilityInwardsPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
 
         [Test]
         public void Name_Always_ReturnExpectedName()
@@ -239,6 +229,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             // Assert
             Assert.IsInstanceOf<StochasticSoilModelImporter>(importer);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new MacroStabilityInwardsPlugin();
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }

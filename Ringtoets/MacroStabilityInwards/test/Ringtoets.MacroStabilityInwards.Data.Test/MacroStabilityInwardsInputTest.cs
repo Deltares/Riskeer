@@ -162,32 +162,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double penetrationLength = random.Next();
             double tangentLineZTop = random.Next();
             double tangentLineZBottom = random.Next();
-            
+
             // Call
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
             {
                 SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth,
-                SlipPlaneMinimumLength = (RoundedDouble)slipPlaneMinimumLength,
-                MaximumSliceWidth = (RoundedDouble)maximumSliceWidth,
-                WaterLevelRiverAverage = (RoundedDouble)waterLevelRiverAverage,
-                WaterLevelPolder = (RoundedDouble)waterLevelPolder,
-                XCoordinateDrainageConstruction = (RoundedDouble)xCoordinateDrainageConstruction,
-                ZCoordinateDrainageConstruction = (RoundedDouble)zCoordinateDrainageConstruction,
-                MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble)minimumLevelPhreaticLineAtDikeTopRiver,
-                MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble)minimumLevelPhreaticLineAtDikeTopPolder,
-                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble)phreaticLineOffsetBelowDikeTopAtRiver,
-                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble)phreaticLineOffsetBelowDikeTopAtPolder,
-                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble)phreaticLineOffsetBelowShoulderBaseInside,
-                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble)phreaticLineOffsetBelowDikeToeAtPolder,
-                LeakageLengthOutwardsPhreaticLine3  = (RoundedDouble)leakageLengthOutwardsPhreaticLine3,
-                LeakageLengthInwardsPhreaticLine3 = (RoundedDouble)leakageLengthInwardsPhreaticLine3,
-                LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble)leakageLengthOutwardsPhreaticLine4,
-                LeakageLengthInwardsPhreaticLine4 = (RoundedDouble)leakageLengthInwardsPhreaticLine4,
-                PiezometricHeadPhreaticLine2Outwards = (RoundedDouble)piezometricHeadPhreaticLine2Outwards,
-                PiezometricHeadPhreaticLine2Inwards = (RoundedDouble)piezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = (RoundedDouble)penetrationLength,
-                TangentLineZTop = (RoundedDouble)tangentLineZTop,
-                TangentLineZBottom = (RoundedDouble)tangentLineZBottom,
+                SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength,
+                MaximumSliceWidth = (RoundedDouble) maximumSliceWidth,
+                WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage,
+                WaterLevelPolder = (RoundedDouble) waterLevelPolder,
+                XCoordinateDrainageConstruction = (RoundedDouble) xCoordinateDrainageConstruction,
+                ZCoordinateDrainageConstruction = (RoundedDouble) zCoordinateDrainageConstruction,
+                MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopPolder,
+                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtRiver,
+                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtPolder,
+                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) phreaticLineOffsetBelowShoulderBaseInside,
+                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeToeAtPolder,
+                LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) leakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) leakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) leakageLengthOutwardsPhreaticLine4,
+                LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) leakageLengthInwardsPhreaticLine4,
+                PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards,
+                PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards,
+                PenetrationLength = (RoundedDouble) penetrationLength,
+                TangentLineZTop = (RoundedDouble) tangentLineZTop,
+                TangentLineZBottom = (RoundedDouble) tangentLineZBottom
             };
 
             // Assert

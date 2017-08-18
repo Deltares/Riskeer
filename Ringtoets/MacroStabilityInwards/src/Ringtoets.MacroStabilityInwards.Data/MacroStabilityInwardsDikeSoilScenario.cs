@@ -31,10 +31,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClayDikeOnClay_DisplayName))]
         ClayDikeOnClay = 1,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SandDikeOnClay_DisplayName))]
         SandDikeOnClay = 2,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClayDikeOnSand_DisplayName))]
         ClayDikeOnSand = 3,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SandDikeOnSand_DisplayName))]
         SandDikeOnSand = 4
     }

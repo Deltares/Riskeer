@@ -28,7 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
-using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Exceptions;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfile;

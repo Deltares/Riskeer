@@ -21,11 +21,12 @@
 
 using System;
 using System.Runtime.Serialization;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when failed to read a <see cref="Data.StochasticSoilProfile"/> from the DSoil-database.
+    /// The exception that is thrown when failed to read a <see cref="StochasticSoilProfile"/> from the DSoil-database.
     /// </summary>
     [Serializable]
     public class StochasticSoilProfileReadException : Exception

@@ -23,7 +23,7 @@ using Core.Common.Base;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// A collection of <see cref="StochasticSoilModel"/>. The names of the <see cref="StochasticSoilModel"/> elements are

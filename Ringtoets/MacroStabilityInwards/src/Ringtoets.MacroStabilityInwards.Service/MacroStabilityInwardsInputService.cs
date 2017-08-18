@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Service
 {

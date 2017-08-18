@@ -50,7 +50,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using MacroStabilityInwardsStochasticSoilModel = Ringtoets.MacroStabilityInwards.Data.StochasticSoilModel;
+using MacroStabilityInwardsStochasticSoilModel = Ringtoets.MacroStabilityInwards.Data.SoilProfile.StochasticSoilModel;
 
 namespace Ringtoets.Integration.Service.Test
 {

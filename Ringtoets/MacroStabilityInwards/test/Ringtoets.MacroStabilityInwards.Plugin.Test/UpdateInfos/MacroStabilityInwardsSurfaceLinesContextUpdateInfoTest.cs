@@ -46,17 +46,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
         private UpdateInfo updateInfo;
         private MacroStabilityInwardsPlugin plugin;
 
-        public override void Setup()
-        {
-            plugin = new MacroStabilityInwardsPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
@@ -270,6 +259,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             // Assert
             Assert.IsInstanceOf<SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>>(importer);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new MacroStabilityInwardsPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }

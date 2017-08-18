@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -970,7 +971,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
 
             var strategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy>();
             strategy.Expect(s => s.UpdateModelWithImportedData(Arg<StochasticSoilModel[]>.Is.NotNull,
-                                Arg<string>.Is.Same(filePath)
+                                                               Arg<string>.Is.Same(filePath)
                             )).Throw(new UpdateDataException("Exception message"));
             mocks.ReplayAll();
 

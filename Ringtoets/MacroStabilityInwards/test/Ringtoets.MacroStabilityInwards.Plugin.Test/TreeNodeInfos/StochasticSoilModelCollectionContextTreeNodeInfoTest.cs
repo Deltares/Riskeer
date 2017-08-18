@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -43,21 +44,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -259,6 +245,21 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new MacroStabilityInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
     }
 }

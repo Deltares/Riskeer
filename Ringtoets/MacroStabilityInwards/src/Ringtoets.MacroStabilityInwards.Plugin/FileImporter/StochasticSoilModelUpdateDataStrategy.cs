@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;

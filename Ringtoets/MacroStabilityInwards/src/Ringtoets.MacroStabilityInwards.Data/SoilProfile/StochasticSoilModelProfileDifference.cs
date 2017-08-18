@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// Container for the differences of the collection of <see cref="StochasticSoilProfile"/> contained

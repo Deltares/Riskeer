@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void UpdateTableData()
         {
-            soilLayerTable.SetData(((MacroStabilityInwardsSoilProfile1D)data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers);
+            soilLayerTable.SetData(((MacroStabilityInwardsSoilProfile1D) data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers);
         }
 
         private void SetChartData()
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetSoilProfileChartData()
         {
-            MacroStabilityInwardsSoilProfile1D soilProfile = (MacroStabilityInwardsSoilProfile1D)data.InputParameters.StochasticSoilProfile?.SoilProfile;
+            var soilProfile = (MacroStabilityInwardsSoilProfile1D) data.InputParameters.StochasticSoilProfile?.SoilProfile;
 
             // If necessary, regenerate all soil layer chart data
             if (!ReferenceEquals(currentSoilProfile, soilProfile))
@@ -242,7 +242,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IList<MacroStabilityInwardsSoilLayer1D> GetSoilLayers()
         {
-            return ((MacroStabilityInwardsSoilProfile1D)data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers.ToList() ?? new List<MacroStabilityInwardsSoilLayer1D>();
+            return ((MacroStabilityInwardsSoilProfile1D) data?.InputParameters.StochasticSoilProfile?.SoilProfile)?.Layers.ToList() ?? new List<MacroStabilityInwardsSoilLayer1D>();
         }
     }
 }

@@ -38,6 +38,7 @@ using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -261,7 +262,7 @@ namespace Ringtoets.Integration.TestUtils
         }
 
         /// <summary>
-        /// Imports the <see cref="MacroStabilityInwards.Data.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
+        /// Imports the <see cref="MacroStabilityInwards.Data.SoilProfile.StochasticSoilModel"/> data for the <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// of the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>

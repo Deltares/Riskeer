@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class couples a SoilProfile to a probability of occurrence.

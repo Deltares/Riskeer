@@ -31,6 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Automatic_DisplayName))]
         Automatic = 1,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Manual_DisplayName))]
         Manual = 2
     }

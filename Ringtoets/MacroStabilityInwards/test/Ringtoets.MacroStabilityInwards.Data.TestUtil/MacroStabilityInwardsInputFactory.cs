@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
