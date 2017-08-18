@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate call = () => new MacroStabilityInwardsOffsetProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
-                                                                                 null);
+                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder buitenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.",
-                !useDefaultOffset);
+                useDefaultOffset);
 
             PropertyDescriptor phreaticLineOffsetBelowDikeTopAtPolderProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeTopAtPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder binnenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.",
-                !useDefaultOffset);
+                useDefaultOffset);
 
             PropertyDescriptor phreaticLineOffsetBelowShoulderBaseInsideProperty = dynamicProperties[expectedPhreaticLineOffsetBelowShoulderBaseInsidePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder insteek binnenberm [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm.",
-                !useDefaultOffset);
+                useDefaultOffset);
 
             PropertyDescriptor phreaticLineOffsetBelowDikeToeAtPolderProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeToeAtPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder teen dijk binnenwaarts [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts.",
-                !useDefaultOffset);
+                useDefaultOffset);
 
             mocks.VerifyAll();
         }
@@ -284,7 +284,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod("");
 
             // Assert
-            Assert.AreEqual(!useDefaultOffset, result);
+            Assert.AreEqual(useDefaultOffset, result);
         }
 
         [Test]

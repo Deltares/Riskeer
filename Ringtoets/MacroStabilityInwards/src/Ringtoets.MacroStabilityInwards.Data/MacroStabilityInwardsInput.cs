@@ -102,6 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             phreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(2, double.NaN);
             phreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(2, double.NaN);
 
+            AdjustPhreaticLine3And4ForUplift = true;
+
             leakageLengthOutwardsPhreaticLine3 = new RoundedDouble(2);
             leakageLengthInwardsPhreaticLine3 = new RoundedDouble(2);
             leakageLengthOutwardsPhreaticLine4 = new RoundedDouble(2);

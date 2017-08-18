@@ -433,7 +433,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             StochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
             const MacroStabilityInwardsDikeSoilScenario dikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
             double slipPlaneMinimumDepth = random.Next();
-            double slipPlaneMinimumLength= random.Next();
+            double slipPlaneMinimumLength = random.Next();
             double maximumSliceWidth = random.Next();
 
             // When
@@ -517,7 +517,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -529,7 +529,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -540,7 +540,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumDepth = (RoundedDouble) 1,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -551,7 +551,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumLength = (RoundedDouble) 1,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -562,7 +562,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MaximumSliceWidth = (RoundedDouble) 1,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -711,7 +711,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            
+
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -755,7 +755,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            
+
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
                                                                 calculationItem,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -956,7 +956,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
             var stochasticSoilModel2 = new StochasticSoilModel("StochasticSoilModel2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
-            
+
             var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
             {
                 InputParameters =

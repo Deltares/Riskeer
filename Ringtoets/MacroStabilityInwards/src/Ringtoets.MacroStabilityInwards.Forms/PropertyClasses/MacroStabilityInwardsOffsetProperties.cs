@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return !UseDefaultOffset;
+            return UseDefaultOffset;
         }
 
         public override string ToString()

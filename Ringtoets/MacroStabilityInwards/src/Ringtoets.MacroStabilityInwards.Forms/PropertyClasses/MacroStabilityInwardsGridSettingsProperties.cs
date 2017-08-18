@@ -135,7 +135,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-
         [PropertyOrder(tangentLineZBottomPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineZBottom_DisplayName))]

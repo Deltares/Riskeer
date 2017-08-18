@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
             Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
 
-            Assert.IsFalse(inputParameters.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
 
             Assert.AreEqual(0, inputParameters.LeakageLengthOutwardsPhreaticLine3.Value);
             Assert.AreEqual(2, inputParameters.LeakageLengthOutwardsPhreaticLine3.NumberOfDecimalPlaces);
