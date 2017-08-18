@@ -181,26 +181,62 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw CreateSoilProfileReadException(reader.Path, profileName, e);
             }
 
-            if (soilLayer != null)
+            soilLayer.MaterialName = properties.MaterialName ?? string.Empty;
+            if (properties.IsAquifer.HasValue)
             {
-                soilLayer.IsAquifer = properties.IsAquifer.HasValue && properties.IsAquifer.Value.Equals(1.0);
-                soilLayer.MaterialName = properties.MaterialName ?? string.Empty;
+                soilLayer.IsAquifer = properties.IsAquifer.Value.Equals(1.0);
+            }
+            if (properties.Color.HasValue)
+            {
                 soilLayer.Color = SoilLayerColorConverter.Convert(properties.Color);
-
-                soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution;
-                soilLayer.BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift ?? double.NaN;
-                soilLayer.BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean ?? double.NaN;
-                soilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation ?? double.NaN;
-
-                soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution;
-                soilLayer.DiameterD70Shift = properties.DiameterD70Shift ?? double.NaN;
-                soilLayer.DiameterD70Mean = properties.DiameterD70Mean ?? double.NaN;
-                soilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation ?? double.NaN;
-
-                soilLayer.PermeabilityDistribution = properties.PermeabilityDistribution;
-                soilLayer.PermeabilityShift = properties.PermeabilityShift ?? double.NaN;
-                soilLayer.PermeabilityMean = properties.PermeabilityMean ?? double.NaN;
-                soilLayer.PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation ?? double.NaN;
+            }
+            if (properties.BelowPhreaticLevelDistribution.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution.Value;
+            }
+            if (properties.BelowPhreaticLevelShift.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift.Value;
+            }
+            if (properties.BelowPhreaticLevelMean.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean.Value;
+            }
+            if (properties.BelowPhreaticLevelDeviation.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation.Value;
+            }
+            if (properties.DiameterD70Distribution.HasValue)
+            {
+                soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution.Value;
+            }
+            if (properties.DiameterD70Shift.HasValue)
+            {
+                soilLayer.DiameterD70Shift = properties.DiameterD70Shift.Value;
+            }
+            if (properties.DiameterD70Mean.HasValue)
+            {
+                soilLayer.DiameterD70Mean = properties.DiameterD70Mean.Value;
+            }
+            if (properties.DiameterD70CoefficientOfVariation.HasValue)
+            {
+                soilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation.Value;
+            }
+            if (properties.PermeabilityDistribution.HasValue)
+            {
+                soilLayer.PermeabilityDistribution = properties.PermeabilityDistribution.Value;
+            }
+            if (properties.PermeabilityShift.HasValue)
+            {
+                soilLayer.PermeabilityShift = properties.PermeabilityShift.Value;
+            }
+            if (properties.PermeabilityMean.HasValue)
+            {
+                soilLayer.PermeabilityMean = properties.PermeabilityMean.Value;
+            }
+            if (properties.PermeabilityCoefficientOfVariation.HasValue)
+            {
+                soilLayer.PermeabilityCoefficientOfVariation = properties.PermeabilityCoefficientOfVariation.Value;
             }
             return soilLayer;
         }
@@ -216,7 +252,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private class Layer2DProperties : LayerProperties
         {
             /// <summary>
-            /// Creates a new instance of <see cref="Layer2DProperties"/>, which contains properties
+            /// Creates a new instance of <see cref="Layer2DProperties"/> which contains properties
             /// that are required to create a complete <see cref="SoilLayer2D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
@@ -250,7 +286,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private class RequiredProfileProperties
         {
             /// <summary>
-            /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
+            /// Creates a new instance of <see cref="RequiredProfileProperties"/> which contains properties
             /// that are required to create a complete <see cref="SoilProfile2D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>

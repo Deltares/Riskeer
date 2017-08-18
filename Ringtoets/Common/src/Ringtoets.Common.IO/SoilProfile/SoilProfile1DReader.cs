@@ -179,13 +179,16 @@ namespace Ringtoets.Common.IO.SoilProfile
             var properties = new Layer1DProperties(reader, profileName);
             var soilLayer = new SoilLayer1D(properties.Top)
             {
-                MaterialName = properties.MaterialName,
-                Color = SoilLayerColorConverter.Convert(properties.Color)
+                MaterialName = properties.MaterialName ?? string.Empty
             };
 
             if (properties.IsAquifer.HasValue)
             {
                 soilLayer.IsAquifer = properties.IsAquifer.Value.Equals(1.0);
+            }
+            if (properties.Color.HasValue)
+            {
+                soilLayer.Color = SoilLayerColorConverter.Convert(properties.Color);
             }
             if (properties.BelowPhreaticLevelDistribution.HasValue)
             {
