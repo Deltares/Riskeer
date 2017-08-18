@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -50,16 +51,17 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 
         [Test]
         [Combinatorial]
-        public void Create_VariousResults_ReturnsEntity(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(0.2, 0.5)] double assessmentLayerThreeResult)
+        public void Create_VariousResults_ReturnsEntity()
         {
             // Setup
+            var random = new Random(21);
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerThree = assessmentLayerThreeResult
             };
 
             // Call

@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
@@ -35,16 +36,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     {
         [Test]
         [Combinatorial]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(0.2, 0.5)] double assessmentLayerThreeResult)
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            var random = new Random(21);
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerThree = assessmentLayerThreeResult
             };
 
             // Call

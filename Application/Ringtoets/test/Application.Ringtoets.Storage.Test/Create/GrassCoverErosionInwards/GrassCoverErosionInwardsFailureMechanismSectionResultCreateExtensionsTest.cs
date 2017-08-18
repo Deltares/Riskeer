@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -49,16 +50,17 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
         [Test]
         [Combinatorial]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(0.2, 0.5)] double assessmentLayerThreeResult)
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            var random = new Random(21);
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerThree = assessmentLayerThreeResult
             };
 
             var registry = new PersistenceRegistry();
