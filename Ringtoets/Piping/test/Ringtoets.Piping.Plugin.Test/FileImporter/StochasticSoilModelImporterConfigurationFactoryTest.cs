@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SoilProfiles;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter

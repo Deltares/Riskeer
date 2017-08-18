@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Piping.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="ISoilProfile"/> into <see cref="PipingSoilProfile"/>.

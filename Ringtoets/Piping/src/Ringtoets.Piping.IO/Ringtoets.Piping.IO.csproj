@@ -40,13 +40,13 @@
     <Compile Include="Configurations\PipingCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />
-    <Compile Include="Importers\PipingSoilLayerTransformer.cs" />
-    <Compile Include="Importers\PipingSoilProfileTransformer.cs" />
-    <Compile Include="Importers\PipingStochasticSoilModelFilter.cs" />
-    <Compile Include="Importers\PipingStochasticSoilModelTransformer.cs" />
-    <Compile Include="Importers\PipingStochasticSoilProfileTransformer.cs" />
-    <Compile Include="Importers\PipingSurfaceLineTransformer.cs" />
-    <Compile Include="Importers\PipingSurfaceLineExtensions.cs" />
+    <Compile Include="SoilProfiles\PipingSoilLayerTransformer.cs" />
+    <Compile Include="SoilProfiles\PipingSoilProfileTransformer.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilModelFilter.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilModelTransformer.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilProfileTransformer.cs" />
+    <Compile Include="SurfaceLines\PipingSurfaceLineTransformer.cs" />
+    <Compile Include="SurfaceLines\PipingSurfaceLineExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

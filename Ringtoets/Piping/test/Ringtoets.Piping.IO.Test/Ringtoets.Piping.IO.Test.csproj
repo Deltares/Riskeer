@@ -71,13 +71,13 @@
     <Compile Include="Configurations\PipingCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationSchemaIdentifiersTest.cs" />
-    <Compile Include="Importers\PipingSoilLayerTransformerTest.cs" />
-    <Compile Include="Importers\PipingSoilProfileTransformerTest.cs" />
-    <Compile Include="Importers\PipingStochasticSoilModelFilterTest.cs" />
-    <Compile Include="Importers\PipingStochasticSoilModelTransformerTest.cs" />
-    <Compile Include="Importers\PipingStochasticSoilProfileTransformerTest.cs" />
-    <Compile Include="Importers\PipingSurfaceLineTransformerTest.cs" />
-    <Compile Include="Importers\PipingSurfaceLineExtensionsTest.cs" />
+    <Compile Include="SoilProfiles\PipingSoilLayerTransformerTest.cs" />
+    <Compile Include="SoilProfiles\PipingSoilProfileTransformerTest.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilModelFilterTest.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilModelTransformerTest.cs" />
+    <Compile Include="SoilProfiles\PipingStochasticSoilProfileTransformerTest.cs" />
+    <Compile Include="SurfaceLines\PipingSurfaceLineTransformerTest.cs" />
+    <Compile Include="SurfaceLines\PipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

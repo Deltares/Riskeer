@@ -22,7 +22,7 @@
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SoilProfiles;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {

@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Piping.IO.Importers
+namespace Ringtoets.Piping.IO.SoilProfiles
 {
     /// <summary>
     /// Class to that can be used to filter stochastic soil models for the piping failure mechanism.

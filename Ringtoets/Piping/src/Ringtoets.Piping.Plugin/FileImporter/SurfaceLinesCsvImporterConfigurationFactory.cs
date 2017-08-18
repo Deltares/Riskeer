@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

@@ -29,9 +29,9 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SoilProfiles;
 
-namespace Ringtoets.Piping.IO.Test.Importers
+namespace Ringtoets.Piping.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class PipingStochasticSoilModelTransformerTest

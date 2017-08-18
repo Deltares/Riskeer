@@ -25,9 +25,9 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SoilProfiles;
 
-namespace Ringtoets.Piping.IO.Test.Importers
+namespace Ringtoets.Piping.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class PipingStochasticSoilModelFilterTest

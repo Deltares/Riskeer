@@ -28,10 +28,10 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.IO.Importers;
+using Ringtoets.Piping.IO.SoilProfiles;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.IO.Test.Importers
+namespace Ringtoets.Piping.IO.Test.SoilProfiles
 {
     [TestFixture]
     public class PipingSoilProfileTransformerTest
