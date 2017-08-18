@@ -1140,6 +1140,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel met &apos;{0}&apos; als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met &apos;{1}&apos; als faalmechanisme type zijn ondersteund..
+        /// </summary>
+        public static string IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported {
+            get {
+                return ResourceManager.GetString("IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_Failu" +
+                        "reMechanismType_1_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een gemiddelde van &apos;{0}&apos; is ongeldig voor stochast &apos;{1}&apos;..
         /// </summary>
         public static string IVariationCoefficientDistributionExtensions_TrySetMean_Mean_0_is_invalid_for_Stochast_1_ {

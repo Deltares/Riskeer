@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
     public class PipingStochasticSoilModelTransformerTest
     {
         [Test]
-        public void Constructor_ValidProperties_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var transformer = new PipingStochasticSoilModelTransformer();
@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        [TestCaseSource(nameof(InvalidFailureMechanismTypes))]
+        [TestCaseSource(nameof(GetInvalidFailureMechanismTypes))]
         public void Transform_InvalidFailureMechanismType_ThrowsImportedDataTransformException(FailureMechanismType failureMechanismType)
         {
             // Setup
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             public string Name { get; }
         }
 
-        private static IEnumerable<FailureMechanismType> InvalidFailureMechanismTypes()
+        private static IEnumerable<FailureMechanismType> GetInvalidFailureMechanismTypes()
         {
             return Enum.GetValues(typeof(FailureMechanismType))
                        .Cast<FailureMechanismType>()

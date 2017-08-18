@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.IO.Exceptions;
 
@@ -36,6 +37,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="stochasticSoilModel">The stochastic soil model to use in the transformation.</param>
         /// <returns>A new <typeparamref name="T"/> based on the given data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilModel"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
         T Transform(StochasticSoilModel stochasticSoilModel);

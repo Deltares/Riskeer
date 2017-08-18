@@ -209,16 +209,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het stochastische ondergrondmodel met &apos;{0}&apos; als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met &apos;{1}&apos; als faalmechanisme type zijn ondersteund..
-        /// </summary>
-        public static string PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported {
-            get {
-                return ResourceManager.GetString("PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_" +
-                        "FailureMechanismType_1_supported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Verzadigd gewicht.
         /// </summary>
         public static string SoilLayer_BelowPhreaticLevelDistribution_Description {

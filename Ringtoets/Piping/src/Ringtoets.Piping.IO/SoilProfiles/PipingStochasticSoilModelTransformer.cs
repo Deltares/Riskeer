@@ -26,8 +26,8 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfiles
 {
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Piping)
             {
-                string message = string.Format(Resources.PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
+                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
                                                stochasticSoilModel.FailureMechanismType,
                                                FailureMechanismType.Piping);
                 throw new ImportedDataTransformException(message);

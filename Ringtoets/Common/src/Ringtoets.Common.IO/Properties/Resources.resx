@@ -874,4 +874,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="SoilProfile_Cannot_construct_SoilProfile_without_layers" xml:space="preserve">
     <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
+  <data name="IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported" xml:space="preserve">
+    <value>Het stochastische ondergrondmodel met '{0}' als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met '{1}' als faalmechanisme type zijn ondersteund.</value>
+  </data>
 </root>
