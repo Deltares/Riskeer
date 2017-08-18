@@ -29,9 +29,7 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class represents objects which were imported from a D-Soil Model database. 
-    /// Instances of this class are transient and are not to be used once the D-Soil Model
-    /// database has been imported.
+    /// A two-dimensional soil layer that was imported from D-Soil Model.
     /// </summary>
     public class SoilLayer2D : SoilLayerBase
     {
@@ -100,7 +98,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Validates that <paramref name="innerLoop"/> forms a loop.
         /// </summary>
-        /// <param name="innerLoop"></param>
+        /// <param name="innerLoop">The inner loop to validate.</param>
         /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoop"/> 
         /// do not form a loop.</exception>
         private static void CheckValidLoop(Segment2D[] innerLoop)

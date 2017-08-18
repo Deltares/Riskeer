@@ -22,13 +22,12 @@
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class represents profiles that were imported from D-Soil Model and will later on 
-    /// be used to create the necessary input for executing a calculation.
+    /// A one-dimensional soil layer that was imported from D-Soil Model.
     /// </summary>
     public class SoilLayer1D : SoilLayerBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer1D"/>, where the top is set to <paramref name="top"/>.
+        /// Creates a new instance of <see cref="SoilLayer1D"/> that has the top is set to <paramref name="top"/>.
         /// </summary>
         /// <param name="top">The top level of the layer.</param>
         public SoilLayer1D(double top)

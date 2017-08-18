@@ -37,12 +37,12 @@ namespace Ringtoets.Common.IO.SoilProfile
     {
         /// <summary>
         /// Creates a new instance of <see cref="SoilDatabaseConstraintsReader"/>, 
-        /// which will use the <paramref name="databaseFilePath"/> as its source.
+        /// that will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters;</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
@@ -120,16 +120,16 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="SQLiteException">Thrown when the execution the query failed.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The probabilities could not be read.</item>
-        /// <item>One or more probabilities are not valid.
-        /// A valid probability:
+        /// <item>The probabilities could not be read;</item>
+        /// <item>One or more probabilities are not valid.</item>
+        /// </list>
+        /// </exception>
+        /// <remarks>A valid probability:
         /// <list type="bullet">
         /// <item>has a value in the interval [0.0, 1.0];</item>
         /// <item>is not <c>null</c>.</item>
         /// </list>
-        /// </item>
-        /// </list>
-        /// </exception>
+        /// </remarks>
         private void ReadAllProbabilitiesValid()
         {
             string checkSegmentNameUniqueness = SoilDatabaseQueryBuilder.GetStochasticSoilProfileProbabilitiesValidQuery();

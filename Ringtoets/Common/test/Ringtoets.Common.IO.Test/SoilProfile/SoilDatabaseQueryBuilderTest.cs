@@ -150,9 +150,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "FROM Segment AS segment " +
                 "JOIN " +
                 "(" +
-                "SELECT SSM_ID, SP1D_ID, SP2D_ID " +
+                "SELECT SSM_ID, SP1D_ID " +
                 "FROM StochasticSoilProfile " +
-                "GROUP BY SSM_ID, SP1D_ID, SP2D_ID" +
+                "GROUP BY SSM_ID, SP1D_ID" +
                 ") ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
                 "JOIN " +
@@ -167,19 +167,19 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "SELECT " +
                 "mat.MA_ID, " +
                 "mat.MA_Name AS MaterialName, " +
-                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) Color, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) BelowPhreaticLevelDistribution, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) BelowPhreaticLevelShift, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) BelowPhreaticLevelMean, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) BelowPhreaticLevelDeviation, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) PermeabKxDistribution, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) PermeabKxShift, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) PermeabKxMean, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) PermeabKxCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) DiameterD70Distribution, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) DiameterD70Shift, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) DiameterD70Mean, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) DiameterD70CoefficientOfVariation " +
+                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) AS Color, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) AS PermeabKxCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS DiameterD70Shift, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS DiameterD70Mean, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS DiameterD70CoefficientOfVariation " +
                 "FROM ParameterNames AS pn " +
                 "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
                 "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -192,7 +192,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "FROM ParameterNames " +
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 "WHERE PN_NAME = 'IsAquifer'" +
-                ") layerProperties USING(SL1D_ID) " +
+                ") USING(SL1D_ID) " +
                 "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
             Assert.AreEqual(expectedQuery, query);
         }
@@ -229,9 +229,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN " +
                 "(" +
-                "SELECT SSM_ID, SP1D_ID, SP2D_ID " +
+                "SELECT SSM_ID, SP2D_ID " +
                 "FROM StochasticSoilProfile " +
-                "GROUP BY SSM_ID, SP1D_ID, SP2D_ID" +
+                "GROUP BY SSM_ID, SP2D_ID" +
                 ") ssp USING(SSM_ID) " +
                 "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
                 "JOIN " +
@@ -246,19 +246,19 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "(" +
                 "SELECT " +
                 "mat.MA_ID, mat.MA_Name AS MaterialName, " +
-                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) Color, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) BelowPhreaticLevelDistribution, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) BelowPhreaticLevelShift, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) BelowPhreaticLevelMean, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) BelowPhreaticLevelDeviation, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) PermeabKxDistribution, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) PermeabKxShift, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) PermeabKxMean, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) PermeabKxCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) DiameterD70Distribution, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) DiameterD70Shift, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) DiameterD70Mean, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) DiameterD70CoefficientOfVariation " +
+                "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) AS Color, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) AS PermeabKxCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS DiameterD70Shift, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS DiameterD70Mean, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS DiameterD70CoefficientOfVariation " +
                 "FROM ParameterNames AS pn " +
                 "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
                 "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -272,7 +272,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "FROM ParameterNames " +
                 "JOIN LayerParameterValues USING(PN_ID) " +
                 "WHERE PN_NAME = 'IsAquifer'" +
-                ") layerProperties USING(SL2D_ID) " +
+                ") USING(SL2D_ID) " +
                 "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
             Assert.AreEqual(expectedQuery, query);
         }

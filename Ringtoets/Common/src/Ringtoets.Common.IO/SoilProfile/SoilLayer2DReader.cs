@@ -50,10 +50,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         private readonly XmlSchemaSet schema;
 
         /// <summary>
-        /// Constructs an instance of <see cref="SoilLayer2DReader"/>.
+        /// Creates a new instance of <see cref="SoilLayer2DReader"/>.
         /// </summary>
-        /// <exception cref="SoilLayerConversionException">Thrown when the XML-schema 
-        /// could not be loaded.</exception>
         public SoilLayer2DReader()
         {
             schema = LoadXmlSchema();
@@ -122,8 +120,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Validates the <paramref name="document"/> to the <see cref="schema"/>.
         /// </summary>
         /// <param name="document">The <see cref="XDocument"/> to validate.</param>
-        /// <exception cref="SoilLayerConversionException">Thrown when the validation failed.
-        /// </exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when the validation failed.</exception>
         private void ValidateToSchema(XDocument document)
         {
             try

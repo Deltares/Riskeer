@@ -146,7 +146,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Creates a new <see cref="SQLiteDataReader"/>.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">Thrown when query to fetch stochastic soil 
+        /// <exception cref="CriticalFileReadException">Thrown when the query to fetch stochastic soil 
         /// model segment points from the database failed.</exception>
         private void CreateDataReader()
         {

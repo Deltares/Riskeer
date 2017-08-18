@@ -32,19 +32,19 @@ namespace Ringtoets.Common.IO.SoilProfile
             "SELECT " +
             "mat.MA_ID, " +
             $"mat.MA_Name AS {SoilProfileTableDefinitions.MaterialName}, " +
-            $"max(case when pn.PN_Name = 'Color' then pv.PV_Value end) {SoilProfileTableDefinitions.Color}, " +
-            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) {SoilProfileTableDefinitions.BelowPhreaticLevelDistribution}, " +
-            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) {SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
-            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) {SoilProfileTableDefinitions.BelowPhreaticLevelMean}, " +
-            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) {SoilProfileTableDefinitions.BelowPhreaticLevelDeviation}, " +
-            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) {SoilProfileTableDefinitions.PermeabilityDistribution}, " +
-            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) {SoilProfileTableDefinitions.PermeabilityShift}, " +
-            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) {SoilProfileTableDefinitions.PermeabilityMean}, " +
-            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) {SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
-            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) {SoilProfileTableDefinitions.DiameterD70Distribution}, " +
-            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) {SoilProfileTableDefinitions.DiameterD70Shift}, " +
-            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) {SoilProfileTableDefinitions.DiameterD70Mean}, " +
-            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) {SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation} " +
+            $"max(case when pn.PN_Name = 'Color' then pv.PV_Value end) AS {SoilProfileTableDefinitions.Color}, " +
+            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelDistribution}, " +
+            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
+            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelMean}, " +
+            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelDeviation}, " +
+            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.PermeabilityDistribution}, " +
+            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.PermeabilityShift}, " +
+            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.PermeabilityMean}, " +
+            $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.DiameterD70Distribution}, " +
+            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.DiameterD70Shift}, " +
+            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.DiameterD70Mean}, " +
+            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation} " +
             "FROM ParameterNames AS pn " +
             "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
             "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             return $"SELECT {MetaTableDefinitions.Value} " +
                    $"FROM {MetaTableDefinitions.TableName} " +
-                   $"WHERE {MetaTableDefinitions.Key} = 'VERSION' " +
+                   $"WHERE {MetaTableDefinitions.Key} = '{MetaTableDefinitions.ValueVersion}' " +
                    $"AND {MetaTableDefinitions.Value} = @{MetaTableDefinitions.Value};";
         }
 
@@ -91,9 +91,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public static string GetStochasticSoilModelOfMechanismCountQuery()
         {
             return $"SELECT COUNT() AS {StochasticSoilModelTableDefinitions.Count} " +
-                $"FROM {StochasticSoilModelTableDefinitions.TableName} SSM " +
-                $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
-                $"INNER JOIN {MechanismTableDefinitions.TableName} M USING({MechanismTableDefinitions.MechanismId});";
+                   $"FROM {StochasticSoilModelTableDefinitions.TableName} SSM " +
+                   $"INNER JOIN {SegmentTableDefinitions.TableName} S USING({StochasticSoilModelTableDefinitions.StochasticSoilModelId}) " +
+                   $"INNER JOIN {MechanismTableDefinitions.TableName} M USING({MechanismTableDefinitions.MechanismId});";
         }
 
         /// <summary>
@@ -120,7 +120,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         public static string GetStochasticSoilModelPerMechanismQuery()
         {
             return $"SELECT SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelId}, " +
-                   $"M.{MechanismTableDefinitions.MechanismId}, M.{MechanismTableDefinitions.MechanismName}, " +
+                   $"M.{MechanismTableDefinitions.MechanismId}, " +
+                   $"M.{MechanismTableDefinitions.MechanismName}, " +
                    $"SSM.{StochasticSoilModelTableDefinitions.StochasticSoilModelName}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.Probability}, " +
                    $"SSP.{StochasticSoilProfileTableDefinitions.SoilProfile1DId}, " +
@@ -189,12 +190,12 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
                 $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
                 "FROM Segment AS segment " +
-                "JOIN (SELECT SSM_ID, SP1D_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID, SP2D_ID) ssp USING(SSM_ID) " +
+                "JOIN (SELECT SSM_ID, SP1D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
                 $"JOIN ({getNumberOfLayerProfile1DQuery}) {SoilProfileTableDefinitions.LayerCount} USING(SP1D_ID) " +
                 "JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
-                $"LEFT JOIN ({getLayerPropertiesOfLayer1DQuery}) layerProperties USING(SL1D_ID) " +
+                $"LEFT JOIN ({getLayerPropertiesOfLayer1DQuery}) USING(SL1D_ID) " +
                 "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";
         }
 
@@ -239,13 +240,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"sp2d.SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
                 $"FROM {MechanismTableDefinitions.TableName} AS m " +
                 $"JOIN {SegmentTableDefinitions.TableName} AS segment USING({MechanismTableDefinitions.MechanismId}) " +
-                "JOIN (SELECT SSM_ID, SP1D_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID, SP2D_ID) ssp USING(SSM_ID) " +
+                "JOIN (SELECT SSM_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP2D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
                 $"JOIN ({getNumberOfLayerProfile2DQuery}) {SoilProfileTableDefinitions.LayerCount} USING(SP2D_ID) " +
                 "JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
                 "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
-                $"LEFT JOIN ({getLayerPropertiesOfLayer2DQuery}) layerProperties USING(SL2D_ID) " +
+                $"LEFT JOIN ({getLayerPropertiesOfLayer2DQuery}) USING(SL2D_ID) " +
                 "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
         }
     }

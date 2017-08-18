@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private const string databaseRequiredVersion = "17.2.0.0";
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilDatabaseVersionReader"/>, 
+        /// Creates a new instance of <see cref="SoilDatabaseVersionReader"/> 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>

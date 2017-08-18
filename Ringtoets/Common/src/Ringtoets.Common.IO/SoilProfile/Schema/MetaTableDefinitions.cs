@@ -40,5 +40,10 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// The name of the 'value' column.
         /// </summary>
         public const string Value = "Value";
+
+        /// <summary>
+        /// The value of the 'version' identifier in the 'value'-column.
+        /// </summary>
+        public const string ValueVersion = "VERSION";
     }
 }
