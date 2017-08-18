@@ -33,9 +33,9 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of drainage properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
+    /// ViewModel of offset properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsOffsetsProperties : ObjectProperties<MacroStabilityInwardsInput>
+    public class MacroStabilityInwardsOffsetProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
         private const int useDefaultOffsetPropertyIndex = 1;
         private const int phreaticLineOffsetBelowDikeTopAtRiverPropertyIndex = 2;
@@ -48,10 +48,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsDrainageProperties"/>.
         /// </summary>
-        /// <param name="data">The data of the properties</param>
+        /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsOffsetsProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
+        public MacroStabilityInwardsOffsetProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {

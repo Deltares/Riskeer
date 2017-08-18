@@ -100,6 +100,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grid.
+        /// </summary>
+        public static string Categories_Grid {
+            get {
+                return ResourceManager.GetString("Categories_Grid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Semi-probabilistische parameters.
         /// </summary>
         public static string Categories_SemiProbabilisticParameters {
@@ -294,6 +303,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string LeakageLengthPhreaticLine4_Description {
             get {
                 return ResourceManager.GetString("LeakageLengthPhreaticLine4_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De linker grid eigenschappen..
+        /// </summary>
+        public static string LeftGrid_Description {
+            get {
+                return ResourceManager.GetString("LeftGrid_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linker grid.
+        /// </summary>
+        public static string LeftGrid_DisplayName {
+            get {
+                return ResourceManager.GetString("LeftGrid_DisplayName", resourceCulture);
             }
         }
         
@@ -684,6 +711,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aantal punten waarmee het grid wordt samengesteld in horizontale richting..
+        /// </summary>
+        public static string NumberOfHorizontalPoints_Description {
+            get {
+                return ResourceManager.GetString("NumberOfHorizontalPoints_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal horizontale punten.
+        /// </summary>
+        public static string NumberOfHorizontalPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("NumberOfHorizontalPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal punten waarmee het grid wordt samengesteld in verticale richting..
+        /// </summary>
+        public static string NumberOfVerticalPoints_Description {
+            get {
+                return ResourceManager.GetString("NumberOfVerticalPoints_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal verticale punten.
+        /// </summary>
+        public static string NumberOfVerticalPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("NumberOfVerticalPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offsets PL 1 eigenschappen..
         /// </summary>
         public static string Offsets_Description {
@@ -824,6 +887,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string PiezometricHeadPhreaticLine2Outwards_DisplayName {
             get {
                 return ResourceManager.GetString("PiezometricHeadPhreaticLine2Outwards_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De rechter grid eigenschappen..
+        /// </summary>
+        public static string RightGrid_Description {
+            get {
+                return ResourceManager.GetString("RightGrid_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rechter grid.
+        /// </summary>
+        public static string RightGrid_DisplayName {
+            get {
+                return ResourceManager.GetString("RightGrid_DisplayName", resourceCulture);
             }
         }
         
@@ -1191,6 +1272,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Horizontale coordinaat van de linker kant van het rekengrid..
+        /// </summary>
+        public static string XLeft_Description {
+            get {
+                return ResourceManager.GetString("XLeft_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X links [m].
+        /// </summary>
+        public static string XLeft_DisplayName {
+            get {
+                return ResourceManager.GetString("XLeft_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontale coordinaat van de rechter kant van het rekengrid..
+        /// </summary>
+        public static string XRight_Description {
+            get {
+                return ResourceManager.GetString("XRight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X rechts [m].
+        /// </summary>
+        public static string XRight_DisplayName {
+            get {
+                return ResourceManager.GetString("XRight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale coordinaat van de onderkant van het rekengrid..
+        /// </summary>
+        public static string ZBottom_Description {
+            get {
+                return ResourceManager.GetString("ZBottom_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z onder [m+NAP].
+        /// </summary>
+        public static string ZBottom_DisplayName {
+            get {
+                return ResourceManager.GetString("ZBottom_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Z-coordinaat (hoogte) van het middelpunt van de drainage..
         /// </summary>
         public static string ZCoordinateDrainageConstruction_Description {
@@ -1205,6 +1340,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string ZCoordinateDrainageConstruction_DisplayName {
             get {
                 return ResourceManager.GetString("ZCoordinateDrainageConstruction_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale coordinaat van de bovenkant van het rekengrid..
+        /// </summary>
+        public static string ZTop_Description {
+            get {
+                return ResourceManager.GetString("ZTop_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z boven [m+NAP].
+        /// </summary>
+        public static string ZTop_DisplayName {
+            get {
+                return ResourceManager.GetString("ZTop_DisplayName", resourceCulture);
             }
         }
     }

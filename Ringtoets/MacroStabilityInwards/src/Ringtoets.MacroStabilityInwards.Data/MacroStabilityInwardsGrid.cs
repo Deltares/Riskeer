@@ -116,6 +116,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the number of vertical points.
         /// </summary>
-        public int NumberOfVerticalpoints { get; set; }
+        public int NumberOfVerticalPoints { get; set; }
     }
 }

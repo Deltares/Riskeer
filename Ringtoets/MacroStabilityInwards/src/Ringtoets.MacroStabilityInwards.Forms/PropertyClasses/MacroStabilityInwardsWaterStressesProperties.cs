@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressesProperties"/>.
         /// </summary>
-        /// <param name="data">The data of the properties</param>
+        /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsWaterStressesProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
@@ -157,11 +157,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Offsets_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Offsets_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public MacroStabilityInwardsOffsetsProperties Offsets
+        public MacroStabilityInwardsOffsetProperties Offsets
         {
             get
             {
-                return new MacroStabilityInwardsOffsetsProperties(data, propertyChangeHandler);
+                return new MacroStabilityInwardsOffsetProperties(data, propertyChangeHandler);
             }
         }
 

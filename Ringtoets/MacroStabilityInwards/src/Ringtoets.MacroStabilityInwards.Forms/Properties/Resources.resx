@@ -454,6 +454,9 @@
   <data name="SlipPlaneMinimumLength_DisplayName" xml:space="preserve">
     <value>Minimale glijvlaklengte [m]</value>
   </data>
+  <data name="Categories_Grid" xml:space="preserve">
+    <value>Grid</value>
+  </data>
   <data name="GridDetermination_Description" xml:space="preserve">
     <value>Rekengrid automatisch bepalen of handmatig invoeren?</value>
   </data>
@@ -466,11 +469,35 @@
   <data name="GridSettings_DisplayName" xml:space="preserve">
     <value>Rekengrids</value>
   </data>
+  <data name="LeftGrid_Description" xml:space="preserve">
+    <value>De linker grid eigenschappen.</value>
+  </data>
+  <data name="LeftGrid_DisplayName" xml:space="preserve">
+    <value>Linker grid</value>
+  </data>
   <data name="MoveGrid_Description" xml:space="preserve">
     <value>Sta automatische aanpassing van het grid toe?</value>
   </data>
   <data name="MoveGrid_DisplayName" xml:space="preserve">
     <value>Verplaats grid</value>
+  </data>
+  <data name="NumberOfHorizontalPoints_Description" xml:space="preserve">
+    <value>Aantal punten waarmee het grid wordt samengesteld in horizontale richting.</value>
+  </data>
+  <data name="NumberOfHorizontalPoints_DisplayName" xml:space="preserve">
+    <value>Aantal horizontale punten</value>
+  </data>
+  <data name="NumberOfVerticalPoints_Description" xml:space="preserve">
+    <value>Aantal punten waarmee het grid wordt samengesteld in verticale richting.</value>
+  </data>
+  <data name="NumberOfVerticalPoints_DisplayName" xml:space="preserve">
+    <value>Aantal verticale punten</value>
+  </data>
+  <data name="RightGrid_Description" xml:space="preserve">
+    <value>De rechter grid eigenschappen.</value>
+  </data>
+  <data name="RightGrid_DisplayName" xml:space="preserve">
+    <value>Rechter grid</value>
   </data>
   <data name="TangentLineDetermination_Description" xml:space="preserve">
     <value>Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?</value>
@@ -489,5 +516,29 @@
   </data>
   <data name="TangentLineZTop_DisplayName" xml:space="preserve">
     <value>Tangentlijn Z-boven [m+NAP]</value>
+  </data>
+  <data name="XLeft_Description" xml:space="preserve">
+    <value>Horizontale coordinaat van de linker kant van het rekengrid.</value>
+  </data>
+  <data name="XLeft_DisplayName" xml:space="preserve">
+    <value>X links [m]</value>
+  </data>
+  <data name="XRight_Description" xml:space="preserve">
+    <value>Horizontale coordinaat van de rechter kant van het rekengrid.</value>
+  </data>
+  <data name="XRight_DisplayName" xml:space="preserve">
+    <value>X rechts [m]</value>
+  </data>
+  <data name="ZBottom_Description" xml:space="preserve">
+    <value>Verticale coordinaat van de onderkant van het rekengrid.</value>
+  </data>
+  <data name="ZBottom_DisplayName" xml:space="preserve">
+    <value>Z onder [m+NAP]</value>
+  </data>
+  <data name="ZTop_Description" xml:space="preserve">
+    <value>Verticale coordinaat van de bovenkant van het rekengrid.</value>
+  </data>
+  <data name="ZTop_DisplayName" xml:space="preserve">
+    <value>Z boven [m+NAP]</value>
   </data>
 </root>

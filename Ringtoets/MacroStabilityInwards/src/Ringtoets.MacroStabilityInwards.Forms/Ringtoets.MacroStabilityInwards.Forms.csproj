@@ -67,9 +67,10 @@
     </Compile>
     <Compile Include="PropertyClasses\MacroStabilityInwardsDrainageProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsGridProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetsProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />

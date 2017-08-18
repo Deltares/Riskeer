@@ -44,6 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedTangentLineDeterminationPropertyIndex = 2;
         private const int expectedTangentLineZTopPropertyIndex = 3;
         private const int expectedTangentLineZBottomPropertyIndex = 4;
+        private const int expectedLeftGridPropertyIndex = 5;
+        private const int expectedRightGridPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -109,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             const string calculationGridsCategory = "Rekengrids";
 
@@ -150,6 +152,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Tangentlijn Z-onder [m+NAP]",
                 "Verticale coordinaat van de onderste raaklijn.");
 
+            PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
+            Assert.AreEqual(typeof(ExpandableObjectConverter), leftGridProperty.Converter.GetType());
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                leftGridProperty,
+                calculationGridsCategory,
+                "Linker grid",
+                "De linker grid eigenschappen.",
+                true);
+
+            PropertyDescriptor rightGridProperty = dynamicProperties[expectedRightGridPropertyIndex];
+            Assert.AreEqual(typeof(ExpandableObjectConverter), rightGridProperty.Converter.GetType());
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                rightGridProperty,
+                calculationGridsCategory,
+                "Rechter grid",
+                "De rechter grid eigenschappen.",
+                true);
+
             mocks.VerifyAll();
         }
 
@@ -172,6 +192,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.TangentLineDetermination, properties.TangentLineDetermination);
             Assert.AreEqual(input.TangentLineZTop, properties.TangentLineZTop);
             Assert.AreEqual(input.TangentLineZBottom, properties.TangentLineZBottom);
+
+            Assert.AreSame(input.LeftGrid, properties.LeftGrid.Data);
+            Assert.AreSame(input.RightGrid, properties.RightGrid.Data);
             mocks.VerifyAll();
         }
 

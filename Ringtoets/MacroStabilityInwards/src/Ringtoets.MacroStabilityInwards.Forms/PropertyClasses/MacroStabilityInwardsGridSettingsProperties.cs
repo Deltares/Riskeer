@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of drainage properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
+    /// ViewModel of grid settings properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
     /// </summary>
     public class MacroStabilityInwardsGridSettingsProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
@@ -44,13 +44,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int tangentLineDeterminationPropertyIndex = 3;
         private const int tangentLineZTopPropertyIndex = 4;
         private const int tangentLineZBottomPropertyIndex = 5;
+        private const int leftGridPropertyIndex = 6;
+        private const int rightGridPropertyIndex = 7;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsGridSettingsProperties"/>.
         /// </summary>
-        /// <param name="data">The data of the properties</param>
+        /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsGridSettingsProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
@@ -147,6 +149,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.TangentLineZBottom = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(leftGridPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeftGrid_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeftGrid_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsGridProperties LeftGrid
+        {
+            get
+            {
+                return new MacroStabilityInwardsGridProperties(data.LeftGrid, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(rightGridPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.RightGrid_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.RightGrid_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsGridProperties RightGrid
+        {
+            get
+            {
+                return new MacroStabilityInwardsGridProperties(data.RightGrid, propertyChangeHandler);
             }
         }
 

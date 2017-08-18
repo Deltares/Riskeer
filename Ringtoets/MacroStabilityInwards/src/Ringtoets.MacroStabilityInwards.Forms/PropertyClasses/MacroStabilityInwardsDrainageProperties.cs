@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsDrainageProperties"/>.
         /// </summary>
-        /// <param name="data">The data of the properties</param>
+        /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsDrainageProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
