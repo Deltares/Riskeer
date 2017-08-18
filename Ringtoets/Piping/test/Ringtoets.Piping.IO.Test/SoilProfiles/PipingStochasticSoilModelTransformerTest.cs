@@ -47,6 +47,20 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
+        public void Transform_StochasticSoilModelNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var transformer = new PipingStochasticSoilModelTransformer();
+
+            // Call
+            TestDelegate test = () => transformer.Transform(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("stochasticSoilModel", exception.ParamName);
+        }
+
+        [Test]
         [TestCaseSource(nameof(InvalidFailureMechanismTypes))]
         public void Transform_InvalidFailureMechanismType_ThrowsImportedDataTransformException(FailureMechanismType failureMechanismType)
         {

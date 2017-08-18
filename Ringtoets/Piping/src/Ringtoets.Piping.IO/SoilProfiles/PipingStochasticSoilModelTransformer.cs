@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
@@ -39,6 +40,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
         public PipingStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
         {
+            if (stochasticSoilModel == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilModel));
+            }
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Piping)
             {
                 string message = string.Format(Resources.PipingStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
