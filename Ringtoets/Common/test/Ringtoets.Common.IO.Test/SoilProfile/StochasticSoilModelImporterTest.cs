@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Builders;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     [TestFixture]
     public class StochasticSoilModelImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "StochasticSoilModelReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "StochasticSoilModelImporter");
         private MockRepository mocks;
         private IStochasticSoilModelTransformer<IMechanismStochasticSoilModel> transformer;
 
@@ -80,30 +81,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("importTarget", parameter);
-        }
-
-        [Test]
-        public void Constructor_FilePathNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
-            var updateStrategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            mocks.ReplayAll();
-
-            var collection = new TestStochasticSoilModelCollection();
-            var configuration = new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, updateStrategy);
-
-            // Call
-            TestDelegate call = () => new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
-                collection,
-                null,
-                messageProvider,
-                configuration);
-
-            // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("filePath", parameter);
         }
 
         [Test]
@@ -210,8 +187,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(1, messages.Count());
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
 
-                StringAssert.EndsWith($"{string.Empty} {Environment.NewLine}Het bestand wordt overgeslagen.",
-                                      expectedLog.Item1);
+                string fileReadMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("het bestand bestaat niet.");
+                Assert.AreEqual($"{fileReadMessage} {Environment.NewLine}Het bestand wordt overgeslagen.",
+                                expectedLog.Item1);
                 Assert.AreEqual(Level.Error, expectedLog.Item2);
                 Assert.IsInstanceOf<CriticalFileReadException>(expectedLog.Item3);
             });
@@ -266,10 +244,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         [TestCase(FailureMechanismType.Piping, 3)]
         [TestCase(FailureMechanismType.Stability, 3)]
-        [TestCase(FailureMechanismType.None, 0)]
-        public void Import_ImportingToValidTargetWithValidFile_ImportSoilModelToCollection(
-            FailureMechanismType failureMechanismType,
-            int nrOfFailureMechanismSpecificModelsInDatabase)
+        public void Import_VariousFailureMechanismTypes_ShowProgressAndUpdatesCollection(FailureMechanismType failureMechanismType,
+                                                                                         int nrOfFailureMechanismSpecificModelsInDatabase)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -284,23 +260,22 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                   .WhenCalled(invocation => { FilterFailureMechanismSpecificModel(invocation, failureMechanismType); })
                   .Repeat
                   .Times(totalNrOfStochasticSoilModelInDatabase);
+
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
+                           .Return(expectedAddDataText);
+
             var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
+            updateStrategy.Expect(u => u.UpdateModelWithImportedData(null, null))
+                          .IgnoreArguments()
+                          .WhenCalled(invocation =>
+                          {
+                              var soilModels = (IEnumerable<IMechanismStochasticSoilModel>) invocation.Arguments[0];
+                              var filePath = (string) invocation.Arguments[1];
 
-            if (nrOfFailureMechanismSpecificModelsInDatabase > 0)
-            {
-                messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
-                               .Return(expectedAddDataText);
-
-                updateStrategy.Expect(u => u.UpdateModelWithImportedData(null, null)).IgnoreArguments().WhenCalled(invocation =>
-                {
-                    var soilModels = (IEnumerable<IMechanismStochasticSoilModel>) invocation.Arguments[0];
-                    var filePath = (string) invocation.Arguments[1];
-
-                    Assert.AreEqual(nrOfFailureMechanismSpecificModelsInDatabase, soilModels.Count());
-                    Assert.AreEqual(validFilePath, filePath);
-                });
-            }
+                              Assert.AreEqual(nrOfFailureMechanismSpecificModelsInDatabase, soilModels.Count());
+                              Assert.AreEqual(validFilePath, filePath);
+                          });
 
             mocks.ReplayAll();
 
@@ -338,10 +313,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                  "Valideren van ingelezen data.", i, nrOfFailureMechanismSpecificModelsInDatabase));
             }
 
-            if (nrOfFailureMechanismSpecificModelsInDatabase > 0)
-            {
-                expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, 1, 1));
-            }
+            expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, 1, 1));
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
             {
@@ -354,30 +326,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileTwice_ReadAnotherTime()
+        public void Import_ImportingFailureMechanismTypeNotInDatabase_ShowProgressAndDoesNotUpdateCollection()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
             const int totalNrOfStochasticSoilModelInDatabase = 6;
 
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
             var filter = mocks.StrictMock<IStochasticSoilModelMechanismFilter>();
             filter.Expect(f => f.IsValidForFailureMechanism(null))
                   .IgnoreArguments()
-                  .Return(true)
+                  .Return(false)
+                  .WhenCalled(invocation => { FilterFailureMechanismSpecificModel(invocation, FailureMechanismType.None); })
                   .Repeat
-                  .Times(totalNrOfStochasticSoilModelInDatabase * 2);
+                  .Times(totalNrOfStochasticSoilModelInDatabase);
+            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.Expect(u => u.UpdateModelWithImportedData(null, null))
-                          .IgnoreArguments()
-                          .WhenCalled(invocation =>
-                          {
-                              var soilModels = (IEnumerable<IMechanismStochasticSoilModel>) invocation.Arguments[0];
-                              var filePath = (string) invocation.Arguments[1];
-
-                              Assert.AreEqual(totalNrOfStochasticSoilModelInDatabase, soilModels.Count());
-                              Assert.AreEqual(validFilePath, filePath);
-                          }).Repeat.Twice();
             mocks.ReplayAll();
 
             var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
@@ -393,63 +356,35 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             importer.SetProgressChanged((description, step, steps) =>
                                             progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
 
-            var importResult = false;
-            importer.Import();
-
             // Call
-            Action call = () => importResult = importer.Import();
+            bool importResult = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
-            Assert.AreEqual(totalNrOfStochasticSoilModelInDatabase * 2 * 2 + 4, progressChangeNotifications.Count);
-
             Assert.IsTrue(importResult);
-        }
 
-        [Test]
-        public void Import_CancelBeforeReadingSoilModels_CancelsImportAndLogs()
-        {
-            // Setup
-            const string cancelledLogMessage = "Operation Cancelled";
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText("Stochastische ondergrondmodellen"))
-                           .Return(cancelledLogMessage);
-            var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            var filter = mocks.StrictMock<IStochasticSoilModelMechanismFilter>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "complete.soil");
-
-            var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
-                new TestStochasticSoilModelCollection(),
-                validFilePath,
-                messageProvider,
-                new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(
-                    transformer,
-                    filter,
-                    updateStrategy));
-
-            importer.SetProgressChanged((description, step, steps) =>
+            var expectedProgressMessages = new List<ProgressNotification>
             {
-                if (description.Contains("Inlezen van de D-Soil Model database."))
-                {
-                    importer.Cancel();
-                }
-            });
+                new ProgressNotification("Inlezen van de D-Soil Model database.", 1, 1)
+            };
+            for (var i = 1; i <= totalNrOfStochasticSoilModelInDatabase; i++)
+            {
+                expectedProgressMessages.Add(new ProgressNotification(
+                                                 "Inlezen van de stochastische ondergrondmodellen.", i, totalNrOfStochasticSoilModelInDatabase));
+            }
 
-            var importResult = true;
-
-            // Call
-            Action call = () => importResult = importer.Import();
-
-            // Assert
-            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(cancelledLogMessage, LogLevelConstant.Info);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsFalse(importResult);
+            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
+            for (var i = 0; i < expectedProgressMessages.Count; i++)
+            {
+                ProgressNotification notification = expectedProgressMessages[i];
+                ProgressNotification actualNotification = progressChangeNotifications[i];
+                Assert.AreEqual(notification.Text, actualNotification.Text);
+                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
+                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
+            }
         }
 
         [Test]
-        public void Import_CancelWhenReadingSoilModels_CancelsImportAndLogs()
+        public void Import_CancelWhileReadingSoilModels_CancelsImportAndLogs()
         {
             // Setup
             const string cancelledLogMessage = "Operation Cancelled";
@@ -575,7 +510,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Import_CancelWhenAddingDataToModel_ImportCompletedSuccessfullyNonetheless()
+        public void Import_CancelWhileAddingDataToModel_ContinuesImportAndLogs()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
@@ -628,7 +563,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Import_ReadingStochsaticSoilModelThrowsException_StopsImportAndLogs()
+        public void Import_ReadingStochaticSoilModelThrowsException_StopsImportAndLogs()
         {
             // Setup
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
@@ -727,8 +662,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText())
                            .Return(expectedAddDataProgressText);
+
+            var transformedModel = mocks.Stub<IMechanismStochasticSoilModel>();
+
+            transformer.Expect(t => t.Transform(Arg<StochasticSoilModel>.Is.NotNull))
+                       .Return(transformedModel);
+
             var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            updateStrategy.Expect(u => u.UpdateModelWithImportedData(Arg<IMechanismStochasticSoilModel[]>.List.ContainsAll(stochasticSoilModelCollection),
+            updateStrategy.Expect(u => u.UpdateModelWithImportedData(Arg<IMechanismStochasticSoilModel[]>.List.ContainsAll(new[]
+                                                                     {
+                                                                         transformedModel
+                                                                     }),
                                                                      Arg<string>.Is.Equal(validFilePath)));
             var filter = mocks.StrictMock<IStochasticSoilModelMechanismFilter>();
             filter.Expect(f => f.IsValidForFailureMechanism(null))
@@ -802,7 +746,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Import_AddingDataUpdateDataException_StopsImportAndLogs()
+        public void Import_UpdateDataExceptionThrownWhenAddingData_StopsImportAndLogs()
         {
             // Setup
             const string exceptionMessage = "Some exception message.";

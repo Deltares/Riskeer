@@ -113,7 +113,7 @@ namespace Core.Components.OxyPlot.Forms
 
         /// <summary>
         /// Assigns new values to the properties in such a way
-        /// that the the new values include both the <see cref="Extent"/>
+        /// that the new values include both the <see cref="Extent"/>
         /// and the <paramref name="otherExtent"/>.
         /// </summary>
         /// <param name="otherExtent">The other extent to include in

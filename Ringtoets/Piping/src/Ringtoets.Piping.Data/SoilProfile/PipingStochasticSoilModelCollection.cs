@@ -26,14 +26,18 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Piping.Data.SoilProfile
 {
     /// <summary>
-    /// A collection of <see cref="PipingStochasticSoilModel"/>. The names of the <see cref="PipingStochasticSoilModel"/> elements are
-    /// unique within the collection.
+    /// A collection of <see cref="PipingStochasticSoilModel"/>. 
+    /// The names of the <see cref="PipingStochasticSoilModel"/> elements are unique within 
+    /// the collection.
     /// </summary>
     public class PipingStochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<PipingStochasticSoilModel>
     {
-        public PipingStochasticSoilModelCollection() : base(model => model.Name,
-                                                      RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
-                                                      Resources.UniqueFeature_Name_FeatureDescription)
-        { }
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingStochasticSoilModelCollection"/>.
+        /// </summary>
+        public PipingStochasticSoilModelCollection()
+            : base(model => model.Name,
+                   RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                   Resources.UniqueFeature_Name_FeatureDescription) {}
     }
 }

@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
-            
+
             Probability = probability;
             SoilProfile = soilProfile;
         }

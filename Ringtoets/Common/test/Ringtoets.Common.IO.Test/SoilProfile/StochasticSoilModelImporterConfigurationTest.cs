@@ -53,12 +53,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         public void Constructor_TransformerNull_ThrowsArgumentNullException()
         {
-            // Call
+            // Setup
             var mocks = new MockRepository();
             var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
+            // Call
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(null, filter, strategy);
 
             // Assert
@@ -70,12 +71,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         public void Constructor_FilterNull_ThrowsArgumentNullException()
         {
-            // Call
+            // Setup
             var mocks = new MockRepository();
             var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var strategy = mocks.Stub<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
             mocks.ReplayAll();
 
+            // Setup
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, null, strategy);
 
             // Assert
@@ -87,12 +89,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         public void Constructor_UpdateStrategyNull_ThrowsArgumentNullException()
         {
-            // Call
+            // Setup
             var mocks = new MockRepository();
             var transformer = mocks.Stub<IStochasticSoilModelTransformer<IMechanismStochasticSoilModel>>();
             var filter = mocks.Stub<IStochasticSoilModelMechanismFilter>();
             mocks.ReplayAll();
 
+            // Call
             TestDelegate test = () => new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(transformer, filter, null);
 
             // Assert

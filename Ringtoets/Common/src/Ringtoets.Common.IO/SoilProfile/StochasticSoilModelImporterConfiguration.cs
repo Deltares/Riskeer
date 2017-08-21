@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         public IStochasticSoilModelTransformer<T> Transformer { get; }
 
         /// <summary>
-        /// Gets the failure mechanism filter to verify the the stochastic soil model is valid 
+        /// Gets the failure mechanism filter to verify the stochastic soil model is valid 
         /// for the failure mechanism.
         /// </summary>
         public IStochasticSoilModelMechanismFilter MechanismFilter { get; }

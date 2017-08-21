@@ -27,7 +27,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     public static class SoilLayerConstants
     {
         /// <summary>
-        /// The value of the distribution parameter when the the distribution is lognormal.
+        /// The value of the distribution parameter when the distribution is lognormal.
         /// </summary>
         public const long LogNormalDistributionValue = 3;
     }

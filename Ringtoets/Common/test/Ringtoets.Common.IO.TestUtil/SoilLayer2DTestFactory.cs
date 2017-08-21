@@ -32,10 +32,10 @@ namespace Ringtoets.Common.IO.TestUtil
     public static class SoilLayer2DTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer2D"/> that can be used for testing.
+        /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
         /// <param name="innerLoops">The inner loops of the <see cref="SoilLayer2D"/>,
-        /// for which each of the segments are connected to the next</param>
+        /// for which each of the segments are connected to the next.</param>
         /// <param name="outerLoop">The outer loop of the <see cref="SoilLayer2D"/>,
         /// for which each of the segments are connected to the next.</param>
         /// <returns>The created <see cref="SoilLayer2D"/>.</returns>

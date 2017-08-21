@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
             }
 
             foreach (PipingStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))))
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);

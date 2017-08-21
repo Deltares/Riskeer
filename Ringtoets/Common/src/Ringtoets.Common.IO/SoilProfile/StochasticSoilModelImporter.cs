@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private IEnumerable<IObservable> updatedInstances;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="StochasticSoilModelImporter{T}"/> class.
+        /// Creates a new instance of <see cref="StochasticSoilModelImporter{T}"/>.
         /// </summary>
         /// <param name="importTarget">The import target.</param>
         /// <param name="filePath">The path to the file to import from.</param>
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// is not valid to be transformed.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transforming a stochastic 
         /// soil model failed.</exception>
-        private ReadResult<T> GetTransformedStochasticSoilModels(ICollection<StochasticSoilModel> stochasticSoilModels)
+        private ReadResult<T> GetTransformedStochasticSoilModels(IEnumerable<StochasticSoilModel> stochasticSoilModels)
         {
             var transformedStochasticSoilModels = new List<T>();
             var stochasticSoilModelNumber = 1;

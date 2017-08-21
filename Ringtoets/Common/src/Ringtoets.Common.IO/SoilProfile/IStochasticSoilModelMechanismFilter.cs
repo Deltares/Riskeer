@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Interface to define if a <see cref="StochasticSoilModel"/> is valid for the calling 
+    /// Interface to define whether a <see cref="StochasticSoilModel"/> is valid for the calling 
     /// failure mechanism.
     /// </summary>
     public interface IStochasticSoilModelMechanismFilter

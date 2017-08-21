@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Primitives
         public double DiameterD70CoefficientOfVariation { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets or sets the mean of the distribution for the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
         public double PermeabilityMean { get; set; }

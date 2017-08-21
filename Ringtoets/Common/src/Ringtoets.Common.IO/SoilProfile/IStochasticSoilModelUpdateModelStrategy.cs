@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="UpdateDataException">Thrown when applying the strategy failed.
         /// <see cref="UpdateDataException.InnerException"/> is set with the more detailed
         /// exception.</exception>
-        /// <returns>A <see cref="IEnumerable{IObservable}"/> of updated instances.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
         IEnumerable<IObservable> UpdateModelWithImportedData(IEnumerable<T> stochasticSoilModels, string sourceFilePath);
     }
 }

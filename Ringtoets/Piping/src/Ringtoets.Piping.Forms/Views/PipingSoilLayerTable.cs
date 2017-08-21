@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Views
             public RoundedDouble DiameterD70CoefficientOfVariation { get; }
 
             /// <summary>
-            /// Gets the mean of the distribution for the the Darcy-speed with which water flows through the aquifer layer.
+            /// Gets the mean of the distribution for the Darcy-speed with which water flows through the aquifer layer.
             /// [m/s]
             /// </summary>
             public RoundedDouble PermeabilityMean { get; }
