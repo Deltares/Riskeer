@@ -107,8 +107,9 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 );
                 if (sameProfile != null)
                 {
-                    if (sameProfile.Update(fromProfile))
+                    if (!sameProfile.Equals(fromProfile))
                     {
+                        sameProfile.Update(fromProfile);
                         updatedProfiles.Add(sameProfile);
                     }
                 }
@@ -120,8 +121,9 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 newSoilProfiles.Add(fromProfile.SoilProfile);
             }
 
-            foreach (PipingStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))))
+            PipingStochasticSoilProfile[] remainingProfiles = StochasticSoilProfiles.Where(
+                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray();
+            foreach (PipingStochasticSoilProfile profileToRemove in remainingProfiles)
             {
                 StochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);

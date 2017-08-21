@@ -93,21 +93,15 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// obtain the property values from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
         /// is <c>null</c>.</exception>
-        /// <returns><c>true</c> if the profile has been updated; <c>false</c> otherwise.</returns>
-        public bool Update(PipingStochasticSoilProfile fromProfile)
+        public void Update(PipingStochasticSoilProfile fromProfile)
         {
             if (fromProfile == null)
             {
                 throw new ArgumentNullException(nameof(fromProfile));
             }
-            if (Equals(fromProfile))
-            {
-                return false;
-            }
 
             SoilProfile = fromProfile.SoilProfile;
             Probability = fromProfile.Probability;
-            return true;
         }
 
         public override string ToString()

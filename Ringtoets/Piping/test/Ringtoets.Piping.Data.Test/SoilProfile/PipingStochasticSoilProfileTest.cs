@@ -103,33 +103,11 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
                                                               PipingStochasticSoilProfile otherStochasticProfile)
         {
             // Call
-            bool updated = stochasticProfile.Update(otherStochasticProfile);
+            stochasticProfile.Update(otherStochasticProfile);
 
             // Assert
-            Assert.IsTrue(updated);
             Assert.AreEqual(otherStochasticProfile.Probability, stochasticProfile.Probability);
             Assert.AreSame(otherStochasticProfile.SoilProfile, stochasticProfile.SoilProfile);
-        }
-
-        [Test]
-        public void Update_WithEqualProfile_ReturnsFalse()
-        {
-            // Setup
-            const double probability = 1.0;
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var stochasticProfile = new PipingStochasticSoilProfile(probability, profile);
-            var otherStochasticProfile = new PipingStochasticSoilProfile(probability, profile);
-
-            // Precondition
-            Assert.AreEqual(stochasticProfile, otherStochasticProfile);
-
-            // Call
-            bool updated = stochasticProfile.Update(otherStochasticProfile);
-
-            // Assert
-            Assert.IsFalse(updated);
-            Assert.AreEqual(probability, stochasticProfile.Probability);
-            Assert.AreSame(profile, stochasticProfile.SoilProfile);
         }
 
         [Test]
