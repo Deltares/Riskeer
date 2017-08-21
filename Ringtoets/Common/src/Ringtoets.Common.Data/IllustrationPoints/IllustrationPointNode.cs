@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             var clone = (IllustrationPointNode) MemberwiseClone();
 
             clone.Data = (IllustrationPointBase) Data.Clone();
-            clone.Children = Children.Select(c => (IllustrationPointNode) c.Clone());
+            clone.Children = Children.Select(c => (IllustrationPointNode) c.Clone()).ToArray();
 
             return clone;
         }

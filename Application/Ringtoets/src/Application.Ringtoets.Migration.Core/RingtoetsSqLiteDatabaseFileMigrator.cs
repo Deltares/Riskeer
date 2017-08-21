@@ -65,7 +65,8 @@ namespace Application.Ringtoets.Migration.Core
         {
             return scriptResource.GetManifestResourceNames()
                                  .Where(r => r.Contains("Migration_"))
-                                 .Select(CreateNewUpgradeScript);
+                                 .Select(CreateNewUpgradeScript)
+                                 .ToArray();
         }
 
         private static string GetMigrationScriptFromVersion(string filename)
@@ -99,7 +100,8 @@ namespace Application.Ringtoets.Migration.Core
         {
             return scriptResource.GetManifestResourceNames()
                                  .Where(r => r.Contains("DatabaseStructure"))
-                                 .Select(CreateNewCreateScript);
+                                 .Select(CreateNewCreateScript)
+                                 .ToArray();
         }
 
         private static string GetCreateScriptVersion(string filename)

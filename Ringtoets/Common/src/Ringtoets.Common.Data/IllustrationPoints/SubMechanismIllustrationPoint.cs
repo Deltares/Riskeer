@@ -77,8 +77,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         {
             var clone = (SubMechanismIllustrationPoint) base.Clone();
 
-            clone.Stochasts = Stochasts.Select(s => (SubMechanismIllustrationPointStochast) s.Clone());
-            clone.IllustrationPointResults = IllustrationPointResults.Select(r => (IllustrationPointResult) r.Clone());
+            clone.Stochasts = Stochasts.Select(s => (SubMechanismIllustrationPointStochast) s.Clone()).ToArray();
+            clone.IllustrationPointResults = IllustrationPointResults.Select(r => (IllustrationPointResult) r.Clone()).ToArray();
 
             return clone;
         }

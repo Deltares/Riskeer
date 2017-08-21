@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         {
             var clone = (FaultTreeIllustrationPoint) base.Clone();
 
-            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone());
+            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone()).ToArray();
 
             return clone;
         }

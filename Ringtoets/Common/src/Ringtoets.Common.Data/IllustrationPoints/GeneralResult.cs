@@ -84,8 +84,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             var clone = (GeneralResult<T>) MemberwiseClone();
 
             clone.GoverningWindDirection = (WindDirection) GoverningWindDirection.Clone();
-            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone());
-            clone.TopLevelIllustrationPoints = TopLevelIllustrationPoints.Select(s => (T) s.Clone());
+            clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone()).ToArray();
+            clone.TopLevelIllustrationPoints = TopLevelIllustrationPoints.Select(s => (T) s.Clone()).ToArray();
 
             return clone;
         }
