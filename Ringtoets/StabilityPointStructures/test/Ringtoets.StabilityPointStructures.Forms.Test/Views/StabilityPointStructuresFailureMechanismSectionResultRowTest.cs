@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -51,6 +53,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+            TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -162,6 +166,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             Assert.AreSame(expectedCalculation, calculation);
+        }
+
+        [Test]
+        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        {
+            // Setup
+            var random = new Random(21);
+            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSection());
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            row.AssessmentLayerThree = assessmentLayerThree;
+
+            // Assert
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()

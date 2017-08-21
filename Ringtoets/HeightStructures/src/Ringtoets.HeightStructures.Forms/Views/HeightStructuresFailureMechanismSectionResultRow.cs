@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -39,6 +40,19 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+
+        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
+        public override RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return base.AssessmentLayerThree;
+            }
+            set
+            {
+                base.AssessmentLayerThree = value;
+            }
+        }
 
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.

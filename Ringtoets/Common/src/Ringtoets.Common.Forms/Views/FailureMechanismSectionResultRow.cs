@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
+        public virtual RoundedDouble AssessmentLayerThree
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
 

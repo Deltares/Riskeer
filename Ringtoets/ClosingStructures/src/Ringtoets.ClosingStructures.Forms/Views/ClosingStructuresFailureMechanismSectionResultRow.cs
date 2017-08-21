@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -40,6 +41,19 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+
+        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
+        public override RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return base.AssessmentLayerThree;
+            }
+            set
+            {
+                base.AssessmentLayerThree = value;
+            }
+        }
 
         /// <summary>
         /// Gets the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.

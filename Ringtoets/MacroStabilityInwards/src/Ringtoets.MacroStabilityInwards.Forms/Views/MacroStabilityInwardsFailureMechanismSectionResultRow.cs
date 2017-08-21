@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -53,6 +54,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(calculations));
             }
             this.calculations = calculations;
+        }
+
+        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
+        public override RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return base.AssessmentLayerThree;
+            }
+            set
+            {
+                base.AssessmentLayerThree = value;
+            }
         }
 
         /// <summary>

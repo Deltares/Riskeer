@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -41,6 +42,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+
+        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
+        public override RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return base.AssessmentLayerThree;
+            }
+            set
+            {
+               base.AssessmentLayerThree = value;
+            }
+        }
 
         /// <summary>
         /// Gets the value representing the result of the layer 2a assessment.

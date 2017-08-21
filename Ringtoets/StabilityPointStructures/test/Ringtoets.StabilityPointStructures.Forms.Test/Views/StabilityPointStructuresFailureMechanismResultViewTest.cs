@@ -277,7 +277,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
 
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
+                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
@@ -287,7 +288,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result2.AssessmentLayerThree),
+                                cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
@@ -297,7 +299,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.AssessmentLayerThree),
+                                cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);

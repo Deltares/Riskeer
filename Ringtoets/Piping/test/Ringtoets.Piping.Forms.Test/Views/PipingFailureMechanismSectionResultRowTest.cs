@@ -53,6 +53,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+            TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -162,6 +164,24 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 scenario
             });
             Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
+        }
+
+        [Test]
+        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        {
+            // Setup
+            var random = new Random(21);
+            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+
+            var sectionResult = new PipingFailureMechanismSectionResult(CreateSection());
+            var row = new PipingFailureMechanismSectionResultRow(sectionResult,
+                                                                 Enumerable.Empty<PipingCalculationScenario>());
+
+            // Call
+            row.AssessmentLayerThree = assessmentLayerThree;
+
+            // Assert
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()

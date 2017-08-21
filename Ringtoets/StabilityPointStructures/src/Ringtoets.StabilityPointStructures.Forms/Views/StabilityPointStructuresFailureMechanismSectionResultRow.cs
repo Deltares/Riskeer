@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -50,6 +51,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             get
             {
                 return SectionResult.AssessmentLayerTwoA;
+            }
+        }
+
+        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
+        public override RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return base.AssessmentLayerThree;
+            }
+            set
+            {
+                base.AssessmentLayerThree = value;
             }
         }
 

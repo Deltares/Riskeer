@@ -53,6 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>()), row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -162,6 +164,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 scenario
             });
             Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
+        }
+
+        [Test]
+        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        {
+            // Setup
+            var random = new Random(21);
+            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(CreateSection());
+            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
+                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+
+            // Call
+            row.AssessmentLayerThree = assessmentLayerThree;
+
+            // Assert
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()
