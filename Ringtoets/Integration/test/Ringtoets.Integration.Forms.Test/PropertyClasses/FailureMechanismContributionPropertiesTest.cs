@@ -176,17 +176,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Trajecttype",
                                                                             "Selecteer het type traject, bepalend voor de faalkansbegroting.");
 
-            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
-                                                                            expectedCategory,
-                                                                            "Ondergrens [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
-
-            PropertyDescriptor signalingNormProperty = dynamicProperties[2];
+            PropertyDescriptor signalingNormProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
                                                                             expectedCategory,
                                                                             "Signaleringswaarde [1/jaar]",
                                                                             "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
+
+            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
+                                                                            expectedCategory,
+                                                                            "Ondergrens [1/jaar]",
+                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
 
             PropertyDescriptor normativeNormProperty = dynamicProperties[3];
             Assert.IsInstanceOf<EnumTypeConverter>(normativeNormProperty.Converter);

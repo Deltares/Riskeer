@@ -111,22 +111,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
-        public string LowerLimitNorm
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(data.LowerLimitNorm);
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = double.Parse(value), normChangeHandler);
-            }
-        }
-
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
         public string SignalingNorm
@@ -138,6 +122,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = double.Parse(value), normChangeHandler);
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
+        public string LowerLimitNorm
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.LowerLimitNorm);
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = double.Parse(value), normChangeHandler);
             }
         }
 

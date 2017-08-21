@@ -510,7 +510,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.SignalingNorm = 0.1;
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -526,7 +526,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = 0.000001;
 
             // Assert
-            const string expectedMessage = "De ondergrens moet gelijk of groter zijn dan de signaleringswaarde.";
+            const string expectedMessage = "De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
