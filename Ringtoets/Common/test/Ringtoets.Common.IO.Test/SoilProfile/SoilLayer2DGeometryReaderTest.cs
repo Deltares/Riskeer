@@ -203,14 +203,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double y1 = random.NextDouble();
             double y2 = random.NextDouble();
 
-            string x1String = x1.ToString(invariantCulture);
-            string x2String = x2.ToString(invariantCulture);
-            string y1String = y1.ToString(invariantCulture);
-            string y2String = y2.ToString(invariantCulture);
-            double parsedX1 = double.Parse(x1String, invariantCulture);
-            double parsedX2 = double.Parse(x2String, invariantCulture);
-            double parsedY1 = double.Parse(y1String, invariantCulture);
-            double parsedY2 = double.Parse(y2String, invariantCulture);
+            string x1String = XmlConvert.ToString(x1);
+            string x2String = XmlConvert.ToString(x2);
+            string y1String = XmlConvert.ToString(y1);
+            string y2String = XmlConvert.ToString(y2);
             XDocument xmlDoc = GetXmlDocument(
                 string.Format(invariantCulture,
                               "<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
@@ -228,7 +224,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(result);
-            var expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
+
+            var expectedSegment = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y2));
             var expectedCollection = new[]
             {
                 new List<Segment2D>
@@ -309,14 +306,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double y1 = random.NextDouble();
             double y2 = random.NextDouble();
 
-            string x1String = x1.ToString(invariantCulture);
-            string x2String = x2.ToString(invariantCulture);
-            string y1String = y1.ToString(invariantCulture);
-            string y2String = y2.ToString(invariantCulture);
-            double parsedX1 = XmlConvert.ToDouble(x1String);
-            double parsedX2 = XmlConvert.ToDouble(x2String);
-            double parsedY1 = XmlConvert.ToDouble(y1String);
-            double parsedY2 = XmlConvert.ToDouble(y2String);
+            string x1String = XmlConvert.ToString(x1);
+            string x2String = XmlConvert.ToString(x2);
+            string y1String = XmlConvert.ToString(y1);
+            string y2String = XmlConvert.ToString(y2);
             XDocument bytes = GetXmlDocument(
                 string.Format(invariantCulture,
                               "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
@@ -335,7 +328,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(result);
-            var expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
+            var expectedSegment = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y2));
             CollectionAssert.AreEqual(new List<Segment2D>
             {
                 expectedSegment,
@@ -344,21 +337,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         /// <summary>
-        /// Takes a <paramref name="str"/> which describes an XML document and returns 
+        /// Takes a <paramref name="xmlString"/> which describes an XML document and returns 
         /// an <see cref="XDocument"/> from this.
         /// </summary>
-        /// <param name="str">The <see cref="string"/> to convert to an <see cref="XDocument"/>.</param>
-        /// <returns>The <see cref="XDocument"/> constructed from <paramref name="str"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="str"/> is <c>null</c>.</exception>
-        /// <exception cref="XmlException">Thrown when <paramref name="str"/> does not describe
+        /// <param name="xmlString">The <see cref="string"/> to convert to an <see cref="XDocument"/>.</param>
+        /// <returns>The <see cref="XDocument"/> constructed from <paramref name="xmlString"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="xmlString"/> is <c>null</c>.</exception>
+        /// <exception cref="XmlException">Thrown when <paramref name="xmlString"/> does not describe
         /// a valid XML document.</exception>
-        private static XDocument GetXmlDocument(string str)
+        private static XDocument GetXmlDocument(string xmlString)
         {
-            return XDocument.Load(new MemoryStream(GetByteArray(str)));
+            return XDocument.Load(new MemoryStream(GetByteArray(xmlString)));
         }
 
         /// <summary>
-        /// Takes a <paramref name="str"/> and returns an <see cref="Array"/> of <see cref="byte"/>,
+        /// Takes a <paramref name="str"/> and returns an <see cref="Array"/> of <see cref="byte"/>
         /// which contains the same information as the original <paramref name="str"/>.
         /// </summary>
         /// <param name="str">The <see cref="string"/> to convert to an <see cref="Array"/> of 

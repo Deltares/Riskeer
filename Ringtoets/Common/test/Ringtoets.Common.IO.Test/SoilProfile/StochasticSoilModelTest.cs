@@ -31,7 +31,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class StochasticSoilModelTest
     {
         [Test]
-        public void Constructor_NameNull_ExpectedValues()
+        public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanismType = new Random(145).NextEnumValue<FailureMechanismType>();

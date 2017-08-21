@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -59,7 +60,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
         [Test]
         [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
+        public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
             TestDelegate test = () =>
@@ -136,6 +137,64 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual("Profile", soilProfile2D.Name);
             Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
             Assert.AreEqual(3, soilProfile2D.Layers.Count());
+
+            CollectionAssert.AreEqual(new[]
+            {
+                true,
+                false,
+                false
+            }, soilProfile2D.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(new[]
+            {
+                Color.FromArgb(70, 130, 180),
+                Color.FromArgb(255, 0, 0),
+                Color.FromArgb(128, 255, 128)
+            }, soilProfile2D.Layers.Select(l => l.Color));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.21,
+                0.71,
+                3.88
+            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelMean));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.001,
+                0.02,
+                0.08
+            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.3,
+                0.32,
+                0.4
+            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelShift));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.51,
+                0.01,
+                11.3
+            }, soilProfile2D.Layers.Select(l => l.DiameterD70Mean));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.029411,
+                0.1,
+                0.017699
+            }, soilProfile2D.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
+            CollectionAssert.AreEqual(new[]
+            {
+                1.01,
+                9.99,
+                5.21
+            }, soilProfile2D.Layers.Select(l => l.PermeabilityMean));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.024752,
+
+                0.01001,
+                0.057582
+            }, soilProfile2D.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]

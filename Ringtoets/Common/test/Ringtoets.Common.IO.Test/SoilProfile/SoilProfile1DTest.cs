@@ -103,6 +103,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(name, soilProfile1D.Name);
             Assert.AreEqual(bottom, soilProfile1D.Bottom);
             CollectionAssert.AreEqual(soilLayer1Ds, soilProfile1D.Layers);
+            Assert.AreNotSame(soilLayer1Ds, soilProfile1D.Layers);
         }
     }
 }

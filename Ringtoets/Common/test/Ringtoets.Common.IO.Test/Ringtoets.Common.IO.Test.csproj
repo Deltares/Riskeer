@@ -119,7 +119,7 @@
     <Compile Include="SoilProfile\SoilLayer2DGeometryReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DTest.cs" />
     <Compile Include="SoilProfile\SoilLayerBaseTest.cs" />
-    <Compile Include="SoilProfile\SoilLayerColorConverter.cs" />
+    <Compile Include="SoilProfile\SoilLayerColorConverterTest.cs" />
     <Compile Include="Exceptions\SoilLayerConversionExceptionTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DTest.cs" />

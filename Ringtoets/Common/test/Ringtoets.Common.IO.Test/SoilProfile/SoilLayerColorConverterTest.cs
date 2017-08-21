@@ -26,13 +26,13 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayerColorConverter
+    public class SoilLayerColorConverterTest
     {
         [Test]
         public void Convert_Null_ReturnsEmptyColor()
         {
             // Call
-            Color color = IO.SoilProfile.SoilLayerColorConverter.Convert(null);
+            Color color = SoilLayerColorConverter.Convert(null);
 
             // Assert
             Assert.AreEqual(Color.Empty, color);
@@ -52,10 +52,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Convert_DifferentDoubleValues_ReturnsExpectedColor(double colorValue, int r, int g, int b)
         {
             // Call
-            Color color = IO.SoilProfile.SoilLayerColorConverter.Convert(colorValue);
+            Color color = SoilLayerColorConverter.Convert(colorValue);
 
             // Assert
-            Assert.AreEqual(Color.FromArgb(r, g, b), color);
+            Assert.AreEqual(r, color.R);
+            Assert.AreEqual(g, color.G);
+            Assert.AreEqual(b, color.B);
+            Assert.AreEqual(255, color.A);
         }
     }
 }

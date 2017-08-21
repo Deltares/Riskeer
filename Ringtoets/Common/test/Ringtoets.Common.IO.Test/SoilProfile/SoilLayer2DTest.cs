@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -33,33 +32,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayer2DTest
     {
         [Test]
-        public void DefaultConstructor_NotInstantiatedOuterLoopAndEmptyInnerLoops()
+        public void DefaultConstructor_ExpectedPropertiesSet()
         {
             // Call
             var layer = new SoilLayer2D();
 
             // Assert
             Assert.IsInstanceOf<SoilLayerBase>(layer);
-            Assert.IsFalse(layer.IsAquifer);
-            Assert.IsEmpty(layer.MaterialName);
-            Assert.AreEqual(Color.Empty, layer.Color);
-            Assert.IsNull(layer.OuterLoop);
-            CollectionAssert.IsEmpty(layer.InnerLoops);
-
-            Assert.IsNull(layer.BelowPhreaticLevelDistribution);
-            Assert.IsNaN(layer.BelowPhreaticLevelShift);
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-
-            Assert.IsNull(layer.DiameterD70Distribution);
-            Assert.IsNaN(layer.DiameterD70Shift);
-            Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
-
-            Assert.IsNull(layer.PermeabilityDistribution);
-            Assert.IsNaN(layer.PermeabilityShift);
-            Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
