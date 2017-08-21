@@ -40,13 +40,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         private IDataReader dataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilProfile2DReader"/>, which will use the 
+        /// Creates a new instance of <see cref="SoilProfile2DReader"/> which will use the 
         /// <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters;</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>

@@ -36,8 +36,8 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class SoilDatabaseConstraintsReader : SqLiteDatabaseReaderBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilDatabaseConstraintsReader"/>, 
-        /// that will use the <paramref name="databaseFilePath"/> as its source.
+        /// Creates a new instance of <see cref="SoilDatabaseConstraintsReader"/> which will 
+        /// use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 

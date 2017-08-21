@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     internal class LayerProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="LayerProperties"/>, that contains properties
+        /// Creates a new instance of <see cref="LayerProperties"/> which contains properties
         /// that are required to create a complete soil layer.
         /// </summary>
         /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain the required 
