@@ -79,6 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a random instance of <see cref="OvertoppingRateOutput"/>.
         /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="OvertoppingRateOutput"/>.</returns>
         public static OvertoppingRateOutput GetRandomOvertoppingRateOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
@@ -95,6 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a random instance of <see cref="OvertoppingOutput"/>.
         /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="OvertoppingOutput"/>.</returns>
         public static OvertoppingOutput GetRandomOvertoppingOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
@@ -112,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a random instance of <see cref="DikeHeightOutput"/>.
         /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="DikeHeightOutput"/>.</returns>
         public static DikeHeightOutput GetRandomDikeHeightOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
@@ -126,10 +129,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="TestHydraulicLoadsOutput"/>.
+        /// Creates a random instance of <see cref="HydraulicLoadsOutput"/>.
         /// </summary>
-        /// <returns>A random instance of <see cref="TestHydraulicLoadsOutput"/>.</returns>
-        public static TestHydraulicLoadsOutput GetRandomHydraulicLoadsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
+        /// <param name="generalResult">The general result to set to the output.</param>
+        /// <returns>A random instance of <see cref="HydraulicLoadsOutput"/>.</returns>
+        public static HydraulicLoadsOutput GetRandomHydraulicLoadsOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
             var random = new Random(21);
 

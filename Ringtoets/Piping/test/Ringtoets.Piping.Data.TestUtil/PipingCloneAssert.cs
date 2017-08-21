@@ -46,12 +46,12 @@ namespace Ringtoets.Piping.Data.TestUtil
             Assert.AreEqual(original.HeaveZValue, clone.HeaveZValue);
             Assert.AreEqual(original.HeaveFactorOfSafety, clone.HeaveFactorOfSafety);
             Assert.AreEqual(original.SellmeijerZValue, clone.SellmeijerZValue);
+            Assert.AreEqual(original.SellmeijerFactorOfSafety, clone.SellmeijerFactorOfSafety);
             Assert.AreEqual(original.UpliftEffectiveStress, clone.UpliftEffectiveStress);
             Assert.AreEqual(original.HeaveGradient, clone.HeaveGradient);
             Assert.AreEqual(original.SellmeijerCreepCoefficient, clone.SellmeijerCreepCoefficient);
             Assert.AreEqual(original.SellmeijerCriticalFall, clone.SellmeijerCriticalFall);
             Assert.AreEqual(original.SellmeijerReducedFall, clone.SellmeijerReducedFall);
-            Assert.AreEqual(original.SellmeijerFactorOfSafety, clone.SellmeijerFactorOfSafety);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingCalculationScenario original, PipingCalculationScenario clone)
         {
-            AreClones((PipingCalculation)original, clone);
+            AreClones((PipingCalculation) original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
         }

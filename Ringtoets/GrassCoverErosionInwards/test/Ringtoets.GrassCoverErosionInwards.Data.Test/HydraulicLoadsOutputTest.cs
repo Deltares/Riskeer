@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestHydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(null);
+            HydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(null);
 
             // Call
             object clone = original.Clone();
@@ -168,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            TestHydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            HydraulicLoadsOutput original = GrassCoverErosionInwardsTestDataGenerator.GetRandomHydraulicLoadsOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             object clone = original.Clone();

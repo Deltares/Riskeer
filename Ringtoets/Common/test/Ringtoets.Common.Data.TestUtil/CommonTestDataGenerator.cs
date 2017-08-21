@@ -98,6 +98,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a random instance of <see cref="StructuresOutput"/>.
         /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
         /// <returns>A random instance of <see cref="StructuresOutput"/>.</returns>
         public static StructuresOutput GetRandomStructuresOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
