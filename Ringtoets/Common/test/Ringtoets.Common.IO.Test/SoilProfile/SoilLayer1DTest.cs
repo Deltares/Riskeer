@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -41,25 +40,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.IsInstanceOf<SoilLayerBase>(layer);
             Assert.AreEqual(top, layer.Top);
-            Assert.IsFalse(layer.IsAquifer);
-            Assert.IsEmpty(layer.MaterialName);
-            Assert.AreEqual(Color.Empty, layer.Color);
-
-            Assert.IsNull(layer.BelowPhreaticLevelDistribution);
-            Assert.IsNaN(layer.BelowPhreaticLevelShift);
-            Assert.IsNaN(layer.BelowPhreaticLevelMean);
-            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
-
-            Assert.IsNull(layer.DiameterD70Distribution);
-            Assert.IsNaN(layer.DiameterD70Shift);
-            Assert.IsNaN(layer.DiameterD70Mean);
-            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
-
-            Assert.IsNull(layer.PermeabilityDistribution);
-            Assert.IsNaN(layer.PermeabilityShift);
-            Assert.IsNaN(layer.PermeabilityMean);
-            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
-        
     }
 }

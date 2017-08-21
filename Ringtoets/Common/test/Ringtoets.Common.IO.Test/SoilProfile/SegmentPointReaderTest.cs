@@ -57,7 +57,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
         [Test]
         [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
+        public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
             TestDelegate test = () =>
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_SegmentPointNull_ThrowsStochasticSoilModelException()
+        public void ReadStochasticSoilModel_SegmentPointCoordinatesNull_ThrowsStochasticSoilModelException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsFalse()
+        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsEmptyCollection()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");

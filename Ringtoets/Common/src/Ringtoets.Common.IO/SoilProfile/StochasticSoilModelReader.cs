@@ -39,8 +39,10 @@ namespace Ringtoets.Common.IO.SoilProfile
     {
         private readonly Dictionary<long, SoilProfile1D> soilProfile1Ds = new Dictionary<long, SoilProfile1D>();
         private readonly Dictionary<long, SoilProfile2D> soilProfile2Ds = new Dictionary<long, SoilProfile2D>();
+
         private IDataReader dataReader;
         private SegmentPointReader segmentPointReader;
+        private long currentStochasticSoilModelId = -1;
 
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModelReader"/> 
@@ -207,12 +209,30 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             StochasticSoilModel stochasticSoilModel = CreateStochasticSoilModel();
-            long currentSoilModelId = ReadStochasticSoilModelId();
+            currentStochasticSoilModelId = ReadStochasticSoilModelId();
 
             SetGeometry(stochasticSoilModel);
-            stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles(currentSoilModelId));
+            SetStochasticSoilProfiles(stochasticSoilModel);
 
             return stochasticSoilModel;
+        }
+
+        /// <summary>
+        /// Sets <see cref="StochasticSoilProfile"/> objects that belong to soil model.
+        /// </summary>
+        /// <param name="stochasticSoilModel">The stochastic soil model of which the profiles to set.</param>
+        /// <exception cref="StochasticSoilModelException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No stochastic soil profiles could be read;</item>
+        /// <item>The read failure mechanism type is not supported.</item>
+        /// </list>
+        /// </exception>
+        private void SetStochasticSoilProfiles(StochasticSoilModel stochasticSoilModel)
+        {
+            if (MoveToStochasticSoilModel(currentStochasticSoilModelId))
+            {
+                stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles());
+            }
         }
 
         /// <summary>
@@ -222,9 +242,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         private void SetGeometry(StochasticSoilModel stochasticSoilModel)
         {
-            long currentSoilModelId = ReadStochasticSoilModelId();
-
-            if (!segmentPointReader.MoveToStochasticSoilModel(currentSoilModelId))
+            if (!segmentPointReader.MoveToStochasticSoilModel(currentStochasticSoilModelId))
             {
                 throw new StochasticSoilModelException(
                     string.Format(Resources.SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry,
@@ -235,10 +253,28 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads and returns <see cref="StochasticSoilProfile"/> objects that belong to soil model 
-        /// with id <paramref name="stochasticSoilModelId"/>.
+        /// Moves the reader to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
         /// </summary>
-        /// <param name="stochasticSoilModelId">The database identifier of the soil model.</param>
+        /// <param name="stochasticSoilModelId">The id of the stochastic soil model.</param>
+        /// <returns><c>true</c> if the reader was moved to the stochastic soil model with id 
+        /// <paramref name="stochasticSoilModelId"/> successfully, <c>false</c> otherwise.</returns>
+        private bool MoveToStochasticSoilModel(long stochasticSoilModelId)
+        {
+            while (HasNext && ReadStochasticSoilModelId() <= stochasticSoilModelId)
+            {
+                if (ReadStochasticSoilModelId() == stochasticSoilModelId)
+                {
+                    currentStochasticSoilModelId = stochasticSoilModelId;
+                    return true;
+                }
+                MoveNext();
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Reads and returns <see cref="StochasticSoilProfile"/> objects that belong to soil model.
+        /// </summary>
         /// <returns>The read stochastic soil profiles.</returns>
         /// <exception cref="StochasticSoilModelException">Thrown when:
         /// <list type="bullet">
@@ -246,9 +282,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
-        private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles(long stochasticSoilModelId)
+        private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles()
         {
-            while (HasNext && ReadStochasticSoilModelId() == stochasticSoilModelId)
+            while (HasNext && ReadStochasticSoilModelId() == currentStochasticSoilModelId)
             {
                 double? probability = ReadStochasticSoilProfileProbability();
 

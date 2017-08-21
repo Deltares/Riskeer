@@ -140,9 +140,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Stub(r => r.ReadOrDefault<long?>(columnName)).Throw(invalidCastException);
             reader.Stub(r => r.ReadOrDefault<string>(columnName)).Throw(invalidCastException);
 
-            reader.Stub(r => r.ReadOrDefault<double?>(columnName)).IgnoreArguments().Return(0);
-            reader.Stub(r => r.ReadOrDefault<long?>(columnName)).IgnoreArguments().Return(0);
-            reader.Stub(r => r.ReadOrDefault<string>(columnName)).IgnoreArguments().Return("");
+            reader.Stub(r => r.ReadOrDefault<double?>(Arg<string>.Matches(s => s != columnName)))
+                  .Return(0);
+            reader.Stub(r => r.ReadOrDefault<long?>(Arg<string>.Matches(s => s != columnName)))
+                  .Return(0);
+            reader.Stub(r => r.ReadOrDefault<string>(Arg<string>.Matches(s => s != columnName)))
+                  .Return("");
             reader.Expect(r => r.Path).Return(path);
             mockRepository.ReplayAll();
 
