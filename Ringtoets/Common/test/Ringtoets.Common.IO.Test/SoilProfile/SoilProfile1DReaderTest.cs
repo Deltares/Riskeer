@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
@@ -105,6 +106,40 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     "Kon geen ondergrondschematisaties verkrijgen uit de database.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GivenReadSoilProfileThrowsException_WhenReadingNextProfile_ReturnsNextProfile()
+        {
+            // Given
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithInvalidLayerProperty.soil");
+
+            SoilProfileReadException exception = null;
+            var readSoilProfiles = new List<SoilProfile1D>();
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // When
+                try
+                {
+                    reader.ReadSoilProfile();
+                }
+                catch (SoilProfileReadException e)
+                {
+                    exception = e;
+                }
+
+                // Then
+                readSoilProfiles.Add(reader.ReadSoilProfile());
+            }
+
+            Assert.IsInstanceOf<SoilProfileReadException>(exception);
+            Assert.AreEqual("Profile", exception.ProfileName);
+            Assert.AreEqual(1, readSoilProfiles.Count);
+            Assert.AreEqual("Profile2", readSoilProfiles[0].Name);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

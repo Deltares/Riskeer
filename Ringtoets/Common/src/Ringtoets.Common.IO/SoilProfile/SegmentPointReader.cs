@@ -34,7 +34,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads segment points from this database.
+    /// This class reads a D-Soil Model file and reads segment points from this database.
     /// </summary>
     public class SegmentPointReader : SqLiteDatabaseReaderBase
     {

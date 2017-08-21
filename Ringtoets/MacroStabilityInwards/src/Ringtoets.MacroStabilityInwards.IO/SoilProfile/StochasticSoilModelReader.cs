@@ -35,7 +35,7 @@ using Ringtoets.MacroStabilityInwards.IO.SoilProfile.Schema;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads <see cref="MacroStabilityInwardsStochasticSoilModel"/> from this database.
+    /// This class reads a D-Soil Model file and reads <see cref="MacroStabilityInwardsStochasticSoilModel"/> from this database.
     /// </summary>
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {

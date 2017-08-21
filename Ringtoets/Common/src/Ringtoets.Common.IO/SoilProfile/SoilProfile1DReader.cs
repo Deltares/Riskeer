@@ -33,7 +33,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads 1d profiles from this database.
+    /// This class reads a D-Soil Model file and reads 1d profiles from this database.
     /// </summary>
     public class SoilProfile1DReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
@@ -124,19 +124,39 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
+        /// Steps through the result rows until a row is read which' profile id differs from <paramref name="soilProfileId"/>.
+        /// </summary>
+        /// <param name="soilProfileId">The id of the profile to skip.</param>
+        private void MoveToNextProfile(long soilProfileId)
+        {
+            while (HasNext && Read<long>(SoilProfileTableDefinitions.SoilProfileId).Equals(soilProfileId))
+            {
+                MoveNext();
+            }
+        }
+
+        /// <summary>
         /// Tries to read and create a <see cref="SoilProfile1D"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The read <see cref="SoilProfile1D"/>.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile1D TryReadSoilProfile()
         {
             var properties = new RequiredProfileProperties(this);
 
             var soilLayers = new List<SoilLayer1D>();
-            for (var i = 1; i <= properties.LayerCount; i++)
+            try
             {
-                soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
-                MoveNext();
+                for (var i = 1; i <= properties.LayerCount; i++)
+                {
+                    soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
+                    MoveNext();
+                }
+            }
+            catch (SoilProfileReadException)
+            {
+                MoveToNextProfile(properties.ProfileId);
+                throw;
             }
 
             try

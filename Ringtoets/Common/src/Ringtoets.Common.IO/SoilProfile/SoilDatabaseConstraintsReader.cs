@@ -31,7 +31,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and validates whether it meets required constraints.
+    /// This class reads a D-Soil Model file and validates whether it meets required constraints.
     /// </summary>
     public class SoilDatabaseConstraintsReader : SqLiteDatabaseReaderBase
     {

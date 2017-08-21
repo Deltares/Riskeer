@@ -33,7 +33,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads 2d profiles from this database.
+    /// This class reads a D-Soil Model file and reads 2d profiles from this database.
     /// </summary>
     public class SoilProfile2DReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
@@ -122,6 +122,18 @@ namespace Ringtoets.Common.IO.SoilProfile
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Steps through the result rows until a row is read which' profile id differs from <paramref name="soilProfileId"/>.
+        /// </summary>
+        /// <param name="soilProfileId">The id of the profile to skip.</param>
+        private void MoveToNextProfile(long soilProfileId)
+        {
+            while (HasNext && Read<long>(SoilProfileTableDefinitions.SoilProfileId).Equals(soilProfileId))
+            {
+                MoveNext();
+            }
+        }
+
         private void PrepareReader()
         {
             string soilProfile2DQuery = SoilDatabaseQueryBuilder.GetSoilProfile2DQuery();
@@ -137,29 +149,46 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Tries to read and create a <see cref="SoilProfile2D"/>.
+        /// </summary>
+        /// <returns>The read <see cref="SoilProfile2D"/>.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile2D TryReadSoilProfile()
         {
             var properties = new RequiredProfileProperties(this);
 
             var soilLayers = new List<SoilLayer2D>();
-
-            if (properties.LayerCount == 0)
+            try
             {
-                throw new SoilProfileReadException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers, properties.ProfileName);
+                for (var i = 1; i <= properties.LayerCount; i++)
+                {
+                    soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
+                    MoveNext();
+                }
+            }
+            catch (SoilProfileReadException)
+            {
+                MoveToNextProfile(properties.ProfileId);
+                throw;
             }
 
-            for (var i = 1; i <= properties.LayerCount; i++)
+            try
             {
-                soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
-                MoveNext();
+                return new SoilProfile2D(properties.ProfileId,
+                                         properties.ProfileName,
+                                         soilLayers)
+                {
+                    IntersectionX = properties.IntersectionX
+                };
             }
-
-            return new SoilProfile2D(properties.ProfileId,
-                                     properties.ProfileName,
-                                     soilLayers)
+            catch (ArgumentException exception)
             {
-                IntersectionX = properties.IntersectionX
-            };
+                throw new SoilProfileReadException(
+                    Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
+                    properties.ProfileName,
+                    exception);
+            }
         }
 
         /// <summary>

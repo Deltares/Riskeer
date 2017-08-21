@@ -33,7 +33,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads stochastic soil model from this database.
+    /// This class reads a D-Soil Model file and reads stochastic soil model from this database.
     /// </summary>
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
@@ -43,13 +43,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         private SegmentPointReader segmentPointReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelReader"/>, 
+        /// Creates a new instance of <see cref="StochasticSoilModelReader"/> 
         /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when: 
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters;</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
@@ -96,8 +96,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// values for required properties.</exception>
         /// <exception cref="StochasticSoilModelException">Thrown when:
         /// <list type="bullet">
-        /// <item>no stochastic soil profiles could be read;</item>
-        /// <item>the read failure mechanism type is not supported.</item>
+        /// <item>No stochastic soil profiles could be read;</item>
+        /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
         public StochasticSoilModel ReadStochasticSoilModel()
@@ -194,9 +194,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// if no more soil models can be read.</returns>
         /// <exception cref="StochasticSoilModelException">Thrown when:
         /// <list type="bullet">
-        /// <item>no stochastic soil profiles could be read;</item>
-        /// <item>the geometry could not be read;</item>
-        /// <item>the read failure mechanism type is not supported.</item>
+        /// <item>No stochastic soil profiles could be read;</item>
+        /// <item>The geometry could not be read;</item>
+        /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
         private StochasticSoilModel TryReadStochasticSoilModel()
@@ -242,8 +242,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>The read stochastic soil profiles.</returns>
         /// <exception cref="StochasticSoilModelException">Thrown when:
         /// <list type="bullet">
-        /// <item>no stochastic soil profiles could be read;</item>
-        /// <item>the read failure mechanism type is not supported.</item>
+        /// <item>No stochastic soil profiles could be read;</item>
+        /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
         private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles(long stochasticSoilModelId)

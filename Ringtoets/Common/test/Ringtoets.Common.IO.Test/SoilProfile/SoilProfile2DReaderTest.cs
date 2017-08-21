@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -159,6 +160,40 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
+        }
+
+        [Test]
+        public void GivenReadSoilProfileThrowsException_WhenReadingNextProfile_ReturnsNextProfile()
+        {
+            // Given
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");
+
+            SoilProfileReadException exception = null;
+            var readSoilProfiles = new List<SoilProfile2D>();
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // When
+                try
+                {
+                    reader.ReadSoilProfile();
+                }
+                catch (SoilProfileReadException e)
+                {
+                    exception = e;
+                }
+
+                // Then
+                readSoilProfiles.Add(reader.ReadSoilProfile());
+            }
+
+            Assert.IsInstanceOf<SoilProfileReadException>(exception);
+            Assert.AreEqual("Profile", exception.ProfileName);
+            Assert.AreEqual(1, readSoilProfiles.Count);
+            Assert.AreEqual("Profile2", readSoilProfiles[0].Name);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
