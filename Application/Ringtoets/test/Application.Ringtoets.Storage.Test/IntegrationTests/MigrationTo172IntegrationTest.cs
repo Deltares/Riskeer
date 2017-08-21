@@ -21,7 +21,9 @@
 
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SQLite;
 using Application.Ringtoets.Migration.Core;
+using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -73,6 +75,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertForeshoreProfiles(reader);
 
                     AssertSoilProfiles(reader, sourceFilePath);
+
+                    AssertFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "PipingSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "GrassCoverErosionInwardsSectionResultEntity");
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -545,6 +553,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE [SourceType] IN (1,2);" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertFailureMechanismSectionResults(MigratedDatabaseReader reader, string sectionResultTable)
+        {
+            string validateFailureMechanismSectionResults =
+                "SELECT COUNT() = 0 " +
+                $"FROM {sectionResultTable} " +
+                "WHERE LayerThree < 0 OR LayerThree > 1";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
         }
 
         /// <summary>
