@@ -1334,6 +1334,71 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = sps.[FailureMechanismEntityId]
 	WHERE source.[Id] IS NOT sps.[Id];
 
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM PipingSectionResultEntity as psr
+	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON psr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = psr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT psr.[LayerThree];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM GrassCoverErosionInwardsSectionResultEntity as gceisr
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity AS source ON gceisr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = gceisr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT gceisr.[LayerThree];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM ClosingStructuresSectionResultEntity as cssr
+	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON cssr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = cssr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT cssr.[LayerThree];
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM HeightStructuresSectionResultEntity as hssr
+	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON hssr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = hssr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT hssr.[LayerThree];
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM StabilityPointStructuresSectionResultEntity as spssr
+	JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity AS source ON spssr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = spssr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT spssr.[LayerThree];
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 

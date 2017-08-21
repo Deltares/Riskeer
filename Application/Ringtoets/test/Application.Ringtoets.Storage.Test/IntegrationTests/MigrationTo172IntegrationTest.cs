@@ -430,7 +430,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(17, messages.Count);
+                Assert.AreEqual(33, messages.Count);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[0]);
@@ -482,7 +482,63 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[16]);
+
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
+                    messages[17]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
+                    messages[18]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[19],
+                    messages[20]
+                });
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    messages[21]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[22],
+                    messages[23]
+                });
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    messages[24]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[25],
+                    messages[26]
+                });
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    messages[27]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[28],
+                    messages[29]
+                });
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    messages[30]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[31],
+                    messages[32]
+                });
             }
+        }
+
+        private static void AssertLayerThreeMigrationMessage(MigrationLogMessage[] messages)
+        {
+            Assert.AreEqual(2, messages.Length);
+
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                messages[0]);
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                messages[1]);
         }
 
         private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)
