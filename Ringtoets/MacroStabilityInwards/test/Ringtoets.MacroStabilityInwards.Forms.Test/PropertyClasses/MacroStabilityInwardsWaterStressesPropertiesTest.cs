@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Het niveau van het oppervlaktewater binnen een beheersgebied.");
 
             PropertyDescriptor drainageProperty = dynamicProperties[expectedDrainagePropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
                nameof(MacroStabilityInwardsWaterStressesProperties.Drainage));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 drainageProperty,
@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
 
             PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
               nameof(MacroStabilityInwardsWaterStressesProperties.Offsets));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 offsetProperty,
