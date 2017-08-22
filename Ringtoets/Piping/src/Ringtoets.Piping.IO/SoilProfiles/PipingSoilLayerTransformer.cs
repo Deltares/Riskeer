@@ -37,8 +37,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
     internal static class PipingSoilLayerTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="soilLayer"/> into a piping specific 
-        /// soil profile of type <see cref="PipingSoilLayer"/>.
+        /// Transforms the generic <paramref name="soilLayer"/> into a <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to use in the transformation.</param>
         /// <returns>A new <see cref="PipingSoilLayer"/> based on the given data.</returns>
@@ -61,7 +60,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 Color = soilLayer.Color
             };
 
-            SetOptionalStochasticParameters(pipingSoilLayer, soilLayer);
+            SetStochasticParameters(pipingSoilLayer, soilLayer);
 
             return pipingSoilLayer;
         }
@@ -108,7 +107,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                     Color = soilLayer.Color
                 };
 
-                SetOptionalStochasticParameters(pipingSoilLayer, soilLayer);
+                SetStochasticParameters(pipingSoilLayer, soilLayer);
 
                 soilLayers.Add(pipingSoilLayer);
             }
@@ -144,7 +143,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// <param name="soilLayer1D">The <see cref="SoilLayerBase"/> to get the properties from.</param>
         /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
         /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
-        private static void SetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer1D)
+        private static void SetStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer1D)
         {
             pipingSoilLayer.BelowPhreaticLevelMean = soilLayer1D.BelowPhreaticLevelMean;
             pipingSoilLayer.BelowPhreaticLevelDeviation = soilLayer1D.BelowPhreaticLevelDeviation;

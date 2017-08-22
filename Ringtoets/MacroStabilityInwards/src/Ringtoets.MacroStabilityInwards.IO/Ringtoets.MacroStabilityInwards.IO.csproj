@@ -50,6 +50,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Importers\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelTransformer.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineTransformer.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineExtensions.cs" />
