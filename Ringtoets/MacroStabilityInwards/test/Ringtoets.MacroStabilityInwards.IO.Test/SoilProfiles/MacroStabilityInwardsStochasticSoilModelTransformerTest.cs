@@ -74,6 +74,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual($"Het stochastische ondergrondmodel met '{failureMechanismType}' als faalmechanisme type is niet ondersteund. " +
                             "Alleen stochastische ondergrondmodellen met 'Stability' als faalmechanisme type zijn ondersteund.", exception.Message);
         }
+
+        [Test]
+        public void Transform_ValidStochasticSoilModel_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
+        {
+            // Setup
+            var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
+            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability);
+
+            // Call
+            MacroStabilityInwardsStochasticSoilModel transformedModel = transformer.Transform(soilModel);
+
+            // Assert
+            Assert.AreEqual(soilModel.Name, transformedModel.Name);
+            CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
+        }
+
         private static IEnumerable<FailureMechanismType> GetInvalidFailureMechanismTypes()
         {
             return Enum.GetValues(typeof(FailureMechanismType))
