@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Importers;
@@ -256,15 +257,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
                 expectedProgressMessages.Add(new ProgressNotification("Valideren van ingelezen data.", i, expectedModels));
             }
             expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, 1, 1));
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                ProgressNotification notification = expectedProgressMessages[i];
-                ProgressNotification actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
         }
 
         [Test]
@@ -1044,20 +1039,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Importers
         private void IncrementProgress(string a, int b, int c)
         {
             progress++;
-        }
-
-        private class ProgressNotification
-        {
-            public ProgressNotification(string description, int currentStep, int totalSteps)
-            {
-                Text = description;
-                CurrentStep = currentStep;
-                TotalSteps = totalSteps;
-            }
-
-            public string Text { get; }
-            public int CurrentStep { get; }
-            public int TotalSteps { get; }
         }
     }
 }

@@ -282,7 +282,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
                 new ProgressNotification(expectedAddDataToModelProgressText, 1, 1)
             };
-            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
 
             Assert.IsTrue(updateDataStrategy.Updated);
             Assert.AreEqual(5, updateDataStrategy.ReadDikeProfiles.Length);
@@ -381,7 +382,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5),
                 new ProgressNotification(expectedAddDataToModelProgressText, 1, 1)
             };
-            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
+
             Assert.IsTrue(updateDataStrategy.Updated);
             Assert.AreEqual(5, updateDataStrategy.ReadDikeProfiles.Length);
         }
@@ -578,34 +581,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new Point2D(136039.4, 533920.2)
             });
             return referenceLine;
-        }
-
-        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages,
-                                                     List<ProgressNotification> progressChangeNotifications)
-        {
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                ProgressNotification notification = expectedProgressMessages[i];
-                ProgressNotification actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
-        }
-
-        private class ProgressNotification
-        {
-            public ProgressNotification(string description, int currentStep, int totalSteps)
-            {
-                Text = description;
-                CurrentStep = currentStep;
-                TotalSteps = totalSteps;
-            }
-
-            public string Text { get; }
-            public int CurrentStep { get; }
-            public int TotalSteps { get; }
         }
     }
 }

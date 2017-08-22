@@ -52,6 +52,8 @@
     </Compile>
     <Compile Include="CustomCalculationConfigurationExporterDesignGuidelinesTestFixture.cs" />
     <Compile Include="CustomCalculationConfigurationWriterDesignGuidelinesTestFixture.cs" />
+    <Compile Include="ProgressNotification.cs" />
+    <Compile Include="ProgressNotificationTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoilLayer2DTestFactory.cs" />
     <Compile Include="TestConfigurationItem.cs" />

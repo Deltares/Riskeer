@@ -36,6 +36,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
@@ -314,15 +315,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             }
 
             expectedProgressMessages.Add(new ProgressNotification(expectedAddDataText, 1, 1));
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                ProgressNotification notification = expectedProgressMessages[i];
-                ProgressNotification actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
         }
 
         [Test]
@@ -372,15 +366,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                                  "Inlezen van de stochastische ondergrondmodellen.", i, totalNrOfStochasticSoilModelInDatabase));
             }
 
-            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Count; i++)
-            {
-                ProgressNotification notification = expectedProgressMessages[i];
-                ProgressNotification actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
         }
 
         [Test]
@@ -851,20 +838,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         private static void FilterFailureMechanismSpecificModel(MethodInvocation invocation, FailureMechanismType failureMechanismType)
         {
             invocation.ReturnValue = failureMechanismType == ((StochasticSoilModel) invocation.Arguments[0]).FailureMechanismType;
-        }
-
-        private class ProgressNotification
-        {
-            public ProgressNotification(string description, int currentStep, int totalSteps)
-            {
-                Text = description;
-                CurrentStep = currentStep;
-                TotalSteps = totalSteps;
-            }
-
-            public string Text { get; }
-            public int CurrentStep { get; }
-            public int TotalSteps { get; }
         }
 
         private class TestStochasticSoilModelCollection : ObservableUniqueItemCollectionWithSourcePath<IMechanismStochasticSoilModel>

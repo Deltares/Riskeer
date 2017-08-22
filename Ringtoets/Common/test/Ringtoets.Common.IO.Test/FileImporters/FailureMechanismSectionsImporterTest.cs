@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
 {
@@ -198,15 +199,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 new ProgressNotification("Valideren ingelezen vakindeling.", 2, 3),
                 new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 3, 3)
             };
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangeNotifications.Count);
-            for (var i = 0; i < expectedProgressMessages.Length; i++)
-            {
-                ProgressNotification notification = expectedProgressMessages[i];
-                ProgressNotification actualNotification = progressChangeNotifications[i];
-                Assert.AreEqual(notification.Text, actualNotification.Text);
-                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
-                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
-            }
+
+            ProgressNotificationTestHelper.AssertProgressNotificationsAreEqual(expectedProgressMessages,
+                                                                               progressChangeNotifications);
         }
 
         [Test]
@@ -656,20 +651,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                     throw new NotImplementedException();
                 }
             }
-        }
-
-        private class ProgressNotification
-        {
-            public ProgressNotification(string description, int currentStep, int totalSteps)
-            {
-                Text = description;
-                CurrentStep = currentStep;
-                TotalSteps = totalSteps;
-            }
-
-            public string Text { get; }
-            public int CurrentStep { get; }
-            public int TotalSteps { get; }
         }
     }
 }
