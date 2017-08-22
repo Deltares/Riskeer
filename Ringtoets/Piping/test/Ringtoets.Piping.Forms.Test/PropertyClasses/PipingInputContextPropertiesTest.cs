@@ -591,9 +591,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
 
             // Then
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
-            Assert.AreEqual(entryPointL, inputParameters.EntryPointL.Value);
-            Assert.AreEqual(exitPointL, inputParameters.ExitPointL.Value);
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel,
+                            inputParameters.AssessmentLevel.GetAccuracy());
+            Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
+                            inputParameters.EntryPointL.GetAccuracy());
+            Assert.AreEqual(exitPointL, inputParameters.ExitPointL,
+                            inputParameters.ExitPointL.GetAccuracy());
             Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);

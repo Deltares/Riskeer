@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Data;
@@ -1195,7 +1196,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsFalse(affectedCalculation.HasOutput);
             PipingInput affectedInput = affectedCalculation.InputParameters;
             Assert.AreSame(affectedSurfaceLine, affectedInput.SurfaceLine);
-            Assert.AreEqual(0, affectedInput.EntryPointL.Value);
+            Assert.AreEqual(0, affectedInput.EntryPointL, affectedInput.EntryPointL.GetAccuracy());
             Assert.IsNaN(affectedInput.ExitPointL);
             CollectionAssert.AreEqual(importedAffectedSurfaceLine.Points, affectedSurfaceLine.Points);
 

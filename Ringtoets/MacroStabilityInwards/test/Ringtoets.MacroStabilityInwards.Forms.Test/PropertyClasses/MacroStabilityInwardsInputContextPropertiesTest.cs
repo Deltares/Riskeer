@@ -452,7 +452,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.MaximumSliceWidth = (RoundedDouble) maximumSliceWidth;
 
             // Then
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel.Value);
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, inputParameters.AssessmentLevel.GetAccuracy());
             Assert.AreSame(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);

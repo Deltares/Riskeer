@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -183,8 +184,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Then
             Assert.AreEqual(constructionPresent, input.DrainageConstructionPresent);
-            Assert.AreEqual(xCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction.Value);
-            Assert.AreEqual(zCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(xCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction,
+                            input.XCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(zCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction,
+                            input.ZCoordinateDrainageConstruction.GetAccuracy());
         }
 
         [Test]

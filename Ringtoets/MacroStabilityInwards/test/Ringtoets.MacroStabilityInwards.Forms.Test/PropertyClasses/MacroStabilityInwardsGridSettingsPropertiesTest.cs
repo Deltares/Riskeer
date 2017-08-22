@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -227,8 +228,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(moveGrid, input.MoveGrid);
             Assert.AreEqual(gridDetermination, input.GridDetermination);
             Assert.AreEqual(tangentLineDetermination, input.TangentLineDetermination);
-            Assert.AreEqual(tangentLineZTop, input.TangentLineZTop.Value);
-            Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom.Value);
+            Assert.AreEqual(tangentLineZTop, input.TangentLineZTop, input.TangentLineZTop.GetAccuracy());
+            Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
         }
 
         [Test]

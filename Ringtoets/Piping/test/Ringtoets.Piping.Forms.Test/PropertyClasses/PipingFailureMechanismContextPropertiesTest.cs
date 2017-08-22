@@ -472,7 +472,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
+            Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
+                            failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll();
         }

@@ -203,7 +203,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsTrue(calculation.InputParameters.UseAssessmentLevelManualInput);
-                Assert.AreEqual(3, calculation.InputParameters.AssessmentLevel.Value);
+                Assert.AreEqual(3, calculation.InputParameters.AssessmentLevel,
+                                calculation.InputParameters.AssessmentLevel.GetAccuracy());
             }
 
             if (hasSurfaceLine)

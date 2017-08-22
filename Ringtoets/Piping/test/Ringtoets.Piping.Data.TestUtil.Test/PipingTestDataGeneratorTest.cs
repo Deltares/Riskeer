@@ -21,9 +21,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
@@ -206,7 +208,8 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsTrue(calculation.InputParameters.UseAssessmentLevelManualInput);
-                Assert.AreEqual(3, calculation.InputParameters.AssessmentLevel.Value);
+                Assert.AreEqual(3, calculation.InputParameters.AssessmentLevel,
+                                calculation.InputParameters.AssessmentLevel.GetAccuracy());
             }
 
             if (hasSurfaceLine)
@@ -239,10 +242,17 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
                 Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             }
 
-            Assert.AreEqual(0, calculation.InputParameters.PhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(0.1, calculation.InputParameters.PhreaticLevelExit.StandardDeviation.Value);
-            Assert.AreEqual(0.7, calculation.InputParameters.DampingFactorExit.Mean.Value);
-            Assert.AreEqual(0.1, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
+            DistributionAssert.AreEqual(new NormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0,
+                StandardDeviation = (RoundedDouble) 0.1
+            }, calculation.InputParameters.PhreaticLevelExit);
+
+            DistributionAssert.AreEqual(new LogNormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0.7,
+                StandardDeviation = (RoundedDouble) 0.1
+            }, calculation.InputParameters.DampingFactorExit);
         }
 
         private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,

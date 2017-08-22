@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -137,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor drainageProperty = dynamicProperties[expectedDrainagePropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
-               nameof(MacroStabilityInwardsWaterStressesProperties.Drainage));
+                nameof(MacroStabilityInwardsWaterStressesProperties.Drainage));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 drainageProperty,
                 waterStressesCategory,
@@ -161,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
-              nameof(MacroStabilityInwardsWaterStressesProperties.Offsets));
+                nameof(MacroStabilityInwardsWaterStressesProperties.Offsets));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 offsetProperty,
                 waterStressesCategory,
@@ -298,18 +299,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
-            Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage.Value);
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder.Value);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
+            Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage,
+                            input.WaterLevelRiverAverage.GetAccuracy());
+            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder,
+                            input.WaterLevelPolder.GetAccuracy());
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver,
+                            input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder,
+                            input.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, input.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3.Value);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, input.LeakageLengthInwardsPhreaticLine3.Value);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, input.LeakageLengthOutwardsPhreaticLine4.Value);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, input.LeakageLengthInwardsPhreaticLine4.Value);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, input.PiezometricHeadPhreaticLine2Outwards.Value);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, input.PiezometricHeadPhreaticLine2Inwards.Value);
-            Assert.AreEqual(penetrationLength, input.PenetrationLength.Value);
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3,
+                            input.LeakageLengthOutwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, input.LeakageLengthInwardsPhreaticLine3,
+                            input.LeakageLengthInwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, input.LeakageLengthOutwardsPhreaticLine4,
+                            input.LeakageLengthOutwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, input.LeakageLengthInwardsPhreaticLine4,
+                            input.LeakageLengthInwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, input.PiezometricHeadPhreaticLine2Outwards,
+                            input.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
+            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, input.PiezometricHeadPhreaticLine2Inwards,
+                            input.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
+            Assert.AreEqual(penetrationLength, input.PenetrationLength,
+                            input.PenetrationLength.GetAccuracy());
         }
 
         [Test]

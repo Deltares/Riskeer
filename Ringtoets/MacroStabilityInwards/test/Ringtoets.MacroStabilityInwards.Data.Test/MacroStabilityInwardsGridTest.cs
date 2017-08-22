@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -35,16 +36,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid();
 
             // Assert
-            Assert.AreEqual(0, grid.XLeft.Value);
+            Assert.AreEqual(0, grid.XLeft, grid.XLeft.GetAccuracy());
             Assert.AreEqual(2, grid.XLeft.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0, grid.XRight.Value);
+            Assert.AreEqual(0, grid.XRight, grid.XRight.GetAccuracy());
             Assert.AreEqual(2, grid.XRight.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0, grid.ZTop.Value);
+            Assert.AreEqual(0, grid.ZTop, grid.ZTop.GetAccuracy());
             Assert.AreEqual(2, grid.ZTop.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0, grid.ZBottom.Value);
+            Assert.AreEqual(0, grid.ZBottom, grid.ZBottom.GetAccuracy());
             Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
 
             Assert.AreEqual(0, grid.NumberOfHorizontalPoints);
