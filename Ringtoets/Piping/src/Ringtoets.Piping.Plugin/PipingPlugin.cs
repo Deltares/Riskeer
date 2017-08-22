@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Plugin
                 CreateInstance = context => new PipingSurfaceLineCollectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<PipingSurfaceLine, PipingSurfaceLineProperties>();
-            yield return new PropertyInfo<StochasticSoilModelCollectionContext, PipingStochasticSoilModelCollectionProperties>
+            yield return new PropertyInfo<PipingStochasticSoilModelCollectionContext, PipingStochasticSoilModelCollectionProperties>
             {
                 CreateInstance = context => new PipingStochasticSoilModelCollectionProperties(context.WrappedData)
             };
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Plugin
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyPipingSurfaceLineImport_When_importing_surface_lines_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<StochasticSoilModelCollectionContext>
+            yield return new ImportInfo<PipingStochasticSoilModelCollectionContext>
             {
                 Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Plugin
                     context.WrappedData,
                     filePath,
                     new ImportMessageProvider(),
-                    StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism)
+                    PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism)
                 ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Plugin
                 VerifyUpdates = context => VerifyPipingSurfaceLineUpdates(context, Resources.PipingPlugin_VerifyPipingSurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return new UpdateInfo<StochasticSoilModelCollectionContext>
+            yield return new UpdateInfo<PipingStochasticSoilModelCollectionContext>
             {
                 Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Plugin
                     context.WrappedData,
                     filePath,
                     new UpdateMessageProvider(),
-                    StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism)
+                    PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism)
                 ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
+            yield return new TreeNodeInfo<PipingStochasticSoilModelCollectionContext>
             {
                 Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
+        private bool VerifyStochasticSoilModelUpdates(PipingStochasticSoilModelCollectionContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
                                                                              query,
@@ -583,7 +583,7 @@ namespace Ringtoets.Piping.Plugin
 
         #region StochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(StochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(PipingStochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -686,7 +686,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
-                new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
+                new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }

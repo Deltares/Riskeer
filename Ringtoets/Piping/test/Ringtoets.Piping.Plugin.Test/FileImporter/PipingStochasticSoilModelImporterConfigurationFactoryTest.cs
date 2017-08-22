@@ -30,13 +30,13 @@ using Ringtoets.Piping.Plugin.FileImporter;
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class StochasticSoilModelImporterConfigurationFactoryTest
+    public class PipingStochasticSoilModelImporterConfigurationFactoryTest
     {
         [Test]
         public void CreateUpdateStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
+            TestDelegate test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Call
             StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel> result =
-                StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new PipingFailureMechanism());
+                PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(new PipingFailureMechanism());
 
             // Assert
             Assert.IsNotNull(result);
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void CreateReplaceStrategyConfiguration_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
+            TestDelegate test = () => PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Call
             StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel> result =
-                StochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new PipingFailureMechanism());
+                PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(new PipingFailureMechanism());
 
             // Assert
             Assert.IsNotNull(result);

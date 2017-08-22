@@ -32,10 +32,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
     /// <summary>
     /// Transforms generic <see cref="ISoilProfile"/> into <see cref="PipingSoilProfile"/>.
     /// </summary>
-    public static class PipingSoilProfileTransformer
+    internal static class PipingSoilProfileTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="soilProfile"/> into a mechanism specific 
+        /// Transforms the generic <paramref name="soilProfile"/> into a piping specific 
         /// soil profile of type <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="soilProfile2D"/> can not be used to determine intersections with;</item>
+        /// <item>The <paramref name="soilProfile2D"/> cannot be used to determine intersections with;</item>
         /// <item>Transforming the <paramref name="soilProfile2D"/> failed.</item>
         /// </list>
         /// </exception>

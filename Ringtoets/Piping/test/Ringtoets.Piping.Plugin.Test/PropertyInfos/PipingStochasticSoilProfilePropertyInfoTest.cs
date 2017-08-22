@@ -23,17 +23,14 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingStochasticSoilModelCollectionContextPropertyInfoTest
+    public class PipingStochasticSoilProfilePropertyInfoTest
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
@@ -42,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStochasticSoilModelCollectionProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStochasticSoilProfileProperties));
         }
 
         [TearDown]
@@ -55,31 +52,22 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingStochasticSoilModelCollectionContext), info.DataType);
-            Assert.AreEqual(typeof(PipingStochasticSoilModelCollectionProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingStochasticSoilProfile), info.DataType);
+            Assert.AreEqual(typeof(PipingStochasticSoilProfileProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
+        public void CreateInstance_Always_NewPropertiesWithInputAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            var collection = new PipingStochasticSoilModelCollection();
-            var context = new PipingStochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
+            IObjectProperties objectProperties = info.CreateInstance(stochasticSoilProfile);
 
             // Assert
-            Assert.IsInstanceOf<PipingStochasticSoilModelCollectionProperties>(objectProperties);
-            Assert.AreSame(collection, objectProperties.Data);
-
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<PipingStochasticSoilProfileProperties>(objectProperties);
+            Assert.AreSame(stochasticSoilProfile, objectProperties.Data);
         }
     }
 }

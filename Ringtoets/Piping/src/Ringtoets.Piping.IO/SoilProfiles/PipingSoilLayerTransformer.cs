@@ -34,10 +34,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
     /// <summary>
     /// Transforms generic <see cref="SoilLayerBase"/> into <see cref="PipingSoilLayer"/>.
     /// </summary>
-    public static class PipingSoilLayerTransformer
+    internal static class PipingSoilLayerTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="soilLayer"/> into a mechanism specific 
+        /// Transforms the generic <paramref name="soilLayer"/> into a piping specific 
         /// soil profile of type <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to use in the transformation.</param>
@@ -157,7 +157,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
         private static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string incorrectDistibutionParameter)
         {
-            if (distribution.HasValue && (distribution != SoilLayerConstants.LogNormalDistributionValue || shift != 0.0))
+            if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
+                                          || Math.Abs(shift) > 1e-6))
             {
                 throw new ImportedDataTransformException(string.Format(
                                                              Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,

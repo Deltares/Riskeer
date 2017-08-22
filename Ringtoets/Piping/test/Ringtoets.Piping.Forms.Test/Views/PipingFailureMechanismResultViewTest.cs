@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (ShowFullyConfiguredFailureMechanismResultsView(new PipingFailureMechanism()))
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);

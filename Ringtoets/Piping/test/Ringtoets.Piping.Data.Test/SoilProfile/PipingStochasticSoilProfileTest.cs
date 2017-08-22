@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Update_WithNullProfile_ThrowsArgumentNullException()
+        public void Update_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Setup
             var stochasticProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());

@@ -42,7 +42,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextImportInfoTest : NUnitFormTest
+    public class PipingStochasticSoilModelCollectionContextImportInfoTest : NUnitFormTest
     {
         private ImportInfo importInfo;
         private PipingPlugin plugin;
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = importInfo.VerifyUpdates(context);
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importTarget = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var importTarget = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
         public override void Setup()
         {
             plugin = new PipingPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(PipingStochasticSoilModelCollectionContext));
         }
 
         public override void TearDown()

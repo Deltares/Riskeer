@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.TestUtils
                         assessmentSection.PipingFailureMechanism.StochasticSoilModels,
                         filePath,
                         new UpdateMessageProvider(),
-                        StochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
+                        PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
                     "StochasticSoilModelUpdater");
                 activity.Run();
                 activity.Finish();

@@ -31,7 +31,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextTest
+    public class PipingStochasticSoilModelCollectionContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<PipingStochasticSoilModelCollection>>(context);
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var stochasticSoilModels = new PipingStochasticSoilModelCollection();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
+            TestDelegate test = () => new PipingStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
+            TestDelegate test = () => new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

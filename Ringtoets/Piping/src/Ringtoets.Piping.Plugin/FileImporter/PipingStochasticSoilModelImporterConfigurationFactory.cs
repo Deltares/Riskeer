@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Factory for creating valid configurations for the <see cref="StochasticSoilModelImporter{T}"/>.
     /// </summary>
-    public static class StochasticSoilModelImporterConfigurationFactory
+    public static class PipingStochasticSoilModelImporterConfigurationFactory
     {
         /// <summary>
         /// Creates a configuration to replace the current stochastic soil models on <see cref="failureMechanism"/> 
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             return new StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel>(
                 new PipingStochasticSoilModelTransformer(),
-                new PipingStochasticSoilModelFilter(), 
+                new PipingStochasticSoilModelFilter(),
                 new PipingStochasticSoilModelReplaceDataStrategy(failureMechanism));
         }
 

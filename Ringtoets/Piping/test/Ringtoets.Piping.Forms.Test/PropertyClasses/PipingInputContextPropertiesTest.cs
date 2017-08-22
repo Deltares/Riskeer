@@ -342,7 +342,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                  failureMechanism,
                                                  assessmentSection);
-            
+
             // Call
             var properties = new PipingInputContextProperties(context, handler);
 
@@ -726,7 +726,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
-                                                                    calculation);
+                                                           calculation);
         }
 
         [Test]
@@ -934,7 +934,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 }
             };
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var context = new PipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
@@ -1094,10 +1094,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                 InputParameters =
-                 {
-                     HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(50)
-                 }
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(50)
+                }
             };
             var failureMechanism = new PipingFailureMechanism();
 
@@ -1153,7 +1153,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 }
             };
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var context = new PipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
@@ -1196,7 +1196,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     AssessmentLevel = (RoundedDouble) random.NextDouble()
                 }
             };
-            var failureMechanism = new PipingFailureMechanism();           
+            var failureMechanism = new PipingFailureMechanism();
 
             var context = new PipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,

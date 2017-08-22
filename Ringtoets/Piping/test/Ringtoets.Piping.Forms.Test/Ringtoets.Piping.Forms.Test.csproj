@@ -67,7 +67,7 @@
     <Compile Include="PresentationObjects\PipingOutputContextTest.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContextTest.cs" />
     <Compile Include="PresentationObjects\PipingSurfaceLinesContextTest.cs" />
-    <Compile Include="PresentationObjects\StochasticSoilModelCollectionContextTest.cs" />
+    <Compile Include="PresentationObjects\PipingStochasticSoilModelCollectionContextTest.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionDesignVariablePropertiesTest.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDesignVariablePropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignVariablePropertiesTest.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="PropertyClasses\PipingOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ShiftedLogNormalDistributionDesignVariablePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PipingStochasticSoilModelCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingStochasticSoilModelPropertiesTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />

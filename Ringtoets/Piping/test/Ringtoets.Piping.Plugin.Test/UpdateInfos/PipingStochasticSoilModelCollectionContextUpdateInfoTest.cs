@@ -43,7 +43,7 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTest
+    public class PipingStochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             var stochasticSoilModel = new PipingStochasticSoilModelCollection();
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             var stochasticSoilModel = new PipingStochasticSoilModelCollection();
             stochasticSoilModel.AddRange(Enumerable.Empty<PipingStochasticSoilModel>(), "some/path");
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
@@ -183,7 +183,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
             string currentPath = updateInfo.CurrentPath(context);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var importTarget = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var importTarget = new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
         public override void Setup()
         {
             plugin = new PipingPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(PipingStochasticSoilModelCollectionContext));
         }
 
         public override void TearDown()

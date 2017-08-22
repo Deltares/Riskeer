@@ -30,18 +30,18 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.StochasticSoilModels"/>.
     /// </summary>
-    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<PipingStochasticSoilModelCollection>
+    public class PipingStochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<PipingStochasticSoilModelCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelCollectionContext"/>.
+        /// Creates a new instance of <see cref="PipingStochasticSoilModelCollectionContext"/>.
         /// </summary>
         /// <param name="wrappedStochasticSoilModels">The stochastic soil models to wrap.</param>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionContext(PipingStochasticSoilModelCollection wrappedStochasticSoilModels,
-                                                    PipingFailureMechanism failureMechanism,
-                                                    IAssessmentSection assessmentSection)
+        public PipingStochasticSoilModelCollectionContext(PipingStochasticSoilModelCollection wrappedStochasticSoilModels,
+                                                          PipingFailureMechanism failureMechanism,
+                                                          IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)
         {
             if (failureMechanism == null)
@@ -61,11 +61,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public PipingFailureMechanism FailureMechanism { get; private set; }
+        public PipingFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

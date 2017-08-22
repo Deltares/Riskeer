@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
+    public class PipingStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 new PipingStochasticSoilModel("Name")
             }, "path");
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new StochasticSoilModelCollectionContext(
+                var context = new PipingStochasticSoilModelCollectionContext(
                     new PipingStochasticSoilModelCollection(),
                     new PipingFailureMechanism(),
                     assessmentSection);
@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingStochasticSoilModelCollectionContext));
         }
 
         public override void TearDown()

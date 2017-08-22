@@ -46,7 +46,7 @@
     </Compile>
     <Compile Include="FileImporter\PipingSurfaceLineReplaceDataStrategy.cs" />
     <Compile Include="FileImporter\PipingSurfaceLineUpdateDataStrategy.cs" />
-    <Compile Include="FileImporter\StochasticSoilModelImporterConfigurationFactory.cs" />
+    <Compile Include="FileImporter\PipingStochasticSoilModelImporterConfigurationFactory.cs" />
     <Compile Include="FileImporter\PipingStochasticSoilModelUpdateDataStrategy.cs" />
     <Compile Include="FileImporter\PipingStochasticSoilModelReplaceDataStrategy.cs" />
     <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactory.cs" />
