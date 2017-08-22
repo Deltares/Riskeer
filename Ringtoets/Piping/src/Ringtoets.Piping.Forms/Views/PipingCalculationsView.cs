@@ -341,7 +341,7 @@ namespace Ringtoets.Piping.Forms.Views
             UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>> GetPrefillStochasticSoilModelsDataSource(
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>> GetStochasticSoilModelsDataSource(
             IEnumerable<PipingStochasticSoilModel> stochasticSoilModels)
         {
             yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(null);
@@ -352,40 +352,12 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>> GetStochasticSoilModelsDataSource(
-            IEnumerable<PipingStochasticSoilModel> stochasticSoilModels)
-        {
-            PipingStochasticSoilModel[] stochasticSoilModelsArray = stochasticSoilModels.ToArray();
-            if (stochasticSoilModelsArray.Length != 1)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(null);
-            }
-            foreach (PipingStochasticSoilModel stochasticSoilModel in stochasticSoilModelsArray)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(stochasticSoilModel);
-            }
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>> GetPrefillSoilProfilesDataSource(
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>> GetSoilProfilesDataSource(
             IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles)
         {
             yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(null);
 
             foreach (PipingStochasticSoilProfile stochasticSoilProfile in stochasticSoilProfiles)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(stochasticSoilProfile);
-            }
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>> GetSoilProfilesDataSource(
-            IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles)
-        {
-            PipingStochasticSoilProfile[] stochasticSoilProfilesArray = stochasticSoilProfiles.ToArray();
-            if (stochasticSoilProfilesArray.Length != 1)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(null);
-            }
-            foreach (PipingStochasticSoilProfile stochasticSoilProfile in stochasticSoilProfilesArray)
             {
                 yield return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(stochasticSoilProfile);
             }
@@ -535,12 +507,12 @@ namespace Ringtoets.Piping.Forms.Views
             using (new SuspendDataGridViewColumnResizes(stochasticSoilModelColumn))
             {
                 PipingStochasticSoilModelCollection stochasticSoilModels = pipingFailureMechanism.StochasticSoilModels;
-                SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetPrefillStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
+                SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
                 PipingStochasticSoilProfile[] pipingSoilProfiles = GetPipingStochasticSoilProfilesFromStochasticSoilModels();
-                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetPrefillSoilProfilesDataSource(pipingSoilProfiles).ToArray());
+                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {

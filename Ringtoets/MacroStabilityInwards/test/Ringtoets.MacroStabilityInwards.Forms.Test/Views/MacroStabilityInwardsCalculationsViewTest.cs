@@ -258,8 +258,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
-                Assert.AreEqual(1, stochasticSoilModelsComboboxItems.Count);
-                Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[0].ToString());
+                Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
+                Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
+                Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
 
                 stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
                 Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
@@ -290,8 +291,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
 
                 soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
-                Assert.AreEqual(1, soilProfilesComboboxItems.Count);
-                Assert.AreEqual("Profile 5", soilProfilesComboboxItems[0].ToString());
+                Assert.AreEqual(2, soilProfilesComboboxItems.Count);
+                Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
+                Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
             }
             mocks.VerifyAll();
         }

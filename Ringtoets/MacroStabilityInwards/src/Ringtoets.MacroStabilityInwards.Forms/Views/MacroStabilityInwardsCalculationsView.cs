@@ -320,7 +320,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>> GetPrefillStochasticSoilModelsDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>> GetStochasticSoilModelsDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
             yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(null);
 
@@ -330,37 +330,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
         }
 
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>> GetStochasticSoilModelsDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
-        {
-            MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModelsArray = stochasticSoilModels.ToArray();
-            if (stochasticSoilModelsArray.Length != 1)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(null);
-            }
-            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in stochasticSoilModelsArray)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(stochasticSoilModel);
-            }
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>> GetPrefillSoilProfilesDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>> GetSoilProfilesDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
         {
             yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(null);
 
             foreach (MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile in stochasticSoilProfiles)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(stochasticSoilProfile);
-            }
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>> GetSoilProfilesDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
-        {
-            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfilesArray = stochasticSoilProfiles.ToArray();
-            if (stochasticSoilProfilesArray.Length != 1)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(null);
-            }
-            foreach (MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile in stochasticSoilProfilesArray)
             {
                 yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(stochasticSoilProfile);
             }
@@ -509,12 +483,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             using (new SuspendDataGridViewColumnResizes(stochasticSoilModelColumn))
             {
                 MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = macroStabilityInwardsFailureMechanism.StochasticSoilModels;
-                SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetPrefillStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
+                SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
                 MacroStabilityInwardsStochasticSoilProfile[] soilProfiles = GetStochasticSoilProfilesFromStochasticSoilModels();
-                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetPrefillSoilProfilesDataSource(soilProfiles).ToArray());
+                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(soilProfiles).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {
