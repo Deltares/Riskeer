@@ -242,7 +242,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         private void SetGeometry(StochasticSoilModel stochasticSoilModel)
         {
-            if (!segmentPointReader.MoveToStochasticSoilModel(currentStochasticSoilModelId))
+            if (!segmentPointReader.HasNext || segmentPointReader.ReadStochasticSoilModelId() != currentStochasticSoilModelId)
             {
                 throw new StochasticSoilModelException(
                     string.Format(Resources.SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry,

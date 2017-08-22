@@ -27,7 +27,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class SoilLayer1D : SoilLayerBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer1D"/> that has the top is set to <paramref name="top"/>.
+        /// Creates a new instance of <see cref="SoilLayer1D"/> that has the top set to <paramref name="top"/>.
         /// </summary>
         /// <param name="top">The top level of the layer.</param>
         public SoilLayer1D(double top)

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -39,7 +40,6 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class SegmentPointReader : SqLiteDatabaseReaderBase
     {
         private IDataReader dataReader;
-        private long currentStochasticSoilModelId = -1;
 
         /// <summary>
         /// Creates a new instance of <see cref="SegmentPointReader"/> which will use the 
@@ -53,6 +53,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </list>
         /// </exception>
         public SegmentPointReader(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// Gets a value indicating whether or not more stochastic soil model geometry can be 
+        /// read using the <see cref="SegmentPointReader"/>.
+        /// </summary>
+        public bool HasNext { get; private set; }
 
         /// <summary>
         /// Initializes the database.
@@ -72,31 +78,24 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         public IEnumerable<Point2D> ReadSegmentPoints()
         {
-            while (HasNext && ReadStochasticSoilModelId() == currentStochasticSoilModelId)
-            {
-                yield return ReadSegmentPoint();
-                MoveNext();
-            }
+            return !HasNext
+                       ? Enumerable.Empty<Point2D>()
+                       : TryReadSegmentPoints();
         }
 
         /// <summary>
-        /// Moves the reader to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
+        /// Reads the stochastic soil model id from the data reader.
         /// </summary>
-        /// <param name="stochasticSoilModelId">The id of the stochastic soil model.</param>
-        /// <returns><c>true</c> if the reader was moved to the stochastic soil model with id 
-        /// <paramref name="stochasticSoilModelId"/> successfully, <c>false</c> otherwise.</returns>
-        public bool MoveToStochasticSoilModel(long stochasticSoilModelId)
+        /// <returns>The stochastic soil model id.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the data reader does not point to a row.</exception>
+        public long ReadStochasticSoilModelId()
         {
-            while (HasNext && ReadStochasticSoilModelId() <= stochasticSoilModelId)
+            if (!HasNext)
             {
-                if (ReadStochasticSoilModelId() == stochasticSoilModelId)
-                {
-                    currentStochasticSoilModelId = stochasticSoilModelId;
-                    return true;
-                }
-                MoveNext();
+                throw new InvalidOperationException("The reader does not have a row to read.");
             }
-            return false;
+
+            return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,11 +109,42 @@ namespace Ringtoets.Common.IO.SoilProfile
             base.Dispose(disposing);
         }
 
-        private bool HasNext { get; set; }
-
-        private long ReadStochasticSoilModelId()
+        /// <summary>
+        /// Tries to read the segment points corresponding to the stochastic soil model.
+        /// </summary>
+        /// <returns>The segment points corresponding to the stochastic soil model.</returns>
+        /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
+        private IEnumerable<Point2D> TryReadSegmentPoints()
         {
-            return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
+            var segmentPoints = new List<Point2D>();
+            long currentStochasticSoilModelId = ReadStochasticSoilModelId();
+            try
+            {
+                while (HasNext && ReadStochasticSoilModelId() == currentStochasticSoilModelId)
+                {
+                    segmentPoints.Add(ReadSegmentPoint());
+                    MoveNext();
+                }
+            }
+            catch (StochasticSoilModelException)
+            {
+                MoveToNextStochasticSoilModel(currentStochasticSoilModelId);
+                throw;
+            }
+
+            return segmentPoints;
+        }
+
+        /// <summary>
+        /// Moves the reader to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModelId">The id of the stochastic soil model.</param>
+        private void MoveToNextStochasticSoilModel(long stochasticSoilModelId)
+        {
+            while (HasNext && ReadStochasticSoilModelId() <= stochasticSoilModelId)
+            {
+                MoveNext();
+            }
         }
 
         private string ReadStochasticSoilModelSegmentName()

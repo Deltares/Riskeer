@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -109,7 +110,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void MoveToStochasticSoilModel_EmptyDatabase_ReturnsFalse()
+        public void HasNext_EmptyDatabase_ReturnsFalse()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
@@ -119,17 +120,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                bool success = reader.MoveToStochasticSoilModel(1);
+                bool hasNext = reader.HasNext;
 
                 // Assert
-                Assert.IsFalse(success);
+                Assert.IsFalse(hasNext);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
-        public void MoveToStochasticSoilModel_IdNotInDatabase_ReturnsFalse()
+        public void HasNext_DatabaseWithStochasticSoilModels_ReturnsTrue()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "complete.soil");
@@ -139,34 +140,81 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                bool success = reader.MoveToStochasticSoilModel(10000);
+                bool hasNext = reader.HasNext;
 
                 // Assert
-                Assert.IsFalse(success);
+                Assert.IsTrue(hasNext);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
-        public void GivenMovedToIdNotInDatabase_WhenMoveToStochasticSoilModel_ThenRetunsTrue()
+        public void ReadStochasticSoilModelId_EmptyDatabase_ThrowsInvalidOperationException()
         {
-            // Given
-            string dbFile = Path.Combine(testDataPath, "skippedStochasticSoilModel.soil");
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
+
             using (var reader = new SegmentPointReader(dbFile))
             {
                 reader.Initialize();
 
-                bool hasThree = reader.MoveToStochasticSoilModel(3);
+                // Call
+                TestDelegate test = () => reader.ReadStochasticSoilModelId();
+
+                // Assert
+                var exception = Assert.Throws<InvalidOperationException>(test);
+                Assert.AreEqual("The reader does not have a row to read.", exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModelId_DatabaseWithStochasticSoilModels_ReturnsCurrentId()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "complete.soil");
+
+            using (var reader = new SegmentPointReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                long id = reader.ReadStochasticSoilModelId();
+
+                // Assert
+                Assert.AreEqual(1, id);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GivenReadSegmentPoints_WhenReadSegmentPoints_ThenReturnsNextSegmentPoints()
+        {
+            // Given
+            string dbFile = Path.Combine(testDataPath, "missingStochasticSoilModel.soil");
+            using (var reader = new SegmentPointReader(dbFile))
+            {
+                reader.Initialize();
+
+                Point2D[] firstGeometry = reader.ReadSegmentPoints().ToArray();
 
                 // Precondition
-                Assert.IsFalse(hasThree);
+                Assert.AreEqual(new[]
+                {
+                    new Point2D(1, 2)
+                }, firstGeometry);
 
                 // When
-                bool hasFour = reader.MoveToStochasticSoilModel(4);
+                Point2D[] nextGeometry = reader.ReadSegmentPoints().ToArray();
 
                 // Then
-                Assert.IsTrue(hasFour);
+                Assert.AreEqual(new[]
+                {
+                    new Point2D(5, 6)
+                }, nextGeometry);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -181,7 +229,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new SegmentPointReader(dbFile))
             {
                 reader.Initialize();
-                reader.MoveToStochasticSoilModel(1);
 
                 // Call
                 TestDelegate test = () => reader.ReadSegmentPoints().ToArray();
@@ -190,6 +237,40 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 var exception = Assert.Throws<StochasticSoilModelException>(test);
                 Assert.AreEqual("Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten.",
                                 exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GivenReadStochasticSoilModelThrowslException_WhenReadSegmentPoints_ReturnsNextStochasticSoilModel()
+        {
+            // Given
+            string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");
+            using (var reader = new SegmentPointReader(dbFile))
+            {
+                reader.Initialize();
+
+                StochasticSoilModelException throwException = null;
+                try
+                {
+                    reader.ReadSegmentPoints().ToArray();
+                }
+                catch (StochasticSoilModelException e)
+                {
+                    throwException = e;
+                }
+
+                // When
+                Point2D[] nextGeometry = reader.ReadSegmentPoints().ToArray();
+
+                // Then
+                Assert.AreEqual(new[]
+                {
+                    new Point2D(1, 2)
+                }, nextGeometry);
+
+                Assert.IsInstanceOf<StochasticSoilModelException>(throwException);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -224,7 +305,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new SegmentPointReader(dbFile))
             {
                 reader.Initialize();
-                reader.MoveToStochasticSoilModel(1);
 
                 // Call
                 Point2D[] segmentPoints = reader.ReadSegmentPoints().ToArray();
