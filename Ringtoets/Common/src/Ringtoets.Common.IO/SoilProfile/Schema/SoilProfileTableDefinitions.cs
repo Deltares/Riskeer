@@ -135,5 +135,135 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// The name of the alias used for the number of layers that can be read.
         /// </summary>
         public const string LayerCount = "LayerCount";
+
+        /// <summary>
+        /// The name of the use POP column.
+        /// </summary>
+        public const string UsePop = "UsePOP";
+
+        /// <summary>
+        /// The name of the shear strength model column.
+        /// </summary>
+        public const string ShearStrengthModel = "ShearStrengthModel";
+
+        /// <summary>
+        /// The name of the above phreatic level distribution column.
+        /// </summary>
+        public const string AbovePhreaticLevelDistribution = "AbovePhreaticLevelDistribution";
+
+        /// <summary>
+        /// The name of the above phreatic level shift column.
+        /// </summary>
+        public const string AbovePhreaticLevelShift = "AbovePhreaticLevelShift";
+
+        /// <summary>
+        /// The name of the above phreatic level mean column.
+        /// </summary>
+        public const string AbovePhreaticLevelMean = "AbovePhreaticLevelMean";
+
+        /// <summary>
+        /// The name of the above phreatic level coefficient of variation column.
+        /// </summary>
+        public const string AbovePhreaticLevelCoefficientOfVariation = "AbovePhreaticLevelCoefficientOfVariation";
+
+        /// <summary>
+        /// The name of the cohesion distribution column.
+        /// </summary>
+        public const string CohesionDistribution = "CohesionDistribution";
+
+        /// <summary>
+        /// The name of the cohesion shift column.
+        /// </summary>
+        public const string CohesionShift = "CohesionShift";
+
+        /// <summary>
+        /// The name of the cohesion mean column.
+        /// </summary>
+        public const string CohesionMean = "CohesionMean";
+
+        /// <summary>
+        /// The name of the cohesion coefficient of variation column.
+        /// </summary>
+        public const string CohesionCoefficientOfVariation = "CohesionCoefficientOfVariation";
+
+        /// <summary>
+        /// The name of the friction angle distribution column.
+        /// </summary>
+        public const string FrictionAngleDistribution = "FrictionAngleDistribution";
+
+        /// <summary>
+        /// The name of the friction angle shift column.
+        /// </summary>
+        public const string FrictionAngleShift = "FrictionAngleShift";
+
+        /// <summary>
+        /// The name of the friction angle mean column.
+        /// </summary>
+        public const string FrictionAngleMean = "FrictionAngleMean";
+
+        /// <summary>
+        /// The name of the friction angle coefficient of variation column.
+        /// </summary>
+        public const string FrictionAngleCoefficientOfVariation = "FrictionAngleCoefficientOfVariation";
+
+        /// <summary>
+        /// The name of the shear strength ratio distribution column.
+        /// </summary>
+        public const string ShearStrengthRatioDistribution = "ShearStrengthRatioDistribution";
+
+        /// <summary>
+        /// The name of the shear strength ratio shift column.
+        /// </summary>
+        public const string ShearStrengthRatioShift = "ShearStrengthRatioShift";
+
+        /// <summary>
+        /// The name of the shear strength ratio mean column.
+        /// </summary>
+        public const string ShearStrengthRatioMean = "ShearStrengthRatioMean";
+
+        /// <summary>
+        /// The name of the shear strength ratio coefficient of variation column.
+        /// </summary>
+        public const string ShearStrengthRatioCoefficientOfVariation = "ShearStrengthRatioCoefficientOfVariation";
+
+        /// <summary>
+        /// The name of the strength increase exponent distribution column.
+        /// </summary>
+        public const string StrengthIncreaseExponentDistribution = "StrengthIncreaseExponentDistribution";
+
+        /// <summary>
+        /// The name of the strength increase exponent shift column.
+        /// </summary>
+        public const string StrengthIncreaseExponentShift = "StrengthIncreaseExponentShift";
+
+        /// <summary>
+        /// The name of the strength increase exponent mean column.
+        /// </summary>
+        public const string StrengthIncreaseExponentMean = "StrengthIncreaseExponentMean";
+
+        /// <summary>
+        /// The name of the strength increase exponent coefficient of variation column.
+        /// </summary>
+        public const string StrengthIncreaseExponentCoefficientOfVariation = "StrengthIncreaseExponentCoefficientOfVariation";
+
+        /// <summary>
+        /// The name of the POP distribution column.
+        /// </summary>
+        public const string PopDistribution = "PopDistribution";
+
+        /// <summary>
+        /// The name of the POP shift column.
+        /// </summary>
+        public const string PopShift = "PopShift";
+
+        /// <summary>
+        /// The name of the POP mean column.
+        /// </summary>
+        public const string PopMean = "PopMean";
+
+        /// <summary>
+        /// The name of the POP coefficient of variation column.
+        /// </summary>
+        public const string PopCoefficientOfVariation = "PopCoefficientOfVariation";
     }
 }
