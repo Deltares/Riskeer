@@ -60,12 +60,12 @@ namespace Demo.Ringtoets.Commands
             var doubleUsedNode = new GraphNode("<text>Double " + Environment.NewLine +
                                                "<bold>used</bold></text>", new[]
             {
-                new GraphNode("<text>En</text>", new []
+                new GraphNode("<text>En</text>", new[]
                 {
-                    new GraphNode("<text>Child 2</text>", new GraphNode[0], true, lastNodeStyle), 
-                    new GraphNode("<text>Child 3</text>", new GraphNode[0], true, lastNodeStyle), 
+                    new GraphNode("<text>Child 2</text>", new GraphNode[0], true, lastNodeStyle),
+                    new GraphNode("<text>Child 3</text>", new GraphNode[0], true, lastNodeStyle)
                 }, false, connectingNodeStyle),
-                new GraphNode("<text>Child 4</text>", new GraphNode[0], true, lastNodeStyle), 
+                new GraphNode("<text>Child 4</text>", new GraphNode[0], true, lastNodeStyle)
             }, true, treeNodeStyle);
 
             var node = new GraphNode("<text>Root</text>", new[]
@@ -79,7 +79,7 @@ namespace Demo.Ringtoets.Commands
                         {
                             new GraphNode("<text>Child 5</text>", new GraphNode[0], true, lastNodeStyle),
                             doubleUsedNode
-                        }, false, connectingNodeStyle),
+                        }, false, connectingNodeStyle)
                     }, false, treeNodeStyle)
                 }, false, connectingNodeStyle)
             }, false, treeNodeStyle);

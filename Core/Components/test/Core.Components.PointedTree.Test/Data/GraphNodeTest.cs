@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
@@ -62,9 +60,7 @@ namespace Core.Components.PointedTree.Test.Data
             Assert.AreEqual(content, node.Content);
             Assert.AreEqual(isSelectable, node.IsSelectable);
             Assert.AreSame(style, node.Style);
-
-            GraphNode[] actualChildNodes = node.ChildNodes.ToArray();
-            AssertChildNodes(childNodes, actualChildNodes);
+            Assert.AreSame(childNodes, node.ChildNodes);
         }
 
         [Test]
@@ -93,9 +89,7 @@ namespace Core.Components.PointedTree.Test.Data
             Assert.AreEqual(Color.Gray, node.Style.FillColor);
             Assert.AreEqual(Color.Black, node.Style.LineColor);
             Assert.AreEqual(2, node.Style.LineWidth);
-
-            GraphNode[] actualChildNodes = node.ChildNodes.ToArray();
-            AssertChildNodes(childNodes, actualChildNodes);
+            Assert.AreSame(childNodes, node.ChildNodes);
         }
 
         [Test]
@@ -141,18 +135,7 @@ namespace Core.Components.PointedTree.Test.Data
             TestDelegate call = () => new GraphNode(content, new GraphNode[0], false);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De content voor deze node is niet geldig.");
-        }
-
-        private static void AssertChildNodes(IList<GraphNode> childNodes, IList<GraphNode> actualChildNodes)
-        {
-            Assert.AreEqual(childNodes.Count, actualChildNodes.Count);
-
-            for (var i = 0; i < childNodes.Count; i++)
-            {
-                Assert.AreEqual(childNodes[i], actualChildNodes[i]);
-                AssertChildNodes(childNodes[i].ChildNodes.ToArray(), actualChildNodes[i].ChildNodes.ToArray());
-            }
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Content is of invalid format.");
         }
     }
 }

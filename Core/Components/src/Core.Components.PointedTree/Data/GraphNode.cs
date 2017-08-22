@@ -50,7 +50,8 @@ namespace Core.Components.PointedTree.Data
         /// The following tags are supported as content:
         /// <list type="bullet">
         /// <item>&lt;bold&gt;&lt;/bold&gt;</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public GraphNode(string content, GraphNode[] childNodes, bool isSelectable)
             : this(content, childNodes, isSelectable, CreateDefaultGraphNodeStyle()) {}
 
@@ -68,7 +69,8 @@ namespace Core.Components.PointedTree.Data
         /// The following tags are supported as content:
         /// <list type="bullet">
         /// <item>&lt;bold&gt;&lt;/bold&gt;</item>
-        /// </list></remarks>
+        /// </list>
+        /// </remarks>
         public GraphNode(string content, GraphNode[] childNodes, bool isSelectable, GraphNodeStyle style)
         {
             if (content == null)
@@ -137,7 +139,7 @@ namespace Core.Components.PointedTree.Data
             }
             catch (Exception e) when (e is XmlException || e is XmlSchemaValidationException)
             {
-                throw new ArgumentException(Resources.GraphNode_ValidateContent_Content_not_valid, e);
+                throw new ArgumentException("Content is of invalid format.", e);
             }
         }
 

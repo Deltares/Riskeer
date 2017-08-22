@@ -73,7 +73,7 @@ namespace Core.Components.GraphSharp.Test.Data
             var lineColor = new SolidColorBrush(Colors.Gray);
             const int lineWidth = 3;
             const PointedTreeVertexType type = PointedTreeVertexType.None;
-            const bool isSelectable = false;
+            const bool isSelectable = true;
 
             // Call
             var vertex = new PointedTreeElementVertex(content, fillColor, lineColor, lineWidth, type, isSelectable);

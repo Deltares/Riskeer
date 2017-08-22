@@ -84,7 +84,10 @@ namespace Core.Components.GraphSharp.Test.Commands
             // Setup
             var vertex = new TestPointedTreeElementVertex(true);
             var command = new VertexSelectedCommand(vertex);
-            
+
+            // Precondition
+            Assert.IsFalse(vertex.IsSelected);
+
             // Call
             command.Execute(null);
 

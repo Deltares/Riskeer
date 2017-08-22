@@ -69,9 +69,11 @@ namespace Core.Components.GraphSharp.Test.Converters
                                                                          PointedTreeVertexType expectedVertexType)
         {
             // Setup
+            var random = new Random(21);
+
             const string content = "<text>Node</text>";
-            const bool isSelectable = false;
-            const int lineWidth = 3;
+            bool isSelectable = random.NextBoolean();
+            int lineWidth = random.Next();
             Color fillColor = Color.Aquamarine;
             Color lineColor = Color.Coral;
 

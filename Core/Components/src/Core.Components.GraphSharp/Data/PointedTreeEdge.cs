@@ -25,7 +25,7 @@ using QuickGraph;
 namespace Core.Components.GraphSharp.Data
 {
     /// <summary>
-    /// Class describing the edge to show in the <see cref="GraphLayout"/>
+    /// Class describing the edge to show in the <see cref="GraphLayout"/>.
     /// </summary>
     public class PointedTreeEdge : Edge<PointedTreeElementVertex>
     {

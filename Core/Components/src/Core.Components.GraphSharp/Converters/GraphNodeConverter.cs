@@ -41,6 +41,8 @@ namespace Core.Components.GraphSharp.Converters
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="GraphNodeStyle.Shape"/>
         /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="GraphNodeStyle.Shape"/>
+        /// is a valid value but unsupported.</exception>
         public static PointedTreeElementVertex Convert(GraphNode graphNode)
         {
             if (graphNode == null)
@@ -76,18 +78,25 @@ namespace Core.Components.GraphSharp.Converters
         /// <returns>The converted <see cref="PointedTreeVertexType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shape"/>
         /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shape"/>
+        /// is a valid value but unsupported.</exception>
         private static PointedTreeVertexType ConvertType(GraphNodeShape shape)
         {
-            switch(shape)
+            if (!Enum.IsDefined(typeof(GraphNodeShape), shape))
+            {
+                throw new InvalidEnumArgumentException(nameof(shape),
+                                                       (int) shape,
+                                                       typeof(GraphNodeShape));
+            }
+
+            switch (shape)
             {
                 case GraphNodeShape.Rectangle:
                     return PointedTreeVertexType.Rectangle;
                 case GraphNodeShape.None:
                     return PointedTreeVertexType.None;
                 default:
-                    throw new InvalidEnumArgumentException(nameof(shape),
-                                                           (int) shape,
-                                                           typeof(GraphNodeShape));
+                    throw new NotSupportedException();
             }
         }
     }

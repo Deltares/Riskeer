@@ -82,15 +82,6 @@ namespace Core.Components.PointedTree.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De content voor deze node is niet geldig..
-        /// </summary>
-        internal static string GraphNode_ValidateContent_Content_not_valid {
-            get {
-                return ResourceManager.GetString("GraphNode_ValidateContent_Content_not_valid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
