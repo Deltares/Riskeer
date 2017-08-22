@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -33,7 +33,6 @@ namespace Ringtoets.Piping.Data.SoilProfile
     /// </summary>
     public class PipingStochasticSoilProfile : Observable
     {
-        private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
         private double probability;
 
         /// <summary>
@@ -68,14 +67,10 @@ namespace Ringtoets.Piping.Data.SoilProfile
             }
             private set
             {
-                if (!probabilityValidityRange.InRange(value))
-                {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        string.Format(
-                            Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
-                            probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
-                }
+                ProbabilityHelper.ValidateProbability(
+                    value,
+                    nameof(value),
+                    Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
                 probability = value;
             }
         }
