@@ -24,7 +24,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -35,7 +34,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="PipingSurfaceLine"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
+    [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SurfaceLine_DisplayName))]
     public class PipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]

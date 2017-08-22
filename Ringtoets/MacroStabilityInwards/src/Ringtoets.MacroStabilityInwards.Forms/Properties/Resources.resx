@@ -541,4 +541,22 @@
   <data name="ZTop_DisplayName" xml:space="preserve">
     <value>Z boven [m+NAP]</value>
   </data>
+  <data name="SoilLayer_IsAquifer_Description" xml:space="preserve">
+    <value>Geeft aan of deze grondlaag een watervoerende laag betreft.</value>
+  </data>
+  <data name="SoilLayer_IsAquifer_DisplayName" xml:space="preserve">
+    <value>Is aquifer</value>
+  </data>
+  <data name="SoilLayer_TopLevel_Description" xml:space="preserve">
+    <value>Het niveau van de bovenkant van deze grondlaag binnen de ondergrondschematisatie.</value>
+  </data>
+  <data name="SoilLayer_TopLevel_DisplayName" xml:space="preserve">
+    <value>Topniveau</value>
+  </data>
+  <data name="StochasticSoilProfile_Layers_DisplayName" xml:space="preserve">
+    <value>Grondlagen</value>
+  </data>
+  <data name="SoilLayer_Geometry_Description" xml:space="preserve">
+    <value>Geometrie</value>
+  </data>
 </root>

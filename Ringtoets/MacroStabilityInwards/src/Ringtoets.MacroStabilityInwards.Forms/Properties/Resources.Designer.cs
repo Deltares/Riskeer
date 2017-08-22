@@ -945,6 +945,51 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geometrie.
+        /// </summary>
+        public static string SoilLayer_Geometry_Description {
+            get {
+                return ResourceManager.GetString("SoilLayer_Geometry_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of deze grondlaag een watervoerende laag betreft..
+        /// </summary>
+        public static string SoilLayer_IsAquifer_Description {
+            get {
+                return ResourceManager.GetString("SoilLayer_IsAquifer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is aquifer.
+        /// </summary>
+        public static string SoilLayer_IsAquifer_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilLayer_IsAquifer_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het niveau van de bovenkant van deze grondlaag binnen de ondergrondschematisatie..
+        /// </summary>
+        public static string SoilLayer_TopLevel_Description {
+            get {
+                return ResourceManager.GetString("SoilLayer_TopLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Topniveau.
+        /// </summary>
+        public static string SoilLayer_TopLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilLayer_TopLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SoilProfileIcon {
@@ -1042,6 +1087,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string StochasticSoilProfile_Bottom_DisplayName {
             get {
                 return ResourceManager.GetString("StochasticSoilProfile_Bottom_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grondlagen.
+        /// </summary>
+        public static string StochasticSoilProfile_Layers_DisplayName {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfile_Layers_DisplayName", resourceCulture);
             }
         }
         

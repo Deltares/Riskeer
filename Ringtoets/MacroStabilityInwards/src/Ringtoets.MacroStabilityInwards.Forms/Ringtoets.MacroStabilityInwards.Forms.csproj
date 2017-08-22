@@ -72,8 +72,10 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
@@ -179,6 +181,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">

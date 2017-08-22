@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
@@ -32,6 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class StochasticSoilProfilePropertiesTest
     {
+        private const string generalCategoryName = "Algemeen";
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -48,9 +52,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [TestCase(1.0, "100")]
         [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("nl-NL")]
-        public void GetProperties_WithDataAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithSoilProfile1DAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
         {
-            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile1D_ReturnExpectedValues(probability, expectedProbability);
         }
 
         [Test]
@@ -58,25 +62,235 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [TestCase(1.0, "100")]
         [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("en-US")]
-        public void GetProperties_WithDataAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithData1DAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
         {
-            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile1D_ReturnExpectedValues(probability, expectedProbability);
         }
 
-        private static void GetProperties_WithData_ReturnExpectedValues(double probability, string expectedProbability)
+        [Test]
+        [TestCase(0.142, "14,2")]
+        [TestCase(1.0, "100")]
+        [TestCase(0.5 + 1e-6, "50")]
+        [SetCulture("nl-NL")]
+        public void GetProperties_WithSoilProfile2DAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        {
+            GetProperties_WithSoilProfile2D_ReturnExpectedValues(probability, expectedProbability);
+        }
+
+        [Test]
+        [TestCase(0.142, "14.2")]
+        [TestCase(1.0, "100")]
+        [TestCase(0.5 + 1e-6, "50")]
+        [SetCulture("en-US")]
+        public void GetProperties_WithSoilProfile2DAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        {
+            GetProperties_WithSoilProfile2D_ReturnExpectedValues(probability, expectedProbability);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_WithSoilProfile1D_Visible()
+        {
+            // Setup
+            IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
+            {
+                new MacroStabilityInwardsSoilLayer1D(-2)
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", -5.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1234L)
+            {
+                SoilProfile = soilProfile
+            };
+            var properties = new StochasticSoilProfileProperties
+            {
+                Data = stochasticSoilProfile
+            };
+
+            // Call
+            bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
+            bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
+            bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+
+            // Assert
+            Assert.IsTrue(bottomVisible);
+            Assert.IsTrue(layers1DVisible);
+            Assert.IsFalse(layers2DVisible);
+        }
+
+        [Test]
+        public void DynamicVisibleValidationMethod_WithSoilProfile2D_Hidden()
+        {
+            // Setup
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(3.0, 1.0)
+                }), new Ring[0])
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("name", layers, SoilProfileType.SoilProfile2D, 1234L);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1234L)
+            {
+                SoilProfile = soilProfile
+            };
+            var properties = new StochasticSoilProfileProperties
+            {
+                Data = stochasticSoilProfile
+            };
+
+            // Call
+            bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
+            bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
+            bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+
+            // Assert
+            Assert.IsFalse(bottomVisible);
+            Assert.IsFalse(layers1DVisible);
+            Assert.IsTrue(layers2DVisible);
+        }
+
+        [Test]
+        public void VisibleProperties_WithSoilProfile1D_ExpectedAttributesValues()
+        {
+            // Setup
+            var layer = new MacroStabilityInwardsSoilLayer1D(-2);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.142, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", -5.0, new[]
+                {
+                    layer
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call
+            var properties = new StochasticSoilProfileProperties
+            {
+                Data = stochasticSoilProfile
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(5, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "De naam van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategoryName,
+                                                                            "Aandeel [%]",
+                                                                            "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.",
+                                                                            true);
+
+            PropertyDescriptor layersProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(layersProperty,
+                                                                            generalCategoryName,
+                                                                            "Grondlagen",
+                                                                            "",
+                                                                            true);
+
+            PropertyDescriptor bottomProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bottomProperty,
+                                                                            generalCategoryName,
+                                                                            "Bodemniveau",
+                                                                            "Het niveau van de onderkant van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor typeProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(typeProperty,
+                                                                            generalCategoryName,
+                                                                            "Type",
+                                                                            "Het type van de ondergrondschematisatie.",
+                                                                            true);
+        }
+
+        [Test]
+        public void VisibleProperties_WithSoilProfile2D_ExpectedAttributesValues()
+        {
+            // Setup
+            var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                             {
+                                                                 new Point2D(20.210230, 26.00001),
+                                                                 new Point2D(3.830, 1.040506)
+                                                             }),
+                                                             new Ring[0]);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.142, SoilProfileType.SoilProfile2D, 0)
+            {
+                SoilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", new[]
+                {
+                    layer
+                }, SoilProfileType.SoilProfile2D, 0)
+            };
+
+            // Call
+            var properties = new StochasticSoilProfileProperties
+            {
+                Data = stochasticSoilProfile
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "De naam van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategoryName,
+                                                                            "Aandeel [%]",
+                                                                            "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.",
+                                                                            true);
+
+            PropertyDescriptor layersProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(layersProperty,
+                                                                            generalCategoryName,
+                                                                            "Grondlagen",
+                                                                            "",
+                                                                            true);
+
+            PropertyDescriptor typeProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(typeProperty,
+                                                                            generalCategoryName,
+                                                                            "Type",
+                                                                            "Het type van de ondergrondschematisatie.",
+                                                                            true);
+        }
+
+        private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
             const string expectedName = "<some name>";
+            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2)
+            {
+                Properties =
+                {
+                    MaterialName = "Layer 1"
+                }
+            };
+
+            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4)
+            {
+                Properties =
+                {
+                    MaterialName = "Layer 2",
+                    IsAquifer = true
+                }
+            };
             IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(-2),
-                new MacroStabilityInwardsSoilLayer1D(-4)
-                {
-                    Properties =
-                    {
-                        IsAquifer = true
-                    }
-                }
+                layerOne,
+                layerTwo
             };
 
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
@@ -94,10 +308,75 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
-            CollectionAssert.AreEqual(soilProfile.Layers.Select(l => l.Top), properties.TopLevels);
+
+            Assert.AreEqual(2, properties.Layers1D.Length);
+            Assert.AreSame(layerOne, properties.Layers1D[0].Data);
+            Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
+
+            Assert.AreEqual(0, properties.Layers2D.Length);
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("1D profiel", properties.Type);
+        }
+
+        private static void GetProperties_WithSoilProfile2D_ReturnExpectedValues(double probability, string expectedProbability)
+        {
+            // Setup
+            const string expectedName = "<some name>";
+            var layerOne = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                                {
+                                                                    new Point2D(20.210230, 26.00001),
+                                                                    new Point2D(3.830, 1.040506)
+                                                                }),
+                                                                new Ring[0])
+            {
+                Properties =
+                {
+                    MaterialName = "Layer 1"
+                }
+            };
+
+            var layerTwo = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                                {
+                                                                    new Point2D(20.210230, 26.00001),
+                                                                    new Point2D(3.830, 1.040506)
+                                                                }),
+                                                                new Ring[0])
+            {
+                Properties =
+                {
+                    MaterialName = "Layer 2"
+                }
+            };
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
+            {
+                layerOne,
+                layerTwo
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D(expectedName, layers, SoilProfileType.SoilProfile2D, 0);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, SoilProfileType.SoilProfile2D, 0)
+            {
+                SoilProfile = soilProfile
+            };
+
+            // Call
+            var properties = new StochasticSoilProfileProperties
+            {
+                Data = stochasticSoilProfile
+            };
+
+            // Assert
+            Assert.AreEqual(expectedName, properties.Name);
+            Assert.AreEqual(expectedName, properties.ToString());
+
+            Assert.AreEqual(2, properties.Layers2D.Length);
+            Assert.AreSame(layerOne, properties.Layers2D[0].Data);
+            Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
+
+            Assert.AreEqual(0, properties.Layers1D.Length);
+            Assert.AreEqual(expectedProbability, properties.Probability);
+            Assert.AreEqual("2D profiel", properties.Type);
         }
     }
 }

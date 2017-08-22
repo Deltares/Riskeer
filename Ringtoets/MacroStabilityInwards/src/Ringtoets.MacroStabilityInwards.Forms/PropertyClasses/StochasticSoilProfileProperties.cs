@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -37,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsStochasticSoilProfile"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName))]
+    [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilProfileProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>
     {
@@ -66,19 +68,49 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
+        [DynamicVisible]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_Description))]
-        public double[] TopLevels
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Layers_DisplayName))]
+        public MacroStabilityInwardsSoilLayer1DProperties[] Layers1D
         {
             get
             {
-                return ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Layers.Select(l => l.Top).ToArray() ?? new double[0];
+                IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
+                if (macroStabilityInwardsSoilLayers1D != null)
+                {
+                    return macroStabilityInwardsSoilLayers1D.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties
+                    {
+                        Data = layer
+                    }).ToArray();
+                }
+                return new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
 
         [PropertyOrder(4)]
+        [DynamicVisible]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Layers_DisplayName))]
+        public MacroStabilityInwardsSoilLayer2DProperties[] Layers2D
+        {
+            get
+            {
+                IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
+                if (macroStabilityInwardsSoilLayers2D != null)
+                {
+                    return macroStabilityInwardsSoilLayers2D.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties
+                    {
+                        Data = layer
+                    }).ToArray();
+                }
+                return new MacroStabilityInwardsSoilLayer2DProperties[0];
+            }
+        }
+
+        [PropertyOrder(5)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_Description))]
@@ -90,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_Description))]
@@ -98,8 +130,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfileType == SoilProfileType.SoilProfile1D ? "1D profiel" : "2D profiel";
+                if (data.SoilProfile is MacroStabilityInwardsSoilProfile1D)
+                {
+                    return "1D profiel";
+                }
+                if (data.SoilProfile is MacroStabilityInwardsSoilProfile2D)
+                {
+                    return "2D profiel";
+                }
+
+                // If type is not supported, throw exception (currently not possible, safeguard for future)
+                throw new NotSupportedException($"Type of {nameof(data.SoilProfile)} is not supported. Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}");
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (propertyName.Equals(nameof(Bottom)) ||
+                propertyName.Equals(nameof(Layers1D)))
+            {
+                return data.SoilProfile is MacroStabilityInwardsSoilProfile1D;
+            }
+
+            if (propertyName.Equals(nameof(Layers2D)))
+            {
+                return data.SoilProfile is MacroStabilityInwardsSoilProfile2D;
+            }
+
+            return false;
         }
 
         public override string ToString()
