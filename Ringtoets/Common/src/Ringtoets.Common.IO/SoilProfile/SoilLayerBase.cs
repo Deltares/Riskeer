@@ -156,5 +156,117 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// [m/s]
         /// </summary>
         public double PermeabilityCoefficientOfVariation { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use POP for the layer.
+        /// </summary>
+        public bool UsePop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shear strength model to use for the layer.
+        /// </summary>
+        public ShearStrengthModel ShearStrengthModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double AbovePhreaticLevelMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double AbovePhreaticLevelDeviation { get; set; } = double.NaN;
+        
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double CohesionMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double CohesionDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double CohesionShift { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the friction angle
+        /// [°]
+        /// </summary>
+        public double FrictionAngleMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the friction angle.
+        /// [°]
+        /// </summary>
+        public double FrictionAngleDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the friction angle.
+        /// [°]
+        /// </summary>
+        public double FrictionAngleShift { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the ratio of shear strength S
+        /// [-]
+        /// </summary>
+        public double ShearStrengthRatioMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
+        /// [-]
+        /// </summary>
+        public double ShearStrengthRatioDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the ratio of shear strength S.
+        /// [-]
+        /// </summary>
+        public double ShearStrengthRatioShift { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the strength increase exponent (m)
+        /// [-]
+        /// </summary>
+        public double StrengthIncreaseExponentMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
+        /// [-]
+        /// </summary>
+        public double StrengthIncreaseExponentDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the strength increase exponent (m).
+        /// [-]
+        /// </summary>
+        public double StrengthIncreaseExponentShift { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the POP
+        /// [kN/m²]
+        /// </summary>
+        public double PopMean { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the POP.
+        /// [kN/m²]
+        /// </summary>
+        public double PopDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the POP.
+        /// [kN/m²]
+        /// </summary>
+        public double PopShift { get; set; } = double.NaN;
     }
 }

@@ -196,5 +196,117 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// [m/s]
         /// </summary>
         public double? PermeabilityCoefficientOfVariation { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use POP for the layer.
+        /// </summary>
+        public bool? UsePop { get; }
+
+        /// <summary>
+        /// Gets or sets the shear strength model to use for the layer.
+        /// </summary>
+        public ShearStrengthModel? ShearStrengthModel { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? AbovePhreaticLevelMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? AbovePhreaticLevelDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double? CohesionMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double? CohesionDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public double? CohesionShift { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the friction angle
+        /// [°]
+        /// </summary>
+        public double? FrictionAngleMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the friction angle.
+        /// [°]
+        /// </summary>
+        public double? FrictionAngleDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the friction angle.
+        /// [°]
+        /// </summary>
+        public double? FrictionAngleShift { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the ratio of shear strength S
+        /// [-]
+        /// </summary>
+        public double? ShearStrengthRatioMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
+        /// [-]
+        /// </summary>
+        public double? ShearStrengthRatioDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the ratio of shear strength S.
+        /// [-]
+        /// </summary>
+        public double? ShearStrengthRatioShift { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the strength increase exponent (m)
+        /// [-]
+        /// </summary>
+        public double? StrengthIncreaseExponentMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
+        /// [-]
+        /// </summary>
+        public double? StrengthIncreaseExponentDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the strength increase exponent (m).
+        /// [-]
+        /// </summary>
+        public double? StrengthIncreaseExponentShift { get; }
+
+        /// <summary>
+        /// Gets or sets the mean of the distribution for the POP
+        /// [kN/m²]
+        /// </summary>
+        public double? PopMean { get; }
+
+        /// <summary>
+        /// Gets or sets the deviation of the distribution for the POP.
+        /// [kN/m²]
+        /// </summary>
+        public double? PopDeviation { get; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the POP.
+        /// [kN/m²]
+        /// </summary>
+        public double? PopShift { get; }
     }
 }

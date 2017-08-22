@@ -130,6 +130,7 @@
     <Compile Include="SoilProfile\Schema\StochasticSoilModelTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\StochasticSoilProfileTableDefinitions.cs" />
     <Compile Include="SoilProfile\SegmentPointReader.cs" />
+    <Compile Include="SoilProfile\ShearStrengthModel.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReader.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
