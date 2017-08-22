@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
 
             // Call
             string toString = properties.ToString();

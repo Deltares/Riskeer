@@ -194,7 +194,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Sta toe om het toetspeil handmatig te specificeren?");
 
             PropertyDescriptor dikeSoilScenarioProperty = dynamicProperties[expectedDikeSoilScenarioPropertyIndex];
-            Assert.AreEqual(typeof(EnumTypeConverter), dikeSoilScenarioProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, EnumTypeConverter>(
+                nameof(MacroStabilityInwardsInputContextProperties.DikeSoilScenario));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 dikeSoilScenarioProperty,
                 hydraulicDataCategory,
@@ -202,7 +203,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Dijktype van de geschematiseerde dijk.");
 
             PropertyDescriptor waterStressesProperty = dynamicProperties[expectedWaterStressesPropertyIndex];
-            Assert.AreEqual(typeof(ExpandableObjectConverter), waterStressesProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsInputContextProperties.WaterStressesProperties));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 waterStressesProperty,
                 hydraulicDataCategory,
@@ -253,7 +255,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Maximale breedte van een lamel.");
 
             PropertyDescriptor gridSettingsProperty = dynamicProperties[expectedGridSettingsPropertyIndex];
-            Assert.AreEqual(typeof(ExpandableObjectConverter), gridSettingsProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsInputContextProperties.GridSettings));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 gridSettingsProperty,
                 settingsCategory,

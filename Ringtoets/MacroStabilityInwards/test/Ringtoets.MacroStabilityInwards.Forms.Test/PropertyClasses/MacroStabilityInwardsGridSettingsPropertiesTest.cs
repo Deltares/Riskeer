@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -123,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Sta automatische aanpassing van het grid toe?");
 
             PropertyDescriptor gridDeterminationProperty = dynamicProperties[expectedGridDeterminationPropertyIndex];
-            Assert.AreEqual(typeof(EnumTypeConverter), gridDeterminationProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, EnumTypeConverter>(nameof(properties.GridDetermination));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 gridDeterminationProperty,
                 calculationGridsCategory,
@@ -131,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Rekengrid automatisch bepalen of handmatig invoeren?");
 
             PropertyDescriptor tangentLineDeterminationProperty = dynamicProperties[expectedTangentLineDeterminationPropertyIndex];
-            Assert.AreEqual(typeof(EnumTypeConverter), tangentLineDeterminationProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, EnumTypeConverter>(nameof(properties.TangentLineDetermination));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 tangentLineDeterminationProperty,
                 calculationGridsCategory,
@@ -153,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Verticale coordinaat van de onderste raaklijn.");
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
-            Assert.AreEqual(typeof(ExpandableObjectConverter), leftGridProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.LeftGrid));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leftGridProperty,
                 calculationGridsCategory,
@@ -162,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 true);
 
             PropertyDescriptor rightGridProperty = dynamicProperties[expectedRightGridPropertyIndex];
-            Assert.AreEqual(typeof(ExpandableObjectConverter), rightGridProperty.Converter.GetType());
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.RightGrid));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 rightGridProperty,
                 calculationGridsCategory,
