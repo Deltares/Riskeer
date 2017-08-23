@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -38,6 +40,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(StochasticSoilModelReader));
         private readonly string constraintsReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseConstraintsReader));
         private readonly string versionReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilDatabaseVersionReader));
+        private readonly string soilProfile1DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile1DReader));
+        private readonly string soilProfile2DReaderTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, nameof(SoilProfile2DReader));
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
@@ -174,6 +178,63 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build("Namen van ondergrondmodellen zijn niet uniek.");
                 Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Validate_InvalidSoilProfile1d_LogsWarning()
+        {
+            // Setup
+            string dbFile = Path.Combine(soilProfile1DReaderTestDataPath, "1dprofileWithIncorrectBottom.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                Action call = () => reader.Validate();
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] tuplesArray = tuples.ToArray();
+                    Assert.AreEqual(1, tuplesArray.Length);
+
+                    string expectedMessage = "Het uitlezen van de ondergrondschematisatie is mislukt. " +
+                                             "Deze ondergrondschematisatie wordt overgeslagen.";
+                    Assert.AreEqual(expectedMessage, tuplesArray[0].Item1);
+                    Assert.AreEqual(Level.Warn, tuplesArray[0].Item2);
+                    Assert.IsInstanceOf<SoilProfileReadException>(tuplesArray[0].Item3);
+                });
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Validate_InvalidSoilProfile2d_LogsWarning()
+        {
+            // Setup
+            string dbFile = Path.Combine(soilProfile2DReaderTestDataPath, "2dProfileWithXInvalid.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                Action call = () => reader.Validate();
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] tuplesArray = tuples.ToArray();
+                    Assert.AreEqual(1, tuplesArray.Length);
+
+                    string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
+                                             "Geen geldige waarde in kolom 'IntersectionX'. " +
+                                             "Deze ondergrondschematisatie wordt overgeslagen.";
+                    Assert.AreEqual(expectedMessage, tuplesArray[0].Item1);
+                    Assert.AreEqual(Level.Warn, tuplesArray[0].Item2);
+                    Assert.IsInstanceOf<SoilProfileReadException>(tuplesArray[0].Item3);
+                });
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

@@ -1806,6 +1806,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Deze ondergrondschematisatie wordt overgeslagen..
+        /// </summary>
+        public static string StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het faalmechanisme &apos;{0}&apos; wordt niet ondersteund..
         /// </summary>
         public static string StochasticSoilModelReader_ReadFailureMechanismType_Failure_mechanism_0_not_supported {
