@@ -32,17 +32,34 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private RoundedDouble assessmentLayerThree;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
-
-        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            ProbabilityHelper.ValidateProbability(value, null, true);
-            return value;
+            AssessmentLayerThree = RoundedDouble.NaN;
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        public RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return assessmentLayerThree;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null, true);
+                assessmentLayerThree = value;
+            }
         }
     }
 }

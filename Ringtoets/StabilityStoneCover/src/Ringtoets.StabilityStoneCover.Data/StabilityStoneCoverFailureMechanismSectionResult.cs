@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.StabilityStoneCover.Data
@@ -39,6 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
+            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -46,5 +48,10 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

@@ -43,15 +43,15 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
-        public override RoundedDouble AssessmentLayerThree
+        public RoundedDouble AssessmentLayerThree
         {
             get
             {
-                return base.AssessmentLayerThree;
+                return SectionResult.AssessmentLayerThree;
             }
             set
             {
-                base.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerThree = value;
             }
         }
 

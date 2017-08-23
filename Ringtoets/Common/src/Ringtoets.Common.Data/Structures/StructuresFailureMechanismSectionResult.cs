@@ -34,12 +34,17 @@ namespace Ringtoets.Common.Data.Structures
     /// for the whole section.</typeparam>
     public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : IStructuresCalculationInput, new()
     {
+        private RoundedDouble assessmentLayerThree;
+
         /// <summary>
         /// Initializes a new instance of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        protected StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        protected StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            AssessmentLayerThree = RoundedDouble.NaN;
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
@@ -47,10 +52,22 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         public StructuresCalculation<T> Calculation { get; set; }
 
-        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        public RoundedDouble AssessmentLayerThree
         {
-            ProbabilityHelper.ValidateProbability(value, null, true);
-            return value;
+            get
+            {
+                return assessmentLayerThree;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null, true);
+                assessmentLayerThree = value;
+            }
         }
     }
 }

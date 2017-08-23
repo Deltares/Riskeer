@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
@@ -43,7 +41,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreEqual(AssessmentLayerOneState.NotAssessed, result.AssessmentLayerOne);
-            Assert.IsNaN(result.AssessmentLayerThree);
             Assert.AreSame(section, result.Section);
         }
 
@@ -73,25 +70,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(5)]
-        [TestCase(0.5)]
-        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree, failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
         private static FailureMechanismSection CreateSection()

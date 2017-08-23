@@ -48,6 +48,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>>(row);
+            TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow, NoValueRoundedDoubleConverter>(
+                nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

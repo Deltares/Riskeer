@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
@@ -44,6 +48,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -60,6 +67,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+        }
+
+        [Test]
+        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        {
+            // Setup
+            var random = new Random(21);
+            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(CreateSection());
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(sectionResult);
+
+            // Call
+            row.AssessmentLayerThree = assessmentLayerThree;
+
+            // Assert
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()

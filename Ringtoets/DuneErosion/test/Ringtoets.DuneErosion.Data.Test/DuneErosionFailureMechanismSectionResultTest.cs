@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -32,10 +34,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var result = new DuneErosionFailureMechanismSectionResult(section);
@@ -44,6 +43,35 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
+            Assert.IsNaN(result.AssessmentLayerThree);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(5)]
+        [TestCase(0.5)]
+        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
+        {
+            // Setup
+            var section = CreateSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+
+            // Call
+            result.AssessmentLayerThree = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.AssessmentLayerThree,
+                            result.AssessmentLayerThree.GetAccuracy());
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }

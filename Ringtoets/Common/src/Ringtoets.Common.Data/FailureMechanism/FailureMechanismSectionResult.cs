@@ -30,8 +30,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// </summary>
     public abstract class FailureMechanismSectionResult : Observable
     {
-        private RoundedDouble assessmentLayerThreeValue;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
@@ -45,7 +43,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
             Section = section;
             AssessmentLayerOne = AssessmentLayerOneState.NotAssessed;
-            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -54,37 +51,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         public AssessmentLayerOneState AssessmentLayerOne { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return assessmentLayerThreeValue;
-            }
-            set
-            {
-                assessmentLayerThreeValue = ValidateAssessmentLayerThree(value);
-            }
-        }
-
-        /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; private set; }
-
-        /// <summary>
-        /// Validates the value of the tailored assessment of safety
-        /// </summary>
-        /// <param name="value">The value to validate.</param>
-        /// <returns>The validated value.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        protected virtual RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
-        {
-            return value;
-        }
     }
 }

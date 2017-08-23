@@ -104,7 +104,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree, sectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
-
         private static FailureMechanismSection CreateSection()
         {
             return new FailureMechanismSection("Section", new[]

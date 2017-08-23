@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
@@ -32,10 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
@@ -43,6 +42,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
+            Assert.IsNaN(result.AssessmentLayerThree);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(5)]
+        [TestCase(0.5)]
+        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var failureMechanismSectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+
+            // Call
+            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
+                            failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }

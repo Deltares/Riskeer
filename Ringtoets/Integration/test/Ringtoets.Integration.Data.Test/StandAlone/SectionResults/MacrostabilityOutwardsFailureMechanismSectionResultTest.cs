@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
@@ -43,6 +45,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsNaN(result.AssessmentLayerTwoA);
+            Assert.IsNaN(result.AssessmentLayerThree);
         }
 
         [Test]
@@ -84,6 +87,25 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(5)]
+        [TestCase(0.5)]
+        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
+        {
+            // Setup
+           var failureMechanismSectionResult = new MacrostabilityOutwardsFailureMechanismSectionResult(CreateSection());
+
+            // Call
+            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
+                            failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
         private static FailureMechanismSection CreateSection()

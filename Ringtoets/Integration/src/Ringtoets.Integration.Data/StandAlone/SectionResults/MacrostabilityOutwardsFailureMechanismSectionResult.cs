@@ -46,6 +46,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             AssessmentLayerTwoA = double.NaN;
+            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -69,5 +70,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
                 assessmentLayerTwoA = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

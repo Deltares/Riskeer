@@ -77,22 +77,6 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public virtual RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
         /// </summary>
         protected T SectionResult { get; }

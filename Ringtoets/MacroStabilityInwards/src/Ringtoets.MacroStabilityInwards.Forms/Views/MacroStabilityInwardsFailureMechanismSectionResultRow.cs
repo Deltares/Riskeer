@@ -57,15 +57,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
-        public override RoundedDouble AssessmentLayerThree
+        public RoundedDouble AssessmentLayerThree
         {
             get
             {
-                return base.AssessmentLayerThree;
+                return SectionResult.AssessmentLayerThree;
             }
             set
             {
-                base.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerThree = value;
             }
         }
 

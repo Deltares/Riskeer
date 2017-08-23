@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
@@ -51,6 +54,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             set
             {
                 SectionResult.AssessmentLayerTwoA = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerThree;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
     }

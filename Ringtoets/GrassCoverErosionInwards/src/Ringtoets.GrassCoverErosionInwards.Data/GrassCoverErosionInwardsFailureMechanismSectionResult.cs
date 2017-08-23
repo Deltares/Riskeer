@@ -32,12 +32,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private RoundedDouble assessmentLayerThreeValue;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        {
+            assessmentLayerThreeValue = RoundedDouble.NaN;
+        }
 
         /// <summary>
         /// Gets the value of assessment layer two a.
@@ -60,10 +65,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
 
-        protected override RoundedDouble ValidateAssessmentLayerThree(RoundedDouble value)
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        public RoundedDouble AssessmentLayerThree
         {
-            ProbabilityHelper.ValidateProbability(value, null, true);
-            return value;
+            get
+            {
+                return assessmentLayerThreeValue;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null, true);
+                assessmentLayerThreeValue = value;
+            }
         }
     }
 }
