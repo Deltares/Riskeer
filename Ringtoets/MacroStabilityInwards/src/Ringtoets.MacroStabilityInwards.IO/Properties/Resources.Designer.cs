@@ -322,6 +322,60 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onverzadigd gewicht.
+        /// </summary>
+        public static string SoilLayerProperties_AbovePhreaticLevelDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_AbovePhreaticLevelDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cohesie.
+        /// </summary>
+        public static string SoilLayerProperties_CohesionDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_CohesionDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrijvingshoek.
+        /// </summary>
+        public static string SoilLayerProperties_FrictionAngleDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_FrictionAngleDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to POP.
+        /// </summary>
+        public static string SoilLayerProperties_PopDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_PopDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schuifsterkte ratio S.
+        /// </summary>
+        public static string SoilLayerProperties_ShearStrengthRatioDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_ShearStrengthRatioDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte toename exponent.
+        /// </summary>
+        public static string SoilLayerProperties_StrengthIncreaseExponentDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_StrengthIncreaseExponentDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
         /// </summary>
         public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {

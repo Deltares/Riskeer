@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -37,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(null);
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer1D) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -63,19 +64,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             double belowPhreaticLevelDeviation = random.NextDouble();
             double cohesionMean = random.NextDouble();
             double cohesionDeviation = random.NextDouble();
-            double cohesionShift = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
             double frictionAngleDeviation = random.NextDouble();
-            double frictionAngleShift = random.NextDouble();
             double shearStrengthRatioMean = random.NextDouble();
             double shearStrengthRatioDeviation = random.NextDouble();
-            double shearStrengthRatioShift = random.NextDouble();
             double strengthIncreaseExponentMean = random.NextDouble();
             double strengthIncreaseExponentDeviation = random.NextDouble();
-            double strengthIncreaseExponentShift = random.NextDouble();
             double popMean = random.NextDouble();
             double popDeviation = random.NextDouble();
-            double popShift = random.NextDouble();
 
             var layer = new SoilLayer1D(top)
             {
@@ -90,19 +86,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
                 CohesionMean = cohesionMean,
                 CohesionDeviation = cohesionDeviation,
-                CohesionShift = cohesionShift,
                 FrictionAngleMean = frictionAngleMean,
                 FrictionAngleDeviation = frictionAngleDeviation,
-                FrictionAngleShift = frictionAngleShift,
                 ShearStrengthRatioMean = shearStrengthRatioMean,
                 ShearStrengthRatioDeviation = shearStrengthRatioDeviation,
-                ShearStrengthRatioShift = shearStrengthRatioShift,
                 StrengthIncreaseExponentMean = strengthIncreaseExponentMean,
                 StrengthIncreaseExponentDeviation = strengthIncreaseExponentDeviation,
-                StrengthIncreaseExponentShift = strengthIncreaseExponentShift,
                 PopMean = popMean,
-                PopDeviation = popDeviation,
-                PopShift = popShift
+                PopDeviation = popDeviation
             };
 
             // Call
@@ -123,19 +114,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
             Assert.AreEqual(cohesionDeviation, properties.CohesionDeviation);
-            Assert.AreEqual(cohesionShift, properties.CohesionShift);
             Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);
             Assert.AreEqual(frictionAngleDeviation, properties.FrictionAngleDeviation);
-            Assert.AreEqual(frictionAngleShift, properties.FrictionAngleShift);
             Assert.AreEqual(shearStrengthRatioMean, properties.ShearStrengthRatioMean);
             Assert.AreEqual(shearStrengthRatioDeviation, properties.ShearStrengthRatioDeviation);
-            Assert.AreEqual(shearStrengthRatioShift, properties.ShearStrengthRatioShift);
             Assert.AreEqual(strengthIncreaseExponentMean, properties.StrengthIncreaseExponentMean);
             Assert.AreEqual(strengthIncreaseExponentDeviation, properties.StrengthIncreaseExponentDeviation);
-            Assert.AreEqual(strengthIncreaseExponentShift, properties.StrengthIncreaseExponentShift);
             Assert.AreEqual(popMean, properties.PopMean);
             Assert.AreEqual(popDeviation, properties.PopDeviation);
-            Assert.AreEqual(popShift, properties.PopShift);
         }
 
         [Test]
@@ -154,6 +140,90 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual("Er ging iets mis met transformeren.", exception.Message);
             Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
+        {
+            return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
+            const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            const double validShift = 0.0;
+
+            SoilLayerBase invalidCohesionShift = soilLayer();
+            invalidCohesionShift.CohesionDistribution = validDistribution;
+            invalidCohesionShift.CohesionShift = -1;
+            yield return new TestCaseData(invalidCohesionShift, "Cohesie"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidCohesionDistribution = soilLayer();
+            invalidCohesionDistribution.CohesionDistribution = -1;
+            invalidCohesionDistribution.CohesionShift = validShift;
+            yield return new TestCaseData(invalidCohesionDistribution, "Cohesie"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidFrictionAngleShift = soilLayer();
+            invalidFrictionAngleShift.FrictionAngleDistribution = validDistribution;
+            invalidFrictionAngleShift.FrictionAngleShift = -1;
+            yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidFrictionAngleDistribution = soilLayer();
+            invalidFrictionAngleDistribution.FrictionAngleDistribution = -1;
+            invalidFrictionAngleDistribution.FrictionAngleShift = validShift;
+            yield return new TestCaseData(invalidFrictionAngleDistribution, "Wrijvingshoek"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
+            invalidShearStrengthRatioShift.ShearStrengthRatioDistribution = validDistribution;
+            invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
+            yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio S"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidShearStrengthRatioDistribution = soilLayer();
+            invalidShearStrengthRatioDistribution.ShearStrengthRatioDistribution = -1;
+            invalidShearStrengthRatioDistribution.ShearStrengthRatioShift = validShift;
+            yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio S"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
+            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistribution = validDistribution;
+            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
+            yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exponent"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidStrengthIncreaseExponentDistribution = soilLayer();
+            invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistribution = -1;
+            invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentShift = validShift;
+            yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exponent"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidPopShift = soilLayer();
+            invalidPopShift.PopDistribution = validDistribution;
+            invalidPopShift.PopShift = -1;
+            yield return new TestCaseData(invalidPopShift, "POP"
+            ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+
+            SoilLayerBase invalidPopDistribution = soilLayer();
+            invalidPopDistribution.PopDistribution = -1;
+            invalidPopDistribution.PopShift = validShift;
+            yield return new TestCaseData(invalidPopDistribution, "POP"
+            ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
         }
 
         private MacroStabilityInwardsShearStrengthModel GetMacroStabilityInwardsShearStrengthModel(ShearStrengthModel shearStrengthModel)

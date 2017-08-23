@@ -1631,6 +1631,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; is niet lognormaal verdeeld..
+        /// </summary>
+        public static string SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution {
+            get {
+                return ResourceManager.GetString("SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
         /// </summary>
         public static string SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments {

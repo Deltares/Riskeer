@@ -240,4 +240,22 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined" xml:space="preserve">
     <value>Karakteristiek punt '{0}' is niet gedefiniëerd.</value>
   </data>
+  <data name="SoilLayerProperties_AbovePhreaticLevelDistribution_Description" xml:space="preserve">
+    <value>Onverzadigd gewicht</value>
+  </data>
+  <data name="SoilLayerProperties_CohesionDistribution_Description" xml:space="preserve">
+    <value>Cohesie</value>
+  </data>
+  <data name="SoilLayerProperties_FrictionAngleDistribution_Description" xml:space="preserve">
+    <value>Wrijvingshoek</value>
+  </data>
+  <data name="SoilLayerProperties_PopDistribution_Description" xml:space="preserve">
+    <value>POP</value>
+  </data>
+  <data name="SoilLayerProperties_ShearStrengthRatioDistribution_Description" xml:space="preserve">
+    <value>Schuifsterkte ratio S</value>
+  </data>
+  <data name="SoilLayerProperties_StrengthIncreaseExponentDistribution_Description" xml:space="preserve">
+    <value>Sterkte toename exponent</value>
+  </data>
 </root>

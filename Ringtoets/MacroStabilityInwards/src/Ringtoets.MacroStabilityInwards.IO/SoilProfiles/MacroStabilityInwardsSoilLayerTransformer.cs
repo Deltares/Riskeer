@@ -22,7 +22,9 @@
 using System;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -49,6 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
+            ValidateStochasticParameters(soilLayer);
+
             var layer = new MacroStabilityInwardsSoilLayer1D(soilLayer.Top)
             {
                 Properties =
@@ -63,19 +67,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation,
                     CohesionMean = soilLayer.CohesionMean,
                     CohesionDeviation = soilLayer.CohesionDeviation,
-                    CohesionShift = soilLayer.CohesionShift,
                     FrictionAngleMean = soilLayer.FrictionAngleMean,
                     FrictionAngleDeviation = soilLayer.FrictionAngleDeviation,
-                    FrictionAngleShift = soilLayer.FrictionAngleShift,
                     ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean,
                     ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioDeviation,
-                    ShearStrengthRatioShift = soilLayer.ShearStrengthRatioShift,
                     StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean,
                     StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentDeviation,
-                    StrengthIncreaseExponentShift = soilLayer.StrengthIncreaseExponentShift,
                     PopMean = soilLayer.PopMean,
-                    PopDeviation = soilLayer.PopDeviation,
-                    PopShift = soilLayer.PopShift
+                    PopDeviation = soilLayer.PopDeviation
                 }
             };
 
@@ -89,6 +88,51 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
 
             return layer;
+        }
+
+        /// <summary>
+        /// Validates whether the values of the distribution and shift for the stochastic parameters 
+        /// are correct for creating a soil layer.
+        /// </summary>
+        /// <exception cref="ImportedDataTransformException">Thrown when any of the distributions of the
+        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
+        private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
+        {
+            ValidateIsNonShiftedLogNormal(
+                soilLayer.CohesionDistribution,
+                soilLayer.CohesionShift,
+                Resources.SoilLayerProperties_CohesionDistribution_Description);
+
+            ValidateIsNonShiftedLogNormal(
+                soilLayer.FrictionAngleDistribution,
+                soilLayer.FrictionAngleShift,
+                Resources.SoilLayerProperties_FrictionAngleDistribution_Description);
+
+            ValidateIsNonShiftedLogNormal(
+                soilLayer.ShearStrengthRatioDistribution,
+                soilLayer.ShearStrengthRatioShift,
+                Resources.SoilLayerProperties_ShearStrengthRatioDistribution_Description);
+
+            ValidateIsNonShiftedLogNormal(
+                soilLayer.StrengthIncreaseExponentDistribution,
+                soilLayer.StrengthIncreaseExponentShift,
+                Resources.SoilLayerProperties_StrengthIncreaseExponentDistribution_Description);
+
+            ValidateIsNonShiftedLogNormal(
+                soilLayer.PopDistribution,
+                soilLayer.PopShift,
+                Resources.SoilLayerProperties_PopDistribution_Description);
+        }
+
+        private static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string incorrectDistibutionParameter)
+        {
+            if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
+                                          || Math.Abs(shift) > 1e-6))
+            {
+                throw new ImportedDataTransformException(string.Format(
+                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                             incorrectDistibutionParameter));
+            }
         }
 
         /// <summary>

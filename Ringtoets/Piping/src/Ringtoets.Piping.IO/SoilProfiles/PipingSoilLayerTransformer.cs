@@ -28,6 +28,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfiles
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            ValidateStochasticParametersForPiping(soilLayer);
+            ValidateStochasticParameters(soilLayer);
 
             var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
             {
@@ -72,7 +73,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            ValidateStochasticParametersForPiping(soilLayer);
+            ValidateStochasticParameters(soilLayer);
 
             bottom = double.MaxValue;
 
@@ -121,27 +122,27 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// </summary>
         /// <exception cref="ImportedDataTransformException">Thrown when any of the distributions of the
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
-        private static void ValidateStochasticParametersForPiping(SoilLayerBase soilLayer1D)
+        private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
             ValidateIsLogNormal(
-                soilLayer1D.BelowPhreaticLevelDistribution,
+                soilLayer.BelowPhreaticLevelDistribution,
                 Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
             ValidateIsNonShiftedLogNormal(
-                soilLayer1D.DiameterD70Distribution,
-                soilLayer1D.DiameterD70Shift,
+                soilLayer.DiameterD70Distribution,
+                soilLayer.DiameterD70Shift,
                 Resources.SoilLayer_DiameterD70Distribution_Description);
             ValidateIsNonShiftedLogNormal(
-                soilLayer1D.PermeabilityDistribution,
-                soilLayer1D.PermeabilityShift,
+                soilLayer.PermeabilityDistribution,
+                soilLayer.PermeabilityShift,
                 Resources.SoilLayer_PermeabilityDistribution_Description);
         }
 
         /// <summary>
-        /// Sets the values of the optional stochastic parameters for the given <see cref="PipingSoilLayer"/>.
+        /// Sets the values of the stochastic parameters for the given <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
         /// <param name="soilLayer1D">The <see cref="SoilLayerBase"/> to get the properties from.</param>
-        /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
+        /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParameters"/> to 
         /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
         private static void SetStochasticParameters(PipingSoilLayer pipingSoilLayer, SoilLayerBase soilLayer1D)
         {
@@ -160,7 +161,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                                           || Math.Abs(shift) > 1e-6))
             {
                 throw new ImportedDataTransformException(string.Format(
-                                                             Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
                                                              incorrectDistibutionParameter));
             }
         }

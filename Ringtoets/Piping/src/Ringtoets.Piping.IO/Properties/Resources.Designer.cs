@@ -236,15 +236,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; is niet lognormaal verdeeld..
-        /// </summary>
-        public static string SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution {
-            get {
-                return ResourceManager.GetString("SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Parameter &apos;{0}&apos; is niet verschoven lognormaal verdeeld..
         /// </summary>
         public static string SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution {

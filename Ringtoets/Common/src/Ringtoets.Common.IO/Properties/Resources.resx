@@ -883,4 +883,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped" xml:space="preserve">
     <value>{0} Deze ondergrondschematisatie wordt overgeslagen.</value>
   </data>
+  <data name="SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
+    <value>Parameter '{0}' is niet lognormaal verdeeld.</value>
+  </data>
 </root>

@@ -135,9 +135,6 @@
   <data name="SoilLayer_PermeabilityDistribution_Description" xml:space="preserve">
     <value>Doorlatendheid</value>
   </data>
-  <data name="SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
-    <value>Parameter '{0}' is niet lognormaal verdeeld.</value>
-  </data>
   <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
     <value>Parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
   </data>
