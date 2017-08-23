@@ -21,9 +21,9 @@
 
 using System;
 using System.Windows.Input;
-using System.Windows.Media;
 using Core.Components.GraphSharp.Commands;
 using Core.Components.GraphSharp.Data;
+using Core.Components.GraphSharp.Test.Data;
 using NUnit.Framework;
 
 namespace Core.Components.GraphSharp.Test.Commands
@@ -35,7 +35,7 @@ namespace Core.Components.GraphSharp.Test.Commands
         public void Constructor_ExpectedValues()
         {
             // Call
-            var command = new VertexSelectedCommand(new TestPointedTreeElementVertex());
+            var command = new VertexSelectedCommand(PointedTreeTestDataFactory.CreatePointedTreeElementVertex());
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -56,7 +56,7 @@ namespace Core.Components.GraphSharp.Test.Commands
         public void CanExecute_VertexIsSelectableFalse_ReturnFalse()
         {
             // Setup
-            var command = new VertexSelectedCommand(new TestPointedTreeElementVertex(false));
+            var command = new VertexSelectedCommand(PointedTreeTestDataFactory.CreatePointedTreeElementVertex());
 
             // Call
             bool canExecute = command.CanExecute(null);
@@ -69,7 +69,7 @@ namespace Core.Components.GraphSharp.Test.Commands
         public void CanExecute_VertexIsSelectableTrue_ReturnTrue()
         {
             // Setup
-            var command = new VertexSelectedCommand(new TestPointedTreeElementVertex(true));
+            var command = new VertexSelectedCommand(PointedTreeTestDataFactory.CreatePointedTreeElementVertex(true));
 
             // Call
             bool canExecute = command.CanExecute(null);
@@ -79,10 +79,10 @@ namespace Core.Components.GraphSharp.Test.Commands
         }
 
         [Test]
-        public void Execute_Always_SetToTrue()
+        public void Execute_Always_SetVertexSelectionToTrue()
         {
             // Setup
-            var vertex = new TestPointedTreeElementVertex(true);
+            PointedTreeElementVertex vertex = PointedTreeTestDataFactory.CreatePointedTreeElementVertex(true);
             var command = new VertexSelectedCommand(vertex);
 
             // Precondition
@@ -93,15 +93,6 @@ namespace Core.Components.GraphSharp.Test.Commands
 
             // Assert
             Assert.IsTrue(vertex.IsSelected);
-        }
-
-        private class TestPointedTreeElementVertex : PointedTreeElementVertex
-        {
-            public TestPointedTreeElementVertex() : this(false) {}
-
-            public TestPointedTreeElementVertex(bool isSelectable)
-                : base("<text>test</text>",
-                       Colors.Red, Colors.Black, 2, PointedTreeVertexType.Rectangle, isSelectable) {}
         }
     }
 }

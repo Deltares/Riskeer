@@ -43,6 +43,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Layout
             Assert.IsInstanceOf<GraphLayout<PointedTreeElementVertex, PointedTreeEdge, PointedTreeGraph>>(layout);
             Assert.AreEqual("Tree", layout.LayoutAlgorithmType);
             Assert.AreEqual("FSA", layout.OverlapRemovalAlgorithmType);
+            Assert.AreEqual("Simple", layout.HighlightAlgorithmType);
             Assert.AreEqual(AlgorithmConstraints.Must, layout.OverlapRemovalConstraint);
             Assert.AreEqual(10, layout.OverlapRemovalParameters.HorizontalGap);
             Assert.AreEqual(10, layout.OverlapRemovalParameters.VerticalGap);

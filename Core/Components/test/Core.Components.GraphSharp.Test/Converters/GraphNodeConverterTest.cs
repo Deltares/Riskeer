@@ -28,7 +28,7 @@ using Core.Components.GraphSharp.Data;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
 using Color = System.Drawing.Color;
-using wpfColor = System.Windows.Media.Color;
+using WpfColor = System.Windows.Media.Color;
 
 namespace Core.Components.GraphSharp.Test.Converters
 {
@@ -50,15 +50,16 @@ namespace Core.Components.GraphSharp.Test.Converters
         public void Convert_InvalidShapeType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
+            const int shapeAsInteger = 99;
             var graphNode = new GraphNode("<text>test</text>", new GraphNode[0], false,
-                                          new GraphNodeStyle((GraphNodeShape) 99, Color.AliceBlue,
+                                          new GraphNodeStyle((GraphNodeShape) shapeAsInteger, Color.AliceBlue,
                                                              Color.AntiqueWhite, 2));
 
             // Call
             TestDelegate test = () => GraphNodeConverter.Convert(graphNode);
 
             // Assert
-            const string message = "The value of argument 'shape' (99) is invalid for Enum type 'GraphNodeShape'.";
+            string message = $"The value of argument 'shape' ({shapeAsInteger}) is invalid for Enum type '{typeof(GraphNodeShape).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
@@ -93,9 +94,14 @@ namespace Core.Components.GraphSharp.Test.Converters
             AssertColors(lineColor, vertex.LineColor);
         }
 
-        private static void AssertColors(Color color, Brush brushColor)
+        private static void AssertColors(Color expectedColor, Brush brushColor)
         {
-            Assert.AreEqual(new SolidColorBrush(wpfColor.FromArgb(color.A, color.R, color.G, color.B)).ToString(), brushColor.ToString());
+            Assert.IsInstanceOf<SolidColorBrush>(brushColor);
+            WpfColor actualColor = ((SolidColorBrush) brushColor).Color;
+            Assert.AreEqual(expectedColor.A, actualColor.A);
+            Assert.AreEqual(expectedColor.R, actualColor.R);
+            Assert.AreEqual(expectedColor.G, actualColor.G);
+            Assert.AreEqual(expectedColor.B, actualColor.B);
         }
     }
 }

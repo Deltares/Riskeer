@@ -38,7 +38,7 @@ namespace Core.Components.GraphSharp.Forms.Test
     public class PointedTreeGraphControlTest
     {
         [Test]
-        public void Constructor_ExptedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var graphControl = new PointedTreeGraphControl())
@@ -69,7 +69,7 @@ namespace Core.Components.GraphSharp.Forms.Test
         }
 
         [Test]
-        public void GivenGraphControlWithoutData_WhenDataSetToGraphNode_ThenGraphControlUpdated()
+        public void GivenGraphControlWithoutData_WhenDataSet_ThenGraphControlUpdated()
         {
             // Given
             using (var graphControl = new PointedTreeGraphControl())

@@ -37,7 +37,7 @@ namespace Core.Components.GraphSharp.Forms.Layout
         /// </summary>
         public PointedTreeGraphLayout()
         {
-            HighlightAlgorithmType = "FSA";
+            HighlightAlgorithmType = "Simple";
             LayoutAlgorithmType = "Tree";
             OverlapRemovalAlgorithmType = "FSA";
             OverlapRemovalConstraint = AlgorithmConstraints.Must;

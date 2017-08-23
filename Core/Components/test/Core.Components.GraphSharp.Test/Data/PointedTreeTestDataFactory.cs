@@ -19,29 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Media;
 using Core.Components.GraphSharp.Data;
-using NUnit.Framework;
-using QuickGraph;
 
 namespace Core.Components.GraphSharp.Test.Data
 {
-    [TestFixture]
-    public class PointedTreeEdgeTest
+    /// <summary>
+    /// Factory for creating pointed tree related test data objects.
+    /// </summary>
+    public static class PointedTreeTestDataFactory
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a <see cref="PointedTreeElementVertex"/> object for testing purposes.
+        /// </summary>
+        /// <param name="isSelectable">Whether or not the vertex should be selectable.</param>
+        /// <returns>A <see cref="PointedTreeElementVertex"/>.</returns>
+        public static PointedTreeElementVertex CreatePointedTreeElementVertex(bool isSelectable = false)
         {
-            // Setup
-            PointedTreeElementVertex source = PointedTreeTestDataFactory.CreatePointedTreeElementVertex();
-            PointedTreeElementVertex target = PointedTreeTestDataFactory.CreatePointedTreeElementVertex();
-
-            // Call
-            var edge = new PointedTreeEdge(source, target);
-
-            // Assert
-            Assert.IsInstanceOf<Edge<PointedTreeElementVertex>>(edge);
-            Assert.AreSame(source, edge.Source);
-            Assert.AreSame(target, edge.Target);
+            return new PointedTreeElementVertex("<text>test</text>",
+                                                Colors.Red,
+                                                Colors.Black,
+                                                2,
+                                                PointedTreeVertexType.Rectangle,
+                                                isSelectable);
         }
     }
 }

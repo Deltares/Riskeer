@@ -120,8 +120,8 @@ namespace Core.Components.GraphSharp.Forms.Test.Extensions
             var run = (Run) spanInlines[0];
             Assert.AreEqual("test ", run.Text);
 
-            var unsupportedNodeRune = (Run) spanInlines[1];
-            Assert.AreEqual("unsupported node", unsupportedNodeRune.Text);
+            var unsupportedNodeRun = (Run) spanInlines[1];
+            Assert.AreEqual("unsupported node", unsupportedNodeRun.Text);
         }
 
         [Test]

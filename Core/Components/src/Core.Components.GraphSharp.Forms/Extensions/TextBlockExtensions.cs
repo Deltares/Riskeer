@@ -56,6 +56,12 @@ namespace Core.Components.GraphSharp.Forms.Extensions
             }
         }
 
+        /// <summary>
+        /// Converts an XML string to an <see cref="Inline"/> element.
+        /// </summary>
+        /// <param name="value">The XML string to convert.</param>
+        /// <exception cref="XmlException">Thrown when there is a load or parse error in the XML.</exception>
+        /// <returns>An <see cref="Inline"/> element.</returns>
         private static Inline Convert(string value)
         {
             var doc = new XmlDocument();

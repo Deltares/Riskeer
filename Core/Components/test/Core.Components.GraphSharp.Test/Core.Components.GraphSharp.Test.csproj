@@ -86,6 +86,7 @@
     <Compile Include="Data\PointedTreeEdgeTest.cs" />
     <Compile Include="Data\PointedTreeGraphTest.cs" />
     <Compile Include="Data\PointedTreeElementVertexTest.cs" />
+    <Compile Include="Data\PointedTreeTestDataFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
