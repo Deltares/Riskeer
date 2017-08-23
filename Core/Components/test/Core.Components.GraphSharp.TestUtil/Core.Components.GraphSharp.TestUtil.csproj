@@ -6,8 +6,8 @@
     <ProjectGuid>{0500CA45-1791-4C91-9243-EF95567068A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Components.PointedTree.TestUtil</RootNamespace>
-    <AssemblyName>Core.Components.PointedTree.TestUtil</AssemblyName>
+    <RootNamespace>Core.Components.GraphSharp.TestUtil</RootNamespace>
+    <AssemblyName>Core.Components.GraphSharp.TestUtil</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
