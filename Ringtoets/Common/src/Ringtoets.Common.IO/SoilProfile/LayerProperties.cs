@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 UsePop = reader.ReadOrDefault<bool?>(readColumn);
 
                 readColumn = SoilProfileTableDefinitions.ShearStrengthModel;
-                ShearStrengthModel = reader.ReadOrDefault<ShearStrengthModel?>(readColumn);
+                ShearStrengthModel = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelDistribution;
                 AbovePhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets the shear strength model to use for the layer.
         /// </summary>
-        public ShearStrengthModel? ShearStrengthModel { get; }
+        public double? ShearStrengthModel { get; }
 
         /// <summary>
         /// Gets the distribution for the volumic weight of the layer above the phreatic level.

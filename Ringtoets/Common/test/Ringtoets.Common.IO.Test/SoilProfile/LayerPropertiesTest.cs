@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double permeabilityMean = random.NextDouble();
             double permeabilityCoefficientOfVariation = random.NextDouble();
             bool usePop = random.NextBoolean();
-            var shearStrengthModel = random.NextEnumValue<ShearStrengthModel>();
+            double shearStrengthModel = random.NextDouble();
             int abovePhreaticLevelDistribution = random.Next(0, 3);
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityMean)).Return(permeabilityMean);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation)).Return(permeabilityCoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<bool?>(SoilProfileTableDefinitions.UsePop)).Return(usePop);
-            reader.Expect(r => r.ReadOrDefault<ShearStrengthModel?>(SoilProfileTableDefinitions.ShearStrengthModel)).Return(shearStrengthModel);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthModel)).Return(shearStrengthModel);
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.AbovePhreaticLevelDistribution)).Return(abovePhreaticLevelDistribution);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelMean)).Return(abovePhreaticLevelMean);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation)).Return(abovePhreaticLevelCoefficientOfVariation);
@@ -220,7 +220,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Stub(r => r.ReadOrDefault<long?>(columnName)).Throw(invalidCastException);
             reader.Stub(r => r.ReadOrDefault<string>(columnName)).Throw(invalidCastException);
             reader.Stub(r => r.ReadOrDefault<bool?>(columnName)).Throw(invalidCastException);
-            reader.Stub(r => r.ReadOrDefault<ShearStrengthModel?>(columnName)).Throw(invalidCastException);
 
             reader.Stub(r => r.ReadOrDefault<double?>(Arg<string>.Matches(s => s != columnName)))
                   .Return(0);
@@ -230,8 +229,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                   .Return("");
             reader.Stub(r => r.ReadOrDefault<bool?>(Arg<string>.Matches(s => s != columnName)))
                   .Return(false);
-            reader.Stub(r => r.ReadOrDefault<ShearStrengthModel?>(Arg<string>.Matches(s => s != columnName)))
-                  .Return(ShearStrengthModel.None);
             reader.Expect(r => r.Path).Return(path);
             mockRepository.ReplayAll();
 
