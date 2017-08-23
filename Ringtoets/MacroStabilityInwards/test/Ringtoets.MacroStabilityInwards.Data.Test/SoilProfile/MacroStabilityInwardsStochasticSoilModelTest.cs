@@ -413,7 +413,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(name, stochasticSoilModel.ToString());
         }
 
-        private static ISoilProfile CreateMacroStabilityInwardsSoilProfile1D(string name)
+        private static IMacroStabilityInwardsSoilProfile CreateMacroStabilityInwardsSoilProfile1D(string name)
         {
             return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
             {
@@ -427,7 +427,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             }, SoilProfileType.SoilProfile1D, 0);
         }
 
-        private class TestSoilProfile : ISoilProfile
+        private class TestSoilProfile : IMacroStabilityInwardsSoilProfile
         {
             public string Name { get; } = "";
         }

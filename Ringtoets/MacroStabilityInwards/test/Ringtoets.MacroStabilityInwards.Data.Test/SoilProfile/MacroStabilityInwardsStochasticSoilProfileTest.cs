@@ -329,7 +329,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             return new string('x', random.Next(0, 40));
         }
 
-        private class TestSoilProfile : ISoilProfile
+        private class TestSoilProfile : IMacroStabilityInwardsSoilProfile
         {
             public TestSoilProfile() {}
 
@@ -347,7 +347,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             public override bool Equals(object obj)
             {
-                var other = obj as ISoilProfile;
+                var other = obj as IMacroStabilityInwardsSoilProfile;
                 return other != null && Name.Equals(other.Name);
             }
         }

@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
-    /// Transforms generic <see cref="Common.IO.SoilProfile.ISoilProfile"/> into <see cref="MacroStabilityInwardsSoilProfile1D"/>
+    /// Transforms generic <see cref="ISoilProfile"/> into <see cref="MacroStabilityInwardsSoilProfile1D"/>
     /// or <see cref="MacroStabilityInwardsSoilProfile2D"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSoilProfileTransformer

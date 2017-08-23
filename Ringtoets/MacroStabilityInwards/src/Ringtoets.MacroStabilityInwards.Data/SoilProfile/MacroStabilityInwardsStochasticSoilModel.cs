@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 Geometry.Add(point);
             }
 
-            var newSoilProfiles = new List<ISoilProfile>();
+            var newSoilProfiles = new List<IMacroStabilityInwardsSoilProfile>();
             var updatedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var addedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var removedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
@@ -133,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return Name;
         }
 
-        private static bool IsSame(ISoilProfile soilProfile, ISoilProfile otherSoilProfile)
+        private static bool IsSame(IMacroStabilityInwardsSoilProfile soilProfile, IMacroStabilityInwardsSoilProfile otherSoilProfile)
         {
             bool equalNames = soilProfile.Name.Equals(otherSoilProfile.Name);
             bool equalTypes = soilProfile.GetType() == otherSoilProfile.GetType();

@@ -24,7 +24,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// <summary>
     /// Interface for the different types of soil profile that can be used in macro stability inwards.
     /// </summary>
-    public interface ISoilProfile
+    public interface IMacroStabilityInwardsSoilProfile
     {
         /// <summary>
         /// Gets the name of the soil profile.

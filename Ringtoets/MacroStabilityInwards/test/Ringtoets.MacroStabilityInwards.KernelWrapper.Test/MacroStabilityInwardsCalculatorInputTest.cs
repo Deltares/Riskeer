@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<ISoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
             mocks.ReplayAll();
 
             var random = new Random(11);

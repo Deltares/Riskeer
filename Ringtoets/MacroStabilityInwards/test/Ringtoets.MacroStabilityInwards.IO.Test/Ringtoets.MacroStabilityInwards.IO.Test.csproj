@@ -81,6 +81,7 @@
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelTransformerTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilProfileTransformerTest.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineTransformerTest.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineExtensionsTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />

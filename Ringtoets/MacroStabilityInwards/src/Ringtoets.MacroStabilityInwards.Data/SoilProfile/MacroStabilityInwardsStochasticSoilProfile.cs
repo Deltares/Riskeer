@@ -60,9 +60,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public long SoilProfileId { get; }
 
         /// <summary>
-        /// Gets the <see cref="ISoilProfile"/>.
+        /// Gets the <see cref="IMacroStabilityInwardsSoilProfile"/>.
         /// </summary>
-        public ISoilProfile SoilProfile { get; set; }
+        public IMacroStabilityInwardsSoilProfile SoilProfile { get; set; }
 
         /// <summary>
         /// Gets the probability of the stochastic soil profile.

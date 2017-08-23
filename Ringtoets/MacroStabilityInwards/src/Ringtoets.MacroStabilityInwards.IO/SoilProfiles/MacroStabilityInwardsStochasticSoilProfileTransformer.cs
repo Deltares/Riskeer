@@ -21,24 +21,28 @@
 
 using System;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.Piping.IO.SoilProfiles
+namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
-    /// Transforms generic <see cref="StochasticSoilProfile"/> into <see cref="PipingStochasticSoilProfile"/>.
+    /// Transforms generic <see cref="StochasticSoilProfile"/> into
+    /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/>
     /// </summary>
-    public static class PipingStochasticSoilProfileTransformer
+    internal static class MacroStabilityInwardsStochasticSoilProfileTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="stochasticSoilProfile"/> into <see cref="PipingStochasticSoilProfile"/>.
+        /// Transforms the generic <paramref name="stochasticSoilProfile"/> into
+        ///  <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
-        /// <param name="stochasticSoilProfile">The stochastic soil profile to use in the transformation.</param>
-        /// <param name="soilProfile">The transformed piping soil profile.</param>
+        /// <param name="stochasticSoilProfile">The stochastic soil profile to use
+        /// in the transformation.</param>
+        /// <param name="soilProfile">The transformed soil profile.</param>
         /// <returns>A new <paramref name="soilProfile"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static PipingStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile, PipingSoilProfile soilProfile)
+        public static MacroStabilityInwardsStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile,
+                                                                           IMacroStabilityInwardsSoilProfile soilProfile)
         {
             if (stochasticSoilProfile == null)
             {
@@ -49,7 +53,12 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            return new PipingStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
+            return new MacroStabilityInwardsStochasticSoilProfile(stochasticSoilProfile.Probability,
+                                                                  SoilProfileType.SoilProfile1D,
+                                                                  0)
+            {
+                SoilProfile = soilProfile
+            };
         }
     }
 }
