@@ -877,4 +877,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported" xml:space="preserve">
     <value>Het stochastische ondergrondmodel met '{0}' als faalmechanisme type is niet ondersteund. Alleen stochastische ondergrondmodellen met '{1}' als faalmechanisme type zijn ondersteund.</value>
   </data>
+  <data name="SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1" xml:space="preserve">
+    <value>Het lezen van de ondergrondschematisatie '{0}' is mislukt. Geen geldige waarde in kolom '{1}'.</value>
+  </data>
 </root>

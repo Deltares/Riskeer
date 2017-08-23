@@ -213,9 +213,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<SoilProfileReadException>(test);
 
-                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
+                string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
+                                         "Geen geldige waarde in kolom 'IntersectionX'.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }

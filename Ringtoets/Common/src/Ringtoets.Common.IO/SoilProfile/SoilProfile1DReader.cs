@@ -142,11 +142,14 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile1D TryReadSoilProfile()
         {
-            var properties = new RequiredProfileProperties(this);
-
+            long profileId = ReadProfileId();
             var soilLayers = new List<SoilLayer1D>();
+
+            RequiredProfileProperties properties;
             try
             {
+                properties = new RequiredProfileProperties(this);
+
                 for (var i = 1; i <= properties.LayerCount; i++)
                 {
                     soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
@@ -155,13 +158,13 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (SoilProfileReadException)
             {
-                MoveToNextProfile(properties.ProfileId);
+                MoveToNextProfile(profileId);
                 throw;
             }
 
             try
             {
-                return new SoilProfile1D(properties.ProfileId,
+                return new SoilProfile1D(profileId,
                                          properties.ProfileName,
                                          properties.Bottom,
                                          soilLayers);
@@ -173,6 +176,11 @@ namespace Ringtoets.Common.IO.SoilProfile
                     properties.ProfileName,
                     exception);
             }
+        }
+
+        private long ReadProfileId()
+        {
+            return dataReader.Read<long>(SoilProfileTableDefinitions.SoilProfileId);
         }
 
         private void PrepareReader()
@@ -283,9 +291,9 @@ namespace Ringtoets.Common.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    string message = new FileReaderErrorMessageBuilder(reader.Path)
-                        .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
-                        .Build(string.Format(Resources.SoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
+                    string message = string.Format(Resources.SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1,
+                                                   profileName,
+                                                   readColumn);
                     throw new SoilProfileReadException(message, profileName, e);
                 }
             }
@@ -318,15 +326,12 @@ namespace Ringtoets.Common.IO.SoilProfile
 
                     readColumn = SoilProfileTableDefinitions.LayerCount;
                     LayerCount = reader.Read<long>(readColumn);
-
-                    readColumn = SoilProfileTableDefinitions.SoilProfileId;
-                    ProfileId = reader.Read<long>(readColumn);
                 }
                 catch (InvalidCastException e)
                 {
-                    string message = new FileReaderErrorMessageBuilder(reader.Path)
-                        .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, ProfileName))
-                        .Build(string.Format(Resources.SoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
+                    string message = string.Format(Resources.SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1,
+                                                   ProfileName,
+                                                   readColumn);
                     throw new SoilProfileReadException(message, ProfileName, e);
                 }
             }
@@ -345,11 +350,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// The number of layers that the profile has to read.
             /// </summary>
             public long LayerCount { get; }
-
-            /// <summary>
-            /// Gets the database identifier of the profile.
-            /// </summary>
-            public long ProfileId { get; }
         }
     }
 }

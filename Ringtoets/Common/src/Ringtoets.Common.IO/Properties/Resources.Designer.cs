@@ -1730,6 +1730,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het lezen van de ondergrondschematisatie &apos;{0}&apos; is mislukt. Geen geldige waarde in kolom &apos;{1}&apos;..
+        /// </summary>
+        public static string SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1 {
+            get {
+                return ResourceManager.GetString("SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ondergrondschematisatie &apos;{0}&apos;.
         /// </summary>
         public static string SoilProfileReader_SoilProfileName_0_ {
