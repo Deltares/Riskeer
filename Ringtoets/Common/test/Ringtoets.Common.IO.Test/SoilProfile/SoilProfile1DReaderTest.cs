@@ -111,6 +111,31 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_IncorrectCriticalProperty_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileInvalidId.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+
+                string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
+                    .WithSubject("ondergrondschematisatie 'Profile'")
+                    .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void GivenReadSoilProfileThrowsException_WhenReadingNextProfile_ReturnsNextProfile()
         {
             // Given
