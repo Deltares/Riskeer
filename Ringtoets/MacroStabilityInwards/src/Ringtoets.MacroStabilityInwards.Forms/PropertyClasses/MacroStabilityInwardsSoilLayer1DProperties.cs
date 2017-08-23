@@ -34,7 +34,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsSoilLayer1D"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsSoilLayer1DProperties : ObjectProperties<MacroStabilityInwardsSoilLayer1D>
     {
