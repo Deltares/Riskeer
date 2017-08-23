@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -59,7 +60,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the children that define this group.
         /// </summary>
-        public IList<ICalculationBase> Children { get; }
+        public IList<ICalculationBase> Children { get; private set; }
 
         public string Name
         {
@@ -79,7 +80,11 @@ namespace Ringtoets.Common.Data.Calculation
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var clone = (CalculationGroup) MemberwiseClone();
+
+            clone.Children = Children.Select(c => (ICalculationBase) c.Clone()).ToArray();
+
+            return clone;
         }
     }
 }

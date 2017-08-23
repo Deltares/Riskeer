@@ -21,9 +21,12 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Calculation
 {
@@ -221,6 +224,43 @@ namespace Ringtoets.Common.Data.Test.Calculation
                                                existingGroup
                                            }, group.Children,
                                            "Already existing items should have remained in collection and new item should be added.");
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new CalculationGroup("Random group name", random.NextBoolean())
+            {
+                Children =
+                {
+                    new TestCalculationBase
+                    {
+                        Name = "Random item name 1"
+                    },
+                    new TestCalculationBase
+                    {
+                        Name = "Random item name 2"
+                    }
+                }
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreEqual);
+        }
+
+        private class TestCalculationBase : Observable, ICalculationBase
+        {
+            public string Name { get; set; }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
     }
 }

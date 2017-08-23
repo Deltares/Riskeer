@@ -21,6 +21,7 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probability;
@@ -325,6 +326,35 @@ namespace Ringtoets.Common.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, AreClones);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreEqual(CalculationGroup original, CalculationGroup clone)
+        {
+            Assert.AreEqual(original.Name, clone.Name);
+            Assert.AreEqual(original.IsNameEditable, clone.IsNameEditable);
+
+            CoreCloneAssert.AreEnumerationClones(original.Children, clone.Children, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        private static void AreClones(ICalculationBase original, ICalculationBase clone)
+        {
+            Assert.AreEqual(original.Name, clone.Name);
         }
     }
 }
