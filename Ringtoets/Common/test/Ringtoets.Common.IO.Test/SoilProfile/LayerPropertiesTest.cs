@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.IO.Readers;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO.Exceptions;
@@ -82,6 +83,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double permeabilityShift = random.NextDouble();
             double permeabilityMean = random.NextDouble();
             double permeabilityCoefficientOfVariation = random.NextDouble();
+            bool usePop = random.NextBoolean();
+            var shearStrengthModel = random.NextEnumValue<ShearStrengthModel>();
+            int abovePhreaticLevelDistribution = random.Next(0, 3);
+            double abovePhreaticLevelMean = random.NextDouble();
+            double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
+            double abovePhreaticLevelShift = random.NextDouble();
+            int cohesionDistribution = random.Next(0, 3);
+            double cohesionMean = random.NextDouble();
+            double cohesionCoefficientOfVariation = random.NextDouble();
+            double cohesionShift = random.NextDouble();
+            double frictionAngleMean = random.NextDouble();
+            int frictionAngleDistribution = random.Next(0, 3);
+            double frictionAngleCoefficientOfVariation = random.NextDouble();
+            double frictionAngleShift = random.NextDouble();
+            int shearStrengthRatioDistribution = random.Next(0, 3);
+            double shearStrengthRatioMean = random.NextDouble();
+            double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
+            double shearStrengthRatioShift = random.NextDouble();
+            int strengthIncreaseExponentDistribution = random.Next(0, 3);
+            double strengthIncreaseExponentMean = random.NextDouble();
+            double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
+            double strengthIncreaseExponentShift = random.NextDouble();
+            int popDistribution = random.Next(0, 3);
+            double popMean = random.NextDouble();
+            double popCoefficientOfVariation = random.NextDouble();
+            double popShift = random.NextDouble();
 
             var mockRepository = new MockRepository();
             var reader = mockRepository.StrictMock<IRowBasedDatabaseReader>();
@@ -100,6 +127,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityShift)).Return(permeabilityShift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityMean)).Return(permeabilityMean);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation)).Return(permeabilityCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<bool?>(SoilProfileTableDefinitions.UsePop)).Return(usePop);
+            reader.Expect(r => r.ReadOrDefault<ShearStrengthModel?>(SoilProfileTableDefinitions.ShearStrengthModel)).Return(shearStrengthModel);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.AbovePhreaticLevelDistribution)).Return(abovePhreaticLevelDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelMean)).Return(abovePhreaticLevelMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation)).Return(abovePhreaticLevelCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.AbovePhreaticLevelShift)).Return(abovePhreaticLevelShift);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.CohesionDistribution)).Return(cohesionDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionMean)).Return(cohesionMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionCoefficientOfVariation)).Return(cohesionCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.CohesionShift)).Return(cohesionShift);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.FrictionAngleDistribution)).Return(frictionAngleDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleMean)).Return(frictionAngleMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation)).Return(frictionAngleCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.FrictionAngleShift)).Return(frictionAngleShift);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.ShearStrengthRatioDistribution)).Return(shearStrengthRatioDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioMean)).Return(shearStrengthRatioMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation)).Return(shearStrengthRatioCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.ShearStrengthRatioShift)).Return(shearStrengthRatioShift);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution)).Return(strengthIncreaseExponentDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentMean)).Return(strengthIncreaseExponentMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation)).Return(strengthIncreaseExponentCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.StrengthIncreaseExponentShift)).Return(strengthIncreaseExponentShift);
+            reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.PopDistribution)).Return(popDistribution);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopMean)).Return(popMean);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopCoefficientOfVariation)).Return(popCoefficientOfVariation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.PopShift)).Return(popShift);
             mockRepository.ReplayAll();
 
             // Call
@@ -121,6 +174,33 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(permeabilityShift, properties.PermeabilityShift);
             Assert.AreEqual(permeabilityMean, properties.PermeabilityMean);
             Assert.AreEqual(permeabilityCoefficientOfVariation, properties.PermeabilityCoefficientOfVariation);
+            Assert.AreEqual(usePop, properties.UsePop);
+            Assert.AreEqual(shearStrengthModel, properties.ShearStrengthModel);
+            Assert.AreEqual(abovePhreaticLevelDistribution, properties.AbovePhreaticLevelDistribution);
+            Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
+            Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, properties.AbovePhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
+            Assert.AreEqual(cohesionDistribution, properties.CohesionDistribution);
+            Assert.AreEqual(cohesionMean, properties.CohesionMean);
+            Assert.AreEqual(cohesionCoefficientOfVariation, properties.CohesionCoefficientOfVariation);
+            Assert.AreEqual(cohesionShift, properties.CohesionShift);
+            Assert.AreEqual(frictionAngleDistribution, properties.FrictionAngleDistribution);
+            Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);
+            Assert.AreEqual(frictionAngleCoefficientOfVariation, properties.FrictionAngleCoefficientOfVariation);
+            Assert.AreEqual(frictionAngleShift, properties.FrictionAngleShift);
+            Assert.AreEqual(shearStrengthRatioDistribution, properties.ShearStrengthRatioDistribution);
+            Assert.AreEqual(shearStrengthRatioMean, properties.ShearStrengthRatioMean);
+            Assert.AreEqual(shearStrengthRatioCoefficientOfVariation, properties.ShearStrengthRatioCoefficientOfVariation);
+            Assert.AreEqual(shearStrengthRatioShift, properties.ShearStrengthRatioShift);
+            Assert.AreEqual(strengthIncreaseExponentDistribution, properties.StrengthIncreaseExponentDistribution);
+            Assert.AreEqual(strengthIncreaseExponentMean, properties.StrengthIncreaseExponentMean);
+            Assert.AreEqual(strengthIncreaseExponentCoefficientOfVariation, properties.StrengthIncreaseExponentCoefficientOfVariation);
+            Assert.AreEqual(strengthIncreaseExponentShift, properties.StrengthIncreaseExponentShift);
+            Assert.AreEqual(popDistribution, properties.PopDistribution);
+            Assert.AreEqual(popMean, properties.PopMean);
+            Assert.AreEqual(popCoefficientOfVariation, properties.PopCoefficientOfVariation);
+            Assert.AreEqual(popShift, properties.PopShift);
+
             mockRepository.VerifyAll();
         }
 
@@ -139,6 +219,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Stub(r => r.ReadOrDefault<double?>(columnName)).Throw(invalidCastException);
             reader.Stub(r => r.ReadOrDefault<long?>(columnName)).Throw(invalidCastException);
             reader.Stub(r => r.ReadOrDefault<string>(columnName)).Throw(invalidCastException);
+            reader.Stub(r => r.ReadOrDefault<bool?>(columnName)).Throw(invalidCastException);
+            reader.Stub(r => r.ReadOrDefault<ShearStrengthModel?>(columnName)).Throw(invalidCastException);
 
             reader.Stub(r => r.ReadOrDefault<double?>(Arg<string>.Matches(s => s != columnName)))
                   .Return(0);
@@ -146,6 +228,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                   .Return(0);
             reader.Stub(r => r.ReadOrDefault<string>(Arg<string>.Matches(s => s != columnName)))
                   .Return("");
+            reader.Stub(r => r.ReadOrDefault<bool?>(Arg<string>.Matches(s => s != columnName)))
+                  .Return(false);
+            reader.Stub(r => r.ReadOrDefault<ShearStrengthModel?>(Arg<string>.Matches(s => s != columnName)))
+                  .Return(ShearStrengthModel.None);
             reader.Expect(r => r.Path).Return(path);
             mockRepository.ReplayAll();
 
@@ -180,6 +266,31 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             yield return SoilProfileTableDefinitions.PermeabilityShift;
             yield return SoilProfileTableDefinitions.PermeabilityMean;
             yield return SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.UsePop;
+            yield return SoilProfileTableDefinitions.AbovePhreaticLevelDistribution;
+            yield return SoilProfileTableDefinitions.AbovePhreaticLevelMean;
+            yield return SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.AbovePhreaticLevelShift;
+            yield return SoilProfileTableDefinitions.CohesionDistribution;
+            yield return SoilProfileTableDefinitions.CohesionMean;
+            yield return SoilProfileTableDefinitions.CohesionCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.CohesionShift;
+            yield return SoilProfileTableDefinitions.FrictionAngleDistribution;
+            yield return SoilProfileTableDefinitions.FrictionAngleMean;
+            yield return SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.FrictionAngleShift;
+            yield return SoilProfileTableDefinitions.ShearStrengthRatioDistribution;
+            yield return SoilProfileTableDefinitions.ShearStrengthRatioMean;
+            yield return SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.ShearStrengthRatioShift;
+            yield return SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution;
+            yield return SoilProfileTableDefinitions.StrengthIncreaseExponentMean;
+            yield return SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.StrengthIncreaseExponentShift;
+            yield return SoilProfileTableDefinitions.PopDistribution;
+            yield return SoilProfileTableDefinitions.PopMean;
+            yield return SoilProfileTableDefinitions.PopCoefficientOfVariation;
+            yield return SoilProfileTableDefinitions.PopShift;
         }
     }
 }

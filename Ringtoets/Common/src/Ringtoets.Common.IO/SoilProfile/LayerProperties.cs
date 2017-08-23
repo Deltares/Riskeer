@@ -93,6 +93,66 @@ namespace Ringtoets.Common.IO.SoilProfile
                 PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation;
                 PermeabilityCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.UsePop;
+                UsePop = reader.ReadOrDefault<bool?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.ShearStrengthModel;
+                ShearStrengthModel = reader.ReadOrDefault<ShearStrengthModel?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelDistribution;
+                AbovePhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelMean;
+                AbovePhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation;
+                AbovePhreaticLevelCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelShift;
+                AbovePhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.CohesionDistribution;
+                CohesionDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.CohesionMean;
+                CohesionMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.CohesionCoefficientOfVariation;
+                CohesionCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.CohesionShift;
+                CohesionShift = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.FrictionAngleDistribution;
+                FrictionAngleDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.FrictionAngleMean;
+                FrictionAngleMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation;
+                FrictionAngleCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.FrictionAngleShift;
+                FrictionAngleShift = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioDistribution;
+                ShearStrengthRatioDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioMean;
+                ShearStrengthRatioMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation;
+                ShearStrengthRatioCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioShift;
+                ShearStrengthRatioShift = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution;
+                StrengthIncreaseExponentDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentMean;
+                StrengthIncreaseExponentMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation;
+                StrengthIncreaseExponentCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentShift;
+                StrengthIncreaseExponentShift = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileTableDefinitions.PopDistribution;
+                PopDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.PopMean;
+                PopMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.PopCoefficientOfVariation;
+                PopCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.PopShift;
+                PopShift = reader.ReadOrDefault<double?>(readColumn);
             }
             catch (InvalidCastException e)
             {
@@ -198,113 +258,155 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? PermeabilityCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use POP for the layer.
+        /// Gets the value indicating whether to use POP for the layer.
         /// </summary>
         public bool? UsePop { get; }
 
         /// <summary>
-        /// Gets or sets the shear strength model to use for the layer.
+        /// Gets the shear strength model to use for the layer.
         /// </summary>
         public ShearStrengthModel? ShearStrengthModel { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public long? AbovePhreaticLevelDistribution { get; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double? AbovePhreaticLevelMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double? AbovePhreaticLevelDeviation { get; }
+        public double? AbovePhreaticLevelCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the cohesion.
+        /// Gets the shift of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? AbovePhreaticLevelShift { get; }
+
+        /// <summary>
+        /// Gets the distribution for the mean of the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public long? CohesionDistribution { get; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
         public double? CohesionMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the cohesion.
+        /// Gets the deviation of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double? CohesionDeviation { get; }
+        public double? CohesionCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the cohesion.
+        /// Gets the shift of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
         public double? CohesionShift { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the friction angle
+        /// Gets the distribution of the distribution for the friction angle
+        /// [°]
+        /// </summary>
+        public long? FrictionAngleDistribution { get; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the friction angle
         /// [°]
         /// </summary>
         public double? FrictionAngleMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the friction angle.
+        /// Gets the deviation of the distribution for the friction angle.
         /// [°]
         /// </summary>
-        public double? FrictionAngleDeviation { get; }
+        public double? FrictionAngleCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the friction angle.
+        /// Gets the shift of the distribution for the friction angle.
         /// [°]
         /// </summary>
         public double? FrictionAngleShift { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the ratio of shear strength S
+        /// Gets the distribution for the ratio of shear strength S
+        /// [-]
+        /// </summary>
+        public long? ShearStrengthRatioDistribution { get; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the ratio of shear strength S
         /// [-]
         /// </summary>
         public double? ShearStrengthRatioMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
+        /// Gets the deviation of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
-        public double? ShearStrengthRatioDeviation { get; }
+        public double? ShearStrengthRatioCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the ratio of shear strength S.
+        /// Gets the shift of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
         public double? ShearStrengthRatioShift { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the strength increase exponent (m)
+        /// Gets the distribution for the strength increase exponent (m)
+        /// [-]
+        /// </summary>
+        public long? StrengthIncreaseExponentDistribution { get; }
+
+        /// <summary>
+        /// Gets the mean of the distribution for the strength increase exponent (m)
         /// [-]
         /// </summary>
         public double? StrengthIncreaseExponentMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
+        /// Gets the deviation of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
-        public double? StrengthIncreaseExponentDeviation { get; }
+        public double? StrengthIncreaseExponentCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the strength increase exponent (m).
+        /// Gets the shift of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
         public double? StrengthIncreaseExponentShift { get; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the POP
+        /// Gets the distribution for the POP
+        /// [kN/m²]
+        /// </summary>
+        public long? PopDistribution { get; }
+
+        /// <summary>
+        /// Gets mean of the distribution for the POP
         /// [kN/m²]
         /// </summary>
         public double? PopMean { get; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the POP.
+        /// Gets the deviation of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
-        public double? PopDeviation { get; }
+        public double? PopCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the POP.
+        /// Gets the shift of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public double? PopShift { get; }

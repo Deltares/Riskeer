@@ -44,7 +44,33 @@ namespace Ringtoets.Common.IO.SoilProfile
             $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.DiameterD70Distribution}, " +
             $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.DiameterD70Shift}, " +
             $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.DiameterD70Mean}, " +
-            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation} " +
+            $"max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'UsePop' then pv.PV_Value end) AS {SoilProfileTableDefinitions.UsePop}, " +
+            $"max(case when pn.PN_Name = 'ShearStrengthModel' then pv.PV_Value end) AS {SoilProfileTableDefinitions.ShearStrengthModel}, " +
+            $"max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.AbovePhreaticLevelDistribution}, " +
+            $"max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.AbovePhreaticLevelShift}, " +
+            $"max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.AbovePhreaticLevelMean}, " +
+            $"max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.CohesionDistribution}, " +
+            $"max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.CohesionShift}, " +
+            $"max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.CohesionMean}, " +
+            $"max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.CohesionCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.FrictionAngleDistribution}, " +
+            $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.FrictionAngleShift}, " +
+            $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.FrictionAngleMean}, " +
+            $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.ShearStrengthRatioDistribution}, " +
+            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.ShearStrengthRatioShift}, " +
+            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.ShearStrengthRatioMean}, " +
+            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution}, " +
+            $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentShift}, " +
+            $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentMean}, " +
+            $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.PopDistribution}, " +
+            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.PopShift}, " +
+            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.PopMean}, " +
+            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.PopCoefficientOfVariation} " +
             "FROM ParameterNames AS pn " +
             "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
             "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -188,6 +214,32 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PermeabilityShift}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityMean}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.UsePop}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthModel}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelDistribution}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelMean}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelShift}, " +
+                $"{SoilProfileTableDefinitions.CohesionDistribution}, " +
+                $"{SoilProfileTableDefinitions.CohesionMean}, " +
+                $"{SoilProfileTableDefinitions.CohesionCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.CohesionShift}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleDistribution}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleMean}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleShift}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioDistribution}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioMean}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioShift}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentMean}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentShift}, " +
+                $"{SoilProfileTableDefinitions.PopDistribution}, " +
+                $"{SoilProfileTableDefinitions.PopMean}, " +
+                $"{SoilProfileTableDefinitions.PopCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.PopShift}, " +
                 $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
                 "FROM Segment AS segment " +
                 "JOIN (SELECT SSM_ID, SP1D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID) ssp USING(SSM_ID) " +
@@ -237,6 +289,32 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PermeabilityShift}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityMean}, " +
                 $"{SoilProfileTableDefinitions.PermeabilityCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.UsePop}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthModel}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelDistribution}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelMean}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.AbovePhreaticLevelShift}, " +
+                $"{SoilProfileTableDefinitions.CohesionDistribution}, " +
+                $"{SoilProfileTableDefinitions.CohesionMean}, " +
+                $"{SoilProfileTableDefinitions.CohesionCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.CohesionShift}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleDistribution}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleMean}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.FrictionAngleShift}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioDistribution}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioMean}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.ShearStrengthRatioShift}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentMean}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.StrengthIncreaseExponentShift}, " +
+                $"{SoilProfileTableDefinitions.PopDistribution}, " +
+                $"{SoilProfileTableDefinitions.PopMean}, " +
+                $"{SoilProfileTableDefinitions.PopCoefficientOfVariation}, " +
+                $"{SoilProfileTableDefinitions.PopShift}, " +
                 $"sp2d.SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
                 $"FROM {MechanismTableDefinitions.TableName} AS m " +
                 $"JOIN {SegmentTableDefinitions.TableName} AS segment USING({MechanismTableDefinitions.MechanismId}) " +
