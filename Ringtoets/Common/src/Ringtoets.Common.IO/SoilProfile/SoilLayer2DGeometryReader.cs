@@ -222,8 +222,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 double y = XmlConvert.ToDouble(yElement.Value);
                 return new Point2D(x, y);
             }
-            catch (SystemException e) when (e is ArgumentNullException || e is
-                                                FormatException
+            catch (SystemException e) when (e is ArgumentNullException
+                                            || e is FormatException
                                             || e is OverflowException)
             {
                 throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Could_not_parse_point_location, e);

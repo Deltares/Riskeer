@@ -236,10 +236,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </exception>
         private void SetStochasticSoilProfiles(StochasticSoilModel stochasticSoilModel)
         {
-            if (MoveToStochasticSoilModel(currentStochasticSoilModelId))
-            {
-                stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles());
-            }
+            stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles());
         }
 
         /// <summary>
@@ -257,26 +254,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints());
-        }
-
-        /// <summary>
-        /// Moves the reader to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
-        /// </summary>
-        /// <param name="stochasticSoilModelId">The id of the stochastic soil model.</param>
-        /// <returns><c>true</c> if the reader was moved to the stochastic soil model with id 
-        /// <paramref name="stochasticSoilModelId"/> successfully, <c>false</c> otherwise.</returns>
-        private bool MoveToStochasticSoilModel(long stochasticSoilModelId)
-        {
-            while (HasNext && ReadStochasticSoilModelId() <= stochasticSoilModelId)
-            {
-                if (ReadStochasticSoilModelId() == stochasticSoilModelId)
-                {
-                    currentStochasticSoilModelId = stochasticSoilModelId;
-                    return true;
-                }
-                MoveNext();
-            }
-            return false;
         }
 
         /// <summary>
