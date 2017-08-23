@@ -28,10 +28,10 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -1084,28 +1084,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
-        }
-
-        private class TestCalculation : Observable, ICalculation
-        {
-            public TestCalculation()
-            {
-                Name = "Nieuwe berekening";
-            }
-
-            public string Name { get; set; }
-
-            public Comment Comments { get; private set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public void ClearOutput() {}
         }
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

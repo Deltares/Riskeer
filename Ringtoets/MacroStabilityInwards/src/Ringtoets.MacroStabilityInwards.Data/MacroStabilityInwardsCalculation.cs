@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the input parameters to perform a macro stability inwards calculation with.
         /// </summary>
-        public MacroStabilityInwardsInput InputParameters { get; private set; }
+        public MacroStabilityInwardsInput InputParameters { get; }
 
         /// <summary>
         /// Gets or sets <see cref="MacroStabilityInwardsOutput"/>, which contains the results of a macro stability inwards calculation.
@@ -76,6 +76,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             Output = null;
             SemiProbabilisticOutput = null;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

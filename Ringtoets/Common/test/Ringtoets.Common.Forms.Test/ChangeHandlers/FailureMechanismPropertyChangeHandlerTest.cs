@@ -26,12 +26,12 @@ using System.Linq;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
-using TestCalculation = Ringtoets.Common.Forms.TestUtil.TestCalculation;
 
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 {
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation(
                 null,
                 3,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             TestDelegate test = () => changeHandler.SetPropertyValueAfterConfirmation<int?>(
                 new TestFailureMechanism(),
                 null,
-                (f, v) => { });
+                (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -160,8 +160,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickCancel();
             };
 
-            TestCalculation calculationWithOutput = CalculationTestHelper.CreateCalculationWithOutput();
-            TestCalculation calculationWithoutOutput = CalculationTestHelper.CreateCalculationWithoutOutput();
+            ICalculation calculationWithOutput = CalculationTestDataFactory.CreateCalculationWithOutput();
+            ICalculation calculationWithoutOutput = CalculationTestDataFactory.CreateCalculationWithoutOutput();
 
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var testFailureMechanism = new TestFailureMechanism(
                 new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput()
+                    CalculationTestDataFactory.CreateCalculationWithOutput()
                 });
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<IFailureMechanism>();
@@ -236,14 +236,14 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
         public class ChangePropertyTestCase
         {
-            public ChangePropertyTestCase(ICollection<TestCalculation> calculations)
+            public ChangePropertyTestCase(ICollection<ICalculation> calculations)
             {
                 Calculations = calculations;
                 ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
             }
 
-            public ICollection<TestCalculation> Calculations { get; }
-            public ICollection<TestCalculation> ExpectedAffectedCalculations { get; }
+            public ICollection<ICalculation> Calculations { get; }
+            public ICollection<ICalculation> ExpectedAffectedCalculations { get; }
         }
 
         private static IEnumerable ChangePropertyTestCases()
@@ -255,47 +255,47 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput()
+                    CalculationTestDataFactory.CreateCalculationWithOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                    CalculationTestDataFactory.CreateCalculationWithoutOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Single calculation without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithoutOutput(),
-                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                    CalculationTestDataFactory.CreateCalculationWithoutOutput(),
+                    CalculationTestDataFactory.CreateCalculationWithoutOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations without output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput(),
-                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                    CalculationTestDataFactory.CreateCalculationWithOutput(),
+                    CalculationTestDataFactory.CreateCalculationWithoutOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Calculation without and calculation with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput(),
-                    CalculationTestHelper.CreateCalculationWithOutput()
+                    CalculationTestDataFactory.CreateCalculationWithOutput(),
+                    CalculationTestDataFactory.CreateCalculationWithOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with output");
 
             yield return new TestCaseData(
                 new ChangePropertyTestCase(new[]
                 {
-                    CalculationTestHelper.CreateCalculationWithOutput(),
-                    CalculationTestHelper.CreateCalculationWithOutput(),
-                    CalculationTestHelper.CreateCalculationWithoutOutput()
+                    CalculationTestDataFactory.CreateCalculationWithOutput(),
+                    CalculationTestDataFactory.CreateCalculationWithOutput(),
+                    CalculationTestDataFactory.CreateCalculationWithoutOutput()
                 })
             ).SetName("SetPropertyValueAfterConfirmation Two calculations with and one calculation without output");
         }

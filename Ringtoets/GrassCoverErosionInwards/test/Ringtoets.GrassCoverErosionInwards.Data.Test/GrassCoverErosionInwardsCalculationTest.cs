@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
@@ -40,7 +39,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
-            Assert.IsInstanceOf<ICloneable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);

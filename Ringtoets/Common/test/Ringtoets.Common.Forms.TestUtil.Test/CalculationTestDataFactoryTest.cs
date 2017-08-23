@@ -19,32 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Forms.TestUtil
+using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+
+namespace Ringtoets.Common.Forms.TestUtil.Test
 {
-    /// <summary>
-    /// Class that can be used to create calculations in tests.
-    /// </summary>
-    public static class CalculationTestHelper
+    [TestFixture]
+    public class CalculationTestDataFactoryTest
     {
-        /// <summary>
-        /// Creates a simple test calculation without output.
-        /// </summary>
-        /// <returns>The created calculation.</returns>
-        public static TestCalculation CreateCalculationWithoutOutput()
+        [Test]
+        public void CreateCalculationWithoutOutput_Always_ReturnCalculationWithoutOutput()
         {
-            return new TestCalculation();
+            // Call
+            ICalculation calculation = CalculationTestDataFactory.CreateCalculationWithoutOutput();
+
+            // Assert
+            Assert.IsFalse(calculation.HasOutput);
         }
 
-        /// <summary>
-        /// Creates a simple test calculation with output.
-        /// </summary>
-        /// <returns>The created calculation.</returns>
-        public static TestCalculation CreateCalculationWithOutput()
+        [Test]
+        public void CreateCalculationWithOutput_Always_ReturnCalculationWithOutput()
         {
-            return new TestCalculation
-            {
-                Output = new object()
-            };
+            // Call
+            ICalculation calculation = CalculationTestDataFactory.CreateCalculationWithOutput();
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
         }
     }
 }

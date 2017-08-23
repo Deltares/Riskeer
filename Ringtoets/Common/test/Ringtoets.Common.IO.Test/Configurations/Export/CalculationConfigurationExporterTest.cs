@@ -80,6 +80,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             {
                 throw new NotImplementedException();
             }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 

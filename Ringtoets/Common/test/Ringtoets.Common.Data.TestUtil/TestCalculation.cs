@@ -33,14 +33,36 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new <see cref="TestCalculation"/>.
         /// </summary>
         /// <param name="name">The name of the calculation.</param>
-        public TestCalculation(string name)
+        public TestCalculation(string name = "Nieuwe berekening")
         {
             Name = name;
         }
 
+        /// <summary>
+        /// Gets or sets an object that represents some output of this calculation.
+        /// </summary>
+        public object Output { get; set; }
+
         public string Name { get; set; }
-        public bool HasOutput { get; set; }
+
         public Comment Comments { get; }
-        public void ClearOutput() {}
+
+        public bool HasOutput
+        {
+            get
+            {
+                return Output != null;
+            }
+        }
+
+        public void ClearOutput()
+        {
+            Output = null;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

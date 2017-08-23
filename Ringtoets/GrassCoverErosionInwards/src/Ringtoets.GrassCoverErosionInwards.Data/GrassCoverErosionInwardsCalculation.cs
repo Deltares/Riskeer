@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -30,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation, ICloneable
+    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
@@ -64,20 +63,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>The name of this calculation.</returns>
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public void ClearOutput()
-        {
-            Output = null;
-        }
-
         public object Clone()
         {
             var clone = (GrassCoverErosionInwardsCalculation) MemberwiseClone();
@@ -91,6 +76,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             return clone;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>The name of this calculation.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public void ClearOutput()
+        {
+            Output = null;
         }
     }
 }

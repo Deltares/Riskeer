@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -141,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickCancel();
             };
 
-            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
+            ICalculation calculation = CalculationTestDataFactory.CreateCalculationWithOutput();
 
             var propertySet = 0;
 
@@ -169,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                 tester.ClickOk();
             };
 
-            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithOutput();
+            ICalculation calculation = CalculationTestDataFactory.CreateCalculationWithOutput();
 
             var changeHandler = new ObservablePropertyChangeHandler(calculation, new TestCalculationInput());
             var expectedException = new Exception();
@@ -186,7 +188,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            TestCalculation calculation = CalculationTestHelper.CreateCalculationWithoutOutput();
+            ICalculation calculation = CalculationTestDataFactory.CreateCalculationWithoutOutput();
 
             var changeHandler = new ObservablePropertyChangeHandler(calculation, new TestCalculationInput());
             var expectedException = new Exception();
@@ -201,22 +203,22 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
         public class ChangePropertyTestCase
         {
-            public ChangePropertyTestCase(TestCalculation calculation)
+            public ChangePropertyTestCase(ICalculation calculation)
             {
                 Calculation = calculation;
             }
 
-            public TestCalculation Calculation { get; }
+            public ICalculation Calculation { get; }
         }
 
         private static IEnumerable ChangePropertyTestCases()
         {
             yield return new TestCaseData(
-                new ChangePropertyTestCase(CalculationTestHelper.CreateCalculationWithOutput())
+                new ChangePropertyTestCase(CalculationTestDataFactory.CreateCalculationWithOutput())
             ).SetName("SetPropertyValueAfterConfirmation calculation with output");
 
             yield return new TestCaseData(
-                new ChangePropertyTestCase(CalculationTestHelper.CreateCalculationWithoutOutput())
+                new ChangePropertyTestCase(CalculationTestDataFactory.CreateCalculationWithoutOutput())
             ).SetName("SetPropertyValueAfterConfirmation calculation without output");
         }
     }

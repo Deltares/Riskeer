@@ -52,7 +52,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
-            Assert.IsInstanceOf<ICloneable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 

@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -27,15 +29,82 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class TestCalculationTest
     {
         [Test]
-        public void Constructor_WithName_NameSet()
+        public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var calculation = new TestCalculation("Name");
+            var calculation = new TestCalculation();
 
             // Assert
-            Assert.AreEqual("Name", calculation.Name);
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.AreEqual("Nieuwe berekening", calculation.Name);
+            Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.Comments);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ExpectedValues()
+        {
+            // Setup
+            const string name = "Name";
+
+            // Call
+            var calculation = new TestCalculation(name);
+
+            // Assert
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.AreEqual(name, calculation.Name);
+            Assert.IsNull(calculation.Output);
+            Assert.IsNull(calculation.Comments);
+        }
+
+        [Test]
+        public void HasOutput_OutputSet_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new TestCalculation
+            {
+                Output = new object()
+            };
+
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(calculationHasOutput);
+        }
+
+        [Test]
+        public void HasOutput_OutputNull_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new TestCalculation
+            {
+                Output = null
+            };
+
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsFalse(calculationHasOutput);
+        }
+
+        [Test]
+        public void ClearOutput_OutputSet_OutputSetToNull()
+        {
+            // Setup
+            var calculation = new TestCalculation
+            {
+                Output = new object()
+            };
+
+            // Call
+            calculation.ClearOutput();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
         }
     }
 }

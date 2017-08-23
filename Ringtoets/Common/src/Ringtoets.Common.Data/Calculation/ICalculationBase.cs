@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 
 namespace Ringtoets.Common.Data.Calculation
@@ -26,7 +27,7 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// A calculation related item.
     /// </summary>
-    public interface ICalculationBase : IObservable
+    public interface ICalculationBase : IObservable, ICloneable
     {
         /// <summary>
         /// Gets or sets the name of this calculation item.

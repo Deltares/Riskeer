@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -32,7 +31,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -810,8 +808,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculation = mocks.Stub<ICloneableCalculation>();
-            var calculationContext = mocks.Stub<ICalculationContext<ICloneableCalculation, IFailureMechanism>>();
+            var calculation = mocks.Stub<ICalculation>();
+            var calculationContext = mocks.Stub<ICalculationContext<ICalculation, IFailureMechanism>>();
 
             mocks.ReplayAll();
 
@@ -1867,31 +1865,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public IFailureMechanism FailureMechanism { get; }
         }
 
-        private class TestCalculation : Observable, ICalculation
-        {
-            public TestCalculation()
-            {
-                Name = "Nieuwe berekening";
-            }
-
-            public string Name { get; set; }
-
-            public Comment Comments { get; private set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public void ClearOutput() {}
-        }
-
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
-
-        public interface ICloneableCalculation : ICalculation, ICloneable { }
 
         #endregion
     }

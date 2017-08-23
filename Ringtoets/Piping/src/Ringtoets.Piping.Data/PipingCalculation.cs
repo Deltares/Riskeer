@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -30,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingCalculation : Observable, ICalculation, ICloneable
+    public class PipingCalculation : Observable, ICalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.

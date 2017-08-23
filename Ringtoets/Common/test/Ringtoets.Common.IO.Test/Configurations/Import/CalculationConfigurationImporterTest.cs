@@ -882,18 +882,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             public string Name { get; }
         }
 
-        private class TestCalculation : Observable, ICalculation
-        {
-            public string Name { get; set; }
-            public bool HasOutput { get; }
-            public Comment Comments { get; }
-
-            public void ClearOutput()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private class ExpectedProgressNotification
         {
             public string Text { get; set; }

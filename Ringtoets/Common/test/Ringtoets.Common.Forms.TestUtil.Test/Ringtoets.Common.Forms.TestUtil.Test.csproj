@@ -51,7 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="SetPropertyValueAfterConfirmationParameterTesterTest.cs" />
-    <Compile Include="CalculationTestHelperTest.cs" />
+    <Compile Include="CalculationTestDataFactoryTest.cs" />
     <Compile Include="ControlTestHelperTest.cs" />
     <Compile Include="DistributionPropertiesTestHelperTest.cs" />
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTesterTest.cs" />
@@ -59,7 +59,6 @@
     <Compile Include="MapDataTestHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCalculationInputTest.cs" />
-    <Compile Include="TestCalculationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

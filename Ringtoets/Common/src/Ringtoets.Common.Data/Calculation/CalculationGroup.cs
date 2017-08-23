@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the children that define this group.
         /// </summary>
-        public IList<ICalculationBase> Children { get; private set; }
+        public IList<ICalculationBase> Children { get; }
 
         public string Name
         {
@@ -75,6 +75,11 @@ namespace Ringtoets.Common.Data.Calculation
                 }
                 name = value;
             }
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

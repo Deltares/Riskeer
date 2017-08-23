@@ -64,7 +64,13 @@ namespace Ringtoets.Revetment.Data.TestUtil
         #region Irrelevant for test
 
         public string Name { get; set; }
+
         public Comment Comments { get; }
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
 
         #endregion
     }

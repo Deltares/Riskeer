@@ -185,7 +185,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             TCalculation calculation,
             TCalculationContext calculationContext)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
-            where TCalculation : ICalculation, ICloneable
+            where TCalculation : ICalculation
         {
             return new StrictContextMenuItem(
                 Resources.Duplicate,

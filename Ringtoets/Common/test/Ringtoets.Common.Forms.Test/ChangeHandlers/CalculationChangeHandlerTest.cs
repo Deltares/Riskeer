@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.IO;
 
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers
@@ -135,11 +136,8 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
             var calculations = new[]
             {
-                new TestCalculation("Test 1")
-                {
-                    HasOutput = true
-                },
-                new TestCalculation("Test 2")
+                CalculationTestDataFactory.CreateCalculationWithOutput(),
+                CalculationTestDataFactory.CreateCalculationWithoutOutput()
             };
 
             var handler = new CalculationChangeHandler(calculations,

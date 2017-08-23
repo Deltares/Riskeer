@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.Structures
@@ -27,7 +26,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// Interface for structures calculations.
     /// </summary>
-    public interface IStructuresCalculation : ICalculation, ICloneable
+    public interface IStructuresCalculation : ICalculation
     {
         /// <summary>
         /// Gets the output of the structures calculation.

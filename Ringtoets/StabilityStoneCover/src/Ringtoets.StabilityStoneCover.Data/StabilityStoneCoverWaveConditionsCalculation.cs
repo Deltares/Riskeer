@@ -65,5 +65,10 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             Output = null;
         }
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

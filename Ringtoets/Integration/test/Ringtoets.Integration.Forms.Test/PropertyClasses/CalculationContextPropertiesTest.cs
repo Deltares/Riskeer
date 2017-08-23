@@ -23,9 +23,9 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -50,10 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "<very cool name>";
-            var calculation = new TestCalculation
-            {
-                Name = name
-            };
+            var calculation = new TestCalculation(name);
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
@@ -114,23 +111,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
-        }
-
-        private class TestCalculation : Observable, ICalculation
-        {
-            public string Name { get; set; }
-
-            public Comment Comments { get; private set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public void ClearOutput() {}
         }
     }
 }

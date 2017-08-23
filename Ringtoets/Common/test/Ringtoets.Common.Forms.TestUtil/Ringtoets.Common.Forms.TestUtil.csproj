@@ -51,14 +51,13 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="SetPropertyValueAfterConfirmationParameterTester.cs" />
-    <Compile Include="CalculationTestHelper.cs" />
+    <Compile Include="CalculationTestDataFactory.cs" />
     <Compile Include="ControlTestHelper.cs" />
     <Compile Include="DistributionPropertiesTestHelper.cs" />
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="IllustrationPointControlItemComparer.cs" />
     <Compile Include="MapDataTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCalculation.cs" />
     <Compile Include="TestCalculationInput.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +94,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

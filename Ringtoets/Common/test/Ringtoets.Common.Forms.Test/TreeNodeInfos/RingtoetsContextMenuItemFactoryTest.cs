@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -605,7 +604,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             get
             {
-                var calculation = new TestCloneableCalculation
+                var calculation = new TestCalculation
                 {
                     Name = "Nieuwe berekening"
                 };
@@ -656,8 +655,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICloneableCalculation>();
-            var calculationContext = mocks.Stub<ICalculationContext<ICloneableCalculation, IFailureMechanism>>();
+            var calculation = mocks.Stub<ICalculation>();
+            var calculationContext = mocks.Stub<ICalculationContext<ICalculation, IFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
@@ -674,13 +673,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [TestCaseSource(nameof(CalculationGroupConfigurations))]
-        public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationWithExpectedNameAndPosition(TestCloneableCalculation calculation,
+        public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationWithExpectedNameAndPosition(TestCalculation calculation,
                                                                                                                               CalculationGroup calculationGroup,
                                                                                                                               string expectedCalculationName)
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationContext = mocks.Stub<ICalculationContext<TestCloneableCalculation, IFailureMechanism>>();
+            var calculationContext = mocks.Stub<ICalculationContext<TestCalculation, IFailureMechanism>>();
 
             calculationContext.Stub(c => c.Parent).Return(calculationGroup);
 
@@ -700,36 +699,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(originalChildren.IndexOf(calculation) + 1, calculationGroup.Children.IndexOf(duplicatedItem));
 
             mocks.VerifyAll();
-        }
-
-        public interface ICloneableCalculation : ICalculation, ICloneable {}
-
-        public class TestCloneableCalculation : Observable, ICloneableCalculation
-        {
-            public string Name { get; set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public Comment Comments
-            {
-                get
-                {
-                    return null;
-                }
-            }
-
-            public void ClearOutput() {}
-
-            public object Clone()
-            {
-                return MemberwiseClone();
-            }
         }
 
         #endregion
@@ -1747,28 +1716,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
-        }
-
-        private class TestCalculation : Observable, ICalculation
-        {
-            public TestCalculation()
-            {
-                Name = "Nieuwe berekening";
-            }
-
-            public string Name { get; set; }
-
-            public Comment Comments { get; private set; }
-
-            public bool HasOutput
-            {
-                get
-                {
-                    return false;
-                }
-            }
-
-            public void ClearOutput() {}
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}
