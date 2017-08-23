@@ -243,7 +243,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GivenReadStochasticSoilModelThrowslException_WhenReadSegmentPoints_ReturnsNextStochasticSoilModel()
+        public void GivenReadStochasticSoilModelThrowsException_WhenReadSegmentPoints_ReturnsNextStochasticSoilModel()
         {
             // Given
             string dbFile = Path.Combine(testDataPath, "invalidSegmentPoint.soil");

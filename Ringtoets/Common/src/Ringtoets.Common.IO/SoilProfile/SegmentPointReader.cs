@@ -128,7 +128,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (StochasticSoilModelException)
             {
-                MoveToNextStochasticSoilModel(currentStochasticSoilModelId);
+                MoveToNextStochasticSoilModel();
                 throw;
             }
 
@@ -136,12 +136,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Moves the reader to the stochastic soil model with id <paramref name="stochasticSoilModelId"/>.
+        /// Moves the reader to the next stochastic soil model.
         /// </summary>
-        /// <param name="stochasticSoilModelId">The id of the stochastic soil model.</param>
-        private void MoveToNextStochasticSoilModel(long stochasticSoilModelId)
+        private void MoveToNextStochasticSoilModel()
         {
-            while (HasNext && ReadStochasticSoilModelId() <= stochasticSoilModelId)
+            long currentStochasticSoilModelId = ReadStochasticSoilModelId();
+            while (HasNext && currentStochasticSoilModelId.Equals(ReadStochasticSoilModelId()))
             {
                 MoveNext();
             }
