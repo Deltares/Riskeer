@@ -799,7 +799,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         #region AddDuplicateCalculationItem
 
         [Test]
-        public void AddDuplicateCalculationItem_WhenBuildWithCalculationWithOutput_ItemAddedToContextMenuEnabled()
+        public void AddDuplicateCalculationItem_WhenBuildWithCalculationItem_ItemAddedToContextMenuEnabled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -808,8 +808,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var calculation = mocks.Stub<ICalculation>();
-            var calculationContext = mocks.Stub<ICalculationContext<ICalculation, IFailureMechanism>>();
+            var calculationItem = mocks.Stub<ICalculationBase>();
+            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             mocks.ReplayAll();
 
@@ -820,12 +820,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                 exportCommandHandler,
                                                                 updateCommandHandler,
                                                                 viewCommands,
-                                                                calculation,
+                                                                calculationItem,
                                                                 treeViewControl);
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddDuplicateCalculationItem(calculation, calculationContext).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddDuplicateCalculationItem(calculationItem, calculationItemContext).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -833,7 +833,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "D&upliceren",
-                                                              "Dupliceer deze berekening.",
+                                                              "Dupliceer dit element.",
                                                               RingtoetsFormsResources.CopyHS);
             }
             mocks.VerifyAll();

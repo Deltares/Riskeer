@@ -1102,7 +1102,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dupliceer deze berekening..
+        ///   Looks up a localized string similar to Dupliceer dit element..
         /// </summary>
         public static string Duplicate_ToolTip {
             get {

@@ -174,18 +174,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of duplicating a calculation.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of duplicating a calculation item.
         /// </summary>
-        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to duplicate.</param>
-        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <typeparam name="TCalculationItem">The type of the calculation item.</typeparam>
+        /// <typeparam name="TCalculationItemContext">The type of the calculation item context.</typeparam>
+        /// <param name="calculationItem">The calculation item to duplicate.</param>
+        /// <param name="calculationItemContext">The calculation item context belonging to the calculation item.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
-            TCalculationContext calculationContext)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
-            where TCalculation : ICalculation
+        public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
+            TCalculationItem calculationItem,
+            TCalculationItemContext calculationItemContext)
+            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
+            where TCalculationItem : ICalculationBase
         {
             return new StrictContextMenuItem(
                 Resources.Duplicate,
@@ -193,16 +193,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.CopyHS,
                 (o, args) =>
                 {
-                    CalculationGroup parent = calculationContext.Parent;
+                    CalculationGroup parent = calculationItemContext.Parent;
                     IList<ICalculationBase> currentChildren = parent.Children;
-                    int calculationIndex = currentChildren.IndexOf(calculation);
+                    int calculationItemIndex = currentChildren.IndexOf(calculationItem);
 
-                    var copy = (TCalculation) calculation.Clone();
+                    var copy = (TCalculationItem) calculationItem.Clone();
                     copy.Name = NamingHelper.GetUniqueName(currentChildren,
-                                                           string.Format(Resources.RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0, calculation.Name),
+                                                           string.Format(Resources.RingtoetsContextMenuItemFactory_CreateDuplicateCalculationItem_Copy_of_item_with_name_0, calculationItem.Name),
                                                            c => c.Name);
 
-                    currentChildren.Insert(calculationIndex + 1, copy);
+                    currentChildren.Insert(calculationItemIndex + 1, copy);
                     parent.NotifyObservers();
                 });
         }

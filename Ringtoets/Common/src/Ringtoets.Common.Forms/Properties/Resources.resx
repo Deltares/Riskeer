@@ -1141,7 +1141,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>D&amp;upliceren</value>
   </data>
   <data name="Duplicate_ToolTip" xml:space="preserve">
-    <value>Dupliceer deze berekening.</value>
+    <value>Dupliceer dit element.</value>
   </data>
   <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CopyHS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

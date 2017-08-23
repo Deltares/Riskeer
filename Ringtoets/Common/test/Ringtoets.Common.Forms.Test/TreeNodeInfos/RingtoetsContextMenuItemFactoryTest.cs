@@ -604,48 +604,48 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             get
             {
-                var calculation = new TestCalculation
+                var calculationItem = new TestCalculationItem
                 {
-                    Name = "Nieuwe berekening"
+                    Name = "Element"
                 };
 
-                yield return new TestCaseData(calculation,
+                yield return new TestCaseData(calculationItem,
                                               new CalculationGroup
                                               {
                                                   Children =
                                                   {
-                                                      calculation
+                                                      calculationItem
                                                   }
                                               },
-                                              "Kopie van Nieuwe berekening")
+                                              "Kopie van Element")
                     .SetName("NameOfDefaultCopyUnique");
-                yield return new TestCaseData(calculation,
+                yield return new TestCaseData(calculationItem,
                                               new CalculationGroup
                                               {
                                                   Children =
                                                   {
-                                                      calculation,
-                                                      new TestCalculation
+                                                      calculationItem,
+                                                      new TestCalculationItem
                                                       {
-                                                          Name = "Kopie van Nieuwe berekening"
+                                                          Name = "Kopie van Element"
                                                       }
                                                   }
                                               },
-                                              "Kopie van Nieuwe berekening (1)")
-                    .SetName("NameOfDefaultCopySameAsOtherCalculation");
-                yield return new TestCaseData(calculation,
+                                              "Kopie van Element (1)")
+                    .SetName("NameOfDefaultCopySameAsOtherCalculationItem");
+                yield return new TestCaseData(calculationItem,
                                               new CalculationGroup
                                               {
                                                   Children =
                                                   {
                                                       new CalculationGroup
                                                       {
-                                                          Name = "Kopie van Nieuwe berekening"
+                                                          Name = "Kopie van Element"
                                                       },
-                                                      calculation
+                                                      calculationItem
                                                   }
                                               },
-                                              "Kopie van Nieuwe berekening (1)")
+                                              "Kopie van Element (1)")
                     .SetName("NameOfDefaultCopySameAsOtherCalculationGroup");
             }
         }
@@ -655,16 +655,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var calculation = mocks.Stub<ICalculation>();
-            var calculationContext = mocks.Stub<ICalculationContext<ICalculation, IFailureMechanism>>();
+            var calculationItem = mocks.Stub<ICalculationBase>();
+            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
             // Assert
             Assert.AreEqual("D&upliceren", toolStripItem.Text);
-            Assert.AreEqual("Dupliceer deze berekening.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Dupliceer dit element.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CopyHS, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -673,19 +673,19 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [TestCaseSource(nameof(CalculationGroupConfigurations))]
-        public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationWithExpectedNameAndPosition(TestCalculation calculation,
-                                                                                                                              CalculationGroup calculationGroup,
-                                                                                                                              string expectedCalculationName)
+        public void CreateDuplicateCalculationItem_PerformClickOnCreatedItem_DuplicatesCalculationItemWithExpectedNameAndPosition(ICalculationBase calculationItem,
+                                                                                                                                  CalculationGroup calculationGroup,
+                                                                                                                                  string expectedCalculationItemName)
         {
             // Setup
             var mocks = new MockRepository();
-            var calculationContext = mocks.Stub<ICalculationContext<TestCalculation, IFailureMechanism>>();
+            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
-            calculationContext.Stub(c => c.Parent).Return(calculationGroup);
+            calculationItemContext.Stub(c => c.Parent).Return(calculationGroup);
 
             mocks.ReplayAll();
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
             List<ICalculationBase> originalChildren = calculationGroup.Children.ToList();
 
@@ -695,8 +695,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Assert
             ICalculationBase duplicatedItem = calculationGroup.Children.Except(originalChildren).SingleOrDefault();
             Assert.IsNotNull(duplicatedItem);
-            Assert.AreEqual(expectedCalculationName, duplicatedItem.Name);
-            Assert.AreEqual(originalChildren.IndexOf(calculation) + 1, calculationGroup.Children.IndexOf(duplicatedItem));
+            Assert.AreEqual(expectedCalculationItemName, duplicatedItem.Name);
+            Assert.AreEqual(originalChildren.IndexOf(calculationItem) + 1, calculationGroup.Children.IndexOf(duplicatedItem));
 
             mocks.VerifyAll();
         }
@@ -1716,6 +1716,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public CalculationGroup Parent { get; }
 
             public IFailureMechanism FailureMechanism { get; }
+        }
+
+        private class TestCalculationItem : Observable, ICalculationBase
+        {
+            public string Name { get; set; }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
         public interface ICalculationInputWithForeshoreProfile : ICalculationInput, IHasForeshoreProfile {}

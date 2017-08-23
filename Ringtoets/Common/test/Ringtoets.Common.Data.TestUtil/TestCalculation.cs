@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 
@@ -62,7 +63,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public object Clone()
         {
-            return MemberwiseClone();
+            throw new NotImplementedException();
         }
     }
 }

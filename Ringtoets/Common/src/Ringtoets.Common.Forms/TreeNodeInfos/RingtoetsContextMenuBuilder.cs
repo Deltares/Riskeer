@@ -127,20 +127,20 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which duplicates a calculation.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which duplicates a calculation item.
         /// </summary>
-        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
-        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
-        /// <param name="calculation">The calculation to duplicate.</param>
-        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <typeparam name="TCalculationItem">The type of the calculation item.</typeparam>
+        /// <typeparam name="TCalculationItemContext">The type of the calculation item context.</typeparam>
+        /// <param name="calculationItem">The calculation item to duplicate.</param>
+        /// <param name="calculationItemContext">The calculation item context belonging to the calculation item.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddDuplicateCalculationItem<TCalculation, TCalculationContext>(
-            TCalculation calculation,
-            TCalculationContext calculationContext)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
-            where TCalculation : ICalculation
+        public RingtoetsContextMenuBuilder AddDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
+            TCalculationItem calculationItem,
+            TCalculationItemContext calculationItemContext)
+            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
+            where TCalculationItem : ICalculationBase
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculation, calculationContext));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext));
             return this;
         }
 
