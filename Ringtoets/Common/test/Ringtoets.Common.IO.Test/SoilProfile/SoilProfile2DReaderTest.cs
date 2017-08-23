@@ -213,11 +213,38 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<SoilProfileReadException>(test);
 
-                string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
-                                         "Geen geldige waarde in kolom 'IntersectionX'.";
+                const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
+                                               "Geen geldige waarde in kolom 'IntersectionX'.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_GeometryFor2DSoilProfileInvalid_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidGeometry.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(test);
+
+                const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
+                                               "Geen geldige waarde in kolom 'LayerGeometry'.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -280,6 +307,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual("Profile", soilProfile2D.Name);
             Assert.IsNaN(soilProfile2D.IntersectionX);
             Assert.AreEqual(3, soilProfile2D.Layers.Count());
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
     }
 }
