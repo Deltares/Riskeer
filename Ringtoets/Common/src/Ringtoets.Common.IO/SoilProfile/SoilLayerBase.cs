@@ -37,15 +37,45 @@ namespace Ringtoets.Common.IO.SoilProfile
         protected SoilLayerBase()
         {
             materialName = string.Empty;
+
             BelowPhreaticLevelMean = double.NaN;
             BelowPhreaticLevelDeviation = double.NaN;
             BelowPhreaticLevelShift = double.NaN;
+
             DiameterD70Mean = double.NaN;
             DiameterD70CoefficientOfVariation = double.NaN;
             DiameterD70Shift = double.NaN;
+
             PermeabilityMean = double.NaN;
             PermeabilityCoefficientOfVariation = double.NaN;
             PermeabilityShift = double.NaN;
+
+            UsePop = false;
+            ShearStrengthModel = ShearStrengthModel.None;
+
+            AbovePhreaticLevelMean = double.NaN;
+            AbovePhreaticLevelDeviation = double.NaN;
+            AbovePhreaticLevelShift = double.NaN;
+
+            CohesionMean = double.NaN;
+            CohesionDeviation = double.NaN;
+            CohesionShift = double.NaN;
+
+            FrictionAngleMean = double.NaN;
+            FrictionAngleDeviation = double.NaN;
+            FrictionAngleShift = double.NaN;
+
+            ShearStrengthRatioMean = double.NaN;
+            ShearStrengthRatioDeviation = double.NaN;
+            ShearStrengthRatioShift = double.NaN;
+
+            StrengthIncreaseExponentMean = double.NaN;
+            StrengthIncreaseExponentDeviation = double.NaN;
+            StrengthIncreaseExponentShift = double.NaN;
+
+            PopMean = double.NaN;
+            PopDeviation = double.NaN;
+            PopShift = double.NaN;
         }
 
         /// <summary>
@@ -168,105 +198,147 @@ namespace Ringtoets.Common.IO.SoilProfile
         public ShearStrengthModel ShearStrengthModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public long? AbovePhreaticLevelDistribution { get; set; }
+
+        /// <summary>
         /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelMean { get; set; } = double.NaN;
+        public double AbovePhreaticLevelMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelDeviation { get; set; } = double.NaN;
+        public double AbovePhreaticLevelDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double AbovePhreaticLevelShift { get; set; }
         
+        /// <summary>
+        /// Gets or sets the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public long? CohesionDistribution { get; set; }
+
         /// <summary>
         /// Gets or sets the mean of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double CohesionMean { get; set; } = double.NaN;
+        public double CohesionMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double CohesionDeviation { get; set; } = double.NaN;
+        public double CohesionDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double CohesionShift { get; set; } = double.NaN;
+        public double CohesionShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the the distribution for the friction angle
+        /// [°]
+        /// </summary>
+        public long? FrictionAngleDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the friction angle
         /// [°]
         /// </summary>
-        public double FrictionAngleMean { get; set; } = double.NaN;
+        public double FrictionAngleMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngleDeviation { get; set; } = double.NaN;
+        public double FrictionAngleDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngleShift { get; set; } = double.NaN;
+        public double FrictionAngleShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the ratio of shear strength S
+        /// [-]
+        /// </summary>
+        public long? ShearStrengthRatioDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the ratio of shear strength S
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioMean { get; set; } = double.NaN;
+        public double ShearStrengthRatioMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioDeviation { get; set; } = double.NaN;
+        public double ShearStrengthRatioDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioShift { get; set; } = double.NaN;
+        public double ShearStrengthRatioShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the strength increase exponent (m)
+        /// [-]
+        /// </summary>
+        public long? StrengthIncreaseExponentDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the strength increase exponent (m)
         /// [-]
         /// </summary>
-        public double StrengthIncreaseExponentMean { get; set; } = double.NaN;
+        public double StrengthIncreaseExponentMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
-        public double StrengthIncreaseExponentDeviation { get; set; } = double.NaN;
+        public double StrengthIncreaseExponentDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
-        public double StrengthIncreaseExponentShift { get; set; } = double.NaN;
+        public double StrengthIncreaseExponentShift { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distribution for the POP
+        /// [kN/m²]
+        /// </summary>
+        public long? PopDistribution { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the POP
         /// [kN/m²]
         /// </summary>
-        public double PopMean { get; set; } = double.NaN;
+        public double PopMean { get; set; }
 
         /// <summary>
         /// Gets or sets the deviation of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
-        public double PopDeviation { get; set; } = double.NaN;
+        public double PopDeviation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
-        public double PopShift { get; set; } = double.NaN;
+        public double PopShift { get; set; }
     }
 }
