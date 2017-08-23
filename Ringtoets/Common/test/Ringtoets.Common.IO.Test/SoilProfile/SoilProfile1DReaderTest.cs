@@ -165,6 +165,56 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("Profile", result[0].Name);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_LayerTopInvalidValue_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithInvalidTopLayer.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(test);
+                const string expectedMessage = "Het lezen van de ondergrondschematisatie 'INCORRECT' is mislukt. " +
+                                               "Geen geldige waarde in kolom 'Top'.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual("INCORRECT", exception.ProfileName);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_BottomInvalidValue_ThrowsSoilProfileReadException()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileWithInvalidBottom.soil");
+
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                TestDelegate test = () => reader.ReadSoilProfile();
+
+                // Assert
+                var exception = Assert.Throws<SoilProfileReadException>(test);
+                const string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
+                                               "Geen geldige waarde in kolom 'Bottom'.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual("Profile", exception.ProfileName);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -185,6 +235,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual("Het uitlezen van de ondergrondschematisatie is mislukt.", exception.Message);
                 Assert.AreEqual("Profile", exception.ProfileName);
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -255,6 +307,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     0.024752
                 }, profile.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
             }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
     }
 }

@@ -117,6 +117,7 @@
     <Compile Include="Configurations\Export\CalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\ConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\StructuresCalculationConfiguration.cs" />
+    <Compile Include="SoilProfile\CriticalProfileProperties.cs" />
     <Compile Include="SoilProfile\ISoilProfile.cs" />
     <Compile Include="SoilProfile\IStochasticSoilModelMechanismFilter.cs" />
     <Compile Include="SoilProfile\IStochasticSoilModelUpdateModelStrategy.cs" />

@@ -139,48 +139,47 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Tries to read and create a <see cref="SoilProfile1D"/>.
         /// </summary>
         /// <returns>The read <see cref="SoilProfile1D"/>.</returns>
-        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when encountering an unrecoverable error 
+        /// while reading the profile.</exception>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile 
+        /// failed.</exception>
         private SoilProfile1D TryReadSoilProfile()
         {
-            long profileId = ReadProfileId();
+            var criticalProperties = new CriticalProfileProperties(this);
             var soilLayers = new List<SoilLayer1D>();
 
             RequiredProfileProperties properties;
             try
             {
-                properties = new RequiredProfileProperties(this);
+                properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
 
-                for (var i = 1; i <= properties.LayerCount; i++)
+                for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
-                    soilLayers.Add(ReadSoilLayerFrom(this, properties.ProfileName));
+                    soilLayers.Add(ReadSoilLayerFrom(this, criticalProperties.ProfileName));
                     MoveNext();
                 }
             }
             catch (SoilProfileReadException)
             {
-                MoveToNextProfile(profileId);
+                MoveToNextProfile(criticalProperties.ProfileId);
                 throw;
             }
 
             try
             {
-                return new SoilProfile1D(profileId,
-                                         properties.ProfileName,
+                return new SoilProfile1D(criticalProperties.ProfileId,
+                                         criticalProperties.ProfileName,
                                          properties.Bottom,
                                          soilLayers);
             }
             catch (ArgumentException exception)
             {
+                MoveToNextProfile(criticalProperties.ProfileId);
                 throw new SoilProfileReadException(
                     Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
-                    properties.ProfileName,
+                    criticalProperties.ProfileName,
                     exception);
             }
-        }
-
-        private long ReadProfileId()
-        {
-            return dataReader.Read<long>(SoilProfileTableDefinitions.SoilProfileId);
         }
 
         private void PrepareReader()
@@ -311,28 +310,24 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// that are required to create a complete <see cref="SoilProfile1D"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
-            /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to read the required profile property values from.</param>
+            /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to read the required
+            ///  profile property values from.</param>
+            /// <param name="profileName">The profile name used in generating exceptions messages 
+            /// if casting failed.</param>
             /// <exception cref="SoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal RequiredProfileProperties(IRowBasedDatabaseReader reader)
+            internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
-                string readColumn = SoilProfileTableDefinitions.ProfileName;
                 try
                 {
-                    ProfileName = reader.Read<string>(SoilProfileTableDefinitions.ProfileName);
-
-                    readColumn = SoilProfileTableDefinitions.Bottom;
-                    Bottom = reader.Read<double>(readColumn);
-
-                    readColumn = SoilProfileTableDefinitions.LayerCount;
-                    LayerCount = reader.Read<long>(readColumn);
+                    Bottom = reader.Read<double>(SoilProfileTableDefinitions.Bottom);
                 }
                 catch (InvalidCastException e)
                 {
                     string message = string.Format(Resources.SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1,
-                                                   ProfileName,
-                                                   readColumn);
-                    throw new SoilProfileReadException(message, ProfileName, e);
+                                                   profileName,
+                                                   SoilProfileTableDefinitions.Bottom);
+                    throw new SoilProfileReadException(message, profileName, e);
                 }
             }
 
@@ -340,16 +335,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// The bottom of the profile.
             /// </summary>
             public double Bottom { get; }
-
-            /// <summary>
-            /// The name of the profile to read.
-            /// </summary>
-            public string ProfileName { get; }
-
-            /// <summary>
-            /// The number of layers that the profile has to read.
-            /// </summary>
-            public long LayerCount { get; }
         }
     }
 }
