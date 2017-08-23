@@ -114,6 +114,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
 
+            Assert.IsNull(control.Selection);
+
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.AreEqual("SSE", cells[windDirectionColumnIndex].FormattedValue);
@@ -159,6 +161,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             DataGridViewRowCollection rows = dataGridView.Rows;
             Assert.AreEqual(2, rows.Count);
+
+            Assert.IsNull(control.Selection);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(4, cells.Count);
@@ -239,7 +243,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             control.Data = GetControlItems();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridViewControl dataGridViewControl = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
             DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+            dataGridViewControl.SetCurrentCell(selectedLocationRow.Cells[0]);
 
             // Call
             selectedLocationRow.Cells[0].Value = true;

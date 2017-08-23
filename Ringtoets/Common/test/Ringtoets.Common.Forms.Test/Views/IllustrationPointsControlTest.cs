@@ -120,11 +120,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                      Enumerable.Empty<Stochast>(),
                                                      (RoundedDouble) 2.6)
                 };
-                control.Data = newData; // Updating data fires event 3 times here, then resets to allow next cell change to fire again
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]); // This will fire the event once more (4 total)
+                control.Data = newData; // Updating data fires event 5 times here, then resets to allow next cell change to fire again
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]); // This will fire the event once more (7 total)
 
                 // Then
-                Assert.AreEqual(4, currentRowChangedCount);
+                Assert.AreEqual(7, currentRowChangedCount);
             }
         }
 
@@ -150,11 +150,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
+
                 // When
-                EventHelper.RaiseEvent(tableControl, "SelectionChanged");
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
@@ -182,10 +181,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
 
                 // Call
-                selectedLocationRow.Cells[0].Value = true;
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // Assert
                 var expectedSelection = tableControl.Selection as IllustrationPointControlItem;

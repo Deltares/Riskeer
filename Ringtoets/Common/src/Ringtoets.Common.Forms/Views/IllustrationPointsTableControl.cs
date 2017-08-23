@@ -66,6 +66,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                         ? CreateRows()
                                                                         : null);
 
+                illustrationPointsDataGridViewControl.SetCurrentCell(null);
                 UpdateClosingSituationVisibility();
             }
         }
