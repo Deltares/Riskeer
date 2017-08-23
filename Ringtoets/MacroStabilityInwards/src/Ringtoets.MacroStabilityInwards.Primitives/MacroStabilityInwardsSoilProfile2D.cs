@@ -47,7 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, SoilProfileType sourceProfileType, long soilProfileId)
+        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
+                                                  SoilProfileType sourceProfileType, long soilProfileId)
         {
             Name = name;
             Layers = layers;
@@ -59,26 +60,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the database identifier of the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         public long MacroStabilityInwardsSoilProfileId { get; }
-
-        /// <summary>
-        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            private set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-                name = value;
-            }
-        }
 
         /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer2D"/> for 
@@ -103,6 +84,26 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the type of soil profile used as data source to build this instance.
         /// </summary>
         public SoilProfileType SoilProfileType { get; }
+
+        /// <summary>
+        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                name = value;
+            }
+        }
 
         public override string ToString()
         {

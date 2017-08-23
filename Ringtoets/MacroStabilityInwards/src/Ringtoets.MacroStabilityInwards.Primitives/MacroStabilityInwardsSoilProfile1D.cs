@@ -54,7 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfile1D(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer1D> layers, SoilProfileType sourceProfileType, long soilProfileId)
+        public MacroStabilityInwardsSoilProfile1D(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer1D> layers,
+                                                  SoilProfileType sourceProfileType, long soilProfileId)
         {
             Name = name;
             Bottom = bottom;
@@ -72,26 +73,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the bottom level of the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
         /// </summary>
         public double Bottom { get; }
-
-        /// <summary>
-        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile1D"/>.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            private set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-                name = value;
-            }
-        }
 
         /// <summary>
         /// Gets an ordered (by <see cref="MacroStabilityInwardsSoilLayer1D.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
@@ -116,6 +97,26 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the type of soil profile used as data source to build this instance.
         /// </summary>
         public SoilProfileType SoilProfileType { get; }
+
+        /// <summary>
+        /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile1D"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                name = value;
+            }
+        }
 
         /// <summary>
         /// Gets the thickness of the given layer in the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
