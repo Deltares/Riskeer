@@ -86,7 +86,6 @@
     <Compile Include="Data\PointedTreeEdgeTest.cs" />
     <Compile Include="Data\PointedTreeGraphTest.cs" />
     <Compile Include="Data\PointedTreeElementVertexTest.cs" />
-    <Compile Include="Data\PointedTreeTestDataFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +106,10 @@
     <ProjectReference Include="..\..\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
       <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
       <Name>Core.Components.PointedTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj">
+      <Project>{0500CA45-1791-4C91-9243-EF95567068A3}</Project>
+      <Name>Core.Components.GraphSharp.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

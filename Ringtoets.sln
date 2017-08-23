@@ -1716,12 +1716,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Data.TestUtil.T
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.TestUtil", "Core\Components\test\Core.Components.PointedTree.TestUtil\Core.Components.PointedTree.TestUtil.csproj", "{0500CA45-1791-4C91-9243-EF95567068A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.TestUtil", "Core\Components\test\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj", "{0500CA45-1791-4C91-9243-EF95567068A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.TestUtil.Test", "Core\Components\test\Core.Components.PointedTree.TestUtil.Test\Core.Components.PointedTree.TestUtil.Test.csproj", "{98B55901-9726-4172-A179-E2BF640FEDA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.TestUtil.Test", "Core\Components\test\Core.Components.GraphSharp.TestUtil.Test\Core.Components.GraphSharp.TestUtil.Test.csproj", "{98B55901-9726-4172-A179-E2BF640FEDA8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

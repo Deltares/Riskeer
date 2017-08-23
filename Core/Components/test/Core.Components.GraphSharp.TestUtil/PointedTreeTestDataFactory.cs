@@ -24,7 +24,7 @@ using System.Windows.Media;
 using Core.Common.TestUtil;
 using Core.Components.GraphSharp.Data;
 
-namespace Core.Components.GraphSharp.Test.Data
+namespace Core.Components.GraphSharp.TestUtil
 {
     /// <summary>
     /// Factory for creating pointed tree related test data objects.

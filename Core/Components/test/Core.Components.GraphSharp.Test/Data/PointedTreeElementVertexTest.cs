@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using Core.Components.GraphSharp.Commands;
 using Core.Components.GraphSharp.Data;
+using Core.Components.GraphSharp.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.GraphSharp.Test.Data

@@ -20,29 +20,24 @@
 // All rights reserved.
 
 using Core.Components.GraphSharp.Data;
-using Core.Components.GraphSharp.TestUtil;
 using NUnit.Framework;
-using QuickGraph;
 
-namespace Core.Components.GraphSharp.Test.Data
+namespace Core.Components.GraphSharp.TestUtil.Test
 {
     [TestFixture]
-    public class PointedTreeEdgeTest
+    public class PointedTreeTestDataFactoryTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreatePointedTreeElementVertex_Always_CreatesExpectedPointedTreeElementVertex(bool isSelectable)
         {
-            // Setup
-            PointedTreeElementVertex source = PointedTreeTestDataFactory.CreatePointedTreeElementVertex();
-            PointedTreeElementVertex target = PointedTreeTestDataFactory.CreatePointedTreeElementVertex();
-
             // Call
-            var edge = new PointedTreeEdge(source, target);
+            PointedTreeElementVertex pointedTreeElementVertex = PointedTreeTestDataFactory.CreatePointedTreeElementVertex(isSelectable);
 
             // Assert
-            Assert.IsInstanceOf<Edge<PointedTreeElementVertex>>(edge);
-            Assert.AreSame(source, edge.Source);
-            Assert.AreSame(target, edge.Target);
+            Assert.IsNotNull(pointedTreeElementVertex);
+            Assert.AreEqual(isSelectable, pointedTreeElementVertex.IsSelectable);
         }
     }
 }
