@@ -23,8 +23,6 @@ using System;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using CommonShearStrengthModel = Ringtoets.Common.IO.SoilProfile.ShearStrengthModel;
-using ShearStrengthModel = Ringtoets.MacroStabilityInwards.Primitives.ShearStrengthModel;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -94,24 +92,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         }
 
         /// <summary>
-        /// Transforms the <see cref="CommonShearStrengthModel"/> to <see cref="ShearStrengthModel"/>.
+        /// Transforms the <see cref="ShearStrengthModel"/> to <see cref="MacroStabilityInwardsShearStrengthModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The model to transform.</param>
-        /// <returns>A <see cref="ShearStrengthModel"/> based on the given data.</returns>
+        /// <returns>A <see cref="MacroStabilityInwardsShearStrengthModel"/> based on the given data.</returns>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// has an invalid value.</exception>
-        private static ShearStrengthModel TransformShearStrengthModel(CommonShearStrengthModel shearStrengthModel)
+        private static MacroStabilityInwardsShearStrengthModel TransformShearStrengthModel(ShearStrengthModel shearStrengthModel)
         {
             switch (shearStrengthModel)
             {
-                case CommonShearStrengthModel.None:
-                    return ShearStrengthModel.None;
-                case CommonShearStrengthModel.SuCalculated:
-                    return ShearStrengthModel.SuCalculated;
-                case CommonShearStrengthModel.CPhi:
-                    return ShearStrengthModel.CPhi;
-                case CommonShearStrengthModel.CPhiOrSuCalculated:
-                    return ShearStrengthModel.CPhiOrSuCalculated;
+                case ShearStrengthModel.None:
+                    return MacroStabilityInwardsShearStrengthModel.None;
+                case ShearStrengthModel.SuCalculated:
+                    return MacroStabilityInwardsShearStrengthModel.SuCalculated;
+                case ShearStrengthModel.CPhi:
+                    return MacroStabilityInwardsShearStrengthModel.CPhi;
+                case ShearStrengthModel.CPhiOrSuCalculated:
+                    return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
                 default:
                     throw new NotSupportedException();
             }

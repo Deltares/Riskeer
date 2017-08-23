@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(Color.Empty, properties.Color);
 
             Assert.IsFalse(properties.UsePop);
-            Assert.AreEqual(ShearStrengthModel.None, properties.ShearStrengthModel);
+            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.None, properties.ShearStrengthModel);
 
             Assert.IsNaN(properties.AbovePhreaticLevelMean);
             Assert.IsNaN(properties.AbovePhreaticLevelDeviation);
@@ -177,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private static IEnumerable<TestCaseData> ChangeSingleProperties()
         {
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (ShearStrengthModel) 9));
+            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
             yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
@@ -248,7 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                 IsAquifer = random.NextBoolean(),
                 UsePop = random.NextBoolean(),
-                ShearStrengthModel = random.NextEnumValue<ShearStrengthModel>(),
+                ShearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>(),
                 AbovePhreaticLevelMean = random.NextDouble(),
                 AbovePhreaticLevelDeviation = random.NextDouble(),
                 BelowPhreaticLevelMean = random.NextDouble(),

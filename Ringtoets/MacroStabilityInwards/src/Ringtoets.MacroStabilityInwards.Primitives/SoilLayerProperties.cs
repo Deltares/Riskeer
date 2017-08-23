@@ -32,6 +32,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private string materialName = string.Empty;
 
         /// <summary>
+        /// Creates a new instance of <see cref="SoilLayerProperties"/>.
+        /// </summary>
+        public SoilLayerProperties()
+        {
+            ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the layer is an aquifer.
         /// </summary>
         public bool IsAquifer { get; set; }
@@ -69,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets or sets the shear strength model to use for the layer.
         /// </summary>
-        public ShearStrengthModel ShearStrengthModel { get; set; }
+        public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.

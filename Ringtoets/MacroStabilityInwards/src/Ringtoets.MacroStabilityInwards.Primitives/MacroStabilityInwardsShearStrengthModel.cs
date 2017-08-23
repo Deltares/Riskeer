@@ -24,7 +24,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// <summary>
     /// All shear strength model types.
     /// </summary>
-    public enum ShearStrengthModel
+    public enum MacroStabilityInwardsShearStrengthModel
     {
         None = 1,
         SuCalculated = 2,

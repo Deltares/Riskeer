@@ -55,7 +55,7 @@
     </Compile>
     <Compile Include="Ring.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLine.cs" />
-    <Compile Include="ShearStrengthModel.cs" />
+    <Compile Include="MacroStabilityInwardsShearStrengthModel.cs" />
     <Compile Include="SoilLayerProperties.cs" />
     <Compile Include="SoilProfileType.cs" />
   </ItemGroup>

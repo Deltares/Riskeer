@@ -27,8 +27,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using CommonShearStrengthModel = Ringtoets.Common.IO.SoilProfile.ShearStrengthModel;
-using ShearStrengthModel = Ringtoets.MacroStabilityInwards.Primitives.ShearStrengthModel;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 {
@@ -57,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             const string materialName = "materialX";
             Color color = Color.AliceBlue;
             bool usePop = random.NextBoolean();
-            var shearStrengthModel = random.NextEnumValue<CommonShearStrengthModel>();
+            var shearStrengthModel = random.NextEnumValue<ShearStrengthModel>();
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
@@ -146,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var layer = new SoilLayer1D(1)
             {
-                ShearStrengthModel = (CommonShearStrengthModel) 99
+                ShearStrengthModel = (ShearStrengthModel) 99
             };
 
             // Call
@@ -158,18 +156,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
         }
 
-        private ShearStrengthModel GetMacroStabilityInwardsShearStrengthModel(CommonShearStrengthModel shearStrengthModel)
+        private MacroStabilityInwardsShearStrengthModel GetMacroStabilityInwardsShearStrengthModel(ShearStrengthModel shearStrengthModel)
         {
             switch (shearStrengthModel)
             {
-                case CommonShearStrengthModel.None:
-                    return ShearStrengthModel.None;
-                case CommonShearStrengthModel.SuCalculated:
-                    return ShearStrengthModel.SuCalculated;
-                case CommonShearStrengthModel.CPhi:
-                    return ShearStrengthModel.CPhi;
-                case CommonShearStrengthModel.CPhiOrSuCalculated:
-                    return ShearStrengthModel.CPhiOrSuCalculated;
+                case ShearStrengthModel.None:
+                    return MacroStabilityInwardsShearStrengthModel.None;
+                case ShearStrengthModel.SuCalculated:
+                    return MacroStabilityInwardsShearStrengthModel.SuCalculated;
+                case ShearStrengthModel.CPhi:
+                    return MacroStabilityInwardsShearStrengthModel.CPhi;
+                case ShearStrengthModel.CPhiOrSuCalculated:
+                    return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shearStrengthModel), shearStrengthModel, null);
             }
