@@ -21,7 +21,9 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -88,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_WithSoilProfile1D_Visible()
+        public void DynamicVisibleValidationMethod_WithSoilProfile1D_Only1DPropertiesVisible()
         {
             // Setup
             IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
@@ -118,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void DynamicVisibleValidationMethod_WithSoilProfile2D_Hidden()
+        public void DynamicVisibleValidationMethod_WithSoilProfile2D_Only2DPropertiesVisible()
         {
             // Setup
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
@@ -309,12 +311,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
 
+            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers1D));
             Assert.AreEqual(2, properties.Layers1D.Length);
             Assert.AreSame(layerOne, properties.Layers1D[0].Data);
             Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
 
             Assert.AreEqual(0, properties.Layers2D.Length);
-            Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
+            Assert.AreEqual(soilProfile.Bottom.ToString(CultureInfo.CurrentCulture), properties.Bottom);
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("1D profiel", properties.Type);
         }
@@ -370,6 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
 
+            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers2D));
             Assert.AreEqual(2, properties.Layers2D.Length);
             Assert.AreSame(layerOne, properties.Layers2D[0].Data);
             Assert.AreSame(layerTwo, properties.Layers2D[1].Data);

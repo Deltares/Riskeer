@@ -72,6 +72,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\RingProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />

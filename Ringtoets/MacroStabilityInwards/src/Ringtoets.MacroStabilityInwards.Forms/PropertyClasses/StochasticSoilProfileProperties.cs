@@ -114,11 +114,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_Description))]
-        public double Bottom
+        public string Bottom
         {
             get
             {
-                return ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Bottom ?? double.NaN;
+                return new RoundedDouble(2, ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Bottom ?? double.NaN).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 

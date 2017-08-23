@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -86,6 +88,52 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual("Layer A", name);
+        }
+
+        [Test]
+        public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
+        {
+            // Setup
+            var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
+            {
+                Properties =
+                {
+                    MaterialName = "Test Name",
+                    IsAquifer = true
+                }
+            };
+
+            // Call
+            var properties = new MacroStabilityInwardsSoilLayer1DProperties
+            {
+                Data = layer
+            };
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategoryName = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "De naam van de ondergrondschematisatie.",
+                                                                            true);
+            PropertyDescriptor topLevelProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(topLevelProperty,
+                                                                            generalCategoryName,
+                                                                            "Topniveau",
+                                                                            "Het niveau van de bovenkant van deze grondlaag binnen de ondergrondschematisatie.",
+                                                                            true);
+            PropertyDescriptor isAquiferProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isAquiferProperty,
+                                                                            generalCategoryName,
+                                                                            "Is aquifer",
+                                                                            "Geeft aan of deze grondlaag een watervoerende laag betreft.",
+                                                                            true);
         }
     }
 }

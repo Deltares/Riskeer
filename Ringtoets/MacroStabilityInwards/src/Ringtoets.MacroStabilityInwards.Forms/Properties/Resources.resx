@@ -139,12 +139,6 @@
   <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
-    <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
-    <value>Topniveaus</value>
-  </data>
   <data name="MacroStabilityInwardsInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De opbouw van de ondergrond.</value>
   </data>
@@ -556,7 +550,7 @@
   <data name="StochasticSoilProfile_Layers_DisplayName" xml:space="preserve">
     <value>Grondlagen</value>
   </data>
-  <data name="SoilLayer_Geometry_Description" xml:space="preserve">
+  <data name="Geometry_DisplayName" xml:space="preserve">
     <value>Geometrie</value>
   </data>
   <data name="LeakageLengthOutwardsPhreaticLine3_Description" xml:space="preserve">
@@ -564,5 +558,17 @@
   </data>
   <data name="LeakageLengthOutwardsPhreaticLine4_Description" xml:space="preserve">
     <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.</value>
+  </data>
+  <data name="SoilLayer_Holes_Description" xml:space="preserve">
+    <value>De binnenringen van deze grondlaag.</value>
+  </data>
+  <data name="SoilLayer_Holes_DisplayName" xml:space="preserve">
+    <value>Binnenringen</value>
+  </data>
+  <data name="SoilLayer_OuterRing_Description" xml:space="preserve">
+    <value>De geometrie van de buitenring van deze grondlaag.</value>
+  </data>
+  <data name="SoilLayer_OuterRing_DisplayName" xml:space="preserve">
+    <value>Buitenring</value>
   </data>
 </root>

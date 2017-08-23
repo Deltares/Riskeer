@@ -52,10 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ReadOnly(true)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Geometry_Description))]
-        public Point2D[] Geometry
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_Description))]
+
+        public Point2D[] OuterRing
         {
             get
             {
@@ -64,6 +67,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Holes_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_Holes_Description))]
+        public RingProperties[] Holes
+        {
+            get
+            {
+                return data.Holes.Select(ring => new RingProperties
+                           {
+                               Data = ring
+                           })
+                           .ToArray();
+            }
+        }
+
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_IsAquifer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_IsAquifer_Description))]
