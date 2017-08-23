@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -145,14 +144,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 tangentLineZTopProperty,
                 calculationGridsCategory,
                 "Tangentlijn Z-boven [m+NAP]",
-                "Verticale coordinaat van de bovenste raaklijn.");
+                "Verticale coördinaat van de bovenste raaklijn.");
 
             PropertyDescriptor tangentLineZBottomProperty = dynamicProperties[expectedTangentLineZBottomPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 tangentLineZBottomProperty,
                 calculationGridsCategory,
                 "Tangentlijn Z-onder [m+NAP]",
-                "Verticale coordinaat van de onderste raaklijn.");
+                "Verticale coördinaat van de onderste raaklijn.");
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.LeftGrid));
@@ -176,14 +175,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        [TestCase(MacroStabilityInwardsGridDetermination.Manual)]
+        [TestCase(MacroStabilityInwardsGridDetermination.Automatic)]
+        public void GetProperties_WithData_ReturnExpectedValues(
+            MacroStabilityInwardsGridDetermination gridDetermination)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                GridDetermination = gridDetermination
+            };
 
             // Call
             var properties = new MacroStabilityInwardsGridSettingsProperties(input, changeHandler);
@@ -195,8 +200,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.TangentLineZTop, properties.TangentLineZTop);
             Assert.AreEqual(input.TangentLineZBottom, properties.TangentLineZBottom);
 
+            bool gridIsReadOnly = gridDetermination == MacroStabilityInwardsGridDetermination.Automatic;
             Assert.AreSame(input.LeftGrid, properties.LeftGrid.Data);
+            Assert.AreEqual(gridIsReadOnly, properties.LeftGrid.DynamicReadOnlyValidationMethod(string.Empty));
             Assert.AreSame(input.RightGrid, properties.RightGrid.Data);
+            Assert.AreEqual(gridIsReadOnly, properties.RightGrid.DynamicReadOnlyValidationMethod(string.Empty));
             mocks.VerifyAll();
         }
 

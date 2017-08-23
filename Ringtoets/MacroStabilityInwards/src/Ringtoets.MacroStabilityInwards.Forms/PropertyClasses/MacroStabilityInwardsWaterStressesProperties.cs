@@ -184,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(leakageLengthOutwardsPhreaticLine3PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine3_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine3_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine3_Description))]
         public RoundedDouble LeakageLengthOutwardsPhreaticLine3
         {
             get
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(leakageLengthInwardsPhreaticLine3PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine3_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine3_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine3_Description))]
         public RoundedDouble LeakageLengthInwardsPhreaticLine3
         {
             get
@@ -216,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(leakageLengthOutwardsPhreaticLine4PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine4_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine4_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthOutwardsPhreaticLine4_Description))]
         public RoundedDouble LeakageLengthOutwardsPhreaticLine4
         {
             get
@@ -232,7 +232,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(leakageLengthInwardsPhreaticLine4PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine4_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthPhreaticLine4_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LeakageLengthInwardsPhreaticLine4_Description))]
         public RoundedDouble LeakageLengthInwardsPhreaticLine4
         {
             get

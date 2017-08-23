@@ -182,28 +182,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 leakageLengthOutwardsPhreaticLine3Property,
                 waterStressesCategory,
                 "Leklengte buitenwaarts PL 3 [m]",
-                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag.");
+                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het voorland.");
 
             PropertyDescriptor leakageLengthInwardsPhreaticLine3Property = dynamicProperties[expectedLeakageLengthInwardsPhreaticLine3PropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthInwardsPhreaticLine3Property,
                 waterStressesCategory,
                 "Leklengte binnenwaarts PL 3 [m]",
-                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag.");
+                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het achterland.");
 
             PropertyDescriptor leakageLengthOutwardsPhreaticLine4Property = dynamicProperties[expectedLeakageLengthOutwardsPhreaticLine4PropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthOutwardsPhreaticLine4Property,
                 waterStressesCategory,
                 "Leklengte buitenwaarts PL 4 [m]",
-                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag.");
+                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.");
 
             PropertyDescriptor leakageLengthInwardsPhreaticLine4Property = dynamicProperties[expectedLeakageLengthInwardsPhreaticLine4PropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 leakageLengthInwardsPhreaticLine4Property,
                 waterStressesCategory,
                 "Leklengte binnenwaarts PL 4 [m]",
-                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag.");
+                "Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het achterland.");
 
             PropertyDescriptor piezometricHeadPhreaticLine2OutwardsProperty = dynamicProperties[expectedPiezometricHeadPhreaticLine2OutwardsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(

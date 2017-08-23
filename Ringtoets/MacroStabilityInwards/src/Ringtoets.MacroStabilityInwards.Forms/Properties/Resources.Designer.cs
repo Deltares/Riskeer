@@ -253,11 +253,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het achterland..
+        /// </summary>
+        public static string LeakageLengthInwardsPhreaticLine3_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthInwardsPhreaticLine3_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leklengte binnenwaarts PL 3 [m].
         /// </summary>
         public static string LeakageLengthInwardsPhreaticLine3_DisplayName {
             get {
                 return ResourceManager.GetString("LeakageLengthInwardsPhreaticLine3_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het achterland..
+        /// </summary>
+        public static string LeakageLengthInwardsPhreaticLine4_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthInwardsPhreaticLine4_Description", resourceCulture);
             }
         }
         
@@ -271,6 +289,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het voorland..
+        /// </summary>
+        public static string LeakageLengthOutwardsPhreaticLine3_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthOutwardsPhreaticLine3_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leklengte buitenwaarts PL 3 [m].
         /// </summary>
         public static string LeakageLengthOutwardsPhreaticLine3_DisplayName {
@@ -280,29 +307,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland..
+        /// </summary>
+        public static string LeakageLengthOutwardsPhreaticLine4_Description {
+            get {
+                return ResourceManager.GetString("LeakageLengthOutwardsPhreaticLine4_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leklengte buitenwaarts PL 4 [m].
         /// </summary>
         public static string LeakageLengthOutwardsPhreaticLine4_DisplayName {
             get {
                 return ResourceManager.GetString("LeakageLengthOutwardsPhreaticLine4_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag..
-        /// </summary>
-        public static string LeakageLengthPhreaticLine3_Description {
-            get {
-                return ResourceManager.GetString("LeakageLengthPhreaticLine3_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag..
-        /// </summary>
-        public static string LeakageLengthPhreaticLine4_Description {
-            get {
-                return ResourceManager.GetString("LeakageLengthPhreaticLine4_Description", resourceCulture);
             }
         }
         
@@ -1200,7 +1218,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verticale coordinaat van de onderste raaklijn..
+        ///   Looks up a localized string similar to Verticale coördinaat van de onderste raaklijn..
         /// </summary>
         public static string TangentLineZBottom_Description {
             get {
@@ -1218,7 +1236,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verticale coordinaat van de bovenste raaklijn..
+        ///   Looks up a localized string similar to Verticale coördinaat van de bovenste raaklijn..
         /// </summary>
         public static string TangentLineZTop_Description {
             get {
@@ -1308,7 +1326,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X-coordinaat van het middelpunt van de drainage (in lokale coordinaten)..
+        ///   Looks up a localized string similar to X-coördinaat van het middelpunt van de drainage (in lokale coordinaten)..
         /// </summary>
         public static string XCoordinateDrainageConstruction_Description {
             get {
@@ -1326,7 +1344,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Horizontale coordinaat van de linker kant van het rekengrid..
+        ///   Looks up a localized string similar to Horizontale coördinaat van de linker kant van het rekengrid..
         /// </summary>
         public static string XLeft_Description {
             get {
@@ -1344,7 +1362,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Horizontale coordinaat van de rechter kant van het rekengrid..
+        ///   Looks up a localized string similar to Horizontale coördinaat van de rechter kant van het rekengrid..
         /// </summary>
         public static string XRight_Description {
             get {
@@ -1362,7 +1380,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verticale coordinaat van de onderkant van het rekengrid..
+        ///   Looks up a localized string similar to Verticale coördinaat van de onderkant van het rekengrid..
         /// </summary>
         public static string ZBottom_Description {
             get {
@@ -1380,7 +1398,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z-coordinaat (hoogte) van het middelpunt van de drainage..
+        ///   Looks up a localized string similar to Z-coördinaat (hoogte) van het middelpunt van de drainage..
         /// </summary>
         public static string ZCoordinateDrainageConstruction_Description {
             get {
@@ -1398,7 +1416,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verticale coordinaat van de bovenkant van het rekengrid..
+        ///   Looks up a localized string similar to Verticale coördinaat van de bovenkant van het rekengrid..
         /// </summary>
         public static string ZTop_Description {
             get {

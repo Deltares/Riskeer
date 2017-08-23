@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageXProperty,
                 drainageCategory,
                 "X [m]",
-                "X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).",
+                "X-coördinaat van het middelpunt van de drainage (in lokale coordinaten).",
                 !drainageConstructionPresent);
 
             PropertyDescriptor drainageZProperty = dynamicProperties[expectedZCoordinateDrainageConstructionPropertyIndex];
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageZProperty,
                 drainageCategory,
                 "Z [m+NAP]",
-                "Z-coordinaat (hoogte) van het middelpunt van de drainage.",
+                "Z-coördinaat (hoogte) van het middelpunt van de drainage.",
                 !drainageConstructionPresent);
 
             mocks.VerifyAll();

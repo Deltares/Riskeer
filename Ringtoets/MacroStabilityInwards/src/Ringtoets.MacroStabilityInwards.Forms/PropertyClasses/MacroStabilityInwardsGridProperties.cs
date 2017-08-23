@@ -44,14 +44,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int numberOfVerticalPointsPropertyIndex = 6;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
+        private readonly bool isReadOnly;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsGridProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <param name="isReadOnly">Indicates whether the properties are read only.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsGridProperties(MacroStabilityInwardsGrid data, IObservablePropertyChangeHandler handler)
+        public MacroStabilityInwardsGridProperties(MacroStabilityInwardsGrid data, IObservablePropertyChangeHandler handler, bool isReadOnly)
         {
             if (data == null)
             {
@@ -63,9 +65,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
             this.data = data;
             propertyChangeHandler = handler;
+            this.isReadOnly = isReadOnly;
         }
 
         [PropertyOrder(xLeftPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.XLeft_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.XLeft_Description))]
@@ -82,6 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(xRightPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.XRight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.XRight_Description))]
@@ -98,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(zTopPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZTop_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ZTop_Description))]
@@ -114,6 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(zBottomPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZBottom_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ZBottom_Description))]
@@ -130,6 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(numberOfHorizontalPointsPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.NumberOfHorizontalPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.NumberOfHorizontalPoints_Description))]
@@ -146,6 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(numberOfVerticalPointsPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Grid))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.NumberOfVerticalPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.NumberOfVerticalPoints_Description))]
@@ -159,6 +168,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.NumberOfVerticalPoints = value, propertyChangeHandler);
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return isReadOnly;
         }
 
         public override string ToString()

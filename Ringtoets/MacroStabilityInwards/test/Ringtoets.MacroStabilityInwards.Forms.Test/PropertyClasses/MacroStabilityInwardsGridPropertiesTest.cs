@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var data = new MacroStabilityInwardsGrid();
 
             // Call
-            var properties = new MacroStabilityInwardsGridProperties(data, changeHandler);
+            var properties = new MacroStabilityInwardsGridProperties(data, changeHandler, false);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsGrid>>(properties);
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsGridProperties(null, changeHandler);
+            TestDelegate call = () => new MacroStabilityInwardsGridProperties(null, changeHandler, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), null);
+            TestDelegate call = () => new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,7 +93,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool isReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -103,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var grid = new MacroStabilityInwardsGrid();
 
             // Call
-            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler);
+            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, isReadOnly);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -117,42 +119,48 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 xLeftProperty,
                 gridCategory,
                 "X links [m]",
-                "Horizontale coordinaat van de linker kant van het rekengrid.");
+                "Horizontale coördinaat van de linker kant van het rekengrid.",
+                isReadOnly);
 
             PropertyDescriptor xRightProperty = dynamicProperties[expectedXRightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 xRightProperty,
                 gridCategory,
                 "X rechts [m]",
-                "Horizontale coordinaat van de rechter kant van het rekengrid.");
+                "Horizontale coördinaat van de rechter kant van het rekengrid.",
+                isReadOnly);
 
             PropertyDescriptor zTopProperty = dynamicProperties[expectedZTopPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 zTopProperty,
                 gridCategory,
                 "Z boven [m+NAP]",
-                "Verticale coordinaat van de bovenkant van het rekengrid.");
+                "Verticale coördinaat van de bovenkant van het rekengrid.",
+                isReadOnly);
 
             PropertyDescriptor zBottomProperty = dynamicProperties[expectedZBottomPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 zBottomProperty,
                 gridCategory,
                 "Z onder [m+NAP]",
-                "Verticale coordinaat van de onderkant van het rekengrid.");
+                "Verticale coördinaat van de onderkant van het rekengrid.",
+                isReadOnly);
 
             PropertyDescriptor numberOfHorizontalPointsProperty = dynamicProperties[expectedNumberOfHorizontalPointsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 numberOfHorizontalPointsProperty,
                 gridCategory,
                 "Aantal horizontale punten",
-                "Aantal punten waarmee het grid wordt samengesteld in horizontale richting.");
+                "Aantal punten waarmee het grid wordt samengesteld in horizontale richting.",
+                isReadOnly);
 
             PropertyDescriptor numberOfVerticalPointsProperty = dynamicProperties[expectedNumberOfVerticalPointsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 numberOfVerticalPointsProperty,
                 gridCategory,
                 "Aantal verticale punten",
-                "Aantal punten waarmee het grid wordt samengesteld in verticale richting.");
+                "Aantal punten waarmee het grid wordt samengesteld in verticale richting.",
+                isReadOnly);
 
             mocks.VerifyAll();
         }
@@ -168,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var grid = new MacroStabilityInwardsGrid();
 
             // Call
-            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler);
+            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, false);
 
             // Assert
             Assert.AreEqual(grid.XLeft, properties.XLeft);
@@ -189,7 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsGrid grid = input.LeftGrid;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
-            var properties = new MacroStabilityInwardsGridProperties(grid, handler);
+            var properties = new MacroStabilityInwardsGridProperties(grid, handler, false);
 
             var random = new Random();
             double xLeft = random.Next();
@@ -284,13 +292,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler);
+            var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler, false);
 
             // Call
             string toString = properties.ToString();
 
             // Assert
             Assert.AreEqual(string.Empty, toString);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnly_isReadOnly_ReturnsExpectedResult(bool isReadOnly)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler, isReadOnly);
+            
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(string.Empty);
+
+            // Assert
+            Assert.AreEqual(isReadOnly, result);
         }
 
         private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsGridProperties> setProperty,
@@ -309,7 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsGridProperties(grid, handler);
+            var properties = new MacroStabilityInwardsGridProperties(grid, handler, false);
 
             // Call
             setProperty(properties);

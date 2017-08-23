@@ -349,11 +349,11 @@
   <data name="LeakageLengthOutwardsPhreaticLine4_DisplayName" xml:space="preserve">
     <value>Leklengte buitenwaarts PL 4 [m]</value>
   </data>
-  <data name="LeakageLengthPhreaticLine3_Description" xml:space="preserve">
-    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag.</value>
+  <data name="LeakageLengthInwardsPhreaticLine3_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het achterland.</value>
   </data>
-  <data name="LeakageLengthPhreaticLine4_Description" xml:space="preserve">
-    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag.</value>
+  <data name="LeakageLengthInwardsPhreaticLine4_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het achterland.</value>
   </data>
   <data name="MinimumLevelPhreaticLineAtDikeTopPolder_Description" xml:space="preserve">
     <value>Minimale hoogte van de freatische lijn onder kruin binnentalud.</value>
@@ -422,13 +422,13 @@
     <value>Gebruik default waarden voor offsets van PL 1</value>
   </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
-    <value>X-coordinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
+    <value>X-coördinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
   </data>
   <data name="XCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
     <value>X [m]</value>
   </data>
   <data name="ZCoordinateDrainageConstruction_Description" xml:space="preserve">
-    <value>Z-coordinaat (hoogte) van het middelpunt van de drainage.</value>
+    <value>Z-coördinaat (hoogte) van het middelpunt van de drainage.</value>
   </data>
   <data name="ZCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
     <value>Z [m+NAP]</value>
@@ -506,37 +506,37 @@
     <value>Bepaling tangentlijnen</value>
   </data>
   <data name="TangentLineZBottom_Description" xml:space="preserve">
-    <value>Verticale coordinaat van de onderste raaklijn.</value>
+    <value>Verticale coördinaat van de onderste raaklijn.</value>
   </data>
   <data name="TangentLineZBottom_DisplayName" xml:space="preserve">
     <value>Tangentlijn Z-onder [m+NAP]</value>
   </data>
   <data name="TangentLineZTop_Description" xml:space="preserve">
-    <value>Verticale coordinaat van de bovenste raaklijn.</value>
+    <value>Verticale coördinaat van de bovenste raaklijn.</value>
   </data>
   <data name="TangentLineZTop_DisplayName" xml:space="preserve">
     <value>Tangentlijn Z-boven [m+NAP]</value>
   </data>
   <data name="XLeft_Description" xml:space="preserve">
-    <value>Horizontale coordinaat van de linker kant van het rekengrid.</value>
+    <value>Horizontale coördinaat van de linker kant van het rekengrid.</value>
   </data>
   <data name="XLeft_DisplayName" xml:space="preserve">
     <value>X links [m]</value>
   </data>
   <data name="XRight_Description" xml:space="preserve">
-    <value>Horizontale coordinaat van de rechter kant van het rekengrid.</value>
+    <value>Horizontale coördinaat van de rechter kant van het rekengrid.</value>
   </data>
   <data name="XRight_DisplayName" xml:space="preserve">
     <value>X rechts [m]</value>
   </data>
   <data name="ZBottom_Description" xml:space="preserve">
-    <value>Verticale coordinaat van de onderkant van het rekengrid.</value>
+    <value>Verticale coördinaat van de onderkant van het rekengrid.</value>
   </data>
   <data name="ZBottom_DisplayName" xml:space="preserve">
     <value>Z onder [m+NAP]</value>
   </data>
   <data name="ZTop_Description" xml:space="preserve">
-    <value>Verticale coordinaat van de bovenkant van het rekengrid.</value>
+    <value>Verticale coördinaat van de bovenkant van het rekengrid.</value>
   </data>
   <data name="ZTop_DisplayName" xml:space="preserve">
     <value>Z boven [m+NAP]</value>
@@ -558,5 +558,11 @@
   </data>
   <data name="SoilLayer_Geometry_Description" xml:space="preserve">
     <value>Geometrie</value>
+  </data>
+  <data name="LeakageLengthOutwardsPhreaticLine3_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het voorland.</value>
+  </data>
+  <data name="LeakageLengthOutwardsPhreaticLine4_Description" xml:space="preserve">
+    <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.</value>
   </data>
 </root>

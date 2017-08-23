@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsGridProperties(data.LeftGrid, propertyChangeHandler);
+                return new MacroStabilityInwardsGridProperties(data.LeftGrid, propertyChangeHandler, AreGridSettingsReadOnly());
             }
         }
 
@@ -173,13 +173,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsGridProperties(data.RightGrid, propertyChangeHandler);
+                return new MacroStabilityInwardsGridProperties(data.RightGrid, propertyChangeHandler, AreGridSettingsReadOnly());
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private bool AreGridSettingsReadOnly()
+        {
+            return data.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic;
         }
     }
 }
