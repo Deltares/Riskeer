@@ -101,7 +101,7 @@ namespace Core.Components.GraphSharp.Test.Commands
 
             public TestPointedTreeElementVertex(bool isSelectable)
                 : base("<text>test</text>",
-                       new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Black), 2, PointedTreeVertexType.Rectangle, isSelectable) {}
+                       Colors.Red, Colors.Black, 2, PointedTreeVertexType.Rectangle, isSelectable) {}
         }
     }
 }

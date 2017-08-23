@@ -35,7 +35,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void Constructor_ContentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PointedTreeElementVertex(null, new SolidColorBrush(Colors.Gray), new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.None, false);
+            TestDelegate call = () => new PointedTreeElementVertex(null, Colors.Gray, Colors.Gray, 3, PointedTreeVertexType.None, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -43,34 +43,12 @@ namespace Core.Components.GraphSharp.Test.Data
         }
 
         [Test]
-        public void Constructor_FillColorNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new PointedTreeElementVertex("test", null, new SolidColorBrush(Colors.Gray), 3, PointedTreeVertexType.None, false);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("fillColor", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_LineColorNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Gray), null, 3, PointedTreeVertexType.None, false);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("lineColor", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             const string content = "test";
-            var fillColor = new SolidColorBrush(Colors.Blue);
-            var lineColor = new SolidColorBrush(Colors.Gray);
+            Color fillColor = Colors.Blue;
+            Color lineColor = Colors.Gray;
             const int lineWidth = 3;
             const PointedTreeVertexType type = PointedTreeVertexType.None;
             const bool isSelectable = true;
@@ -94,9 +72,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void IsSelected_SetNewValue_PropertyChangedEventFired()
         {
             // Setup
-            var vertex = new PointedTreeElementVertex("test", new SolidColorBrush(Colors.Blue),
-                                                      new SolidColorBrush(Colors.Gray), 3,
-                                                      PointedTreeVertexType.Rectangle, true);
+            var vertex = new PointedTreeElementVertex("test", Colors.Blue, Colors.Gray, 3, PointedTreeVertexType.Rectangle, true);
 
             var propertyChanged = 0;
             vertex.PropertyChanged += (sender, args) => propertyChanged++;

@@ -61,14 +61,12 @@ namespace Core.Components.GraphSharp.Converters
                 graphNode.IsSelectable);
         }
 
-        private static SolidColorBrush ConvertColor(System.Drawing.Color color)
+        private static Color ConvertColor(System.Drawing.Color color)
         {
-            return new SolidColorBrush(
-                Color.FromArgb(
-                    color.A,
-                    color.R,
-                    color.G,
-                    color.B));
+            return Color.FromArgb(color.A,
+                                  color.R,
+                                  color.G,
+                                  color.B);
         }
 
         /// <summary>

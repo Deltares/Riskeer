@@ -47,9 +47,7 @@ namespace Core.Components.GraphSharp.Test.Data
 
         private class TestVertex : PointedTreeElementVertex
         {
-            public TestVertex() : base("test", new SolidColorBrush(Colors.Gray),
-                                       new SolidColorBrush(Colors.Black), 2,
-                                       PointedTreeVertexType.Rectangle, false) {}
+            public TestVertex() : base("test", Colors.Gray, Colors.Black, 2, PointedTreeVertexType.Rectangle, false) {}
         }
     }
 }

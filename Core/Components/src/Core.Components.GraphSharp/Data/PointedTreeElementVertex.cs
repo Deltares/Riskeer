@@ -49,8 +49,7 @@ namespace Core.Components.GraphSharp.Data
         /// <param name="isSelectable">Indicator whether the vertex is selectable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/>
         /// <paramref name="fillColor"/> or <paramref name="lineColor"/> is <c>null</c>.</exception>
-        public PointedTreeElementVertex(string content, Brush fillColor,
-                                        Brush lineColor, int lineWidth,
+        public PointedTreeElementVertex(string content, Color fillColor, Color lineColor, int lineWidth,
                                         PointedTreeVertexType type, bool isSelectable)
         {
             if (content == null)
@@ -66,8 +65,8 @@ namespace Core.Components.GraphSharp.Data
                 throw new ArgumentNullException(nameof(lineColor));
             }
             Content = content;
-            FillColor = fillColor;
-            LineColor = lineColor;
+            FillColor = new SolidColorBrush(fillColor);
+            LineColor = new SolidColorBrush(lineColor);
             LineWidth = lineWidth;
             Type = type;
             IsSelectable = isSelectable;
