@@ -72,7 +72,36 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithReaderInvalidProfileName_SetProperties()
+        public void Constructor_WithReaderInvalidProfileId_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
+            const string profileName = "profile";
+            const int layerCount = 1;
+            const string path = "A";
+            var invalidCastException = new InvalidCastException();
+
+            reader.Expect(r => r.Read<string>(SoilProfileTableDefinitions.ProfileName)).IgnoreArguments().Return(profileName);
+            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.LayerCount)).IgnoreArguments().Return(layerCount);
+            reader.Expect(r => r.Read<long>(SoilProfileTableDefinitions.SoilProfileId)).IgnoreArguments().Throw(invalidCastException);
+            reader.Expect(r => r.Path).Return(path);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new CriticalProfileProperties(reader);
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreSame(invalidCastException, exception.InnerException);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                .WithSubject($"ondergrondschematisatie '{profileName}'")
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_WithReaderInvalidProfileName_ThrowsCriticalFileReadException()
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
@@ -98,7 +127,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithReaderInvalidLayerCount_SetProperties()
+        public void Constructor_WithReaderInvalidLayerCount_ThrowsCriticalFileReadException()
         {
             // Setup
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();

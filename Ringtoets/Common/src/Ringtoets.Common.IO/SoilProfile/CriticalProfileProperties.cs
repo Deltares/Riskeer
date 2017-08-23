@@ -35,7 +35,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     internal class CriticalProfileProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CriticalProfileProperties"/>, which contains properties
+        /// Creates a new instance of <see cref="CriticalProfileProperties"/> which contains properties
         /// that are critical for reading profiles. If these properties cannot be read, then something
         /// went wrong while querying the database.
         /// </summary>
