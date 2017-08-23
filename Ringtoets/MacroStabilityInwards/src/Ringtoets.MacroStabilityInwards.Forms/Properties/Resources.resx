@@ -571,4 +571,10 @@
   <data name="SoilLayer_OuterRing_DisplayName" xml:space="preserve">
     <value>Buitenring</value>
   </data>
+  <data name="SoilLayer_Name_Description" xml:space="preserve">
+    <value>De naam van de grondlaag.</value>
+  </data>
+  <data name="SoilLayer_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>

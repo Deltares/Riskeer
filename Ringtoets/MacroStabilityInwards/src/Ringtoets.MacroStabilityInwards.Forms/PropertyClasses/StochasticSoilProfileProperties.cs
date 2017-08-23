@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, ((MacroStabilityInwardsSoilProfile1D) data.SoilProfile)?.Bottom ?? double.NaN).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(2, (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Bottom ?? double.NaN).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 

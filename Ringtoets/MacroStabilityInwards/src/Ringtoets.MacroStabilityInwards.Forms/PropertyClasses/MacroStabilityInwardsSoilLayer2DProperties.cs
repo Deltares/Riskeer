@@ -41,8 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_Name_Description))]
         public string Name
         {
             get
@@ -76,10 +76,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.Holes.Select(ring => new RingProperties
-                           {
-                               Data = ring
-                           })
-                           .ToArray();
+                {
+                    Data = ring
+                }).ToArray();
             }
         }
 

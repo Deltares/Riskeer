@@ -987,6 +987,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De naam van de grondlaag..
+        /// </summary>
+        public static string SoilLayer_Name_Description {
+            get {
+                return ResourceManager.GetString("SoilLayer_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string SoilLayer_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilLayer_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De geometrie van de buitenring van deze grondlaag..
         /// </summary>
         public static string SoilLayer_OuterRing_Description {

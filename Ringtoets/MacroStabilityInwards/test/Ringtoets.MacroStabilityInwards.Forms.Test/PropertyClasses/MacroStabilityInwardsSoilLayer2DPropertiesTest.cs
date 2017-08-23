@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategoryName,
                                                                             "Naam",
-                                                                            "De naam van de ondergrondschematisatie.",
+                                                                            "De naam van de grondlaag.",
                                                                             true);
 
             PropertyDescriptor outerRingProperty = dynamicProperties[1];

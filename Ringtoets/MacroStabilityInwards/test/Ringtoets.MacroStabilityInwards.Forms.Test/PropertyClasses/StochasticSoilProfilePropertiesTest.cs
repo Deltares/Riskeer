@@ -379,6 +379,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
 
             Assert.AreEqual(0, properties.Layers1D.Length);
+            Assert.AreEqual(double.NaN.ToString(CultureInfo.CurrentCulture), properties.Bottom);
+
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("2D profiel", properties.Type);
         }
