@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Media;
+using Core.Common.TestUtil;
 using Core.Components.GraphSharp.Data;
 
 namespace Core.Components.GraphSharp.Test.Data
@@ -36,11 +38,19 @@ namespace Core.Components.GraphSharp.Test.Data
         /// <returns>A <see cref="PointedTreeElementVertex"/>.</returns>
         public static PointedTreeElementVertex CreatePointedTreeElementVertex(bool isSelectable = false)
         {
+            var random = new Random(21);
+
             return new PointedTreeElementVertex("<text>test</text>",
-                                                Colors.Red,
-                                                Colors.Black,
-                                                2,
-                                                PointedTreeVertexType.Rectangle,
+                                                Color.FromArgb((byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265)),
+                                                Color.FromArgb((byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265),
+                                                               (byte) random.Next(0, 265)),
+                                                random.Next(0, int.MaxValue),
+                                                random.NextEnumValue<PointedTreeVertexType>(),
                                                 isSelectable);
         }
     }

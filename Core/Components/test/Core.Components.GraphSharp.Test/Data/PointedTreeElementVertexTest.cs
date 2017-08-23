@@ -59,8 +59,10 @@ namespace Core.Components.GraphSharp.Test.Data
             // Assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(vertex);
             Assert.AreEqual(content, vertex.Content);
-            Assert.AreEqual(fillColor, vertex.FillColor);
-            Assert.AreEqual(lineColor, vertex.LineColor);
+            Assert.IsInstanceOf<SolidColorBrush>(vertex.FillColor);
+            Assert.AreEqual(fillColor, ((SolidColorBrush) vertex.FillColor).Color);
+            Assert.IsInstanceOf<SolidColorBrush>(vertex.LineColor);
+            Assert.AreEqual(lineColor, ((SolidColorBrush) vertex.LineColor).Color);
             Assert.AreEqual(lineWidth, vertex.LineWidth);
             Assert.AreEqual(type, vertex.Type);
             Assert.AreEqual(isSelectable, vertex.IsSelectable);
@@ -72,7 +74,7 @@ namespace Core.Components.GraphSharp.Test.Data
         public void IsSelected_SetNewValue_PropertyChangedEventFired()
         {
             // Setup
-            var vertex = new PointedTreeElementVertex("test", Colors.Blue, Colors.Gray, 3, PointedTreeVertexType.Rectangle, true);
+            PointedTreeElementVertex vertex = PointedTreeTestDataFactory.CreatePointedTreeElementVertex(true);
 
             var propertyChanged = 0;
             vertex.PropertyChanged += (sender, args) => propertyChanged++;
