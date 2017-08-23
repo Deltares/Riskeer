@@ -34,6 +34,34 @@ namespace Ringtoets.Common.IO.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
+        /// <returns>The created <see cref="SoilLayer2D"/>.</returns>
+        public static SoilLayer2D CreateSoilLayer2D()
+        {
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(2.0, 1.0);
+
+            var innerLoops = new[]
+            {
+                new[]
+                {
+                    new Segment2D(pointC, pointD),
+                    new Segment2D(pointD, pointC)
+                }
+            };
+            var outerLoop = new List<Segment2D>
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            };
+
+            return CreateSoilLayer2D(innerLoops, outerLoop);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SoilLayer2D"/>.
+        /// </summary>
         /// <param name="innerLoops">The inner loops of the <see cref="SoilLayer2D"/>,
         /// for which each of the segments are connected to the next.</param>
         /// <param name="outerLoop">The outer loop of the <see cref="SoilLayer2D"/>,

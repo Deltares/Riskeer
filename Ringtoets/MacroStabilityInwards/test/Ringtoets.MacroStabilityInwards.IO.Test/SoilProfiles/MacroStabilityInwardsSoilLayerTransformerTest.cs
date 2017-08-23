@@ -22,10 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -154,9 +157,159 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
         }
 
+        [Test]
+        public void SoilLayer2DTransform_SoilLayer2DNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform((SoilLayer2D) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_PropertiesSetAndValid_ReturnMacroStabilityInwardSoilLayer2D()
+        {
+            // Setup
+            var random = new Random(22);
+
+            bool isAquifer = random.NextBoolean();
+            const string materialName = "materialX";
+            Color color = Color.AliceBlue;
+            bool usePop = random.NextBoolean();
+            var shearStrengthModel = random.NextEnumValue<ShearStrengthModel>();
+
+            double abovePhreaticLevelMean = random.NextDouble();
+            double abovePhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelDeviation = random.NextDouble();
+            double cohesionMean = random.NextDouble();
+            double cohesionDeviation = random.NextDouble();
+            double frictionAngleMean = random.NextDouble();
+            double frictionAngleDeviation = random.NextDouble();
+            double shearStrengthRatioMean = random.NextDouble();
+            double shearStrengthRatioDeviation = random.NextDouble();
+            double strengthIncreaseExponentMean = random.NextDouble();
+            double strengthIncreaseExponentDeviation = random.NextDouble();
+            double popMean = random.NextDouble();
+            double popDeviation = random.NextDouble();
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.IsAquifer = isAquifer;
+            layer.MaterialName = materialName;
+            layer.Color = color;
+            layer.UsePop = usePop;
+            layer.ShearStrengthModel = shearStrengthModel;
+            layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
+            layer.AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation;
+            layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
+            layer.BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation;
+            layer.CohesionMean = cohesionMean;
+            layer.CohesionDeviation = cohesionDeviation;
+            layer.FrictionAngleMean = frictionAngleMean;
+            layer.FrictionAngleDeviation = frictionAngleDeviation;
+            layer.ShearStrengthRatioMean = shearStrengthRatioMean;
+            layer.ShearStrengthRatioDeviation = shearStrengthRatioDeviation;
+            layer.StrengthIncreaseExponentMean = strengthIncreaseExponentMean;
+            layer.StrengthIncreaseExponentDeviation = strengthIncreaseExponentDeviation;
+            layer.PopMean = popMean;
+            layer.PopDeviation = popDeviation;
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            SoilLayerProperties properties = soilLayer2D.Properties;
+            Assert.AreEqual(isAquifer, properties.IsAquifer);
+            Assert.AreEqual(materialName, properties.MaterialName);
+            Assert.AreEqual(color, properties.Color);
+            Assert.AreEqual(usePop, properties.UsePop);
+            Assert.AreEqual(GetMacroStabilityInwardsShearStrengthModel(shearStrengthModel), properties.ShearStrengthModel);
+            Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
+            Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
+            Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(cohesionMean, properties.CohesionMean);
+            Assert.AreEqual(cohesionDeviation, properties.CohesionDeviation);
+            Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);
+            Assert.AreEqual(frictionAngleDeviation, properties.FrictionAngleDeviation);
+            Assert.AreEqual(shearStrengthRatioMean, properties.ShearStrengthRatioMean);
+            Assert.AreEqual(shearStrengthRatioDeviation, properties.ShearStrengthRatioDeviation);
+            Assert.AreEqual(strengthIncreaseExponentMean, properties.StrengthIncreaseExponentMean);
+            Assert.AreEqual(strengthIncreaseExponentDeviation, properties.StrengthIncreaseExponentDeviation);
+            Assert.AreEqual(popMean, properties.PopMean);
+            Assert.AreEqual(popDeviation, properties.PopDeviation);
+
+            AssertRings(layer, soilLayer2D);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_InvalidShearStrengthModel_ThrowImportedDataTransformException()
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.ShearStrengthModel = (ShearStrengthModel) 99;
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Er ging iets mis met transformeren.", exception.Message);
+            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterRingNull_ThrowImportedDataTransformException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(new SoilLayer2D());
+
+            // Assert
+            Assert.Throws<ImportedDataTransformException>(test);
+        }
+
+        private void AssertRings(SoilLayer2D soilLayer, MacroStabilityInwardsSoilLayer2D macroStabilityInwardsSoilLayer)
+        {
+            Assert.AreEqual(GetRingFromSegment(soilLayer.OuterLoop), macroStabilityInwardsSoilLayer.OuterRing);
+            CollectionAssert.AreEqual(soilLayer.InnerLoops.Select(GetRingFromSegment), macroStabilityInwardsSoilLayer.Holes);
+        }
+
+        private static Ring GetRingFromSegment(IEnumerable<Segment2D> loop)
+        {
+            var points = new List<Point2D>();
+            foreach (Segment2D segment in loop)
+            {
+                points.AddRange(new[]
+                {
+                    segment.FirstPoint,
+                    segment.SecondPoint
+                });
+            }
+            return new Ring(points);
+        }
+
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
         {
             return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer2D()
+        {
+            return IncorrectLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer1D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)

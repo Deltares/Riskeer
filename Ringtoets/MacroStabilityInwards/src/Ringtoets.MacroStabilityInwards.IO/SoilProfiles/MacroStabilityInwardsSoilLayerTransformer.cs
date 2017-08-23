@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
@@ -53,41 +56,88 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             ValidateStochasticParameters(soilLayer);
 
-            var layer = new MacroStabilityInwardsSoilLayer1D(soilLayer.Top)
-            {
-                Properties =
-                {
-                    MaterialName = soilLayer.MaterialName,
-                    IsAquifer = soilLayer.IsAquifer,
-                    Color = soilLayer.Color,
-                    UsePop = soilLayer.UsePop,
-                    AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean,
-                    AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelDeviation,
-                    BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean,
-                    BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation,
-                    CohesionMean = soilLayer.CohesionMean,
-                    CohesionDeviation = soilLayer.CohesionDeviation,
-                    FrictionAngleMean = soilLayer.FrictionAngleMean,
-                    FrictionAngleDeviation = soilLayer.FrictionAngleDeviation,
-                    ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean,
-                    ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioDeviation,
-                    StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean,
-                    StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentDeviation,
-                    PopMean = soilLayer.PopMean,
-                    PopDeviation = soilLayer.PopDeviation
-                }
-            };
+            var layer = new MacroStabilityInwardsSoilLayer1D(soilLayer.Top);
+            SetProperties(soilLayer, layer.Properties);
 
+            return layer;
+        }
+
+        /// <summary>
+        /// Transforms the generic <paramref name="soilLayer"/> into a
+        /// <see cref="MacroStabilityInwardsSoilLayer2D"/>.
+        /// </summary>
+        /// <param name="soilLayer">The soil layer to use in the transformation.</param>
+        /// <returns>A <see cref="MacroStabilityInwardsSoilLayer1D"/> based on the given data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is
+        /// <c>null</c>.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
+        public static MacroStabilityInwardsSoilLayer2D Transform(SoilLayer2D soilLayer)
+        {
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+
+            ValidateStochasticParameters(soilLayer);
+
+            if (soilLayer.OuterLoop == null)
+            {
+                throw new ImportedDataTransformException();
+            }
+
+            Ring outerRing = TransformSegmentToRing(soilLayer.OuterLoop);
+            Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentToRing).ToArray();
+
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings);
+            SetProperties(soilLayer, layer.Properties);
+
+            return layer;
+        }
+
+        private static void SetProperties(SoilLayerBase soilLayer, SoilLayerProperties properties)
+        {
             try
             {
-                layer.Properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
+                properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
             }
             catch (NotSupportedException e)
             {
                 throw new ImportedDataTransformException("Er ging iets mis met transformeren.", e);
             }
 
-            return layer;
+            properties.MaterialName = soilLayer.MaterialName;
+            properties.IsAquifer = soilLayer.IsAquifer;
+            properties.Color = soilLayer.Color;
+            properties.UsePop = soilLayer.UsePop;
+            properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
+            properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelDeviation;
+            properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
+            properties.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
+            properties.CohesionMean = soilLayer.CohesionMean;
+            properties.CohesionDeviation = soilLayer.CohesionDeviation;
+            properties.FrictionAngleMean = soilLayer.FrictionAngleMean;
+            properties.FrictionAngleDeviation = soilLayer.FrictionAngleDeviation;
+            properties.ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean;
+            properties.ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioDeviation;
+            properties.StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean;
+            properties.StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentDeviation;
+            properties.PopMean = soilLayer.PopMean;
+            properties.PopDeviation = soilLayer.PopDeviation;
+        }
+
+        private static Ring TransformSegmentToRing(IEnumerable<Segment2D> loop)
+        {
+            var points = new List<Point2D>();
+            foreach (Segment2D segment in loop)
+            {
+                points.AddRange(new[]
+                {
+                    segment.FirstPoint,
+                    segment.SecondPoint
+                });
+            }
+            return new Ring(points);
         }
 
         /// <summary>

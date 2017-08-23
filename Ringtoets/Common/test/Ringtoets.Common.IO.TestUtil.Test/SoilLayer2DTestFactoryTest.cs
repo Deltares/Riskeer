@@ -136,5 +136,26 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
             Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
         }
+
+        [Test]
+        public void CreateSoilLayer2D_Parameterless_ExpectedProperties()
+        {
+            // Setup
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(2.0, 1.0);
+
+            // Call
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+
+            // Assert
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+
+            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+        }
     }
 }
