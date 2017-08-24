@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -180,6 +181,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationItemContext">The type of the calculation item context.</typeparam>
         /// <param name="calculationItem">The calculation item to duplicate.</param>
         /// <param name="calculationItemContext">The calculation item context belonging to the calculation item.</param>
+        /// <exception cref="ArgumentException">Thrown when the parent calculation group of
+        /// <paramref name="calculationItem"/> equals <c>null</c>.</exception>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
@@ -187,6 +190,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
             where TCalculationItem : ICalculationBase
         {
+            if (calculationItemContext.Parent == null)
+            {
+                throw new ArgumentException($"{nameof(calculationItemContext.Parent)} should be set.");
+            }
+
             return new StrictContextMenuItem(
                 Resources.Duplicate,
                 Resources.Duplicate_ToolTip,

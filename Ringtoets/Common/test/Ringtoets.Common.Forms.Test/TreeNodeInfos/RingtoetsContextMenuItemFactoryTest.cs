@@ -651,12 +651,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateDuplicateCalculationItem_Always_CreatesDecoratedAndEnabledItem()
+        public void CreateDuplicateCalculationItem_CalculationItemWithParent_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
             var calculationItem = mocks.Stub<ICalculationBase>();
             var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+            calculationItemContext.Stub(ic => ic.Parent).Return(new CalculationGroup());
             mocks.ReplayAll();
 
             // Call
@@ -667,6 +668,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Dupliceer dit element.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CopyHS, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateDuplicateCalculationItem_CalculationItemWithoutParent_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationItem = mocks.Stub<ICalculationBase>();
+            var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => RingtoetsContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual($"{nameof(calculationItemContext.Parent)} should be set.", exception.Message);
 
             mocks.VerifyAll();
         }

@@ -133,6 +133,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationItemContext">The type of the calculation item context.</typeparam>
         /// <param name="calculationItem">The calculation item to duplicate.</param>
         /// <param name="calculationItemContext">The calculation item context belonging to the calculation item.</param>
+        /// <exception cref="ArgumentException">Thrown when the parent calculation group of
+        /// <paramref name="calculationItem"/> equals <c>null</c>.</exception>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
