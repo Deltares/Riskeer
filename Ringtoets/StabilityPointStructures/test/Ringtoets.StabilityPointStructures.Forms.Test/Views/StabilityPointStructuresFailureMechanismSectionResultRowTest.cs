@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
-            TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+            TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
@@ -173,16 +173,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+            double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSection());
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+
+            int expectedNrOfDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
 
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
+            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
+                actualAssessmentLayerThreeValue.GetAccuracy());
+            Assert.AreEqual(expectedNrOfDecimals, actualAssessmentLayerThreeValue.NumberOfDecimalPlaces);
         }
 
         private static FailureMechanismSection CreateSection()

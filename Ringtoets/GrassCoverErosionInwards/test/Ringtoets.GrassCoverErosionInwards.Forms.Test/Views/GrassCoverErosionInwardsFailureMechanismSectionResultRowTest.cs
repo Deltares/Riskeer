@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -52,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
-            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
@@ -176,16 +177,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+            double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection());
             var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult);
+
+            int nrOfExpectedDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
 
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
+            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
+                            actualAssessmentLayerThreeValue.GetAccuracy());
+            Assert.AreEqual(nrOfExpectedDecimals, sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
         }
 
         private static FailureMechanismSection CreateSection()

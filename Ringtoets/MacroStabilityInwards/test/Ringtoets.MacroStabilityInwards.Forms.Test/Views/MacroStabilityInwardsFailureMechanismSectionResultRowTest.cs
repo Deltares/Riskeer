@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -53,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>()), row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
@@ -171,17 +172,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+            double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(CreateSection());
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
+            int nrOfExpectedDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
+
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
+            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
+                            actualAssessmentLayerThreeValue.GetAccuracy());
+            Assert.AreEqual(nrOfExpectedDecimals, actualAssessmentLayerThreeValue.NumberOfDecimalPlaces);
         }
 
         private static FailureMechanismSection CreateSection()

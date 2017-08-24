@@ -43,8 +43,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
-        [TypeConverter(typeof(NoProbabilityValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double AssessmentLayerThree
         {
             get
             {
@@ -52,7 +55,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-               SectionResult.AssessmentLayerThree = value;
+                int nrOfDecimals = SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
+                SectionResult.AssessmentLayerThree = new RoundedDouble(nrOfDecimals, value);
             }
         }
 

@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -53,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
-            TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueRoundedDoubleConverter>(
+            TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
@@ -171,17 +172,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
+            double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new PipingFailureMechanismSectionResult(CreateSection());
             var row = new PipingFailureMechanismSectionResultRow(sectionResult,
                                                                  Enumerable.Empty<PipingCalculationScenario>());
 
+            int nrOfExpectedDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
+
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
+            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
+                            actualAssessmentLayerThreeValue.GetAccuracy());
+            Assert.AreEqual(nrOfExpectedDecimals, actualAssessmentLayerThreeValue.NumberOfDecimalPlaces);
         }
 
         private static FailureMechanismSection CreateSection()
