@@ -1757,6 +1757,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De ondergrondschematisatie van het type &apos;{0}&apos; is niet ondersteund. Alleen ondergrondschematisaties van het type &apos;{1}&apos; of &apos;{2}&apos; zijn ondersteund..
+        /// </summary>
+        public static string SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported {
+            get {
+                return ResourceManager.GetString("SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_su" +
+                        "pported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
         /// </summary>
         public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {

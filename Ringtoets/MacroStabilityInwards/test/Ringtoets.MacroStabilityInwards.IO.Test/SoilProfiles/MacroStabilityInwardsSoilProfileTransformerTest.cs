@@ -22,6 +22,8 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
@@ -33,10 +35,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
     public class MacroStabilityInwardsSoilProfileTransformerTest
     {
         [Test]
-        public void SoilProfile1DTransform_SoilProfileNull_ThrowsArgumentNullException()
+        public void Transform_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform((SoilProfile1D) null);
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -44,7 +46,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilProfile1DTransform_ValidProfile_ReturnMacroStabilityInwardsSoilProfile1D()
+        public void Transform_InvalidSoilProfile_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            string message = $"De ondergrondschematisatie van het type '{soilProfile.GetType().Name}' is niet ondersteund. " +
+                             "Alleen ondergrondschematisaties van het type 'SoilProfile1D' of 'SoilProfile2D' zijn ondersteund.";
+            Assert.AreEqual(message, exception.Message);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Transform_ValidSoilProfile1D_ReturnMacroStabilityInwardsSoilProfile1D()
         {
             // Setup
             var profile = new SoilProfile1D(1, "test", 3, new []
@@ -53,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile1D transformedProfile = MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+            var transformedProfile = (MacroStabilityInwardsSoilProfile1D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
             Assert.AreEqual(profile.Id, transformedProfile.MacroStabilityInwardsSoilProfileId);
@@ -64,18 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilProfile2DTransform_SoilProfileNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileTransformer.Transform((SoilProfile2D) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("soilProfile", exception.ParamName);
-        }
-
-        [Test]
-        public void SoilProfile2DTransform_ValidProfile_ReturnMacroStabilityInwardsSoilProfile1D()
+        public void Transform_ValidSoilProfile2D_ReturnMacroStabilityInwardsSoilProfile1D()
         {
             // Setup
             var profile = new SoilProfile2D(1, "test", new []
@@ -84,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             });
 
             // Call
-            MacroStabilityInwardsSoilProfile2D transformedProfile = MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+            var transformedProfile = (MacroStabilityInwardsSoilProfile2D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
             Assert.AreEqual(profile.Id, transformedProfile.MacroStabilityInwardsSoilProfileId);

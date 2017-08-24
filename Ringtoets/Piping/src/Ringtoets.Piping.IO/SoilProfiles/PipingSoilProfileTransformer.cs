@@ -26,6 +26,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfiles
 {
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 return CreatePipingSoilProfile(soilProfile2D);
             }
 
-            string message = string.Format(Resources.PipingSoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+            string message = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
                                            soilProfile.GetType().Name,
                                            nameof(SoilProfile1D),
                                            nameof(SoilProfile2D));

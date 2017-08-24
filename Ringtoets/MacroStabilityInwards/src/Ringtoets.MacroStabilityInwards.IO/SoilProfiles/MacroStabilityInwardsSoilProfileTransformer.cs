@@ -24,6 +24,7 @@ using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -34,22 +35,49 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     internal static class MacroStabilityInwardsSoilProfileTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="soilProfile"/> into a
-        /// <see cref="MacroStabilityInwardsSoilProfile1D"/>.
+        /// Transforms the generic <paramref name="soilProfile"/> into an <see cref="IMacroStabilityInwardsSoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
-        /// <returns>A <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the given data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is
-        /// <c>null</c>.</exception>
+        /// <returns>A new <see cref="IMacroStabilityInwardsSoilProfile"/> based on the given data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        public static MacroStabilityInwardsSoilProfile1D Transform(SoilProfile1D soilProfile)
+        public static IMacroStabilityInwardsSoilProfile Transform(ISoilProfile soilProfile)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
+            var soilProfile1D = soilProfile as SoilProfile1D;
+            if (soilProfile1D != null)
+            {
+                return Transform(soilProfile1D);
+            }
+
+            var soilProfile2D = soilProfile as SoilProfile2D;
+            if (soilProfile2D != null)
+            {
+                return Transform(soilProfile2D);
+            }
+
+            string message = string.Format(RingtoetsCommonIOResources.SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported,
+                                           soilProfile.GetType().Name,
+                                           nameof(SoilProfile1D),
+                                           nameof(SoilProfile2D));
+            throw new ImportedDataTransformException(message);
+        }
+
+        /// <summary>
+        /// Transforms the generic <paramref name="soilProfile"/> into a
+        /// <see cref="MacroStabilityInwardsSoilProfile1D"/>.
+        /// </summary>
+        /// <param name="soilProfile">The soil profile to use in the transformation.</param>
+        /// <returns>A <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the given data.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
+        private static MacroStabilityInwardsSoilProfile1D Transform(SoilProfile1D soilProfile)
+        {
             return new MacroStabilityInwardsSoilProfile1D(soilProfile.Name,
                                                           soilProfile.Bottom,
                                                           soilProfile.Layers
@@ -64,17 +92,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
         /// <returns>A <see cref="MacroStabilityInwardsSoilProfile2D"/> based on the given data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is
-        /// <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        public static MacroStabilityInwardsSoilProfile2D Transform(SoilProfile2D soilProfile)
+        private static MacroStabilityInwardsSoilProfile2D Transform(SoilProfile2D soilProfile)
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-
             return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
                                                           soilProfile.Layers
                                                                      .Select(MacroStabilityInwardsSoilLayerTransformer.Transform),
