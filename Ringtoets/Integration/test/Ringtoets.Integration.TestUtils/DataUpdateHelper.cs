@@ -27,7 +27,6 @@ using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Integration.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;

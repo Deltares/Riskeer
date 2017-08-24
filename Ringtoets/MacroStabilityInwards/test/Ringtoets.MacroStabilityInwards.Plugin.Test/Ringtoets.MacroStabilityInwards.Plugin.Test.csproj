@@ -72,8 +72,6 @@
     <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
-    <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
-    <Compile Include="FileImporter\StochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
     <Compile Include="ImportInfos\MacroStabilityInwardsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\MacroStabilityInwardsSurfaceLinesContextImportInfoTest.cs" />
