@@ -37,7 +37,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     public class DuneErosionSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,19 +48,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>>(row);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new DuneErosionSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 

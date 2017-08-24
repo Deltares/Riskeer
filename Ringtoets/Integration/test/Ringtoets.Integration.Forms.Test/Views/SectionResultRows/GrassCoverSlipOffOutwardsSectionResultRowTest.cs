@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class GrassCoverSlipOffOutwardsSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,19 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(row);
-        }
 
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 

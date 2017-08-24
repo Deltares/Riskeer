@@ -51,6 +51,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
+                result.AssessmentLayerThree.GetAccuracy());
+
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(

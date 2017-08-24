@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     public class StabilityStoneCoverSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,27 +48,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>>(row);
-            TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new StabilityStoneCoverSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow,
-                NoValueRoundedDoubleConverter>(
-                nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
+                NoValueRoundedDoubleConverter>(nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]

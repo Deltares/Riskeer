@@ -51,6 +51,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
+                result.AssessmentLayerThree.GetAccuracy());
+
             TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(

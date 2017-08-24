@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class PipingStructureSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,19 +48,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResult>>(row);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new PipingStructureSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 

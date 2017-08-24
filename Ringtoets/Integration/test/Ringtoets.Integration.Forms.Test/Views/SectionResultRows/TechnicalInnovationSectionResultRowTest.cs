@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class TechnicalInnovationSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithProperties_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,19 +48,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResult>>(row);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new TechnicalInnovationSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<TechnicalInnovationSectionResultRow, NoValueRoundedDoubleConverter>(

@@ -52,6 +52,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
+                            result.AssessmentLayerThree.GetAccuracy());
+
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(

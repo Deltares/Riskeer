@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class StrengthStabilityLengthwiseConstructionSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
@@ -48,19 +48,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>>(row);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new StrengthStabilityLengthwiseConstructionSectionResultRow(result);
-
-            // Assert
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<StrengthStabilityLengthwiseConstructionSectionResultRow, NoValueRoundedDoubleConverter>(

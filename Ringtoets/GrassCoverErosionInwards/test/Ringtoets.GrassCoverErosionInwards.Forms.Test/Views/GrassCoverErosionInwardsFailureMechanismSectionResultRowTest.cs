@@ -51,6 +51,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
+                            result.AssessmentLayerThree.GetAccuracy());
+
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(

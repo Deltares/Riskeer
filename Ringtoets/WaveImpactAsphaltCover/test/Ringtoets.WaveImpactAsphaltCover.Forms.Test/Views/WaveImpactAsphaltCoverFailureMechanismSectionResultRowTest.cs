@@ -47,9 +47,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
+
             TestHelper.AssertTypeConverter<WaveImpactAsphaltCoverFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree));
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
         }
 
         [Test]
