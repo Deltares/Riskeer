@@ -38,6 +38,33 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
     [TestFixture]
     public class PipingSoilLayerTransformerTest
     {
+        private readonly string outerLoopSimple = string.Join(Environment.NewLine,
+                                                              "6",
+                                                              "..1..2..",
+                                                              "........",
+                                                              "........",
+                                                              "........",
+                                                              "........",
+                                                              "..4..3..");
+
+        private readonly string outerLoopWide = string.Join(Environment.NewLine,
+                                                            "6",
+                                                            "..1..2..",
+                                                            "........",
+                                                            "........",
+                                                            "........",
+                                                            ".4....3.",
+                                                            "........");
+
+        private readonly string innerLoopWide = string.Join(Environment.NewLine,
+                                                            "6",
+                                                            "...43...",
+                                                            "........",
+                                                            "...12...",
+                                                            "........",
+                                                            "........",
+                                                            "........");
+
         [Test]
         public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
@@ -341,14 +368,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            "........",
-                            "..4..3.."));
+                outerLoopSimple);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -386,14 +406,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            "........",
-                            "..4..3.."));
+                outerLoopSimple);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -432,14 +445,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            "........",
-                            "..4..3.."));
+                outerLoopSimple);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -489,14 +495,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            ".4....3.",
-                            "........"));
+                outerLoopWide);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -529,18 +528,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_Outer_LoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            ".4....3.",
-                            "........"));
+                outerLoopWide);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -588,14 +580,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            ".4....3.",
-                            "........"));
+                outerLoopWide);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
@@ -632,25 +617,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString
-            (string.Join(Environment.NewLine,
-                         "6",
-                         "........",
-                         "..1..2..",
-                         "........",
-                         "........",
-                         ".4....3.",
-                         "........"));
-
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
                             "6",
-                            "...43...",
                             "........",
-                            "...12...",
+                            "..1..2..",
                             "........",
                             "........",
+                            ".4....3.",
                             "........"));
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                innerLoopWide);
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
@@ -677,24 +655,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            ".4....3.",
-                            "........"));
+                outerLoopWide);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "...43...",
-                            "........",
-                            "...12...",
-                            "........",
-                            "........",
-                            "........"));
+                innerLoopWide);
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
@@ -722,14 +686,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             const double atX = 2.0;
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            "........",
-                            "..4..3.."));
+                outerLoopSimple);
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
                 Enumerable.Empty<Segment2D[]>(), outerLoop);
@@ -750,14 +707,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             const double atX = 3.0;
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
-                string.Join(Environment.NewLine,
-                            "6",
-                            "..1..2..",
-                            "........",
-                            "........",
-                            "........",
-                            "........",
-                            "..4..3.."));
+                outerLoopSimple);
 
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 string.Join(Environment.NewLine,
