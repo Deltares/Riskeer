@@ -67,6 +67,8 @@
     </Compile>
     <Compile Include="ExportInfos\MacroStabilityInwardsCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\MacroStabilityInwardsCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\StochasticSoilModelReplaceDataStrategyTest.cs" />
