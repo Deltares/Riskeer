@@ -20,23 +20,21 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Base.Geometry;
+using System.Globalization;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
+namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityInwardsSoilLayer2D"/> for properties panel.
+    /// ViewModel of <see cref="PipingSoilLayer"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class MacroStabilityInwardsSoilLayer2DProperties : ObjectProperties<MacroStabilityInwardsSoilLayer2D>
+    public class PipingSoilLayerProperties : ObjectProperties<PipingSoilLayer>
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -46,42 +44,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Properties.MaterialName;
+                return data.MaterialName;
             }
         }
 
         [PropertyOrder(2)]
-        [ReadOnly(true)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_Description))]
-
-        public Point2D[] OuterRing
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_Description))]
+        public string TopLevel
         {
             get
             {
-                return data.OuterRing.Points.ToArray();
+                return new RoundedDouble(2, data.Top).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 
         [PropertyOrder(3)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Holes_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_Holes_Description))]
-        public RingProperties[] Holes
-        {
-            get
-            {
-                return data.Holes.Select(ring => new RingProperties
-                {
-                    Data = ring
-                }).ToArray();
-            }
-        }
-
-        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_IsAquifer_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_IsAquifer_Description))]
@@ -89,13 +68,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Properties.IsAquifer;
+                return data.IsAquifer;
             }
         }
 
         public override string ToString()
         {
-            return data.Properties.MaterialName;
+            return data.MaterialName;
         }
     }
 }

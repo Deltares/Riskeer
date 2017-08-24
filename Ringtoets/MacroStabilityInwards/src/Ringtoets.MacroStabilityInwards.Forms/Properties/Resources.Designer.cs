@@ -217,15 +217,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geometrie.
-        /// </summary>
-        public static string Geometry_DisplayName {
-            get {
-                return ResourceManager.GetString("Geometry_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rekengrid automatisch bepalen of handmatig invoeren?.
         /// </summary>
         public static string GridDetermination_Description {
@@ -990,42 +981,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of deze grondlaag een watervoerende laag betreft..
-        /// </summary>
-        public static string SoilLayer_IsAquifer_Description {
-            get {
-                return ResourceManager.GetString("SoilLayer_IsAquifer_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is aquifer.
-        /// </summary>
-        public static string SoilLayer_IsAquifer_DisplayName {
-            get {
-                return ResourceManager.GetString("SoilLayer_IsAquifer_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van de grondlaag..
-        /// </summary>
-        public static string SoilLayer_Name_Description {
-            get {
-                return ResourceManager.GetString("SoilLayer_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string SoilLayer_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("SoilLayer_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De geometrie van de buitenring van deze grondlaag..
         /// </summary>
         public static string SoilLayer_OuterRing_Description {
@@ -1044,24 +999,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het niveau van de bovenkant van deze grondlaag binnen de ondergrondschematisatie..
-        /// </summary>
-        public static string SoilLayer_TopLevel_Description {
-            get {
-                return ResourceManager.GetString("SoilLayer_TopLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Topniveau.
-        /// </summary>
-        public static string SoilLayer_TopLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("SoilLayer_TopLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SoilProfileIcon {
@@ -1072,156 +1009,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geometrie uit de database..
-        /// </summary>
-        public static string StochasticSoilModel_Geometry_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Geometry_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geometrie.
-        /// </summary>
-        public static string StochasticSoilModel_Geometry_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Geometry_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het stochastische ondergrondmodel..
-        /// </summary>
-        public static string StochasticSoilModel_Name_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string StochasticSoilModel_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisaties uit de database..
-        /// </summary>
-        public static string StochasticSoilModel_StochasticSoilProfiles_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_StochasticSoilProfiles_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisaties.
-        /// </summary>
-        public static string StochasticSoilModel_StochasticSoilProfiles_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilModel_StochasticSoilProfiles_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd..
-        /// </summary>
-        public static string StochasticSoilModelCollection_SourcePath_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelCollection_SourcePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap StochasticSoilModelIcon {
             get {
                 object obj = ResourceManager.GetObject("StochasticSoilModelIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het niveau van de onderkant van de ondergrondschematisatie..
-        /// </summary>
-        public static string StochasticSoilProfile_Bottom_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Bottom_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bodemniveau.
-        /// </summary>
-        public static string StochasticSoilProfile_Bottom_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Bottom_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grondlagen.
-        /// </summary>
-        public static string StochasticSoilProfile_Layers_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Layers_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van de ondergrondschematisatie..
-        /// </summary>
-        public static string StochasticSoilProfile_Name_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string StochasticSoilProfile_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel..
-        /// </summary>
-        public static string StochasticSoilProfile_Probability_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Probability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aandeel [%].
-        /// </summary>
-        public static string StochasticSoilProfile_Probability_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Probability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het type van de ondergrondschematisatie..
-        /// </summary>
-        public static string StochasticSoilProfile_Type_Description {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Type_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        public static string StochasticSoilProfile_Type_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfile_Type_DisplayName", resourceCulture);
             }
         }
         

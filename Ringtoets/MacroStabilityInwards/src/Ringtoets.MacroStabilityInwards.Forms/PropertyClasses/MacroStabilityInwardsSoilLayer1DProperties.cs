@@ -25,7 +25,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -39,8 +38,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_Name_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_Description))]
         public string Name
         {
             get
@@ -51,8 +50,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_TopLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_TopLevel_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_Description))]
         public string TopLevel
         {
             get
@@ -63,8 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_IsAquifer_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_IsAquifer_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_IsAquifer_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_IsAquifer_Description))]
         public bool IsAquifer
         {
             get

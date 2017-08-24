@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\PipingSoilLayerProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionDesignVariableProperties.cs" />

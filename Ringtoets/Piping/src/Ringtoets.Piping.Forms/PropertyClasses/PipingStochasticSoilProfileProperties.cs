@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -29,7 +30,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -60,8 +60,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Name_Description))]
         public string Name
         {
             get
@@ -72,8 +72,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_Description))]
         public string Probability
         {
             get
@@ -83,22 +83,25 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Tops_Description))]
-        public double[] TopLevels
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Layers_DisplayName))]
+        public PipingSoilLayerProperties[] Layers
         {
             get
             {
-                return data.SoilProfile.Layers.Select(l => l.Top).ToArray();
+                IEnumerable<PipingSoilLayer> pipingSoilLayers = data.SoilProfile.Layers;
+                return pipingSoilLayers.Select(layer => new PipingSoilLayerProperties
+                {
+                    Data = layer
+                }).ToArray();
             }
         }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_Description))]
         public double Bottom
         {
             get
@@ -109,13 +112,13 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_Description))]
         public string Type
         {
             get
             {
-                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D ? "1D profiel" : "2D profiel";
+                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D ? RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D : RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
             }
         }
 

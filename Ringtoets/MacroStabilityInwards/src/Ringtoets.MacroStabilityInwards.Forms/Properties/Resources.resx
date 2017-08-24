@@ -127,18 +127,6 @@
   <data name="MacroStabilityInwardsCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="StochasticSoilProfile_Bottom_Description" xml:space="preserve">
-    <value>Het niveau van de onderkant van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Bottom_DisplayName" xml:space="preserve">
-    <value>Bodemniveau</value>
-  </data>
-  <data name="StochasticSoilProfile_Name_Description" xml:space="preserve">
-    <value>De naam van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="MacroStabilityInwardsInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De opbouw van de ondergrond.</value>
   </data>
@@ -205,36 +193,6 @@
   <data name="StochasticSoilModelIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shovel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StochasticSoilProfile_Probability_Description" xml:space="preserve">
-    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.</value>
-  </data>
-  <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
-    <value>Aandeel [%]</value>
-  </data>
-  <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
-    <value>Het type van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Type_DisplayName" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="StochasticSoilModel_Geometry_Description" xml:space="preserve">
-    <value>Geometrie uit de database.</value>
-  </data>
-  <data name="StochasticSoilModel_Geometry_DisplayName" xml:space="preserve">
-    <value>Geometrie</value>
-  </data>
-  <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
-    <value>Naam van het stochastische ondergrondmodel.</value>
-  </data>
-  <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
-    <value>Ondergrondschematisaties uit de database.</value>
-  </data>
-  <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisaties</value>
-  </data>
   <data name="MacroStabilityInwardsCalculationGroup_Generate_MacroStabilityInwardsCalculations_ToolTip" xml:space="preserve">
     <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
   </data>
@@ -270,9 +228,6 @@
   </data>
   <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
     <value>Handmatig toetspeil invoeren</value>
-  </data>
-  <data name="StochasticSoilModelCollection_SourcePath_Description" xml:space="preserve">
-    <value>De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
     <value>Naam</value>
@@ -535,24 +490,6 @@
   <data name="ZTop_DisplayName" xml:space="preserve">
     <value>Z boven [m+NAP]</value>
   </data>
-  <data name="SoilLayer_IsAquifer_Description" xml:space="preserve">
-    <value>Geeft aan of deze grondlaag een watervoerende laag betreft.</value>
-  </data>
-  <data name="SoilLayer_IsAquifer_DisplayName" xml:space="preserve">
-    <value>Is aquifer</value>
-  </data>
-  <data name="SoilLayer_TopLevel_Description" xml:space="preserve">
-    <value>Het niveau van de bovenkant van deze grondlaag binnen de ondergrondschematisatie.</value>
-  </data>
-  <data name="SoilLayer_TopLevel_DisplayName" xml:space="preserve">
-    <value>Topniveau</value>
-  </data>
-  <data name="StochasticSoilProfile_Layers_DisplayName" xml:space="preserve">
-    <value>Grondlagen</value>
-  </data>
-  <data name="Geometry_DisplayName" xml:space="preserve">
-    <value>Geometrie</value>
-  </data>
   <data name="LeakageLengthOutwardsPhreaticLine3_Description" xml:space="preserve">
     <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de diepe watervoerende zandlaag ter hoogte van het voorland.</value>
   </data>
@@ -570,11 +507,5 @@
   </data>
   <data name="SoilLayer_OuterRing_DisplayName" xml:space="preserve">
     <value>Buitenring</value>
-  </data>
-  <data name="SoilLayer_Name_Description" xml:space="preserve">
-    <value>De naam van de grondlaag.</value>
-  </data>
-  <data name="SoilLayer_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
   </data>
 </root>

@@ -23,7 +23,6 @@ using System;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
@@ -50,7 +49,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilModelCollection_SourcePath_Description))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilModelCollection_SourcePath_Description))]
         public string SourcePath
         {
             get

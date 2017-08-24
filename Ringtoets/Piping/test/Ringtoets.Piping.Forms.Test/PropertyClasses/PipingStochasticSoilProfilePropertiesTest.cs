@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -79,17 +81,72 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
         }
 
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var pipingStochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new PipingSoilProfile("", 0.0, new []
+            {
+                new PipingSoilLayer(10.0)
+            }, SoilProfileType.SoilProfile1D));
+
+            // Call
+            var properties = new PipingStochasticSoilProfileProperties(pipingStochasticSoilProfile);
+
+            // Assert
+            const string generalCategoryName = "Algemeen";
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(5, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "De naam van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategoryName,
+                                                                            "Aandeel [%]",
+                                                                            "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.",
+                                                                            true);
+
+            PropertyDescriptor layersProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(layersProperty,
+                                                                            generalCategoryName,
+                                                                            "Grondlagen",
+                                                                            "",
+                                                                            true);
+
+            PropertyDescriptor bottomProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bottomProperty,
+                                                                            generalCategoryName,
+                                                                            "Bodemniveau",
+                                                                            "Het niveau van de onderkant van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor typeProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(typeProperty,
+                                                                            generalCategoryName,
+                                                                            "Type",
+                                                                            "Het type van de ondergrondschematisatie.",
+                                                                            true);
+        }
+
         private static void GetProperties_WithData_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
             const string expectedName = "<some name>";
+            var layerOne = new PipingSoilLayer(-2);
+            var layerTwo = new PipingSoilLayer(-4)
+            {
+                IsAquifer = true
+            };
             IEnumerable<PipingSoilLayer> layers = new[]
             {
-                new PipingSoilLayer(-2),
-                new PipingSoilLayer(-4)
-                {
-                    IsAquifer = true
-                }
+                layerOne,
+                layerTwo
             };
 
             var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D);
@@ -101,7 +158,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
-            CollectionAssert.AreEqual(soilProfile.Layers.Select(l => l.Top), properties.TopLevels);
+            TestHelper.AssertTypeConverter<PipingStochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(PipingStochasticSoilProfileProperties.Layers));
+            Assert.AreEqual(2, properties.Layers.Length);
+            Assert.AreSame(layerOne, properties.Layers[0].Data);
+            Assert.AreSame(layerTwo, properties.Layers[1].Data);
+
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("1D profiel", properties.Type);

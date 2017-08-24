@@ -25,7 +25,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -39,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Geometry_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_DisplayName))]
         public Point2D[] Geometry
         {
             get

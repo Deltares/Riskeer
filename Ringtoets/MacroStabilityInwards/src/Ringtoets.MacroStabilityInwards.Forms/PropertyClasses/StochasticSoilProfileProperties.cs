@@ -30,7 +30,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -45,8 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Name_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Name_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Name_Description))]
         public string Name
         {
             get
@@ -57,8 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Probability_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_Description))]
         public string Probability
         {
             get
@@ -71,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Layers_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Layers_DisplayName))]
         public MacroStabilityInwardsSoilLayer1DProperties[] Layers1D
         {
             get
@@ -92,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Layers_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Layers_DisplayName))]
         public MacroStabilityInwardsSoilLayer2DProperties[] Layers2D
         {
             get
@@ -112,8 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(5)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Bottom_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_Description))]
         public string Bottom
         {
             get
@@ -124,19 +123,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.StochasticSoilProfile_Type_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_Description))]
         public string Type
         {
             get
             {
                 if (data.SoilProfile is MacroStabilityInwardsSoilProfile1D)
                 {
-                    return "1D profiel";
+                    return RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D;
                 }
                 if (data.SoilProfile is MacroStabilityInwardsSoilProfile2D)
                 {
-                    return "2D profiel";
+                    return RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
                 }
 
                 // If type is not supported, throw exception (currently not possible, safeguard for future)

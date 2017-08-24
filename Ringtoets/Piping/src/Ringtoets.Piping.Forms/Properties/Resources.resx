@@ -253,24 +253,6 @@
   <data name="PipingCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="StochasticSoilProfile_Bottom_Description" xml:space="preserve">
-    <value>Het niveau van de onderkant van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Bottom_DisplayName" xml:space="preserve">
-    <value>Bodemniveau</value>
-  </data>
-  <data name="StochasticSoilProfile_Name_Description" xml:space="preserve">
-    <value>De naam van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
-    <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
-    <value>Topniveaus</value>
-  </data>
   <data name="PipingInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De opbouw van de ondergrond.</value>
   </data>
@@ -415,36 +397,6 @@
   <data name="StochasticSoilModelIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shovel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StochasticSoilProfile_Probability_Description" xml:space="preserve">
-    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.</value>
-  </data>
-  <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
-    <value>Aandeel [%]</value>
-  </data>
-  <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
-    <value>Het type van de ondergrondschematisatie.</value>
-  </data>
-  <data name="StochasticSoilProfile_Type_DisplayName" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="StochasticSoilModel_Geometry_Description" xml:space="preserve">
-    <value>Geometrie uit de database.</value>
-  </data>
-  <data name="StochasticSoilModel_Geometry_DisplayName" xml:space="preserve">
-    <value>Geometrie</value>
-  </data>
-  <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
-    <value>Naam van het stochastische ondergrondmodel.</value>
-  </data>
-  <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
-    <value>Ondergrondschematisaties uit de database.</value>
-  </data>
-  <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisaties</value>
-  </data>
   <data name="PipingCalculationGroup_Generate_PipingCalculations_ToolTip" xml:space="preserve">
     <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
   </data>
@@ -525,9 +477,6 @@
   </data>
   <data name="PipingOutputContext_UpliftEffectiveStress_DisplayName" xml:space="preserve">
     <value>Gewicht van de deklaag [kN/m²]</value>
-  </data>
-  <data name="StochasticSoilModelCollection_SourcePath_Description" xml:space="preserve">
-    <value>De locatie van het bestand waaruit de stochastische ondergrondmodellen zijn geïmporteerd.</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
     <value>Naam</value>
