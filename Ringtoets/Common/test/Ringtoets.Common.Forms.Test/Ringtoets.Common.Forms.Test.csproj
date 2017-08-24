@@ -127,6 +127,7 @@
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
     <Compile Include="Views\CalculatableRowTest.cs" />
+    <Compile Include="Views\IllustrationPointsFaultTreeControlTest.cs" />
     <Compile Include="Views\IllustrationPointControlItemTest.cs" />
     <Compile Include="Views\IllustrationPointRowTest.cs" />
     <Compile Include="Views\IllustrationPointsChartControlTest.cs" />
@@ -192,6 +193,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj">
+      <Project>{4E575459-AD64-4F5F-B313-9F8E0EC8C03F}</Project>
+      <Name>Core.Components.GraphSharp.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>

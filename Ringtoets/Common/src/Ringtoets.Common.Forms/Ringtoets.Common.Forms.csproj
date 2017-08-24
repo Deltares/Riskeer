@@ -36,10 +36,16 @@
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -138,6 +144,12 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\IllustrationPointsFaultTreeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\IllustrationPointsFaultTreeControl.Designer.cs">
+      <DependentUpon>IllustrationPointsFaultTreeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\IllustrationPointControlItem.cs" />
     <Compile Include="Views\IllustrationPointRow.cs" />
     <Compile Include="Views\IllustrationPointsChartControl.cs">
@@ -221,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\IllustrationPointsFaultTreeControl.resx">
+      <DependentUpon>IllustrationPointsFaultTreeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GeneralResultFaultTreeIllustrationPointView.resx">
       <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
@@ -306,9 +321,24 @@
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.GraphSharp.Forms\Core.Components.GraphSharp.Forms.csproj">
+      <Project>{4e575459-ad64-4f5f-b313-9f8e0ec8c03f}</Project>
+      <Name>Core.Components.GraphSharp.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
+      <Project>{dbf5a590-2a11-4eb4-a8cc-f3036475e4d5}</Project>
+      <Name>Core.Components.PointedTree.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
+      <Name>Core.Components.PointedTree</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
