@@ -21,16 +21,17 @@
 
 using System;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.IO.SoilProfiles;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 
-namespace Ringtoets.Piping.Plugin.FileImporter
+namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
     /// Factory for creating valid configurations for the <see cref="StochasticSoilModelImporter{T}"/>.
+    /// for macro stability inwards.
     /// </summary>
-    public static class PipingStochasticSoilModelImporterConfigurationFactory
+    public static class MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory
     {
         /// <summary>
         /// Creates a configuration to replace the current stochastic soil models on <see cref="failureMechanism"/> 
@@ -39,13 +40,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism to replace the stochastic soil models for.</param>
         /// <returns>The configuration for the replace operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel> CreateReplaceStrategyConfiguration(
-            PipingFailureMechanism failureMechanism)
+        public static StochasticSoilModelImporterConfiguration<MacroStabilityInwardsStochasticSoilModel> CreateReplaceStrategyConfiguration(
+            MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            return new StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel>(
-                new PipingStochasticSoilModelTransformer(),
-                new PipingStochasticSoilModelFilter(),
-                new PipingStochasticSoilModelReplaceDataStrategy(failureMechanism));
+            return new StochasticSoilModelImporterConfiguration<MacroStabilityInwardsStochasticSoilModel>(
+                new MacroStabilityInwardsStochasticSoilModelTransformer(),
+                new MacroStabilityInwardsStochasticSoilModelFilter(),
+                new MacroStabilityInwardsStochasticSoilModelReplaceDataStrategy(failureMechanism));
         }
 
         /// <summary>
@@ -55,13 +56,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="failureMechanism">The failure mechanism to update the stochastic soil models for.</param>
         /// <returns>The configuration for the update operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel> CreateUpdateStrategyConfiguration(
-            PipingFailureMechanism failureMechanism)
+        public static StochasticSoilModelImporterConfiguration<MacroStabilityInwardsStochasticSoilModel> CreateUpdateStrategyConfiguration(
+            MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            return new StochasticSoilModelImporterConfiguration<PipingStochasticSoilModel>(
-                new PipingStochasticSoilModelTransformer(),
-                new PipingStochasticSoilModelFilter(),
-                new PipingStochasticSoilModelUpdateDataStrategy(failureMechanism));
+            return new StochasticSoilModelImporterConfiguration<MacroStabilityInwardsStochasticSoilModel>(
+                new MacroStabilityInwardsStochasticSoilModelTransformer(),
+                new MacroStabilityInwardsStochasticSoilModelFilter(),
+                new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(failureMechanism));
         }
     }
 }
