@@ -22,12 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 {
@@ -76,11 +79,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_ValidStochasticSoilModel_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
+        public void Transform_ValidStochasticSoilModelWithSoilProfile1D_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
         {
             // Setup
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
-            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability);
+            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1, new SoilProfile1D(2, "test", 3, new[]
+                    {
+                        new SoilLayer1D(4)
+                    }))
+                }
+            };
 
             // Call
             MacroStabilityInwardsStochasticSoilModel transformedModel = transformer.Transform(soilModel);
@@ -88,6 +100,115 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(soilModel.Name, transformedModel.Name);
             CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
+            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
+
+            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 2)
+            {
+                SoilProfile = new MacroStabilityInwardsSoilProfile1D("test", 3, new []
+                {
+                    new MacroStabilityInwardsSoilLayer1D(4) 
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
+        }
+
+        [Test]
+        public void Transform_ValidStochasticSoilModelWithSoilProfile2D_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
+        {
+            // Setup
+            var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
+            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1, new SoilProfile2D(2, "test", new[]
+                    {
+                        SoilLayer2DTestFactory.CreateSoilLayer2D()
+                    }))
+                }
+            };
+
+            // Call
+            MacroStabilityInwardsStochasticSoilModel transformedModel = transformer.Transform(soilModel);
+
+            // Assert
+            Assert.AreEqual(soilModel.Name, transformedModel.Name);
+            CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
+            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
+
+            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, SoilProfileType.SoilProfile2D, 2)
+            {
+                SoilProfile = new MacroStabilityInwardsSoilProfile2D("test", new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(1.0, 0.0),
+                        new Point2D(1.0, 0.0),
+                        new Point2D(0.0, 0.0)
+                    }), new[]
+                    {
+                        new Ring(new[]
+                        {
+                            new Point2D(1.0, 1.0),
+                            new Point2D(2.0, 1.0),
+                            new Point2D(2.0, 1.0),
+                            new Point2D(1.0, 1.0)
+                        }),
+                    })
+                }, SoilProfileType.SoilProfile2D, 1)
+            };
+            AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
+        }
+
+        [Test]
+        public void Transform_TwoStochasticSoilModelsWithSameProfile_ReturnExepctedMacroStabilityInwardsStochasticSoilModel()
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            var profile = new SoilProfile2D(2, "test", new[]
+            {
+                layer
+            });
+
+            var soilModel1 = new StochasticSoilModel("some name", FailureMechanismType.Stability)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, profile)
+                }
+            };
+
+            var soilModel2 = new StochasticSoilModel("some name", FailureMechanismType.Stability)
+            {
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, profile)
+                }
+            };
+
+            var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
+
+            // Call
+            MacroStabilityInwardsStochasticSoilModel transformedModel1 = transformer.Transform(soilModel1);
+            MacroStabilityInwardsStochasticSoilModel transformedModel2 = transformer.Transform(soilModel2);
+
+            // Assert
+            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles1 = transformedModel1.StochasticSoilProfiles;
+            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles2 = transformedModel2.StochasticSoilProfiles;
+            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Count);
+            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Count);
+
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = transformedStochasticSoilProfiles1[0];
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = transformedStochasticSoilProfiles2[0];
+            Assert.AreSame(stochasticSoilProfile1.SoilProfile, stochasticSoilProfile2.SoilProfile);
+        }
+
+        private static void AssertStochasticSoilProfile(MacroStabilityInwardsStochasticSoilProfile expected,
+                                                        MacroStabilityInwardsStochasticSoilProfile actual)
+        {
+            Assert.AreEqual(expected.Probability, actual.Probability);
+            Assert.AreEqual(expected.SoilProfile, actual.SoilProfile);
         }
 
         private static IEnumerable<FailureMechanismType> GetInvalidFailureMechanismTypes()

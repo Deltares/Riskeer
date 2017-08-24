@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
@@ -33,6 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModelTransformer : IStochasticSoilModelTransformer<MacroStabilityInwardsStochasticSoilModel>
     {
+        private readonly Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile> soilProfiles = new Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile>();
+
         public MacroStabilityInwardsStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
         {
             if (stochasticSoilModel == null)
@@ -50,7 +55,47 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name);
             macroStabilityInwardsModel.Geometry.AddRange(stochasticSoilModel.Geometry);
+            macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
+                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles).ToArray());
             return macroStabilityInwardsModel;
+        }
+
+        /// <summary>
+        /// Transforms all generic <see cref="StochasticSoilProfile"/> into <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
+        /// </summary>
+        /// <param name="stochasticSoilProfiles">The stochastic soil profiles to use in the transformation.</param>
+        /// <returns>The transformed stochastic soil profiles.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
+        /// not result in a valid transformed instance.</exception>
+        private IEnumerable<MacroStabilityInwardsStochasticSoilProfile> TransformStochasticSoilProfiles(
+            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+        {
+            return stochasticSoilProfiles.Select(
+                ssp => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
+                    ssp,
+                    GetTransformedSoilProfile(ssp.SoilProfile)));
+        }
+
+        /// <summary>
+        /// Transforms all generic <see cref="ISoilProfile"/> into <see cref="IMacroStabilityInwardsSoilProfile"/>.
+        /// </summary>
+        /// <param name="soilProfile">The soil profile to use in the transformation.</param>
+        /// <returns>The transformed soil profile.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
+        /// not result in a valid transformed instance.</exception>
+        private IMacroStabilityInwardsSoilProfile GetTransformedSoilProfile(ISoilProfile soilProfile)
+        {
+            IMacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile;
+            if (soilProfiles.ContainsKey(soilProfile))
+            {
+                macroStabilityInwardsSoilProfile = soilProfiles[soilProfile];
+            }
+            else
+            {
+                macroStabilityInwardsSoilProfile = MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
+                soilProfiles.Add(soilProfile, macroStabilityInwardsSoilProfile);
+            }
+            return macroStabilityInwardsSoilProfile;
         }
     }
 }
