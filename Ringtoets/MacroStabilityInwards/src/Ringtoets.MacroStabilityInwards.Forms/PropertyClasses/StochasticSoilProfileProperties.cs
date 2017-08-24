@@ -42,6 +42,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilProfileProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
+        /// </summary>
+        /// <param name="stochasticSoilProfile">The stochastic soil profile for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilProfile"/>
+        /// is <c>null</c>.</exception>
+        public StochasticSoilProfileProperties(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile)
+        {
+            if (stochasticSoilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilProfile));
+            }
+
+            Data = stochasticSoilProfile;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Name_DisplayName))]
@@ -76,14 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
-                if (macroStabilityInwardsSoilLayers1D != null)
-                {
-                    return macroStabilityInwardsSoilLayers1D.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties
-                    {
-                        Data = layer
-                    }).ToArray();
-                }
-                return new MacroStabilityInwardsSoilLayer1DProperties[0];
+                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ?? new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
 
@@ -97,14 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
-                if (macroStabilityInwardsSoilLayers2D != null)
-                {
-                    return macroStabilityInwardsSoilLayers2D.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties
-                    {
-                        Data = layer
-                    }).ToArray();
-                }
-                return new MacroStabilityInwardsSoilLayer2DProperties[0];
+                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties(layer)).ToArray() ?? new MacroStabilityInwardsSoilLayer2DProperties[0];
             }
         }
 

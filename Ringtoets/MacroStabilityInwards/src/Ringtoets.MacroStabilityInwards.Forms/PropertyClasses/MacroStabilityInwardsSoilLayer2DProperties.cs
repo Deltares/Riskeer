@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -38,6 +39,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsSoilLayer2DProperties : ObjectProperties<MacroStabilityInwardsSoilLayer2D>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DProperties"/>.
+        /// </summary>
+        /// <param name="soilLayer">The 2D soil layer for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilLayer2DProperties(MacroStabilityInwardsSoilLayer2D soilLayer)
+        {
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+
+            Data = soilLayer;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_DisplayName))]
@@ -74,10 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Holes.Select(ring => new RingProperties
-                {
-                    Data = ring
-                }).ToArray();
+                return data.Holes.Select(ring => new RingProperties(ring)).ToArray();
             }
         }
 

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -36,6 +37,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class RingProperties : ObjectProperties<Ring>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="RingProperties"/>.
+        /// </summary>
+        /// <param name="ring">The ring for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ring"/>
+        /// is <c>null</c>.</exception>
+        public RingProperties(Ring ring)
+        {
+            if (ring == null)
+            {
+                throw new ArgumentNullException(nameof(ring));
+            }
+
+            Data = ring;
+        }
+
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Geometry_DisplayName))]

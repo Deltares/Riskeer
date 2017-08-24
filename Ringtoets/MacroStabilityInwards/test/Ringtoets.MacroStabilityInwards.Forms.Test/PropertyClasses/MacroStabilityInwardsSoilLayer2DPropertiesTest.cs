@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -34,14 +35,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     public class MacroStabilityInwardsSoilLayer2DPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_MacroStabilityInwardsSoilLayer2DNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties();
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2DProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidMacroStabilityInwardsSoilLayer2D_ExpectedValues()
+        {
+            // Setup
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                                 {
+                                                                     new Point2D(20.210230, 26.00001),
+                                                                     new Point2D(3.830, 1.040506)
+                                                                 }),
+                                                                 new Ring[0]);
+
+            // Call
+            var properties = new MacroStabilityInwardsSoilLayer2DProperties(soilLayer);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(soilLayer, properties.Data);
         }
 
         [Test]
@@ -70,10 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties
-            {
-                Data = layer
-            };
+            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
             // Assert
             Assert.AreEqual("Test Name", properties.Name);
@@ -103,10 +120,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
 
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties
-            {
-                Data = layer
-            };
+            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
+
             // Call
             string name = properties.ToString();
 
@@ -132,10 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties
-            {
-                Data = layer
-            };
+            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

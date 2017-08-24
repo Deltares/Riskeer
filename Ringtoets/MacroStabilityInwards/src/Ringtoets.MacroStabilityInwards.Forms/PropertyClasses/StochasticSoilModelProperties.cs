@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -36,6 +37,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     public class StochasticSoilModelProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModel>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModel">The stochastic soil model for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilModel"/>
+        /// is <c>null</c>.</exception>
+        public StochasticSoilModelProperties(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
+        {
+            if (stochasticSoilModel == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilModel));
+            }
+
+            Data = stochasticSoilModel;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilModel_Name_DisplayName))]
@@ -71,10 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.StochasticSoilProfiles.Count > 0
-                           ? data.StochasticSoilProfiles.Select(ssp => new StochasticSoilProfileProperties
-                           {
-                               Data = ssp
-                           }).ToArray()
+                           ? data.StochasticSoilProfiles.Select(ssp => new StochasticSoilProfileProperties(ssp)).ToArray()
                            : new StochasticSoilProfileProperties[0];
             }
         }

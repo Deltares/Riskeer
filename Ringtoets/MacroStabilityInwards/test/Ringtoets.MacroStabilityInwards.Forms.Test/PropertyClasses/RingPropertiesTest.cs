@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
@@ -33,14 +34,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     public class RingPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_RingNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new RingProperties();
+            TestDelegate test = () => new RingProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("ring", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidRing_ExpectedValues()
+        {
+            // Setup
+            var ring = new Ring(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+
+            // Call
+            var properties = new RingProperties(ring);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<Ring>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(ring, properties.Data);
         }
 
         [Test]
@@ -54,10 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             // Call
-            var properties = new RingProperties
-            {
-                Data = ring
-            };
+            var properties = new RingProperties(ring);
 
             // Assert
             TestHelper.AssertTypeConverter<RingProperties, ExpandableArrayConverter>(nameof(RingProperties.Geometry));
@@ -75,10 +91,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 new Point2D(1, 1)
             });
 
-            var properties = new RingProperties
-            {
-                Data = ring
-            };
+            var properties = new RingProperties(ring);
+
             // Call
             string name = properties.ToString();
 
@@ -97,10 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             // Call
-            var properties = new RingProperties
-            {
-                Data = ring
-            };
+            var properties = new RingProperties(ring);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

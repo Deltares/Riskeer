@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
@@ -36,6 +37,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsSoilLayer1DProperties : ObjectProperties<MacroStabilityInwardsSoilLayer1D>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1DProperties"/>.
+        /// </summary>
+        /// <param name="soilLayer">The 1D soil layer for which the properties are shown.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilLayer1DProperties(MacroStabilityInwardsSoilLayer1D soilLayer)
+        {
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+
+            Data = soilLayer;
+        }
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_DisplayName))]

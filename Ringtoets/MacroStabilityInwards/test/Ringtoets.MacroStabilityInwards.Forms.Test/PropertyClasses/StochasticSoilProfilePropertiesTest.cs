@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -39,14 +40,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const string generalCategoryName = "Algemeen";
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_StochasticSoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new StochasticSoilProfileProperties();
+            TestDelegate test = () => new StochasticSoilProfileProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("stochasticSoilProfile", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidStochasticSoilProfile_ExpectedValues()
+        {
+            // Setup
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 1234L);
+
+            // Call
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(stochasticSoilProfile, properties.Data);
         }
 
         [Test]
@@ -103,10 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 SoilProfile = soilProfile
             };
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Call
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
@@ -137,10 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 SoilProfile = soilProfile
             };
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Call
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
@@ -167,10 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -231,10 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -302,10 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
             Assert.AreEqual(expectedName, properties.Name);
@@ -364,10 +364,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StochasticSoilProfileProperties
-            {
-                Data = stochasticSoilProfile
-            };
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
             Assert.AreEqual(expectedName, properties.Name);

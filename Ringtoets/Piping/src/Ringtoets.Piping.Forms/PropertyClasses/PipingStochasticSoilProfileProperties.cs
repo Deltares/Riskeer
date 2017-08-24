@@ -91,10 +91,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 IEnumerable<PipingSoilLayer> pipingSoilLayers = data.SoilProfile.Layers;
-                return pipingSoilLayers.Select(layer => new PipingSoilLayerProperties
-                {
-                    Data = layer
-                }).ToArray();
+                return pipingSoilLayers.Select(layer => new PipingSoilLayerProperties(layer)).ToArray();
             }
         }
 

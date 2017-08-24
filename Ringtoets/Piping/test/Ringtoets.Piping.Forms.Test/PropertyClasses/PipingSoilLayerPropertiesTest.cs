@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Gui.PropertyBag;
@@ -33,14 +34,28 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     public class PipingSoilLayerPropertiesTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_PipingSoilLayerNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new PipingSoilLayerProperties();
+            TestDelegate test = () => new PipingSoilLayerProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("soilLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidPipingSoilLayer_ExpectedValues()
+        {
+            // Setup
+            var soilLayer = new PipingSoilLayer(2.0);
+
+            // Call
+            var properties = new PipingSoilLayerProperties(soilLayer);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingSoilLayer>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(soilLayer, properties.Data);
         }
 
         [Test]
@@ -54,10 +69,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new PipingSoilLayerProperties
-            {
-                Data = layer
-            };
+            var properties = new PipingSoilLayerProperties(layer);
 
             // Assert
             Assert.AreEqual("Test Name", properties.Name);
@@ -74,10 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 MaterialName = "Layer A"
             };
 
-            var properties = new PipingSoilLayerProperties
-            {
-                Data = layer
-            };
+            var properties = new PipingSoilLayerProperties(layer);
             // Call
             string name = properties.ToString();
 
@@ -96,10 +105,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new PipingSoilLayerProperties
-            {
-                Data = layer
-            };
+            var properties = new PipingSoilLayerProperties(layer);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
@@ -39,14 +40,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 2;
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new StochasticSoilModelProperties();
+            TestDelegate test = () => new StochasticSoilModelProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("stochasticSoilModel", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidStochasticSoilModel_ExpectedValues()
+        {
+            // Setup
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("model");
+
+            // Call
+            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModel>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(stochasticSoilModel, properties.Data);
         }
 
         [Test]
@@ -66,10 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             // Call
-            var properties = new StochasticSoilModelProperties
-            {
-                Data = stochasticSoilModel
-            };
+            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
@@ -96,10 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             // Call
-            var properties = new StochasticSoilModelProperties
-            {
-                Data = stochasticSoilModel
-            };
+            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
