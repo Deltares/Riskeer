@@ -69,38 +69,32 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// not result in a valid transformed instance.</exception>
         private IEnumerable<PipingStochasticSoilProfile> TransformStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
         {
-            foreach (StochasticSoilProfile stochasticSoilProfile in stochasticSoilProfiles)
-            {
-                PipingSoilProfile pipingSoilProfile = GetTransformedPipingSoilProfile(stochasticSoilProfile.SoilProfile);
-
-                if (pipingSoilProfile != null)
-                {
-                    yield return PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);
-                }
-            }
+            return stochasticSoilProfiles.Select(
+                ssp => PipingStochasticSoilProfileTransformer.Transform(
+                    ssp,
+                    GetTransformedPipingSoilProfile(ssp.SoilProfile)));
         }
 
         /// <summary>
         /// Transforms all generic <see cref="ISoilProfile"/> into <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
-        /// <returns>The transformed piping soil profile, or <c>null</c> when <paramref name="soilProfile"/> 
-        /// is not of a type that can be transformed to <see cref="PipingSoilProfile"/>.</returns>
+        /// <returns>The transformed piping soil profile.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
         /// not result in a valid transformed instance.</exception>
         private PipingSoilProfile GetTransformedPipingSoilProfile(ISoilProfile soilProfile)
         {
-            PipingSoilProfile pipingStochasticSoilProfile;
+            PipingSoilProfile pipingSoilProfile;
             if (soilProfiles.ContainsKey(soilProfile))
             {
-                pipingStochasticSoilProfile = soilProfiles[soilProfile];
+                pipingSoilProfile = soilProfiles[soilProfile];
             }
             else
             {
-                pipingStochasticSoilProfile = PipingSoilProfileTransformer.Transform(soilProfile);
-                soilProfiles.Add(soilProfile, pipingStochasticSoilProfile);
+                pipingSoilProfile = PipingSoilProfileTransformer.Transform(soilProfile);
+                soilProfiles.Add(soilProfile, pipingSoilProfile);
             }
-            return pipingStochasticSoilProfile;
+            return pipingSoilProfile;
         }
     }
 }
