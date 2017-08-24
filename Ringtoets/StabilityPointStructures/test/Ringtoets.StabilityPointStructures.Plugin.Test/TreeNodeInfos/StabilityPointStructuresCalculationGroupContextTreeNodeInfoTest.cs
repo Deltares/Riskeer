@@ -69,13 +69,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexRootGroup = 12;
         private const int contextMenuClearAllIndexRootGroup = 14;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
-        private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
-        private const int contextMenuUpdateStructureAllIndexNestedGroup = 8;
-        private const int contextMenuValidateAllIndexNestedGroup = 10;
-        private const int contextMenuCalculateAllIndexNestedGroup = 11;
-        private const int contextMenuClearAllIndexNestedGroup = 13;
+        private const int contextMenuDuplicateIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
+        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 9;
+        private const int contextMenuUpdateStructureAllIndexNestedGroup = 10;
+        private const int contextMenuValidateAllIndexNestedGroup = 12;
+        private const int contextMenuCalculateAllIndexNestedGroup = 13;
+        private const int contextMenuClearAllIndexNestedGroup = 15;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private IGui gui;
@@ -589,6 +590,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
@@ -646,8 +649,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(20, menu.Items.Count);
+                    Assert.AreEqual(22, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer dit element.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",

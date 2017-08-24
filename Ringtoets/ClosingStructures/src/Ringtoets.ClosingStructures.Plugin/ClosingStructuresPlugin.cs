@@ -515,7 +515,12 @@ namespace Ringtoets.ClosingStructures.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, context)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(CreateGenerateClosingStructuresCalculationsItem(context))
                        .AddSeparator();

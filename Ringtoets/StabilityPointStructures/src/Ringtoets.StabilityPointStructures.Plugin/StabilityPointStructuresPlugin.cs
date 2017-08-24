@@ -525,7 +525,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, context)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(CreateGenerateStabilityPointStructuresCalculationsItem(context))
                        .AddSeparator();

@@ -68,12 +68,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexRootGroup = 11;
         private const int contextMenuClearAllIndexRootGroup = 13;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
-        private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuUpdateDikeProfileAllIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 9;
-        private const int contextMenuCalculateAllIndexNestedGroup = 10;
-        private const int contextMenuClearAllIndexNestedGroup = 12;
+        private const int contextMenuDuplicateIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
+        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuUpdateDikeProfileAllIndexNestedGroup = 9;
+        private const int contextMenuValidateAllIndexNestedGroup = 11;
+        private const int contextMenuCalculateAllIndexNestedGroup = 12;
+        private const int contextMenuClearAllIndexNestedGroup = 14;
 
         private const string dikeProfileCollectionPath = "some/arbitrary/path";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
@@ -326,6 +327,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
@@ -382,8 +385,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(19, menu.Items.Count);
+                    Assert.AreEqual(21, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer dit element.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
@@ -392,7 +399,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileAllIndexNestedGroup,
                                                                   "&Bijwerken dijkprofielen...",

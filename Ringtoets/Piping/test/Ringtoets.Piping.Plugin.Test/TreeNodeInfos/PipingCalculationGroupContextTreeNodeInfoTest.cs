@@ -71,17 +71,18 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
         private const int contextMenuImportCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuExportCalculationGroupIndexNestedGroup = 1;
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
-        private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuRenameCalculationGroupIndexNestedGroup = 6;
-        private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 9;
-        private const int contextMenuCalculateAllIndexNestedGroup = 10;
-        private const int contextMenuClearOutputIndexNestedGroup = 12;
-        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 13;
-        private const int contextMenuCollapseAllIndexNestedGroup = 15;
-        private const int contextMenuExpandAllIndexNestedGroup = 16;
-        private const int contextMenuPropertiesIndexNestedGroup = 18;
+        private const int contextMenuDuplicateIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
+        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuRenameCalculationGroupIndexNestedGroup = 8;
+        private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 9;
+        private const int contextMenuValidateAllIndexNestedGroup = 11;
+        private const int contextMenuCalculateAllIndexNestedGroup = 12;
+        private const int contextMenuClearOutputIndexNestedGroup = 14;
+        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 15;
+        private const int contextMenuCollapseAllIndexNestedGroup = 17;
+        private const int contextMenuExpandAllIndexNestedGroup = 18;
+        private const int contextMenuPropertiesIndexNestedGroup = 20;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
@@ -243,7 +244,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(19, menu.Items.Count);
+                Assert.AreEqual(21, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -252,6 +253,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
                                                               CoreCommonGuiResources.ExportIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
+                                                              "D&upliceren",
+                                                              "Dupliceer dit element.",
+                                                              RingtoetsCommonFormsResources.CopyHS);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
@@ -304,11 +309,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
                     menu.Items[2],
-                    menu.Items[5],
-                    menu.Items[8],
-                    menu.Items[11],
-                    menu.Items[14],
-                    menu.Items[17]
+                    menu.Items[4],
+                    menu.Items[7],
+                    menu.Items[10],
+                    menu.Items[13],
+                    menu.Items[16],
+                    menu.Items[19]
                 }, typeof(ToolStripSeparator));
             }
         }

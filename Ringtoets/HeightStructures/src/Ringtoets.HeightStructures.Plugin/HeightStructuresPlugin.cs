@@ -527,7 +527,12 @@ namespace Ringtoets.HeightStructures.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, context)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(CreateGenerateHeightStructuresCalculationsItem(context))
                        .AddSeparator();

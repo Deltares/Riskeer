@@ -921,7 +921,12 @@ namespace Ringtoets.Piping.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, nodeData)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(generateCalculationsItem)
                        .AddSeparator();

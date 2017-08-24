@@ -677,7 +677,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, context)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(generateCalculationsItem)
                        .AddSeparator();
