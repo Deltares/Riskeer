@@ -63,12 +63,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// The name of the profile to read
+        /// The name of the profile to read.
         /// </summary>
         public string ProfileName { get; }
 
         /// <summary>
-        /// The number of layers that the profile to read has
+        /// The number of layers that the profile to read has.
         /// </summary>
         public long LayerCount { get; }
 
