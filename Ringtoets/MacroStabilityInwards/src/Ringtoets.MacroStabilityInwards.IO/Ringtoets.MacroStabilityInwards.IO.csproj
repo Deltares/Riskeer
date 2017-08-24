@@ -52,7 +52,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformer.cs" />
-    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelMechanismFilter.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelFilter.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilProfileTransformer.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineTransformer.cs" />

@@ -80,7 +80,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformerTest.cs" />
-    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelMechanismFilterTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelFilterTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilProfileTransformerTest.cs" />
     <Compile Include="SurfaceLines\MacroStabilityInwardsSurfaceLineTransformerTest.cs" />

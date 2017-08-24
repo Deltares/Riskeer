@@ -30,13 +30,13 @@ using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 {
     [TestFixture]
-    public class MacroStabilityInwardsStochasticSoilModelMechanismFilterTest
+    public class MacroStabilityInwardsStochasticSoilModelFilterTest
     {
         [Test]
         public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Setup
-            var filter = new MacroStabilityInwardsStochasticSoilModelMechanismFilter();
+            var filter = new MacroStabilityInwardsStochasticSoilModelFilter();
 
             // Call
             TestDelegate test = () => filter.IsValidForFailureMechanism(null);
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Constructor_StochasticSoilModelOfInvalidType_ReturnsFalse(StochasticSoilModel model)
         {
             // Setup
-            var filter = new MacroStabilityInwardsStochasticSoilModelMechanismFilter();
+            var filter = new MacroStabilityInwardsStochasticSoilModelFilter();
 
             // Call
             bool isValid = filter.IsValidForFailureMechanism(model);
@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Constructor_ValidStochasticSoilModelType_ReturnsFalse()
         {
             // Setup
-            var filter = new MacroStabilityInwardsStochasticSoilModelMechanismFilter();
+            var filter = new MacroStabilityInwardsStochasticSoilModelFilter();
             var model = new StochasticSoilModel(nameof(FailureMechanismType.Stability), FailureMechanismType.Stability);
 
             // Call
