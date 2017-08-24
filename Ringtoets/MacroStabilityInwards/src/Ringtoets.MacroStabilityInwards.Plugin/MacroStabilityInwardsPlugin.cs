@@ -40,6 +40,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
+using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -48,7 +49,6 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
-using Ringtoets.MacroStabilityInwards.IO.Importers;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 using Ringtoets.MacroStabilityInwards.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -112,7 +112,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new ImportMessageProvider(), new StochasticSoilModelReplaceDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>(
+                    context.WrappedData,
+                    filePath,
+                    new ImportMessageProvider(),
+                    MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(context.FailureMechanism)
+                ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifyStochasticSoilModelImport_When_importing_StochasticSoilModels_calculation_output_will_be_cleared_confirm)
             };
 
@@ -164,7 +169,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 FileFilterGenerator = StochasticSoilModelFileFilter,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 CurrentPath = context => context.WrappedData.SourcePath,
-                CreateFileImporter = (context, filePath) => StochasticSoilModelImporter(context, filePath, new UpdateMessageProvider(), new StochasticSoilModelUpdateDataStrategy(context.FailureMechanism)),
+                CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>(
+                    context.WrappedData,
+                    filePath,
+                    new UpdateMessageProvider(),
+                    MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(context.FailureMechanism)
+                ),
                 VerifyUpdates = context =>
                     VerifyStochasticSoilModelUpdates(
                         context,
@@ -352,15 +362,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
             }
-        }
-
-        private static StochasticSoilModelImporter StochasticSoilModelImporter(StochasticSoilModelCollectionContext context, string filePath,
-                                                                               IImporterMessageProvider messageProvider, IStochasticSoilModelUpdateModelStrategy updateStrategy)
-        {
-            return new StochasticSoilModelImporter(context.WrappedData,
-                                                   filePath,
-                                                   messageProvider,
-                                                   updateStrategy);
         }
 
         private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)

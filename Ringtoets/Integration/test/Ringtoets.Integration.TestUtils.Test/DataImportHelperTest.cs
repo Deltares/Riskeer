@@ -258,10 +258,10 @@ namespace Ringtoets.Integration.TestUtils.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "PK001_0001_Piping",
-                "PK001_0002_Piping",
-                "PK001_0003_Piping",
-                "PK001_0004_Piping"
+                "PK001_0001_Stability",
+                "PK001_0002_Stability",
+                "PK001_0003_Stability",
+                "PK001_0004_Stability"
             }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.Name));
             CollectionAssert.AreEqual(new[]
             {

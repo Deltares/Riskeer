@@ -274,12 +274,12 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
-                var activity = new FileImportActivity(new StochasticSoilModelImporter(
+                var activity = new FileImportActivity(new StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>(
                                                           assessmentSection.MacroStabilityInwards.StochasticSoilModels,
                                                           filePath,
                                                           new ImportMessageProvider(),
-                                                          new StochasticSoilModelReplaceDataStrategy(assessmentSection.MacroStabilityInwards)),
-                                                      "StochasticSoilModelImporter");
+                                                          MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.MacroStabilityInwards)),
+                                                      "MacroStabilityInwardsStochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
             }

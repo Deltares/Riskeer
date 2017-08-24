@@ -84,12 +84,12 @@ namespace Ringtoets.Integration.TestUtils
                                                                                    "DR6_updated.soil"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_updated.soil");
-                var activity = new FileImportActivity(new StochasticSoilModelImporter(
+                var activity = new FileImportActivity(new StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>(
                                                           assessmentSection.MacroStabilityInwards.StochasticSoilModels,
                                                           filePath,
-                                                          new UpdateMessageProvider(),
-                                                          new StochasticSoilModelUpdateDataStrategy(assessmentSection.MacroStabilityInwards)),
-                                                      "StochasticSoilModelUpdater");
+                                                          new ImportMessageProvider(),
+                                                          MacroStabilityInwardsStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.MacroStabilityInwards)),
+                                                      "MacroStabilityInwardsStochasticSoilModelUpdater");
                 activity.Run();
                 activity.Finish();
             }
