@@ -95,7 +95,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 PermeabilityCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileTableDefinitions.UsePop;
-                UsePop = reader.ReadOrDefault<bool?>(readColumn);
+                UsePop = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileTableDefinitions.ShearStrengthModel;
                 ShearStrengthModel = reader.ReadOrDefault<double?>(readColumn);
@@ -260,7 +260,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets the value indicating whether to use POP for the layer.
         /// </summary>
-        public bool? UsePop { get; }
+        public double? UsePop { get; }
 
         /// <summary>
         /// Gets the shear strength model to use for the layer.
