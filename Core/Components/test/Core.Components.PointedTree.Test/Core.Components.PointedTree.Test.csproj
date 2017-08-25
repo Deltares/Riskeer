@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="Data\GraphNodeStyleTest.cs" />
     <Compile Include="Data\GraphNodeTest.cs" />
+    <Compile Include="Data\GraphNodeContentXmlDefinitionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

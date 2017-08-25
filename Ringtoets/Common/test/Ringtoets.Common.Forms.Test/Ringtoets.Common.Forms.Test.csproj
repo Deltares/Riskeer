@@ -69,6 +69,7 @@
     <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
     <Compile Include="ChangeHandlers\CalculationChangeHandlerTest.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
+    <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\IllustrationPointControlItemHelperTest.cs" />
@@ -201,6 +202,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
+      <Project>{AD3B1634-C435-4618-9971-2EA0817F5DE2}</Project>
+      <Name>Core.Components.PointedTree</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
       <Project>{72109e33-6518-4632-accf-6cbf2a312711}</Project>

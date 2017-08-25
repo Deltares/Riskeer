@@ -47,6 +47,7 @@
     <Compile Include="Data\GraphNode.cs" />
     <Compile Include="Data\GraphNodeShape.cs" />
     <Compile Include="Data\GraphNodeStyle.cs" />
+    <Compile Include="Data\GraphNodeContentXmlDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
