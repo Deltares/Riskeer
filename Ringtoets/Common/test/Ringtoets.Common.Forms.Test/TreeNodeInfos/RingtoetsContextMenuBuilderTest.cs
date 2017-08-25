@@ -810,6 +810,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var calculationItem = mocks.Stub<ICalculationBase>();
             var calculationItemContext = mocks.Stub<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+            calculationItemContext.Stub(ci => ci.Parent).Return(new CalculationGroup());
 
             mocks.ReplayAll();
 

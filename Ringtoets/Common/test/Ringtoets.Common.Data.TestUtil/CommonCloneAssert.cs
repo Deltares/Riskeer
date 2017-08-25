@@ -336,9 +336,9 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreEqual(CalculationGroup original, CalculationGroup clone)
+        public static void AreClones(CalculationGroup original, CalculationGroup clone)
         {
-            Assert.AreEqual(original.Name, clone.Name);
+            AreClones((ICalculationBase) original, clone);
             Assert.AreEqual(original.IsNameEditable, clone.IsNameEditable);
 
             CoreCloneAssert.AreEnumerationClones(original.Children, clone.Children, AreClones);

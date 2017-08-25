@@ -250,7 +250,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
 
         private class TestCalculationBase : Observable, ICalculationBase
