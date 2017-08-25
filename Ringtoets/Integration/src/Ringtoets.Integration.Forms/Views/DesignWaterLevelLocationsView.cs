@@ -117,7 +117,6 @@ namespace Ringtoets.Integration.Forms.Views
                 hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
                 Data = hydraulicBoundaryDatabase.Locations;
             }
-            UpdateDataGridViewDataSource();
         }
     }
 }

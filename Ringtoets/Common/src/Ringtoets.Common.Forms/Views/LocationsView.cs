@@ -38,8 +38,8 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class LocationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
-        private bool updatingDataSource;
-        private bool updatingControls;
+        private bool suspendUpdateCalculateForSelectedButton;
+        private bool suspendSelectionChanges;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -67,9 +67,10 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void UpdateDataGridViewDataSource()
         {
-            updatingDataSource = true;
+            suspendUpdateCalculateForSelectedButton = true;
             SetDataSource();
-            updatingDataSource = false;
+            suspendUpdateCalculateForSelectedButton = false;
+
             UpdateCalculateForSelectedButton();
         }
 
@@ -156,12 +157,8 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void HandleHydraulicBoundaryDatabaseUpdate()
         {
-            updatingControls = true;
-
             dataGridViewControl.RefreshDataGridView();
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
-
-            updatingControls = false;
+            RefreshIllustrationPointsControl();
         }
 
         private void LocalizeControls()
@@ -184,40 +181,47 @@ namespace Ringtoets.Common.Forms.Views
             SelectionChanged?.Invoke(this, new EventArgs());
         }
 
+        private void RefreshIllustrationPointsControl()
+        {
+            suspendSelectionChanges = true;
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendSelectionChanges = false;
+        }
+
         #region Event handling
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            if (!updatingControls)
+            if (suspendSelectionChanges)
             {
-                var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
-                Selection = selection != null
-                                ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
-                                                                                    GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
-                                : null;
-
-                OnSelectionChanged();
+                return;
             }
+
+            var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
+            Selection = selection != null
+                            ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
+                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                            : null;
+
+            OnSelectionChanged();
         }
 
         private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (!updatingDataSource && e.ColumnIndex == calculateColumnIndex)
+            if (suspendUpdateCalculateForSelectedButton || e.ColumnIndex != calculateColumnIndex)
             {
-                UpdateCalculateForSelectedButton();
+                return;
             }
+
+            UpdateCalculateForSelectedButton();
         }
 
         private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
         {
-            updatingControls = true;
-
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            RefreshIllustrationPointsControl();
 
             Selection = CreateSelectedItemFromCurrentRow();
             OnSelectionChanged();
-
-            updatingControls = false;
         }
 
         /// <summary>
